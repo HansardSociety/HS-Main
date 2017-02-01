@@ -1,3 +1,5 @@
+require 'slim'
+
 ###
 # Page options, layouts, aliases and proxies
 ###
@@ -29,11 +31,20 @@ page '/*.txt', layout: false
 #   end
 # end
 
-# Build-specific configuration
-configure :build do
-  # Minify CSS on build
-  # activate :minify_css
+# **************************************************
+# Build
+# **************************************************
 
-  # Minify Javascript on build
-  # activate :minify_javascript
+# MM build
+configure :build do
+  ignore 'css/**'
+  ignore 'js/**'
+  ignore 'partials/**'
 end
+
+# External pipeline
+activate :external_pipeline,
+  :name => 'gulp',
+  :command => (build? ? 'npm run build' : 'npm start'),
+  :source => '.tmp',
+  :latency => 1
