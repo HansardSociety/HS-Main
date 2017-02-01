@@ -1,7 +1,6 @@
 /.bundle
 /build
-/.cache
 .DS_Store
 /node_modules
-/.sass-cache
+npm-debug.log
 /.tmp

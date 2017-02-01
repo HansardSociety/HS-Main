@@ -66,14 +66,14 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
 ** Task-flows
 **************************************************/
 
-gulp.task('default', function(callback) {
-	runSequence('css', [ 'watch' ], callback);
+gulp.task('default', function(cb) {
+	runSequence('css', [ 'watch' ], cb);
 });
 
-gulp.task('build', function(callback) {
-	runSequence('css', callback);
+gulp.task('build', function(cb) {
+	runSequence('css', cb);
 });
 
-gulp.task('lint', function(callback) {
-	runSequence('lint:css', callback);
+gulp.task('lint', function(cb) {
+	runSequence('lint:css', cb);
 });
