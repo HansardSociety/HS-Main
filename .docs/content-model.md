@@ -1,7 +1,15 @@
-# Contentful Entries
+# Content Model
 
 ````
 ..
+|-- home
+| |-- meta_title
+| |-- strapline
+| |-- panels (refs, many)
+| | |-- carousel
+| | |-- promotion
+| | ..
+| ..
 |-- landing_page
 | |-- meta_title
 | |-- page_title
@@ -27,13 +35,21 @@
 | | |-- # events, projects
 | | ..
 | ..
-|-- panel
+|-- carousel
 | |-- meta_title
-| |-- panel_title [opt]
+| |-- carousel_title [opt]
 | |-- category [opt]
 | |-- cards (ref, many)
 | | |-- child_page
 | | |-- landing_page
+| | ..
+| ..
+|-- promotion
+| |-- meta_title
+| |-- content (ref, single)
+| | |-- testimonial
+| | |-- call_to_action
+| | |-- featured_copy
 | | ..
 | ..
 ..
