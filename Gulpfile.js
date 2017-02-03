@@ -36,30 +36,30 @@ gulp.task('lint:css', function() {
 **************************************************/
 
 gulp.task('watch', [ 'css' ], function(gulpCallback) {
-	browserSync.init({
-		proxy: 'http://localhost:4567', /* Middleman server */
-		open: false,
-		reloadDelay: 100, /* Concurrency fix */
-		reloadDebounce: 500, /* Concurrency fix */
-		// reloadOnRestart: true,
-		files: [
+  browserSync.init({
+    proxy: 'http://localhost:4567', /* Middleman server */
+    open: false,
+    reloadDelay: 100, /* Concurrency fix */
+    reloadDebounce: 500, /* Concurrency fix */
+    // reloadOnRestart: true,
+    files: [
       './.tmp/main.css',
       './source/**/*.slim'
     ],
     /* BrowserSync proxy */
-		port: 7000,
+    port: 7000,
     /* BrowserSync UI */
-		ui: { port: 7001 }
-	}
+    ui: { port: 7001 }
+  }
   /**
    * Server running.
    * Begin watching files...
    */
   ,function callback() {
-		gulp.watch('./source/css/**/*.(sass|scss)', [ 'css' ]);
+    gulp.watch('./source/css/**/*.(sass|scss)', [ 'css' ]);
 
-		gulpCallback();
-	});
+    gulpCallback();
+  });
 });
 
 /*
@@ -67,13 +67,13 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
 **************************************************/
 
 gulp.task('default', function(cb) {
-	runSequence('css', [ 'watch' ], cb);
+  runSequence('css', [ 'watch' ], cb);
 });
 
 gulp.task('build', function(cb) {
-	runSequence('css', cb);
+  runSequence('css', cb);
 });
 
 gulp.task('lint', function(cb) {
-	runSequence('lint:css', cb);
+  runSequence('lint:css', cb);
 });
