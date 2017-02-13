@@ -1,4 +1,5 @@
 require 'slim'
+Slim::Engine.default_options[:pretty] = true
 
 ##############################
 ## Page options
