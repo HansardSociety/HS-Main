@@ -1,6 +1,5 @@
 head
-  meta(content="IE=edge"
-       http-equiv="X-UA-Compatible")
+  meta(content="IE=edge" http-equiv="X-UA-Compatible")
   meta(charset="utf-8")
 
   / Responsive
@@ -8,8 +7,8 @@ head
        name="viewport")
 
   / Assets
-  link(rel="stylesheet"
-       href="/main.css")
+  link(rel="stylesheet" href="/main.css")
 
   / Title
-  title= (@title + ' Hansard Society' || 'Hansard Society')
+  - data.hs.__GLOBAL__(0).each do |id, __GLOBAL__|
+    title= (@title ? @title + " " + __GLOBAL__.organisation : __GLOBAL__.organisation)

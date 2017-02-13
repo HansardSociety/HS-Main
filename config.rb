@@ -51,6 +51,7 @@ activate :contentful do |f|
   f.access_token  = '94f4e91e316abf614c2a6537891640e9ab4c80a74b1b482accc0f1f22eefa688'
   f.cda_query     = { limit: 1000 }
   f.content_types = {
+    __GLOBAL__: '__GLOBAL__',
     carousel: 'carousel',
     child_page: 'child_page',
     home: 'home',
