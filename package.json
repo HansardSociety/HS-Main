@@ -22,5 +22,8 @@
     "run-sequence": "^1.2.2",
     "stylelint": "^7.8.0",
     "stylelint-scss": "^1.4.1"
+  },
+  "dependencies": {
+    "normalize.css": "^5.0.0"
   }
 }
