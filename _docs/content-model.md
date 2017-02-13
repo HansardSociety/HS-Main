@@ -14,7 +14,7 @@
 | |-- meta_title
 | |-- page_title
 | |-- category
-| |-- introduction
+| |-- introduction (250-290 chars)
 | |-- panels (ref, many)
 | |-- slug
 | ..
@@ -24,7 +24,7 @@
 | |-- category
 | | |-- # projects, events, about, intelligence, publications, blog
 | | ..
-| |-- introduction
+| |-- introduction (250-290 chars)
 | |-- copy
 | |-- side_bar (ref, many)
 | | |-- # different types of side-bar content (auto-sorted and
