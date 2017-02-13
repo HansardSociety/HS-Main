@@ -2,19 +2,18 @@ picture
   / Landscape
   source( media="(orientation: landscape)"
           sizes="100vw"
-          srcset= image_url + "?w=640 640w, " \
-                + image_url + "?w=854 854w, " \
-                + image_url + "?w=1280 1280w, " \
-                + image_url + "?w=1920 1920w, " \
-                + image_url + "?w=2560 2560w" )
+          srcset= "#{ image_url }?w=640 640w,\
+                   #{ image_url }?w=854 854w,\
+                   #{ image_url }?w=1280 1280w,\
+                   #{ image_url }?w=1920 1920w,\
+                   #{ image_url }?w=2560 2560w" )
   / Portrait
   source( media="(orientation: portrait)"
           sizes="100vw"
-          srcset= image_url + "?w=360 360w, " \
-                + image_url + "?w=480 480w, " \
-                + image_url + "?w=720 720w, " \
-                + image_url + "?w=1080 1080w, " \
-                + image_url + "?w=1440 1440w" )
+          srcset= "#{ image_url }?w=360 360w,\
+                   #{ image_url }?w=480 480w,\
+                   #{ image_url }?w=720 720w,\
+                   #{ image_url }?w=1080 1080w,\
+                   #{ image_url }?w=1440 1440w" )
   / Fallback
-  img( srcset= image_url
-       alt= image_description )
+  img( srcset="#{ image_url }" alt="#{ image_description }" )

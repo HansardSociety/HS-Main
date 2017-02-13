@@ -14,13 +14,13 @@ var stylelint = require('stylelint');
 **************************************************/
 
 gulp.task('css', function() {
-  return gulp.src('./source/css/main.scss')
+  return gulp.src('./source/assets/css/main.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./.tmp'));
 });
 
 gulp.task('lint:css', function() {
-  return gulp.src('./source/css/**/*.scss')
+  return gulp.src('./source/assets/css/**/*.scss')
     .pipe(postcss(
       [
         stylelint(),
@@ -56,7 +56,7 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
    * Begin watching files...
    */
   ,function callback() {
-    gulp.watch('./source/css/**/*.(sass|scss)', [ 'css' ]);
+    gulp.watch('./source/assets/css/**/*.(sass|scss)', [ 'css' ]);
 
     gulpCallback();
   });

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "gulp build",
-    "start": "gulp"
+    "start": "gulp",
+    "data": "budle exec middleman contentful"
   },
   "keywords": [],
   "author": "@LukeBoga",

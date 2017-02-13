@@ -12,9 +12,20 @@ page '/*.txt', layout: false
 
 ## Directories
 
-## Proxy pages
-# proxy '/this-page-has-no-template.html', '/template-file.html', locals: {
-#  which_fake_page: 'Rendering a fake page with a local variable' }
+##############################
+## Page proxies
+##############################
+
+# data.hs.home.each do |home|
+#   proxy "/#{home.id}.html", "layouts/home.html", :ignore => true
+# end
+
+data.hs.home.each do |id, home|
+  proxy "/index.html",
+        "/templates/home.html",
+        :ignore => true,
+        :locals => { :home => home }
+end
 
 ##############################
 ## Helpers
@@ -25,22 +36,32 @@ page '/*.txt', layout: false
 # end
 
 ##############################
-## Build
+## Build/ Dev
 ##############################
 
-# MM build
-configure :build do
-  ignore 'css/**'
-  ignore 'js/**'
-  ignore 'layouts/**'
-  ignore 'partials/**'
+ignore 'assets/**'
+ignore 'layouts/**'
+ignore 'partials/**'
+ignore 'templates/**'
 
+# Build
+configure :build do
   activate :external_pipeline,
     name: :gulp,
     command: 'npm run build',
     source: '.tmp',
     latency: 1
 end
+
+# Server
+configure :server do
+  activate :external_pipeline,
+    name: :gulp,
+    command: 'npm run start',
+    source: '.tmp',
+    latency: 1
+end
+
 
 ##############################
 ## Contentful
