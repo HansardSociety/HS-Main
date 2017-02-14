@@ -10,12 +10,11 @@ page '/*.xml', layout: false
 page '/*.json', layout: false
 page '/*.txt', layout: false
 
-## Directories
-
 ##############################
 ## Page proxies
 ##############################
 
+# Only run if data dir exists
 if Dir.exist?(config.data_dir)
   data.hs.home.each do |id, home|
     proxy "/index.html",
