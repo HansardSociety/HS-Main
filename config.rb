@@ -16,15 +16,13 @@ page '/*.txt', layout: false
 ## Page proxies
 ##############################
 
-# data.hs.home.each do |home|
-#   proxy "/#{home.id}.html", "layouts/home.html", :ignore => true
-# end
-
-data.hs.home.each do |id, home|
-  proxy "/index.html",
-        "/templates/home.html",
-        :ignore => true,
-        :locals => { :home => home }
+if Dir.exist?(config.data_dir)
+  data.hs.home.each do |id, home|
+    proxy "/index.html",
+          "/templates/home.html",
+          :ignore => true,
+          :locals => { :home => home }
+  end
 end
 
 ##############################
@@ -50,16 +48,16 @@ configure :build do
     name: :gulp,
     command: 'npm run build',
     source: '.tmp',
-    latency: 0
+    latency: 1
 end
 
 # Server
-configure :development do
+configure :server do
   activate :external_pipeline,
     name: :gulp,
     command: 'npm run start',
     source: '.tmp',
-    latency: 0
+    latency: 1
 end
 
 ##############################
