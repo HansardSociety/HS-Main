@@ -1,26 +1,41 @@
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
-var runSequence = require('run-sequence');
-var sass = require('gulp-sass');
+// Inspiration from https://github.com/NathanBowers/mm-template/
 
-// PostCSS
-var postcss = require('gulp-postcss');
-var reporter = require('postcss-reporter');
-var scss = require('postcss-scss');
-var stylelint = require('stylelint');
+var
+  path = require('path'),
+
+  // Plugins
+  gulp = require('gulp'),
+  browserSync = require('browser-sync').create(),
+  runSequence = require('run-sequence'),
+  sass = require('gulp-sass'),
+
+  // PostCSS
+  postcss = require('gulp-postcss'),
+  reporter = require('postcss-reporter'),
+  scss = require('postcss-scss'),
+  stylelint = require('stylelint'),
+
+  // Paths
+  PATH = {
+    source: path.join(__dirname, 'source'),
+    css: path.join(__dirname, 'source/assets/css'),
+    js: path.join(__dirname, 'source/assets/js'),
+    tmp: path.join(__dirname, '.tmp'),
+    build: path.join(__dirname, 'build')
+  }
 
 /*
 ** CSS
 **************************************************/
 
 gulp.task('css', function() {
-  return gulp.src('./source/assets/css/main.scss')
+  return gulp.src(path.join(PATH.css, '*.scss'))
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./.tmp'));
+    .pipe(gulp.dest(PATH.tmp));
 });
 
-gulp.task('lint:css', function() {
-  return gulp.src('./source/assets/css/**/*.scss')
+gulp.task('css:lint', function() {
+  return gulp.src(path.join(PATH.css, '**.scss'))
     .pipe(postcss(
       [
         stylelint(),
@@ -36,15 +51,17 @@ gulp.task('lint:css', function() {
 **************************************************/
 
 gulp.task('watch', [ 'css' ], function(gulpCallback) {
+
   browserSync.init({
     proxy: 'http://localhost:4567', /* Middleman server */
     open: false,
     reloadDelay: 100, /* Concurrency fix */
     reloadDebounce: 500, /* Concurrency fix */
-    // reloadOnRestart: true,
+    reloadOnRestart: true,
     files: [
-      './.tmp/main.css',
-      './source/**/*.slim'
+      path.join(PATH.tmp, 'main.css'),
+      './source/**/*.slim',
+      './source/**/*.html.slim'
     ],
     /* BrowserSync proxy */
     port: 7000,
@@ -56,7 +73,7 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
    * Begin watching files...
    */
   ,function callback() {
-    gulp.watch('./source/assets/css/**/*.(sass|scss)', [ 'css' ]);
+    gulp.watch([ path.join(PATH.css, '**.scss') ], [ 'css' ]);
 
     gulpCallback();
   });

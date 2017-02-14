@@ -7,8 +7,9 @@ head
        name="viewport")
 
   / Assets
+  link(rel="stylesheet" href="/vendor.css")
   link(rel="stylesheet" href="/main.css")
 
   / Title
   - data.hs.__GLOBAL__(0).each do |id, __GLOBAL__|
-    title= (@title ? @title + " " + __GLOBAL__.organisation : __GLOBAL__.organisation)
+    title= (@title ? @title + " " + __GLOBAL__.organisation : "SHIT" + __GLOBAL__.organisation)

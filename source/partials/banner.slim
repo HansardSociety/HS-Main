@@ -7,13 +7,12 @@ picture
                    #{ image_url }?w=1280 1280w,\
                    #{ image_url }?w=1920 1920w,\
                    #{ image_url }?w=2560 2560w" )
+
   / Portrait
   source( media="(orientation: portrait)"
           sizes="100vw"
-          srcset= "#{ image_url }?w=360 360w,\
-                   #{ image_url }?w=480 480w,\
-                   #{ image_url }?w=720 720w,\
-                   #{ image_url }?w=1080 1080w,\
-                   #{ image_url }?w=1440 1440w" )
+          srcset= "#{ image_url }?fit=crop&w=360&h=640&f=center 640h,\
+                   #{ image_url }?fit=crop&w=720&h=1280&f=center 2180h,\
+                   #{ image_url }?fit=crop&w=1080&h=1440&f=center 1440h" )
   / Fallback
   img( srcset="#{ image_url }" alt="#{ image_description }" )
