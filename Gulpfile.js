@@ -73,13 +73,11 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
    * Server running.
    * Begin watching files...
    */
-  ,function cb() {
+  ,function callback() {
     gulp.watch(path.join(PATH.css, '**.scss'), [ 'css' ]);
+
     gulpCallback();
   });
-
-  gulp.watch(path.join(PATH.source, '**/*.slim')).on('change', browserSync.reload)
-
 });
 
 /*
