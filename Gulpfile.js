@@ -55,26 +55,23 @@ gulp.task('css:lint', function() {
 gulp.task('watch', [ 'css' ], function(gulpCallback) {
 
   browserSync.init({
-    proxy: 'http://localhost:4567', /* Middleman server */
+    proxy: 'http://localhost:4567', // Middleman server
     open: false,
-    reloadDelay: 100, /* Concurrency fix */
-    reloadDebounce: 500, /* Concurrency fix */
+    reloadDelay: 100, // Concurrency fix
+    reloadDebounce: 500, // Concurrency fix
     reloadOnRestart: true,
     files: [
       path.join(PATH.tmp, 'main.css'),
       __dirname + '/source/**/*.slim',
     ],
-    /* BrowserSync proxy */
     port: 7000,
-    /* BrowserSync UI */
     ui: { port: 7001 }
   }
-  /**
-   * Server running.
-   * Begin watching files...
-   */
+  // Server running...
   ,function callback() {
     gulp.watch(path.join(PATH.css, '**.scss'), [ 'css' ]);
+    // Reload browserSync after html changes
+    gulp.watch(path.join(PATH.source, '**/*.slim')).on('change', browserSync.reload);
 
     gulpCallback();
   });
