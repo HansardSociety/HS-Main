@@ -35,7 +35,11 @@ GEM
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.0)
+    em-websocket (0.5.1)
+      eventmachine (>= 0.12.9)
+      http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
+    eventmachine (1.2.2)
     execjs (2.7.0)
     fast_blank (1.0.0)
     fastimage (2.0.1)
@@ -94,6 +98,10 @@ GEM
       servolux
       tilt (~> 2.0)
       uglifier (~> 3.0)
+    middleman-livereload (3.4.6)
+      em-websocket (~> 0.5.1)
+      middleman-core (>= 3.3)
+      rack-livereload (~> 0.3.15)
     minitest (5.10.1)
     multi_json (1.12.1)
     padrino-helpers (0.13.3.3)
@@ -105,6 +113,8 @@ GEM
     parallel (1.10.0)
     public_suffix (2.0.5)
     rack (2.0.1)
+    rack-livereload (0.3.16)
+      rack
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
@@ -131,9 +141,10 @@ PLATFORMS
 DEPENDENCIES
   contentful_middleman!
   middleman
+  middleman-livereload
   slim
   tzinfo-data
   wdm (~> 0.1.0)
 
 BUNDLED WITH
-   1.14.3
+   1.14.4

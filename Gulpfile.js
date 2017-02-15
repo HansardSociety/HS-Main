@@ -8,6 +8,7 @@ var
   browserSync = require('browser-sync').create(),
   runSequence = require('run-sequence'),
   sass = require('gulp-sass'),
+  touch = require('gulp-touch'),
 
   // PostCSS
   postcss = require('gulp-postcss'),
@@ -23,6 +24,7 @@ var
     tmp: path.join(__dirname, '.tmp'),
     build: path.join(__dirname, 'build')
   }
+;
 
 /*
 ** CSS
@@ -60,8 +62,7 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
     reloadOnRestart: true,
     files: [
       path.join(PATH.tmp, 'main.css'),
-      './source/**/*.slim',
-      './source/**/*.html.slim'
+      __dirname + '/source/**/*.slim',
     ],
     /* BrowserSync proxy */
     port: 7000,
@@ -72,11 +73,13 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
    * Server running.
    * Begin watching files...
    */
-  ,function callback() {
-    gulp.watch([ path.join(PATH.css, '**.scss') ], [ 'css' ]);
-
+  ,function cb() {
+    gulp.watch(path.join(PATH.css, '**.scss'), [ 'css' ]);
     gulpCallback();
   });
+
+  gulp.watch(path.join(PATH.source, '**/*.slim')).on('change', browserSync.reload)
+
 });
 
 /*

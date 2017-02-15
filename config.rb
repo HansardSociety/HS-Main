@@ -36,13 +36,13 @@ end
 ## Build/ Dev
 ##############################
 
+ignore 'assets/**'
+ignore 'layouts/**'
+ignore 'partials/**'
+ignore 'templates/**'
+
 # Build
 configure :build do
-  ignore 'assets/**'
-  ignore 'layouts/**'
-  ignore 'partials/**'
-  ignore 'templates/**'
-
   activate :external_pipeline,
     name: :gulp,
     command: 'npm run build',
@@ -51,7 +51,7 @@ configure :build do
 end
 
 # Server
-configure :server do
+configure :development do
   activate :external_pipeline,
     name: :gulp,
     command: 'npm run start',
