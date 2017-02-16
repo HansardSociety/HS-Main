@@ -6,7 +6,8 @@
   "scripts": {
     "build": "gulp build",
     "start": "gulp",
-    "data": "budle exec middleman contentful"
+    "data": "budle exec middleman contentful",
+    "poll": "budle exec middleman server --watcher-force-polling"
   },
   "keywords": [],
   "author": "@LukeBoga",
