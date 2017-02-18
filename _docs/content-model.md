@@ -2,6 +2,13 @@
 
 ````
 ..
+|-- __GLOBAL__
+| |-- organisation
+| |-- contact
+| | |-- # social media accounts, email etc
+| | ..
+| |
+| ..
 |-- home
 | |-- meta_title
 | |-- strapline

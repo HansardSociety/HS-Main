@@ -5,6 +5,7 @@ var
 
   // Plugins
   gulp = require('gulp'),
+  concat = require('gulp-concat'),
   browserSync = require('browser-sync').create(),
   runSequence = require('run-sequence'),
   sass = require('gulp-sass'),
@@ -18,11 +19,26 @@ var
 
   // Paths
   PATH = {
-    source: path.join(__dirname, 'source'),
-    css: path.join(__dirname, 'source/assets/css'),
-    js: path.join(__dirname, 'source/assets/js'),
-    tmp: path.join(__dirname, '.tmp'),
-    build: path.join(__dirname, 'build')
+    source: __dirname + '/source',
+    css: {
+      main: __dirname + '/source/assets/css/main.scss',
+      vendor: [
+        __dirname + '/node_modules/normalize.css/normalize.css'
+      ]
+    },
+    js: {
+      main: __dirname + '/source/assets/js/main.js',
+      vendor: [
+        __dirname + '/node_modules/picturefill/dist/picturefill.js'
+      ]
+    },
+    tmp: {
+      dir: __dirname + '/.tmp',
+      css: __dirname + '/.tmp/main.css',
+      js: __dirname + '/.tmp/vendor.js',
+    },
+    build: __dirname + '/build',
+    npm: __dirname + '/node_modules',
   }
 ;
 
@@ -30,12 +46,19 @@ var
 ** CSS
 **************************************************/
 
-gulp.task('css', function() {
-  return gulp.src(path.join(PATH.css, '*.scss'))
+// Build
+gulp.task('css:main', function() {
+  return gulp.src(PATH.css.main)
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest(PATH.tmp));
+    .pipe(gulp.dest(PATH.tmp.dir));
+});
+gulp.task('css:vendor', function() {
+  return gulp.src(PATH.css.vendor)
+    .pipe(concat('vendor.css'))
+    .pipe(gulp.dest(PATH.tmp.dir));
 });
 
+// Lint
 gulp.task('css:lint', function() {
   return gulp.src(path.join(PATH.css, '**.scss'))
     .pipe(postcss(
@@ -49,10 +72,25 @@ gulp.task('css:lint', function() {
 });
 
 /*
+** JavaScript
+**************************************************/
+
+// Build
+gulp.task('js:main', function() {
+  return gulp.src(PATH.js.main)
+    .pipe(gulp.dest(PATH.tmp.dir));
+});
+gulp.task('js:vendor', function() {
+  return gulp.src(PATH.js.vendor)
+    .pipe(concat('vendor.js'))
+    .pipe(gulp.dest(PATH.tmp.dir));
+});
+
+/*
 ** Server
 **************************************************/
 
-gulp.task('watch', [ 'css' ], function(gulpCallback) {
+gulp.task('watch', [ 'css:main', 'js:main' ], function(gulpCallback) {
 
   browserSync.init({
     proxy: 'http://localhost:4567', // Middleman server
@@ -61,7 +99,8 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
     reloadDebounce: 500, // Concurrency fix
     reloadOnRestart: true,
     files: [
-      path.join(PATH.tmp, 'main.css'),
+      PATH.tmp.css,
+      PATH.tmp.js,
       __dirname + '/source/**/*.slim',
     ],
     port: 7000,
@@ -69,7 +108,10 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
   }
   // Server running...
   ,function callback() {
-    gulp.watch(path.join(PATH.css, '**.scss'), [ 'css' ]);
+    // Inject CSS/ JS
+    gulp.watch(PATH.css.main, [ 'css:main' ]);
+    gulp.watch(PATH.js.main, [ 'js:main' ]);
+
     // Reload browserSync after html changes
     gulp.watch(path.join(PATH.source, '**/*.slim')).on('change', browserSync.reload);
 
@@ -82,11 +124,11 @@ gulp.task('watch', [ 'css' ], function(gulpCallback) {
 **************************************************/
 
 gulp.task('default', function(cb) {
-  runSequence('css', [ 'watch' ], cb);
+  runSequence('css:main', 'js:main', [ 'watch' ], cb);
 });
 
 gulp.task('build', function(cb) {
-  runSequence('css', cb);
+  runSequence('css:main', 'css:vendor', 'js:main', 'js:vendor', cb);
 });
 
 gulp.task('lint', function(cb) {
