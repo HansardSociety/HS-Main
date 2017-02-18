@@ -35,7 +35,7 @@ var
     tmp: {
       dir: __dirname + '/.tmp',
       css: __dirname + '/.tmp/main.css',
-      js: __dirname + '/.tmp/vendor.js',
+      js: __dirname + '/.tmp/main.js',
     },
     build: __dirname + '/build',
     npm: __dirname + '/node_modules',
@@ -101,7 +101,7 @@ gulp.task('watch', [ 'css:main', 'js:main' ], function(gulpCallback) {
     files: [
       PATH.tmp.css,
       PATH.tmp.js,
-      __dirname + '/source/**/*.slim',
+      __dirname + '/source/**/*.slim'
     ],
     port: 7000,
     ui: { port: 7001 }
