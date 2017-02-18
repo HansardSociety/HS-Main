@@ -11,6 +11,5 @@ head
   link(rel="stylesheet" href="/main.css")
 
   / Title
-  title= "klnkl"
-  / - data.hs.__GLOBAL__(0).each do |id, __GLOBAL__|
-  /   title= (@title ? @title + " " + __GLOBAL__.organisation : "SHIT" + __GLOBAL__.organisation)
+  - data.hs.__GLOBAL__(0).each do |id, __GLOBAL__|
+    title= (@title ? @title + " " + __GLOBAL__.organisation : __GLOBAL__.organisation)
