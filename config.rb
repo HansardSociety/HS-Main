@@ -52,6 +52,7 @@ end
 
 # Server
 configure :development do
+  activate :directory_indexes
   activate :external_pipeline,
     name: :gulp,
     command: 'npm run start',

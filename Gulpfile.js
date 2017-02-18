@@ -113,7 +113,8 @@ gulp.task('watch', [ 'css:main', 'js:main' ], function(gulpCallback) {
     gulp.watch(PATH.js.main, [ 'js:main' ]);
 
     // Reload browserSync after html changes
-    gulp.watch(path.join(PATH.source, '**/*.slim')).on('change', browserSync.reload);
+    gulp.watch(path.join(PATH.source, '**/*.slim'))
+      .on('change', browserSync.reload);
 
     gulpCallback();
   });
