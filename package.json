@@ -26,6 +26,7 @@
     "stylelint-scss": "^1.4.1"
   },
   "dependencies": {
-    "normalize.css": "^5.0.0"
+    "normalize.css": "^5.0.0",
+    "picturefill": "^3.0.2"
   }
 }

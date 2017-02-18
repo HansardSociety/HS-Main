@@ -5,6 +5,7 @@
 |-- home
 | |-- meta_title
 | |-- strapline
+| |-- banner_image
 | |-- panels (refs, many)
 | | |-- carousel
 | | |-- promotion
@@ -14,6 +15,7 @@
 | |-- meta_title
 | |-- page_title
 | |-- category
+| |-- banner_image
 | |-- introduction (250-290 chars)
 | |-- panels (ref, many)
 | |-- slug
@@ -24,6 +26,7 @@
 | |-- category
 | | |-- # projects, events, about, intelligence, publications, blog
 | | ..
+| |-- banner_image
 | |-- introduction (250-290 chars)
 | |-- copy
 | |-- side_bar (ref, many)
