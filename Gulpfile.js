@@ -21,6 +21,7 @@ var
   PATH = {
     source: __dirname + '/source',
     css: {
+      all: __dirname + '/source/assets/css/**/*.scss',
       main: __dirname + '/source/assets/css/main.scss',
       vendor: [
         __dirname + '/node_modules/normalize.css/normalize.css'
@@ -109,7 +110,7 @@ gulp.task('watch', [ 'css:main', 'js:main' ], function(gulpCallback) {
   // Server running...
   ,function callback() {
     // Inject CSS/ JS
-    gulp.watch(PATH.css.main, [ 'css:main' ]);
+    gulp.watch(PATH.css.all, [ 'css:main' ]);
     gulp.watch(PATH.js.main, [ 'js:main' ]);
 
     // Reload browserSync after html changes
