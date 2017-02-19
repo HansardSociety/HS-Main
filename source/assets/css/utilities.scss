@@ -11,3 +11,34 @@
   flex-flow: row wrap;
   align-items: center;
 }
+
+// Button reset
+%u-button-reset {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+// Absolute center
+%u-absolute-center-x,
+%u-absolute-center-y,
+%u-absolute-center-xy {
+  position: absolute;
+}
+%u-absolute-center-x,
+%u-absolute-center-xy {
+  left: 50%;
+}
+%u-absolute-center-y,
+%u-absolute-center-xy {
+  top: 50%;
+}
+%u-absolute-center-x {
+  transform: translateX(-50%);
+}
+%u-absolute-center-y {
+  transform: translateY(-50%);
+}
+%u-absolute-center-xy {
+  transform: translate(-50%, -50%);
+}

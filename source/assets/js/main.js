@@ -11,7 +11,16 @@ function toggleState(obj, elem) {
   document.querySelector('body').classList.toggle(state);
 }
 
-// Show offcanvas
-document.querySelector('[data-change-state]').onclick = function() {
-  toggleState(this, 'js-on');
+var buttons = document.querySelectorAll('.button');
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].onclick = function() {
+    toggleState(this, 'js-on');
+  }
 }
+// buttons.onclick = function() {
+//   toggleState(this, 'js-on');
+//
+// }
+// document.querySelector('#navbar-search-button').onclick = function() {
+//   toggleState(this, 'js-on');
+// }

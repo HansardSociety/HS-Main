@@ -1,29 +1,33 @@
-.menu-button {
+.button {
   position: relative;
+
   width: 1.5rem;
   height: 1.125rem;
-  padding: 0;
-  border: 0;
-  background-color: transparent;
+
+  @extend %u-button-reset;
 }
 
-.menu-button__icon,
-.menu-button__icon::before,
-.menu-button__icon::after {
+.button__menu,
+.button__menu::before,
+.button__menu::after {
   display: block;
+
   width: 100%;
   height: 2px;
-  background-color: $brand_white;
+
   transition: $transition_all;
+
+  background-color: $brand_white;
 }
 
-.menu-button__icon {
+.button__menu {
 
   &::before,
   &::after {
-    position: absolute;;
-    content: '';
+    position: absolute;
     left: 0;
+
+    content: '';
   }
 
   &::before {
@@ -35,17 +39,19 @@
   }
 }
 
-.menu-button.js-on {
-  .menu-button__icon {
+.button.js-on {
+  .button__menu {
     background-color: transparent;
 
     &::before {
       top: calc(50% - 1px);
+
       transform: rotate(45deg);
     }
 
     &::after {
       bottom: calc(50% - 1px);
+
       transform: rotate(-45deg);
     }
   }

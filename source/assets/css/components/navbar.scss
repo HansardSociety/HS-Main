@@ -1,8 +1,23 @@
 .navbar {
   @extend %u-width-full;
-  @extend %u-row-center;
   @extend %u-container-slim;
 
-  justify-content: space-between;
+  position: relative;
   height: 3.5rem;
+}
+
+.navbar__left,
+.navbar__right {
+  @extend %u-absolute-center-y;
+  width: 1.5rem;
+}
+
+.navbar__left {
+  left: 1rem;
+}
+.navbar__center {
+  @extend %u-absolute-center-xy;
+}
+.navbar__right {
+  right: 1rem;
 }

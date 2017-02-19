@@ -1,0 +1,14 @@
+button.button(
+  role="button"
+  id="#{ aria_id }"
+  aria-controls="#{ aria_target_id }"
+  data-change-state="#{ js_change_state }"
+)
+
+  - if button_type == 'icon'
+    = yield
+  - else
+    span(
+      aria-hidden="true"
+      class="button__#{ button_type }"
+    )

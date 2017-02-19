@@ -1,10 +1,26 @@
 nav.navbar(role="navigation")
 
-  / Menu button
-  = partial 'partials/navigation/menu-button',
-    :locals => { :aria_id => 'navbar-menu-button',
-                 :aria_target_id => 'offcanvas',
-                 :js_change_state => 'js-show-offcanvas' }
+  .navbar__left
+    / Menu button
+    = partial 'partials/navigation/button',
+      :locals => { :button_type => 'menu',
+                   :aria_id => 'navbar-menu-button',
+                   :aria_target_id => 'offcanvas',
+                   :js_change_state => 'js-show-offcanvas'}
 
-  / Logo
-  =partial 'partials/navigation/logo'
+  .navbar__center
+    / Logo
+    =partial 'partials/navigation/logo'
+
+  .navbar__right
+    / Search
+    = partial 'partials/navigation/button',
+      :locals => { :button_type => 'icon',
+                   :aria_id => 'navbar-search-button',
+                   :aria_target_id => 'search',
+                   :js_change_state => 'js-show-search' }
+      / Icon
+      = partial 'partials/navigation/icon',
+        :locals => { :icon => 'search',
+                     :color => 'white',
+                     :size => 'medium' }

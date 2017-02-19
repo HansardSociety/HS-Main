@@ -46,13 +46,15 @@ var
       all: __dirname + '/source/assets/css/**/*.scss',
       main: __dirname + '/source/assets/css/main.scss',
       vendor: [
-        __dirname + '/node_modules/normalize.css/normalize.css'
+        __dirname + '/node_modules/normalize.css/normalize.css',
+        __dirname + '/node_modules/evil-icons/assets/evil-icons.css'
       ]
     },
     js: {
       main: __dirname + '/source/assets/js/main.js',
       vendor: [
-        __dirname + '/node_modules/picturefill/dist/picturefill.js'
+        __dirname + '/node_modules/picturefill/dist/picturefill.js',
+        __dirname + '/node_modules/evil-icons/assets/evil-icons.js'
       ]
     },
     tmp: {
