@@ -24,7 +24,7 @@
 | | ..
 | ..
 |-- landing_page
-| |-- page_title
+| |-- title
 | |-- category
 | |-- banner_image
 | |-- introduction (250-290 chars)
