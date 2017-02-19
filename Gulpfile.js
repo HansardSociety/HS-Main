@@ -1,6 +1,10 @@
 // Inspiration from https://github.com/NathanBowers/mm-template/
 
 var
+////////////////////////////////////////////////////////////
+//  Plugins
+////////////////////////////////////////////////////////////
+
   path = require('path'),
 
   // Plugins
@@ -11,13 +15,31 @@ var
   sass = require('gulp-sass'),
   touch = require('gulp-touch'),
 
+  // Babel
+  babel = require('gulp-babel'),
+
   // PostCSS
   postcss = require('gulp-postcss'),
+  autoprefixer = require('autoprefixer'),
   reporter = require('postcss-reporter'),
   scss = require('postcss-scss'),
   stylelint = require('stylelint'),
 
-  // Paths
+////////////////////////////////////////////////////////////
+//  Postcss
+////////////////////////////////////////////////////////////
+
+  // PostCss options
+  postcssOpts = {
+    autoprefixer: {
+      browsers: [ 'last 2 versions' ]
+    }
+  },
+
+////////////////////////////////////////////////////////////
+//  Paths
+////////////////////////////////////////////////////////////
+
   PATH = {
     source: __dirname + '/source',
     css: {
@@ -41,16 +63,19 @@ var
     build: __dirname + '/build',
     npm: __dirname + '/node_modules',
   }
-;
+; // END var
 
-/*
-** CSS
-**************************************************/
+////////////////////////////////////////////////////////////
+//  CSS
+////////////////////////////////////////////////////////////
 
 // Build
 gulp.task('css:main', function() {
   return gulp.src(PATH.css.main)
     .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([
+      autoprefixer(postcssOpts.autoprefixer)
+    ]))
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 gulp.task('css:vendor', function() {
@@ -72,13 +97,16 @@ gulp.task('css:lint', function() {
     ));
 });
 
-/*
-** JavaScript
-**************************************************/
+////////////////////////////////////////////////////////////
+//  Javascript
+////////////////////////////////////////////////////////////
 
 // Build
 gulp.task('js:main', function() {
   return gulp.src(PATH.js.main)
+    .pipe(babel({
+      presets: [ 'es2015' ]
+    }))
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 gulp.task('js:vendor', function() {
@@ -87,9 +115,9 @@ gulp.task('js:vendor', function() {
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 
-/*
-** Server
-**************************************************/
+////////////////////////////////////////////////////////////
+//  Server
+////////////////////////////////////////////////////////////
 
 gulp.task('watch', [ 'css:main', 'js:main' ], function(gulpCallback) {
 
@@ -121,9 +149,9 @@ gulp.task('watch', [ 'css:main', 'js:main' ], function(gulpCallback) {
   });
 });
 
-/*
-** Task-flows
-**************************************************/
+////////////////////////////////////////////////////////////
+//  Task-flows
+////////////////////////////////////////////////////////////
 
 gulp.task('default', function(cb) {
   runSequence('css:main', 'js:main', [ 'watch' ], cb);

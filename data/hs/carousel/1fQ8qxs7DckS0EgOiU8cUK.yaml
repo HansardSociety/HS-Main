@@ -5,8 +5,8 @@
 :category: projects
 :cards:
 - :id: 2LHuov7wiIWUgOcC4oKEau
-  :meta_title: 'Legislative Process: Delegated Legislation'
-  :page_title: Delegated Legislation
+  :title: Delegated Legislation
+  :slug: delegated-legislation
   :category: projects
   :introduction: Most of the UK’s general public law is made not through Acts of Parliament
     but through delegated legislation. It is crucial to the effective operation of
@@ -34,4 +34,3 @@
     Widely regarded as the authoritative text on delegated legislation, *The Devil is in the Detail* is used as a procedural reference guide by parliamentary clerks and officials.
 
     In 2014, the report’s co-authors appeared before the House of Commons Procedure Committee to give evidence on the subject and in 2016 they appeared before the House of Lords Secondary Legislation Scrutiny Committee to give evidence on Lord Strathclyde’s review into the powers of the Upper House in relation to delegated legislation. Subsequent reports by the House of Lords Delegated Powers and Regulatory Reform Committee and the House of Lords Constitution Committee quoted extensively from their evidence and *The Devil is in the Detail* research.
-  :slug: delegated-legislation

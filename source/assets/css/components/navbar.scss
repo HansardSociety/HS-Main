@@ -1,0 +1,8 @@
+.navbar {
+  @extend %u-width-full;
+  @extend %u-row-center;
+  @extend %u-container-slim;
+
+  justify-content: space-between;
+  height: 3.5rem;
+}

@@ -1,1 +1,10 @@
-nav
+nav.navbar(role="navigation")
+
+  / Menu button
+  = partial 'partials/navigation/menu-button',
+    :locals => { :aria_id => 'navbar-menu-button',
+                 :aria_target_id => 'offcanvas',
+                 :js_change_state => 'js-show-offcanvas' }
+
+  / Logo
+  =partial 'partials/navigation/logo'

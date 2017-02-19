@@ -4,6 +4,7 @@
 ..
 |-- __GLOBAL__
 | |-- organisation
+| |-- logo_mobile
 | |-- contact
 | | |-- # social media accounts, email etc
 | | ..

@@ -1,4 +1,11 @@
+// Theme
 @import "./theme";
-@import "./utilities/box-model";
 
+// Utilities
+@import "./utilities";
+
+// Components
 @import "./components/core";
+@import "./components/menu-button";
+@import "./components/navbar";
+@import "./components/logo";

@@ -1,0 +1,52 @@
+.menu-button {
+  position: relative;
+  width: 1.5rem;
+  height: 1.125rem;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+.menu-button__icon,
+.menu-button__icon::before,
+.menu-button__icon::after {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: $brand_white;
+  transition: $transition_all;
+}
+
+.menu-button__icon {
+
+  &::before,
+  &::after {
+    position: absolute;;
+    content: '';
+    left: 0;
+  }
+
+  &::before {
+    top: 0;
+  }
+
+  &::after {
+    bottom: 0;
+  }
+}
+
+.menu-button.js-on {
+  .menu-button__icon {
+    background-color: transparent;
+
+    &::before {
+      top: calc(50% - 1px);
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      bottom: calc(50% - 1px);
+      transform: rotate(-45deg);
+    }
+  }
+}
