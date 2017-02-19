@@ -7,19 +7,23 @@
 | |-- contact
 | | |-- # social media accounts, email etc
 | | ..
-| |
+| |-- navigation (ref, many)
+| | |-- # navigation_item
+| | ..
+| ..
+|-- navigation_item (ref, many)
+| |-- # landing_page, child_page
 | ..
 |-- home
 | |-- meta_title
 | |-- strapline
 | |-- banner_image
-| |-- panels (refs, many)
+| |-- panels (ref, many)
 | | |-- carousel
 | | |-- promotion
 | | ..
 | ..
 |-- landing_page
-| |-- meta_title
 | |-- page_title
 | |-- category
 | |-- banner_image
@@ -28,8 +32,7 @@
 | |-- slug
 | ..
 |-- child_page
-| |-- meta_title
-| |-- page_title
+| |-- title
 | |-- category
 | | |-- # projects, events, about, intelligence, publications, blog
 | | ..
