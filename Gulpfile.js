@@ -9,10 +9,11 @@ var
 
   // Plugins
   gulp = require('gulp'),
-  concat = require('gulp-concat'),
   browserSync = require('browser-sync').create(),
+  concat = require('gulp-concat'),
   runSequence = require('run-sequence'),
   sass = require('gulp-sass'),
+  svgSprite = require('gulp-svg-sprite'),
   touch = require('gulp-touch'),
 
   // Babel
@@ -37,6 +38,18 @@ var
   },
 
 ////////////////////////////////////////////////////////////
+//  Sprites
+////////////////////////////////////////////////////////////
+
+  svgSpriteConfig = {
+    mode: {
+      symbol: {
+        dest: '.'
+      }
+    }
+  },
+
+////////////////////////////////////////////////////////////
 //  Paths
 ////////////////////////////////////////////////////////////
 
@@ -56,6 +69,9 @@ var
         __dirname + '/node_modules/picturefill/dist/picturefill.js',
         __dirname + '/node_modules/evil-icons/assets/evil-icons.js'
       ]
+    },
+    images: {
+      icons: __dirname + '/node_modules/evil-icons/assets/icons/*.svg'
     },
     tmp: {
       dir: __dirname + '/.tmp',
@@ -97,6 +113,16 @@ gulp.task('css:lint', function() {
         syntax: scss
       }
     ));
+});
+
+////////////////////////////////////////////////////////////
+//  SVG
+////////////////////////////////////////////////////////////
+
+gulp.task('svg', function() {
+  return gulp.src(PATH.images.icons)
+    .pipe(svgSprite(svgSpriteConfig))
+    .pipe(gulp.dest('./source/assets/images'));
 });
 
 ////////////////////////////////////////////////////////////

@@ -21,6 +21,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-postcss": "^6.3.0",
     "gulp-sass": "^3.1.0",
+    "gulp-svg-sprite": "^1.3.6",
     "gulp-touch": "^1.0.1",
     "node-sass": "^4.5.0",
     "postcss-reporter": "^3.0.0",
