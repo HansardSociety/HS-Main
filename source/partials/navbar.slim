@@ -2,7 +2,7 @@ nav.navbar(role="navigation")
 
   .navbar__left
     / Menu button
-    = partial 'partials/navigation/button',
+    = partial 'partials/button',
       :locals => { :button_type => 'menu',
                    :aria_id => 'navbar-menu-button',
                    :aria_target_id => 'offcanvas',
@@ -10,17 +10,17 @@ nav.navbar(role="navigation")
 
   .navbar__center
     / Logo
-    =partial 'partials/navigation/logo'
+    =partial 'partials/logo'
 
   .navbar__right
     / Search
-    = partial 'partials/navigation/button',
+    = partial 'partials/button',
       :locals => { :button_type => 'icon',
                    :aria_id => 'navbar-search-button',
                    :aria_target_id => 'search',
                    :js_change_state => 'js-show-search' }
       / Icon
-      = partial 'partials/navigation/icon',
+      = partial 'partials/icon',
         :locals => { :icon => 'search',
                      :color => 'white',
                      :size => 'medium' }
