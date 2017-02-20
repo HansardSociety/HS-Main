@@ -13,12 +13,14 @@ nav.navbar(role="navigation")
     =partial 'partials/logo'
 
   .navbar__right
+
     / Search
     = partial 'partials/button',
       :locals => { :button_type => 'icon',
                    :aria_id => 'navbar-search-button',
                    :aria_target_id => 'search',
                    :js_change_state => 'js-show-search' }
+
       / Icon
       = partial 'partials/icon',
         :locals => { :icon => 'search',

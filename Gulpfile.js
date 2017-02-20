@@ -59,15 +59,13 @@ var
       all: __dirname + '/source/assets/css/**/*.scss',
       main: __dirname + '/source/assets/css/main.scss',
       vendor: [
-        __dirname + '/node_modules/normalize.css/normalize.css',
-        __dirname + '/node_modules/evil-icons/assets/evil-icons.css'
+        __dirname + '/node_modules/normalize.css/normalize.css'
       ]
     },
     js: {
       main: __dirname + '/source/assets/js/main.js',
       vendor: [
-        __dirname + '/node_modules/picturefill/dist/picturefill.js',
-        __dirname + '/node_modules/evil-icons/assets/evil-icons.js'
+        __dirname + '/node_modules/picturefill/dist/picturefill.js'
       ]
     },
     images: {
@@ -147,7 +145,11 @@ gulp.task('js:vendor', function() {
 //  Server
 ////////////////////////////////////////////////////////////
 
-gulp.task('watch', [ 'css:main', 'js:main' ], function(gulpCallback) {
+gulp.task('watch',
+  [
+    'css:main', 'css:vendor', 'js:main', 'js:vendor'
+  ],
+  function(gulpCallback) {
 
   browserSync.init({
     proxy: 'http://localhost:4567', // Middleman server

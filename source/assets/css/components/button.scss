@@ -1,9 +1,6 @@
 .button {
   position: relative;
 
-  width: 1.5rem;
-  height: 1.125rem;
-
   @extend %u-button-reset;
 }
 
@@ -12,7 +9,7 @@
 .button__menu::after {
   display: block;
 
-  width: 100%;
+  width: 1.5rem;
   height: 2px;
 
   transition: $transition_all;
@@ -31,11 +28,11 @@
   }
 
   &::before {
-    top: 0;
+    top: -.5rem;
   }
 
   &::after {
-    bottom: 0;
+    bottom: -.5rem;
   }
 }
 
