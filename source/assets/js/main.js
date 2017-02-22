@@ -17,10 +17,3 @@ for (var i = 0; i < buttons.length; i++) {
     toggleState(this, 'js-on');
   }
 }
-// buttons.onclick = function() {
-//   toggleState(this, 'js-on');
-//
-// }
-// document.querySelector('#navbar-search-button').onclick = function() {
-//   toggleState(this, 'js-on');
-// }

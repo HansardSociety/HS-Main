@@ -1,29 +1,31 @@
-%u-width-full {
-  width: 100%;
+////////////////////////////////////////////////////////////
+//  =Positioning
+////////////////////////////////////////////////////////////
+
+// Core
+%u-position-absolute {
+  position: absolute;
+}
+%u-position-relative {
+  position: relative;
+}
+%u-position-fixed {
+  position: fixed;
 }
 
-%u-container-slim {
-  padding: .5rem 1rem;
-}
+// Fixed
+%u-fixed-0 {
+  top: 0;
+  left: 0;
 
-%u-row-center {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-}
-
-// Button reset
-%u-button-reset {
-  padding: 0;
-  border: 0;
-  background-color: transparent;
+  @extend %u-position-fixed;
 }
 
 // Absolute center
 %u-absolute-center-x,
 %u-absolute-center-y,
 %u-absolute-center-xy {
-  position: absolute;
+  @extend %u-position-absolute;
 }
 %u-absolute-center-x,
 %u-absolute-center-xy {
@@ -41,4 +43,43 @@
 }
 %u-absolute-center-xy {
   transform: translate(-50%, -50%);
+}
+
+////////////////////////////////////////////////////////////
+//  =Box-model
+////////////////////////////////////////////////////////////
+
+// core
+%u-display-block {
+  display: block;
+}
+%u-display-flex {
+  display: flex;
+}
+
+%u-width-full {
+  width: 100%;
+}
+
+%u-container-slim {
+  padding: .5rem 1rem;
+}
+%u-container-medium {
+  padding: 1rem;
+}
+
+// Compound
+%u-row-center {
+  flex-flow: row wrap;
+  align-items: center;
+
+  @extend %u-display-flex;
+}
+
+// Button reset
+%u-button-reset {
+  padding: 0;
+
+  border: 0;
+  background-color: transparent;
 }

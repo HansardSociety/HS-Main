@@ -65,7 +65,8 @@ var
     js: {
       main: __dirname + '/source/assets/js/main.js',
       vendor: [
-        __dirname + '/node_modules/picturefill/dist/picturefill.js'
+        __dirname + '/node_modules/picturefill/dist/picturefill.js',
+        __dirname + '/node_modules/lodash/throttle.js'
       ]
     },
     images: {
@@ -77,7 +78,6 @@ var
       js: __dirname + '/.tmp/main.js',
     },
     build: __dirname + '/build',
-    npm: __dirname + '/node_modules',
   }
 ; // END var
 

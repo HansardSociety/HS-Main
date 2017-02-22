@@ -1,8 +1,8 @@
 .navbar {
+  @extend %u-fixed-0;
   @extend %u-width-full;
   @extend %u-container-slim;
 
-  position: relative;
   height: 3.5rem;
 }
 
@@ -14,9 +14,11 @@
 .navbar__left {
   left: 1rem;
 }
+
 .navbar__center {
   @extend %u-absolute-center-xy;
 }
+
 .navbar__right {
   right: 1rem;
 }
