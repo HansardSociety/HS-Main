@@ -66,7 +66,7 @@ var
       main: __dirname + '/source/assets/js/main.js',
       vendor: [
         __dirname + '/node_modules/picturefill/dist/picturefill.js',
-        __dirname + '/node_modules/lodash/throttle.js'
+        __dirname + '/node_modules/lodash/core.js'
       ]
     },
     images: {
@@ -184,7 +184,7 @@ gulp.task('watch',
 ////////////////////////////////////////////////////////////
 
 gulp.task('default', function(cb) {
-  runSequence('css:main', 'js:main', [ 'watch' ], cb);
+  runSequence([ 'watch' ], cb);
 });
 
 gulp.task('build', function(cb) {
