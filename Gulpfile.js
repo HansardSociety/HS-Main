@@ -9,15 +9,17 @@ var
 
   // Plugins
   gulp = require('gulp'),
+  babel = require('gulp-babel'),
   browserSync = require('browser-sync').create(),
+  browserify = require('browserify'),
   concat = require('gulp-concat'),
+  es = require('event-stream'),
+  gutil = require('gulp-util'),
   runSequence = require('run-sequence'),
   sass = require('gulp-sass'),
+  source = require('vinyl-source-stream'),
   svgSprite = require('gulp-svg-sprite'),
   touch = require('gulp-touch'),
-
-  // Babel
-  babel = require('gulp-babel'),
 
   // PostCSS
   postcss = require('gulp-postcss'),
@@ -64,10 +66,7 @@ var
     },
     js: {
       main: __dirname + '/source/assets/js/main.js',
-      vendor: [
-        __dirname + '/node_modules/picturefill/dist/picturefill.js',
-        __dirname + '/node_modules/lodash/core.js'
-      ]
+      vendor: __dirname + '/source/assets/js/vendor.js'
     },
     images: {
       icons: __dirname + '/node_modules/evil-icons/assets/icons/*.svg'
@@ -127,18 +126,22 @@ gulp.task('svg', function() {
 //  Javascript
 ////////////////////////////////////////////////////////////
 
-// Build
-gulp.task('js:main', function() {
-  return gulp.src(PATH.js.main)
-    .pipe(babel({
-      presets: [ 'es2015' ]
-    }))
-    .pipe(gulp.dest(PATH.tmp.dir));
-});
-gulp.task('js:vendor', function() {
-  return gulp.src(PATH.js.vendor)
-    .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(PATH.tmp.dir));
+gulp.task('js:bundle', function() {
+
+  var files = [ PATH.js.main, PATH.js.vendor ];
+
+  var tasks = files.map(function(entry) {
+    return browserify({ entries: entry })
+      .transform('babelify')
+      .bundle()
+      .on('error', function(e) {
+        gutil.log(e);
+      })
+      .pipe(source(entry.split('/').pop()))
+      .pipe(gulp.dest(PATH.tmp.dir));
+  });
+
+  return es.merge(tasks);
 });
 
 ////////////////////////////////////////////////////////////
@@ -147,7 +150,7 @@ gulp.task('js:vendor', function() {
 
 gulp.task('watch',
   [
-    'css:main', 'css:vendor', 'js:main', 'js:vendor'
+    'css:main', 'css:vendor', 'js:bundle'
   ],
   function(gulpCallback) {
 
@@ -169,7 +172,7 @@ gulp.task('watch',
   ,function callback() {
     // Inject CSS/ JS
     gulp.watch(PATH.css.all, [ 'css:main' ]);
-    gulp.watch(PATH.js.main, [ 'js:main' ]);
+    gulp.watch(PATH.js.main, [ 'js:bundle' ]);
 
     // Reload browserSync after html changes
     gulp.watch(path.join(PATH.source, '**/*.slim'))
@@ -188,7 +191,7 @@ gulp.task('default', function(cb) {
 });
 
 gulp.task('build', function(cb) {
-  runSequence('css:main', 'css:vendor', 'js:main', 'js:vendor', cb);
+  runSequence('css:main', 'css:vendor', 'js:bundle', cb);
 });
 
 gulp.task('lint', function(cb) {

@@ -1,3 +1,6 @@
+import _ from 'lodash';
+import { throttle } from 'lodash';
+
 // Toggle class
 function toggleClass(obj, state) {
   obj.classList.toggle(state);
@@ -20,7 +23,7 @@ for (var i = 0; i < buttons.length; i++) {
 }
 
 // Navbar scroll
-window.addEventListener('scroll', _.throttle(function() {
+window.addEventListener('scroll', throttle(function() {
   var navbar = document.querySelector('.navbar');
   if ( window.pageYOffset > 0 ) {
     navbar.classList.add("js-active");
