@@ -74,6 +74,7 @@ activate :contentful do |f|
     child_page: 'child_page',
     home: 'home',
     landing_page: 'landing_page',
+    navigation: 'navigation',
     promotion: 'promotion'
   }
 end

@@ -8,28 +8,13 @@
 | |-- contact
 | | |-- # social media accounts, email etc
 | | ..
-| |-- our_work (ref, many)
-| | |-- # child_page, landing_page:
-| | |   # research, intelligence, resources
-| | ..
-| |-- about (ref, many)
-| | |-- # child_page: about
-| | |   # boxes: newsletter, contact/ social media
-| | ..
-| |-- events (ref, single)
-| | |-- # landing_page: events
-| | ..
-| |-- journal (ref, single)
-| | |-- # landing_page: journal
-| | ..
-| |--
-| | ..
-| |-- navigation (ref, many)
-| | |-- # navigation_item
-| | ..
+| |-- strapline
 | ..
-|-- navigation_item (ref, many)
-| |-- # landing_page, child_page
+|-- navigation
+| |-- title
+| |-- pages (ref, many)
+| | |-- # landing_page, child_page, url
+| |-- url
 | ..
 |-- home
 | |-- meta_title

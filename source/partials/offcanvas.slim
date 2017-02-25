@@ -1,2 +1,15 @@
 .offcanvas
-  .offcanvas__section
+  ul
+    - data.hs.navigation.each do |id, navigation|
+      li= navigation.category.upcase
+
+      / Group pages by category (eg. research, intelligence etc)
+      - navigation.pages.group_by(&:category).each do |category, pages|
+        li.offcanvas__section(class="offcanvas__section--#{ category.downcase }")
+          h2.title.title--small.title--white= category.capitalize
+
+          ul
+            - pages.each do |page|
+              li
+                h3.title.title--white.title--tiny
+                  a(href="https://www.hansardsociety.org.uk/#{ page.category }/#{ page.slug }")= page.title

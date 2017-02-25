@@ -66,11 +66,24 @@
   transform: translate(-50%, -50%);
 }
 
+%u-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+
+  width: 1px;
+  height: 1px;
+
+  word-wrap: normal;
+
+  @extend %u-position-absolute;
+  @extend %u-overflow-hidden;
+}
+
 ////////////////////////////////////////////////////////////
 //  =Box-model
 ////////////////////////////////////////////////////////////
 
-// core
+// Core
+
 %u-display-block {
   display: block;
 }
@@ -83,15 +96,22 @@
   width: 100%;
 }
 
-%u-container-slim {
+%u-padding-slim {
   padding: .5rem 1rem;
 }
 
-%u-container-medium {
+%u-padding-medium {
   padding: 1rem;
 }
 
-// Compound
+%u-overflow-hidden {
+  overflow: hidden;
+}
+
+%u-margin-top-small {
+  margin-top: 1rem;
+}
+
 %u-row-center {
   flex-flow: row wrap;
   align-items: center;
@@ -100,11 +120,15 @@
 }
 
 ////////////////////////////////////////////////////////////
-//  Decoration
+//  =Decoration
 ////////////////////////////////////////////////////////////
 
 %u-bgc-brand-green {
   background-color: $brand_green;
+}
+
+%u-bgc-brand-black {
+  background-color: $brand_black;
 }
 
 %u-box-shadow-brand-green {
@@ -116,12 +140,22 @@
     darken($brand_green, 15%);
 }
 
+// Accents
+
+%u-accent-brand-green-top {
+  border-top: 2px solid $brand_green;
+}
+
+%u-accent-brand-green-left {
+  border-left: 2px solid $brand_green;
+}
+
 %u-cursor-pointer {
   cursor: pointer;
 }
 
 ////////////////////////////////////////////////////////////
-//  Animation
+//  =Animation
 ////////////////////////////////////////////////////////////
 
 %u-transition-all {

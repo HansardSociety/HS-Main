@@ -2,3 +2,13 @@
 @mixin box-shadow($color) {
   @extend %u-box-shadow-#{ $color };
 }
+
+// Accent
+@mixin accent($color, $position) {
+  @extend %u-accent-brand-#{ $color }-#{ $position };
+}
+
+// Margin
+@mixin margin($side, $size) {
+  @extend %u-margin-#{ $side }-#{ $size };
+}

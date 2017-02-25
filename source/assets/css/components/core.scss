@@ -2,6 +2,24 @@ html {
   font-size: 18px;
 }
 
+body.js-show-offcanvas {
+  @extend %u-overflow-hidden;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

@@ -1,9 +1,8 @@
 ---
-:id: 1fQ8qxs7DckS0EgOiU8cUK
-:meta_title: 'Home: Featured Projects'
-:carousel_title: Our Work
-:category: projects
-:cards:
+:id: 13gMAhrki6iqSSiqIycWkm
+:title: Research
+:category: Our work
+:pages:
 - :id: 2LHuov7wiIWUgOcC4oKEau
   :title: Delegated Legislation
   :slug: delegated-legislation

@@ -1,6 +1,12 @@
 nav.navbar(role="navigation")
 
+  h1.hidden Hansard Society
+
+  / Offcanvas
+  = partial 'partials/offcanvas'
+
   .navbar__left
+
     / Menu button
     = partial 'partials/button',
       :locals => { :button_type => 'menu',
