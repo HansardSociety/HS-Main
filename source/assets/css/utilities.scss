@@ -1,3 +1,9 @@
+// CONTENTS
+// 1. Positioning
+// 2. Box-model
+// 3. Decoration
+// 4. Animation
+
 ////////////////////////////////////////////////////////////
 //  =Positioning
 ////////////////////////////////////////////////////////////
@@ -6,18 +12,28 @@
 %u-position-absolute {
   position: absolute;
 }
+
 %u-position-relative {
   position: relative;
 }
+
 %u-position-fixed {
   position: fixed;
 }
 
-// Fixed
-%u-fixed-0 {
+%u-position-absolute-0,
+%u-position-fixed-0 {
   top: 0;
   left: 0;
+}
 
+// Absolute
+%u-position-absolute-0 {
+  @extend %u-position-absolute;
+}
+
+// Fixed
+%u-position-fixed-0 {
   @extend %u-position-fixed;
 }
 
@@ -27,20 +43,25 @@
 %u-absolute-center-xy {
   @extend %u-position-absolute;
 }
+
 %u-absolute-center-x,
 %u-absolute-center-xy {
   left: 50%;
 }
+
 %u-absolute-center-y,
 %u-absolute-center-xy {
   top: 50%;
 }
+
 %u-absolute-center-x {
   transform: translateX(-50%);
 }
+
 %u-absolute-center-y {
   transform: translateY(-50%);
 }
+
 %u-absolute-center-xy {
   transform: translate(-50%, -50%);
 }
@@ -53,6 +74,7 @@
 %u-display-block {
   display: block;
 }
+
 %u-display-flex {
   display: flex;
 }
@@ -64,6 +86,7 @@
 %u-container-slim {
   padding: .5rem 1rem;
 }
+
 %u-container-medium {
   padding: 1rem;
 }
@@ -76,10 +99,31 @@
   @extend %u-display-flex;
 }
 
-// Button reset
-%u-button-reset {
-  padding: 0;
+////////////////////////////////////////////////////////////
+//  Decoration
+////////////////////////////////////////////////////////////
 
-  border: 0;
-  background-color: transparent;
+%u-bgc-brand-green {
+  background-color: $brand_green;
+}
+
+%u-box-shadow-brand-green {
+  box-shadow:
+    0 // Offset x
+    0 // Offset y
+    10px // Blur radius
+    3px // Spread radius
+    darken($brand_green, 15%);
+}
+
+%u-cursor-pointer {
+  cursor: pointer;
+}
+
+////////////////////////////////////////////////////////////
+//  Animation
+////////////////////////////////////////////////////////////
+
+%u-transition-all {
+  transition: all .2s ease;
 }

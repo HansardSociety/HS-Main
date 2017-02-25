@@ -1,0 +1,4 @@
+// Box shadow
+@mixin box-shadow($color) {
+  @extend %u-box-shadow-#{ $color };
+}

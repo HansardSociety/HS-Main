@@ -14,9 +14,14 @@
 ////////////////////////////////////////////////////////////
 
 .button {
-  position: relative;
+  min-height: 1.5rem;
+  padding: 0;
 
-  @extend %u-button-reset;
+  border: 0;
+  background-color: transparent;
+
+  @extend %u-cursor-pointer;
+  @extend %u-position-relative;
 }
 
 .button__menu,
@@ -31,7 +36,6 @@
 }
 
 .button__menu {
-
   &::before,
   &::after {
     position: absolute;
@@ -41,11 +45,11 @@
   }
 
   &::before {
-    top: -.5rem;
+    transform: translateY(-.5rem);
   }
 
   &::after {
-    bottom: -.5rem;
+    transform: translateY(.5rem);
   }
 }
 
@@ -53,15 +57,16 @@
   .button__menu {
     background-color: transparent;
 
-    &::before {
-      top: calc(50% - 1px);
+    &::before,
+    &::after {
+      transform: translate(0);
+    }
 
+    &::before {
       transform: rotate(45deg);
     }
 
     &::after {
-      bottom: calc(50% - 1px);
-
       transform: rotate(-45deg);
     }
   }

@@ -1,9 +1,10 @@
 .navbar {
-  @extend %u-fixed-0;
+  height: 3.5rem;
+
+  @extend %u-transition-all;
+  @extend %u-position-fixed-0;
   @extend %u-width-full;
   @extend %u-container-slim;
-
-  height: 3.5rem;
 }
 
 .navbar__left,
@@ -21,4 +22,9 @@
 
 .navbar__right {
   right: 1rem;
+}
+
+.navbar.js-on {
+  @extend %u-bgc-brand-green;
+  @include box-shadow('brand-green');
 }

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash/fp';
 
 // Toggle class
 function toggleClass(obj, state) {
@@ -23,12 +23,12 @@ for (var i = 0; i < buttons.length; i++) {
 }
 
 // Navbar scroll
-window.addEventListener('scroll', throttle(function() {
+window.addEventListener('scroll', _.throttle(function() {
   var navbar = document.querySelector('.navbar');
+
   if ( window.pageYOffset > 0 ) {
-    navbar.classList.add("js-active");
-    console.log('hello');
+    navbar.classList.add("js-on");
   } else {
-    navbar.classList.remove("js-active");
+    navbar.classList.remove("js-on");
   }
 }, 1000));

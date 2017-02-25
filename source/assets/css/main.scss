@@ -1,8 +1,7 @@
-// Theme
+// Core (strict order)
 @import "./theme";
-
-// Utilities
 @import "./utilities";
+@import "./mixins";
 
 // Components
 @import "./components/core";
