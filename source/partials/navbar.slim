@@ -9,7 +9,8 @@ nav.navbar(role="navigation")
 
     / Menu button
     = partial 'partials/button',
-      :locals => { :button_type => 'menu',
+      :locals => { :button_scope => 'global',
+                   :button_type => 'menu',
                    :aria_id => 'navbar-menu-button',
                    :aria_target_id => 'Offcanvas',
                    :js_change_state => 'js-show-offcanvas'}
@@ -22,9 +23,10 @@ nav.navbar(role="navigation")
 
     / Search
     = partial 'partials/button',
-      :locals => { :button_type => 'icon',
+      :locals => { :button_scope => 'global',
+                   :button_type => 'icon',
                    :aria_id => 'navbar-search-button',
-                   :aria_target_id => 'search',
+                   :aria_target_id => 'Search',
                    :js_change_state => 'js-show-search' }
 
       / Icon

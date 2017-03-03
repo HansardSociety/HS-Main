@@ -6,11 +6,21 @@
           = navigation.title
 
           - if navigation.pages
-            span.accordian__control
-              = partial 'partials/icon',
-                :locals => { :icon => 'chevron-down',
-                             :color => 'white',
-                             :size => 'medium' }
+            .accordian__control
+
+              / Accordian control
+              = partial 'partials/button',
+                :locals => { :button_scope => 'local',
+                             :button_type => 'icon',
+                             :aria_id => "offcanvas-accordian-#{ navigation.title.downcase }-button",
+                             :aria_target_id => 'search',
+                             :js_change_state => 'js-accordian-open' }
+
+                / Icon
+                = partial 'partials/icon',
+                  :locals => { :icon => 'chevron-down',
+                               :color => 'white',
+                               :size => 'medium' }
 
         ul(class="#{ 'accordian__content' if navigation.pages }")
           - navigation.pages.group_by(&:category).each do |category, pages|

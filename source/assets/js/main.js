@@ -7,18 +7,20 @@ function toggleClass(obj, state) {
 }
 
 // Toggle state
-function toggleState(obj, elem) {
+function toggleState(obj, elem, target) {
   var state = obj.getAttribute('data-change-state');
 
   toggleClass(obj, elem);
-  document.querySelector('body').classList.toggle(state);
+  document.querySelector(target).classList.toggle(state);
 }
 
 // Button change state
-var buttons = document.querySelectorAll('.button');
-for (var i = 0; i < buttons.length; i++) {
-  buttons[i].onclick = function() {
-    toggleState(this, 'js-on');
+var buttonsGlobal = document.querySelectorAll('.button.js-global');
+var buttonsLocal = document.querySelectorAll('.button.js-local');
+
+for (var i = 0; i < buttonsGlobal.length; i++) {
+  buttonsGlobal[i].onclick = function() {
+    toggleState(this, 'js-on', 'body');
   }
 }
 
