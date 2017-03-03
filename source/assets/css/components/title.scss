@@ -1,14 +1,20 @@
 .title {
-  margin-top: 0;
-  margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 0;
 }
 
 .title--small {
   font-size: 1.25rem;
 }
 
-.title--tiny {
+.title--tiny,
+.title--secondary {
   font-size: 1rem;
+}
+
+.title--secondary {
+  text-transform: uppercase;
+  opacity: .25
 }
 
 .title--white {

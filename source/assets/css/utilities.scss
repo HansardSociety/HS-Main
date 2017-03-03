@@ -104,12 +104,16 @@
   padding: 1rem;
 }
 
-%u-overflow-hidden {
-  overflow: hidden;
+%u-padding-large {
+  padding: 2rem 1rem;
 }
 
 %u-margin-top-small {
   margin-top: 1rem;
+}
+
+%u-margin-top-medium {
+  margin-top: 2rem;
 }
 
 %u-row-center {
@@ -117,6 +121,10 @@
   align-items: center;
 
   @extend %u-display-flex;
+}
+
+%u-overflow-hidden {
+  overflow: hidden;
 }
 
 ////////////////////////////////////////////////////////////
@@ -146,8 +154,12 @@
   border-top: 2px solid $brand_green;
 }
 
-%u-accent-brand-green-left {
-  border-left: 2px solid $brand_green;
+%u-accent-brand-light-green-top {
+  border-top: 2px solid $brand_light_green;
+}
+
+%u-accent-brand-light-blue-top {
+  border-top: 2px solid $brand_light_blue;
 }
 
 %u-cursor-pointer {

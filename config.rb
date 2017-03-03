@@ -51,13 +51,12 @@ configure :build do
 end
 
 # Server
-configure :development do
+configure :server do
   activate :directory_indexes
   activate :external_pipeline,
     name: :gulp,
     command: 'npm run start',
-    source: '.tmp',
-    latency: 1
+    source: '.tmp'
 end
 
 ##############################

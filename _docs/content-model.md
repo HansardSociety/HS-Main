@@ -12,6 +12,8 @@
 | ..
 |-- navigation
 | |-- title
+| | |-- # Our work, Events, Research, Blog, Journal
+| | ..
 | |-- pages (ref, many)
 | | |-- # landing_page, child_page, url
 | |-- url
@@ -28,6 +30,8 @@
 |-- landing_page
 | |-- title
 | |-- category
+| | |-- # About, Blog, Events, Intelligence, Research, Resources
+| | ..
 | |-- banner_image
 | |-- introduction (250-290 chars)
 | |-- panels (ref, many)
@@ -36,15 +40,16 @@
 |-- child_page
 | |-- title
 | |-- category
-| | |-- # about, blog, events, intelligence, research, resources
+| | |-- # About, Blog, Events, Intelligence, Research, Resources
 | | ..
 | |-- banner_image
 | |-- introduction (250-290 chars)
 | |-- copy
 | |-- side_bar (ref, many)
 | | |-- # different types of side-bar content (auto-sorted and
-| |     # titled) presented as cards, lists etc and extracted
-| |     # from other 'pages'. Top item = feature.
+| | |   # titled) presented as cards, lists etc and extracted
+| | |   # from other 'pages'. Top item = feature.
+| | ..
 | |-- slug
 | |-- tags
 | | |-- # events, projects

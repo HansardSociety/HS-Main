@@ -16,15 +16,25 @@
 }
 
 .offcanvas__section {
-  padding-top: 1rem;
-
   list-style: none;
 
-  @include margin('top', 'small');
+  @include margin('top', 'medium');
 }
 
 .offcanvas__section--research {
   @include accent('green', 'top');
+}
+
+.offcanvas__section--about {
+  @include accent('green', 'top');
+}
+
+.offcanvas__section--resources {
+  @include accent('light-green', 'top');
+}
+
+.offcanvas__section--intelligence {
+  @include accent('light-blue', 'top');
 }
 
 body.js-show-offcanvas {

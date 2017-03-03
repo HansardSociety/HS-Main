@@ -1,15 +1,23 @@
-.offcanvas
+.offcanvas#Offcanvas
   ul
     - data.hs.navigation.each do |id, navigation|
-      li= navigation.category.upcase
+      li.offcanvas__section(class="#{ 'accordian' if navigation.pages }")
+        h2.title.title--white.title--small(class="#{ 'accordian__title' if navigation.pages }")
+          = navigation.title
 
-      / Group pages by category (eg. research, intelligence etc)
-      - navigation.pages.group_by(&:category).each do |category, pages|
-        li.offcanvas__section(class="offcanvas__section--#{ category.downcase }")
-          h2.title.title--small.title--white= category.capitalize
+          - if navigation.pages
+            span.accordian__control
+              = partial 'partials/icon',
+                :locals => { :icon => 'chevron-down',
+                             :color => 'white',
+                             :size => 'medium' }
 
-          ul
-            - pages.each do |page|
-              li
-                h3.title.title--white.title--tiny
-                  a(href="https://www.hansardsociety.org.uk/#{ page.category }/#{ page.slug }")= page.title
+        ul(class="#{ 'accordian__content' if navigation.pages }")
+          - navigation.pages.group_by(&:category).each do |category, pages|
+            li.offcanvas__section(class="offcanvas__section--#{ category.downcase }")
+              h3.title.title--secondary.title--white= category if navigation.title != category
+              ul
+                - pages.each do |page|
+                  li
+                    h4.title.title--white.title--tiny
+                      a.offcanvas__link(href="https://www.hansardsociety.org.uk/#{ page.category }/#{ page.slug }")= page.title
