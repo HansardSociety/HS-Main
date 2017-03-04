@@ -78,6 +78,13 @@
   @extend %u-overflow-hidden;
 }
 
+%u-pseudo-element-base {
+  content: '';
+
+  @extend %u-display-block;
+  @extend %u-position-absolute;
+}
+
 ////////////////////////////////////////////////////////////
 //  =Box-model
 ////////////////////////////////////////////////////////////
@@ -119,8 +126,11 @@
 %u-row-center {
   flex-flow: row wrap;
   align-items: center;
-
   @extend %u-display-flex;
+}
+
+%u-overflow-auto {
+  overflow: auto;
 }
 
 %u-overflow-hidden {
@@ -140,12 +150,7 @@
 }
 
 %u-box-shadow-brand-green {
-  box-shadow:
-    0 // Offset x
-    0 // Offset y
-    10px // Blur radius
-    3px // Spread radius
-    darken($brand_green, 15%);
+  box-shadow: 0 0 10px 3px darken($brand_green, 15%);
 }
 
 // Accents

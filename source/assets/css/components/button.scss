@@ -53,6 +53,10 @@
   }
 }
 
+.button__dropdown {
+  @extend %u-display-block;
+}
+
 .button.js-on {
   .button__menu {
     background-color: transparent;
@@ -69,5 +73,9 @@
     &::after {
       transform: rotate(-45deg);
     }
+  }
+
+  .button__dropdown {
+    transform: rotate(180deg);
   }
 }

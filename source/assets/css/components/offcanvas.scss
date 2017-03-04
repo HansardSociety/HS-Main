@@ -19,6 +19,22 @@
   list-style: none;
 
   @include margin('top', 'medium');
+  @extend %u-position-relative;
+}
+
+.offcanvas__section--outer {
+  &:nth-child(1n + 2) {
+    padding-top: 1rem;
+
+    &::before {
+      top: 0;
+
+      border-top: 1px solid lighten($brand_black, 15%);
+
+      @extend %u-width-full;
+      @extend %u-pseudo-element-base;
+    }
+  }
 }
 
 .offcanvas__section--research {

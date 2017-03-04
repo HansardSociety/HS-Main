@@ -12,3 +12,17 @@
 
   @extend %u-absolute-center-y;
 }
+
+.accordian__content {
+  height: 0;
+
+  @extend %u-overflow-hidden;
+}
+
+.accordian.js-open {
+  .accordian__content {
+    height: inherit;
+
+    @extend %u-overflow-auto;
+  }
+}

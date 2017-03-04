@@ -1,15 +1,15 @@
 button.button(
-  class="js-#{ button_scope }"
+  class="js-#{ button_scope }-trigger"
   role="button"
   id="#{ aria_id }"
   aria-controls="#{ aria_target_id }"
   data-change-state="#{ js_change_state }"
 )
 
-  - if button_type == 'icon'
-    = yield
+  - if button_type != 'menu'
+    span(aria-hidden="true"
+         class="button__#{ button_type }")
+      = yield
   - else
-    span(
-      aria-hidden="true"
-      class="button__#{ button_type }"
-    )
+    span(aria-hidden="true"
+         class="button__#{ button_type }")
