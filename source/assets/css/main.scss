@@ -1,7 +1,7 @@
 // Core (strict order)
 @import "./theme";
-@import "./utilities";
 @import "./mixins";
+@import "./utilities";
 
 // Components
 @import "./components/accordian";
@@ -12,4 +12,5 @@
 @import "./components/logo";
 @import "./components/navbar";
 @import "./components/offcanvas";
+@import "./components/site-container";
 @import "./components/title";

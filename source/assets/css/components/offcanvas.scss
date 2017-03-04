@@ -4,6 +4,7 @@
 
   overflow-y: scroll;
 
+  max-width: 30rem;
   height: calc(100vh - 3.5rem);
 
   transition: transform .4s ease;
@@ -13,6 +14,9 @@
   @extend %u-position-fixed;
   @extend %u-bgc-brand-black;
   @extend %u-width-full;
+
+
+  // @extend %u-display-none;
 }
 
 .offcanvas__section {
@@ -54,6 +58,10 @@
 }
 
 body.js-show-offcanvas {
+  .site-container {
+    opacity: .25;
+  }
+
   .offcanvas {
     transform: translateX(0);
   }

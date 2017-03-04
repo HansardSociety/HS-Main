@@ -24,6 +24,7 @@ var
   // PostCSS
   postcss = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
+  mqpacker = require('css-mqpacker'),
   reporter = require('postcss-reporter'),
   scss = require('postcss-scss'),
   stylelint = require('stylelint'),
@@ -36,6 +37,9 @@ var
   postcssOpts = {
     autoprefixer: {
       browsers: [ 'last 2 versions' ]
+    },
+    mqpacker: {
+      sort: true
     }
   },
 
@@ -84,15 +88,18 @@ var
 //  CSS
 ////////////////////////////////////////////////////////////
 
-// Build
+// Main
 gulp.task('css:main', function() {
   return gulp.src(PATH.css.main)
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([
-      autoprefixer(postcssOpts.autoprefixer)
+      autoprefixer(postcssOpts.autoprefixer),
+      mqpacker(postcssOpts.mqpacker)
     ]))
     .pipe(gulp.dest(PATH.tmp.dir));
 });
+
+// Vendor
 gulp.task('css:vendor', function() {
   return gulp.src(PATH.css.vendor)
     .pipe(concat('vendor.css'))
@@ -149,37 +156,38 @@ gulp.task('svg', function() {
 ////////////////////////////////////////////////////////////
 
 gulp.task('watch',
-  [
-    'css:main', 'css:vendor', 'js:bundle'
-  ],
+  [ 'css:main', 'css:vendor', 'js:bundle' ],
+
   function(gulpCallback) {
 
-  browserSync.init({
-    proxy: 'http://localhost:4567', // Middleman server
-    open: false,
-    reloadDelay: 100, // Concurrency fix
-    reloadDebounce: 500, // Concurrency fix
-    reloadOnRestart: true,
-    files: [
-      PATH.tmp.css,
-      PATH.tmp.js,
-      __dirname + '/source/**/*.slim'
-    ],
-    port: 7000,
-    ui: { port: 7001 }
-  }
-  // Server running...
-  ,function callback() {
-    // Inject CSS/ JS
-    gulp.watch(PATH.css.all, [ 'css:main' ]);
-    gulp.watch(PATH.js.main, [ 'js:bundle' ]);
+    browserSync.init({
+      proxy: 'http://localhost:4567', // Middleman server
+      open: false,
+      reloadDelay: 100, // Concurrency fix
+      reloadDebounce: 500, // Concurrency fix
+      reloadOnRestart: true,
+      files: [
+        PATH.tmp.css,
+        PATH.tmp.js,
+        __dirname + '/source/**/*.slim'
+      ],
+      port: 7000,
+      ui: { port: 7001 }
+    },
 
-    // Reload browserSync after html changes
-    gulp.watch(path.join(PATH.source, '**/*.slim'))
-      .on('change', browserSync.reload);
+    // Server running...
+    function callback() {
+      // Inject CSS/ JS
+      gulp.watch(PATH.css.all, [ 'css:main' ]);
+      gulp.watch(PATH.js.main, [ 'js:bundle' ]);
 
-    gulpCallback();
-  });
+      // Reload browserSync after html changes
+      gulp.watch(path.join(PATH.source, '**/*.slim'))
+        .on('change', browserSync.reload);
+
+      gulpCallback();
+    }
+  );
 });
 
 ////////////////////////////////////////////////////////////

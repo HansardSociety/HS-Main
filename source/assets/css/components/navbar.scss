@@ -1,4 +1,6 @@
 .navbar {
+  z-index: 100;
+
   height: 3.5rem;
 
   @extend %u-transition-all;
@@ -11,6 +13,13 @@
 .navbar__right {
   @extend %u-absolute-center-y;
 }
+
+// .navbar__left,
+// .navbar__center {
+//   @include above('small') {
+//     @extend %u-display-none;
+//   }
+// }
 
 .navbar__left {
   left: 1rem;

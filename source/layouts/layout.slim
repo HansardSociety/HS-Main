@@ -4,7 +4,12 @@ html
   =partial 'partials/head'
 
   body.js-global-state
-    == yield
+
+    / Navbar
+    = partial 'partials/navbar'
+
+    main.site-container
+      = yield
 
   / Scrips
   script src="/vendor.js"

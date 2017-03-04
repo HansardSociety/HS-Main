@@ -91,12 +91,23 @@
 
 // Core
 
-%u-display-block {
-  display: block;
-}
+$display: (
+  none, block, flex
+);
 
-%u-display-flex {
-  display: flex;
+@each $property in $display {
+
+  %u-display-#{ $property } {
+    display: #{ $property }
+  }
+
+  @each $screen in map-keys($breakpoints) {
+    @include above('#{ $screen }') {
+      %u-display-#{ $property } {
+        display: #{ $property }
+      }
+    }
+  }
 }
 
 %u-width-full {

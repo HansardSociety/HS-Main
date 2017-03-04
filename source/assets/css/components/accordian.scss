@@ -3,13 +3,10 @@
   @extend %u-position-relative;
 }
 
-.accordian__title {
-  @extend %u-cursor-pointer;
-}
-
 .accordian__control {
   right: 0;
 
+  @extend %u-cursor-pointer;
   @extend %u-absolute-center-y;
 }
 
