@@ -1,0 +1,29 @@
+ul.nav-list
+  - data.hs.navigation.each do |id, navigation|
+    li.nav-list__item(class="#{ 'accordian' if navigation.pages.length > 1 }")
+      h2.title.title--white.title--tiny(class="#{ 'accordian__title' if navigation.pages.length > 1 }")
+
+        / If navigation item contains one or no pages
+        - if navigation.pages.length <= 1
+          - navigation.pages.each do |page|
+            a(href="#{ @site_url }/#{ page.slug }"
+              title="#{ @site_title } #{ navigation.title }")= navigation.title
+
+        / If navigation item contains more than one page
+        - if navigation.pages.length > 1
+          = navigation.title
+          .accordian__control
+
+            / Accordian control
+            = partial 'partials/button',
+              :locals => { :button_scope => 'global',
+                           :button_type => 'dropdown',
+                           :aria_id => "dropdown-#{ navigation.title.downcase }-button",
+                           :aria_target_id => "dropdown-#{ navigation.title.downcase }-content",
+                           :js_change_state => "js-dropdown-#{ navigation.title.downcase }-open" }
+
+              / Icon
+              = partial 'partials/icon',
+                :locals => { :icon => 'chevron-down',
+                             :color => 'white',
+                             :size => 'medium' }

@@ -1,23 +1,27 @@
-.accordian,
-.accordian__title {
+.dropdown,
+.dropdown__title {
   @extend %u-position-relative;
 }
 
-.accordian__control {
+.dropdown__title--inline {
+  padding-right: 1.75rem;
+}
+
+.dropdown__control {
   right: 0;
 
   @extend %u-cursor-pointer;
   @extend %u-absolute-center-y;
 }
 
-.accordian__content {
+.dropdown__content {
   height: 0;
 
   @extend %u-overflow-hidden;
 }
 
-.accordian.js-open {
-  .accordian__content {
+.dropdown.js-open {
+  .dropdown__content {
     height: inherit;
 
     @extend %u-overflow-auto;

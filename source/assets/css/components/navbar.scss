@@ -48,6 +48,23 @@
   @extend %u-position-absolute-right-0;
 }
 
+.navbar__list,
+.navbar__item {
+  @extend %u-display-none;
+  @include above('medium') {
+    @extend %u-display-inline-block__medium;
+  }
+}
+
+.navbar__list {
+  padding-right: 1rem;
+}
+
+.navbar__item {
+  padding-right: .5rem;
+}
+
+
 ////////////////////////////////////////////////////////////
 //  Behaviour
 ////////////////////////////////////////////////////////////

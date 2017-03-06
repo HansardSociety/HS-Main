@@ -14,7 +14,7 @@ nav.navbar(role="navigation")
         :locals => { :button_scope => 'global',
                      :button_type => 'menu',
                      :aria_id => 'navbar-menu-button',
-                     :aria_target_id => 'Offcanvas',
+                     :aria_target_id => 'offcanvas',
                      :js_change_state => 'js-show-offcanvas'}
 
     .navbar__center
@@ -23,12 +23,43 @@ nav.navbar(role="navigation")
 
     .navbar__right
 
+      ul.navbar__list
+        - data.hs.navigation.each do |id, navigation|
+          li.navbar__item(class="#{ 'dropdown js-local-state js-exclusive-state' if navigation.pages.length > 1 }")
+            h2.title.title--white.title--tiny(class="#{ 'dropdown__title dropdown__title--inline' if navigation.pages.length > 1 }")
+
+              / If navigation item contains one or no pages
+              - if navigation.pages.length <= 1
+                - navigation.pages.each do |page|
+                  a(href="#{ @site_url }/#{ page.slug }"
+                    title="#{ @site_title } #{ navigation.title }")= navigation.title
+
+              / If navigation item contains more than one page
+              - if navigation.pages.length > 1
+                = navigation.title
+                .dropdown__control
+
+                  / Accordian control
+                  = partial 'partials/button',
+                    :locals => { :button_scope => 'local',
+                                 :button_type => 'dropdown',
+                                 :aria_id => "dropdown-#{ navigation.title }-button",
+                                 :aria_target_id => "dropdown-#{ navigation.title }-content",
+                                 :js_change_state => "js-open" }
+
+                    / Icon
+                    = partial 'partials/icon',
+                      :locals => { :icon => 'chevron-down',
+                                   :color => 'white',
+                                   :size => 'medium' }
+
+
       / Search
       = partial 'partials/button',
         :locals => { :button_scope => 'global',
                      :button_type => 'search',
                      :aria_id => 'navbar-search-button',
-                     :aria_target_id => 'Search',
+                     :aria_target_id => 'search',
                      :js_change_state => 'js-show-search' }
 
         / Icon

@@ -6,7 +6,8 @@
 .button__menu,
 .button__menu::before,
 .button__menu::after {
-  @extend %u-display-block;
+  @extend %u-display-inline-block;
+  vertical-align: middle;
 }
 
 ////////////////////////////////////////////////////////////

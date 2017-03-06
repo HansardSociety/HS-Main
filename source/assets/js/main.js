@@ -43,7 +43,24 @@ forEach(buttonsGlobal, function (index, value) {
 // Local
 forEach(buttonsLocal, function (index, value) {
   value.onclick = function() {
-    toggleState(this, 'js-on', this.closest('.js-local-state'));
+    var local = this.closest('.js-local-state');
+    var exclusive = local.classList.contains('js-exclusive-state');
+
+    // If local state is an exclusive adjacent state...
+    if (exclusive) {
+      var siblings = local.parentNode.children;
+
+      forEach(siblings, function(index, elem) {
+
+        if ((elem != local) && (elem.classList.contains('js-open'))) {
+          elem.classList.toggle('js-open');
+          elem.querySelector('.js-on').classList.toggle('js-on');
+        }
+      });
+
+    }
+
+    toggleState(this, 'js-on', local);
   }
 });
 

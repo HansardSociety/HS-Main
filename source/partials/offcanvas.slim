@@ -1,8 +1,8 @@
-.offcanvas#Offcanvas
+.offcanvas#offcanvas
   ul
     - data.hs.navigation.each do |id, navigation|
-      li.offcanvas__section.offcanvas__section--outer(class="#{ 'accordian js-local-state' if navigation.pages.length > 1 }")
-        h2.title.title--white.title--small(class="#{ 'accordian__title' if navigation.pages.length > 1 }")
+      li.offcanvas__section.offcanvas__section--outer(class="#{ 'dropdown js-local-state' if navigation.pages.length > 1 }")
+        h2.title.title--flow.title--white.title--small(class="#{ 'dropdown__title' if navigation.pages.length > 1 }")
 
           / If navigation item contains one or no pages
           - if navigation.pages.length <= 1
@@ -13,14 +13,14 @@
           / If navigation item contains more than one page
           - if navigation.pages.length > 1
             = navigation.title
-            .accordian__control
+            .dropdown__control
 
-              / Accordian control
+              / dropdown control
               = partial 'partials/button',
                 :locals => { :button_scope => 'local',
                              :button_type => 'dropdown',
-                             :aria_id => "offcanvas-accordian-#{ navigation.title.downcase }-button",
-                             :aria_target_id => "offcanvas-accordian-#{ navigation.title.downcase }-content",
+                             :aria_id => "offcanvas-dropdown-#{ navigation.title.downcase }-button",
+                             :aria_target_id => "offcanvas-dropdown-#{ navigation.title.downcase }-content",
                              :js_change_state => 'js-open' }
 
                 / Icon
@@ -29,16 +29,16 @@
                                :color => 'white',
                                :size => 'medium' }
 
-        ul(class="#{ 'accordian__content' if navigation.pages }"
-           id="offcanvas-accordian-#{ navigation.title.downcase }-content")
+        ul(class="#{ 'dropdown__content' if navigation.pages }"
+           id="offcanvas-dropdown-#{ navigation.title.downcase }-content")
 
           / Group pages by category
           - navigation.pages.group_by(&:category).each do |category, pages|
             li.offcanvas__section(class="offcanvas__section--#{ category.downcase }")
-              h3.title.title--secondary.title--white= category if navigation.title != category
+              h3.title.title--flow.title--secondary.title--white= category if navigation.title != category
               ul
 
                 - pages.each do |page|
                   li
-                    h4.title.title--white.title--tiny
+                    h4.title.title--flow.title--white.title--tiny
                       a(href="https://www.hansardsociety.org.uk/#{ page.category }/#{ page.slug }")= page.title
