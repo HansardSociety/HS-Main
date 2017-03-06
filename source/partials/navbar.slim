@@ -1,36 +1,38 @@
 nav.navbar(role="navigation")
 
-  h1.hidden Hansard Society
+  .navbar__inner
 
-  / Offcanvas
-  = partial 'partials/offcanvas'
+    h1.hidden Hansard Society
 
-  .navbar__left
+    / Offcanvas
+    = partial 'partials/offcanvas'
 
-    / Menu button
-    = partial 'partials/button',
-      :locals => { :button_scope => 'global',
-                   :button_type => 'menu',
-                   :aria_id => 'navbar-menu-button',
-                   :aria_target_id => 'Offcanvas',
-                   :js_change_state => 'js-show-offcanvas'}
+    .navbar__left
 
-  .navbar__center
-    / Logo
-    =partial 'partials/logo'
+      / Menu button
+      = partial 'partials/button',
+        :locals => { :button_scope => 'global',
+                     :button_type => 'menu',
+                     :aria_id => 'navbar-menu-button',
+                     :aria_target_id => 'Offcanvas',
+                     :js_change_state => 'js-show-offcanvas'}
 
-  .navbar__right
+    .navbar__center
+      / Logo
+      =partial 'partials/logo'
 
-    / Search
-    = partial 'partials/button',
-      :locals => { :button_scope => 'global',
-                   :button_type => 'search',
-                   :aria_id => 'navbar-search-button',
-                   :aria_target_id => 'Search',
-                   :js_change_state => 'js-show-search' }
+    .navbar__right
 
-      / Icon
-      = partial 'partials/icon',
-        :locals => { :icon => 'search',
-                     :color => 'white',
-                     :size => 'medium' }
+      / Search
+      = partial 'partials/button',
+        :locals => { :button_scope => 'global',
+                     :button_type => 'search',
+                     :aria_id => 'navbar-search-button',
+                     :aria_target_id => 'Search',
+                     :js_change_state => 'js-show-search' }
+
+        / Icon
+        = partial 'partials/icon',
+          :locals => { :icon => 'search',
+                       :color => 'white',
+                       :size => 'medium' }

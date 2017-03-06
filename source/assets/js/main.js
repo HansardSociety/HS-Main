@@ -60,4 +60,4 @@ window.addEventListener('scroll', _.throttle(function() {
   } else {
     navbar.classList.remove('js-on');
   }
-}, 1000));
+}, 600));

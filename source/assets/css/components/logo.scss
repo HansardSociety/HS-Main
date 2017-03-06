@@ -4,5 +4,18 @@
 
 .logo__image {
   width: 5rem;
-  display: block;
+}
+
+.logo__image--mobile {
+  @include above('medium') {
+    @extend %u-display-none__medium;
+  }
+}
+
+.logo__image--desktop {
+  @extend %u-display-none;
+
+  @include above('medium') {
+    @extend %u-display-block__medium;
+  }
 }

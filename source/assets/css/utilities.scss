@@ -1,24 +1,74 @@
 // CONTENTS
+// 0. Maps
 // 1. Positioning
 // 2. Box-model
 // 3. Decoration
 // 4. Animation
 
 ////////////////////////////////////////////////////////////
+//  =Maps
+////////////////////////////////////////////////////////////
+
+$properties: (
+  display: (
+    none, block, flex
+  ),
+  position: (
+    relative, absolute, fixed
+  ),
+  origins: (
+    left, top, right, bottom
+  ),
+  axies: (
+    0, 50, 100
+  ),
+  opacity: (
+    0, 1
+  )
+);
+
+////////////////////////////////////////////////////////////
 //  =Positioning
 ////////////////////////////////////////////////////////////
 
-// Core
-%u-position-absolute {
-  position: absolute;
-}
+@each $position in map-get($properties, position) {
 
-%u-position-relative {
-  position: relative;
-}
+  %u-position-#{ $position } {
+    position: #{ $position }
+  }
 
-%u-position-fixed {
-  position: fixed;
+  // Create positioning placeholders for x/y axies
+
+  @each $origin in map-get($properties, origins) {
+
+    @each $axis in map-get($properties, axies) {
+
+      %u-position-#{ $position }-#{ $origin }-#{ $axis } {
+
+        @extend %u-position-#{ $position };
+        #{ $origin }: #{ $axis + '%' };
+      }
+    }
+
+    @each $screen in map-keys($breakpoints) {
+
+      @include above('#{ $screen }') {
+
+        %u-position-#{ $position }__#{ $screen } {
+          position: #{ $position }
+        }
+
+        @each $axis in map-get($properties, axies) {
+
+          %u-position-#{ $position }-#{ $origin }-#{ $axis }__#{ $screen } {
+
+            @extend %u-position-#{ $position }__#{ $screen };
+            #{ $origin }: #{ $axis + '%' };
+          }
+        }
+      }
+    }
+  }
 }
 
 %u-position-absolute-0,
@@ -37,21 +87,18 @@
   @extend %u-position-fixed;
 }
 
-// Absolute center
-%u-absolute-center-x,
-%u-absolute-center-y,
-%u-absolute-center-xy {
-  @extend %u-position-absolute;
-}
+////////////////////////////////////////////////////////////
+//  Absolute Centre
+////////////////////////////////////////////////////////////
 
 %u-absolute-center-x,
 %u-absolute-center-xy {
-  left: 50%;
+  @extend %u-position-absolute-left-50;
 }
 
 %u-absolute-center-y,
 %u-absolute-center-xy {
-  top: 50%;
+  @extend %u-position-absolute-top-50;
 }
 
 %u-absolute-center-x {
@@ -65,6 +112,39 @@
 %u-absolute-center-xy {
   transform: translate(-50%, -50%);
 }
+
+@each $screen in map-keys($breakpoints) {
+
+  @include above('#{ $screen }') {
+
+    %u-absolute-center-x__#{ $screen },
+    %u-absolute-center-xy__#{ $screen } {
+      @extend %u-position-absolute-left-50__#{ $screen };
+    }
+
+    %u-absolute-center-y__#{ $screen },
+    %u-absolute-center-xy__#{ $screen } {
+      @extend %u-position-absolute-top-50__#{ $screen };
+    }
+
+    %u-absolute-center-x__#{ $screen } {
+      transform: translateX(-50%);
+    }
+
+    %u-absolute-center-y__#{ $screen } {
+      transform: translateY(-50%);
+    }
+
+    %u-absolute-center-xy__#{ $screen } {
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+
+////////////////////////////////////////////////////////////
+//  Misc
+////////////////////////////////////////////////////////////
 
 %u-hidden {
   clip: rect(1px, 1px, 1px, 1px);
@@ -89,13 +169,8 @@
 //  =Box-model
 ////////////////////////////////////////////////////////////
 
-// Core
-
-$display: (
-  none, block, flex
-);
-
-@each $property in $display {
+// Display loop
+@each $property in map-get($properties, display) {
 
   %u-display-#{ $property } {
     display: #{ $property }
@@ -103,7 +178,7 @@ $display: (
 
   @each $screen in map-keys($breakpoints) {
     @include above('#{ $screen }') {
-      %u-display-#{ $property } {
+      %u-display-#{ $property }__#{ $screen } {
         display: #{ $property }
       }
     }
@@ -112,6 +187,10 @@ $display: (
 
 %u-width-full {
   width: 100%;
+}
+
+%u-height-full {
+  height: 100%;
 }
 
 %u-padding-slim {
@@ -183,9 +262,44 @@ $display: (
 }
 
 ////////////////////////////////////////////////////////////
+//  Opacity
+////////////////////////////////////////////////////////////
+
+%u-opacity-0 {
+  opacity: 0;
+}
+
+%u-opacity-1 {
+  opacity: 1;
+}
+
+@each $screen in map-keys($breakpoints) {
+
+  @include above('#{ $screen }') {
+
+    @each $opacity in map-get($properties, opacity) {
+
+      %u-opacity-#{ $opacity }__#{ $screen } {
+        opacity: #{ $opacity }
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////
 //  =Animation
 ////////////////////////////////////////////////////////////
 
 %u-transition-all {
   transition: all .2s ease;
+}
+
+@each $screen in map-keys($breakpoints) {
+
+  @include above('#{ $screen }') {
+
+    %u-transition-all__#{ $screen } {
+      transition: all ease .25s;
+    }
+  }
 }

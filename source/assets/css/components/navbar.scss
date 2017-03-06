@@ -1,3 +1,8 @@
+.navbar,
+.navbar__inner {
+  @extend %u-width-full;
+}
+
 .navbar {
   z-index: 100;
 
@@ -5,8 +10,15 @@
 
   @extend %u-transition-all;
   @extend %u-position-fixed-0;
-  @extend %u-width-full;
   @extend %u-padding-slim;
+  @include above('medium') {
+    height: 8rem;
+  };
+}
+
+.navbar__inner {
+  @extend %u-height-full;
+  @extend %u-position-relative;
 }
 
 .navbar__left,
@@ -14,26 +26,55 @@
   @extend %u-absolute-center-y;
 }
 
-// .navbar__left,
-// .navbar__center {
-//   @include above('small') {
-//     @extend %u-display-none;
-//   }
-// }
+.navbar__left {
+  @include above('medium') {
+    @extend %u-display-none__medium;
+  }
+}
 
 .navbar__left {
-  left: 1rem;
+  @extend %u-position-absolute-left-0;
 }
 
 .navbar__center {
   @extend %u-absolute-center-xy;
+  @include above('medium') {
+    @extend %u-absolute-center-y__medium;
+    @extend %u-position-absolute-left-0__medium;
+  }
 }
 
 .navbar__right {
-  right: 1rem;
+  @extend %u-position-absolute-right-0;
 }
 
-.navbar.js-on {
-  @extend %u-bgc-brand-green;
-  @include box-shadow('brand-green');
+////////////////////////////////////////////////////////////
+//  Behaviour
+////////////////////////////////////////////////////////////
+
+.navbar {
+  @include above('medium') {
+
+    .logo__image--desktop {
+      transition: ease all .2s;
+    }
+  }
+
+  &.js-on {
+    @extend %u-bgc-brand-green;
+    @include box-shadow('brand-green');
+    @include above('medium') {
+      height: 3.5rem;
+
+      .navbar__center {
+        overflow: hidden;
+
+        height: 1.975rem;
+      }
+
+      .logo__image--desktop {
+        transform: translateY(-88.75px)
+      }
+    }
+  }
 }

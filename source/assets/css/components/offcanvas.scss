@@ -10,13 +10,13 @@
   transition: transform .4s ease;
   transform: translateX(-100%);
 
+  @extend %u-bgc-brand-black;
   @extend %u-padding-medium;
   @extend %u-position-fixed;
-  @extend %u-bgc-brand-black;
   @extend %u-width-full;
-
-
-  // @extend %u-display-none;
+  @include above('medium') {
+    @extend %u-display-none__medium;
+  }
 }
 
 .offcanvas__section {
@@ -35,8 +35,8 @@
 
       border-top: 1px solid lighten($brand_black, 15%);
 
-      @extend %u-width-full;
       @extend %u-pseudo-element-base;
+      @extend %u-width-full;
     }
   }
 }
