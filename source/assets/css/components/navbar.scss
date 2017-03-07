@@ -1,4 +1,7 @@
-.navbar,
+.navbar {
+  width: 100vw;
+}
+
 .navbar__inner {
   @extend %u-width-full;
 }
@@ -12,18 +15,19 @@
   @extend %u-position-fixed-0;
   @extend %u-padding-slim;
   @include above('medium') {
-    height: 8rem;
+    height: 10rem;
+    padding-right: 2rem;
   };
 }
 
 .navbar__inner {
+  justify-content: space-between;
   @extend %u-height-full;
-  @extend %u-position-relative;
 }
 
-.navbar__left,
+.navbar__inner,
 .navbar__right {
-  @extend %u-absolute-center-y;
+  @extend %u-row-center;
 }
 
 .navbar__left {
@@ -32,20 +36,8 @@
   }
 }
 
-.navbar__left {
-  @extend %u-position-absolute-left-0;
-}
-
 .navbar__center {
-  @extend %u-absolute-center-xy;
-  @include above('medium') {
-    @extend %u-absolute-center-y__medium;
-    @extend %u-position-absolute-left-0__medium;
-  }
-}
-
-.navbar__right {
-  @extend %u-position-absolute-right-0;
+  @extend %u-overflow-hidden;
 }
 
 .navbar__list,
@@ -84,8 +76,6 @@
       height: 3.5rem;
 
       .navbar__center {
-        overflow: hidden;
-
         height: 1.975rem;
       }
 

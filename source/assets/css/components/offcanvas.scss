@@ -22,7 +22,7 @@
 .offcanvas__section {
   list-style: none;
 
-  @include margin('top', 'medium');
+  @extend %u-margin-top-medium;
   @extend %u-position-relative;
 }
 

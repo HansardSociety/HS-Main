@@ -1,0 +1,27 @@
+.menu {
+  position: fixed;
+  transform: translateY(-1000px);
+  top: 0;
+  background-color: $brand_black;
+  width: 100vw;
+  height: 100%;
+  z-index: -1;
+  left: 0;
+  opacity: .75;
+  transition: all ease .25s;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body.js-show-menu-about,
+body.js-show-menu-our-work {
+  @extend %u-overflow-hidden;
+
+}
+
+body.js-show-menu-about #menu-about,
+body.js-show-menu-our-work #menu-our-work {
+  transform: translateY(0);
+  opacity: 1;
+}

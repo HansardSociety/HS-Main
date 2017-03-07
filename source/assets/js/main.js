@@ -2,6 +2,13 @@ import _ from 'lodash';
 import { throttle } from 'lodash/fp';
 
 ////////////////////////////////////////////////////////////
+//  Global Variables
+////////////////////////////////////////////////////////////
+
+var globalState = document.querySelector('.js-global-state');
+var navbar = document.querySelector('.navbar');
+
+////////////////////////////////////////////////////////////
 //  Toggle state
 ////////////////////////////////////////////////////////////
 
@@ -30,13 +37,43 @@ var forEach = function (array, cb, scope) {
 ////////////////////////////////////////////////////////////
 
 // Button change state
-var buttonsGlobal = document.querySelectorAll('.button.js-global-trigger');
-var buttonsLocal = document.querySelectorAll('.button.js-local-trigger');
+var buttonsGlobal = document.querySelectorAll('.button.js-trigger-global');
+var buttonsLocal = document.querySelectorAll('.button.js-trigger-local');
 
 // Global
 forEach(buttonsGlobal, function (index, value) {
+  var exclusiveTriggers = document.querySelectorAll('.js-trigger-exclusive');
+
   value.onclick = function() {
-    toggleState(this, 'js-on', document.querySelector('.js-global-state'));
+    var trigger = this;
+
+    // Toggle global state
+    toggleState(trigger, 'js-on', globalState);
+
+    // If an exclusive event...
+    if (trigger.classList.contains('js-trigger-exclusive')) {
+
+      // Loop through all exclusive triggers
+      forEach(exclusiveTriggers, function(index, elem) {
+
+        // If trigger element != other exclusive triggers...
+        if ((elem != trigger) && (elem.classList.contains('js-on'))) {
+          var state = elem.getAttribute('data-change-state')
+
+          // Remove on and global states
+          toggleState(elem, 'js-on', globalState);
+        }
+      });
+    }
+
+    // If menu is activated, shrink navbar...
+    if (
+      globalState.classList.toString().indexOf('js-show-menu') > -1
+      && navbar.classList.toString().indexOf('js-on') > -1 == false
+    ) {
+
+      navbar.classList.toggle('js-on');
+    }
   }
 });
 
@@ -44,21 +81,6 @@ forEach(buttonsGlobal, function (index, value) {
 forEach(buttonsLocal, function (index, value) {
   value.onclick = function() {
     var local = this.closest('.js-local-state');
-    var exclusive = local.classList.contains('js-exclusive-state');
-
-    // If local state is an exclusive adjacent state...
-    if (exclusive) {
-      var siblings = local.parentNode.children;
-
-      forEach(siblings, function(index, elem) {
-
-        if ((elem != local) && (elem.classList.contains('js-open'))) {
-          elem.classList.toggle('js-open');
-          elem.querySelector('.js-on').classList.toggle('js-on');
-        }
-      });
-
-    }
 
     toggleState(this, 'js-on', local);
   }
@@ -70,7 +92,6 @@ forEach(buttonsLocal, function (index, value) {
 
 // Navbar scroll
 window.addEventListener('scroll', _.throttle(function() {
-  var navbar = document.querySelector('.navbar');
 
   if ( window.pageYOffset > 0 ) {
     navbar.classList.add('js-on');

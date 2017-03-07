@@ -1,7 +1,8 @@
-ul.nav-list
+ul.navbar__list
+
   - data.hs.navigation.each do |id, navigation|
-    li.nav-list__item(class="#{ 'accordian' if navigation.pages.length > 1 }")
-      h2.title.title--white.title--tiny(class="#{ 'accordian__title' if navigation.pages.length > 1 }")
+    li.navbar__item(class="#{ 'dropdown js-exclusive' if navigation.pages.length > 1 }")
+      h2.title.title--white.title--tiny(class="#{ 'dropdown__title dropdown__title--inline' if navigation.pages.length > 1 }")
 
         / If navigation item contains one or no pages
         - if navigation.pages.length <= 1
@@ -12,18 +13,23 @@ ul.nav-list
         / If navigation item contains more than one page
         - if navigation.pages.length > 1
           = navigation.title
-          .accordian__control
+
+          .dropdown__control
 
             / Accordian control
             = partial 'partials/button',
               :locals => { :button_scope => 'global',
+                           :exclusive => true,
                            :button_type => 'dropdown',
-                           :aria_id => "dropdown-#{ navigation.title.downcase }-button",
-                           :aria_target_id => "dropdown-#{ navigation.title.downcase }-content",
-                           :js_change_state => "js-dropdown-#{ navigation.title.downcase }-open" }
+                           :aria_id => "menu-#{ navigation.title }-button",
+                           :aria_target_id => "menu-#{ navigation.title }",
+                           :js_change_state => "js-show-menu-#{ navigation.title }" }
 
               / Icon
               = partial 'partials/icon',
                 :locals => { :icon => 'chevron-down',
                              :color => 'white',
                              :size => 'medium' }
+
+      .menu(id="menu-#{ navigation.title.downcase.gsub(' ', '-') }")
+        p Hello

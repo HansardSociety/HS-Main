@@ -1,9 +1,10 @@
 button.button(
-  class="js-#{ button_scope }-trigger"
+  class="js-trigger-#{ button_scope }"
+  class="#{ 'js-trigger-exclusive' if exclusive }"
   role="button"
-  id="#{ aria_id.downcase }"
-  aria-controls="#{ aria_target_id.downcase }"
-  data-change-state="#{ js_change_state.downcase.gsub(' ','-') }"
+  id="#{ aria_id.downcase.gsub(' ', '-') }"
+  aria-controls="#{ aria_target_id.downcase.gsub(' ', '-') }"
+  data-change-state="#{ js_change_state.downcase.gsub(' ', '-') }"
 )
 
   - if button_type != 'menu'
