@@ -23,6 +23,7 @@
 
   @extend %u-cursor-pointer;
   @extend %u-position-relative;
+  @extend %u-overflow-hidden; // prevents svg viewbox overflow
 }
 
 .button__menu,
