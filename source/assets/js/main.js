@@ -56,23 +56,25 @@ forEach(buttonsGlobal, function (index, value) {
       // Loop through all exclusive triggers
       forEach(exclusiveTriggers, function(index, elem) {
 
-        // If trigger element != other exclusive triggers...
+        // If (this) trigger element != other exclusive triggers...
         if ((elem != trigger) && (elem.classList.contains('js-on'))) {
           var state = elem.getAttribute('data-change-state')
 
-          // Remove on and global states
+          // Remove on- and global-states
           toggleState(elem, 'js-on', globalState);
         }
       });
     }
 
     // If menu is activated, shrink navbar...
-    if (
-      globalState.classList.toString().indexOf('js-show-menu') > -1
-      && navbar.classList.toString().indexOf('js-on') > -1 == false
-    ) {
+    var menuOn = globalState.classList.toString().indexOf('js-show-menu') > -1
+    var navbarOn = navbar.classList.toString().indexOf('js-on') > -1
 
+    if (menuOn === true && navbarOn === false) {
       navbar.classList.toggle('js-on');
+
+    } else if (menuOn === false && window.pageYOffset < 1) {
+      navbar.classList.remove('js-on');
     }
   }
 });
@@ -90,10 +92,10 @@ forEach(buttonsLocal, function (index, value) {
 //  Scrolling
 ////////////////////////////////////////////////////////////
 
-// Navbar scroll
+// Navbar shrink
 window.addEventListener('scroll', _.throttle(function() {
 
-  if ( window.pageYOffset > 0 ) {
+  if ( window.pageYOffset >= 1 ) {
     navbar.classList.add('js-on');
   } else {
     navbar.classList.remove('js-on');

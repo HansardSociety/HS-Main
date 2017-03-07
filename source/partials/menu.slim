@@ -32,4 +32,12 @@ ul.navbar__list
                              :size => 'medium' }
 
       .menu(id="menu-#{ navigation.title.downcase.gsub(' ', '-') }")
-        p Hello
+        ul.menu__inner
+          - navigation.pages.group_by(&:category).each do |category, pages|
+
+            li.menu__column(class="menu__column--#{ category.downcase.gsub(' ', '-') }")
+              h3.title.title--flow.title--secondary.title--white= category
+
+              - pages.each do |page|
+                h4.title.title--flow.title--tiny.title--white
+                  a(href="https://www.hansardsociety.org.uk/#{ page.category.downcase.gsub(' ', '-') }/#{ page.slug }")= page.title

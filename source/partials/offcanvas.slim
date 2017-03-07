@@ -42,4 +42,4 @@
                 - pages.each do |page|
                   li
                     h4.title.title--flow.title--white.title--tiny
-                      a(href="https://www.hansardsociety.org.uk/#{ page.category }/#{ page.slug }")= page.title
+                      a(href="https://www.hansardsociety.org.uk/#{ page.category.downcase.gsub(' ', '-') }/#{ page.slug }")= page.title

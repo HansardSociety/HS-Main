@@ -2,16 +2,13 @@
   width: 100vw;
 }
 
-.navbar__inner {
-  @extend %u-width-full;
-}
-
 .navbar {
   z-index: 100;
 
   height: 3.5rem;
 
-  @extend %u-transition-all;
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
+
   @extend %u-position-fixed-0;
   @extend %u-padding-slim;
   @include above('medium') {
@@ -22,7 +19,9 @@
 
 .navbar__inner {
   justify-content: space-between;
+
   @extend %u-height-full;
+  @extend %u-row-outer;
 }
 
 .navbar__inner,
@@ -65,7 +64,7 @@
   @include above('medium') {
 
     .logo__image--desktop {
-      transition: ease all .2s;
+      transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
     }
   }
 
@@ -76,11 +75,12 @@
       height: 3.5rem;
 
       .navbar__center {
-        height: 1.975rem;
+        height: inherit;
       }
 
       .logo__image--desktop {
-        transform: translateY(-88.75px)
+        transform: translateY(-5.886rem);
+        animation: fadeInOut .5s;
       }
     }
   }
