@@ -11,19 +11,19 @@
   opacity: .85;
 
   @extend %u-bgc-brand-black;
+  @extend %u-container-medium;
   @extend %u-height-full;
   @extend %u-overflow-y-scroll;
   @extend %u-z-index-negative;
 }
 
 .menu__inner {
-  display: flex;
-
-  padding: 2rem 0;
+  padding-top: 2rem;
 
   flex-flow: row nowrap;
   justify-content: space-between;
-  @extend %u-row-outer;
+  @extend %u-display-flex;
+  @extend %u-row;
 }
 
 .menu__column {
@@ -46,28 +46,28 @@
   @include accent('light-blue', 'top');
 }
 
+.menu__link {
+  margin-top: 1em;
+  padding: .5rem;
+
+  background-color: $brand_black_1;
+
+  @extend %u-border-radius-1;
+  @extend %u-display-block;
+
+  &:hover {
+    background-color: $brand_black_2;
+  }
+}
+
 body.js-show-menu-about,
 body.js-show-menu-our-work {
   @extend %u-overflow-hidden;
-
-  .navbar__inner::after {
-    top: 0;
-    left: 0;
-
-    height: 3.5rem;
-
-    border-bottom: 1px solid lighten($brand_black, 15%);
-
-    @extend %u-bgc-brand-black;
-    @extend %u-pseudo-element-base;
-    @extend %u-width-full;
-    @extend %u-z-index-negative;
-  }
 }
 
 body.js-show-menu-about #menu-about,
 body.js-show-menu-our-work #menu-our-work {
   top: 0;
 
-  opacity: 1;
+  @extend %u-opacity-1;
 }

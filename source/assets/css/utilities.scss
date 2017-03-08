@@ -10,21 +10,11 @@
 ////////////////////////////////////////////////////////////
 
 $properties: (
-  display: (
-    none, block, inline-block, flex
-  ),
-  position: (
-    relative, absolute, fixed
-  ),
-  origins: (
-    left, top, right, bottom
-  ),
-  axies: (
-    0, 50, 100
-  ),
-  opacity: (
-    0, 1
-  )
+  display:  ( none, block, inline-block, flex ),
+  position: ( relative, absolute, fixed ),
+  origins:  ( left, top, right, bottom ),
+  axies:    ( 0, 50, 100 ),
+  opacity:  ( 0, 1 )
 );
 
 ////////////////////////////////////////////////////////////
@@ -33,37 +23,30 @@ $properties: (
 
 @each $position in map-get($properties, position) {
 
-  %u-position-#{ $position } {
-    position: #{ $position }
-  }
+  // Create base position
+  %u-position-#{ $position } { position: #{ $position } }
 
   // Create positioning placeholders for x/y axies
-
   @each $origin in map-get($properties, origins) {
-
     @each $axis in map-get($properties, axies) {
-
       %u-position-#{ $position }-#{ $origin }-#{ $axis } {
-
-        @extend %u-position-#{ $position };
         #{ $origin }: #{ $axis + '%' };
+        @extend %u-position-#{ $position };
       }
     }
 
+    // Position placeholders for breakpoints
     @each $screen in map-keys($breakpoints) {
-
       @include above('#{ $screen }') {
 
-        %u-position-#{ $position }__#{ $screen } {
-          position: #{ $position }
-        }
+        // Create position base, at screen
+        %u-position-#{ $position }__#{ $screen } { position: #{ $position } }
 
+        // Create positioning placeholders for x/y axies, at screen
         @each $axis in map-get($properties, axies) {
-
           %u-position-#{ $position }-#{ $origin }-#{ $axis }__#{ $screen } {
-
-            @extend %u-position-#{ $position }__#{ $screen };
             #{ $origin }: #{ $axis + '%' };
+            @extend %u-position-#{ $position }__#{ $screen };
           }
         }
       }
@@ -72,72 +55,29 @@ $properties: (
 }
 
 %u-position-absolute-0,
-%u-position-fixed-0 {
-  top: 0;
-  left: 0;
-}
+%u-position-fixed-0     {  top: 0; left: 0; }
+%u-position-absolute-0  { @extend %u-position-absolute; }
+%u-position-fixed-0     { @extend %u-position-fixed; }
 
-// Absolute
-%u-position-absolute-0 {
-  @extend %u-position-absolute;
-}
-
-// Fixed
-%u-position-fixed-0 {
-  @extend %u-position-fixed;
-}
-
-////////////////////////////////////////////////////////////
-//  Absolute Centre
-////////////////////////////////////////////////////////////
-
+// Position absolute center
 %u-absolute-center-x,
-%u-absolute-center-xy {
-  @extend %u-position-absolute-left-50;
-}
-
+%u-absolute-center-xy { @extend %u-position-absolute-left-50; }
 %u-absolute-center-y,
-%u-absolute-center-xy {
-  @extend %u-position-absolute-top-50;
-}
+%u-absolute-center-xy { @extend %u-position-absolute-top-50; }
+%u-absolute-center-x  { transform: translateX(-50%); }
+%u-absolute-center-y  { transform: translateY(-50%); }
+%u-absolute-center-xy { transform: translate(-50%, -50%); }
 
-%u-absolute-center-x {
-  transform: translateX(-50%);
-}
-
-%u-absolute-center-y {
-  transform: translateY(-50%);
-}
-
-%u-absolute-center-xy {
-  transform: translate(-50%, -50%);
-}
-
+// Position absolute center breakpoints
 @each $screen in map-keys($breakpoints) {
-
   @include above('#{ $screen }') {
-
-    %u-absolute-center-x__#{ $screen },
-    %u-absolute-center-xy__#{ $screen } {
-      @extend %u-position-absolute-left-50__#{ $screen };
-    }
-
-    %u-absolute-center-y__#{ $screen },
-    %u-absolute-center-xy__#{ $screen } {
-      @extend %u-position-absolute-top-50__#{ $screen };
-    }
-
-    %u-absolute-center-x__#{ $screen } {
-      transform: translateX(-50%);
-    }
-
-    %u-absolute-center-y__#{ $screen } {
-      transform: translateY(-50%);
-    }
-
-    %u-absolute-center-xy__#{ $screen } {
-      transform: translate(-50%, -50%);
-    }
+    %u-absolute-center-x__#{  $screen },
+    %u-absolute-center-xy__#{ $screen } { @extend %u-position-absolute-left-50__#{ $screen }; }
+    %u-absolute-center-y__#{  $screen },
+    %u-absolute-center-xy__#{ $screen } { @extend %u-position-absolute-top-50__#{ $screen }; }
+    %u-absolute-center-x__#{  $screen } { transform: translateX(-50%); }
+    %u-absolute-center-y__#{  $screen } { transform: translateY(-50%); }
+    %u-absolute-center-xy__#{ $screen } { transform: translate(-50%, -50%); }
   }
 }
 
@@ -145,33 +85,17 @@ $properties: (
 //  Overflow
 ////////////////////////////////////////////////////////////
 
-%u-overflow-auto {
-  overflow: auto;
-}
-
-%u-overflow-y-auto {
-  overflow-y: auto;
-}
-
-%u-overflow-y-scroll {
-  overflow-y: scroll;
-}
-
-%u-overflow-hidden {
-  overflow: hidden;
-}
-
-%u-overflow-x-hidden {
-  overflow-x: hidden;
-}
+%u-overflow-auto     { overflow: auto; }
+%u-overflow-hidden   { overflow: hidden; }
+%u-overflow-y-auto   { overflow-y: auto; }
+%u-overflow-y-scroll { overflow-y: scroll; }
+%u-overflow-x-hidden { overflow-x: hidden; }
 
 ////////////////////////////////////////////////////////////
 //  Misc
 ////////////////////////////////////////////////////////////
 
-%u-z-index-negative {
-  z-index: -1;
-}
+%u-z-index-negative { z-index: -1; }
 
 %u-hidden {
   clip: rect(1px, 1px, 1px, 1px);
@@ -196,12 +120,20 @@ $properties: (
 //  =Display
 ////////////////////////////////////////////////////////////
 
+%u-flex-row-center {
+  flex-flow: row wrap;
+  align-items: center;
+
+  @extend %u-display-flex;
+}
+
+
 @each $property in map-get($properties, display) {
 
-  %u-display-#{ $property } {
-    display: #{ $property }
-  }
+  // Display base
+  %u-display-#{ $property } { display: #{ $property } }
 
+  // Display breakpoints
   @each $screen in map-keys($breakpoints) {
     @include above('#{ $screen }') {
       %u-display-#{ $property }__#{ $screen } {
@@ -212,57 +144,35 @@ $properties: (
 }
 
 ////////////////////////////////////////////////////////////
-//  Width/ Height
+//  =Width/ Height
 ////////////////////////////////////////////////////////////
 
-%u-width-full {
-  width: 100%;
-}
-
-%u-height-full {
-  height: 100%;
-}
+%u-width-full  { width: 100%; }
+%u-height-full { height: 100%; }
 
 ////////////////////////////////////////////////////////////
-//  Padding/ Margin
+//  =Containers/ Rows
 ////////////////////////////////////////////////////////////
 
-%u-padding-slim {
-  padding: .5rem 1rem;
-}
+// Margins
+%u-margin-0          { margin: 0 }
+%u-margin-top-xsmall { margin-top: .5rem; }
+%u-margin-top-small  { margin-top: 1rem; }
+%u-margin-top-medium { margin-top: 2rem; }
+%u-margin-center-x   { margin: 0 auto; }
 
-%u-padding-medium {
-  padding: 1rem;
-}
+// Padding
+%u-padding-top-small  { padding-top: 1rem; }
+%u-padding-top-medium { padding-top: 2rem; }
 
-%u-padding-large {
-  padding: 2rem 1rem;
-}
+// Containers
+%u-container-xsmall { padding: .5rem 1rem; }
+%u-container-small  { padding: 1rem; }
+%u-container-medium { padding: 2rem 1rem; }
+%u-container-large  { padding: 3rem 1rem; }
 
-%u-margin-top-small {
-  margin-top: 1rem;
-}
-
-%u-margin-top-medium {
-  margin-top: 2rem;
-}
-
-%u-margin-center-x {
-  margin: 0 auto;
-}
-
-////////////////////////////////////////////////////////////
-//  Containers
-////////////////////////////////////////////////////////////
-
-%u-row-center {
-  flex-flow: row wrap;
-  align-items: center;
-
-  @extend %u-display-flex;
-}
-
-%u-row-outer {
+// Row
+%u-row {
   width: 60rem;
   max-width: 100%;
 
@@ -273,75 +183,75 @@ $properties: (
 //  =Decoration
 ////////////////////////////////////////////////////////////
 
-%u-bgc-brand-green {
-  background-color: $brand_green;
-}
+// Colors
+%u-color-brand-black   { color: $brand_black; }
+%u-color-brand-black-1 { color: $brand_black_1; }
+%u-color-brand-black-2 { color: $brand_black_2; }
+%u-color-brand-white   { color: $brand_white; }
+%u-color-brand-green   { color: $brand_green; }
 
-%u-bgc-brand-black {
-  background-color: $brand_black;
-}
-
-%u-box-shadow-brand-green {
-  box-shadow: 0 0 10px 3px darken($brand_green, 15%);
-}
+// Background colors
+%u-bgc-brand-green        { background-color: $brand_green; }
+%u-bgc-brand-black        { background-color: $brand_black; }
+%u-box-shadow-brand-green { box-shadow: 0 0 10px 3px darken($brand_green, 15%); }
 
 // Accents
+%u-accent-brand-green-top       { border-top: 2px solid $brand_green; }
+%u-accent-brand-light-green-top { border-top: 2px solid $brand_light_green; }
+%u-accent-brand-light-blue-top  { border-top: 2px solid $brand_light_blue; }
 
-%u-accent-brand-green-top {
-  border-top: 2px solid $brand_green;
-}
+// Cursors
+%u-cursor-pointer { cursor: pointer; }
 
-%u-accent-brand-light-green-top {
-  border-top: 2px solid $brand_light_green;
-}
+// Border radius
+%u-border-radius-1 { border-radius: 1px; }
 
-%u-accent-brand-light-blue-top {
-  border-top: 2px solid $brand_light_blue;
-}
+// Opacity
+%u-opacity-0 { opacity: 0; }
+%u-opacity-1 { opacity: 1; }
 
-%u-cursor-pointer {
-  cursor: pointer;
-}
-
-////////////////////////////////////////////////////////////
-//  Opacity
-////////////////////////////////////////////////////////////
-
-%u-opacity-0 {
-  opacity: 0;
-}
-
-%u-opacity-1 {
-  opacity: 1;
-}
-
+// Opacity breakpoints loop
 @each $screen in map-keys($breakpoints) {
-
   @include above('#{ $screen }') {
-
     @each $opacity in map-get($properties, opacity) {
-
       %u-opacity-#{ $opacity }__#{ $screen } {
-        opacity: #{ $opacity }
+        opacity: #{ $opacity };
       }
     }
   }
 }
 
 ////////////////////////////////////////////////////////////
-//  =Animation
+//  =Animations/ Transitions
 ////////////////////////////////////////////////////////////
 
-%u-transition-all {
-  transition: all .2s ease;
-}
+%u-transition-base-all       { transition: all $transition_base; }
+%u-transition-base-transform { transition: transform $transition_base; }
 
 @each $screen in map-keys($breakpoints) {
-
   @include above('#{ $screen }') {
-
-    %u-transition-all__#{ $screen } {
-      transition: all ease .25s;
-    }
+    %u-transition-base-all__#{ $screen }       { transition: all $transition_base; }
+    %u-transition-base-transform__#{ $screen } { transition: transform $transition_base; }
   }
 }
+
+////////////////////////////////////////////////////////////
+//  =Type
+////////////////////////////////////////////////////////////
+
+%u-vertical-rhythm-small  { margin-top: .5em; }
+%u-vertical-rhythm-medium { margin-top: 1em; }
+%u-vertical-rhythm-large  { margin-top: 1.5em; }
+
+%u-font-weight-light  { font-weight: 400; }
+%u-font-weight-medium { font-weight: 600; }
+%u-font-weight-heavy  { font-weight: 800; }
+
+%u-font-size-xsmall { font-size: 1rem; }
+%u-font-size-small  { font-size: 1.25rem; }
+%u-font-size-medium { font-size: 1.5rem; }
+%u-font-size-large  { font-size: 1.75rem; }
+%u-font-size-xlarge { font-size: 2rem; }
+
+%u-uppercase { text-transform: uppercase; }
+%u-lowercase { text-transform: lowercase; }

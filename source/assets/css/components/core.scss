@@ -1,19 +1,21 @@
+////////////////////////////////////////////////////////////
+//  Main
+////////////////////////////////////////////////////////////
+
 html {
   font-size: 18px;
-
-  background-color: pink;
-}
-
-body.js-show-offcanvas {
-  @extend %u-overflow-hidden;
+  background-color: tan;
 }
 
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-ul {
+h1, h2, h3, h4, h5, h6, ul {
   margin: 0;
+}
+
+ul {
   padding: 0;
 }
 
@@ -24,4 +26,12 @@ li {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+////////////////////////////////////////////////////////////
+//  Behaviour
+////////////////////////////////////////////////////////////
+
+body.js-show-offcanvas {
+  @extend %u-overflow-hidden;
 }

@@ -7,10 +7,9 @@
 
   height: 3.5rem;
 
-  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
-
+  @extend %u-transition-base-all;
   @extend %u-position-fixed-0;
-  @extend %u-padding-slim;
+  @extend %u-container-xsmall;
   @include above('medium') {
     height: 10rem;
     padding-right: 2rem;
@@ -19,14 +18,13 @@
 
 .navbar__inner {
   justify-content: space-between;
-
   @extend %u-height-full;
-  @extend %u-row-outer;
+  @extend %u-row;
 }
 
 .navbar__inner,
 .navbar__right {
-  @extend %u-row-center;
+  @extend %u-flex-row-center;
 }
 
 .navbar__left {
@@ -55,33 +53,50 @@
   padding-right: .5rem;
 }
 
-
 ////////////////////////////////////////////////////////////
 //  Behaviour
 ////////////////////////////////////////////////////////////
 
-.navbar {
+.navbar.js-on {
+  @extend %u-bgc-brand-green;
+  @include box-shadow('brand-green');
   @include above('medium') {
+    height: 3.5rem;
+
+    .navbar__center {
+      height: inherit;
+    }
 
     .logo__image--desktop {
-      transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
+      transform: translateY(-5.886rem);
+      animation: fadeInOut .5s;
     }
   }
+}
 
-  &.js-on {
-    @extend %u-bgc-brand-green;
-    @include box-shadow('brand-green');
-    @include above('medium') {
+body.js-show-offcanvas,
+body.js-show-menu-about,
+body.js-show-menu-our-work {
+  .navbar {
+    &::after {
+      top: 0;
+      left: 0;
+
       height: 3.5rem;
 
-      .navbar__center {
-        height: inherit;
-      }
+      border-bottom: 1px solid $brand_black_2;
 
-      .logo__image--desktop {
-        transform: translateY(-5.886rem);
-        animation: fadeInOut .5s;
-      }
+      @extend %u-bgc-brand-black;
+      @extend %u-pseudo-element-base;
+      @extend %u-width-full;
+      @extend %u-z-index-negative;
     }
+  }
+}
+
+body.js-show-offcanvas {
+  .navbar {
+    width: calc(30rem - 4rem);
+    max-width: 100%;
   }
 }

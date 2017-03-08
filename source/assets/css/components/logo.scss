@@ -1,9 +1,9 @@
 .logo {
-  // height: 1.5rem;
+  width: 6rem;
 }
 
 .logo__image {
-  width: 6rem;
+  width: inherit;
 }
 
 .logo__image--mobile {
@@ -14,8 +14,8 @@
 
 .logo__image--desktop {
   @extend %u-display-none;
-
   @include above('medium') {
     @extend %u-display-block__medium;
+    @extend %u-transition-base-transform__medium;
   }
 }

@@ -21,16 +21,6 @@
   @extend %u-overflow-hidden;
 }
 
-.dropdown__content--fullscreen {
-  position: fixed;
-  top: 0; left: 0;
-  // width: 100vw;
-  // height: 100%;
-  background-color: black;
-
-  z-index: -1;
-}
-
 .dropdown.js-open {
   .dropdown__content {
     height: inherit;
@@ -39,30 +29,3 @@
     @extend %u-overflow-auto;
   }
 }
-
-////////////////////////////////////////////////////////////
-//  States
-////////////////////////////////////////////////////////////
-
-// $dropdowns: (
-//   categories: (
-//     'about', 'our-work'
-//   ),
-//   targets: (
-//     'menu', 'offcanvas'
-//   )
-// );
-//
-// @each $target in map-get($dropdowns, targets) {
-//
-//   @each $category in map-get($dropdowns, categories) {
-//
-//     body.js-show-dropdown-#{ $target }-#{ $category } {
-//
-//       #dropdown-#{ $target }-#{ $category }-content.dropdown__content--fullscreen {
-//           width: 100vw;
-//           height: 100%;
-//       }
-//     }
-//   }
-// }

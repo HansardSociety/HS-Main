@@ -16,11 +16,16 @@ $brand_light_blue:    #6ba4b8;
 
 $brand_dark_brown:    #572932;
 
+$brand_black_1:       lighten($brand_black, 5%);
+$brand_black_2:       lighten($brand_black, 15%);
+$brand_black_3:       lighten($brand_black, 5%);
+
 ////////////////////////////////////////////////////////////
 //  Transitions
 ////////////////////////////////////////////////////////////
 
 $transition_all:      all ease .1s;
+$transition_base:     cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
 
 ////////////////////////////////////////////////////////////
 //  Breakpoints
