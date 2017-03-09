@@ -1,16 +1,16 @@
 - @data = contentful
 
-.offcanvas{
-  class="offcanvas--#{ screen }"
-    id="offcanvas-#{
+.menu{
+  class="menu--#{ screen }"
+    id="menu-#{
       screen == 'mobile' ?
       'mobile' :
       'desktop-' + @data.title.downcase.gsub(' ', '-')
     }"
 }
 
-  ul.offcanvas__container{
-    class="#{ 'offcanvas__container--columns' if screen == 'desktop' }"
+  ul.menu__container{
+    class="#{ 'menu__container--columns' if screen == 'desktop' }"
   }
 
     ////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@
     - if screen == 'mobile'
       - data.hs.navigation.each do |id, navigation|
 
-        li.offcanvas__category.offcanvas__category--outer{
+        li.menu__category.menu__category--outer{
           class="#{ 'dropdown js-local-state' if navigation.pages.length > 1 }"
         }
 
@@ -46,8 +46,8 @@
                   :locals => { :button_scope => 'local',
                                :exclusive => false,
                                :button_type => 'dropdown',
-                               :aria_id => "offcanvas-dropdown-#{ navigation.title.downcase }-button",
-                               :aria_target_id => "offcanvas-dropdown-#{ navigation.title.downcase }-content",
+                               :aria_id => "menu-dropdown-#{ navigation.title.downcase }-button",
+                               :aria_target_id => "menu-dropdown-#{ navigation.title.downcase }-content",
                                :js_change_state => 'js-open' }
 
                   / Icon
@@ -58,19 +58,19 @@
 
           ul{
             class="#{ 'dropdown__content' if navigation.pages }"
-            id="offcanvas-dropdown-#{ navigation.title.downcase }-content"
+            id="menu-dropdown-#{ navigation.title.downcase }-content"
           }
 
             / Group pages by category
             - navigation.pages.group_by(&:category).each do |category, pages|
-              li.offcanvas__category{ class="offcanvas__category--#{ category.downcase }" }
+              li.menu__category{ class="menu__category--#{ category.downcase }" }
                 h3.alt-title= category if navigation.title != category
                 ul
 
                   - pages.each do |page|
                     li
                       h4.title.title--xsmall.title--white
-                        a.offcanvas__link{
+                        a.menu__link{
                           href="https://www.hansardsociety.org.uk/#{
                             page.category.downcase.gsub(' ', '-') + '/' +
                             page.slug
@@ -83,14 +83,14 @@
 
     - if screen == 'desktop'
       - @data.pages.group_by(&:category).each do |category, pages|
-        li.offcanvas__column{
-          class="offcanvas__column--#{ category.downcase.gsub(' ', '-') }"
+        li.menu__column{
+          class="menu__column--#{ category.downcase.gsub(' ', '-') }"
         }
           h3.alt-title= category
 
           - pages.each do |page|
             h4.title.title--xsmall.title--white
-              a.offcanvas__link{
+              a.menu__link{
                 href="https://www.hansardsociety.org.uk/#{
                   page.category.downcase.gsub(' ', '-') + '/' +
                   page.slug

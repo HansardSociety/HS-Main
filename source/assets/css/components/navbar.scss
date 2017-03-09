@@ -80,9 +80,9 @@
   }
 }
 
-body.js-show-offcanvas-mobile,
-body.js-show-offcanvas-desktop-about,
-body.js-show-offcanvas-desktop-our-work {
+body.js-show-menu-mobile,
+body.js-show-menu-desktop-about,
+body.js-show-menu-desktop-our-work {
   .navbar {
     box-shadow: none;
 
@@ -103,7 +103,7 @@ body.js-show-offcanvas-desktop-our-work {
   }
 }
 
-body.js-show-offcanvas-mobile {
+body.js-show-menu-mobile {
   .navbar {
     width: calc(30rem - 4rem);
     max-width: 100%;

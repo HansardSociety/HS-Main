@@ -5,8 +5,8 @@ nav.navbar{ role="navigation" }
     / Hidden site title
     h1.hidden= @site_title
 
-    / Offcanvas
-    = partial 'partials/offcanvas',
+    / menu
+    = partial 'partials/menu',
       :locals => { :screen => 'mobile',
                    :contentful => 'false' }
 
@@ -18,8 +18,8 @@ nav.navbar{ role="navigation" }
                      :exclusive => true,
                      :button_type => 'menu',
                      :aria_id => 'navbar-menu-button',
-                     :aria_target_id => 'offcanvas-mobile',
-                     :js_change_state => 'js-show-offcanvas-mobile'}
+                     :aria_target_id => 'menu-mobile',
+                     :js_change_state => 'js-show-menu-mobile'}
 
     .navbar__center
 
@@ -61,9 +61,9 @@ nav.navbar{ role="navigation" }
                     :locals => { :button_scope => 'global',
                                  :exclusive => true,
                                  :button_type => 'dropdown',
-                                 :aria_id => "offcanvas-desktop-#{ navigation.title }-button",
-                                 :aria_target_id => "offcanvas-desktop-#{ navigation.title }",
-                                 :js_change_state => "js-show-offcanvas-desktop-#{ navigation.title }" }
+                                 :aria_id => "menu-desktop-#{ navigation.title }-button",
+                                 :aria_target_id => "menu-desktop-#{ navigation.title }",
+                                 :js_change_state => "js-show-menu-desktop-#{ navigation.title }" }
 
                     / Icon
                     = partial 'partials/icon',
@@ -71,7 +71,7 @@ nav.navbar{ role="navigation" }
                                    :color => 'white',
                                    :size => 'medium' }
 
-            = partial 'partials/offcanvas',
+            = partial 'partials/menu',
               :locals => { :screen => 'desktop',
                            :contentful => navigation }
 
