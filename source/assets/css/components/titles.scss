@@ -7,16 +7,13 @@
     %u-uppercase;
 }
 
-.overlay-title {
-  @extend
-    %u-color-brand-white,
-    %u-font-weight-medium;
+.title {
+  @extend %u-font-weight-medium;
 }
 
-.overlay-title--small {
-  @extend %u-font-size-small;
-}
+.title--xsmall { @extend %u-font-size-xsmall; }
+.title--small  { @extend %u-font-size-small; }
 
-.overlay-title--xsmall {
-  @extend %u-font-size-xsmall;
+.title--white {
+  @extend %u-color-brand-white;
 }

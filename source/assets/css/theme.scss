@@ -25,7 +25,9 @@ $brand_black_3:       lighten($brand_black, 5%);
 ////////////////////////////////////////////////////////////
 
 $transition_all:      all ease .1s;
-$transition_base:     cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
+$transition_base:     ease .4s;
+
+// cubic-bezier(0.175, 0.885, 0.32, 1.275)
 
 ////////////////////////////////////////////////////////////
 //  Breakpoints

@@ -1,11 +1,14 @@
-nav.navbar(role="navigation")
+nav.navbar{ role="navigation" }
 
   .navbar__inner
 
+    / Hidden site title
     h1.hidden= @site_title
 
     / Offcanvas
-    = partial 'partials/offcanvas'
+    = partial 'partials/offcanvas',
+      :locals => { :screen => 'mobile',
+                   :contentful => 'false' }
 
     .navbar__left
 
@@ -15,16 +18,62 @@ nav.navbar(role="navigation")
                      :exclusive => true,
                      :button_type => 'menu',
                      :aria_id => 'navbar-menu-button',
-                     :aria_target_id => 'offcanvas',
-                     :js_change_state => 'js-show-offcanvas'}
+                     :aria_target_id => 'offcanvas-mobile',
+                     :js_change_state => 'js-show-offcanvas-mobile'}
 
     .navbar__center
+
       / Logo
       =partial 'partials/logo'
 
     .navbar__right
 
-      = partial 'partials/menu'
+      ul.navbar__list
+
+        - data.hs.navigation.each do |id, navigation|
+          li.navbar__item{
+            class="#{
+              'dropdown js-exclusive' if navigation.pages.length > 1
+            }"
+          }
+            h2.title.title--xsmall.title--white{
+              class="#{
+                'dropdown__title dropdown__title--inline' if navigation.pages.length > 1
+              }"
+            }
+
+              / If navigation item contains one or no pages
+              - if navigation.pages.length <= 1
+                - navigation.pages.each do |page|
+                  a{
+                    href="#{ @site_url + '/' + page.slug }"
+                    title="#{ navigation.title + ' - ' + @site_title }"
+                  }= navigation.title
+
+              / If navigation item contains more than one page
+              - if navigation.pages.length > 1
+                = navigation.title
+
+                .dropdown__control
+
+                  / Accordian control
+                  = partial 'partials/button',
+                    :locals => { :button_scope => 'global',
+                                 :exclusive => true,
+                                 :button_type => 'dropdown',
+                                 :aria_id => "offcanvas-desktop-#{ navigation.title }-button",
+                                 :aria_target_id => "offcanvas-desktop-#{ navigation.title }",
+                                 :js_change_state => "js-show-offcanvas-desktop-#{ navigation.title }" }
+
+                    / Icon
+                    = partial 'partials/icon',
+                      :locals => { :icon => 'chevron-down',
+                                   :color => 'white',
+                                   :size => 'medium' }
+
+            = partial 'partials/offcanvas',
+              :locals => { :screen => 'desktop',
+                           :contentful => navigation }
 
       / Search
       = partial 'partials/button',

@@ -67,13 +67,13 @@ forEach(buttonsGlobal, function (index, value) {
     }
 
     // If menu is activated, shrink navbar...
-    var menuOn = globalState.classList.toString().indexOf('js-show-menu') > -1
+    var offcanvasDesktopOn = globalState.classList.toString().indexOf('js-show-offcanvas-desktop') > -1
     var navbarOn = navbar.classList.toString().indexOf('js-on') > -1
 
-    if (menuOn === true && navbarOn === false) {
+    if (offcanvasDesktopOn === true && navbarOn === false) {
       navbar.classList.toggle('js-on');
 
-    } else if (menuOn === false && window.pageYOffset < 1) {
+    } else if (offcanvasDesktopOn === false && window.pageYOffset < 1) {
       navbar.classList.remove('js-on');
     }
   }

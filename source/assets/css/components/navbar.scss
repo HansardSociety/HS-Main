@@ -7,9 +7,11 @@
 
   height: 3.5rem;
 
-  @extend %u-transition-base-all;
-  @extend %u-position-fixed-0;
-  @extend %u-container-xsmall;
+  @extend
+    %u-position-fixed-0,
+    %u-container-xsmall,
+    %u-transition-base-all;
+
   @include above('medium') {
     height: 10rem;
     padding-right: 2rem;
@@ -18,8 +20,10 @@
 
 .navbar__inner {
   justify-content: space-between;
-  @extend %u-height-full;
-  @extend %u-row;
+
+  @extend
+    %u-height-full,
+    %u-row;
 }
 
 .navbar__inner,
@@ -59,7 +63,9 @@
 
 .navbar.js-on {
   @extend %u-bgc-brand-green;
+
   @include box-shadow('brand-green');
+
   @include above('medium') {
     height: 3.5rem;
 
@@ -74,10 +80,12 @@
   }
 }
 
-body.js-show-offcanvas,
-body.js-show-menu-about,
-body.js-show-menu-our-work {
+body.js-show-offcanvas-mobile,
+body.js-show-offcanvas-desktop-about,
+body.js-show-offcanvas-desktop-our-work {
   .navbar {
+    box-shadow: none;
+
     &::after {
       top: 0;
       left: 0;
@@ -86,15 +94,16 @@ body.js-show-menu-our-work {
 
       border-bottom: 1px solid $brand_black_2;
 
-      @extend %u-bgc-brand-black;
-      @extend %u-pseudo-element-base;
-      @extend %u-width-full;
-      @extend %u-z-index-negative;
+      @extend
+        %u-bgc-brand-black,
+        %u-pseudo-element-base,
+        %u-width-full,
+        %u-z-index-negative;
     }
   }
 }
 
-body.js-show-offcanvas {
+body.js-show-offcanvas-mobile {
   .navbar {
     width: calc(30rem - 4rem);
     max-width: 100%;

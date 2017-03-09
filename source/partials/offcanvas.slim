@@ -1,47 +1,98 @@
-.offcanvas#offcanvas
-  ul.offcanvas__container
-    - data.hs.navigation.each do |id, navigation|
-      li.offcanvas__category(class="#{ 'dropdown js-local-state' if navigation.pages.length > 1 }")
-        h2.overlay-title.overlay-title--small(class="#{ 'dropdown__title' if navigation.pages.length > 1 }")
+- @data = contentful
 
-          / If navigation item contains one or no pages
-          - if navigation.pages.length <= 1
-            - navigation.pages.each do |page|
-              a(href="#{ @site_url }/#{ page.slug }"
-                title="#{ navigation.title } - #{ @site_title }")= navigation.title
+.offcanvas{
+  class="offcanvas--#{ screen }"
+    id="offcanvas-#{
+      screen == 'mobile' ?
+      'mobile' :
+      'desktop-' + @data.title.downcase.gsub(' ', '-')
+    }"
+}
 
-          / If navigation item contains more than one page
-          - if navigation.pages.length > 1
-            = navigation.title
-            .dropdown__control
+  ul.offcanvas__container{
+    class="#{ 'offcanvas__container--columns' if screen == 'desktop' }"
+  }
 
-              / dropdown control
-              = partial 'partials/button',
-                :locals => { :button_scope => 'local',
-                             :exclusive => false,
-                             :button_type => 'dropdown',
-                             :aria_id => "offcanvas-dropdown-#{ navigation.title.downcase }-button",
-                             :aria_target_id => "offcanvas-dropdown-#{ navigation.title.downcase }-content",
-                             :js_change_state => 'js-open' }
+    ////////////////////////////////////////////////////////
+    // Mobile
+    ////////////////////////////////////////////////////////
 
-                / Icon
-                = partial 'partials/icon',
-                  :locals => { :icon => 'chevron-down',
-                               :color => 'white',
-                               :size => 'medium' }
+    - if screen == 'mobile'
+      - data.hs.navigation.each do |id, navigation|
 
-        ul(class="#{ 'dropdown__content' if navigation.pages }"
-           id="offcanvas-dropdown-#{ navigation.title.downcase }-content")
+        li.offcanvas__category.offcanvas__category--outer{
+          class="#{ 'dropdown js-local-state' if navigation.pages.length > 1 }"
+        }
 
-          / Group pages by category
-          - navigation.pages.group_by(&:category).each do |category, pages|
-            li.offcanvas__sub-category(class="offcanvas__sub-category--#{ category.downcase }")
-              h3.alt-title= category if navigation.title != category
-              ul
+          h2.title.title--small.title--white{
+            class="#{ 'dropdown__title' if navigation.pages.length > 1 }"
+          }
 
-                - pages.each do |page|
-                  li
-                    h4.overlay-title.overlay-title--xsmall
-                      a.offcanvas__link(
-                        href="https://www.hansardsociety.org.uk/#{page.category.downcase.gsub(' ', '-') }/#{ page.slug }"
-                      )= page.title
+            / If navigation item contains one or no pages
+            - if navigation.pages.length <= 1
+              - navigation.pages.each do |page|
+                a{
+                  href="#{ @site_url }/#{ page.slug }"
+                  title="#{ navigation.title } - #{ @site_title }"
+                }= navigation.title
+
+            / If navigation item contains more than one page
+            - if navigation.pages.length > 1
+              = navigation.title
+              .dropdown__control
+
+                / dropdown control
+                = partial 'partials/button',
+                  :locals => { :button_scope => 'local',
+                               :exclusive => false,
+                               :button_type => 'dropdown',
+                               :aria_id => "offcanvas-dropdown-#{ navigation.title.downcase }-button",
+                               :aria_target_id => "offcanvas-dropdown-#{ navigation.title.downcase }-content",
+                               :js_change_state => 'js-open' }
+
+                  / Icon
+                  = partial 'partials/icon',
+                    :locals => { :icon => 'chevron-down',
+                                 :color => 'white',
+                                 :size => 'medium' }
+
+          ul{
+            class="#{ 'dropdown__content' if navigation.pages }"
+            id="offcanvas-dropdown-#{ navigation.title.downcase }-content"
+          }
+
+            / Group pages by category
+            - navigation.pages.group_by(&:category).each do |category, pages|
+              li.offcanvas__category{ class="offcanvas__category--#{ category.downcase }" }
+                h3.alt-title= category if navigation.title != category
+                ul
+
+                  - pages.each do |page|
+                    li
+                      h4.title.title--xsmall.title--white
+                        a.offcanvas__link{
+                          href="https://www.hansardsociety.org.uk/#{
+                            page.category.downcase.gsub(' ', '-') + '/' +
+                            page.slug
+                          }"
+                        }= page.title
+
+    ////////////////////////////////////////////////////////
+    // Desktop
+    ////////////////////////////////////////////////////////
+
+    - if screen == 'desktop'
+      - @data.pages.group_by(&:category).each do |category, pages|
+        li.offcanvas__column{
+          class="offcanvas__column--#{ category.downcase.gsub(' ', '-') }"
+        }
+          h3.alt-title= category
+
+          - pages.each do |page|
+            h4.title.title--xsmall.title--white
+              a.offcanvas__link{
+                href="https://www.hansardsociety.org.uk/#{
+                  page.category.downcase.gsub(' ', '-') + '/' +
+                  page.slug
+                }"
+              }= page.title
