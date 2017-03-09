@@ -16,11 +16,21 @@ page '/*.txt', layout: false
 
 # Only run if data dir exists
 if Dir.exist?(config.data_dir)
+
+  # Homepage
   data.hs.home.each do |id, home|
     proxy "/index.html",
           "/templates/home.html",
           :ignore => true,
           :locals => { :home => home }
+  end
+
+  # Child pages
+  data.hs.child_page.each do |id, child_page|
+    proxy "/#{ child_page.category.downcase.gsub(' ', '-') + '/' + child_page.slug }.html",
+          "/templates/child-page.html",
+          :ignore => true,
+          :locals => { :child_page => child_page }
   end
 end
 
