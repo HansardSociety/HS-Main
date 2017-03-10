@@ -1,19 +1,56 @@
-picture
+header.banner{
+  class="banner--#{
+    entry == 'landing_page' ?
+    'full' : 'square'
+  }"
+}
 
-  / Landscape
-  source( media="(orientation: landscape)"
-          sizes="100vw"
-          srcset= "#{ image_url }?w=640 640w,
-                   #{ image_url }?w=854 854w,
-                   #{ image_url }?w=1280 1280w,
-                   #{ image_url }?w=1920 1920w" )
+  / Content
+  .banner__content{
+    class="#{ 'banner__content--overlap' if child_page }"
+  }
+    h1.title.title--medium.title--white= entry.title
 
-  / Portrait
-  source( media="(orientation: portrait)"
-          sizes="100vw"
-          srcset= "#{ image_url }?fit=fill&w=360&h=640&f=center 360w,
-                   #{ image_url }?fit=fill&w=720&h=1280&f=center 720w,
-                   #{ image_url }?fit=fill&w=1080&h=1440&f=center 1080w" )
-  / Fallback
-  img( srcset="#{ image_url }"
-       alt="#{ image_description }" )
+    - if entry == 'landing_page'
+      p= entry.introduction
+
+  / Image
+  .banner__image
+    picture
+
+      / Landscape
+      source{
+        media="(orientation: landscape)"
+        sizes="100vw"
+        srcset="#{ entry.banner_image.url }?w=640 640w,
+                #{ entry.banner_image.url }?w=854 854w,
+                #{ entry.banner_image.url }?w=1280 1280w,
+                #{ entry.banner_image.url }?w=1920 1920w"
+      }
+
+      / Portrait
+      source{
+        media="(orientation: portrait)"
+        sizes="100vw"
+        srcset="#{ entry.banner_image.url }?#{
+                  entry == 'landing_page' ?
+                  'fit=fill&w=360&h=640' :
+                  'fit=fill&w=360&h=360'
+                }&f=#{ entry.image_focus.downcase } 360w,
+                #{ entry.banner_image.url }?#{
+                  entry == 'landing_page' ?
+                  'fit=fill&w=720&h=1280' :
+                  'fit=fill&w=720&h=720'
+                }&f=#{ entry.image_focus.downcase } 720w,
+                #{ entry.banner_image.url }?#{
+                  entry == 'landing_page' ?
+                  'fit=fill&w=1080&h=1440' :
+                  'fit=fill&w=1080&h=1080'
+                }&f=#{ entry.image_focus.downcase } 1080w"
+      }
+
+      / Fallback
+      img{
+        srcset="#{ entry.banner_image.url }"
+        alt="#{ entry.banner_image.description }"
+      }

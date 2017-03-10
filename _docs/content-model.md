@@ -32,8 +32,9 @@
 | |-- category
 | | |-- # About, Blog, Events, Intelligence, Research, Resources
 | | ..
-| |-- banner_image
 | |-- introduction (250-290 chars)
+| |-- banner_image
+| |-- image_focus
 | |-- panels (ref, many)
 | |-- slug
 | ..
@@ -42,9 +43,10 @@
 | |-- category
 | | |-- # About, Blog, Events, Intelligence, Research, Resources
 | | ..
-| |-- banner_image
 | |-- introduction (250-290 chars)
 | |-- copy
+| |-- banner_image
+| |-- image_focus
 | |-- side_bar (ref, many)
 | | |-- # different types of side-bar content (auto-sorted and
 | | |   # titled) presented as cards, lists etc and extracted

@@ -1,0 +1,68 @@
+// Box shadow
+@mixin box-shadow($color) {
+  @extend %u-box-shadow-#{ $color };
+}
+
+// Accent
+@mixin accent($color, $position) {
+  @extend %u-accent-brand-#{ $color }-#{ $position };
+}
+
+// Margin
+@mixin margin($side, $size) {
+  @extend %u-margin-#{ $side }-#{ $size };
+}
+
+////////////////////////////////////////////////////////////
+//  Medi queries
+////////////////////////////////////////////////////////////
+
+// Breakpoints
+@mixin above($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  // If the key exists
+  @if $value != null {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+
+  // If key doesn't exist
+  @else {
+    @warn "No value: `#{ $breakpoint }`. "
+      + "Please defined in: `$breakpoints` map.";
+  }
+}
+
+// Orientations
+@mixin orientation($orientation) {
+  $value: map-get($orientations, $orientation);
+
+  @media (orientation: $value) {
+    @content;
+  }
+}
+
+// Aspect ratios
+@mixin aspect_ratio($value) {
+  // $value: map-get($aspect_ratios, $aspect_ratio);
+
+  @media (min-aspect-ratio: $value) {
+    @content;
+  }
+}
+
+////////////////////////////////////////////////////////////
+//  String replace
+////////////////////////////////////////////////////////////
+
+// From: https://css-tricks.com/snippets/sass/str-replace-function/
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  @return $string;
+}

@@ -13,6 +13,9 @@
 
 .title--xsmall { @extend %u-font-size-xsmall; }
 .title--small  { @extend %u-font-size-small; }
+.title--medium { @extend %u-font-size-medium; }
+.title--large  { @extend %u-font-size-large; }
+.title--xlarge { @extend %u-font-size-xlarge; }
 
 .title--white {
   @extend %u-color-brand-white;

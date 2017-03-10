@@ -1,0 +1,25 @@
+.content {
+  @extend
+    %u-bgc-brand-white,
+    %u-container-small,
+    %u-row;
+}
+
+.content--overlap {
+  position: relative;
+
+
+  @include above('small') {
+    margin-top: 60vh;
+  }
+
+  &::after {
+    top: 0;
+    left: 0;
+    background-color: $brand_green;
+    height: 4px;
+    width: 100%;
+    @extend %u-pseudo-element-base;
+
+  }
+}

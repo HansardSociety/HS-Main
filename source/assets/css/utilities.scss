@@ -21,12 +21,20 @@ $properties: (
 //  =Positioning
 ////////////////////////////////////////////////////////////
 
+// All position placeholders
 @each $position in map-get($properties, position) {
 
-  // Create base position
+  // Base positioning
   %u-position-#{ $position } { position: #{ $position } }
+  @each $screen in map-keys($breakpoints) {
+    @include above('#{ $screen }') {
+      %u-position-#{ $position }__#{ $screen } {
+        position: #{ $position }
+      }
+    }
+  }
 
-  // Create positioning placeholders for x/y axies
+  // x/y axies positioning
   @each $origin in map-get($properties, origins) {
     @each $axis in map-get($properties, axies) {
       %u-position-#{ $position }-#{ $origin }-#{ $axis } {
@@ -34,15 +42,8 @@ $properties: (
         @extend %u-position-#{ $position };
       }
     }
-
-    // Position placeholders for breakpoints
     @each $screen in map-keys($breakpoints) {
       @include above('#{ $screen }') {
-
-        // Create position base, at screen
-        %u-position-#{ $position }__#{ $screen } { position: #{ $position } }
-
-        // Create positioning placeholders for x/y axies, at screen
         @each $axis in map-get($properties, axies) {
           %u-position-#{ $position }-#{ $origin }-#{ $axis }__#{ $screen } {
             #{ $origin }: #{ $axis + '%' };
@@ -54,10 +55,21 @@ $properties: (
   }
 }
 
-%u-position-absolute-0,
-%u-position-fixed-0     {  top: 0; left: 0; }
-%u-position-absolute-0  { @extend %u-position-absolute; }
-%u-position-fixed-0     { @extend %u-position-fixed; }
+// Position absolute top-left placeholders only
+@each $axis in map-get($properties, axies) {
+  %u-position-absolute-#{ $axis } {
+    top: #{ $axis + '%' }; left: #{ $axis + '%' };
+    @extend %u-position-absolute;
+  }
+  @each $screen in map-keys($breakpoints) {
+    @include above('#{ $screen }') {
+      %u-position-absolute-#{ $axis }__#{ $screen } {
+        top: #{ $axis + '%' }; left: #{ $axis + '%' };
+        @extend %u-position-absolute__#{ $screen };
+      }
+    }
+  }
+}
 
 // Position absolute center
 %u-absolute-center-x,
@@ -95,7 +107,8 @@ $properties: (
 //  Misc
 ////////////////////////////////////////////////////////////
 
-%u-z-index-negative { z-index: -1; }
+// Z index
+%u-zindex-negative { z-index: -1; }
 
 %u-hidden {
   clip: rect(1px, 1px, 1px, 1px);
@@ -111,10 +124,16 @@ $properties: (
 
 %u-pseudo-element-base {
   content: '';
+  top: 0;
+  left: 0;
 
-  @extend %u-display-block;
-  @extend %u-position-absolute;
+  @extend
+    %u-display-block,
+    %u-position-absolute;
 }
+
+// Cursors
+%u-cursor-pointer { cursor: pointer; }
 
 ////////////////////////////////////////////////////////////
 //  =Display
@@ -126,7 +145,6 @@ $properties: (
 
   @extend %u-display-flex;
 }
-
 
 @each $property in map-get($properties, display) {
 
@@ -147,8 +165,10 @@ $properties: (
 //  =Width/ Height
 ////////////////////////////////////////////////////////////
 
-%u-width-full  { width: 100%; }
-%u-height-full { height: 100%; }
+%u-width-full     { width: 100%; }
+%u-width-full-vw  { width: 100vw; }
+%u-height-full    { height: 100%; }
+%u-height-full-vh { height: 100vh; }
 
 ////////////////////////////////////////////////////////////
 //  =Containers/ Rows
@@ -180,28 +200,43 @@ $properties: (
 }
 
 ////////////////////////////////////////////////////////////
-//  =Decoration
+//  Colors/ 'Decoration'
 ////////////////////////////////////////////////////////////
 
-// Colors
-%u-color-brand-black   { color: $brand_black; }
-%u-color-brand-black-1 { color: $brand_black_1; }
-%u-color-brand-black-2 { color: $brand_black_2; }
-%u-color-brand-white   { color: $brand_white; }
-%u-color-brand-green   { color: $brand_green; }
+// Merge primary and secondary color maps into $colors
+// See theme.scss
+@each $name, $color in $colors {
 
-// Background colors
-%u-bgc-brand-green        { background-color: $brand_green; }
-%u-bgc-brand-black        { background-color: $brand_black; }
+  // Colors
+  %u-color-#{ str-replace($name, '_', '-') } {
+    color: map-get($colors, $name);
+  }
+
+  // Background colors
+  %u-bgc-#{ str-replace($name, '_', '-') } {
+    background-color: map-get($colors, $name);
+  }
+
+  // Accents
+  @each $side in map-get($properties, origins) {
+    %u-accent-small-#{ str-replace($name, '_', '-') }-#{ $side } {
+      border-#{ $side }: 2px solid map-get($colors, $name);
+    }
+    %u-accent-medium-#{ str-replace($name, '_', '-') }-#{ $side } {
+      border-#{ $side }: 4px solid map-get($colors, $name);
+    }
+    %u-accent-large-#{ str-replace($name, '_', '-') }-#{ $side } {
+      border-#{ $side }: 8px solid map-get($colors, $name);
+    }
+  }
+}
+
+%u-bgc-overlay {
+  background-color: rgba($brand_black, .75);
+}
+
+// Box shadow
 %u-box-shadow-brand-green { box-shadow: 0 0 10px 3px darken($brand_green, 15%); }
-
-// Accents
-%u-accent-brand-green-top       { border-top: 2px solid $brand_green; }
-%u-accent-brand-light-green-top { border-top: 2px solid $brand_light_green; }
-%u-accent-brand-light-blue-top  { border-top: 2px solid $brand_light_blue; }
-
-// Cursors
-%u-cursor-pointer { cursor: pointer; }
 
 // Border radius
 %u-border-radius-1 { border-radius: 1px; }

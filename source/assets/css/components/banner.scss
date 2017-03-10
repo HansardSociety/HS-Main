@@ -1,0 +1,85 @@
+.banner,
+.banner__image,
+.banner__image img {
+  transition: all ease 9999s;
+}
+
+.banner {
+  @extend
+    %u-height-full-vh,
+    %u-overflow-hidden,
+    %u-position-relative,
+    %u-width-full;
+}
+
+.banner--full {
+  @include above('small') {
+    z-index: -1;
+
+    @extend %u-position-relative__small;
+  }
+}
+
+.banner--square {
+
+  @include orientation('portrait') {
+    height: 50vh;
+  }
+  @include above('small') {
+    z-index: -1;
+
+    @extend %u-position-absolute__small;
+
+    top: 0;left: 0;
+  }
+}
+
+.banner__image {
+  @extend
+    %u-height-full,
+    %u-position-absolute-0,
+    %u-zindex-negative;
+
+  &::after {
+    @extend
+      %u-bgc-overlay,
+      %u-height-full,
+      %u-pseudo-element-base,
+      %u-width-full;
+  }
+}
+
+.banner__image img {
+  min-height: 100%;
+  filter: contrast(1.5);
+}
+
+.banner__content {
+  text-align: center;
+
+
+  @extend
+    %u-absolute-center-xy,
+    %u-container-small,
+    %u-row;
+
+  padding-left: 1rem;
+  &::before {
+    display: block;
+    content: '→';
+    color: $brand_orange;
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+  }
+}
+
+.banner__content--overlap {
+  @include above('small') {
+    transform: translate(-50%, -100%);
+    text-align: left;
+    padding-left: 2.5rem;
+    font-size: 2rem;
+
+  }
+}

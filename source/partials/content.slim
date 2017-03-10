@@ -1,0 +1,10 @@
+.content{
+  class="#{ 'content--overlap' if child_page }"
+  class="#{ 'content--' + entry.category.downcase if entry.category }"
+}
+
+  section.content__main
+
+    = partial 'partials/lorem', :locals => { :paragraphs => 20 }
+
+  aside.content__aside

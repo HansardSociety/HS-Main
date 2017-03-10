@@ -1,11 +1,14 @@
 // Core (strict order)
 @import "./theme";
-@import "./mixins";
+@import "./functions";
 @import "./utilities";
 
 // Components
 @import "./components/core";
+
+@import "./components/content";
 @import "./components/animations";
+@import "./components/banner";
 @import "./components/button";
 @import "./components/dropdown";
 @import "./components/hidden";

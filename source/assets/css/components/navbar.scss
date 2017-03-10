@@ -7,8 +7,10 @@
 
   height: 3.5rem;
 
+  top: 0; left: 0;
+
   @extend
-    %u-position-fixed-0,
+    %u-position-fixed,
     %u-container-xsmall,
     %u-transition-base-all;
 
@@ -98,7 +100,7 @@ body.js-show-menu-desktop-our-work {
         %u-bgc-brand-black,
         %u-pseudo-element-base,
         %u-width-full,
-        %u-z-index-negative;
+        %u-zindex-negative;
     }
   }
 }

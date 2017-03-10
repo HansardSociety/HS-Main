@@ -1,2 +1,5 @@
 .site-container {
+  @extend
+    %u-overflow-x-hidden,
+    %u-position-relative;
 }
