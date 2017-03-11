@@ -24,7 +24,7 @@
           class="#{ 'dropdown js-local-state' if navigation.pages.length > 1 }"
         }
 
-          h2.title.title--small.title--white{
+          h2.title.title--medium.title--white{
             class="#{ 'dropdown__title' if navigation.pages.length > 1 }"
           }
 
@@ -69,7 +69,7 @@
 
                   - pages.each do |page|
                     li
-                      h4.title.title--xsmall.title--white
+                      h4.title.title--small.title--white
                         a.menu__link{
                           href="https://www.hansardsociety.org.uk/#{
                             page.category.downcase.gsub(' ', '-') + '/' +
@@ -89,7 +89,7 @@
           h3.alt-title= category
 
           - pages.each do |page|
-            h4.title.title--xsmall.title--white
+            h4.title.title--small.title--white
               a.menu__link{
                 href="https://www.hansardsociety.org.uk/#{
                   page.category.downcase.gsub(' ', '-') + '/' +

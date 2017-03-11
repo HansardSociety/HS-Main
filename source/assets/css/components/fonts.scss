@@ -1,0 +1,11 @@
+@each $font_name, $font in map-get($fonts, main) {
+  @each $weight_name, $weight in $font {
+    @each $style_name, $style in $weight {
+      @font-face {
+        font-family: '#{ $font_name } #{ $weight_name } #{ $style_name }';
+        font-weight: #{ $weight_name };
+        src: url('./#{ $style }') format("opentype");
+      }
+    }
+  }
+}

@@ -5,29 +5,30 @@ var
 //  Plugins
 ////////////////////////////////////////////////////////////
 
-  path = require('path'),
+  // Native
+  path         = require('path'),
 
   // Plugins
-  gulp = require('gulp'),
-  babel = require('gulp-babel'),
-  browserSync = require('browser-sync').create(),
-  browserify = require('browserify'),
-  concat = require('gulp-concat'),
-  es = require('event-stream'),
-  gutil = require('gulp-util'),
-  runSequence = require('run-sequence'),
-  sass = require('gulp-sass'),
-  source = require('vinyl-source-stream'),
-  svgSprite = require('gulp-svg-sprite'),
-  touch = require('gulp-touch'),
+  gulp         = require('gulp'),
+  babel        = require('gulp-babel'),
+  browserSync  = require('browser-sync').create(),
+  browserify   = require('browserify'),
+  concat       = require('gulp-concat'),
+  es           = require('event-stream'),
+  gutil        = require('gulp-util'),
+  runSequence  = require('run-sequence'),
+  sass         = require('gulp-sass'),
+  source       = require('vinyl-source-stream'),
+  svgSprite    = require('gulp-svg-sprite'),
+  touch        = require('gulp-touch'),
 
   // PostCSS
-  postcss = require('gulp-postcss'),
+  postcss      = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
-  mqpacker = require('css-mqpacker'),
-  reporter = require('postcss-reporter'),
-  scss = require('postcss-scss'),
-  stylelint = require('stylelint'),
+  mqpacker     = require('css-mqpacker'),
+  reporter     = require('postcss-reporter'),
+  scss         = require('postcss-scss'),
+  stylelint    = require('stylelint'),
 
 ////////////////////////////////////////////////////////////
 //  Postcss
@@ -72,6 +73,7 @@ var
       main: __dirname + '/source/assets/js/main.js',
       vendor: __dirname + '/source/assets/js/vendor.js'
     },
+    fonts: __dirname + '/source/assets/fonts/**.*',
     images: {
       icons: __dirname + '/node_modules/evil-icons/assets/icons/*.svg'
     },
@@ -83,6 +85,45 @@ var
     build: __dirname + '/build',
   }
 ; // END var
+
+////////////////////////////////////////////////////////////
+//  Server
+////////////////////////////////////////////////////////////
+
+gulp.task('watch',
+  [ 'css:main', 'css:vendor', 'js:bundle', 'fonts' ],
+
+  function(gulpCallback) {
+
+    browserSync.init({
+      proxy: 'http://localhost:4567', // Middleman server
+      open: false,
+      reloadDelay: 100, // Concurrency fix
+      reloadDebounce: 500, // Concurrency fix
+      reloadOnRestart: true,
+      files: [
+        PATH.tmp.css,
+        PATH.tmp.js,
+        __dirname + '/source/**/*.slim'
+      ],
+      port: 7000,
+      ui: { port: 7001 }
+    },
+
+    // Server running...
+    function callback() {
+      // Inject CSS/ JS
+      gulp.watch(PATH.css.all, [ 'css:main' ]);
+      gulp.watch(PATH.js.main, [ 'js:bundle' ]);
+
+      // Reload browserSync after html changes
+      gulp.watch(path.join(PATH.source, '**/*.slim'))
+        .on('change', browserSync.reload);
+
+      gulpCallback();
+    }
+  );
+});
 
 ////////////////////////////////////////////////////////////
 //  CSS
@@ -152,42 +193,12 @@ gulp.task('svg', function() {
 });
 
 ////////////////////////////////////////////////////////////
-//  Server
+//  Fonts
 ////////////////////////////////////////////////////////////
 
-gulp.task('watch',
-  [ 'css:main', 'css:vendor', 'js:bundle' ],
-
-  function(gulpCallback) {
-
-    browserSync.init({
-      proxy: 'http://localhost:4567', // Middleman server
-      open: false,
-      reloadDelay: 100, // Concurrency fix
-      reloadDebounce: 500, // Concurrency fix
-      reloadOnRestart: true,
-      files: [
-        PATH.tmp.css,
-        PATH.tmp.js,
-        __dirname + '/source/**/*.slim'
-      ],
-      port: 7000,
-      ui: { port: 7001 }
-    },
-
-    // Server running...
-    function callback() {
-      // Inject CSS/ JS
-      gulp.watch(PATH.css.all, [ 'css:main' ]);
-      gulp.watch(PATH.js.main, [ 'js:bundle' ]);
-
-      // Reload browserSync after html changes
-      gulp.watch(path.join(PATH.source, '**/*.slim'))
-        .on('change', browserSync.reload);
-
-      gulpCallback();
-    }
-  );
+gulp.task('fonts', function() {
+  return gulp.src(PATH.fonts)
+    .pipe(gulp.dest(PATH.tmp.dir));
 });
 
 ////////////////////////////////////////////////////////////
@@ -199,7 +210,7 @@ gulp.task('default', function(cb) {
 });
 
 gulp.task('build', function(cb) {
-  runSequence('css:main', 'css:vendor', 'js:bundle', cb);
+  runSequence('css:main', 'css:vendor', 'js:bundle', 'fonts', cb);
 });
 
 gulp.task('lint', function(cb) {

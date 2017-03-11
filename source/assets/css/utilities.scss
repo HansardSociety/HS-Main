@@ -109,6 +109,11 @@ $properties: (
 
 // Z index
 %u-zindex-negative { z-index: -1; }
+@each $screen in map-keys($breakpoints) {
+  @include above('#{ $screen }') {
+    %u-zindex-negative__#{ $screen } { z-index: -1; }
+  }
+}
 
 %u-hidden {
   clip: rect(1px, 1px, 1px, 1px);
@@ -169,6 +174,7 @@ $properties: (
 %u-width-full-vw  { width: 100vw; }
 %u-height-full    { height: 100%; }
 %u-height-full-vh { height: 100vh; }
+%u-max-width-full { max-width: 100%; }
 
 ////////////////////////////////////////////////////////////
 //  =Containers/ Rows
@@ -191,12 +197,22 @@ $properties: (
 %u-container-medium { padding: 2rem 1rem; }
 %u-container-large  { padding: 3rem 1rem; }
 
+%u-row,
+%u-content-main {
+  @extend %u-max-width-full;
+}
+
 // Row
 %u-row {
   width: 60rem;
-  max-width: 100%;
 
   @extend %u-margin-center-x;
+}
+
+%u-content-main {
+  width: 35rem;
+
+  @extend %u-max-width-full;
 }
 
 ////////////////////////////////////////////////////////////
@@ -226,13 +242,13 @@ $properties: (
       border-#{ $side }: 4px solid map-get($colors, $name);
     }
     %u-accent-large-#{ str-replace($name, '_', '-') }-#{ $side } {
-      border-#{ $side }: 8px solid map-get($colors, $name);
+      border-#{ $side }: 6px solid map-get($colors, $name);
     }
   }
 }
 
 %u-bgc-overlay {
-  background-color: rgba($brand_black, .75);
+  background-color: rgba($brand_black, .5);
 }
 
 // Box shadow
@@ -278,15 +294,28 @@ $properties: (
 %u-vertical-rhythm-medium { margin-top: 1em; }
 %u-vertical-rhythm-large  { margin-top: 1.5em; }
 
-%u-font-weight-light  { font-weight: 400; }
-%u-font-weight-medium { font-weight: 600; }
-%u-font-weight-heavy  { font-weight: 800; }
+// Font families
+@each $font_name, $font in map-get($fonts, main) {
+  @each $weight_name, $weight in $font {
+    @each $style_name, $style in $weight {
+      %u-font-#{ to-lower-case($font_name) }-#{ $weight_name }-#{ $style_name } {
+        font-family: '#{ $font_name } #{ $weight_name } #{ $style_name }';
+      }
+    }
+  }
+}
 
-%u-font-size-xsmall { font-size: 1rem; }
-%u-font-size-small  { font-size: 1.25rem; }
-%u-font-size-medium { font-size: 1.5rem; }
-%u-font-size-large  { font-size: 1.75rem; }
-%u-font-size-xlarge { font-size: 2rem; }
+// Font sizes
+@each $size_name, $size in $font_sizes {
+  %u-font-size-#{ $size_name } { font-size: #{ $size }; }
+  @each $screen in map-keys($breakpoints) {
+    @include above('#{ $screen }') {
+      %u-font-size-#{ $size_name }__#{ $screen } {
+        font-size: #{ $size };
+      }
+    }
+  }
+}
 
 %u-uppercase { text-transform: uppercase; }
 %u-lowercase { text-transform: lowercase; }

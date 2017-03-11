@@ -1,11 +1,13 @@
 // Core (strict order)
 @import "./theme";
+@import "./components/fonts";
 @import "./functions";
 @import "./utilities";
 
 // Components
 @import "./components/core";
 
+@import "./components/container";
 @import "./components/content";
 @import "./components/animations";
 @import "./components/banner";

@@ -31,7 +31,7 @@
   opacity: .85;
 
   @extend
-    %u-overflow-y-scroll
+    %u-overflow-y-scroll,
     %u-width-full-vw;
 
   @include above('medium') {
@@ -114,6 +114,7 @@ body.js-show-menu-desktop-our-work {
 body.js-show-menu-mobile {
   .site-container {
     opacity: .25;
+    transition: all ease 9999s;
   }
 
   #menu-mobile {

@@ -2,24 +2,14 @@
   @extend
     %u-bgc-brand-white,
     %u-container-small,
+    %u-overflow-hidden,
     %u-row;
 }
 
 .content--overlap {
-  position: relative;
+  border-radius: 1px;
 
-
-  @include above('small') {
-    margin-top: 60vh;
-  }
-
-  &::after {
-    top: 0;
-    left: 0;
-    background-color: $brand_green;
-    height: 4px;
-    width: 100%;
-    @extend %u-pseudo-element-base;
-
-  }
+  @extend
+    %u-accent-large-brand-green-top,
+    %u-position-relative;
 }

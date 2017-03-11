@@ -1,21 +1,33 @@
 .alt-title {
   @extend
     %u-color-brand-black-2,
-    %u-font-weight-light,
     %u-font-size-xsmall,
     %u-margin-top-xsmall,
     %u-uppercase;
 }
 
 .title {
-  @extend %u-font-weight-medium;
+  @extend %u-font-avenir-300-normal;
 }
 
-.title--xsmall { @extend %u-font-size-xsmall; }
-.title--small  { @extend %u-font-size-small; }
-.title--medium { @extend %u-font-size-medium; }
-.title--large  { @extend %u-font-size-large; }
-.title--xlarge { @extend %u-font-size-xlarge; }
+.title--xsmall {
+  @extend %u-font-size-xsmall;
+}
+.title--small  {
+  @extend %u-font-size-small;
+}
+.title--medium {
+  @extend %u-font-size-medium;
+}
+.title--large  {
+  @extend %u-font-size-medium;
+  @include above('small') {
+    @extend %u-font-size-large__small;
+  }
+}
+.title--xlarge {
+  @extend %u-font-size-xlarge;
+}
 
 .title--white {
   @extend %u-color-brand-white;

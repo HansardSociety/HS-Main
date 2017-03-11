@@ -6,13 +6,14 @@ header.banner{
 }
 
   / Content
-  .banner__content{
-    class="#{ 'banner__content--overlap' if child_page }"
+  .banner__inner{
+    class="#{ 'banner__inner--overlap' if child_page }"
   }
-    h1.title.title--medium.title--white= entry.title
+    .banner__content
+      h1.title.title--large.title--white.symbol.symbol--arrow= entry.title
 
-    - if entry == 'landing_page'
-      p= entry.introduction
+      - if entry == 'landing_page'
+        p= entry.introduction
 
   / Image
   .banner__image

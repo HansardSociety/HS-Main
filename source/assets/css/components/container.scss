@@ -1,0 +1,5 @@
+.container {
+  @extend
+    %u-bgc-brand-white,
+    %u-position-relative;
+}

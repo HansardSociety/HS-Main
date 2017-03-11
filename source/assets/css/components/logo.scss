@@ -7,6 +7,8 @@
 }
 
 .logo__image--mobile {
+  vertical-align: middle;
+
   @include above('medium') {
     @extend %u-display-none__medium;
   }
