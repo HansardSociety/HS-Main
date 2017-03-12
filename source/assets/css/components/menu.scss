@@ -31,7 +31,7 @@
   opacity: .85;
 
   @extend
-    %u-overflow-y-scroll,
+    %u-overflow-y-auto,
     %u-width-full-vw;
 
   @include above('medium') {

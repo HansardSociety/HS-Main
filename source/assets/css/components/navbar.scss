@@ -11,12 +11,10 @@
 
   @extend
     %u-position-fixed,
-    %u-container-xsmall,
     %u-transition-base-all;
 
   @include above('medium') {
     height: 10rem;
-    padding-right: 2rem;
   };
 }
 
@@ -24,8 +22,13 @@
   justify-content: space-between;
 
   @extend
+    %u-container-small,
     %u-height-full,
     %u-row;
+
+  @include above('medium') {
+    padding: 0;
+  }
 }
 
 .navbar__inner,
@@ -51,12 +54,9 @@
   }
 }
 
-.navbar__list {
-  padding-right: 1rem;
-}
-
+.navbar__list,
 .navbar__item {
-  padding-right: .5rem;
+  padding-right: 1rem;
 }
 
 ////////////////////////////////////////////////////////////
@@ -72,11 +72,11 @@
     height: 3.5rem;
 
     .navbar__center {
-      height: inherit;
+      height: 2.5rem;
     }
 
     .logo__image--desktop {
-      transform: translateY(-5.886rem);
+      transform: translateY(-106px);
       animation: fadeInOut .5s;
     }
   }
@@ -89,9 +89,6 @@ body.js-show-menu-desktop-our-work {
     box-shadow: none;
 
     &::after {
-      top: 0;
-      left: 0;
-
       height: 3.5rem;
 
       border-bottom: 1px solid $brand_black_2;

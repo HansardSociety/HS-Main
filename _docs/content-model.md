@@ -45,9 +45,10 @@
 | | ..
 | |-- introduction (250-290 chars)
 | |-- copy
+| |-- promoted (ref, single)
 | |-- banner_image
 | |-- image_focus
-| |-- side_bar (ref, many)
+| |-- sidebar (ref, many)
 | | |-- # different types of side-bar content (auto-sorted and
 | | |   # titled) presented as cards, lists etc and extracted
 | | |   # from other 'pages'. Top item = feature.

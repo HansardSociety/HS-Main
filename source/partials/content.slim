@@ -2,9 +2,16 @@
   class="#{ 'content--overlap' if child_page }"
   class="#{ 'content--' + entry.category.downcase if entry.category }"
 }
+  .content__header
 
-  section.content__main
+    section.content__introduction.copy
+      = Kramdown::Document.new(entry.introduction).to_html
 
-    = partial 'partials/lorem', :locals => { :paragraphs => 20 }
+    aside.content__promoted
+
+  section.content__main.copy
+    = Kramdown::Document.new(entry.introduction).to_html
 
   aside.content__aside
+
+    = partial 'partials/lorem', :locals => { :paragraphs => 2 }

@@ -1,15 +1,38 @@
 .content {
+  border-radius: 1px;
+
   @extend
     %u-bgc-brand-white,
-    %u-container-small,
+    %u-flex-row,
     %u-overflow-hidden,
     %u-row;
 }
 
-.content--overlap {
-  border-radius: 1px;
+.content--events     { @extend %u-accent-large-brand-green-top; }
+.content--innovation { @extend %u-accent-large-brand-green-top; }
+.content--research   { @extend %u-accent-large-brand-green-top; }
 
-  @extend
-    %u-accent-large-brand-green-top,
-    %u-position-relative;
+.content__header {
+  @extend %u-width-full;
+}
+
+.content__introduction {
+  font-size: 1.25rem;
+}
+
+.content__introduction,
+.content__promoted,
+.content__main,
+.content__aside {
+  @extend %u-container-small;
+}
+
+.content__introduction,
+.content__main {
+  @extend %u-content-main;
+}
+
+.content__promoted,
+.content__aside {
+  flex: 1;
 }

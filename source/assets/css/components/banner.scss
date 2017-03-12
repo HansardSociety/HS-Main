@@ -20,7 +20,7 @@
 }
 
 .banner__inner--overlap {
-  // Override absolute center
+  // Ensure overlap content remains above .content--overlap
   top: 100%;
   transform: translate(-50%, -100%);
 
@@ -41,18 +41,19 @@
   }
 
   &::before {
-    font-size: 1.25rem;
-    left: calc(-1.25rem - 1px);
     top: .25rem;
+    left: calc(-1.25rem - 1px);
 
     content: '→';
+
+    font-size: 1.25rem;
 
     @extend
       %u-color-brand-orange,
       %u-position-absolute;
 
     @include above('small') {
-      left: -1rem;
+      left: calc(-1rem - 1px);
       top: .5rem;
 
       @extend %u-font-size-medium__small;
@@ -78,5 +79,6 @@
 
 .banner__image img {
   min-height: 100%;
+
   filter: contrast(.5);
 }

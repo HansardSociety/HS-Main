@@ -129,12 +129,10 @@ $properties: (
 
 %u-pseudo-element-base {
   content: '';
-  top: 0;
-  left: 0;
 
   @extend
     %u-display-block,
-    %u-position-absolute;
+    %u-position-absolute-0;
 }
 
 // Cursors
@@ -144,11 +142,16 @@ $properties: (
 //  =Display
 ////////////////////////////////////////////////////////////
 
-%u-flex-row-center {
+%u-flex-row {
   flex-flow: row wrap;
-  align-items: center;
 
   @extend %u-display-flex;
+}
+
+%u-flex-row-center {
+  align-items: center;
+
+  @extend %u-flex-row;
 }
 
 @each $property in map-get($properties, display) {
@@ -204,9 +207,13 @@ $properties: (
 
 // Row
 %u-row {
-  width: 60rem;
+  width: 40rem;
 
   @extend %u-margin-center-x;
+
+  @include above('large') {
+    width: 60rem;
+  }
 }
 
 %u-content-main {
