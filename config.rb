@@ -52,10 +52,12 @@ end
 # Navigation map
 class NavigationMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
+    context.title   = entry.title
     if entry.pages
       context.pages = entry.pages.map do |page| {
-        :title => page.title,
-        :slug => page.slug
+        :title     => page.title,
+        :slug      => page.slug.parameterize,
+        :category  => page.category.parameterize
       }
       end
     end
@@ -65,15 +67,15 @@ end
 # Child page map
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    context.title              = entry.title
-    context.slug               = entry.slug.parameterize
-    context.category           = entry.category.parameterize
-    context.introduction       = entry.introduction
-    context.copy               = entry.copy
+    context.title        = entry.title
+    context.slug         = entry.slug.parameterize
+    context.category     = entry.category.parameterize
+    context.introduction = entry.introduction
+    context.copy         = entry.copy
     if entry.promoted
       context.promoted = {
-        :title => entry.promoted.title,
-        :slug => entry.promoted.slug
+        :title          => entry.promoted.title,
+        :slug           => entry.promoted.slug
       }
     end
   end

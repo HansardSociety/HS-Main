@@ -1,6 +1,9 @@
 ---
+:title: About
 :pages:
 - :title: What we do
   :slug: what-we-do
+  :category: about
 - :title: How we are funded
   :slug: how-we-are-funded
+  :category: about
