@@ -52,17 +52,18 @@ end
 # Navigation map
 class NavigationMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    context.title   = entry.title
+    context.title = entry.title
     if entry.pages
       context.pages = entry.pages.map do |page| {
-        :title     => page.title,
-        :slug      => page.slug.parameterize,
-        :category  => page.category.parameterize
+        :title => page.title,
+        :slug => page.slug.parameterize,
+        :category => page.category.parameterize
       }
       end
     end
   end
 end
+
 
 # Child page map
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
@@ -115,3 +116,24 @@ if Dir.exist?(config.data_dir)
           :locals => { :child_page => child_page }
   end
 end
+
+##############################
+## Archive
+##############################
+
+# Navigation map
+# class NavigationMap < ContentfulMiddleman::Mapper::Base
+#   def map(context, entry)
+#     context.title   = entry.title
+#     if entry.pages
+#       context.categories = entry.pages.group_by(&:category).map do |cat, pages| {
+#         cat.parameterize => pages.map do |page| {
+#           :title => page.title,
+#           :slug => page.slug.parameterize
+#         }
+#         end
+#       }
+#       end
+#     end
+#   end
+# end

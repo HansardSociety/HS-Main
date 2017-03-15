@@ -2,11 +2,11 @@
 
 .menu{
   class="menu--#{ screen }"
-    id="menu-#{
-      screen == 'mobile' ?
-      'mobile' :
-      'desktop-' + @data.title.downcase.gsub(' ', '-')
-    }"
+  id="menu-#{
+    screen == 'mobile' ?
+    'mobile' :
+    'desktop-' + @data.title.parameterize
+  }"
 }
 
   ul.menu__container{
@@ -19,7 +19,6 @@
 
     - if screen == 'mobile'
       - data.hs.navigation.each do |id, navigation|
-
         li.menu__category.menu__category--outer{
           class="#{ 'dropdown js-local-state' if navigation.pages.length > 1 }"
         }
@@ -39,6 +38,7 @@
             / If navigation item contains more than one page
             - if navigation.pages.length > 1
               = navigation.title
+
               .dropdown__control
 
                 / dropdown control
@@ -46,8 +46,8 @@
                   :locals => { :button_scope => 'local',
                                :exclusive => false,
                                :button_type => 'dropdown',
-                               :aria_id => "menu-dropdown-#{ navigation.title.downcase }-button",
-                               :aria_target_id => "menu-dropdown-#{ navigation.title.downcase }-content",
+                               :aria_id => "menu-dropdown-#{ navigation.title }-button",
+                               :aria_target_id => "menu-dropdown-#{ navigation.title }-content",
                                :js_change_state => 'js-open' }
 
                   / Icon
@@ -72,7 +72,7 @@
                       h4.title.title--small.title--white
                         a.menu__link{
                           href="https://www.hansardsociety.org.uk/#{
-                            page.category.downcase.gsub(' ', '-') + '/' +
+                            page.category.parameterize + '/' +
                             page.slug
                           }"
                         }= page.title
@@ -84,7 +84,7 @@
     - if screen == 'desktop'
       - @data.pages.group_by(&:category).each do |category, pages|
         li.menu__column{
-          class="menu__column--#{ category.downcase.gsub(' ', '-') }"
+          class="menu__column--#{ category.parameterize }"
         }
           h3.alt-title= category
 
@@ -92,7 +92,7 @@
             h4.title.title--small.title--white
               a.menu__link{
                 href="https://www.hansardsociety.org.uk/#{
-                  page.category.downcase.gsub(' ', '-') + '/' +
+                  page.category.parameterize + '/' +
                   page.slug
                 }"
               }= page.title

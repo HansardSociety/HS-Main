@@ -1,16 +1,20 @@
-button.button(
+button.button{
   class="js-trigger-#{ button_scope }"
   class="#{ 'js-trigger-exclusive' if exclusive }"
   role="button"
-  id="#{ aria_id.downcase.gsub(' ', '-') }"
-  aria-controls="#{ aria_target_id.downcase.gsub(' ', '-') }"
-  data-change-state="#{ js_change_state.downcase.gsub(' ', '-') }"
-)
+  id="#{ aria_id.parameterize }"
+  aria-controls="#{ aria_target_id.parameterize }"
+  data-change-state="#{ js_change_state.parameterize }"
+}
 
   - if button_type != 'menu'
-    span(aria-hidden="true"
-         class="button__#{ button_type }")
+    span{
+      aria-hidden="true"
+      class="button__#{ button_type }"
+    }
       = yield
   - else
-    span(aria-hidden="true"
-         class="button__#{ button_type }")
+    span{
+      aria-hidden="true"
+      class="button__#{ button_type }"
+    }
