@@ -68,15 +68,25 @@ end
 # Child page map
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    context.title        = entry.title
-    context.slug         = entry.slug.parameterize
-    context.category     = entry.category.parameterize
+    context.title = entry.title
+    context.slug = entry.slug.parameterize
+    context.category = entry.category.parameterize
     context.introduction = entry.introduction
-    context.copy         = entry.copy
+    context.copy = entry.copy
+    if entry.banner_image
+      context.banner_image = {
+        :url => entry.banner_image.url,
+        :description => entry.banner_image.description,
+        :focus => entry.image_focus.parameterize
+      }
+    end
     if entry.promoted
       context.promoted = {
-        :title          => entry.promoted.title,
-        :slug           => entry.promoted.slug
+        :title => entry.promoted.title,
+        :slug => entry.promoted.slug,
+        :category => entry.promoted.category.parameterize,
+        :banner_image => entry.promoted.banner_image.url,
+        :banner_alt => entry.promoted.banner_image.description
       }
     end
   end

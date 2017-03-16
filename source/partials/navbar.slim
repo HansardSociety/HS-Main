@@ -3,7 +3,7 @@ nav.navbar{ role="navigation" }
   .navbar__inner
 
     / Hidden site title
-    h1.hidden= @site_title
+    h1.hidden= @@site_title
 
     / menu
     = partial 'partials/menu',
@@ -46,8 +46,8 @@ nav.navbar{ role="navigation" }
               - if navigation.pages.length <= 1
                 - navigation.pages.each do |page|
                   a{
-                    href="#{ @site_url + '/' + page.slug }"
-                    title="#{ navigation.title + ' - ' + @site_title }"
+                    href="#{ @@site_url + '/' + page.slug }"
+                    title="#{ navigation.title + ' - ' + @@site_title }"
                   }= navigation.title
 
               / If navigation item contains more than one page

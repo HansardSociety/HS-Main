@@ -254,12 +254,22 @@ $properties: (
   }
 }
 
-%u-bgc-overlay {
-  background-color: rgba($brand_black, .5);
+%u-overlay {
+  &::after {
+    background-color: rgba($brand_black, .5);
+    @extend
+      %u-height-full,
+      %u-pseudo-element-base,
+      %u-width-full;
+  }
 }
 
 // Box shadow
-%u-box-shadow-brand-green { box-shadow: 0 0 10px 3px darken($brand_green, 15%); }
+@each $name, $color in $primary_colors {
+  %u-box-shadow-#{ str-replace($name, '_', '-') } {
+    box-shadow: 0 0 10px 3px darken($color, 15%);
+  }
+}
 
 // Border radius
 %u-border-radius-1 { border-radius: 1px; }

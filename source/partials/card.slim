@@ -1,0 +1,14 @@
+article.card
+  a.card__inner{
+    href="#{ 'https://www.hansardsociety.org.uk/' + category + '/' + url }"
+    title="#{ title + ' - ' + @@site_title }"
+  }
+    .card__image
+      img{
+        src="#{ image_url + '?fit=fill&w=180&h=320' }"
+        alt="#{ image_alt }"
+      }
+
+    .card__content
+      span.alt-title= category
+      h1.title.title--small= title

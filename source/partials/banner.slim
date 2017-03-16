@@ -37,17 +37,17 @@ header.banner{
                   entry == 'landing_page' ?
                   'fit=fill&w=360&h=640' :
                   'fit=fill&w=360&h=360'
-                }&f=#{ entry.image_focus.downcase } 360w,
+                }&f=#{ entry.banner_image.focus } 360w,
                 #{ entry.banner_image.url }?#{
                   entry == 'landing_page' ?
                   'fit=fill&w=720&h=1280' :
                   'fit=fill&w=720&h=720'
-                }&f=#{ entry.image_focus.downcase } 720w,
+                }&f=#{ entry.banner_image.focus } 720w,
                 #{ entry.banner_image.url }?#{
                   entry == 'landing_page' ?
                   'fit=fill&w=1080&h=1440' :
                   'fit=fill&w=1080&h=1080'
-                }&f=#{ entry.image_focus.downcase } 1080w"
+                }&f=#{ entry.banner_image.focus } 1080w"
       }
 
       / Fallback

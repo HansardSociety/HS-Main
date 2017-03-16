@@ -65,16 +65,9 @@
   @extend
     %u-height-full-vh,
     %u-overflow-hidden,
+    %u-overlay,
     %u-position-absolute-0,
     %u-zindex-negative;
-
-  &::after {
-    @extend
-      %u-bgc-overlay,
-      %u-height-full,
-      %u-pseudo-element-base,
-      %u-width-full;
-  }
 }
 
 .banner__image img {
