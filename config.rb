@@ -64,7 +64,6 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
   end
 end
 
-
 # Child page map
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
@@ -86,8 +85,21 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       }
     end
 
-    # Promoted (child pages)
-    if entry.promoted && entry.category != 'Blog'
+    # Promoted (blog)
+    if entry.promoted && entry.category == 'Blog'
+      context.author = {
+        :full_name => entry.promoted.full_name,
+        :twitter => entry.promoted.twitter,
+        :email => entry.promoted.email,
+        :photo => {
+          :url => entry.promoted.photo.url,
+          :alt => entry.promoted.photo.description
+        }
+      }
+    end
+
+    # Promoted (research)
+    if entry.promoted && entry.category == 'Research'
       context.promoted = {
         :title => entry.promoted.title,
         :slug => entry.promoted.slug,
@@ -99,15 +111,15 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       }
     end
 
-    # Promoted (blog)
-    if entry.promoted && entry.category == 'Blog'
-      context.author = {
-        :full_name => entry.promoted.full_name,
-        :twitter => entry.promoted.twitter,
-        :email => entry.promoted.email,
-        :photo => {
-          :url => entry.promoted.photo.url,
-          :alt => entry.promoted.photo.description
+    # Promoted (publications)
+    if entry.promoted && entry.category == 'Publications'
+      context.promoted = {
+        :title => entry.promoted.title,
+        :category => entry.promoted.category.parameterize,
+        :price => entry.promoted.price,
+        :image => {
+          :url => entry.promoted.image.url,
+          :description => entry.promoted.image.description
         }
       }
     end
