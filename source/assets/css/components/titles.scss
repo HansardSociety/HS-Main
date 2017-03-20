@@ -7,7 +7,7 @@
 }
 
 .title {
-  @extend %u-font-avenir-300-normal;
+  @extend %u-font-avenir-700-normal;
 }
 
 .title--xsmall {
@@ -21,8 +21,8 @@
 }
 .title--large  {
   @extend %u-font-size-medium;
-  @include above('small') {
-    @extend %u-font-size-large__small;
+  @include above('medium') {
+    @extend %u-font-size-large__medium;
   }
 }
 .title--xlarge {

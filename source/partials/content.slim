@@ -1,19 +1,17 @@
 .content{
   class="#{ 'content--overlap' if child_page }"
-  class="#{ 'content--' + entry.category.downcase if entry.category }"
+  class="#{ 'content--' + entry.category if entry.category }"
 }
   .content__header
-
     section.content__introduction.copy
       = Kramdown::Document.new(entry.introduction).to_html
 
     aside.content__promoted
 
-      - if entry.promoted
-
+      - if entry.promoted && entry.category != 'blog'
         = partial 'partials/card',
-          :locals => { :image_url => entry.promoted.banner_image,
-                       :image_alt => entry.promoted.banner_alt,
+          :locals => { :image_url => entry.promoted.banner_image.url,
+                       :image_alt => entry.promoted.banner_image.alt,
                        :title => entry.promoted.title,
                        :category => entry.promoted.category,
                        :url => entry.promoted.slug }

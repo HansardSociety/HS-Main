@@ -18,5 +18,5 @@ head
   = partial 'assets/images/svg/sprite.symbol.svg'
 
   / Title
-  - data.hs.__GLOBAL__(0).each do |id, __GLOBAL__|
-    title= (@title ? @title + " " + __GLOBAL__.organisation : __GLOBAL__.organisation)
+  - data.hs.SITE(0).each do |id, site|
+    title= (@title ? @title + " " + site.organisation : site.organisation)

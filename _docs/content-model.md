@@ -2,7 +2,7 @@
 
 ````
 ..
-|-- __GLOBAL__
+|-- SITE
 | |-- organisation
 | |-- logo_mobile
 | |-- contact
@@ -16,6 +16,7 @@
 | | ..
 | |-- pages (ref, many)
 | | |-- # landing_page, child_page, url
+| | ..
 | |-- url
 | ..
 |-- home
@@ -46,6 +47,8 @@
 | |-- introduction (250-290 chars)
 | |-- copy
 | |-- promoted (ref, single)
+| | |-- # landing_page, child_page, product
+| | ..
 | |-- banner_image
 | |-- image_focus
 | |-- sidebar (ref, many)
@@ -74,6 +77,12 @@
 | | |-- call_to_action
 | | |-- featured_copy
 | | ..
+| ..
+|-- product
+| |-- title
+| |-- price
+| |-- image
+| |-- (dimensions etc)
 | ..
 ..
 ````

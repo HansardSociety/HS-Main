@@ -12,9 +12,11 @@
     %u-row;
 }
 
-.content--events     { @extend %u-accent-large-brand-green-top; }
-.content--innovation { @extend %u-accent-large-brand-green-top; }
-.content--research   { @extend %u-accent-large-brand-green-top; }
+.content--events      { @extend %u-accent-large-brand-blue-top; }
+.content--blog        { @extend %u-accent-large-brand-brown-top; }
+.content--innovation  { @extend %u-accent-large-brand-light-blue-top; }
+.content--publication { @extend %u-accent-large-brand-light-green-top; }
+.content--research    { @extend %u-accent-large-brand-green-top; }
 
 .content__header {
   @extend %u-width-full;

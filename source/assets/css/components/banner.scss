@@ -5,11 +5,7 @@
 }
 
 .banner--square {
-  height: 60vh;
-
-  @include orientation('portrait') {
-    height: 50vh;
-  }
+  height: 66.6666vh;
 }
 
 .banner__inner {
@@ -52,11 +48,11 @@
       %u-color-brand-orange,
       %u-position-absolute;
 
-    @include above('small') {
+    @include above('medium') {
       left: calc(-1rem - 1px);
       top: .5rem;
 
-      @extend %u-font-size-medium__small;
+      @extend %u-font-size-medium__medium;
     }
   }
 }
