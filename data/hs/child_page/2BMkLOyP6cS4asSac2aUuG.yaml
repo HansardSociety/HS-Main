@@ -1,5 +1,6 @@
 ---
 :ID: 2BMkLOyP6cS4asSac2aUuG
+:category: blog
 :title: Do mock elections really matter?
 :slug: do-mock-elections-really-matter
 :introduction: Why even casting your ballot in school elections can have a lasting
@@ -69,4 +70,5 @@
   school: Do school activities have a lasting impact on youth political engagement?)
   \n\n**Image Courtesy**: [Northern Ireland Executive](https://www.flickr.com/photos/niexecutive/16792558905/),
   Licensed under the Creative Commons Attribution 2.0 Generic"
-:category: blog
+:tags:
+- Young people

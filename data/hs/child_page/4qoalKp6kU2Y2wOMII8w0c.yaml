@@ -1,5 +1,6 @@
 ---
 :ID: 4qoalKp6kU2Y2wOMII8w0c
+:category: blog
 :title: A new generation get the key to the Dáil
 :slug: a-new-generation-get-the-key-to-the-dail
 :introduction: Ireland’s 32nd parliament met for the first time on 10 March 2016 following
@@ -75,4 +76,6 @@
   She is the author of *[At Home in the New House? A Study of Ireland’s First-Time
   TDs](http://www.hansardsociety.org.uk/wp-content/uploads/2013/07/At-Home-in-the-New-House-2013.pdf)*
   (Hansard Society, 2013)."
-:category: blog
+:tags:
+- Elections and voting
+- Northern Ireland

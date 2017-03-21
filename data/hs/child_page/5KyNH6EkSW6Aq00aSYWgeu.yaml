@@ -1,5 +1,6 @@
 ---
-:ID: 2tPDGNdyhWggwCa2cOKME8
+:ID: 5KyNH6EkSW6Aq00aSYWgeu
+:category: research
 :title: Westminster Lens
 :slug: westminster-lens
 :introduction: This data project enhances the provision of information and analysis
@@ -16,7 +17,7 @@
   and contradictions in the scrutiny of delegated legislation in the first comprehensive
   study of this process in decades. \n\nSuccessive governments over the last decade
   have resisted the case for significant reform of the legislative process, particularly
-  in relation to delegated legislation.\n\nBy augmenting our qualitative case studies
+  in relation to delegated legislation. \nBy augmenting our qualitative case studies
   with quantitative analysis of the process and procedures we hope to drive a new
   evidence based debate about how government produces and Parliament scrutinises legislation.
   Over time, as the data reveals trends or changes, the research will bring problems
@@ -39,8 +40,25 @@
   end of each parliamentary session and over time we will expand it to cover key areas
   of the primary legislative process as well.\n\n\n[1]: https://www.hansardsociety.org.uk/publications/making-better-law-reform-of-the-legislative-process-from-policy-to-act\n[2]:
   https://www.hansardsociety.org.uk/publications/the-devil-is-in-the-detail-parliament-and-delegated-legislation"
-:category: research
 :banner_image:
-  :url: "//images.contentful.com/xkbace0jm9pp/2jPlJfy9wIwWAMW4SWqKIK/a1d9cb218129ce241267afa41be5abbc/banner__palace-of-westminster--01.jpg"
-  :description: Bird's-eye view of the Palace of Westminster, Houses of Parliament
+  :url: "//images.contentful.com/xkbace0jm9pp/C5sDWFXtPUKIeE2s6YOEo/f91ec6e31b2744bd84f9aac7ede73bde/banner__palace-of-westminster--02.jpg"
+  :description: Bird's-eye view of the Palace of Westminster, UK Houses of Parliament
   :focus: center
+:promoted_page:
+  :ID: wtUcLQ3pbE4kQ40gOoImY
+  :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16 Session'
+  :slug: westminster-lens-parliament-and-delegated-legislation-in-the-2015-16
+  :category: publications
+  :banner_image:
+    :url: "//images.contentful.com/xkbace0jm9pp/2jPlJfy9wIwWAMW4SWqKIK/a1d9cb218129ce241267afa41be5abbc/banner__palace-of-westminster--01.jpg"
+    :alt: Bird's-eye view of the Palace of Westminster, Houses of Parliament
+  :product:
+    :ID: 6d3hCKtP0WWq2g0ICeMc2e
+    :title: Westminster Lens
+    :price: 0
+    :download: "//assets.contentful.com/xkbace0jm9pp/21cT0OJLzGIycKwosYqwyu/9c32e43caf9c57d8d6a438c04e63c771/publication__westminster-lens-2017.pdf"
+:tags:
+- Delegated legislation
+- Great Repeal Bill
+- Legislative process
+- Westminster Lens

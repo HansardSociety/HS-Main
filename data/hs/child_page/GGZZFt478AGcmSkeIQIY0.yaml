@@ -1,5 +1,6 @@
 ---
 :ID: GGZZFt478AGcmSkeIQIY0
+:category: blog
 :title: It's Brexit… So What Now for Parliament?
 :slug: its-brexit-so-what-now-for-parliament
 :introduction: A referendum is a blunt political instrument to deal with complex political
@@ -156,4 +157,5 @@
   presents a real opportunity to reinvent the way we legislate and the culture and
   practice of parliamentary politics in a manner fit for our new future. \n\n*You
   can buy our book, [The Devil is in the Detail: Parliament and Delegated Legislation](http://www.hansardsociety.org.uk/projects/delegated-legislation#!/).*"
-:category: blog
+:tags:
+- Brexit

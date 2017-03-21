@@ -1,11 +1,12 @@
 ---
-:ID: 4koGlGiwn6gCgmiwWyAGEM
-:title: 'Year In the Life: From Member of Public to Member of Parliament'
-:slug: year-in-the-life-from-member-of-public-to-member-of-parliament
-:introduction: Most of the UK’s general public law is made not through Acts of Parliament
-  but through delegated legislation. It is crucial to the effective operation of government
-  and affects millions of people each day. But despite its volume and importance,
-  remarkably little attention is paid to it.
+:ID: 2O1R7OK3SgWcIiUoQ26Ga4
+:category: research
+:title: 'A Year in the Life: From Member of Public to Member of Parliament'
+:slug: a-year-in-the-life-from-member-of-public-to-member-of-parliament
+:introduction: What is it like to be a newly elected Member of Parliament? This comparative
+  research study of the first year experience of newly elected legislators in four
+  different institutions tells the story of what happens when members of the public
+  become Members of Parliament.
 :copy: |-
   ## Why are we doing it?
 
@@ -33,13 +34,13 @@
   In 2011 the National Assembly for Wales commissioned us to extend our Westminster study to Cardiff in order to provide an independent research base about the first year experience of new AMs, particularly regarding their attitudes to the orientation and induction provided. This in turn informed the provision of professional development support during the course of the Assembly term and the curation of the induction programme for the new AMs following the 2016 election.
 
   The study of Irish TDs was launched at the Dail in 2013 – the Ceann Comhairle, Sean Barrett and Government Chief Whip, Paul Kehoe both spoke at the event. The findings have been used by parliamentary staff to inform their approach to induction of the new intake of TDs following the 2016 election.
-:category: research
 :banner_image:
   :url: "//images.contentful.com/xkbace0jm9pp/67cLDZYWhqKIIc8a0c6y6o/e8d0bfe2727aa05ef7e4337b773422ca/banner__mp-swearing-in--01.jpg"
   :description: A new Member of Parliament swearing on the Koran in the House of Commons,
     Westminster
   :focus: center
-:promoted:
+:promoted_page:
+  :ID: M45zAU7UaIk8sCeEEO4O4
   :title: Delegated Legislation
   :slug: delegated-legislation
   :category: research
@@ -47,3 +48,7 @@
     :url: "//images.contentful.com/xkbace0jm9pp/1G2qLPxUtWeWG22MCGQycO/af09f0306077f5b16aa6e93d35a7b4fe/banner__parliamentary-archives--01.jpg"
     :alt: Photo of Acts of Parliament in the Parliamentary Archives, Houses of Parliament,
       Westminster
+:tags:
+- Elections and voting
+- House of Commons
+- Year in the Life

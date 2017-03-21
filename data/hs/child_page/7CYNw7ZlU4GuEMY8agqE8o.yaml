@@ -1,5 +1,6 @@
 ---
 :ID: 7CYNw7ZlU4GuEMY8agqE8o
+:category: blog
 :title: Why Parliament needs a 'good Brexit'
 :slug: why-parliament-needs-a-good-brexit
 :introduction: There are two scenarios for the way in which Parliament's handling
@@ -136,4 +137,5 @@
   The extract was cited by the Select Committee on Modernisation of the House of Commons
   in its 2007 report [Revitalising the Chamber: the role of the back bench Member](http://www.publications.parliament.uk/pa/cm200607/cmselect/cmmodern/337/337.pdf)
   (HC 337), the last time a Commons body considered this issue."
-:category: blog
+:tags:
+- Brexit

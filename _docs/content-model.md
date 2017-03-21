@@ -42,12 +42,14 @@
 |-- child_page
 | |-- title
 | |-- category
-| | |-- # About, Blog, Events, Intelligence, Research, Resources
+| | |-- # Blog
 | | ..
 | |-- introduction (250-290 chars)
 | |-- copy
 | |-- promoted (ref, single)
-| | |-- # landing_page, child_page, product
+| | |-- # landing_page, child_page
+| | ..
+|--
 | | ..
 | |-- banner_image
 | |-- image_focus

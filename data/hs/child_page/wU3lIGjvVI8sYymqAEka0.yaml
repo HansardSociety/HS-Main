@@ -1,9 +1,11 @@
 ---
 :ID: wU3lIGjvVI8sYymqAEka0
+:category: blog
 :title: 'The Delegated Legislation Journey: From Idea to Implementation'
 :slug: the-delegated-legislation-journey-from-idea-to-implementation
 :introduction: Learn about the complex journey, from idea to implementation, involved
   in making delegated legislation in this six-step infographic. Lorem ipsum dolor
   sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
 :copy: "![The Delegated Legislation Journey: From Idea to Implementation (Infographic)](/content/images/2016/06/delegated-legislation-infographic.png)"
-:category: blog
+:tags:
+- Delegated legislation

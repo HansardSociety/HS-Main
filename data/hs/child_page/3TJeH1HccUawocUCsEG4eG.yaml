@@ -1,5 +1,6 @@
 ---
 :ID: 3TJeH1HccUawocUCsEG4eG
+:category: blog
 :title: Government squandered public education opportunity with dismissive response
   to anti-Trump state visit e-petition
 :slug: government-squandered-public-education-opportunity-with-dismissive-response
@@ -67,7 +68,6 @@
   treating the petitioning system as a mass civic education exercise rather than a
   political nuisance. \n\n*Photo Credit: [Jay Allen]( https://www.flickr.com/photos/number10gov/32570414726/in/album-72157678120050110/)
   provided under a CreativeCommons licence.*"
-:category: blog
 :banner_image:
   :url: "//images.contentful.com/xkbace0jm9pp/9K36CYAj3GwmgSgoicCma/1250f91a04e89fd32ca68b5472be68e4/banner__theresa-may-donald-trump--01.jpg"
   :description: Prime Minister Theresa May and President Donald Trump at a press conference
@@ -80,3 +80,8 @@
   :photo:
     :url: "//images.contentful.com/xkbace0jm9pp/FebDTDuF1Yc4KwMM4Qc28/edab5f846ac02082f82e2f5af7ade9bf/profile__ruth-fox--01.jpg"
     :alt: Photo of Hansard Society Director, Dr Ruth Fox
+:date_time:
+  :integer: 1488375000
+  :date: 1/3/2017
+:tags:
+- E-petitions

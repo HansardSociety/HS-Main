@@ -1,5 +1,6 @@
 ---
 :ID: 6YDvkwP9ccOMuSWcKCmo0a
+:category: blog
 :title: 'Lifting the Lid: The Welfare Reform (Northern Ireland) Order 2015'
 :slug: lifting-the-lid-the-welfare-reform-northern-ireland-order-2015
 :introduction: 'Our ‘Lifting the Lid’ blog series aims to open up the delegated legislation
@@ -81,4 +82,5 @@
   to know more about delegated legislation? This [5 minute video](http://www.hansardsociety.org.uk/introduction-to-delegated-legislation-video/)
   with our Director, Dr Ruth Fox, explains what it is and why it needs reforming.*\n\n*Our
   research into delegated legislation was funded by the Nuffield Foundation.*"
-:category: blog
+:tags:
+- Delegated legislation

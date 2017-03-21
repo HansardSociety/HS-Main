@@ -1,5 +1,6 @@
 ---
 :ID: 1uGKuBpzfG2SM40iOceMaO
+:category: blog
 :title: Is Parliament Ready for Brexit?
 :slug: is-parliament-ready-for-brexit
 :introduction: 'After probably the most momentous month in British politics since
@@ -143,4 +144,5 @@
   52 to 48, we might hope that Parliament could come up with a solution that 80% of
   the population can accept as a stable one, in order to make that stark 50:50 divide
   not quite so stark.\""
-:category: blog
+:tags:
+- Brexit

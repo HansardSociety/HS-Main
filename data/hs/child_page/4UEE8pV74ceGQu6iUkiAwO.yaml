@@ -1,5 +1,6 @@
 ---
 :ID: 4UEE8pV74ceGQu6iUkiAwO
+:category: blog
 :title: What's good for the goose is good for the gander
 :slug: whats-good-for-the-goose-is-good-for-the-gander
 :introduction: Political scientists have known for a long time that talking politics
@@ -125,4 +126,5 @@
   than 10 are excluded from the charts (so not all lines are complete)\n\n[^2]: SNP
   and PC were excluded only respondents in Scotland and Wales were asked about nationalist
   discussants. "
-:category: blog
+:tags:
+- Elections and voting

@@ -1,11 +1,11 @@
 ---
-:ID: 6pzBBJMWNa4CcWWAkKcYW
-:title: 'Future Parliament: Restoration and Reform of the Palace of Westminster'
+:ID: 141UVF2emOYCQWOGKg4YyY
+:category: research
+:title: 'Future Parliament: Restoration and Reform of the Palace of Westminster '
 :slug: future-parliament-restoration-and-reform-of-the-palace-of-westminster
 :introduction: The proposed multi-billion pound refurbishment of the Palace of Westminster
   presents a rare one-in-150 year opportunity to reform the leading institution of
-  our democracy. This project will explore new ideas in Parliament's physical, cultural
-  and digital spheres.
+  our democracy.
 :copy: "## Why are we doing it? \n\nThe refurbishment programme is the nearest we
   will come to a blank-slate for redesigning Parliament and reforming the culture
   and practice of parliamentary politics. \n\nBut if the focus is solely on fixing
@@ -56,8 +56,10 @@
   that have now vanished. \n* A cultural and heritage corridor from Trafalgar Square
   to Tate Britain to relate our democratic story in an engaging and imaginative form
   as discerned through the mix of art, statuary and sculpture en route. \n"
-:category: research
 :banner_image:
   :url: "//images.contentful.com/xkbace0jm9pp/44rqRRA8PeMQmskmwU8Ggi/eec4e87163f6940ec421208baf851406/banner__architectural-blueprint--01.jpg"
   :description: An architectural blueprint showing six abstract geometric shapes
   :focus: center
+:tags:
+- Future Parliament
+- Restoration and Renewal

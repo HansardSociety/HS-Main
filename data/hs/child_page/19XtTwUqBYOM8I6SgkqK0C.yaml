@@ -1,10 +1,11 @@
 ---
-:ID: 41N6Ol5P0kcuGWg8ec8SIu
+:ID: 19XtTwUqBYOM8I6SgkqK0C
+:category: research
 :title: Parliaments, Public Engagement and Poverty Reduction
 :slug: parliaments-public-engagement-and-poverty-reduction
-:introduction: This research project in Bangladesh and Ethiopia explores what role
-  parliamentary public engagement plays in tackling poverty reduction, through the
-  work of Members of Parliament as both legislators and constituency representatives.
+:introduction: This research in Bangladesh and Ethiopia explores what role parliamentary
+  public engagement plays in tackling poverty reduction, through the work of MPs as
+  both legislators and constituency representatives.
 :copy: "## Why are we doing it? \n\nAn effective Parliament and an engaged citizenry
   are widely regarded as necessary if progress is to be made in tackling poverty reduction.
   And yet in Bangladesh and Ethiopia progress has been made towards development goals
@@ -45,8 +46,9 @@
   part of a joint scheme to fund world class research on poverty alleviation, enhance
   the quality and impact of social science, and contribute to the achievement of the
   Millennium Development Goals."
-:category: research
 :banner_image:
   :url: "//images.contentful.com/xkbace0jm9pp/7i1qcNFwKQMqU4AI8ScWWE/5904aa2ce3ac901fcd12efe6b457fe6c/banner__rickshaws-bangladesh--01.jpg"
   :description: Photo of Rickshaws in Bangladesh
   :focus: left
+:tags:
+- International development

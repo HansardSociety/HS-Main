@@ -1,5 +1,6 @@
 ---
-:ID: 2LHuov7wiIWUgOcC4oKEau
+:ID: M45zAU7UaIk8sCeEEO4O4
+:category: research
 :title: Delegated Legislation
 :slug: delegated-legislation
 :introduction: Most of the UK’s general public law is made not through Acts of Parliament
@@ -48,10 +49,12 @@
   review into the powers of the Upper House in relation to delegated legislation.
   Subsequent reports  by the House of Lords Delegated Powers and Regulatory Reform
   Committee and the House of Lords Constitution Committee quoted extensively from
-  their evidence and *The Devil is in the Detail* research."
-:category: research
+  their evidence and *The Devil is in the Detail* research. "
 :banner_image:
   :url: "//images.contentful.com/xkbace0jm9pp/1G2qLPxUtWeWG22MCGQycO/af09f0306077f5b16aa6e93d35a7b4fe/banner__parliamentary-archives--01.jpg"
   :description: Photo of Acts of Parliament in the Parliamentary Archives, Houses
     of Parliament, Westminster
   :focus: center
+:tags:
+- Delegated legislation
+- Great Repeal Bill

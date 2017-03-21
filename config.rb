@@ -70,11 +70,11 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
 
     # Core
     context.ID = entry.sys[:id]
+    context.category = entry.category.parameterize
     context.title = entry.title
     context.slug = entry.slug.parameterize
     context.introduction = entry.introduction
     context.copy = entry.copy
-    context.category = entry.category.parameterize
 
     # Banner image
     if entry.banner_image
@@ -85,8 +85,8 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       }
     end
 
-    # Promoted (blog)
-    if entry.promoted && entry.category == 'Blog'
+    # Promoted (people)
+    if entry.promoted && entry.promoted.content_type.id == 'people'
       context.author = {
         :full_name => entry.promoted.full_name,
         :twitter => entry.promoted.twitter,
@@ -98,31 +98,59 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       }
     end
 
-    # Promoted (research)
-    if entry.promoted && entry.category == 'Research'
-      context.promoted = {
+    # Promoted (product)
+    if entry.promoted && entry.promoted.content_type.id == 'product'
+      context.product = {
+        :ID => entry.promoted.sys[:id],
         :title => entry.promoted.title,
-        :slug => entry.promoted.slug,
         :category => entry.promoted.category.parameterize,
-        :banner_image => {
-          :url => entry.promoted.banner_image.url,
-          :alt => entry.promoted.banner_image.description
+        :price => entry.promoted.price,
+        :download => entry.promoted.media.url,
+        :image => {
+          :url => entry.promoted.image.url,
+          :alt => entry.promoted.image.description
         }
       }
     end
 
-    # Promoted (publications)
-    if entry.promoted && entry.category == 'Publications'
-      context.promoted = {
+    # Promoted (child_page/ landing_page)
+    if entry.promoted && entry.promoted.content_type.id == 'child_page'
+      @linked_product = entry.promoted.promoted && entry.promoted.promoted.content_type.id == 'product'
+
+      context.promoted_page = {
+        :ID => entry.promoted.sys[:id],
         :title => entry.promoted.title,
+        :slug => entry.promoted.slug.parameterize,
         :category => entry.promoted.category.parameterize,
-        :price => entry.promoted.price,
-        :image => {
-          :url => entry.promoted.image.url,
-          :description => entry.promoted.image.description
-        }
+        :banner_image => {
+          :url => entry.promoted.banner_image.url,
+          :alt => entry.promoted.banner_image.description
+        },
+        :product => ({
+          :ID => entry.promoted.promoted.sys[:id],
+          :title => entry.promoted.promoted.title,
+          :price => entry.promoted.promoted.price,
+          :download => entry.promoted.promoted.media.url
+        } if @linked_product)
+      }.reject{ |key, value| value.nil? }
+    end
+
+    # Date/ time
+    if entry.date_time
+      context.date_time = {
+        :integer => entry.date_time.strftime('%s').to_i,
+        :date => "#{ entry.date_time.day }/#{ entry.date_time.month }/#{ entry.date_time.year }"
       }
     end
+
+    # Tags
+    # if entry.tags
+    #   context.tags = entry.tags.parameterize
+    #   context.sidebar = data.hs.child_page.map do |tag| {
+    #
+    #   }
+    #   end
+    # end
   end
 end
 
@@ -130,7 +158,7 @@ end
 activate :contentful do |f|
   f.space         = { hs: 'xkbace0jm9pp' }
   f.access_token  = 'd1270ddb68c436e381efa9ae456472610081a17d7e9e3fbb3d8309b702a852e2'
-  f.cda_query     = { include: 2 }
+  f.cda_query     = { include: 4 }
   f.content_types = {
     SITE: '__GLOBAL__',
     child_page: { mapper: ChildPageMap, id: 'child_page' },
@@ -155,19 +183,11 @@ if Dir.exist?(config.data_dir)
 
   # Child pages
   data.hs.child_page.each do |id, child_page|
-    proxy "/#{ child_page.category + '/' + child_page.slug }.html",
+    proxy "#{ child_page.slug.parameterize + '/' + child_page.slug }.html",
           "/templates/child-page.html",
           :ignore => true,
           :locals => { :child_page => child_page }
   end
-
-  # # Posts
-  # data.hs.post.each do |id, post|
-  #   proxy "/blog/#{ post.slug }.html",
-  #         "/templates/child-page.html",
-  #         :ignore => true,
-  #         :locals => { :child_page => post }
-  # end
 end
 
 ##############################
