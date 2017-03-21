@@ -61,5 +61,5 @@
   :description: An architectural blueprint showing six abstract geometric shapes
   :focus: center
 :tags:
-- Future Parliament
-- Restoration and Renewal
+- :tag: future-parliament
+- :tag: restoration-and-renewal

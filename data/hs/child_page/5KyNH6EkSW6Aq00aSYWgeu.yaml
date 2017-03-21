@@ -58,7 +58,7 @@
     :price: 0
     :download: "//assets.contentful.com/xkbace0jm9pp/21cT0OJLzGIycKwosYqwyu/9c32e43caf9c57d8d6a438c04e63c771/publication__westminster-lens-2017.pdf"
 :tags:
-- Delegated legislation
-- Great Repeal Bill
-- Legislative process
-- Westminster Lens
+- :tag: delegated-legislation
+- :tag: great-repeal-bill
+- :tag: legislative-process
+- :tag: westminster-lens

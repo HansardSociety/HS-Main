@@ -144,13 +144,12 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     end
 
     # Tags
-    # if entry.tags
-    #   context.tags = entry.tags.parameterize
-    #   context.sidebar = data.hs.child_page.map do |tag| {
-    #
-    #   }
-    #   end
-    # end
+    if entry.tags
+      context.tags = entry.tags.map do |tag| {
+        :tag => tag.parameterize
+      }
+      end
+    end
   end
 end
 
@@ -183,7 +182,7 @@ if Dir.exist?(config.data_dir)
 
   # Child pages
   data.hs.child_page.each do |id, child_page|
-    proxy "#{ child_page.slug.parameterize + '/' + child_page.slug }.html",
+    proxy "#{ child_page.category.parameterize + '/' + child_page.slug }.html",
           "/templates/child-page.html",
           :ignore => true,
           :locals => { :child_page => child_page }
