@@ -84,5 +84,13 @@
 | |-- image
 | |-- (dimensions etc)
 | ..
+|-- registration
+| |-- title
+| |-- date_time
+| |-- venue
+| |-- price
+| |-- url
+| |-- embed_code
+| ..
 ..
 ````
