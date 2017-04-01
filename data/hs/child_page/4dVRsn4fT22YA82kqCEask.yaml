@@ -85,6 +85,20 @@
   should also remember that voters tend to respond positively to the human touch,
   which is frequently provided for free.\n\n---\n\n**Image Courtesy**: [Philip Taylor](https://flic.kr/p/bDwJ11),
   Licensed under the Creative Commons Attribution 2.0 Generic"
+:banner_image:
+  :url: "//images.contentful.com/xkbace0jm9pp/2Okx2YE0Mw4eEK0gygiwUg/0d008e5de7e8a29c11b27ee295c1dcbc/banner__money-scrabble--01.jpg"
+  :alt: The word 'Money' spelled out in scrabble.
+  :focus: center
+:author:
+  :full_name: Professor Justin Fisher
+  :twitter: 
+  :email: 
+  :photo:
+    :url: "//images.contentful.com/xkbace0jm9pp/1gbTMzAYlqueAyyOCUAkGA/623729a410c3e4e18a62e14c89f42529/profile__justin-fisher--01.jpg"
+    :alt: Professor Justin Fisher
+:date_time:
+  :integer: 1399852800
+  :date: 12 May, 14
 :tags:
 - :tag: elections-and-voting
 - :tag: political-parties

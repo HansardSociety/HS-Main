@@ -76,6 +76,20 @@
   She is the author of *[At Home in the New House? A Study of Ireland’s First-Time
   TDs](http://www.hansardsociety.org.uk/wp-content/uploads/2013/07/At-Home-in-the-New-House-2013.pdf)*
   (Hansard Society, 2013)."
+:banner_image:
+  :url: "//images.contentful.com/xkbace0jm9pp/3bDqq6vcmcG46WYOyi6As2/d585a87156970451e0cc27bea242c523/banner__dail-eireann--01.jpg"
+  :alt: The first sitting of the Dail Eireann after the 2016 Northern Ireland elections.
+  :focus: center
+:author:
+  :full_name: Dr Mary C. Murphy
+  :twitter: 
+  :email: 
+  :photo:
+    :url: "//images.contentful.com/xkbace0jm9pp/KWj78y1AU8aCGaog0S4uK/dc4cdda7b8cc019210df13e6a18748d9/profile__mary-c-murphy--01.jpg"
+    :alt: Dr Mary C. Murphy
+:date_time:
+  :integer: 1462320000
+  :date: 04 May, 16
 :tags:
 - :tag: elections-and-voting
 - :tag: northern-ireland

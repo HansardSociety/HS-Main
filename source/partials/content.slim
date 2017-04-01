@@ -8,15 +8,32 @@
 
     aside.content__promoted
 
-      - if entry.promoted && entry.category != 'blog'
+      - if entry.promoted_page
         = partial 'partials/card',
-          :locals => { :image_url => entry.promoted.banner_image.url,
-                       :image_alt => entry.promoted.banner_image.alt,
-                       :title => entry.promoted.title,
-                       :category => entry.promoted.category,
-                       :url => entry.promoted.slug }
+          :locals => { :image => entry.promoted_page.banner_image,
+                       :title => entry.promoted_page.title,
+                       :category => entry.promoted_page.category,
+                       :date => 'hello',
+                       :url => entry.promoted_page.slug }
 
   section.content__main.copy
     = Kramdown::Document.new(entry.copy).to_html
 
   aside.content__aside
+
+    //////////////////////////////
+    // Tagging
+    //////////////////////////////
+
+    - data.hs.child_page.each do |id, child_page|
+      - @entry_tags = entry.tags
+      - @page_tags = child_page.tags
+
+      - if child_page.tags && @page_tags.any? { |tags| @entry_tags.include?(tags) }
+        - if child_page.ID != entry.ID
+          = partial 'partials/card',
+            :locals => { :image => child_page.banner_image,
+                         :title => child_page.title,
+                         :category => child_page.category,
+                         :date => (child_page.date_time ? child_page.date_time.date : 'no' ),
+                         :url => child_page.slug }

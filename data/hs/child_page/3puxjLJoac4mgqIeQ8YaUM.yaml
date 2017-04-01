@@ -409,6 +409,20 @@
   challenge and appear to be people who are prepared to put our ambition for our country
   ahead of our personal party prejudices then we just might encourage people to be
   proud of their politicians and their Parliament once again.\n\nEnds"
+:banner_image:
+  :url: "//images.contentful.com/xkbace0jm9pp/5JLgMNRfYkWQq8uAwYC8wq/1ef99b34c691aacfe7b65d5ce47777ce/banner__theresa-may--02.jpg"
+  :alt: Theresa May making a speech
+  :focus: left
+:author:
+  :full_name: Dr Ruth Fox
+  :twitter: https://twitter.com/ruthfox01
+  :email: ruth.fox@hansardsociety.org.uk
+  :photo:
+    :url: "//images.contentful.com/xkbace0jm9pp/FebDTDuF1Yc4KwMM4Qc28/edab5f846ac02082f82e2f5af7ade9bf/profile__ruth-fox--01.jpg"
+    :alt: Photo of Hansard Society Director, Dr Ruth Fox
+:date_time:
+  :integer: 1468627200
+  :date: 16 Jul, 16
 :tags:
-- :tag: prime-minister-s-questions
+- :tag: prime-ministers-questions
 - :tag: theresa-may

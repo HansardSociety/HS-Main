@@ -48,7 +48,7 @@
   Millennium Development Goals."
 :banner_image:
   :url: "//images.contentful.com/xkbace0jm9pp/7i1qcNFwKQMqU4AI8ScWWE/5904aa2ce3ac901fcd12efe6b457fe6c/banner__rickshaws-bangladesh--01.jpg"
-  :description: Photo of Rickshaws in Bangladesh
+  :alt: Photo of Rickshaws in Bangladesh
   :focus: left
 :tags:
 - :tag: international-development

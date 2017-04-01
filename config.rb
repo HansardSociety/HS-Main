@@ -80,7 +80,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     if entry.banner_image
       context.banner_image = {
         :url => entry.banner_image.url,
-        :description => entry.banner_image.description,
+        :alt => entry.banner_image.description,
         :focus => entry.image_focus.parameterize
       }
     end
@@ -98,21 +98,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       }
     end
 
-    # Promoted (product)
-    if entry.promoted && entry.promoted.content_type.id == 'product'
-      context.product = {
-        :ID => entry.promoted.sys[:id],
-        :title => entry.promoted.title,
-        :category => entry.promoted.category.parameterize,
-        :price => entry.promoted.price,
-        :download => entry.promoted.media.url,
-        :image => {
-          :url => entry.promoted.image.url,
-          :alt => entry.promoted.image.description
-        }
-      }
-    end
-
     # Promoted (child_page/ landing_page)
     if entry.promoted && entry.promoted.content_type.id == 'child_page'
       @linked_product = entry.promoted.promoted && entry.promoted.promoted.content_type.id == 'product'
@@ -122,15 +107,20 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         :title => entry.promoted.title,
         :slug => entry.promoted.slug.parameterize,
         :category => entry.promoted.category.parameterize,
-        :banner_image => {
+        :banner_image => ({
           :url => entry.promoted.banner_image.url,
-          :alt => entry.promoted.banner_image.description
-        },
+          :alt => entry.promoted.banner_image.description,
+          :focus => entry.promoted.image_focus.parameterize
+        } if entry.promoted.banner_image),
         :product => ({
           :ID => entry.promoted.promoted.sys[:id],
           :title => entry.promoted.promoted.title,
           :price => entry.promoted.promoted.price,
-          :download => entry.promoted.promoted.media.url
+          :download => entry.promoted.promoted.media.url,
+          :image => {
+            :url => entry.promoted.promoted.image.url,
+            :alt => entry.promoted.promoted.image.description
+          }
         } if @linked_product)
       }.reject{ |key, value| value.nil? }
     end
@@ -139,14 +129,14 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     if entry.date_time
       context.date_time = {
         :integer => entry.date_time.strftime('%s').to_i,
-        :date => "#{ entry.date_time.day }/#{ entry.date_time.month }/#{ entry.date_time.year }"
+        :date => entry.date_time.strftime('%d %b, %y')
       }
     end
 
     # Tags
     if entry.tags
       context.tags = entry.tags.map do |tag| {
-        :tag => tag.parameterize
+        :tag => tag.gsub("'", '').parameterize
       }
       end
     end

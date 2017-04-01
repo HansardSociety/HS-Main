@@ -1,9 +1,11 @@
 .alt-title {
+  text-transform: lowercase;
+  font-variant: small-caps;
+
   @extend
     %u-color-brand-black-2,
     %u-font-size-xsmall,
-    %u-margin-top-xsmall,
-    %u-uppercase;
+    %u-margin-top-xsmall;
 }
 
 .title {
@@ -14,7 +16,11 @@
   @extend %u-font-size-xsmall;
 }
 .title--small  {
-  @extend %u-font-size-small;
+  @extend %u-font-size-xsmall;
+
+  @include above('medium') {
+    @extend %u-font-size-small__medium;
+  }
 }
 .title--medium {
   @extend %u-font-size-medium;

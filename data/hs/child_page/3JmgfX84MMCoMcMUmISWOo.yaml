@@ -7,5 +7,20 @@
   the nation, providing a unique benchmark to gauge public opinion across Great Britain
   with regard to politics and the political process.
 :copy: "![](/content/images/2016/06/The-EU-Referendum-infographic-poster.png)"
+:banner_image:
+  :url: "//images.contentful.com/xkbace0jm9pp/5Kh2fyKtvGuMAi8EqsuwsE/f13fb475e75cab14e40f89238b46dd68/banner__eu-flag-big-ben--01.jpg"
+  :alt: The EU flag in the foreground and Big Ben in the background during a protest
+    in Parliament Square, Westinster.
+  :focus: center
+:author:
+  :full_name: Joel Blackwell
+  :twitter: 
+  :email: 
+  :photo:
+    :url: "//images.contentful.com/xkbace0jm9pp/2dX2lTuI8QGYaAeaaCuMsU/0a437dd2a8981cf2958e9e5e31a97626/profile__joel-blackwell--01.jpg"
+    :alt: Joel Blackwell
+:date_time:
+  :integer: 1460764800
+  :date: 16 Apr, 16
 :tags:
 - :tag: brexit

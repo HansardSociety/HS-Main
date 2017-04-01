@@ -52,8 +52,8 @@
   their evidence and *The Devil is in the Detail* research. "
 :banner_image:
   :url: "//images.contentful.com/xkbace0jm9pp/1G2qLPxUtWeWG22MCGQycO/af09f0306077f5b16aa6e93d35a7b4fe/banner__parliamentary-archives--01.jpg"
-  :description: Photo of Acts of Parliament in the Parliamentary Archives, Houses
-    of Parliament, Westminster
+  :alt: Photo of Acts of Parliament in the Parliamentary Archives, Houses of Parliament,
+    Westminster
   :focus: center
 :tags:
 - :tag: delegated-legislation

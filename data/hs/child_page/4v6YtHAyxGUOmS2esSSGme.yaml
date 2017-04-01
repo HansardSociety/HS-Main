@@ -105,6 +105,20 @@
   will much improve on Miliband’s 2015 achievement. \n\n---\n\n**Image Courtesy**:
   [Bob Peters](https://www.flickr.com/photos/22179048@N05/), Licensed under the Creative
   Commons Attribution-NonCommercial 2.0"
+:banner_image:
+  :url: "//images.contentful.com/xkbace0jm9pp/18BVZ54rXoYQKSCaweEUwG/7e6e42e44d3ac1a35b1b5ba6b4233683/banner__jeremy-corbyn--01.jpg"
+  :alt: Photo of Jeremy Corbyn stood next to a fire engine with 'Rescue' on the front
+  :focus: center
+:author:
+  :full_name: Professor Steven Fielding
+  :twitter: 
+  :email: 
+  :photo:
+    :url: "//images.contentful.com/xkbace0jm9pp/60EiX3m7VCqW2gugmQqQSM/09bc70fbf670682a317d7d5a4ca9ec6e/profile__steven-fielding--01.jpg"
+    :alt: Professor Steven Fielding
+:date_time:
+  :integer: 1428537600
+  :date: '09 Apr, 15'
 :tags:
 - :tag: elections-and-voting
 - :tag: labour

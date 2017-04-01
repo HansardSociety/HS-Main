@@ -126,5 +126,19 @@
   than 10 are excluded from the charts (so not all lines are complete)\n\n[^2]: SNP
   and PC were excluded only respondents in Scotland and Wales were asked about nationalist
   discussants. "
+:banner_image:
+  :url: "//images.contentful.com/xkbace0jm9pp/1cigLR1FKWiokyA4C4842Y/8f71c6eb69ea9b5a0104e7f9c2becf31/banner__conversation--01.jpg"
+  :alt: Two people having a conversation in a cafe.
+  :focus: center
+:author:
+  :full_name: Professor Ed Fieldhouse
+  :twitter: 
+  :email: 
+  :photo:
+    :url: "//images.contentful.com/xkbace0jm9pp/RnkCy6y7OUI2y4ms8w8kq/af8ca458f8edd4dc366c53a334ea40a7/profile__ed-fieldhouse--01.jpg"
+    :alt: Professor Ed Fieldhouse
+:date_time:
+  :integer: 1481673600
+  :date: 14 Dec, 16
 :tags:
 - :tag: elections-and-voting

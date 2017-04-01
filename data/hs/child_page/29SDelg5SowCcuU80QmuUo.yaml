@@ -66,6 +66,20 @@
   to have benefitted in part by focussing on people not profiles, on individual voters
   not demographics.\n\n---\n\n**Image Courtesy**: [Jason Howie](https://www.flickr.com/photos/jasonahowie/),
   Licensed under the Creative Commons Attribution 2.0 Generic\n"
+:banner_image:
+  :url: "//images.contentful.com/xkbace0jm9pp/2Pzw8xpGjKOykwa08ecmoM/e150170eb2b22ae970ca184f0bbd7682/banner__social-media--01.jpg"
+  :alt: Social media icons
+  :focus: center
+:author:
+  :full_name: Dr Andy Williamson
+  :twitter: 
+  :email: 
+  :photo:
+    :url: "//images.contentful.com/xkbace0jm9pp/Jdf4NlRVAqoIQqsGQQ0qq/16941d598584b2adf5be0d3a8097605d/profile__andy-williamson--01.jpg"
+    :alt: Dr Andy Williamson
+:date_time:
+  :integer: 1431648000
+  :date: 15 May, 15
 :tags:
 - :tag: digital-democracy
 - :tag: elections-and-voting

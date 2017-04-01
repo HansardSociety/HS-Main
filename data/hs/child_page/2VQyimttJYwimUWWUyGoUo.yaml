@@ -6,5 +6,20 @@
 :introduction: Find out what the key findings are in our latest survey on public attitudes
   to Prime Minister's Questions in five graphics.
 :copy: "![Public perceptions of 'People's PMQs'](/content/images/2015/10/pmqs-infographic-final-3.png)\n"
+:banner_image:
+  :url: "//images.contentful.com/xkbace0jm9pp/5IcFyd57riQqUUMeAgSAYW/f807aecbf8b2066c42b9a958275cc854/banner__jeremy-corbyn--02.jpg"
+  :alt: Leader of the Opposition Jeremy Corbyn during Prime Minister's Questions (PMQs)
+  :focus: center
+:author:
+  :full_name: Luke Boga Mitchell
+  :twitter: 
+  :email: 
+  :photo:
+    :url: "//images.contentful.com/xkbace0jm9pp/2iUs8PjCmwao4sUeq2O8m/66241c3554c64d19e3d219edc6c08b87/profile__luke-boga-mitchell--01.jpg"
+    :alt: Luke Boga Mitchell
+:date_time:
+  :integer: 1447113600
+  :date: 10 Nov, 15
 :tags:
-- :tag: prime-minister-s-questions
+- :tag: jeremy-corbyn
+- :tag: prime-ministers-questions

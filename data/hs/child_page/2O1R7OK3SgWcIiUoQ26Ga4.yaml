@@ -36,7 +36,7 @@
   The study of Irish TDs was launched at the Dail in 2013 – the Ceann Comhairle, Sean Barrett and Government Chief Whip, Paul Kehoe both spoke at the event. The findings have been used by parliamentary staff to inform their approach to induction of the new intake of TDs following the 2016 election.
 :banner_image:
   :url: "//images.contentful.com/xkbace0jm9pp/67cLDZYWhqKIIc8a0c6y6o/e8d0bfe2727aa05ef7e4337b773422ca/banner__mp-swearing-in--01.jpg"
-  :description: A new Member of Parliament swearing on the Koran in the House of Commons,
+  :alt: A new Member of Parliament swearing on the Koran in the House of Commons,
     Westminster
   :focus: center
 :promoted_page:
@@ -48,6 +48,7 @@
     :url: "//images.contentful.com/xkbace0jm9pp/1G2qLPxUtWeWG22MCGQycO/af09f0306077f5b16aa6e93d35a7b4fe/banner__parliamentary-archives--01.jpg"
     :alt: Photo of Acts of Parliament in the Parliamentary Archives, Houses of Parliament,
       Westminster
+    :focus: center
 :tags:
 - :tag: elections-and-voting
 - :tag: house-of-commons

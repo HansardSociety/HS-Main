@@ -5,10 +5,10 @@ article.card
   }
     .card__image
       img{
-        src="#{ image_url + '?fit=fill&w=180&h=320' }"
-        alt="#{ image_alt }"
+        src="#{ image.url }?fit=fill&w=180&h=320&f=#{ image.focus }"
+        alt="#{ image.alt }"
       }
 
     .card__content
-      span.alt-title= category
+      span.alt-title= category == 'blog' ? category + " / #{ date }" : category
       h1.title.title--small= title

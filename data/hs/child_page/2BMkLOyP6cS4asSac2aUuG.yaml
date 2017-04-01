@@ -70,5 +70,20 @@
   school: Do school activities have a lasting impact on youth political engagement?)
   \n\n**Image Courtesy**: [Northern Ireland Executive](https://www.flickr.com/photos/niexecutive/16792558905/),
   Licensed under the Creative Commons Attribution 2.0 Generic"
+:banner_image:
+  :url: "//images.contentful.com/xkbace0jm9pp/3KL9dsv3XGmueuO0q0e8oY/31513622cd2be909b6a98aaf421a0f47/banner__ballot-box--01.jpg"
+  :alt: A general election ballot box.
+  :focus: center
+:author:
+  :full_name: Dr Avril Keating
+  :twitter: 
+  :email: 
+  :photo:
+    :url: "//images.contentful.com/xkbace0jm9pp/5r8LX337BSWm2uMMU2CoSe/73367016edd09ed344b43c3df5ba33c6/profile__avril-keating--01.jpg"
+    :alt: Dr Avril Keating
+:date_time:
+  :integer: 1449273600
+  :date: 05 Dec, 15
 :tags:
+- :tag: elections-and-voting
 - :tag: young-people
