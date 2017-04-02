@@ -60,6 +60,9 @@
   :url: "//images.contentful.com/xkbace0jm9pp/44rqRRA8PeMQmskmwU8Ggi/eec4e87163f6940ec421208baf851406/banner__architectural-blueprint--01.jpg"
   :alt: An architectural blueprint showing six abstract geometric shapes
   :focus: center
+:date_time:
+  :integer: 1424304000
+  :date: 19 Feb, 15
 :tags:
 - :tag: future-parliament
 - :tag: restoration-and-renewal

@@ -49,6 +49,9 @@
     :alt: Photo of Acts of Parliament in the Parliamentary Archives, Houses of Parliament,
       Westminster
     :focus: center
+:date_time:
+  :integer: 1410912000
+  :date: 17 Sep, 14
 :tags:
 - :tag: elections-and-voting
 - :tag: house-of-commons

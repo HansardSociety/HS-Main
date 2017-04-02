@@ -1,4 +1,6 @@
-article.card
+article.card{
+  class="card--#{ category }"
+}
   a.card__inner{
     href="#{ 'https://www.hansardsociety.org.uk/' + category + '/' + url }"
     title="#{ title + ' - ' + @@site_title }"
@@ -10,5 +12,5 @@ article.card
       }
 
     .card__content
-      span.alt-title= category == 'blog' ? category + " / #{ date }" : category
+      span.alt-title= category
       h1.title.title--small= title

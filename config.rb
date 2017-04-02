@@ -188,11 +188,11 @@ end
 #   def map(context, entry)
 #     context.title   = entry.title
 #     if entry.pages
-#       context.categories = entry.pages.group_by(&:category).map do |cat, pages| {
-#         cat.parameterize => pages.map do |page| {
-#           :title => page.title,
-#           :slug => page.slug.parameterize
-#         }
+      # context.categories = entry.pages.group_by(&:category).map do |cat, pages| {
+      #   cat.parameterize => pages.map do |page| {
+      #     :title => page.title,
+      #     :slug => page.slug.parameterize
+      #   }
 #         end
 #       }
 #       end

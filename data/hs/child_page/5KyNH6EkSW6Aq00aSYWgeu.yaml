@@ -62,6 +62,9 @@
       :url: "//images.contentful.com/xkbace0jm9pp/1I9Ym75fGwwQQYcSOSsmAA/298b13d96b5a6e828d62948b724b0d08/cover__westminster-lens-2017.png"
       :alt: 'Cover image of ''Westminster Lens: Parliament and Delegated Legislation
         in the 2015-16 Session'''
+:date_time:
+  :integer: 1489449600
+  :date: 14 Mar, 17
 :tags:
 - :tag: delegated-legislation
 - :tag: great-repeal-bill

@@ -23,6 +23,9 @@
   :url: "//images.contentful.com/xkbace0jm9pp/2jPlJfy9wIwWAMW4SWqKIK/a1d9cb218129ce241267afa41be5abbc/banner__palace-of-westminster--01.jpg"
   :alt: Bird's-eye view of the Palace of Westminster, Houses of Parliament
   :focus: right
+:date_time:
+  :integer: 1489449600
+  :date: 14 Mar, 17
 :tags:
 - :tag: brexit
 - :tag: delegated-legislation

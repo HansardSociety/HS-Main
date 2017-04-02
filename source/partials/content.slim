@@ -25,15 +25,29 @@
     // Tagging
     //////////////////////////////
 
-    - data.hs.child_page.each do |id, child_page|
-      - @entry_tags = entry.tags
-      - @page_tags = child_page.tags
+    / Organise child pages by category
+    - @pages_by_category = data.hs.child_page.group_by{ |key, value| value[:category] }
 
-      - if child_page.tags && @page_tags.any? { |tags| @entry_tags.include?(tags) }
-        - if child_page.ID != entry.ID
-          = partial 'partials/card',
-            :locals => { :image => child_page.banner_image,
-                         :title => child_page.title,
-                         :category => child_page.category,
-                         :date => (child_page.date_time ? child_page.date_time.date : 'no' ),
-                         :url => child_page.slug }
+    / Loop through categorised pages
+    - @pages_by_category.each do |categories, pages|
+
+      /  Order by date (descending)
+      - @pages_by_date = pages.sort_by{ |key, value| - value.date_time.integer }
+
+      / Filter by tag, remove empty objects and remove this page
+      - @pages_tagged = @pages_by_date.map!{ |id, page| \
+        [id, page] if page.tags \
+                      && page.tags.any?{ |tags| entry.tags.include?(tags) } \
+                      && page.ID != entry.ID \
+      }.delete_if{ |page| page.nil? }
+
+      / Loop through first five objects in each category
+      - @pages_tagged[0..4].map do |id, page|
+
+        / Card
+        = partial 'partials/card',
+          :locals => { :image => page.banner_image,
+                       :title => page.title,
+                       :category => page.category,
+                       :date => (page.date_time.date if page.date_time),
+                       :url => page.slug }
