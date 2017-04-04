@@ -14,14 +14,17 @@
 
       / Biog modal button
       = partial 'partials/button',
-        :locals => { :scope => 'global',
-                     :exclusive => true,
-                     :type => '',
+        :locals => { :type => 'secondary',
+                     :icon => nil,
+                     :color => 'white',
+                     :size => 'small',
+                     :text => 'Open biog',
+                     :animation => nil,
                      :aria_id => 'something',
                      :aria_target_id => 'something',
-                     :js_change_state => 'something' }
-
-        p Hello
+                     :js_change_state => 'something',
+                     :scope => 'global',
+                     :exclusive => true }
 
       / Social follow
       = partial 'partials/social',

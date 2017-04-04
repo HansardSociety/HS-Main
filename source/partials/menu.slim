@@ -43,18 +43,17 @@
 
                 / dropdown control
                 = partial 'partials/button',
-                  :locals => { :scope => 'local',
-                               :exclusive => false,
-                               :type => 'dropdown',
+                  :locals => { :type => nil,
+                               :icon => 'chevron-down',
+                               :color => 'white',
+                               :size => 'medium',
+                               :text => nil,
+                               :animation => 'rotate',
                                :aria_id => "menu-dropdown-#{ navigation.title }-button",
                                :aria_target_id => "menu-dropdown-#{ navigation.title }-content",
+                               :scope => 'local',
+                               :exclusive => false,
                                :js_change_state => 'js-open' }
-
-                  / Icon
-                  = partial 'partials/icon',
-                    :locals => { :icon => 'chevron-down',
-                                 :color => 'white',
-                                 :size => 'medium' }
 
           ul{
             class="#{ 'dropdown__content' if navigation.pages }"

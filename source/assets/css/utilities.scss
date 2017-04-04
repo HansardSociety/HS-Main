@@ -138,6 +138,9 @@ $properties: (
 // Cursors
 %u-cursor-pointer { cursor: pointer; }
 
+// Inline spacing
+%u-inline-spacing-xsmall:nth-last-child(1n + 2) { margin-right: .25rem; }
+
 ////////////////////////////////////////////////////////////
 //  =Display
 ////////////////////////////////////////////////////////////

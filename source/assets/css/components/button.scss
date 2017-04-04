@@ -15,34 +15,59 @@
 ////////////////////////////////////////////////////////////
 
 .button {
-  min-height: 1.5rem;
-  padding: 0;
-
-  border: 0;
-  background-color: transparent;
-
-  @extend %u-cursor-pointer;
-  @extend %u-position-relative;
-  @extend %u-overflow-hidden; // prevents svg viewbox overflow
+  @extend
+    %u-border-radius-small,
+    %u-cursor-pointer,
+    %u-position-relative,
+    %u-overflow-hidden; // prevents svg viewbox overflow
 }
 
+.button--small {
+  height: 2rem;
+  min-width: 2rem;
+  padding: 0 .5rem;
+
+  @extend
+    %u-font-size-small,
+    %u-inline-spacing-xsmall;
+}
+
+.button--secondary {
+  border: 2px solid $brand_green;
+
+  @extend
+    %u-color-brand-green,
+    %u-flex-row-center;
+}
+
+.button__text {
+  font-variant: small-caps;
+  text-transform: lowercase;
+}
+
+.button__animation {
+  @extend %u-display-block;
+}
+
+// Menu
 .button__menu,
 .button__menu::before,
 .button__menu::after {
+  left: 0;
+
   width: 1.5rem;
   height: 2px;
 
   transition: $transition_all;
 
-  background-color: $brand_white;
+  @extend
+    %u-bgc-brand-white,
+    %u-position-absolute;
 }
 
 .button__menu {
   &::before,
   &::after {
-    position: absolute;
-    left: 0;
-
     content: '';
   }
 
@@ -55,14 +80,6 @@
   }
 }
 
-.button__dropdown,
-.button__open {
-  @extend %u-display-block;
-}
-
-.button__open {
-
-}
 
 ////////////////////////////////////////////////////////////
 //  Behaviour
@@ -86,7 +103,7 @@
     }
   }
 
-  .button__dropdown {
+  .button__animation--rotate {
     transform: rotate(180deg);
   }
 }

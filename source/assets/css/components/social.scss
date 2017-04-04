@@ -6,13 +6,10 @@
   width: 2rem;
   height: 2rem;
 
-  &:nth-of-type(1n + 2) {
-    margin-left: .25rem;
-  }
-
   @extend
     %u-border-radius-small,
     %u-bgc-brand-white-1,
+    %u-inline-spacing-xsmall,
     %u-transition-base-all,
     %u-position-relative;
 

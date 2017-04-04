@@ -1,4 +1,6 @@
 button.button{
+  class="#{ 'button--' + type if type != nil }"
+  class="#{ 'button--' + size }"
   class="js-trigger-#{ scope }"
   class="#{ 'js-trigger-exclusive' if exclusive }"
   role="button"
@@ -7,14 +9,24 @@ button.button{
   data-change-state="#{ js_change_state.parameterize }"
 }
 
-  - if type != 'menu'
+  - if icon == 'menu'
     span{
       aria-hidden="true"
-      class="button__#{ type }"
+      class="button__#{ icon }"
     }
-      = yield
+
   - else
-    span{
+    span.button__animation{
       aria-hidden="true"
-      class="button__#{ type }"
+      class="button__animation--#{ animation }"
     }
+
+      / Icon
+      - if icon != nil
+        = partial 'partials/icon',
+          :locals => { :icon => icon,
+                       :color => color,
+                       :size => size }
+
+      - if text != nil
+        span.button__text= text
