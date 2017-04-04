@@ -14,9 +14,9 @@ nav.navbar{ role="navigation" }
 
       / Menu button
       = partial 'partials/button',
-        :locals => { :button_scope => 'global',
+        :locals => { :scope => 'global',
                      :exclusive => true,
-                     :button_type => 'menu',
+                     :type => 'menu',
                      :aria_id => 'navbar-menu-button',
                      :aria_target_id => 'menu-mobile',
                      :js_change_state => 'js-show-menu-mobile'}
@@ -58,9 +58,9 @@ nav.navbar{ role="navigation" }
 
                   / Accordian control
                   = partial 'partials/button',
-                    :locals => { :button_scope => 'global',
+                    :locals => { :scope => 'global',
                                  :exclusive => true,
-                                 :button_type => 'dropdown',
+                                 :type => 'dropdown',
                                  :aria_id => "menu-desktop-#{ navigation.title }-button",
                                  :aria_target_id => "menu-desktop-#{ navigation.title }",
                                  :js_change_state => "js-show-menu-desktop-#{ navigation.title }" }
@@ -77,9 +77,9 @@ nav.navbar{ role="navigation" }
 
       / Search
       = partial 'partials/button',
-        :locals => { :button_scope => 'global',
+        :locals => { :scope => 'global',
                      :exclusive => true,
-                     :button_type => 'search',
+                     :type => 'search',
                      :aria_id => 'navbar-search-button',
                      :aria_target_id => 'search',
                      :js_change_state => 'js-show-search' }

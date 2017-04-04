@@ -26,35 +26,10 @@
 }
 
 .banner__content {
-  padding-left: .75rem;
 
   @extend
     %u-content-main,
     %u-position-relative;
-
-  @include above('small') {
-    padding-left: 1.25rem;
-  }
-
-  &::before {
-    top: .25rem;
-    left: calc(-1.25rem - 1px);
-
-    content: '→';
-
-    font-size: 1.25rem;
-
-    @extend
-      %u-color-brand-orange,
-      %u-position-absolute;
-
-    @include above('medium') {
-      left: calc(-1rem - 1px);
-      top: .5rem;
-
-      @extend %u-font-size-medium__medium;
-    }
-  }
 }
 
 .banner__image {

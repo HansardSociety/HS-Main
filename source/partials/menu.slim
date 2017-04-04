@@ -43,9 +43,9 @@
 
                 / dropdown control
                 = partial 'partials/button',
-                  :locals => { :button_scope => 'local',
+                  :locals => { :scope => 'local',
                                :exclusive => false,
-                               :button_type => 'dropdown',
+                               :type => 'dropdown',
                                :aria_id => "menu-dropdown-#{ navigation.title }-button",
                                :aria_target_id => "menu-dropdown-#{ navigation.title }-content",
                                :js_change_state => 'js-open' }

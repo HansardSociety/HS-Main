@@ -132,8 +132,12 @@
   :focus: center
 :author:
   :full_name: Professor Ed Fieldhouse
-  :twitter: 
+  :role: 
+  :organisation: 
+  :biog: 
   :email: 
+  :twitter: 
+  :linkedin: 
   :photo:
     :url: "//images.contentful.com/xkbace0jm9pp/RnkCy6y7OUI2y4ms8w8kq/af8ca458f8edd4dc366c53a334ea40a7/profile__ed-fieldhouse--01.jpg"
     :alt: Professor Ed Fieldhouse

@@ -76,8 +76,12 @@
   :focus: left
 :author:
   :full_name: XML
-  :twitter: 
+  :role: 
+  :organisation: 
+  :biog: 
   :email: 
+  :twitter: 
+  :linkedin: 
   :photo:
     :url: "//images.contentful.com/xkbace0jm9pp/3ii4lG41FK0yqKSky6sWEw/a0ab6a97b4bccfb4510cb39a3b84c6b2/profile__xml-logo.png"
     :alt: XML logo

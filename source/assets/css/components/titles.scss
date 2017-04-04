@@ -4,12 +4,14 @@
 
   @extend
     %u-color-brand-black-2,
-    %u-font-size-xsmall,
-    %u-margin-top-xsmall;
+    %u-font-avenir-700-normal,
+    %u-font-size-xsmall;
 }
 
 .title {
-  @extend %u-font-avenir-700-normal;
+  @extend
+    %u-color-brand-green,
+    %u-font-avenir-700-normal;
 }
 
 .title--xsmall {

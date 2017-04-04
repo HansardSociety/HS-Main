@@ -142,18 +142,6 @@ $properties: (
 //  =Display
 ////////////////////////////////////////////////////////////
 
-%u-flex-row {
-  flex-flow: row wrap;
-
-  @extend %u-display-flex;
-}
-
-%u-flex-row-center {
-  align-items: center;
-
-  @extend %u-flex-row;
-}
-
 @each $property in map-get($properties, display) {
 
   // Display base
@@ -167,6 +155,18 @@ $properties: (
       }
     }
   }
+}
+
+%u-flex-row {
+  flex-flow: row wrap;
+
+  @extend %u-display-flex;
+}
+
+%u-flex-row-center {
+  align-items: center;
+
+  @extend %u-flex-row;
 }
 
 ////////////////////////////////////////////////////////////
@@ -272,7 +272,7 @@ $properties: (
 }
 
 // Border radius
-%u-border-radius-1 { border-radius: 1px; }
+%u-border-radius-small { border-radius: 2px; }
 
 // Opacity
 %u-opacity-0 { opacity: 0; }

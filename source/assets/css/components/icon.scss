@@ -5,14 +5,19 @@
 .icon--medium {
   width: 2.25rem;
   height: 2.25rem;
-  margin: -5px; // reduce evil icons padding
+  margin: -7.5px;
 }
 
 .icon--small {
   width: 1.75rem;
   height: 1.75rem;
+  margin: -5px;
 }
 
 .icon--white {
   fill: $brand_white;
+}
+
+.icon--green {
+  fill: $brand_green;
 }

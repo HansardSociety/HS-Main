@@ -92,7 +92,7 @@
   background-color: $brand_black_1;
 
   @extend
-    %u-border-radius-1,
+    %u-border-radius-small,
     %u-display-block,
     %u-margin-top-xsmall;
 

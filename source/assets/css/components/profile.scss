@@ -1,0 +1,37 @@
+.profile {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid $brand_white_2;
+
+  @extend %u-flex-row;
+
+  @include above('large') {
+    border-bottom: none;
+    border-left: 1px solid $brand_white_2;
+    padding-left: 1rem;
+  }
+}
+
+.profile__image {
+  height: 4rem;
+  border-radius: 50%;
+
+  @extend %u-overflow-hidden;
+
+  & > img {
+    height: 100%;
+  }
+}
+
+.profile__main {
+  flex: 1;
+  padding-left: 1rem;
+}
+
+.profile__actions {
+  align-items: center;
+  padding-top: .5rem;
+
+  @extend
+    %u-flex-row,
+    %u-width-full;
+}

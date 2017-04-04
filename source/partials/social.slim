@@ -1,0 +1,19 @@
+- @urls = icons.reject(&:nil?)
+
+.social
+
+  - @urls.each do |url|
+
+    - if url !~ /@/
+      - @url = URI.parse(url).host
+      - @domain = PublicSuffix.parse(@url)
+
+    a.social__icon{
+      href="#{ url }"
+      target="_blank"
+    }
+      span
+        = partial 'partials/icon',
+          :locals => { :icon => "#{ url =~ /@/ ? 'envelope' : 'sc-' + @domain.sld }",
+                       :color => 'green',
+                       :size => 'small' }

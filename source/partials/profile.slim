@@ -1,0 +1,28 @@
+.profile
+  .profile__image
+    img{
+      src="#{ photo.url }?fit=fill&w=324&h=324"
+      alt="#{ photo.alt }"
+    }
+
+  .profile__main
+    h1.title.title--small= full_name
+    p.alt-title= "#{ organisation != nil ? role + ',' : role }"
+    p.alt-title= organisation
+
+    .profile__actions
+
+      / Biog modal button
+      = partial 'partials/button',
+        :locals => { :scope => 'global',
+                     :exclusive => true,
+                     :type => '',
+                     :aria_id => 'something',
+                     :aria_target_id => 'something',
+                     :js_change_state => 'something' }
+
+        p Hello
+
+      / Social follow
+      = partial 'partials/social',
+        :locals => { :icons => [ email, twitter, linkedin ] }

@@ -1,6 +1,9 @@
 require 'slim'
 Slim::Engine.default_options[:pretty] = true
 
+require 'public_suffix'
+
+
 ##############################
 ## Page options
 ##############################
@@ -89,8 +92,12 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     if entry.promoted && entry.promoted.content_type.id == 'people'
       context.author = {
         :full_name => entry.promoted.full_name,
-        :twitter => entry.promoted.twitter,
+        :role => entry.promoted.role,
+        :organisation => entry.promoted.organisation,
+        :biog => entry.promoted.biog,
         :email => entry.promoted.email,
+        :twitter => entry.promoted.twitter,
+        :linkedin => entry.promoted.linkedin,
         :photo => {
           :url => entry.promoted.photo.url,
           :alt => entry.promoted.photo.description

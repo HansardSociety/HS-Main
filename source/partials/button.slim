@@ -1,5 +1,5 @@
 button.button{
-  class="js-trigger-#{ button_scope }"
+  class="js-trigger-#{ scope }"
   class="#{ 'js-trigger-exclusive' if exclusive }"
   role="button"
   id="#{ aria_id.parameterize }"
@@ -7,14 +7,14 @@ button.button{
   data-change-state="#{ js_change_state.parameterize }"
 }
 
-  - if button_type != 'menu'
+  - if type != 'menu'
     span{
       aria-hidden="true"
-      class="button__#{ button_type }"
+      class="button__#{ type }"
     }
       = yield
   - else
     span{
       aria-hidden="true"
-      class="button__#{ button_type }"
+      class="button__#{ type }"
     }

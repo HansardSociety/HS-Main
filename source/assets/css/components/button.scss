@@ -55,9 +55,18 @@
   }
 }
 
-.button__dropdown {
+.button__dropdown,
+.button__open {
   @extend %u-display-block;
 }
+
+.button__open {
+
+}
+
+////////////////////////////////////////////////////////////
+//  Behaviour
+////////////////////////////////////////////////////////////
 
 .button.js-on {
   .button__menu {

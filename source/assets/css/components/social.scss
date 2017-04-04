@@ -1,0 +1,27 @@
+.social {
+  @extend %u-flex-row;
+}
+
+.social__icon {
+  width: 2rem;
+  height: 2rem;
+
+  &:nth-of-type(1n + 2) {
+    margin-left: .25rem;
+  }
+
+  @extend
+    %u-border-radius-small,
+    %u-bgc-brand-white-1,
+    %u-transition-base-all,
+    %u-position-relative;
+
+  &:hover {
+    @extend %u-bgc-brand-white-2;
+  }
+
+  & > span {
+    margin-top: -1px;
+    @extend %u-absolute-center-xy;
+  }
+}

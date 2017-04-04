@@ -3,18 +3,32 @@
   class="#{ 'content--' + entry.category if entry.category }"
 }
   .content__header
-    section.content__introduction.copy
+    section.content__introduction.copy{
+      class="#{ 'content__introduction--secondary' if entry.category == 'blog' }"
+    }
       = Kramdown::Document.new(entry.introduction).to_html
 
-    aside.content__promoted
+    aside.content__promoted{
+      class="#{ 'content__promoted--priority' if entry.category == 'blog' }"
+    }
 
       - if entry.promoted_page
-        = partial 'partials/card',
+        = partial 'partials/side-card',
           :locals => { :image => entry.promoted_page.banner_image,
                        :title => entry.promoted_page.title,
                        :category => entry.promoted_page.category,
-                       :date => 'hello',
+                       :date => (entry.promoted_page.date_time.date if entry.promoted_page.date_time.date_time),
                        :url => entry.promoted_page.slug }
+
+      - if entry.author
+        = partial 'partials/profile',
+          :locals => { :photo => entry.author.photo,
+                       :full_name => entry.author.full_name,
+                       :role => entry.author.role,
+                       :organisation => entry.author.organisation,
+                       :email => entry.author.email,
+                       :twitter => entry.author.twitter,
+                       :linkedin => entry.author.linkedin }
 
   section.content__main.copy
     = Kramdown::Document.new(entry.copy).to_html
@@ -42,10 +56,10 @@
       }.delete_if{ |page| page.nil? }
 
       / Loop through first five objects in each category
-      - @pages_tagged[0..4].map do |id, page|
+      - @pages_tagged[0..2].map do |id, page|
 
         / Card
-        = partial 'partials/card',
+        = partial 'partials/side-card',
           :locals => { :image => page.banner_image,
                        :title => page.title,
                        :category => page.category,

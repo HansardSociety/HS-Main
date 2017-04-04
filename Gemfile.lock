@@ -130,6 +130,7 @@ PLATFORMS
 DEPENDENCIES
   contentful_middleman!
   middleman
+  public_suffix
   slim
   tzinfo-data
   wdm (~> 0.1.0)

@@ -19,7 +19,9 @@
 .content--research     { @extend %u-accent-large-brand-green-top; }
 
 .content__header {
-  @extend %u-width-full;
+  @extend
+    %u-width-full,
+    %u-margin-top-small;
 }
 
 .content__introduction {
@@ -41,4 +43,15 @@
 .content__promoted,
 .content__aside {
   flex: 1;
+}
+
+.content__introduction--secondary {
+  order: 2;
+
+  @include above('large') {
+    order: 1;
+  }
+}
+.content__promoted--priority {
+  order: 1;
 }
