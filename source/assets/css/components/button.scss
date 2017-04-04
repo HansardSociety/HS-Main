@@ -19,7 +19,8 @@
     %u-border-radius-small,
     %u-cursor-pointer,
     %u-position-relative,
-    %u-overflow-hidden; // prevents svg viewbox overflow
+    %u-overflow-hidden,
+    %u-transition-base-all; // prevents svg viewbox overflow
 }
 
 .button--small {
@@ -34,6 +35,11 @@
 
 .button--secondary {
   border: 2px solid $brand_green;
+
+  &:hover {
+    background-color: $brand_green;
+    color: $brand_white;
+  }
 
   @extend
     %u-color-brand-green,
