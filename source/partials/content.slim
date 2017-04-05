@@ -12,6 +12,7 @@
       class="#{ 'content__promoted--priority' if entry.category == 'blog' }"
     }
 
+      / Promoted page
       - if entry.promoted_page
         = partial 'partials/side-card',
           :locals => { :image => entry.promoted_page.banner_image,
@@ -20,12 +21,14 @@
                        :date => (entry.promoted_page.date_time.date if entry.promoted_page.date_time.date_time),
                        :url => entry.promoted_page.slug }
 
+      / Author
       - if entry.author
         = partial 'partials/profile',
           :locals => { :photo => entry.author.photo,
                        :full_name => entry.author.full_name,
                        :role => entry.author.role,
                        :organisation => entry.author.organisation,
+                       :biog => entry.author.biog,
                        :email => entry.author.email,
                        :twitter => entry.author.twitter,
                        :linkedin => entry.author.linkedin }

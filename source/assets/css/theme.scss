@@ -20,7 +20,7 @@ $secondary_colors: (
   brand_black_1:       lighten(map-get($primary_colors, brand_black), 5%),
   brand_black_2:       lighten(map-get($primary_colors, brand_black), 15%),
   brand_black_3:       lighten(map-get($primary_colors, brand_black), 5%),
-  brand_white_1:       darken(map-get($primary_colors, brand_white), 3.33%),
+  brand_white_1:       darken(map-get($primary_colors, brand_white), 5%),
   brand_white_2:       darken(map-get($primary_colors, brand_white), 10%),
   brand_white_3:       darken(map-get($primary_colors, brand_white), 5%)
 );

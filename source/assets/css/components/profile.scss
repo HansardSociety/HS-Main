@@ -1,13 +1,14 @@
 .profile {
   padding-bottom: 2rem;
-  border-bottom: 1px solid $brand_white_2;
+
+  border-bottom: 2px solid $brand_white_2;
 
   @extend %u-flex-row;
-
   @include above('large') {
-    border-bottom: none;
-    border-left: 1px solid $brand_white_2;
     padding-left: 1rem;
+
+    border-bottom: none;
+    border-left: 2px solid $brand_white_2;
   }
 }
 
@@ -29,9 +30,21 @@
 
 .profile__actions {
   align-items: center;
-  padding-top: .5rem;
 
   @extend
     %u-flex-row,
+    %u-margin-top-small,
     %u-width-full;
+}
+
+.profile__biog {
+  bottom: -200vh;
+
+  opacity: .85;
+
+  @extend
+    %u-overflow-y-auto,
+    %u-position-fixed,
+    %u-transition-base-all,
+    %u-width-full-vw;
 }

@@ -6,8 +6,9 @@
 .button__menu,
 .button__menu::before,
 .button__menu::after {
-  @extend %u-display-inline-block;
   vertical-align: middle;
+
+  @extend %u-display-inline-block;
 }
 
 ////////////////////////////////////////////////////////////
@@ -36,7 +37,7 @@
 .button--secondary {
   border: 2px solid $brand_green;
 
-  &:hover {
+  &:active {
     background-color: $brand_green;
     color: $brand_white;
   }
@@ -44,15 +45,59 @@
   @extend
     %u-color-brand-green,
     %u-flex-row-center;
+
+  @include above('large') {
+    &:hover {
+      color: $brand_white;
+      background-color: $brand_green;
+    }
+  }
+}
+
+.button__content {
+  @extend %u-display-block;
 }
 
 .button__text {
-  font-variant: small-caps;
   text-transform: lowercase;
+
+  font-variant: small-caps;
+
+  &::before,
+  &::after {
+    text-align: center;
+
+    @extend
+      %u-display-block,
+      %u-position-relative,
+      %u-transition-base-transform,
+      %u-width-full;
+  }
+
+  &::before {
+    content: attr(data-on-content);
+    transform: translateY(0);
+  }
+
+  &::after {
+    left: 0;
+
+    content: attr(data-off-content);
+    transform: translateY(100%);
+
+    @extend %u-position-absolute;
+  }
 }
 
-.button__animation {
-  @extend %u-display-block;
+.button.js-on {
+  .button__text {
+    &::before {
+      transform: translateY(-200%);
+    }
+    &::after {
+      transform: translateY(-100%);
+    }
+  }
 }
 
 // Menu
@@ -109,7 +154,7 @@
     }
   }
 
-  .button__animation--rotate {
+  .button__content--rotate {
     transform: rotate(180deg);
   }
 }

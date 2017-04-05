@@ -1,4 +1,4 @@
-.profile
+.profile.js-local-state
   .profile__image
     img{
       src="#{ photo.url }?fit=fill&w=324&h=324"
@@ -10,21 +10,25 @@
     p.alt-title= "#{ organisation != nil ? role + ',' : role }"
     p.alt-title= organisation
 
+    .profile__biog.copy
+      = Kramdown::Document.new(biog).to_html
+
     .profile__actions
 
       / Biog modal button
       = partial 'partials/button',
-        :locals => { :type => 'secondary',
-                     :icon => nil,
-                     :color => 'white',
-                     :size => 'small',
-                     :text => 'Open biog',
-                     :animation => nil,
-                     :aria_id => 'something',
-                     :aria_target_id => 'something',
-                     :js_change_state => 'something',
-                     :scope => 'global',
-                     :exclusive => true }
+        locals: \
+        { type:             'secondary',
+          icon:             nil,
+          color:            'white',
+          size:             'small',
+          text:             { on: 'Open biog', off: 'Close' },
+          animation:        nil,
+          aria_id:          "#{ full_name.parameterize }-biog-button",
+          aria_target_id:   "modal-biog-#{ full_name.parameterize }",
+          js_change_state:  "js-show-modal",
+          scope:            'local',
+          exclusive:        true }
 
       / Social follow
       = partial 'partials/social',

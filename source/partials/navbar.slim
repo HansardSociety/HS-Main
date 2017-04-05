@@ -14,17 +14,18 @@ nav.navbar{ role="navigation" }
 
       / Menu button
       = partial 'partials/button',
-        :locals => { :type => nil,
-                     :icon => 'menu',
-                     :color => 'white',
-                     :size => 'small',
-                     :text => nil,
-                     :animation => nil,
-                     :aria_id => 'navbar-menu-button',
-                     :aria_target_id => 'menu-mobile',
-                     :scope => 'global',
-                     :exclusive => true,
-                     :js_change_state => 'js-show-menu-mobile'}
+        locals: \
+        { type:             nil,
+          icon:             'menu',
+          color:            'white',
+          size:             'small',
+          text:             nil,
+          animation:        nil,
+          aria_id:          'navbar-menu-button',
+          aria_target_id:   'menu-mobile',
+          scope:            'global',
+          exclusive:        true,
+          js_change_state:  'js-show-menu-mobile' }
 
     .navbar__center
 
@@ -81,14 +82,15 @@ nav.navbar{ role="navigation" }
 
       / Search
       = partial 'partials/button',
-        :locals => { :type => nil,
-                     :icon => 'search',
-                     :color => 'white',
-                     :size => 'medium',
-                     :text => nil,
-                     :animation => nil,
-                     :aria_id => 'navbar-search-button',
-                     :aria_target_id => 'search',
-                     :scope => 'global',
-                     :exclusive => true,
-                     :js_change_state => 'js-show-search' }
+        locals: \
+        { type:             nil,
+          icon:             'search',
+          color:            'white',
+          size:             'medium',
+          text:             nil,
+          animation:        nil,
+          aria_id:          'navbar-search-button',
+          aria_target_id:   'search',
+          scope:            'global',
+          exclusive:        true,
+          js_change_state:  'js-show-search' }

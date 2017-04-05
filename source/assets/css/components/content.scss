@@ -1,13 +1,12 @@
 .content,
 .content__header {
-  @extend %u-flex-row,
+  @extend %u-flex-row;
 }
 
 .content {
-  border-radius: 1px;
-
   @extend
     %u-bgc-brand-white,
+    %u-border-radius-small,
     %u-overflow-hidden,
     %u-row;
 }

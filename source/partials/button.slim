@@ -3,10 +3,10 @@ button.button{
   class="#{ 'button--' + size }"
   class="js-trigger-#{ scope }"
   class="#{ 'js-trigger-exclusive' if exclusive }"
+  data-change-state="#{ js_change_state.parameterize }"
+  aria-controls="#{ aria_target_id.parameterize }"
   role="button"
   id="#{ aria_id.parameterize }"
-  aria-controls="#{ aria_target_id.parameterize }"
-  data-change-state="#{ js_change_state.parameterize }"
 }
 
   - if icon == 'menu'
@@ -16,9 +16,9 @@ button.button{
     }
 
   - else
-    span.button__animation{
+    span.button__content{
       aria-hidden="true"
-      class="button__animation--#{ animation }"
+      class="#{ 'button__content--' + animation if animation != nil }"
     }
 
       / Icon
@@ -29,4 +29,8 @@ button.button{
                        :size => size }
 
       - if text != nil
-        span.button__text= text
+        / - text.each do |content|
+        span.button__text{
+          data-on-content="#{ text[ :on ] }"
+          data-off-content="#{ text[ :off ] }"
+        }

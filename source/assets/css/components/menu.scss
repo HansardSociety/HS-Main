@@ -18,6 +18,7 @@
   transform: translateX(-100%);
 
   @extend %u-overflow-y-auto;
+
   @include above('medium') {
     @extend %u-display-none__medium;
   }
@@ -26,12 +27,12 @@
 .menu--desktop {
   top: -100%;
 
-  transition: all ease .75s;
-
   opacity: .85;
 
   @extend
+    %u-display-none,
     %u-overflow-y-auto,
+    %u-transition-base-all,
     %u-width-full-vw;
 
   @include above('medium') {
