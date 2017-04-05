@@ -22,14 +22,16 @@
           icon:             nil,
           color:            'white',
           size:             'small',
-          text:             { on: 'Open biog', off: 'Close' },
+          text:             { on:  'Open biog',
+                              off: 'Close' },
           animation:        nil,
           aria_id:          "#{ full_name.parameterize }-biog-button",
           aria_target_id:   "modal-biog-#{ full_name.parameterize }",
-          js_change_state:  "js-show-modal",
-          scope:            'local',
-          exclusive:        true }
+          state:            { scope:  'local',
+                              action: 'open',
+                              page:   'overlay',
+                              excl:   true }}
 
       / Social follow
       = partial 'partials/social',
-        :locals => { :icons => [ email, twitter, linkedin ] }
+        locals: { icons: [ email, twitter, linkedin ] }

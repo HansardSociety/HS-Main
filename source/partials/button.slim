@@ -1,13 +1,18 @@
 button.button{
   class="#{ 'button--' + type if type != nil }"
   class="#{ 'button--' + size }"
-  class="js-trigger-#{ scope }"
-  class="#{ 'js-trigger-exclusive' if exclusive }"
-  data-change-state="#{ js_change_state.parameterize }"
+  class="js-trigger-#{ state[:scope] }"
+  class="#{ 'js-trigger-exclusive' if state[:excl] }"
+
+  data-state-action="#{ 'js-' + state[:action].parameterize }"
+
+  *{ "#{ 'data-state-page' if state[:page] }": "#{ 'js-page-' + state[:page] if state[:page] }" }
+
   aria-controls="#{ aria_target_id.parameterize }"
   role="button"
   id="#{ aria_id.parameterize }"
 }
+  /  Hello
 
   - if icon == 'menu'
     span{
@@ -29,8 +34,7 @@ button.button{
                        :size => size }
 
       - if text != nil
-        / - text.each do |content|
         span.button__text{
-          data-on-content="#{ text[ :on ] }"
-          data-off-content="#{ text[ :off ] }"
+          data-on-content="#{ text[:on] }"
+          data-off-content="#{ text[:off] }"
         }

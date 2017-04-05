@@ -2,30 +2,12 @@ import _ from 'lodash';
 import { throttle } from 'lodash/fp';
 
 ////////////////////////////////////////////////////////////
-//  Global Variables
-////////////////////////////////////////////////////////////
-
-var navbar = document.querySelector('.navbar');
-
-////////////////////////////////////////////////////////////
-//  Toggle state
+//  Coer funcations
 ////////////////////////////////////////////////////////////
 
 // Toggle class
 function toggleClass(obj, className) {
   obj.classList.toggle(className);
-}
-
-// Toggle state
-function toggleState(trigger, className, target) {
-  var state = trigger.getAttribute('data-change-state');
-
-  // Toggle trigger class
-  toggleClass(trigger, className);
-
-  // Toggle target scope state
-  toggleClass(target, state);
-
 }
 
 // For-each loop
@@ -36,12 +18,38 @@ var forEach = function(array, cb, scope) {
 };
 
 ////////////////////////////////////////////////////////////
-//  Buttons
+//  States
 ////////////////////////////////////////////////////////////
 
-var globalState = document.querySelector('.js-global-state');
+// ** Variables **
+// ****************************
 
-// If exclusive event
+var globalState = document.querySelector('.js-global-state');
+var buttonsGlobal = document.querySelectorAll('.button.js-trigger-global');
+var buttonsLocal = document.querySelectorAll('.button.js-trigger-local');
+var navbar = document.querySelector('.navbar');
+
+// ** Toggle state - base **
+// ****************************
+
+function toggleState(trigger, className, target) {
+  var state = trigger.getAttribute('data-state-action');
+  var page = trigger.getAttribute('data-state-page');
+
+  // Toggle trigger class
+  toggleClass(trigger, className);
+
+  // Toggle target scope state
+  toggleClass(target, state);
+
+  if (page != undefined) {
+    toggleClass(globalState, page);
+  }
+}
+
+// ** If exclusive state **
+// ****************************
+
 function exclusiveState(trigger) {
   var exclusiveTriggers = document.querySelectorAll('.js-trigger-exclusive');
 
@@ -61,11 +69,10 @@ function exclusiveState(trigger) {
   }
 }
 
-// Button change state
-var buttonsGlobal = document.querySelectorAll('.button.js-trigger-global');
-var buttonsLocal = document.querySelectorAll('.button.js-trigger-local');
+// ** Global state change **
+// ****************************
+// Needed if target element demands specific changes to global state
 
-// Global state change
 forEach(buttonsGlobal, function (index, button) {
 
   button.onclick = function() {
@@ -90,7 +97,9 @@ forEach(buttonsGlobal, function (index, button) {
   }
 });
 
-// Local state change
+// ** Local state change **
+// ****************************
+
 forEach(buttonsLocal, function (index, value) {
 
   value.onclick = function() {
@@ -98,7 +107,7 @@ forEach(buttonsLocal, function (index, value) {
 
     toggleState(this, 'js-on', localState);
 
-    // If exclusive event
+    // If exclusive state
     exclusiveState(this);
   }
 });

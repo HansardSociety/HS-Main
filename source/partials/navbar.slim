@@ -23,9 +23,10 @@ nav.navbar{ role="navigation" }
           animation:        nil,
           aria_id:          'navbar-menu-button',
           aria_target_id:   'menu-mobile',
-          scope:            'global',
-          exclusive:        true,
-          js_change_state:  'js-show-menu-mobile' }
+          state:            { scope:  'global',
+                              action: 'show-menu-mobile',
+                              page:   'overlay',
+                              excl:   true }}
 
     .navbar__center
 
@@ -64,21 +65,24 @@ nav.navbar{ role="navigation" }
 
                   / Accordian control
                   = partial 'partials/button',
-                    :locals => { :type => nil,
-                                 :icon => 'chevron-down',
-                                 :color => 'white',
-                                 :size => 'medium',
-                                 :text => nil,
-                                 :animation => 'rotate',
-                                 :aria_id => "menu-desktop-#{ navigation.title }-button",
-                                 :aria_target_id => "menu-desktop-#{ navigation.title }",
-                                 :scope => 'global',
-                                 :exclusive => true,
-                                 :js_change_state => "js-show-menu-desktop-#{ navigation.title }" }
+                    locals: \
+                      { type:           nil,
+                        icon:           'chevron-down',
+                        color:          'white',
+                        size:           'medium',
+                        text:            nil,
+                        animation:       'rotate',
+                        aria_id:         "menu-desktop-#{ navigation.title }-button",
+                        aria_target_id:  "menu-desktop-#{ navigation.title }",
+                        state:           { scope: 'global',
+                                           action: "show-menu-desktop-#{ navigation.title }",
+                                           page: nil,
+                                           excl: true }}
 
             = partial 'partials/menu',
-              :locals => { :screen => 'desktop',
-                           :contentful => navigation }
+              locals: \
+              { screen:     'desktop',
+                contentful: navigation }
 
       / Search
       = partial 'partials/button',
@@ -91,6 +95,7 @@ nav.navbar{ role="navigation" }
           animation:        nil,
           aria_id:          'navbar-search-button',
           aria_target_id:   'search',
-          scope:            'global',
-          exclusive:        true,
-          js_change_state:  'js-show-search' }
+          state:            { scope:  'global',
+                              action: 'show-search',
+                              page:   'overlay',
+                              excl:   true }}
