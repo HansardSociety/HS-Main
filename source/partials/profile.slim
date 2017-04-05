@@ -10,9 +10,6 @@
     p.alt-title= "#{ organisation != nil ? role + ',' : role }"
     p.alt-title= organisation
 
-    .profile__biog.copy
-      = Kramdown::Document.new(biog).to_html
-
     .profile__actions
 
       / Biog modal button
@@ -35,3 +32,6 @@
       / Social follow
       = partial 'partials/social',
         locals: { icons: [ email, twitter, linkedin ] }
+
+  .profile__biog.copy
+    = Kramdown::Document.new(biog).to_html

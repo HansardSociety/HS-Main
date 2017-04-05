@@ -1,0 +1,11 @@
+body.js-global-state {
+
+  &.js-page-overlay {
+    @extend %u-overflow-hidden;
+
+    .site-container::after {
+      content: '';
+    }
+  }
+
+}

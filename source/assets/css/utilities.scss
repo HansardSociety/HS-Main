@@ -166,6 +166,12 @@ $properties: (
   @extend %u-display-flex;
 }
 
+%u-flex-row-start {
+  align-items: flex-start;
+
+  @extend %u-flex-row;
+}
+
 %u-flex-row-center {
   align-items: center;
 
