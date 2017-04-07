@@ -1,16 +1,13 @@
 .modal.js-open {
   z-index: 300;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
 
   width: 40rem;
   max-width: 100%;
 
-  border: none;
 
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  border: none;
 
   @extend
     %u-animate-fadeinskin,
@@ -24,6 +21,8 @@
 
   @include above('small') {
     max-height: 95vh;
+
+    transform: translate(-50%, -50%);
   }
   @include above('medium') {
     max-height: 80vh;
