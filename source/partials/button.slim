@@ -2,7 +2,7 @@ button.button{
   class="#{ 'button--' + type if type != nil }"
   class="#{ 'button--' + size }"
   class="js-trigger-#{ state[:scope] }"
-  class="#{ 'js-trigger-exclusive' if state[:excl] }"
+  class="#{ 'js-state-exclusive' if state[:excl] }"
 
   data-state-action="#{ 'js-' + state[:action].parameterize }"
 

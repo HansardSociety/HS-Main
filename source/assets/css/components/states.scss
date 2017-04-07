@@ -3,9 +3,24 @@ body.js-global-state {
   &.js-page-overlay {
     @extend %u-overflow-hidden;
 
-    .site-container::after {
-      content: '';
+    .site-container {
+      &::after {
+        z-index: 100;
+        top: 0;
+        left: 0;
+
+        content: '';
+
+        opacity: .85;
+
+        @extend
+          %u-animate-fadeinskin,
+          %u-bgc-brand-white,
+          %u-display-block,
+          %u-height-full-vh,
+          %u-position-fixed,
+          %u-width-full-vw;
+      }
     }
   }
-
 }

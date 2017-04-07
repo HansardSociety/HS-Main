@@ -27,7 +27,7 @@
     %u-height-full,
     %u-row;
 
-  @include above('medium') {
+  @include above('large') {
     padding: 0;
   }
 }
@@ -65,9 +65,10 @@
 ////////////////////////////////////////////////////////////
 
 .navbar.js-on {
-  @extend %u-bgc-brand-green;
+  box-shadow: 0 0 6px 2px darken(rgba($brand_green, .9), 15%);
 
-  @include box-shadow('brand-green');
+  @extend
+    %u-bgc-brand-green;
 
   @include above('medium') {
     height: 3.5rem;

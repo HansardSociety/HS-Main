@@ -197,11 +197,18 @@ $properties: (
 %u-margin-top-xsmall { margin-top: .5rem; }
 %u-margin-top-small  { margin-top: 1rem; }
 %u-margin-top-medium { margin-top: 2rem; }
-%u-margin-center-x   { margin: 0 auto; }
+
+%u-margin-center-x {
+  margin-left: auto;
+  margin-right: auto;
+}
 
 // Padding
 %u-padding-top-small  { padding-top: 1rem; }
 %u-padding-top-medium { padding-top: 2rem; }
+
+// ** Row/ content **
+// ****************************
 
 // Containers
 %u-container-xsmall { padding: .5rem 1rem; }
@@ -210,7 +217,8 @@ $properties: (
 %u-container-large  { padding: 3rem 1rem; }
 
 %u-row,
-%u-content-main {
+%u-content-main,
+%u-content-aside {
   @extend %u-max-width-full;
 }
 
@@ -220,23 +228,32 @@ $properties: (
 
   @extend %u-margin-center-x;
 
-  @include above('large') {
+  @include above('medium') {
     width: 60rem;
   }
 }
 
-%u-content-main {
+%u-content-main,
+%u-content-aside {
   width: 35rem;
+}
 
-  @extend %u-max-width-full;
+%u-content-aside {
+  @include above('medium') {
+    flex: 1;
+  }
 }
 
 ////////////////////////////////////////////////////////////
 //  Colors/ 'Decoration'
 ////////////////////////////////////////////////////////////
 
+// ** BGC/ colors **
+// ****************************
+
 // Merge primary and secondary color maps into $colors
 // See theme.scss
+
 @each $name, $color in $colors {
 
   // Colors
@@ -263,6 +280,9 @@ $properties: (
   }
 }
 
+// ** Overlay **
+// ****************************
+
 %u-overlay {
   &::after {
     background-color: rgba($brand_black, .5);
@@ -273,17 +293,29 @@ $properties: (
   }
 }
 
-// Box shadow
+// ** Box sadow **
+// ****************************
+
 @each $name, $color in $primary_colors {
   %u-box-shadow-#{ str-replace($name, '_', '-') } {
-    box-shadow: 0 0 10px 3px darken($color, 15%);
+    box-shadow: 0 0 10px 3px darken($color, 12.5%);
   }
 }
 
-// Border radius
+@each $name, $shadow in $box_shadow {
+  %u-shadow-#{ str-replace($name, '_', '-') } {
+    box-shadow: $shadow;
+  }
+}
+
+// ** Border radius **
+// ****************************
+
 %u-border-radius-small { border-radius: 2px; }
 
-// Opacity
+// ** Opacity **
+// ****************************
+
 %u-opacity-0 { opacity: 0; }
 %u-opacity-1 { opacity: 1; }
 
@@ -310,6 +342,10 @@ $properties: (
     %u-transition-base-all__#{ $screen }       { transition: all $transition_base; }
     %u-transition-base-transform__#{ $screen } { transition: transform $transition_base; }
   }
+}
+
+%u-animate-fadeinskin {
+  animation: FadeInSkin .5s;
 }
 
 ////////////////////////////////////////////////////////////

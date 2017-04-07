@@ -3,6 +3,8 @@
 
   border-bottom: 2px solid $brand_white_2;
 
+  align-content: flex-start;
+
   @extend
     %u-flex-row-start,
     %u-border-radius-small;
@@ -42,21 +44,18 @@
 
 .profile__biog {
   top: 9rem;
-  left: 0;
+  left: -9999px;
 
   max-width: 100%;
 
-  height: calc(100vh - 9rem);
-
-  transform: translateY(200vh);
+  height: calc(100% - 9rem);
 
   border-top: 2px solid $brand_white_2;
 
   @extend
     %u-container-small,
     %u-overflow-y-auto,
-    %u-position-absolute,
-    %u-transition-base-all;
+    %u-position-absolute;
 }
 
 ////////////////////////////////////////////////////////////
@@ -64,32 +63,7 @@
 ////////////////////////////////////////////////////////////
 
 .profile.js-open {
-  z-index: 300;
-  top: 0;
-  left: 0;
-
-  width: 40rem;
-  max-width: 100%;
-
-
-  @include above('medium') {
-    @include orientation('landscape') {
-      max-height: 30rem;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
-
-  @extend
-    %u-bgc-brand-white,
-    %u-container-small,
-    %u-height-full-vh,
-    %u-overflow-hidden,
-    %u-position-fixed,
-    %u-width-full-vw;
-
   .profile__biog {
-    transform: translateY(0);
+    left: 0;
   }
 }

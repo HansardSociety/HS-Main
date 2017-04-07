@@ -1,4 +1,25 @@
+@keyframes FadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes FadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes FadeInSkin {
+  0%   { opacity: 0; }
+  100% { opacity: .85; }
+}
+
 @keyframes fadeInOut {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes FadeOutIn {
   0%   { opacity: 1; }
   50%  { opacity: 0; }
   100% { opacity: 1; }

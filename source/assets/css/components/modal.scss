@@ -1,0 +1,31 @@
+.modal.js-open {
+  z-index: 300;
+  top: 0;
+  left: 0;
+
+  width: 40rem;
+  max-width: 100%;
+
+  border: none;
+
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  @extend
+    %u-animate-fadeinskin,
+    %u-bgc-brand-white,
+    %u-container-small,
+    %u-height-full-vh,
+    %u-overflow-hidden,
+    %u-position-fixed,
+    %u-shadow-prime-black,
+    %u-width-full-vw;
+
+  @include above('small') {
+    max-height: 95vh;
+  }
+  @include above('medium') {
+    max-height: 80vh;
+  }
+}

@@ -1,3 +1,9 @@
+.side-card,
+.side-card__image,
+.side-card__content {
+  height: 9rem;
+}
+
 .side-card {
   @extend
     %u-bgc-brand-white-1,
@@ -21,19 +27,18 @@
 .side-card--research     { @extend %u-accent-medium-brand-green-left; }
 
 .side-card__inner {
-  align-items: flex-start;
-  @extend %u-flex-row;
+  @extend %u-flex-row-start;
 }
 
 .side-card__image {
-  height: 9rem;
-  position: relative;
-
-  @extend %u-overlay;
+  @extend
+    %u-overlay,
+    %u-position-relative;
 
   > img {
-    height: 100%;
-    display: block;
+    @extend
+      %u-display-block,
+      %u-height-full;
   }
 }
 
@@ -41,6 +46,15 @@
   flex: 1;
   padding: .5rem;
 }
+
+.side-card__meta {
+  height: 1.5rem;
+}
+
+.side-card__title {
+  height: 6.5rem;
+}
+
 
 ////////////////////////////////////////////////////////////
 //  Behaviour

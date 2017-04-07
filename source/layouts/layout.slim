@@ -7,12 +7,17 @@ html
 
   body.js-global-state
 
-    / Navbar
-    = partial 'partials/navbar'
+    .site-container
 
-    main.site-container
-      = yield
+      / Navbar
+      = partial 'partials/navbar'
+
+      main
+        = yield
 
   / Scrips
   script src="/vendor.js"
-  script src="/main.js"
+  script{
+    async
+    src="/main.js"
+  }

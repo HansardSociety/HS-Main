@@ -24,17 +24,17 @@ var forEach = function(array, cb, scope) {
 // ** Variables **
 // ****************************
 
-var globalState = document.querySelector('.js-global-state');
-var buttonsGlobal = document.querySelectorAll('.button.js-trigger-global');
-var buttonsLocal = document.querySelectorAll('.button.js-trigger-local');
-var navbar = document.querySelector('.navbar');
+var globalState   = document.querySelector('.js-global-state'),
+    buttonsGlobal = document.querySelectorAll('.button.js-trigger-global'),
+    buttonsLocal  = document.querySelectorAll('.button.js-trigger-local'),
+    navbar        = document.querySelector('.navbar');
 
 // ** Toggle state - base **
 // ****************************
 
 function toggleState(trigger, className, target) {
-  var state = trigger.getAttribute('data-state-action');
-  var page = trigger.getAttribute('data-state-page');
+  var state = trigger.getAttribute('data-state-action'),
+      page  = trigger.getAttribute('data-state-page');
 
   // Toggle trigger class
   toggleClass(trigger, className);
@@ -51,13 +51,13 @@ function toggleState(trigger, className, target) {
 // ****************************
 
 function exclusiveState(trigger) {
-  var exclusiveTriggers = document.querySelectorAll('.js-trigger-exclusive');
+  var exclusiveState = document.querySelectorAll('.js-state-exclusive');
 
   // If an exclusive event...
-  if (trigger.classList.contains('js-trigger-exclusive')) {
+  if (trigger.classList.contains('js-state-exclusive')) {
 
     // Loop through all exclusive triggers
-    forEach(exclusiveTriggers, function(index, elem) {
+    forEach(exclusiveState, function(index, elem) {
 
       // If (this) trigger element != other exclusive triggers...
       if ((elem != trigger) && (elem.classList.contains('js-on'))) {
@@ -85,8 +85,8 @@ forEach(buttonsGlobal, function (index, button) {
     exclusiveState(trigger);
 
     // If menu is activated, shrink navbar...
-    var menuDesktopOn = globalState.classList.toString().indexOf('js-show-menu-desktop') > -1;
-    var navbarOn = navbar.classList.toString().indexOf('js-on') > -1;
+    var menuDesktopOn = globalState.classList.toString().indexOf('js-show-menu-desktop') > -1,
+        navbarOn      = navbar.classList.toString().indexOf('js-on') > -1;
 
     if (menuDesktopOn === true && navbarOn === false) {
       navbar.classList.toggle('js-on');
@@ -100,12 +100,16 @@ forEach(buttonsGlobal, function (index, button) {
 // ** Local state change **
 // ****************************
 
-forEach(buttonsLocal, function (index, value) {
+forEach(buttonsLocal, function (index, button) {
 
-  value.onclick = function() {
+  button.onclick = function() {
     var localState = this.closest('.js-local-state');
 
+    // Toggle local state
     toggleState(this, 'js-on', localState);
+
+    // Toggle off state
+    toggleClass(localState, 'js-off');
 
     // If exclusive state
     exclusiveState(this);
@@ -125,3 +129,46 @@ window.addEventListener('scroll', _.throttle(function() {
     navbar.classList.remove('js-on');
   }
 }, 500));
+
+////////////////////////////////////////////////////////////
+//  Truncate text
+////////////////////////////////////////////////////////////
+
+function truncate(container, text) {
+
+  var container       = container,
+      containerLines  = Math.round((container.offsetHeight / 1.5) / 18),
+
+      text            = container.querySelector(text),
+      textLines       = Math.round((text.offsetHeight / 1.5) / 18),
+      textLength      = text.innerText.length,
+
+      // Subtract container lines from text lines to get a
+      // negative difference.
+      lineDifference  = (textLines - containerLines),
+
+      // Divide line difference by text lines to get point value,
+      // eg. 2 / 8 = 0.25, and get opposite by subtracting from 1,
+      // ie. 0.75. Then multiply this by the number of characters
+      // in the text block, reducing the number of characters by
+      // the percentage difference between the conatiner lines
+      // and text lines.
+      characters      = Math.round(textLength * (1 - (lineDifference / textLines))),
+      truncate        = text.innerText.substr(0, characters).trim() + '…';
+
+  // const TEXT          = text.innerText;
+
+
+  // Only execute if text block is larger than its container
+  if (containerLines < textLines) {
+    text.innerText = truncate;
+  }
+};
+
+forEach(document.querySelectorAll('.side-card__title'), function(index, elem) {
+  truncate(elem, '.title');
+
+  window.onresize = function() {
+    truncate(elem, '.title');
+  }
+});

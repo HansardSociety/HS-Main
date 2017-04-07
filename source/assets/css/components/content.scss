@@ -41,16 +41,25 @@
 
 .content__promoted,
 .content__aside {
-  flex: 1;
+  @extend %u-content-aside;
 }
+
+.content__introduction,
+.content__promoted,
+.content__main,
+.content__aside {
+  @extend %u-margin-center-x;
+}
+
 
 .content__introduction--secondary {
   order: 2;
 
-  @include above('large') {
+  @include above('medium') {
     order: 1;
   }
 }
+
 .content__promoted--priority {
   order: 1;
 }
