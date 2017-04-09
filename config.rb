@@ -67,6 +67,42 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
   end
 end
 
+# Navigation map
+class LandingPageMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+
+    # Core
+    context.ID = entry.sys[:id]
+    context.category = entry.category.parameterize
+    context.title = entry.title
+    context.slug = entry.slug.parameterize
+    context.introduction = entry.introduction
+
+    # Banner image
+    if entry.banner_image
+      context.banner_image = {
+        :url => entry.banner_image.url,
+        :alt => entry.banner_image.description,
+        :focus => entry.image_focus.parameterize
+      }
+    end
+
+    # Date/ time
+    # context.date_time = {
+    #   :integer => entry.date_time.strftime('%s').to_i,
+    #   :date => entry.date_time.strftime('%d %b, %y')
+    # }
+
+    # Tags
+    if entry.tags
+      context.tags = entry.tags.map do |tag| {
+        :tag => tag.gsub("'", '').parameterize
+      }
+      end
+    end
+  end
+end
+
 # Child page map
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
@@ -157,8 +193,9 @@ activate :contentful do |f|
   f.cda_query     = { include: 4 }
   f.content_types = {
     SITE: '__GLOBAL__',
-    child_page: { mapper: ChildPageMap, id: 'child_page' },
-    navigation: { mapper: NavigationMap, id: 'navigation' }
+    child_page:   { mapper: ChildPageMap,   id: 'child_page' },
+    landing_page: { mapper: LandingPageMap, id: 'landing_page' },
+    navigation:   { mapper: NavigationMap,  id: 'navigation' }
   }
 end
 
@@ -184,6 +221,14 @@ if Dir.exist?(config.data_dir)
           :ignore => true,
           :locals => { :child_page => child_page }
   end
+
+  # Landing pages
+  # data.hs.child_page.each do |id, child_page|
+  #   proxy "#{ landing_page.category.parameterize + '/' + child_page.slug }.html",
+  #         "/templates/child-page.html",
+  #         :ignore => true,
+  #         :locals => { :child_page => child_page }
+  # end
 end
 
 ##############################
