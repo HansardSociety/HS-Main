@@ -1,15 +1,17 @@
 header.banner{
   class="banner--#{
-    entry == 'landing_page' ?
+    entry.TYPE == 'landing_page' ?
     'full' : 'square'
   }"
 }
 
   / Content
   .banner__inner{
-    class="#{ 'banner__inner--overlap' if child_page }"
+    class="#{ 'banner__inner--overlap' if entry.TYPE == 'child_page' }"
   }
-    .banner__content
+    .banner__content{
+      class="#{ 'banner__content--center' if entry.TYPE == 'landing_page' }"
+    }
       h1.title.title--white{
         class="#{
           entry.title.size > 90 ?
@@ -17,8 +19,29 @@ header.banner{
           'title--large' }"
       }= entry.title
 
-      - if entry == 'landing_page'
-        p= entry.introduction
+      - if entry.TYPE == 'landing_page'
+        p.banner__introduction= entry.introduction
+
+        .banner__actions
+          - entry.actions.each do |action|
+
+            / / Biog modal button
+            / = partial 'partials/button-state',
+            /   locals: \
+            /   { type:             action.action == 'Download' ? 'primary' : 'secondary',
+            /     icon:             nil,
+            /     color:            'white',
+            /     size:             'small',
+            /     text:             { on:  'Open biog',
+            /                         off: 'Close' },
+            /     animation:        nil,
+            /     aria_id:          "#{ full_name.parameterize }-biog-button",
+            /     aria_target_id:   "modal-biog-#{ full_name.parameterize }",
+            /     state:            { scope:  'local',
+            /                         action: 'open',
+            /                         page:   'overlay',
+            /                         excl:   true }}
+
 
   / Image
   .banner__image

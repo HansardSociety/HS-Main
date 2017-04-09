@@ -42,7 +42,7 @@
               .dropdown__control
 
                 / dropdown control
-                = partial 'partials/button',
+                = partial 'partials/button-state',
                   locals: \
                   { type:            nil,
                     icon:            'chevron-down',
@@ -53,7 +53,7 @@
                     aria_id:         "menu-dropdown-#{ navigation.title }-button",
                     aria_target_id:  "menu-dropdown-#{ navigation.title }-content",
                     state:            { scope: 'local',
-                                        action:   'js-open',
+                                        action:   'open',
                                         page:  nil,
                                         excl:  false }}
 

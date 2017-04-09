@@ -13,7 +13,7 @@ nav.navbar{ role="navigation" }
     .navbar__left
 
       / Menu button
-      = partial 'partials/button',
+      = partial 'partials/button-state',
         locals: \
         { type:             nil,
           icon:             'menu',
@@ -64,7 +64,7 @@ nav.navbar{ role="navigation" }
                 .dropdown__control
 
                   / Accordian control
-                  = partial 'partials/button',
+                  = partial 'partials/button-state',
                     locals: \
                       { type:           nil,
                         icon:           'chevron-down',
@@ -85,7 +85,7 @@ nav.navbar{ role="navigation" }
                 contentful: navigation }
 
       / Search
-      = partial 'partials/button',
+      = partial 'partials/button-state',
         locals: \
         { type:             nil,
           icon:             'search',

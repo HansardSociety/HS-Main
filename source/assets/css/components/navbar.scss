@@ -4,7 +4,7 @@
 }
 
 .navbar {
-  z-index: 100;
+  z-index: 200; // Override body overlay z-index
 
   height: 3.5rem;
 
@@ -65,6 +65,8 @@
 ////////////////////////////////////////////////////////////
 
 .navbar.js-on {
+  z-index: 200;
+
   box-shadow: 0 0 6px 2px darken(rgba($brand_green, .9), 15%);
 
   @extend

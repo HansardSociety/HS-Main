@@ -1,0 +1,10 @@
+article
+
+  / Banner
+  - if landing_page.banner_image
+    = partial 'partials/banner',
+      :locals => { :entry => landing_page }
+
+  / Content
+  / = partial 'partials/content',
+  /   :locals => { :entry => child_page }

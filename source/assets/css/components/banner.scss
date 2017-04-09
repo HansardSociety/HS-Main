@@ -4,6 +4,10 @@
     %u-width-full;
 }
 
+.banner--full {
+  height: 100vh;
+}
+
 .banner--square {
   height: 66.6666vh;
 }
@@ -20,10 +24,6 @@
   // Ensure overlap content remains above .content
   top: 100%;
   transform: translate(-50%, -100%);
-
-  @include above('small') {
-    font-size: 2rem;
-  }
 }
 
 .banner__content {
@@ -31,6 +31,21 @@
   @extend
     %u-content-main,
     %u-position-relative;
+}
+
+.banner__content--center {
+  @extend %u-margin-center-x;
+
+  @include above('small') {
+    text-align: center;
+  }
+}
+
+.banner__introduction {
+  @extend
+    %u-color-brand-white,
+    %u-font-avenir-700-normal,
+    %u-vertical-rhythm-medium;
 }
 
 .banner__image {

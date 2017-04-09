@@ -1,5 +1,6 @@
 ---
 :ID: 5eqX2zhMHCSUmk8E8SQSC4
+:TYPE: landing_page
 :category: research
 :title: Audit of Political Engagement
 :slug: audit-of-political-engagement
@@ -7,10 +8,20 @@
   an annual benchmark to measure political engagement in Great Britain, gauging public
   opinion about politics and the political system and more broadly the general health
   of our democracy.
+:actions:
+- :title: 'Audit 2017: report'
+  :action: Download
+  :file:
+    :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16
+      Session :: Report'
+    :url: "//assets.contentful.com/xkbace0jm9pp/3tuWTgIiJWaW6CW4GMWs06/743ec4fa5b015dde5befade5e4830139/report__westminster-lens-2015-16.pdf"
 :banner_image:
   :url: "//images.contentful.com/xkbace0jm9pp/3ryBUQCs244o8CQKOeKme/93d2eacaa44f26eeb9af437dcb871ec9/banner__commuters--01.jpg"
   :alt: Commuters at Victoria Station, London
   :focus: center
+:date_time:
+  :integer: 1081555200
+  :date: 10 Apr, 04
 :tags:
 - :tag: audit-of-political-engagement
 - :tag: political-engagement
