@@ -4,7 +4,6 @@
 :category: events
 :title: Events
 :slug: events
-:introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit
-  lectus eu luctus maximus. Etiam euismod ornare facilisis. Proin eu ligula dui. Nulla
-  a massa erat. Sed placerat molestie lorem, sit amet ultrices mauris condimentum
-  vel. Praesent nec magna.
+:introduction: |-
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit lectus eu luctus maximus. Etiam euismod ornare facilisis. Proin eu ligula dui. Nulla a massa erat. Sed placerat molestie lorem, sit amet ultrices mauris condimentum vel. Praesent nec magna.
+  {: .byline }

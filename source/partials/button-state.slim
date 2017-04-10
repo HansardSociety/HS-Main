@@ -1,22 +1,22 @@
 button.button{
-  class="#{ 'button--' + type if type != nil }"
-  class="#{ 'button--' + size }"
-  class="js-trigger-#{ state[:scope] }"
-  class="#{ 'js-state-exclusive' if state[:excl] }"
+  class="#{ 'button--' + type if type != nil }\
+         #{ 'button--' + size }\
+         js-trigger-#{ state[:scope] }\
+         #{ 'js-state-exclusive' if state[:excl] }"
 
   data-state-action="#{ 'js-' + state[:action].parameterize }"
 
   *{ "#{ 'data-state-page' if state[:page] }": "#{ 'js-page-' + state[:page] if state[:page] }" }
 
-  aria-controls="#{ aria_target_id.parameterize }"
+  aria-controls="#{ state[:aria_target_id].parameterize }"
   role="button"
-  id="#{ aria_id.parameterize }"
+  id="#{ state[:aria_id].parameterize }"
 }
 
-  - if icon == 'menu'
+  - if icon != nil && icon[:image] == 'menu'
     span{
       aria-hidden="true"
-      class="button__#{ icon }"
+      class="button__#{ icon[:image] }"
     }
 
   - else
@@ -28,12 +28,14 @@ button.button{
       / Icon
       - if icon != nil
         = partial 'partials/icon',
-          :locals => { :icon => icon,
-                       :color => color,
-                       :size => size }
+          locals: \
+          { icon: icon[:image],
+            color: icon[:color],
+            size: icon[:size] }
 
       - if text != nil
-        span.button__text{
+        span.button__text.button__text--change{
+          class="#{ 'button__text--' + size }"
           data-on-content="#{ text[:on] }"
           data-off-content="#{ text[:off] }"
         }

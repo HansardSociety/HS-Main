@@ -1,16 +1,9 @@
-// CONTENTS
-// 0. Maps
-// 1. Positioning
-// 2. Box-model
-// 3. Decoration
-// 4. Animation
-
 ////////////////////////////////////////////////////////////
 //  =Maps
 ////////////////////////////////////////////////////////////
 
 $properties: (
-  display:  ( none, block, inline-block, flex ),
+  display:  ( none, block, inline-block, flex, inline-flex ),
   position: ( relative, absolute, fixed ),
   origins:  ( left, top, right, bottom ),
   axies:    ( 0, 50, 100 ),
@@ -160,11 +153,13 @@ $properties: (
   }
 }
 
-%u-flex-row {
+%u-flex-row,
+%u-flex-inline-row {
   flex-flow: row wrap;
-
-  @extend %u-display-flex;
 }
+
+%u-flex-row { @extend %u-display-flex; }
+%u-flex-inline-row { @extend %u-display-inline-flex; }
 
 %u-flex-row-start {
   align-items: flex-start;
@@ -172,11 +167,13 @@ $properties: (
   @extend %u-flex-row;
 }
 
-%u-flex-row-center {
+%u-flex-row-center,
+%u-flex-inline-row-center {
   align-items: center;
-
-  @extend %u-flex-row;
 }
+
+%u-flex-row-center {  @extend %u-flex-row; }
+%u-flex-inline-row-center { @extend %u-flex-inline-row; }
 
 ////////////////////////////////////////////////////////////
 //  =Width/ Height
@@ -203,6 +200,15 @@ $properties: (
   margin-right: auto;
 }
 
+@each $screen in map-keys($breakpoints) {
+  @include above('#{ $screen }') {
+    %u-margin-center-x__#{ $screen } {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
 // Padding
 %u-padding-top-small  { padding-top: 1rem; }
 %u-padding-top-medium { padding-top: 2rem; }
@@ -215,6 +221,12 @@ $properties: (
 %u-container-small  { padding: 1rem; }
 %u-container-medium { padding: 2rem 1rem; }
 %u-container-large  { padding: 3rem 1rem; }
+
+%u-container-y-xsmall { padding: .5rem 0; }
+%u-container-y-small  { padding: 1rem 0; }
+%u-container-y-medium { padding: 2rem 0; }
+%u-container-y-large  { padding: 3rem 0; }
+
 
 %u-row,
 %u-content-main,
@@ -285,7 +297,7 @@ $properties: (
 
 %u-overlay {
   &::after {
-    background-color: rgba($brand_black, .4);
+    background-color: rgba($brand_black, .5);
     @extend
       %u-height-full,
       %u-pseudo-element-base,
@@ -381,3 +393,5 @@ $properties: (
 
 %u-uppercase { text-transform: uppercase; }
 %u-lowercase { text-transform: lowercase; }
+
+%u-text-align-center { text-align: center; }

@@ -5,43 +5,49 @@ header.banner{
   }"
 }
 
-  / Content
+  / Content wrapper
   .banner__inner{
     class="#{ 'banner__inner--overlap' if entry.TYPE == 'child_page' }"
   }
+
+    / Content
     .banner__content{
       class="#{ 'banner__content--center' if entry.TYPE == 'landing_page' }"
     }
+
+      / Title
       h1.title.title--white{
-        class="#{
-          entry.title.size > 90 ?
-          'title--medium' :
-          'title--large' }"
+        class="#{ entry.title.size > 90 ? 'title--medium' :
+                  (entry.TYPE == 'landing_page' ? 'title--xlarge' : 'title--large') }"
       }= entry.title
 
+      / Landing page only
       - if entry.TYPE == 'landing_page'
-        p.banner__introduction= entry.introduction
 
+        / Actions
         .banner__actions
+
           - entry.actions.each do |action|
 
-            / / Biog modal button
-            / = partial 'partials/button-state',
-            /   locals: \
-            /   { type:             action.action == 'Download' ? 'primary' : 'secondary',
-            /     icon:             nil,
-            /     color:            'white',
-            /     size:             'small',
-            /     text:             { on:  'Open biog',
-            /                         off: 'Close' },
-            /     animation:        nil,
-            /     aria_id:          "#{ full_name.parameterize }-biog-button",
-            /     aria_target_id:   "modal-biog-#{ full_name.parameterize }",
-            /     state:            { scope:  'local',
-            /                         action: 'open',
-            /                         page:   'overlay',
-            /                         excl:   true }}
+            / Download
+            = partial 'partials/button-link',
+              locals: \
+              { type: 'primary',
+                size: 'medium',
+                text: action.text,
+                url: action.file.url }
 
+  / Scroll down
+  - if entry.TYPE == 'landing_page'
+    a.banner__scroll{
+      href="#banner_scroll_target"
+      data-scroll
+    }
+      = partial 'partials/icon',
+        locals: \
+        { icon: 'arrow-down',
+          color: 'orange',
+          size: 'medium' }
 
   / Image
   .banner__image
@@ -62,19 +68,19 @@ header.banner{
         media="(orientation: portrait)"
         sizes="100vw"
         srcset="#{ entry.banner_image.url }?#{
-                  entry == 'landing_page' ?
-                  'fit=fill&w=360&h=640' :
-                  'fit=fill&w=360&h=360'
+                   entry == 'landing_page' ?
+                   'fit=fill&w=360&h=640' :
+                   'fit=fill&w=360&h=360'
                 }&f=#{ entry.banner_image.focus } 360w,
                 #{ entry.banner_image.url }?#{
-                  entry == 'landing_page' ?
-                  'fit=fill&w=720&h=1280' :
-                  'fit=fill&w=720&h=720'
+                   entry == 'landing_page' ?
+                   'fit=fill&w=720&h=1280' :
+                   'fit=fill&w=720&h=720'
                 }&f=#{ entry.banner_image.focus } 720w,
                 #{ entry.banner_image.url }?#{
-                  entry == 'landing_page' ?
-                  'fit=fill&w=1080&h=1440' :
-                  'fit=fill&w=1080&h=1080'
+                   entry == 'landing_page' ?
+                   'fit=fill&w=1080&h=1440' :
+                   'fit=fill&w=1080&h=1080'
                 }&f=#{ entry.banner_image.focus } 1080w"
       }
 

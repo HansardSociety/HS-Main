@@ -79,13 +79,14 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     context.category     = entry.category.parameterize
     context.title        = entry.title
     context.slug         = entry.slug.parameterize
-    context.introduction = entry.introduction
+    context.introduction = entry.introduction + "\n{: .byline }"
 
     # Call to action(s)
     if entry.actions
       context.actions = entry.actions.map do |action| {
         title:   action.title,
-        action:  action.action,
+        action:  action.action.parameterize,
+        text:    action.button_text,
         file: {
           title: action.file.title,
           url:   action.file.url
@@ -112,6 +113,23 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       }
     end
 
+    # Panels
+    if entry.panels
+      context.panels = entry.panels.map do |panel| {
+        ID:           panel.sys[:id],
+        TYPE:         panel.content_type.id,
+        title:        panel.title,
+        introduction: panel.introduction,
+        copy:         panel.copy,
+        header_image: {
+          url:        panel.header_image.url,
+          alt:        panel.header_image.description
+        },
+        behaviour:    panel.behaviour.parameterize
+      }
+      end
+    end
+
     # Tags
     if entry.tags
       context.tags = entry.tags.map do |tag| {
@@ -132,7 +150,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     context.category     = entry.category.parameterize
     context.title        = entry.title
     context.slug         = entry.slug.parameterize
-    context.introduction = entry.introduction
+    context.introduction = entry.introduction + "\n{: .byline }"
     context.copy         = entry.copy
 
     # Banner image

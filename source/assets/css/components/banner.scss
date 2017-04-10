@@ -34,18 +34,13 @@
 }
 
 .banner__content--center {
-  @extend %u-margin-center-x;
+  text-align: center;
 
-  @include above('small') {
-    text-align: center;
-  }
+  @extend %u-margin-center-x;
 }
 
-.banner__introduction {
-  @extend
-    %u-color-brand-white,
-    %u-font-avenir-700-normal,
-    %u-vertical-rhythm-medium;
+.banner__actions {
+  @extend %u-margin-top-medium;
 }
 
 .banner__image {
@@ -61,4 +56,10 @@
   min-height: 100%;
 
   filter: contrast(.5);
+}
+
+.banner__scroll {
+  bottom: 2rem;
+
+  @extend %u-absolute-center-x;
 }

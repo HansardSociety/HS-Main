@@ -44,18 +44,21 @@
                 / dropdown control
                 = partial 'partials/button-state',
                   locals: \
-                  { type:            nil,
-                    icon:            'chevron-down',
-                    color:           'white',
-                    size:            'medium',
-                    text:            nil,
-                    animation:       'rotate',
-                    aria_id:         "menu-dropdown-#{ navigation.title }-button",
-                    aria_target_id:  "menu-dropdown-#{ navigation.title }-content",
-                    state:            { scope: 'local',
-                                        action:   'open',
-                                        page:  nil,
-                                        excl:  false }}
+                  { type: nil,
+                    size: 'small',
+                    icon: \
+                    { image: 'chevron-down',
+                      size: 'medium',
+                      color: 'white' },
+                    text: nil,
+                    animation: 'rotate',
+                    state: \
+                    { scope: 'local',
+                      action: 'open',
+                      aria_id: "menu-dropdown-#{ navigation.title }-button",
+                      aria_target_id: "menu-dropdown-#{ navigation.title }-content",
+                      page: nil,
+                      excl: false }}
 
           ul{
             class="#{ 'dropdown__content' if navigation.pages }"

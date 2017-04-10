@@ -4,8 +4,9 @@
 :category: about
 :title: How we are funded
 :slug: how-we-are-funded
-:introduction: 'The Hansard Society is an independent charity registered in England
-  and Wales (Charity No: 1091364).'
+:introduction: |-
+  The Hansard Society is an independent charity registered in England and Wales (Charity No: 1091364).
+  {: .byline }
 :copy: |-
   ## Background
 

@@ -1,0 +1,11 @@
+.panel {
+  @extend %u-container-large;
+}
+
+.panel__inner {
+  @extend %u-row;
+}
+
+.panel__introduction {
+  @extend %u-content-main;
+}

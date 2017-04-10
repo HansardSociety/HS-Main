@@ -9,6 +9,10 @@
     %u-border-radius-small,
     %u-overflow-hidden,
     %u-row;
+
+  &:nth-of-type(even) {
+    @extend %u-accent-small-brand-white-1-top;
+  }
 }
 
 .content--events       { @extend %u-accent-large-brand-blue-top; }
@@ -19,47 +23,77 @@
 
 .content__header {
   @extend
-    %u-width-full,
-    %u-margin-top-small;
+    %u-container-y-small,
+    %u-width-full;
 }
 
-.content__introduction {
-  font-size: 1.25rem;
-}
-
-.content__introduction,
-.content__promoted,
 .content__main,
 .content__aside {
-  @extend %u-container-small;
+  @extend
+    %u-margin-center-x,
+    %u-container-small;
 }
 
-.content__introduction,
 .content__main {
   @extend %u-content-main;
 }
 
-.content__promoted,
+.content__main--show-more {
+  transform: translateY(100vh);
+  position: absolute;
+  left: -9999px;
+}
+
 .content__aside {
   @extend %u-content-aside;
 }
 
-.content__introduction,
-.content__promoted,
-.content__main,
-.content__aside {
-  @extend %u-margin-center-x;
+.content__main--center {
+
+  @include above('small') {
+    text-align: center;
+
+    @extend %u-margin-center-x__small;
+  }
 }
 
+// ** Ordering **
+// ****************************
 
-.content__introduction--secondary {
+.content__aside--order-1,
+.content__aside--stack-1 {
+  order: 1;
+}
+
+.content__main--order-2,
+.content__main--stack-2 {
   order: 2;
+}
 
+.content__aside--stack-1 {
+  @include above('medium') {
+    order: 2;
+  }
+}
+
+.content__main--stack-2 {
   @include above('medium') {
     order: 1;
   }
 }
 
-.content__promoted--priority {
-  order: 1;
+.content__actions {
+  @extend %u-margin-top-small;
+}
+
+////////////////////////////////////////////////////////////
+//  Behaviour
+////////////////////////////////////////////////////////////
+
+.content.js-open {
+  .content__main--show-more {
+    transform: translateY(0);
+    position: relative;
+    left: 0;
+  }
 }

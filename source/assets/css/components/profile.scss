@@ -9,7 +9,7 @@
     %u-flex-row-start,
     %u-border-radius-small;
 
-  @include above('large') {
+  @include above('medium') {
     padding-left: 1rem;
 
     border-bottom: none;

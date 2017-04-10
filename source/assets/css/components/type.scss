@@ -1,0 +1,65 @@
+////////////////////////////////////////////////////////////
+//  Titles
+////////////////////////////////////////////////////////////
+
+// ** Title **
+// ****************************
+
+.title {
+  @extend
+    %u-color-brand-green,
+    %u-font-avenir-700-normal;
+}
+
+.title--xsmall {
+  @extend %u-font-size-xsmall;
+}
+
+.title--small  {
+  @extend %u-font-size-xsmall;
+
+  @include above('medium') {
+    @extend %u-font-size-small__medium;
+  }
+}
+
+.title--medium {
+  @extend %u-font-size-medium;
+}
+
+.title--large  {
+  @extend %u-font-size-large;
+
+  @include above('medium') {
+    @extend %u-font-size-large__large;
+  }
+}
+
+.title--xlarge {
+  @extend %u-font-size-xlarge;
+}
+
+.title--white {
+  @extend %u-color-brand-white;
+}
+
+// ** Alt title **
+// ****************************
+
+.alt-title {
+  text-transform: lowercase;
+  font-variant: small-caps;
+
+  @extend
+    %u-color-brand-black-2,
+    %u-font-avenir-700-normal,
+    %u-font-size-xsmall;
+}
+
+////////////////////////////////////////////////////////////
+//  Paragraphs
+////////////////////////////////////////////////////////////
+
+.byline {
+  @extend %u-font-size-byline;
+}

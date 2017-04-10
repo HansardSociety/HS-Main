@@ -4,8 +4,9 @@
 :category: about
 :title: What we do
 :slug: what-we-do
-:introduction: Founded in 1944, we are a charity working in the UK and around the
-  world to promote democracy and strengthen parliaments.
+:introduction: |-
+  Founded in 1944, we are a charity working in the UK and around the world to promote democracy and strengthen parliaments.
+  {: .byline }
 :copy: |-
   ## Our mission
 

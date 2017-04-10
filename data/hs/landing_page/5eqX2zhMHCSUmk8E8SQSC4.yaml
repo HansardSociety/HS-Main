@@ -4,13 +4,13 @@
 :category: research
 :title: Audit of Political Engagement
 :slug: audit-of-political-engagement
-:introduction: The Audit of Political Engagement is a time series study providing
-  an annual benchmark to measure political engagement in Great Britain, gauging public
-  opinion about politics and the political system and more broadly the general health
-  of our democracy.
+:introduction: |-
+  The Audit of Political Engagement is the only annual health check on British democracy. Now in its 14th year, the study measures the 'political pulse' of the nation, providing a unique benchmark to gauge public opinion with regard to politics and the political process.
+  {: .byline }
 :actions:
-- :title: 'Audit 2017: report'
-  :action: Download
+- :title: Audit 14 download (report)
+  :action: download
+  :text: Download Audit 14
   :file:
     :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16
       Session :: Report'
@@ -22,6 +22,44 @@
 :date_time:
   :integer: 1081555200
   :date: 10 Apr, 04
+:panels:
+- :ID: 5sV9YCYN5mIkI2siUcGWKM
+  :TYPE: panel_content
+  :title: What do we measure?
+  :introduction: The Audit of Political Engagement is a time series study providing
+    an annual benchmark to measure political engagement in Great Britain, gauging
+    public opinion about politics and the political system and more broadly the general
+    health of our democracy.
+  :copy: |-
+    ### Indicators of engagement
+
+    Each Audit report presents the findings from a public opinion poll survey, providing detailed commentary on a range of measures that have been chosen as key measures of political engagement. These indictors enable us to chronicle responses year on year and track the direction and magnitude of change since the Audit was first published in 2004.
+
+    ### Snapshot of public perceptions
+
+    The study provides a snapshot of public perceptions of, and engagement with, politics at a particular moment in time. This 13th Audit report is based on an opinion poll conducted by Ipsos MORI between 11 and 29 December 2015 with a representative quota sample of adults aged 18+ across Great Britain. Booster samples were included to make comparisons between England, Scotland and Wales, and between the white and BME populations more statistically reliable. The data was then weighted to match the national population profile.
+
+    In the Audit we look at core, inter–locking areas that we know are vital facets, or ‘building blocks’ of political engagement. Given its multi–dimensional nature, the indictors we have chosen are not exhaustive. But in capturing aspects of public behaviour, knowledge, opinions, attitudes and values towards politics they help us understand the drivers of political engagement and the relationships between them.
+
+    ### Measuring engagement
+
+    Levels of public knowledge and interest are explored because they are known to be important factors in engagement given the strong correlation between familiarity and favourability. The more people know about an institution, service or process the more positive they tend to be towards it and the more willing they may be to participate and get involved.
+
+    Political engagement can be measured in terms of what people think, but also In terms of what they do. We therefore look at levels of public action and participation in the political process, capturing both formal and informal forms of engagement that require varying levels of time and commitment. And we look not just at what people claim to have done in the last year but what activities they say they would be willing to do in the future if they felt strongly enough about an issue, enabling us to chart the gap between actual and potential engagement.
+
+    Building on the familiarity indicators, we look at the public’s favourability towards aspects of the political system through a series of questions in relation to their sense of efficacy and satisfaction. We explore public satisfaction with the way our system of governing Britain works and the extent to which people believe their involvement in politics would be worthwhile in bringing about change in the way the country is run.
+
+    Engagement operates at a number of different levels. We therefore track the public’s appetite for both local and national involvement in decision-making, and, as a further facet of their sense of political efficacy and satisfaction, the extent to which they feel they have any influence over decision-making at each level.
+
+    ### A focus on Parliament
+
+    Given the Hansard Society’s core mission working to strengthen parliaments we also focus on public perceptions of Parliament as the core institution of our democracy. We look at the public’s knowledge of Parliament, their perception of its importance and relevance, its effectiveness in performing its accountability function, and in engaging with and addressing the issues that matter to them.
+
+    The Audit provides a platform for debate about what might be done to enhance engagement in politics in the future. To encourage this and foster further, detailed research by academics and others we publish all the data each year on this website.
+  :header_image:
+    :url: "//images.contentful.com/xkbace0jm9pp/SwBg1O3YWs4IwICwiKU4i/02430c4548dbe84ccda1b139b09dea95/header__indicators-of-engagement--01.svg"
+    :alt: The Audit of Political Engagement's indicators of engagement
+  :behaviour: show-more
 :tags:
 - :tag: audit-of-political-engagement
 - :tag: political-engagement

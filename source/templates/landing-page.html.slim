@@ -3,8 +3,15 @@ article
   / Banner
   - if landing_page.banner_image
     = partial 'partials/banner',
-      :locals => { :entry => landing_page }
+      locals: { entry: landing_page }
 
   / Content
-  / = partial 'partials/content',
-  /   :locals => { :entry => child_page }
+  = partial 'partials/content',
+    locals: { entry: landing_page }
+
+
+  - landing_page.panels.each do |panel|
+
+    - if panel.TYPE == 'panel_content'
+      = partial 'partials/content',
+        locals: { entry: panel }

@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import { throttle } from 'lodash/fp';
+import smoothScroll from 'smooth-scroll';
 
 ////////////////////////////////////////////////////////////
-//  Coer funcations
+//  Core funcations
 ////////////////////////////////////////////////////////////
 
 // Toggle class
@@ -172,3 +173,10 @@ forEach(document.querySelectorAll('.side-card__title'), function(index, elem) {
     truncate(elem, '.title');
   }
 });
+
+////////////////////////////////////////////////////////////
+//  Smooth scroll
+//  https://github.com/cferdinandi/smooth-scroll
+////////////////////////////////////////////////////////////
+
+smoothScroll.init({ offset: 64 });

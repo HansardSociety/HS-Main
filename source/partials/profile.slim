@@ -15,19 +15,20 @@
     / Biog modal button
     = partial 'partials/button-state',
       locals: \
-      { type:             'secondary',
-        icon:             nil,
-        color:            'white',
-        size:             'small',
-        text:             { on:  'Open biog',
-                            off: 'Close' },
-        animation:        nil,
-        aria_id:          "#{ full_name.parameterize }-biog-button",
-        aria_target_id:   "modal-biog-#{ full_name.parameterize }",
-        state:            { scope:  'local',
-                            action: 'open',
-                            page:   'overlay',
-                            excl:   true }}
+      { type: 'secondary',
+        size: 'small',
+        icon: nil,
+        text: \
+        { on: 'Open biog',
+          off: 'Close' },
+        animation: nil,
+        state: \
+        { scope: 'local',
+          action: 'open',
+          page: 'overlay',
+          aria_id: "#{ full_name.parameterize }-biog-button",
+          aria_target_id: "modal-biog-#{ full_name.parameterize }",
+          excl: true }}
 
     / Social follow
     = partial 'partials/social',

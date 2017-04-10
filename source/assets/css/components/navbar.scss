@@ -15,7 +15,7 @@
     %u-transition-base-all;
 
   @include above('medium') {
-    height: 10rem;
+    height: 8rem;
   };
 }
 
@@ -50,6 +50,7 @@
 .navbar__list,
 .navbar__item {
   @extend %u-display-none;
+
   @include above('medium') {
     @extend %u-display-inline-block__medium;
   }
@@ -64,6 +65,14 @@
 //  Behaviour
 ////////////////////////////////////////////////////////////
 
+.navbar {
+  @include above('medium') {
+    .navbar__center {
+      transform: translateY(1rem);
+    }
+  }
+}
+
 .navbar.js-on {
   z-index: 200;
 
@@ -76,12 +85,14 @@
     height: 3.5rem;
 
     .navbar__center {
-      height: 2.5rem;
+      height: 2rem;
+
+      transform: translateY(0);
+      animation: fadeInOut .2s;
     }
 
     .logo__image--desktop {
-      transform: translateY(-106px);
-      animation: fadeInOut .5s;
+      transform: translateY(-90px);
     }
   }
 }

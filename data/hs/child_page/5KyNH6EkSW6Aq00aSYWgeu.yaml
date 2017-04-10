@@ -4,10 +4,9 @@
 :category: research
 :title: Westminster Lens
 :slug: westminster-lens
-:introduction: This data project enhances the provision of information and analysis
-  about the scrutiny of primary and secondary legislation by the Westminster Parliament.
-  It draws on our unique Statutory Instrument Tracker as well as Parliament's own
-  legislative data.
+:introduction: |-
+  This data project enhances the provision of information and analysis about the scrutiny of primary and secondary legislation by the Westminster Parliament. It draws on our unique Statutory Instrument Tracker as well as Parliament's own legislative data.
+  {: .byline }
 :copy: "## Why we are doing it\n\nThis project, based on new legislative data collected
   since the start of the 2015-16 parliamentary session, seeks to plug the statistical
   hole in our understanding of both the primary and secondary legislative processes.

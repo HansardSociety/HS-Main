@@ -2,16 +2,22 @@
   vertical-align: middle;
 }
 
+.icon--small {
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: -5px;
+}
+
 .icon--medium {
   width: 2.25rem;
   height: 2.25rem;
   margin: -7.5px;
 }
 
-.icon--small {
-  width: 1.75rem;
-  height: 1.75rem;
-  margin: -5px;
+.icon--large {
+  width: 3rem;
+  height: 3rem;
+  margin: -10px;
 }
 
 .icon--white {
@@ -20,4 +26,8 @@
 
 .icon--green {
   fill: $brand_green;
+}
+
+.icon--orange {
+  fill: $brand_orange;
 }

@@ -19,32 +19,54 @@
   @extend
     %u-border-radius-small,
     %u-cursor-pointer,
+    %u-flex-inline-row-center,
     %u-position-relative,
     %u-overflow-hidden,
     %u-transition-base-all; // prevents svg viewbox overflow
 }
 
+.button--small,
+.button--medium {
+  @extend %u-inline-spacing-xsmall;
+}
+
 .button--small {
   height: 2rem;
   min-width: 2rem;
-  padding: 0 .5rem;
+}
 
-  @extend
-    %u-font-size-small,
-    %u-inline-spacing-xsmall;
+.button--medium {
+  height: 3rem;
+  min-width: 3rem;
+}
+
+.button--primary {
+  border-bottom: .2em solid $brand_green;
+  background-image: linear-gradient($brand_green, lighten($brand_green, 3%));
+
+  @extend %u-color-brand-white;
+
+  &:active {
+    border-bottom: .2em solid lighten($brand_green, 3%);
+  }
+
+  @include above('large') {
+    &:hover {
+      border-bottom: .2em solid lighten($brand_green, 3%);
+    }
+  }
 }
 
 .button--secondary {
   border: 2px solid $brand_green;
 
-  &:active {
-    background-color: $brand_green;
-    color: $brand_white;
-  }
+  @extend %u-color-brand-green;
 
-  @extend
-    %u-color-brand-green,
-    %u-flex-row-center;
+  &:active {
+    @extend
+      %u-bgc-brand-green,
+      %u-color-brand-white;
+  }
 
   @include above('large') {
     &:hover {
@@ -55,13 +77,32 @@
 }
 
 .button__content {
-  @extend %u-display-block;
+  @extend
+    %u-display-block,
+    %u-margin-center-x;
 }
 
 .button__text {
   text-transform: lowercase;
 
   font-variant: small-caps;
+
+  @extend %u-display-block;
+}
+
+.button__text--small {
+  padding: 0 .5rem;
+
+  @extend %u-font-size-xsmall;
+}
+
+.button__text--medium {
+  padding: 0 1rem;
+
+  @extend %u-font-size-small;
+}
+
+.button__text--change {
 
   &::before,
   &::after {

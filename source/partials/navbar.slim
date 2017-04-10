@@ -15,18 +15,21 @@ nav.navbar{ role="navigation" }
       / Menu button
       = partial 'partials/button-state',
         locals: \
-        { type:             nil,
-          icon:             'menu',
-          color:            'white',
-          size:             'small',
-          text:             nil,
-          animation:        nil,
-          aria_id:          'navbar-menu-button',
-          aria_target_id:   'menu-mobile',
-          state:            { scope:  'global',
-                              action: 'show-menu-mobile',
-                              page:   'overlay',
-                              excl:   true }}
+        { type: nil,
+          size: 'small',
+          icon: \
+          { image: 'menu',
+            size: 'medium',
+            color: 'white' },
+          text: nil,
+          animation: nil,
+          state: \
+          { scope: 'global',
+            action: 'show-menu-mobile',
+            aria_id: 'navbar-menu-button',
+            aria_target_id: 'menu-mobile',
+            page: 'overlay',
+            excl: true }}
 
     .navbar__center
 
@@ -66,18 +69,21 @@ nav.navbar{ role="navigation" }
                   / Accordian control
                   = partial 'partials/button-state',
                     locals: \
-                      { type:           nil,
-                        icon:           'chevron-down',
-                        color:          'white',
-                        size:           'medium',
-                        text:            nil,
-                        animation:       'rotate',
-                        aria_id:         "menu-desktop-#{ navigation.title }-button",
-                        aria_target_id:  "menu-desktop-#{ navigation.title }",
-                        state:           { scope: 'global',
-                                           action: "show-menu-desktop-#{ navigation.title }",
-                                           page: nil,
-                                           excl: true }}
+                      { type: nil,
+                        size: 'small',
+                        icon: \
+                        { image: 'chevron-down',
+                          size: 'medium',
+                          color: 'white' },
+                        text: nil,
+                        animation: 'rotate',
+                        state: \
+                        { scope: 'global',
+                          action: "show-menu-desktop-#{ navigation.title }",
+                          aria_id: "menu-desktop-#{ navigation.title }-button",
+                          aria_target_id: "menu-desktop-#{ navigation.title }",
+                          page: nil,
+                          excl: true }}
 
             = partial 'partials/menu',
               locals: \
@@ -87,15 +93,18 @@ nav.navbar{ role="navigation" }
       / Search
       = partial 'partials/button-state',
         locals: \
-        { type:             nil,
-          icon:             'search',
-          color:            'white',
-          size:             'medium',
-          text:             nil,
-          animation:        nil,
-          aria_id:          'navbar-search-button',
-          aria_target_id:   'search',
-          state:            { scope:  'global',
-                              action: 'show-search',
-                              page:   'overlay',
-                              excl:   true }}
+        { type: nil,
+          size: 'small',
+          icon: \
+          { image: 'search',
+            size: 'medium',
+            color: 'white' },
+          text: nil,
+          animation: nil,
+          state: \
+          { scope: 'global',
+            action: 'show-search',
+            aria_id: 'navbar-search-button',
+            aria_target_id: 'search',
+            page: 'overlay',
+            excl: true }}
