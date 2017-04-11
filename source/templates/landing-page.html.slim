@@ -9,7 +9,16 @@ article
   = partial 'partials/content',
     locals: { entry: landing_page }
 
+  //////////////////////////////
+  // Tagging
+  //////////////////////////////
 
+  section.panel
+    .panel__content
+      = partial 'partials/related',
+        locals: { entry: landing_page }
+
+  / Panels
   - landing_page.panels.each do |panel|
 
     = partial 'partials/panel',

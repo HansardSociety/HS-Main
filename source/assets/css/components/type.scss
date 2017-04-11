@@ -11,37 +11,13 @@
     %u-font-avenir-700-normal;
 }
 
-.title--xsmall {
-  @extend %u-font-size-xsmall;
-}
+.title--xsmall { @extend %u-font-size-xsmall; }
+.title--small  { @extend %u-font-size-small; }
+.title--medium { @extend %u-font-size-medium; }
+.title--large  { @extend %u-font-size-large; }
+.title--xlarge { @extend %u-font-size-xlarge; }
 
-.title--small  {
-  @extend %u-font-size-xsmall;
-
-  @include above('medium') {
-    @extend %u-font-size-small__medium;
-  }
-}
-
-.title--medium {
-  @extend %u-font-size-medium;
-}
-
-.title--large  {
-  @extend %u-font-size-large;
-
-  @include above('medium') {
-    @extend %u-font-size-large__large;
-  }
-}
-
-.title--xlarge {
-  @extend %u-font-size-xlarge;
-}
-
-.title--white {
-  @extend %u-color-brand-white;
-}
+.title--white  { @extend %u-color-brand-white; }
 
 // ** Alt title **
 // ****************************

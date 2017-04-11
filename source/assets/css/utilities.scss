@@ -295,7 +295,10 @@ $properties: (
 // ** Overlay **
 // ****************************
 
-%u-overlay {
+%u-overlay,
+%u-overlay-light,
+%u-overlay-medium,
+%u-overlay-dark {
   &::after {
     background-color: rgba($brand_black, .5);
     @extend
@@ -304,6 +307,20 @@ $properties: (
       %u-width-full;
   }
 }
+
+%u-overlay,
+%u-overlay-medium {
+  &::after {
+    background-color: rgba($brand_black, .5);
+  }
+}
+
+%u-overlay-dark {
+  &::after {
+    background-color: rgba($brand_black, .75);
+  }
+}
+
 
 // ** Box sadow **
 // ****************************

@@ -1,0 +1,36 @@
+.main-card {
+  width: 100%;
+  max-width: 342px; // = header height 192px (based on banner image ratio)
+
+  overflow: hidden;
+  border-radius: 2px;
+
+  @extend %u-bgc-brand-white-1;
+}
+
+.main-card__header {
+  position: relative;
+
+}
+
+.main-card__image {
+
+  @extend %u-overlay-dark;
+
+  & > img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.main-card__title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  @extend %u-container-small;
+}
+
+.main-card__introduction {
+  padding: 1rem;
+}

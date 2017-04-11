@@ -1,16 +1,15 @@
 .panel {
+  @extend %u-container-y-small;
+}
+
+.panel__content {
   &:nth-of-type(odd) {
     @extend %u-accent-small-brand-white-1-top;
   }
 
   @extend
     %u-row,
-    %u-container-y-small;
-}
-
-.panel,
-.panel__inner {
-  @extend %u-flex-row;
+    %u-flex-row;
 }
 
 .panel__main,

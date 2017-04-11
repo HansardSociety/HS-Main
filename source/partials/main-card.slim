@@ -1,0 +1,14 @@
+article.main-card
+
+  / Header
+  .main-card__header
+    .main-card__image
+      img{
+        src="#{ image_url }"
+        alt="#{ image_alt }"
+      }
+    h1.main-card__title.title.title--small.title--white= title
+
+  / Introduction
+  .main-card__introduction
+    p= introduction
