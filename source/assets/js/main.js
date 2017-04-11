@@ -25,7 +25,7 @@ var forEach = function(array, cb, scope) {
 // ** Variables **
 // ****************************
 
-var globalState   = document.querySelector('.js-global-state'),
+var globalState   = document.querySelector('.js-state-global'),
     buttonsGlobal = document.querySelectorAll('.button.js-trigger-global'),
     buttonsLocal  = document.querySelectorAll('.button.js-trigger-local'),
     navbar        = document.querySelector('.navbar');
@@ -64,7 +64,7 @@ function exclusiveState(trigger) {
       if ((elem != trigger) && (elem.classList.contains('js-on'))) {
 
         // Toggle global or local state depending on elem...
-        elem.classList.toString().indexOf('global') > -1 ? toggleState(elem, 'js-on', globalState) : toggleState(elem, 'js-on', elem.closest('.js-local-state'))
+        elem.classList.toString().indexOf('global') > -1 ? toggleState(elem, 'js-on', globalState) : toggleState(elem, 'js-on', elem.closest('.js-state-local'))
       }
     });
   }
@@ -93,7 +93,7 @@ forEach(buttonsGlobal, function (index, button) {
 forEach(buttonsLocal, function (index, button) {
 
   button.onclick = function() {
-    var localState = this.closest('.js-local-state');
+    var localState = this.closest('.js-state-local');
 
     // Toggle local state
     toggleState(this, 'js-on', localState);

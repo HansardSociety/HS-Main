@@ -356,8 +356,12 @@ $properties: (
   }
 }
 
+%u-animate-fadein {
+  animation: FadeIn .4s ease-out;
+}
+
 %u-animate-fadeinskin {
-  animation: FadeInSkin .5s;
+  animation: FadeInSkin .4s ease-out;
 }
 
 ////////////////////////////////////////////////////////////

@@ -1,4 +1,6 @@
-section.panel
+section.panel{
+  class="#{ 'js-state-local modal-is js-off' if panel.panel_type == 'modal' }"
+}
   .panel__inner
 
     .panel__main.copy{
@@ -11,9 +13,16 @@ section.panel
       / Copy
       = Kramdown::Document.new(panel.copy_header).to_html
 
-      / Show more
+      / Modal
       - if panel.panel_type == 'modal'
-        .panel__actions.js-local-state.js-off
+
+        = partial 'partials/modal',
+          locals: \
+          { title: panel.title,
+            content: panel.copy_body }
+
+        / Actions (ie. modal trigger)
+        .panel__actions
 
           / Modal button
           = partial 'partials/button-state',
@@ -29,8 +38,8 @@ section.panel
               { scope: 'local',
                 action: 'js-on',
                 page: 'js-page-overlay',
-                aria_id: "#{ full_name.parameterize }-biog-button",
-                aria_target_id: "modal-biog-#{ full_name.parameterize }",
+                aria_id: "",
+                aria_target_id: "",
                 excl: true }}
 
     .panel__aside{

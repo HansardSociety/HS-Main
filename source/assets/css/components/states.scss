@@ -1,4 +1,4 @@
-body.js-global-state {
+body.js-state-global {
 
 ////////////////////////////////////////////////////////////
 //  States
@@ -31,7 +31,7 @@ body.js-global-state {
 
       @extend
         %u-animate-fadeinskin,
-        %u-bgc-brand-black,
+        %u-bgc-brand-white,
         %u-display-block,
         %u-height-full-vh,
         %u-position-fixed,

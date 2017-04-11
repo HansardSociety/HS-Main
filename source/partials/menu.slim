@@ -16,7 +16,7 @@
     - if screen == 'mobile'
       - data.hs.navigation.each do |id, navigation|
         li.menu__category.menu__category--outer{
-          class="#{ 'dropdown js-local-state' if navigation.pages.length > 1 }"
+          class="#{ 'dropdown js-state-local' if navigation.pages.length > 1 }"
         }
 
           h2.title.title--medium.title--white{

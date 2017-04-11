@@ -1,0 +1,26 @@
+.modal
+  .modal__header
+    h2.title.title--medium= title
+
+    / Close
+    .modal__close
+      = partial 'partials/button-state',
+        locals: \
+        { type: nil,
+          size: 'small',
+          icon: \
+          { image: 'close',
+            size: 'medium',
+            color: 'green' },
+          text: nil,
+          animation: nil,
+          state: \
+          { scope: 'local',
+            action: 'js-off',
+            aria_id: 'close-modal-button',
+            aria_target_id: 'modal',
+            page: nil,
+            excl: true }}
+
+  .modal__content.copy
+    = Kramdown::Document.new(content).to_html

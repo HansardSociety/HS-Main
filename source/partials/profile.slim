@@ -1,4 +1,4 @@
-.modal.profile.js-local-state.js-off
+.profile.js-state-local.modal-is.js-off
   .profile__image
     img{
       src="#{ photo.url }?fit=fill&w=324&h=324"
@@ -35,5 +35,7 @@
     = partial 'partials/social',
       locals: { icons: [ email, twitter, linkedin ] }
 
-  .profile__biog.copy
-    = Kramdown::Document.new(biog).to_html
+    = partial 'partials/modal',
+      locals: \
+      { title: full_name,
+        content: biog }

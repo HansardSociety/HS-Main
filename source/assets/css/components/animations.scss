@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////
+//  Fade
+////////////////////////////////////////////////////////////
+
 @keyframes FadeIn {
   0%   { opacity: 0; }
   100% { opacity: 1; }
@@ -10,7 +14,7 @@
 
 @keyframes FadeInSkin {
   0%   { opacity: 0; }
-  100% { opacity: .85; }
+  100% { opacity: .75; }
 }
 
 @keyframes fadeInOut {
@@ -23,4 +27,18 @@
   0%   { opacity: 1; }
   50%  { opacity: 0; }
   100% { opacity: 1; }
+}
+
+////////////////////////////////////////////////////////////
+//  Slide
+////////////////////////////////////////////////////////////
+
+@keyframes SlideUpIn {
+  0%   { transform: translateY(100vh); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes SlideUpInCenter {
+  0%   { transform: translate(-50%, 100vh); }
+  100% { transform: translate(-50%, -50%); }
 }

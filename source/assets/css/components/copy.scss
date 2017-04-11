@@ -1,19 +1,19 @@
 .copy {
 
-h1, h2, h3, h4, h5, h6, p, img, iframe {
+> h1, > h2, > h3, > h4, > h5, > h6, > p, > img, > iframe {
   &:nth-child(1n + 2) {
     @extend %u-vertical-rhythm-medium;
   }
 }
 
-h1, h2, h3, h4 {
+> h1, > h2, > h3, > h4 {
   @extend .title;
 }
 
-h1 { @extend .title--xlarge; }
-h2 { @extend .title--large; }
-h3 { @extend .title--medium; }
-h4 { @extend .title--small; }
+> h1 { @extend .title--xlarge; }
+> h2 { @extend .title--large; }
+> h3 { @extend .title--medium; }
+> h4 { @extend .title--small; }
 
 @extend %u-position-relative;
 

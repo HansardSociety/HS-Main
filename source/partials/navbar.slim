@@ -5,7 +5,7 @@ nav.navbar{ role="navigation" }
     / Hidden site title
     h1.hidden= @@site_title
 
-    .navbar__left.js-local-state
+    .navbar__left.js-state-local
 
       / menu
       = partial 'partials/menu',
@@ -44,7 +44,7 @@ nav.navbar{ role="navigation" }
         - data.hs.navigation.each do |id, navigation|
           li.navbar__item{
             class="#{
-              'dropdown js-local-state js-exclusive js-off' if navigation.pages.length > 1
+              'dropdown js-state-local js-exclusive js-off' if navigation.pages.length > 1
             }"
           }
             h2.title.title--small.title--white{

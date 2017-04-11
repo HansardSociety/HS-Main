@@ -1,34 +1,62 @@
-.modal.js-on {
+.modal {
+  left: -9999px;
+
   z-index: 300;
 
   width: 40rem;
   max-width: 100%;
 
-  top: 0;
-  left: 0;
-
-  border: none;
-
   @extend
-    %u-animate-fadeinskin,
     %u-bgc-brand-white,
-    %u-container-small,
+    %u-border-radius-small,
     %u-height-full-vh,
     %u-overflow-hidden,
     %u-position-fixed,
     %u-shadow-prime-black,
     %u-width-full-vw;
+}
 
-  @include above('small') {
-    top: 50%;
-    left: 50%;
+.modal__header {
+  height: 15%;
 
-    max-height: 95vh;
+  justify-content: space-between;
 
-    transform: translate(-50%, -50%);
-  }
+  @extend
+    %u-accent-small-brand-white-1-bottom,
+    %u-container-small,
+    %u-flex-row-center,
+    %u-width-full;
+}
 
-  @include above('medium') {
-    max-height: 80vh;
+.modal__content {
+  height: 85%;
+
+  @extend
+    %u-container-small,
+    %u-overflow-y-auto ;
+}
+
+.modal-is.js-on {
+
+  .modal {
+    top: 0;
+    left: 0;
+
+    @extend %u-animate-fadein;
+
+    @include above('small') {
+      top: 50%;
+      left: 50%;
+
+      max-height: 95vh;
+
+      transform: translate(-50%, -50%);
+
+      animation: SlideUpInCenter .2s ease-out;
+    }
+
+    @include above('medium') {
+      max-height: 90vh;
+    }
   }
 }
