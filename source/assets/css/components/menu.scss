@@ -2,6 +2,8 @@
   top: 0;
   left: 0;
 
+  padding-top: 3.5rem;
+
   @extend
     %u-bgc-brand-black,
     %u-container-small,
@@ -11,13 +13,14 @@
 }
 
 .menu--mobile {
-  width: calc(100% + 4rem); // Allow width for padding
   max-width: 30rem;
-  padding: 1rem 1rem 5rem 5rem; // Allow padding for cubic-bezier
+  padding: 3.5rem 1rem 5rem 1rem; // Allow padding for cubic-bezier
 
   transform: translateX(-100%);
 
-  @extend %u-overflow-y-auto;
+  @extend
+    %u-overflow-y-auto,
+    %u-width-full;
 
   @include above('medium') {
     @extend %u-display-none__medium;
@@ -38,10 +41,6 @@
   @include above('medium') {
     @extend %u-display-block__medium;
   }
-}
-
-.menu__container {
-  padding-top: 3.5rem;
 }
 
 .menu__container--columns {
@@ -100,34 +99,4 @@
   &:hover {
     background-color: $brand_black_2;
   }
-}
-
-////////////////////////////////////////////////////////////
-//  Behaviour
-////////////////////////////////////////////////////////////
-
-body.js-show-menu-mobile,
-body.js-show-menu-desktop-about,
-body.js-show-menu-desktop-our-work {
-  @extend %u-overflow-hidden;
-}
-
-body.js-show-menu-mobile {
-  .site-container {
-    opacity: .25;
-    transition: all ease 9999s;
-  }
-
-  #menu-mobile {
-    transform: translateX(-4rem);
-
-    @extend %u-transition-base-transform;
-  }
-}
-
-body.js-show-menu-desktop-about #menu-desktop-about,
-body.js-show-menu-desktop-our-work #menu-desktop-our-work {
-  top: 0;
-
-  @extend %u-opacity-1;
 }

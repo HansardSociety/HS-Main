@@ -5,12 +5,13 @@ nav.navbar{ role="navigation" }
     / Hidden site title
     h1.hidden= @@site_title
 
-    / menu
-    = partial 'partials/menu',
-      :locals => { :screen => 'mobile',
-                   :contentful => 'false' }
+    .navbar__left.js-local-state
 
-    .navbar__left
+      / menu
+      = partial 'partials/menu',
+        :locals => { :screen => 'mobile',
+                     :contentful => 'false' }
+
 
       / Menu button
       = partial 'partials/button-state',
@@ -24,11 +25,11 @@ nav.navbar{ role="navigation" }
           text: nil,
           animation: nil,
           state: \
-          { scope: 'global',
-            action: 'show-menu-mobile',
+          { scope: 'local',
+            action: 'js-on',
             aria_id: 'navbar-menu-button',
             aria_target_id: 'menu-mobile',
-            page: 'overlay',
+            page: 'js-page-menu-mobile-on',
             excl: true }}
 
     .navbar__center
@@ -43,7 +44,7 @@ nav.navbar{ role="navigation" }
         - data.hs.navigation.each do |id, navigation|
           li.navbar__item{
             class="#{
-              'dropdown js-exclusive' if navigation.pages.length > 1
+              'dropdown js-local-state js-exclusive js-off' if navigation.pages.length > 1
             }"
           }
             h2.title.title--small.title--white{
@@ -66,7 +67,7 @@ nav.navbar{ role="navigation" }
 
                 .dropdown__control
 
-                  / Accordian control
+                  / Menu (desktop) trigger
                   = partial 'partials/button-state',
                     locals: \
                       { type: nil,
@@ -78,11 +79,11 @@ nav.navbar{ role="navigation" }
                         text: nil,
                         animation: 'rotate',
                         state: \
-                        { scope: 'global',
-                          action: "show-menu-desktop-#{ navigation.title }",
+                        { scope: 'local',
+                          action: 'js-on',
                           aria_id: "menu-desktop-#{ navigation.title }-button",
                           aria_target_id: "menu-desktop-#{ navigation.title }",
-                          page: nil,
+                          page: 'js-page-menu-desktop-on',
                           excl: true }}
 
             = partial 'partials/menu',
@@ -106,5 +107,5 @@ nav.navbar{ role="navigation" }
             action: 'show-search',
             aria_id: 'navbar-search-button',
             aria_target_id: 'search',
-            page: 'overlay',
+            page: 'js-page-overlay',
             excl: true }}

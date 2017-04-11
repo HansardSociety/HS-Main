@@ -1,26 +1,82 @@
 body.js-global-state {
 
-  &.js-page-overlay {
-    @extend %u-overflow-hidden;
+////////////////////////////////////////////////////////////
+//  States
+////////////////////////////////////////////////////////////
 
-    .site-container {
-      &::after {
-        z-index: 100;
-        top: 0;
-        left: 0;
+// ** Shared **
+// ****************************
 
-        content: '';
+// No scroll
+&.js-page-no-scroll,
+&.js-page-menu-desktop-on,
+&.js-page-menu-mobile-on,
+&.js-page-overlay {
+  @extend %u-overflow-hidden;
+}
 
-        opacity: .85;
+// Overlay
+&.js-page-overlay,
+&.js-page-menu-mobile-on {
 
-        @extend
-          %u-animate-fadeinskin,
-          %u-bgc-brand-white,
-          %u-display-block,
-          %u-height-full-vh,
-          %u-position-fixed,
-          %u-width-full-vw;
-      }
+  .site-container {
+    &::after {
+      z-index: 100;
+      top: 0;
+      left: 0;
+
+      content: '';
+
+      opacity: .85;
+
+      @extend
+        %u-animate-fadeinskin,
+        %u-bgc-brand-white,
+        %u-display-block,
+        %u-height-full-vh,
+        %u-position-fixed,
+        %u-width-full-vw;
     }
   }
+}
+
+
+// ** Menu (mobile/ desktop) **
+// ****************************
+
+&.js-page-menu-mobile-on,
+&.js-page-menu-desktop-on {
+  .navbar {
+    &::before {
+      top: 3.5rem;
+
+      width: 100%;
+
+      border-top: 1px solid $brand_black_2;
+
+      @extend %u-pseudo-element-base;
+    }
+  }
+}
+
+// ** Menu (desktop) **
+// ****************************
+
+&.js-page-menu-desktop-on {
+  .navbar {
+    @extend .navbar.js-on;
+  }
+}
+
+// ** Menu (mobile) **
+// ****************************
+
+&.js-page-menu-mobile-on {
+  .navbar {
+    background-color: $brand_black;
+    max-width: 30rem;
+  }
+}
+
+// END
 }

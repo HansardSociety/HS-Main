@@ -12,6 +12,7 @@
 
   .profile__actions
 
+
     / Biog modal button
     = partial 'partials/button-state',
       locals: \
@@ -24,8 +25,8 @@
         animation: nil,
         state: \
         { scope: 'local',
-          action: 'open',
-          page: 'overlay',
+          action: 'js-on',
+          page: 'js-page-overlay',
           aria_id: "#{ full_name.parameterize }-biog-button",
           aria_target_id: "modal-biog-#{ full_name.parameterize }",
           excl: true }}

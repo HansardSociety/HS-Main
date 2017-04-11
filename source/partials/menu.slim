@@ -2,11 +2,7 @@
 
 .menu{
   class="menu--#{ screen }"
-  id="menu-#{
-    screen == 'mobile' ?
-    'mobile' :
-    'desktop-' + @data.title.parameterize
-  }"
+  id="menu-#{ screen == 'mobile' ? 'mobile' : 'desktop-' + @data.title.parameterize }"
 }
 
   ul.menu__container{
@@ -54,7 +50,7 @@
                     animation: 'rotate',
                     state: \
                     { scope: 'local',
-                      action: 'open',
+                      action: 'js-on',
                       aria_id: "menu-dropdown-#{ navigation.title }-button",
                       aria_target_id: "menu-dropdown-#{ navigation.title }-content",
                       page: nil,
@@ -76,8 +72,7 @@
                       h4.title.title--small.title--white
                         a.menu__link{
                           href="https://www.hansardsociety.org.uk/#{
-                            page.category.parameterize + '/' +
-                            page.slug
+                            page.category.parameterize + '/' + page.slug
                           }"
                         }= page.title
 
@@ -96,7 +91,6 @@
             h4.title.title--small.title--white
               a.menu__link{
                 href="https://www.hansardsociety.org.uk/#{
-                  page.category.parameterize + '/' +
-                  page.slug
+                  page.category.parameterize + '/' + page.slug
                 }"
               }= page.title

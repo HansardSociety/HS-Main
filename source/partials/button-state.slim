@@ -4,9 +4,9 @@ button.button{
          js-trigger-#{ state[:scope] }\
          #{ 'js-state-exclusive' if state[:excl] }"
 
-  data-state-action="#{ 'js-' + state[:action].parameterize }"
+  data-state-action="#{ state[:action].parameterize }"
 
-  *{ "#{ 'data-state-page' if state[:page] }": "#{ 'js-page-' + state[:page] if state[:page] }" }
+  *{ "#{ 'data-state-page' if state[:page] }": "#{ state[:page] if state[:page] }" }
 
   aria-controls="#{ state[:aria_target_id].parameterize }"
   role="button"

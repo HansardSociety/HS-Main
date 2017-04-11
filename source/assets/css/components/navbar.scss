@@ -1,6 +1,12 @@
 .navbar {
   width: 100vw;
   max-width: 100vw;
+
+  @include above('medium') {
+    .navbar__center {
+      transform: translateY(1rem);
+    }
+  }
 }
 
 .navbar {
@@ -65,13 +71,8 @@
 //  Behaviour
 ////////////////////////////////////////////////////////////
 
-.navbar {
-  @include above('medium') {
-    .navbar__center {
-      transform: translateY(1rem);
-    }
-  }
-}
+// ** Navbar on **
+// ****************************
 
 .navbar.js-on {
   z-index: 200;
@@ -97,28 +98,13 @@
   }
 }
 
-body.js-show-menu-mobile,
-body.js-show-menu-desktop-about,
-body.js-show-menu-desktop-our-work {
-  .navbar {
-    box-shadow: none;
+// ** Menu (mobile) **
+// ****************************
 
-    &::after {
-      height: 3.5rem;
+.navbar__left.js-local-state.js-on {
+  .menu {
+    transform: translateX(0);
 
-      border-bottom: 1px solid $brand_black_2;
-
-      @extend
-        %u-bgc-brand-black,
-        %u-pseudo-element-base,
-        %u-width-full,
-        %u-zindex-negative;
-    }
-  }
-}
-
-body.js-show-menu-mobile {
-  .navbar {
-    width: calc(30rem - 4rem);
+    @extend %u-transition-base-transform;
   }
 }

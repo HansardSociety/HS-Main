@@ -1,4 +1,4 @@
-.modal.js-open {
+.modal.js-on {
   z-index: 300;
 
   width: 40rem;
@@ -27,6 +27,7 @@
 
     transform: translate(-50%, -50%);
   }
+
   @include above('medium') {
     max-height: 80vh;
   }

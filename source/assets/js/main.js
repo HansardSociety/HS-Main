@@ -84,17 +84,6 @@ forEach(buttonsGlobal, function (index, button) {
 
     // If exclusive event
     exclusiveState(trigger);
-
-    // If menu is activated, shrink navbar...
-    var menuDesktopOn = globalState.classList.toString().indexOf('js-show-menu-desktop') > -1,
-        navbarOn      = navbar.classList.toString().indexOf('js-on') > -1;
-
-    if (menuDesktopOn === true && navbarOn === false) {
-      navbar.classList.toggle('js-on');
-
-    } else if (menuDesktopOn === false && window.pageYOffset < 1) {
-      navbar.classList.remove('js-on');
-    }
   }
 });
 
