@@ -1,11 +1,58 @@
 .panel {
-  @extend %u-container-large;
+  &:nth-of-type(odd) {
+    @extend %u-accent-small-brand-white-1-top;
+  }
+
+  @extend
+    %u-row,
+    %u-container-y-small;
 }
 
+.panel,
 .panel__inner {
-  @extend %u-row;
+  @extend %u-flex-row;
 }
 
-.panel__introduction {
+.panel__main,
+.panel__aside {
+  @extend
+    %u-margin-center-x,
+    %u-container-small;
+}
+
+.panel__main {
   @extend %u-content-main;
+}
+
+.panel__aside {
+  @extend %u-content-aside;
+}
+
+// ** Ordering **
+// ****************************
+
+.panel__aside--order-1,
+.panel__aside--stack-1 {
+  order: 1;
+}
+
+.panel__main--order-2,
+.panel__main--stack-2 {
+  order: 2;
+}
+
+.panel__aside--stack-1 {
+  @include above('medium') {
+    order: 2;
+  }
+}
+
+.panel__main--stack-2 {
+  @include above('medium') {
+    order: 1;
+  }
+}
+
+.panel__actions {
+  @extend %u-margin-top-small;
 }

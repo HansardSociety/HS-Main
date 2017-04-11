@@ -9,10 +9,6 @@
     %u-border-radius-small,
     %u-overflow-hidden,
     %u-row;
-
-  &:nth-of-type(even) {
-    @extend %u-accent-small-brand-white-1-top;
-  }
 }
 
 .content--events       { @extend %u-accent-large-brand-blue-top; }

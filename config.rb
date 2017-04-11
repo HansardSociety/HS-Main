@@ -119,13 +119,13 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         ID:           panel.sys[:id],
         TYPE:         panel.content_type.id,
         title:        panel.title,
-        introduction: panel.introduction,
-        copy:         panel.copy,
+        panel_type:   panel.panel_type.parameterize,
+        copy_header:  panel.copy_header,
+        copy_body:    panel.copy_body,
         header_image: {
           url:        panel.header_image.url,
           alt:        panel.header_image.description
-        },
-        behaviour:    panel.behaviour.parameterize
+        }
       }
       end
     end

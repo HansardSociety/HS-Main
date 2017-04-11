@@ -1,5 +1,42 @@
 section.panel
-  .panel__inner.copy
-    .panel__introduction
+  .panel__inner
+
+    .panel__main.copy{
+      class="#{ 'panel__main--order-2' if panel.header_image }"
+    }
+
+      / Title
       h2.title.title--medium= panel.title
-      p.byline= panel.introduction
+
+      / Copy
+      = Kramdown::Document.new(panel.copy_header).to_html
+
+      / Show more
+      - if panel.panel_type == 'modal'
+        .panel__actions.js-local-state.js-off
+
+          / Modal button
+          = partial 'partials/button-state',
+            locals: \
+            { type: 'secondary',
+              size: 'small',
+              icon: nil,
+              text: \
+              { on: 'Show more',
+                off: 'Close' },
+              animation: nil,
+              state: \
+              { scope: 'local',
+                action: 'js-on',
+                page: 'js-page-overlay',
+                aria_id: "#{ full_name.parameterize }-biog-button",
+                aria_target_id: "modal-biog-#{ full_name.parameterize }",
+                excl: true }}
+
+    .panel__aside{
+      class="#{ 'panel__aside--order-1' if panel.header_image }"
+    }
+      = partial 'partials/text-image',
+        locals: \
+        { url: panel.header_image.url,
+          alt: panel.header_image.alt }

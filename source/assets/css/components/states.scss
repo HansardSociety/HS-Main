@@ -21,17 +21,17 @@ body.js-global-state {
 
   .site-container {
     &::after {
-      z-index: 100;
+      z-index: 200;
       top: 0;
       left: 0;
 
       content: '';
 
-      opacity: .85;
+      opacity: .75;
 
       @extend
         %u-animate-fadeinskin,
-        %u-bgc-brand-white,
+        %u-bgc-brand-black,
         %u-display-block,
         %u-height-full-vh,
         %u-position-fixed,

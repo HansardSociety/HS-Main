@@ -12,6 +12,5 @@ article
 
   - landing_page.panels.each do |panel|
 
-    - if panel.TYPE == 'panel_content'
-      = partial 'partials/content',
-        locals: { entry: panel }
+    = partial 'partials/panel',
+      locals: { panel: panel }

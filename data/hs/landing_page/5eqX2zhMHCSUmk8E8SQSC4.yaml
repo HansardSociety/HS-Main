@@ -23,14 +23,15 @@
   :integer: 1081555200
   :date: 10 Apr, 04
 :panels:
-- :ID: 5sV9YCYN5mIkI2siUcGWKM
+- :ID: EmffZwZkvQoC4uCUg4Ikm
   :TYPE: panel_content
   :title: What do we measure?
-  :introduction: The Audit of Political Engagement is a time series study providing
+  :panel_type: modal
+  :copy_header: The Audit of Political Engagement is a time series study providing
     an annual benchmark to measure political engagement in Great Britain, gauging
     public opinion about politics and the political system and more broadly the general
     health of our democracy.
-  :copy: |-
+  :copy_body: |-
     ### Indicators of engagement
 
     Each Audit report presents the findings from a public opinion poll survey, providing detailed commentary on a range of measures that have been chosen as key measures of political engagement. These indictors enable us to chronicle responses year on year and track the direction and magnitude of change since the Audit was first published in 2004.
@@ -59,7 +60,6 @@
   :header_image:
     :url: "//images.contentful.com/xkbace0jm9pp/SwBg1O3YWs4IwICwiKU4i/02430c4548dbe84ccda1b139b09dea95/header__indicators-of-engagement--01.svg"
     :alt: The Audit of Political Engagement's indicators of engagement
-  :behaviour: show-more
 :tags:
 - :tag: audit-of-political-engagement
 - :tag: political-engagement

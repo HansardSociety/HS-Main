@@ -1,14 +1,11 @@
 .content{
-  class="#{ 'content--' + entry.category if entry.TYPE == 'child_page' }\
-         #{ 'js-local-state js-off' if entry.behaviour == 'show-more' }"
+  class="#{ 'content--' + entry.category if entry.TYPE == 'child_page' }"
 }
   #banner_scroll_target.content__header
     section.content__main.copy{
       class="#{
         if entry.category == 'blog'
           'content__main--stack-2'
-        elsif [ 'panel_content' ].include? entry.TYPE
-          'content__main--order-2'
         elsif [ 'landing_page' ].include? entry.TYPE
           'content__main--center'
         end
@@ -17,40 +14,13 @@
       - if entry.TYPE == 'panel_content'
         h2.title.title--large= entry.title
 
-      = Kramdown::Document.new(entry.TYPE == 'panel_content' ? entry.introduction.chomp('.') + '…' : entry.introduction).to_html
-
-      / Show more button
-      - if entry.behaviour == 'show-more'
-
-        .content__actions
-          = partial 'partials/button-state',
-            locals: \
-            { type: 'secondary',
-              size: 'small',
-              icon: nil,
-              text: \
-              { on: 'Show more',
-                off: 'Show less' },
-              animation: nil,
-              state: \
-              { scope: 'local',
-                action: 'js-on',
-                page: nil,
-                aria_id: "show-more-button",
-                aria_target_id: "show-more-#{ entry.title.parameterize }",
-                excl: true }}
+      = Kramdown::Document.new(entry.introduction).to_html
 
     / Only if child page
-    - if [ 'child_page', 'panel_content' ].include? entry.TYPE
+    - if entry.TYPE == 'child_page'
 
       aside.content__aside{
-        class="#{
-          if entry.category == 'blog'
-            'content__aside--stack-1'
-          elsif [ 'panel_content' ].include? entry.TYPE
-            'content__aside--order-1'
-          end
-        }"
+        class="#{ 'content__aside--stack-1' if entry.category == 'blog' }"
       }
 
         / Promoted page
@@ -76,17 +46,9 @@
               twitter: entry.author.twitter,
               linkedin: entry.author.linkedin }
 
-        - if entry.header_image
-          = partial 'partials/text-image',
-            locals: \
-            { src: entry.header_image.url,
-              alt: entry.header_image.alt }
-
   / If copy
   - if entry.copy
-    section.content__main.copy{
-      class="#{ 'content__main--show-more' if entry.behaviour == 'show-more' }"
-    }
+    section.content__main.copy
       = Kramdown::Document.new(entry.copy).to_html
 
   / Only if child page
