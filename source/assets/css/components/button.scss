@@ -41,30 +41,32 @@
 }
 
 .button--primary {
-  border-bottom: .2em solid $brand_green;
-  background-image: linear-gradient($brand_green, lighten($brand_green, 3%));
+  border-bottom: .2em solid $brand_orange;
+  background-image: linear-gradient($brand_orange, lighten($brand_orange, 8%));
+
+  width: 182px;
 
   @extend %u-color-brand-white;
 
   &:active {
-    border-bottom: .2em solid lighten($brand_green, 3%);
+    border-bottom: .2em solid lighten($brand_orange, 3%);
   }
 
   @include above('large') {
     &:hover {
-      border-bottom: .2em solid lighten($brand_green, 3%);
+      border-bottom: .2em solid lighten($brand_orange, 3%);
     }
   }
 }
 
 .button--secondary {
-  border: 2px solid $brand_green;
+  border: 2px solid $brand_orange;
 
-  @extend %u-color-brand-green;
+  @extend %u-color-brand-orange;
 
   &:active {
     @extend
-      %u-bgc-brand-green,
+      %u-bgc-brand-orange,
       %u-color-brand-white;
   }
 

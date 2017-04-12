@@ -26,10 +26,33 @@
   :integer: 1081555200
   :date: 10 Apr, 04
 :panels:
+- :ID: 5gnvecuuys2CQmsA6eE8kQ
+  :TYPE: panel
+  :title: 'Audit of Political Engagement 14: the 2017 report'
+  :panel_type: header
+  :copy: At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+    praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
+    excepturi.
+  :calls_to_action:
+  - :title: 'Audit 14 report download :: Audit'
+    :action: download
+    :button_text: Download Audit 14
+    :file:
+      :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16
+        Session :: Report'
+      :url: "//assets.contentful.com/xkbace0jm9pp/3tuWTgIiJWaW6CW4GMWs06/743ec4fa5b015dde5befade5e4830139/report__westminster-lens-2015-16.pdf"
+  - :title: 'Audit 14 data download :: Audit'
+    :action: download
+    :button_text: Get the data
+    :file:
+      :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16
+        Session :: Report'
+      :url: "//assets.contentful.com/xkbace0jm9pp/3tuWTgIiJWaW6CW4GMWs06/743ec4fa5b015dde5befade5e4830139/report__westminster-lens-2015-16.pdf"
+  :image: 
 - :ID: 1P85AMaKtCA6U2MISQ0q22
   :TYPE: panel
   :title: What do we measure?
-  :panel_type: call-to-action
+  :panel_type: basic
   :copy: The Audit of Political Engagement is a time series study providing an annual
     benchmark to measure political engagement in Great Britain, gauging public opinion
     about politics and the political system and more broadly the general health of
@@ -67,29 +90,6 @@
   :image:
     :url: "//images.contentful.com/xkbace0jm9pp/SwBg1O3YWs4IwICwiKU4i/02430c4548dbe84ccda1b139b09dea95/header__indicators-of-engagement--01.svg"
     :alt: The Audit of Political Engagement's indicators of engagement
-- :ID: 5gnvecuuys2CQmsA6eE8kQ
-  :TYPE: panel
-  :title: 'Audit of Political Engagement 14: the 2017 report'
-  :panel_type: header
-  :copy: At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-    praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
-    excepturi.
-  :calls_to_action:
-  - :title: 'Audit 14 report download :: Audit'
-    :action: download
-    :button_text: Download Audit 14
-    :file:
-      :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16
-        Session :: Report'
-      :url: "//assets.contentful.com/xkbace0jm9pp/3tuWTgIiJWaW6CW4GMWs06/743ec4fa5b015dde5befade5e4830139/report__westminster-lens-2015-16.pdf"
-  - :title: 'Audit 14 data download :: Audit'
-    :action: download
-    :button_text: Get the data
-    :file:
-      :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16
-        Session :: Report'
-      :url: "//assets.contentful.com/xkbace0jm9pp/3tuWTgIiJWaW6CW4GMWs06/743ec4fa5b015dde5befade5e4830139/report__westminster-lens-2015-16.pdf"
-  :image: 
 - :ID: 5wsTODDJg4ksYwSIS2Qcuq
   :TYPE: panel
   :title: 72% similique sunt in culpa qui officia deserunt mollitia

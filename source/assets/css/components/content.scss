@@ -11,12 +11,6 @@
     %u-row;
 }
 
-.content--events       { @extend %u-accent-large-brand-blue-top; }
-.content--blog         { @extend %u-accent-large-brand-brown-top; }
-.content--innovation   { @extend %u-accent-large-brand-light-blue-top; }
-.content--publications { @extend %u-accent-large-brand-light-green-top; }
-.content--research     { @extend %u-accent-large-brand-green-top; }
-
 .content__header {
   @extend
     %u-container-y-small,

@@ -53,12 +53,12 @@
 // ****************************
 
 .panel--flow {
-  &:nth-of-type(even) {
+  &:nth-of-type(odd) {
     background-color: $brand_white_1;
 
   }
 
-  &:nth-of-type(odd) {
+  &:nth-of-type(even) {
 
     .panel__aside {
       order: 2;

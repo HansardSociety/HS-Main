@@ -27,8 +27,8 @@
             - if navigation.pages.length <= 1
               - navigation.pages.each do |page|
                 a{
-                  href="#{ @@site_url }/#{ page.slug }"
-                  title="#{ navigation.title } - #{ @@site_title }"
+                  href="#{ config[:SITE_URL] }/#{ page.slug }"
+                  title="#{ navigation.title } - #{ config[:SITE_TITLE] }"
                 }= navigation.title
 
             / If navigation item contains more than one page
