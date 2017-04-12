@@ -17,9 +17,7 @@
 }
 
 .modal__header {
-  height: 15%;
-
-  justify-content: space-between;
+  height: 10%;
 
   @extend
     %u-accent-small-brand-white-1-bottom,
@@ -28,8 +26,12 @@
     %u-width-full;
 }
 
+.modal__close {
+  margin-left: auto;
+}
+
 .modal__content {
-  height: 85%;
+  height: 90%;
 
   @extend
     %u-container-small,

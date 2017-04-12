@@ -117,16 +117,31 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     # Panels
     if entry.panels
       context.panels = entry.panels.map do |panel| {
-        ID:           panel.sys[:id],
-        TYPE:         panel.content_type.id,
-        title:        panel.title,
-        panel_type:   panel.panel_type.parameterize,
-        copy_header:  panel.copy_header,
-        copy_body:    panel.copy_body,
-        header_image: {
-          url:        panel.header_image.url,
-          alt:        panel.header_image.description
-        }
+
+        # Core
+        ID:              panel.sys[:id],
+        TYPE:            panel.content_type.id,
+        title:           panel.title,
+        panel_type:      panel.panel_type.parameterize,
+        copy:            panel.copy,
+
+        # Calls to action
+        calls_to_action: (panel.calls_to_action.map do |cta| {
+          title:         cta.title,
+          action:        cta.action.parameterize,
+          button_text:   cta.button_text,
+          file: ({
+            title:       cta.file.title,
+            url:         cta.file.url
+          } if cta.file != nil),
+          modal:         cta.modal
+        }.reject{ |key, value| value.nil? } end),
+
+        # Header image
+        image: ({
+          url:           panel.image.url,
+          alt:           panel.image.description
+        }.reject{ |key, value| value.nil? } if panel.image)
       }
       end
     end

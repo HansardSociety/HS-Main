@@ -1,51 +1,51 @@
-section.panel{
-  class="#{ 'js-state-local modal-is js-off' if panel.panel_type == 'modal' }"
-}
+section.panel
   .panel__content
 
     .panel__main.copy{
-      class="#{ 'panel__main--order-2' if panel.header_image }"
+      class="#{ 'panel__main--order-2' if panel.image }"
     }
 
       / Title
       h2.title.title--medium= panel.title
 
       / Copy
-      = Kramdown::Document.new(panel.copy_header).to_html
+      = Kramdown::Document.new(panel.copy.chomp('.') + '…').to_html
 
-      / Modal
-      - if panel.panel_type == 'modal'
+      / Calls to action
+      - panel.calls_to_action.each do |cta|
+        - if cta.action == 'modal'
+          .js-state-local.modal-is.js-off
 
-        = partial 'partials/modal',
-          locals: \
-          { title: panel.title,
-            content: panel.copy_body }
+            = partial 'partials/modal',
+              locals: \
+              { title: cta.title,
+                content: cta.modal }
 
-        / Actions (ie. modal trigger)
-        .panel__actions
+            / Actions (ie. modal trigger)
+            .panel__actions
 
-          / Modal button
-          = partial 'partials/button-state',
-            locals: \
-            { type: 'secondary',
-              size: 'small',
-              icon: nil,
-              text: \
-              { on: 'Show more',
-                off: 'Close' },
-              animation: nil,
-              state: \
-              { scope: 'local',
-                action: 'js-on',
-                page: 'js-page-overlay',
-                aria_id: "",
-                aria_target_id: "",
-                excl: true }}
+              / Modal button
+              = partial 'partials/button-state',
+                locals: \
+                { type: 'secondary',
+                  size: 'small',
+                  icon: nil,
+                  text: \
+                  { on: cta.button_text,
+                    off: 'Close' },
+                  animation: nil,
+                  state: \
+                  { scope: 'local',
+                    action: 'js-on',
+                    page: 'js-page-overlay',
+                    aria_id: "",
+                    aria_target_id: "",
+                    excl: true }}
 
     .panel__aside{
-      class="#{ 'panel__aside--order-1' if panel.header_image }"
+      class="#{ 'panel__aside--order-1' if panel.image }"
     }
       = partial 'partials/text-image',
         locals: \
-        { url: panel.header_image.url,
-          alt: panel.header_image.alt }
+        { url: panel.image.url,
+          alt: panel.image.alt }
