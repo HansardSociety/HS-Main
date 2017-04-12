@@ -3,7 +3,7 @@
     %u-container-y-large,
     %u-position-relative;
 
-  + .panel {
+  + .panel:not(.panel--flow) {
     &::before {
       content: '';
       display: block;
@@ -43,10 +43,32 @@
 
 .panel__aside {
   @extend %u-content-aside;
+
+  img {
+    padding: 1rem;
+  }
 }
 
 // ** Ordering **
 // ****************************
+
+.panel--flow {
+  &:nth-of-type(even) {
+    background-color: $brand_white_1;
+
+  }
+
+  &:nth-of-type(odd) {
+
+    .panel__aside {
+      order: 2;
+    }
+    .panel__main {
+      order: 1;
+      text-align: right;
+    }
+  }
+}
 
 .panel__aside--order-1,
 .panel__aside--stack-1 {
@@ -72,4 +94,11 @@
 
 .panel__actions {
   @extend %u-margin-top-small;
+
+}
+
+.panel__actions--center {
+  @extend %u-flex-row-center;
+
+  justify-content: center;
 }

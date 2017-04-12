@@ -42,6 +42,10 @@
     %u-vertical-rhythm-medium;
 }
 
+.byline--center {
+  text-align: center;
+}
+
 .subtitle {
   @extend
     .byline,

@@ -126,7 +126,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         copy:            panel.copy,
 
         # Calls to action
-        calls_to_action: (panel.calls_to_action.map do |cta| {
+        calls_to_action: (panel.calls_to_action ? panel.calls_to_action.map do |cta| {
           title:         cta.title,
           action:        cta.action.parameterize,
           button_text:   cta.button_text,
@@ -135,7 +135,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
             url:         cta.file.url
           } if cta.file != nil),
           modal:         cta.modal
-        }.reject{ |key, value| value.nil? } end),
+        }.reject{ |key, value| value.nil? } end : nil),
 
         # Header image
         image: ({

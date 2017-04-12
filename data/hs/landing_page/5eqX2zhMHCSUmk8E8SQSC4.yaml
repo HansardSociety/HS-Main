@@ -67,6 +67,77 @@
   :image:
     :url: "//images.contentful.com/xkbace0jm9pp/SwBg1O3YWs4IwICwiKU4i/02430c4548dbe84ccda1b139b09dea95/header__indicators-of-engagement--01.svg"
     :alt: The Audit of Political Engagement's indicators of engagement
+- :ID: 5gnvecuuys2CQmsA6eE8kQ
+  :TYPE: panel
+  :title: 'Audit of Political Engagement 14: the 2017 report'
+  :panel_type: header
+  :copy: At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+    praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
+    excepturi.
+  :calls_to_action:
+  - :title: 'Audit 14 report download :: Audit'
+    :action: download
+    :button_text: Download Audit 14
+    :file:
+      :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16
+        Session :: Report'
+      :url: "//assets.contentful.com/xkbace0jm9pp/3tuWTgIiJWaW6CW4GMWs06/743ec4fa5b015dde5befade5e4830139/report__westminster-lens-2015-16.pdf"
+  - :title: 'Audit 14 data download :: Audit'
+    :action: download
+    :button_text: Get the data
+    :file:
+      :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16
+        Session :: Report'
+      :url: "//assets.contentful.com/xkbace0jm9pp/3tuWTgIiJWaW6CW4GMWs06/743ec4fa5b015dde5befade5e4830139/report__westminster-lens-2015-16.pdf"
+  :image: 
+- :ID: 5wsTODDJg4ksYwSIS2Qcuq
+  :TYPE: panel
+  :title: 72% similique sunt in culpa qui officia deserunt mollitia
+  :panel_type: basic
+  :copy: Officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates
+    repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a
+    sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
+    perferendis doloribus asperiores repellat.
+  :calls_to_action: 
+  :image:
+    :url: "//images.contentful.com/xkbace0jm9pp/172GBvHUq06QkGcyqcScUW/1f9478e038496e45873f6a3ab2b44f7e/inline__test-4.png"
+    :alt: Inline Test 4
+- :ID: 5sy0MZs6HKa6a84emeE0Sc
+  :TYPE: panel
+  :title: 586 autem vel eum iure reprehenderit qui in ea voluptate
+  :panel_type: basic
+  :copy: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
+    et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+    quia voluptas sit aspernatur aut odit aut.
+  :calls_to_action: 
+  :image:
+    :url: "//images.contentful.com/xkbace0jm9pp/2T7kPzZKgoMi48OS0aYAOO/1b96b6fa47321b025275875dd6046fd1/inline__test-3.png"
+    :alt: Inline Test 3
+- :ID: 5nH640H6SI8giqm8mgG6I0
+  :TYPE: panel
+  :title: 37% odio dignissimos ducimus qui blanditiis praesentium
+  :panel_type: basic
+  :copy: Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
+    cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
+    placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+    Temporibus autem quibusdam.
+  :calls_to_action: 
+  :image:
+    :url: "//images.contentful.com/xkbace0jm9pp/75lUpnW5k4KYeao8MMKO8C/a0b83a2493ff7b728f63e3cbfaf99280/inline__test-1.png"
+    :alt: Inline test 1
+- :ID: 5b11xqnt1uQgmqEI8meoaO
+  :TYPE: panel
+  :title: 22% magni dolores eos qui ratione voluptatem sequi nesciunt
+  :panel_type: basic
+  :copy: inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
+    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque
+    porro quisquam est, qui dolorem ipsum.
+  :calls_to_action: 
+  :image:
+    :url: "//images.contentful.com/xkbace0jm9pp/6NzlCJtjBCk6MkiomQYeeq/6a48a7c63d483a77dd31ffa274375a22/inline__test-2.png"
+    :alt: Inline Test 2
 :tags:
 - :tag: audit-of-political-engagement
 - :tag: political-engagement

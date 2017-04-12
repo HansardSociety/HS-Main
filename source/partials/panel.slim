@@ -1,4 +1,6 @@
-section.panel
+section.panel{
+  class="#{ panel.panel_type == 'basic' ? 'panel--flow' : nil }"
+}
   .panel__content
 
     .panel__main.copy{
@@ -6,46 +8,63 @@ section.panel
     }
 
       / Title
-      h2.title.title--medium= panel.title
+      h2.title.title--medium{
+        style="#{ 'font-size: 2.25rem; text-align:center;' if panel.panel_type == 'header' }"
+      }= panel.title
 
       / Copy
-      = Kramdown::Document.new(panel.copy.chomp('.') + '…').to_html
+      = Kramdown::Document.new(panel.panel_type == 'header' ? panel.copy + "\n {: .byline .byline--center}" : panel.copy).to_html
 
-      / Calls to action
-      - panel.calls_to_action.each do |cta|
-        - if cta.action == 'modal'
-          .js-state-local.modal-is.js-off
+      - if panel.calls_to_action != nil
+        / Calls to action
+        .panel__actions{
+          class="#{ 'panel__actions--center' if panel.panel_type == 'header' }"
+        }
 
-            = partial 'partials/modal',
-              locals: \
-              { title: cta.title,
-                content: cta.modal }
+          - panel.calls_to_action.each do |cta|
 
-            / Actions (ie. modal trigger)
-            .panel__actions
+            - if cta.action == 'modal'
+              .js-state-local.modal-is.js-off
+                = partial 'partials/modal',
+                  locals: \
+                  { title: cta.title,
+                    content: cta.modal }
+
+                / Modal button
+                = partial 'partials/button-state',
+                  locals: \
+                  { type: 'secondary',
+                    size: 'small',
+                    icon: nil,
+                    text: \
+                    { on: cta.button_text,
+                      off: 'Close' },
+                    animation: nil,
+                    state: \
+                    { scope: 'local',
+                      action: 'js-on',
+                      page: 'js-page-overlay',
+                      aria_id: "",
+                      aria_target_id: "",
+                      excl: true }}
+
+            - if cta.action == 'download'
 
               / Modal button
-              = partial 'partials/button-state',
+              = partial 'partials/button-link',
                 locals: \
-                { type: 'secondary',
-                  size: 'small',
-                  icon: nil,
-                  text: \
-                  { on: cta.button_text,
-                    off: 'Close' },
-                  animation: nil,
-                  state: \
-                  { scope: 'local',
-                    action: 'js-on',
-                    page: 'js-page-overlay',
-                    aria_id: "",
-                    aria_target_id: "",
-                    excl: true }}
+                { type: 'primary',
+                  size: 'medium',
+                  text: cta.button_text,
+                  url: cta.file.url }
 
-    .panel__aside{
-      class="#{ 'panel__aside--order-1' if panel.image }"
-    }
-      = partial 'partials/text-image',
-        locals: \
-        { url: panel.image.url,
-          alt: panel.image.alt }
+
+    / If image
+    - if panel.image
+      .panel__aside{
+        class="#{ 'panel__aside--order-1' if panel.image }"
+      }
+        = partial 'partials/text-image',
+          locals: \
+          { url: panel.image.url,
+            alt: panel.image.alt }
