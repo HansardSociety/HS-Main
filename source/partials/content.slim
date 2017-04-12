@@ -14,7 +14,8 @@
       - if entry.TYPE == 'panel_content'
         h2.title.title--large= entry.title
 
-      = Kramdown::Document.new(entry.introduction).to_html
+      .byline
+        = Kramdown::Document.new(entry.introduction).to_html
 
     / Only if child page
     - if entry.TYPE == 'child_page'

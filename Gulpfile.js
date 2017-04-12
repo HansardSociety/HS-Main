@@ -66,7 +66,8 @@ var
       all: __dirname + '/source/assets/css/**/*.scss',
       main: __dirname + '/source/assets/css/main.scss',
       vendor: [
-        __dirname + '/node_modules/normalize.css/normalize.css'
+        __dirname + '/node_modules/normalize.css/normalize.css',
+        __dirname + '/node_modules/swiper/dist/css/swiper.css'
       ]
     },
     js: {

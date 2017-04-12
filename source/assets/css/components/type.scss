@@ -39,3 +39,10 @@
 .byline {
   @extend %u-font-size-byline;
 }
+
+.subtitle {
+  @extend
+    .byline,
+    %u-color-brand-white,
+    %u-margin-top-small;
+}

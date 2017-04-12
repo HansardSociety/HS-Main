@@ -4,9 +4,10 @@
 :category: blog
 :title: 'Labour: the 35% solution?'
 :slug: labour-the-35-solution
-:introduction: |-
-  Ed Miliband’s recent speech, in which he confirmed the lines along which his party will campaign during the six months up to the 2015 election, was seen by the media as part of a ‘fight-back’ to defend his leadership. This meant many ignored the real significance of the speech.
-  {: .byline }
+:introduction: Ed Miliband’s recent speech, in which he confirmed the lines along
+  which his party will campaign during the six months up to the 2015 election, was
+  seen by the media as part of a ‘fight-back’ to defend his leadership. This meant
+  many ignored the real significance of the speech.
 :copy: |-
   To be fair to the nation’s journalists, this hasn’t been a good time for Miliband. Of late, critics in the Parliamentary Labour Party have certainly been free with their opinion that what they see as the party’s weak position in the polls would be transformed if Labour ditched its current leader.
 
@@ -65,5 +66,6 @@
   :integer: 1416268800
   :date: 18 Nov, 14
 :tags:
+- :tag: audit-of-political-engagement
 - :tag: elections-and-voting
 - :tag: labour

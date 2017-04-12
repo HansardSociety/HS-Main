@@ -79,7 +79,8 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     context.category     = entry.category.parameterize
     context.title        = entry.title
     context.slug         = entry.slug.parameterize
-    context.introduction = entry.introduction + "\n{: .byline }"
+    context.subtitle     = entry.subtitle
+    context.introduction = entry.introduction
 
     # Call to action(s)
     if entry.actions
@@ -150,7 +151,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     context.category     = entry.category.parameterize
     context.title        = entry.title
     context.slug         = entry.slug.parameterize
-    context.introduction = entry.introduction + "\n{: .byline }"
+    context.introduction = entry.introduction
     context.copy         = entry.copy
 
     # Banner image
@@ -176,6 +177,15 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           url:        entry.promoted.photo.url,
           alt:        entry.promoted.photo.description
         }
+      }
+    end
+
+    # Promoted (registration)
+    if entry.promoted && entry.promoted.content_type.id == 'registration'
+      context.registration = {
+        title:        entry.promoted.title,
+        date:         entry.promoted.date.strftime('%d %b, %y'),
+        embed_code:   entry.promoted.embed_code
       }
     end
 

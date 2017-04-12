@@ -1,15 +1,33 @@
 .panel {
-  @extend %u-container-y-small;
+  @extend
+    %u-container-y-large,
+    %u-position-relative;
+
+  + .panel {
+    &::before {
+      content: '';
+      display: block;
+
+      width: 30rem;
+
+      top: 0;
+
+      border-top: 2px  solid $brand_white_1;
+
+      @extend %u-absolute-center-x;
+    }
+  }
 }
 
 .panel__content {
-  &:nth-of-type(odd) {
-    @extend %u-accent-small-brand-white-1-top;
-  }
 
   @extend
     %u-row,
     %u-flex-row;
+}
+
+.panel__carousel {
+  @extend %u-container-y-small;
 }
 
 .panel__main,

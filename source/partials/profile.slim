@@ -35,7 +35,8 @@
     = partial 'partials/social',
       locals: { icons: [ email, twitter, linkedin ] }
 
-    = partial 'partials/modal',
-      locals: \
-      { title: full_name,
-        content: biog }
+    - if biog
+      = partial 'partials/modal',
+        locals: \
+        { title: full_name,
+          content: biog }

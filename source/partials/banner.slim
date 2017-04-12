@@ -21,6 +21,8 @@ header.banner{
                   (entry.TYPE == 'landing_page' ? 'title--xlarge' : 'title--large') }"
       }= entry.title
 
+      p.subtitle= entry.subtitle
+
       / Landing page only
       - if entry.TYPE == 'landing_page'
 

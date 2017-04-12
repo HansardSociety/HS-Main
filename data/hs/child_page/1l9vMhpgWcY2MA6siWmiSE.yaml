@@ -5,9 +5,8 @@
 :title: Populist personalities? The Big Five Personality Traits and party choice in
   the 2015 UK general election
 :slug: populist-personalities-the-big-five-personality-traits-and-party-choice-in
-:introduction: |-
-  James Dennison examines the association between personality traits and party choice in the 2015 UK General Election.
-  {: .byline }
+:introduction: James Dennison examines the association between personality traits
+  and party choice in the 2015 UK General Election.
 :copy: |-
   Why people vote for certain parties remains one of the most regularly investigated areas of political science. Ever since the earliest works on voting, explanations for party choice have generally focused on the voter’s socio-demographic position, their personal background and peer group or the political and economic context in which they live.
 
@@ -96,4 +95,5 @@
   :integer: 1425859200
   :date: '09 Mar, 15'
 :tags:
+- :tag: audit-of-political-engagement
 - :tag: elections-and-voting

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { throttle } from 'lodash/fp';
 import smoothScroll from 'smooth-scroll';
+import swiper from 'swiper';
 
 ////////////////////////////////////////////////////////////
 //  Core funcations
@@ -169,3 +170,18 @@ forEach(document.querySelectorAll('.side-card__title'), function(index, elem) {
 ////////////////////////////////////////////////////////////
 
 smoothScroll.init({ offset: 64 });
+
+////////////////////////////////////////////////////////////
+//  Swiper
+//  http://idangero.us/swiper/
+////////////////////////////////////////////////////////////
+
+var mySwiper = new Swiper ('.swiper-container', {
+
+  // Optional parameters
+  direction: 'horizontal',
+  loop: false,
+  slidesPerView: 'auto',
+  keyboardControl: true
+  // spaceBetween: 8
+})

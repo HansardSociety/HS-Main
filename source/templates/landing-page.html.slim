@@ -6,8 +6,9 @@ article
       locals: { entry: landing_page }
 
   / Content
-  = partial 'partials/content',
-    locals: { entry: landing_page }
+  .panel
+    = partial 'partials/content',
+      locals: { entry: landing_page }
 
   //////////////////////////////
   // Tagging
@@ -15,8 +16,11 @@ article
 
   section.panel
     .panel__content
-      = partial 'partials/related',
-        locals: { entry: landing_page }
+      h2.title.title--large{style="text-align:center;width:100%;"} Latest
+      .swiper-container.panel__carousel
+        .swiper-wrapper
+          = partial 'partials/related',
+            locals: { entry: landing_page }
 
   / Panels
   - landing_page.panels.each do |panel|

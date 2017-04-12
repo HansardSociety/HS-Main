@@ -4,6 +4,8 @@
 :category: resources
 :title: Publications
 :slug: publications
-:introduction: |-
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis congue mi sed semper. In ac nibh eleifend, gravida massa sed, commodo ante. Etiam viverra, velit eget malesuada fermentum, arcu tortor sodales tellus, nec mattis mi dui ut turpis. Maecenas purus odio.
-  {: .byline }
+:subtitle: 
+:introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis
+  congue mi sed semper. In ac nibh eleifend, gravida massa sed, commodo ante. Etiam
+  viverra, velit eget malesuada fermentum, arcu tortor sodales tellus, nec mattis
+  mi dui ut turpis. Maecenas purus odio.

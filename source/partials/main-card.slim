@@ -1,14 +1,19 @@
-article.main-card
+article.main-card.swiper-slide{
+  class="#{ 'main-card--' + page.category }"
+}
 
-  / Header
-  .main-card__header
-    .main-card__image
-      img{
-        src="#{ image_url }"
-        alt="#{ image_alt }"
-      }
-    h1.main-card__title.title.title--small.title--white= title
+  a{
+    href="#{ @@site_url + '/' + page.category + '/' + page.slug }"
+  }
+    / Header
+    .main-card__header
+      .main-card__image
+        img{
+          src="#{ page.banner_image.url }"
+          alt="#{ page.banner_image.alt }"
+        }
+      h1.main-card__title.title.title--small.title--white= page.title
 
-  / Introduction
-  .main-card__introduction
-    p= introduction
+    / Introduction
+    .main-card__introduction
+      p= page.introduction[0..200].chomp('.') + '…'

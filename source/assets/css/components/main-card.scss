@@ -6,7 +6,17 @@
   border-radius: 2px;
 
   @extend %u-bgc-brand-white-1;
+
+  &:nth-last-child(1n + 2) {
+    margin-right: 1rem;
+  }
 }
+
+.main-card--events       { @extend %u-accent-medium-brand-blue-top; }
+.main-card--blog         { @extend %u-accent-medium-brand-brown-top; }
+.main-card--innovation   { @extend %u-accent-medium-brand-light-blue-top; }
+.main-card--publications { @extend %u-accent-medium-brand-light-green-top; }
+.main-card--research     { @extend %u-accent-medium-brand-green-top; }
 
 .main-card__header {
   position: relative;
