@@ -28,7 +28,7 @@
 }
 
 .menu--desktop {
-  top: -100%;
+  transform: translateY(-100vh);
 
   opacity: .85;
 
@@ -98,5 +98,23 @@
 
   &:hover {
     background-color: $brand_black_2;
+  }
+}
+
+////////////////////////////////////////////////////////////
+//  Change state
+////////////////////////////////////////////////////////////
+
+.FOR-menu.JS-state-local.JS-active {
+  .menu--mobile {
+    transform: translateX(0);
+
+    @extend %u-transition-base-transform;
+  }
+
+  .menu--desktop {
+    transform: translateY(0);
+
+    @extend %u-transition-base-transform;
   }
 }

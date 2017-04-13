@@ -1,0 +1,87 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @type             = data[:type]
+- @style            = data[:style]
+- @size             = data[:size]
+
+//  Text
+////////////////////////////
+
+- @text_on          = data[:text_on]
+- @text_off         = data[:text_off]
+- @text_size        = data[:text_size]
+
+//  Icon
+////////////////////////////
+
+- @icon             = data[:icon]
+- @icon_size        = data[:icon_size]
+- @icon_color       = data[:icon_color]
+- @animation        = data[:animation]
+
+//  State
+////////////////////////////
+
+- @scope            = data[:state_scope]
+- @exclusive        = data[:state_exclusive]
+- @state_global     = data[:state_global]
+
+//  ARIA
+////////////////////////////
+
+- @aria_id          = data[:aria_id]
+- @aria_target_id   = data[:aria_target_id]
+
+//  Attributes
+////////////////////////////
+
+/ .button classes
+- @class = [\
+  ('button'),
+  ('button--' + @size),
+  ('button--' + @style if @style),
+  ('JS-target-' + @scope if @scope),
+  ('JS-state-exclusive' if @exclusive) ].reject{ |value| value.nil? }
+
+/ .button attributes
+- @attrs = {\
+  'data-global-state': (@state_global if @state_global),
+  'aria-controls':     (@aria_target_id if @aria_target_id),
+  'id':                (@aria_id if @aria_id),
+  'role':              ('button' if @aria_id) }.reject{ |key, value| value.nil? }
+
+
+/ .button__content classes
+- @class_content = [\
+  (@icon == 'menu' ? 'button__menu' : 'button__content'),
+  ('button__content--' + @animation if @animation) ]
+
+////////////////////////////////////////////////////////////
+//  Button
+////////////////////////////////////////////////////////////
+
+- @button = { tag: (@type == 'state' ? 'button' : 'a'), class: @class }.merge(@attrs)
+
+*@button
+
+  / .button__content
+  span{
+    class= @class_content
+    aria-hidden="true"
+  }
+
+    - if @icon != 'menu'
+      = partial 'partials/icon',
+        locals: { icon:  @icon,
+                  size:  @icon_size,
+                  color: @icon_color }
+
+    - if @text
+      span.button__text.button__text--change{
+        class="#{ 'button__text--' + @text_size }"
+
+        data-on-text="#{ @text_on }"
+        data-off-text="#{ @text_off }"
+      }

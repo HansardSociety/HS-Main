@@ -1,36 +1,25 @@
-nav.navbar{ role="navigation" }
+nav.navbar.FOR-menu.JS-state-local.JS-inactive
 
   .navbar__inner
 
     / Hidden site title
     h1.hidden= config[:SITE_TITLE]
 
-    .navbar__left.js-state-local
+    .navbar__left
 
-      / menu
+      / Menu
       = partial 'partials/menu',
-        :locals => { :screen => 'mobile',
-                     :contentful => 'false' }
+        locals: { screen: 'mobile',
+                  contentful: 'false' }
 
 
       / Menu button
-      = partial 'partials/button-state',
-        locals: \
-        { type: nil,
-          size: 'small',
-          icon: \
-          { image: 'menu',
-            size: 'medium',
-            color: 'white' },
-          text: nil,
-          animation: nil,
-          state: \
-          { scope: 'local',
-            action: 'js-on',
-            aria_id: 'navbar-menu-button',
-            aria_target_id: 'menu-mobile',
-            page: 'js-page-menu-mobile-on',
-            excl: true }}
+      = partial 'partials/button',
+        locals: { data: \
+          { type: 'state', size: 'small',
+            state_scope: 'local', state_global: 'no-scroll',
+            icon: 'menu', icon_size: 'medium', icon_color: 'white',
+            aria_id: 'activate-menu-mobile', aria_target_id: 'menu-mobile' }}
 
     .navbar__center
 
@@ -44,7 +33,7 @@ nav.navbar{ role="navigation" }
         - data.hs.navigation.each do |id, navigation|
           li.navbar__item{
             class="#{
-              'dropdown js-state-local js-exclusive js-off' if navigation.pages.length > 1
+              'dropdown JS-state-local JS-inactive' if navigation.pages.length > 1
             }"
           }
             h2.title.title--small.title--white{
@@ -67,28 +56,20 @@ nav.navbar{ role="navigation" }
 
                 .dropdown__control
 
-                  / Menu (desktop) trigger
-                  = partial 'partials/button-state',
-                    locals: \
-                      { type: nil,
-                        size: 'small',
-                        icon: \
-                        { image: 'chevron-down',
-                          size: 'medium',
-                          color: 'white' },
-                        text: nil,
+                  / Menu (desktop) button
+                  = partial 'partials/button',
+                    locals: { data: \
+                      { type: 'state', size: 'small',
+                        state_scope: 'local', state_exclusive: true,
+                        global_state: 'JS-no-scroll',
+                        icon: 'chevron-down', icon_size: 'medium', icon_color: 'white',
                         animation: 'rotate',
-                        state: \
-                        { scope: 'local',
-                          action: 'js-on',
-                          aria_id: "menu-desktop-#{ navigation.title }-button",
-                          aria_target_id: "menu-desktop-#{ navigation.title }",
-                          page: 'js-page-menu-desktop-on',
-                          excl: true }}
+                        aria_id: "activate-menu-desktop-#{ navigation.title }",
+                        aria_target_id: "menu-desktop-#{ navigation.title }" }}
 
             = partial 'partials/menu',
               locals: \
-              { screen:     'desktop',
+              { screen: 'desktop',
                 contentful: navigation }
 
       / Search

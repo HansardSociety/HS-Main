@@ -185,3 +185,55 @@ var mySwiper = new Swiper ('.swiper-container', {
   keyboardControl: true
   // spaceBetween: 8
 })
+
+
+////////////////////////////////////////////////////////////
+//  New JS
+////////////////////////////////////////////////////////////
+
+// ** Variables **
+// ****************************
+
+var stateGlobal   = document.querySelector('.JS-state-global'),
+    btnsGlobal    = document.querySelectorAll('.button.JS-trigger-global'),
+    btnsLocal     = document.querySelectorAll('.button.JS-target-local'),
+    nav           = document.querySelector('.navbar');
+
+// ** Toggle state - base **
+// ****************************
+
+function changeState(trigger, target) {
+  var triggerAction = trigger.getAttribute('data-action'),
+      page          = trigger.getAttribute('data-state-page');
+
+  // Toggle trigger class
+  toggleClass(trigger, 'JS-on');
+
+  // Toggle target scope state
+  if (triggerAction == null) {
+    toggleClass(target, 'JS-active');
+    toggleClass(target, 'JS-inactive');
+  } else {
+    toggleClass(target, triggerAction);
+  }
+
+  if (page != undefined) {
+    toggleClass(stateGlobal, page);
+  }
+}
+
+// ** Local state change **
+// ****************************
+
+forEach(btnsLocal, function(index, btn) {
+
+  btn.onclick = function() {
+    var localState = this.closest('.JS-state-local');
+
+    // Change state (trigger/ trigger state/ target)
+    changeState(this, localState);
+
+    // If exclusive state
+    // exclusiveState(this);
+  }
+});

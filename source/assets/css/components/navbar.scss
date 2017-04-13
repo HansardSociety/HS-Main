@@ -97,14 +97,3 @@
     }
   }
 }
-
-// ** Menu (mobile) **
-// ****************************
-
-.navbar__left.js-state-local.js-on {
-  .menu {
-    transform: translateX(0);
-
-    @extend %u-transition-base-transform;
-  }
-}
