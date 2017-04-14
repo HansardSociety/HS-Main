@@ -1,4 +1,4 @@
-nav.navbar.FOR-menu.JS-state-local.JS-inactive
+nav#navbar.navbar.JS-inactive
 
   .navbar__inner
 
@@ -9,21 +9,19 @@ nav.navbar.FOR-menu.JS-state-local.JS-inactive
 
       / Menu
       = partial 'partials/menu',
-        locals: { screen: 'mobile',
-                  contentful: 'false' }
-
+        locals: { local_data: \
+          { screen: 'mobile',
+            nav_items: data.hs.navigation }}
 
       / Menu button
       = partial 'partials/button',
         locals: { data: \
           { type: 'state', size: 'small',
-            state_scope: 'local', state_global: 'no-scroll',
+            page: 'no-scroll',
             icon: 'menu', icon_size: 'medium', icon_color: 'white',
             aria_id: 'activate-menu-mobile', aria_target_id: 'menu-mobile' }}
 
     .navbar__center
-
-      / Logo
       =partial 'partials/logo'
 
     .navbar__right
@@ -55,22 +53,20 @@ nav.navbar.FOR-menu.JS-state-local.JS-inactive
                 = navigation.title
 
                 .dropdown__control
-
-                  / Menu (desktop) button
                   = partial 'partials/button',
                     locals: { data: \
                       { type: 'state', size: 'small',
-                        state_scope: 'local', state_exclusive: true,
-                        global_state: 'JS-no-scroll',
+                        page: 'no-scroll', exclusive: true, secondary_target: 'navbar',
                         icon: 'chevron-down', icon_size: 'medium', icon_color: 'white',
                         animation: 'rotate',
-                        aria_id: "activate-menu-desktop-#{ navigation.title }",
-                        aria_target_id: "menu-desktop-#{ navigation.title }" }}
+                        aria_id: "activate-menu-desktop-#{ navigation.title.parameterize }",
+                        aria_target_id: "menu-desktop-#{ navigation.title.parameterize }" }}
+
 
             = partial 'partials/menu',
-              locals: \
-              { screen: 'desktop',
-                contentful: navigation }
+              locals: { local_data: \
+                        { screen: 'desktop',
+                          nav_items: navigation }}
 
       / Search
       = partial 'partials/button-state',

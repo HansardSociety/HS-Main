@@ -1,82 +1,82 @@
-body.js-state-global {
-
-////////////////////////////////////////////////////////////
-//  States
-////////////////////////////////////////////////////////////
-
-// ** Shared **
-// ****************************
-
-// No scroll
-&.JS-no-scroll,
-&.js-page-menu-desktop-on,
-&.js-page-menu-mobile-on,
-&.js-page-overlay {
-  @extend %u-overflow-hidden;
-}
-
-// Overlay
-&.js-page-overlay,
-&.js-page-menu-mobile-on {
-
-  .site-container {
-    &::after {
-      z-index: 200;
-      top: 0;
-      left: 0;
-
-      content: '';
-
-      opacity: .75;
-
-      @extend
-        %u-animate-fadeinskin,
-        %u-bgc-brand-white,
-        %u-display-block,
-        %u-height-full-vh,
-        %u-position-fixed,
-        %u-width-full-vw;
-    }
-  }
-}
-
-
-// ** Menu (mobile/ desktop) **
-// ****************************
-
-&.js-page-menu-mobile-on,
-&.js-page-menu-desktop-on {
-  .navbar {
-    &::before {
-      top: 3.5rem;
-
-      width: 100%;
-
-      border-top: 1px solid $brand_black_2;
-
-      @extend %u-pseudo-element-base;
-    }
-  }
-}
-
-// ** Menu (desktop) **
-// ****************************
-
-&.js-page-menu-desktop-on {
-  .navbar {
-    @extend .navbar.js-on;
-  }
-}
-
-// ** Menu (mobile) **
-// ****************************
-
-&.js-page-menu-mobile-on {
-  .navbar {
-    background-color: $brand_black;
-    max-width: 30rem;
-  }
-}
-
-// END
-}
+// body.js-state-global {
+//
+// ////////////////////////////////////////////////////////////
+// //  States
+// ////////////////////////////////////////////////////////////
+//
+// // ** Shared **
+// // ****************************
+//
+// // No scroll
+// &.JS-no-scroll,
+// &.js-page-menu-desktop-on,
+// &.js-page-menu-mobile-on,
+// &.js-page-overlay {
+//   @extend %u-overflow-hidden;
+// }
+//
+// // Overlay
+// &.js-page-overlay,
+// &.js-page-menu-mobile-on {
+//
+//   .site-container {
+//     &::after {
+//       z-index: 200;
+//       top: 0;
+//       left: 0;
+//
+//       content: '';
+//
+//       opacity: .75;
+//
+//       @extend
+//         %u-animate-fadeinskin,
+//         %u-bgc-brand-white,
+//         %u-display-block,
+//         %u-height-full-vh,
+//         %u-position-fixed,
+//         %u-width-full-vw;
+//     }
+//   }
+// }
+//
+//
+// // ** Menu (mobile/ desktop) **
+// // ****************************
+//
+// &.js-page-menu-mobile-on,
+// &.js-page-menu-desktop-on {
+//   .navbar {
+//     &::before {
+//       top: 3.5rem;
+//
+//       width: 100%;
+//
+//       border-top: 1px solid $brand_black_2;
+//
+//       @extend %u-pseudo-element-base;
+//     }
+//   }
+// }
+//
+// // ** Menu (desktop) **
+// // ****************************
+//
+// &.js-page-menu-desktop-on {
+//   .navbar {
+//     @extend .navbar.js-on;
+//   }
+// }
+//
+// // ** Menu (mobile) **
+// // ****************************
+//
+// &.js-page-menu-mobile-on {
+//   .navbar {
+//     background-color: $brand_black;
+//     max-width: 30rem;
+//   }
+// }
+//
+// // END
+// }

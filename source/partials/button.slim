@@ -24,9 +24,9 @@
 //  State
 ////////////////////////////
 
-- @scope            = data[:state_scope]
-- @exclusive        = data[:state_exclusive]
-- @state_global     = data[:state_global]
+- @exclusive        = data[:exclusive]
+- @page             = data[:page]
+- @secondary_target = data[:secondary_target]
 
 //  ARIA
 ////////////////////////////
@@ -42,16 +42,16 @@
   ('button'),
   ('button--' + @size),
   ('button--' + @style if @style),
-  ('JS-target-' + @scope if @scope),
-  ('JS-state-exclusive' if @exclusive) ].reject{ |value| value.nil? }
+  ('JS-off' if @type == 'state'),
+  ('JS-no-scroll' if @page == 'no-scroll'),
+  ('JS-exclusive' if @exclusive) ].reject{ |value| value.nil? }
 
 / .button attributes
 - @attrs = {\
-  'data-global-state': (@state_global if @state_global),
-  'aria-controls':     (@aria_target_id if @aria_target_id),
-  'id':                (@aria_id if @aria_id),
-  'role':              ('button' if @aria_id) }.reject{ |key, value| value.nil? }
-
+  'aria-controls':         (@aria_target_id if @aria_target_id),
+  'id':                    (@aria_id if @aria_id),
+  'role':                  ('button' if @aria_id),
+  'data-secondary-target': (@secondary_target if @secondary_target)}.reject{ |key, value| value.nil? }
 
 / .button__content classes
 - @class_content = [\
@@ -62,7 +62,8 @@
 //  Button
 ////////////////////////////////////////////////////////////
 
-- @button = { tag: (@type == 'state' ? 'button' : 'a'), class: @class }.merge(@attrs)
+- @button = { tag: (@type == 'state' ? 'button' : 'a'),
+              class: @class }.merge(@attrs)
 
 *@button
 

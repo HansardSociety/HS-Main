@@ -7,17 +7,17 @@ import swiper from 'swiper';
 //  Core funcations
 ////////////////////////////////////////////////////////////
 
-// Toggle class
-function toggleClass(obj, className) {
-  obj.classList.toggle(className);
-}
-
 // For-each loop
-var forEach = function(array, cb, scope) {
+const forEach = function(array, cb, scope) {
   for (var i = 0; i < array.length; i++) {
     cb.call(scope, i, array[i]);
   }
 };
+
+// Toggle class
+const toggleClass = function(obj, className) {
+  obj.classList.toggle(className);
+}
 
 ////////////////////////////////////////////////////////////
 //  States
@@ -52,20 +52,20 @@ function toggleState(trigger, className, target) {
 // ** If exclusive state **
 // ****************************
 
-function exclusiveState(trigger) {
-  var exclusiveState = document.querySelectorAll('.js-state-exclusive');
+const exclusiveState = function(trigger) {
+  var exclusiveTriggers = document.querySelectorAll('.JS-exclusive');
 
   // If an exclusive event...
-  if (trigger.classList.contains('js-state-exclusive')) {
+  if (trigger.classList.contains('JS-exclusive')) {
 
     // Loop through all exclusive triggers
-    forEach(exclusiveState, function(index, elem) {
+    forEach(exclusiveTriggers, function(index, elem) {
 
       // If (this) trigger element != other exclusive triggers...
-      if ((elem != trigger) && (elem.classList.contains('js-on'))) {
+      if ((elem != trigger) && (elem.classList.contains('JS-on'))) {
 
         // Toggle global or local state depending on elem...
-        elem.classList.toString().indexOf('global') > -1 ? toggleState(elem, 'js-on', globalState) : toggleState(elem, 'js-on', elem.closest('.js-state-local'))
+        elem.classList.toString().indexOf('JS-exclusive') > -1 ? toggleState(elem, 'JS-on', globalState) : toggleState(elem, 'JS-on', elem.closest('.js-state-local'))
       }
     });
   }
@@ -108,16 +108,18 @@ forEach(buttonsLocal, function (index, button) {
 });
 
 ////////////////////////////////////////////////////////////
-//  Scrolling
+//  Navbar
 ////////////////////////////////////////////////////////////
 
-// Navbar shrink
 window.addEventListener('scroll', _.throttle(function() {
 
   if (window.pageYOffset >= 1) {
-    navbar.classList.add('js-on');
+    navbar.classList.add('JS-active');
+    navbar.classList.remove('JS-inactive');
+
   } else {
-    navbar.classList.remove('js-on');
+    navbar.classList.add('JS-inactive');
+    navbar.classList.remove('JS-active');
   }
 }, 500));
 
@@ -146,9 +148,6 @@ function truncate(container, text) {
       // and text lines.
       characters      = Math.round(textLength * (1 - (lineDifference / textLines))),
       truncate        = text.innerText.substr(0, characters).trim() + '…';
-
-  // const TEXT          = text.innerText;
-
 
   // Only execute if text block is larger than its container
   if (containerLines < textLines) {
@@ -195,45 +194,63 @@ var mySwiper = new Swiper ('.swiper-container', {
 // ****************************
 
 var stateGlobal   = document.querySelector('.JS-state-global'),
-    btnsGlobal    = document.querySelectorAll('.button.JS-trigger-global'),
-    btnsLocal     = document.querySelectorAll('.button.JS-target-local'),
+    btnsGlobal    = document.querySelectorAll('.button.JS-target-global'),
+    btns          = document.querySelectorAll('.button.JS-off'),
     nav           = document.querySelector('.navbar');
 
 // ** Toggle state - base **
 // ****************************
 
-function changeState(trigger, target) {
-  var triggerAction = trigger.getAttribute('data-action'),
-      page          = trigger.getAttribute('data-state-page');
+const changeState = function(trigger) {
+  var target               = trigger.getAttribute('aria-controls'),
+      targetElem           = document.querySelector('#' + target),
+      targetSecondary      = trigger.getAttribute('data-secondary-target'),
+      targetSecondaryElem  = document.querySelector('#' + targetSecondary);
 
-  // Toggle trigger class
+  // Toggle trigger
   toggleClass(trigger, 'JS-on');
+  toggleClass(trigger, 'JS-off');
 
-  // Toggle target scope state
-  if (triggerAction == null) {
-    toggleClass(target, 'JS-active');
-    toggleClass(target, 'JS-inactive');
-  } else {
-    toggleClass(target, triggerAction);
+  // Toggle target
+  toggleClass(targetElem, 'JS-active');
+  toggleClass(targetElem, 'JS-inactive');
+
+  if (targetSecondary != undefined &&
+      targetSecondaryElem.classList.toString().indexOf('JS-inactive') > -1) {
+
+    toggleClass(targetSecondaryElem, 'JS-active')
   }
+}
 
-  if (page != undefined) {
-    toggleClass(stateGlobal, page);
+// ** Exclusive state **
+// ****************************
+
+const exclState = function(trigger) {
+  var exclusiveTriggers = document.querySelectorAll('.JS-exclusive');
+
+  // If an exclusive event...
+  if (trigger.classList.contains('JS-exclusive')) {
+
+    // Loop through all exclusive triggers
+    forEach(exclusiveTriggers, function(index, elem) {
+
+      // If (this) trigger element != other exclusive triggers...
+      if ((elem != trigger) && (elem.classList.contains('JS-on'))) {
+
+        // Toggle global or local state depending on elem...
+        changeState(elem);
+      }
+    });
   }
 }
 
 // ** Local state change **
 // ****************************
 
-forEach(btnsLocal, function(index, btn) {
+forEach(btns, function(index, btn) {
 
   btn.onclick = function() {
-    var localState = this.closest('.JS-state-local');
-
-    // Change state (trigger/ trigger state/ target)
-    changeState(this, localState);
-
-    // If exclusive state
-    // exclusiveState(this);
+    changeState(this);
+    exclState(this);
   }
 });

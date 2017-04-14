@@ -9,12 +9,13 @@
     %u-container-small,
     %u-height-full,
     %u-position-fixed,
+    %u-transition-base-transform,
     %u-zindex-negative;
 }
 
 .menu--mobile {
   max-width: 30rem;
-  padding: 3.5rem 1rem 5rem 1rem; // Allow padding for cubic-bezier
+  padding: 3.5rem 1rem 5rem;
 
   transform: translateX(-100%);
 
@@ -105,16 +106,8 @@
 //  Change state
 ////////////////////////////////////////////////////////////
 
-.FOR-menu.JS-state-local.JS-active {
-  .menu--mobile {
-    transform: translateX(0);
+.menu.JS-active {
+  transform: translateX(0);
 
-    @extend %u-transition-base-transform;
-  }
-
-  .menu--desktop {
-    transform: translateY(0);
-
-    @extend %u-transition-base-transform;
-  }
+  // @extend %u-transition-base-transform;
 }

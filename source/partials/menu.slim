@@ -1,20 +1,21 @@
-- @data = contentful
+- @nav_items = local_data[:nav_items]
+- @screen    = local_data[:screen]
 
-.menu{
-  class="menu--#{ screen }"
-  id="menu-#{ screen == 'mobile' ? 'mobile' : 'desktop-' + @data.title.parameterize }"
+.menu.JS-inactive{
+  class="menu--#{ @screen } "
+  id="menu-#{ @screen == 'mobile' ? 'mobile' : 'desktop-' + @nav_items.title.parameterize }"
 }
 
   ul.menu__container{
-    class="#{ 'menu__container--columns' if screen == 'desktop' }"
+    class="#{ 'menu__container--columns' if @screen == 'desktop' }"
   }
 
     ////////////////////////////////////////////////////////
     // Mobile
     ////////////////////////////////////////////////////////
 
-    - if screen == 'mobile'
-      - data.hs.navigation.each do |id, navigation|
+    - if @screen == 'mobile'
+      - @nav_items.each do |id, navigation|
         li.menu__category.menu__category--outer{
           class="#{ 'dropdown js-state-local' if navigation.pages.length > 1 }"
         }
@@ -80,8 +81,8 @@
     // Desktop
     ////////////////////////////////////////////////////////
 
-    - if screen == 'desktop'
-      - @data.pages.group_by(&:category).each do |category, pages|
+    - if @screen == 'desktop'
+      - @nav_items.pages.group_by(&:category).each do |category, pages|
         li.menu__column{
           class="menu__column--#{ category.parameterize }"
         }
