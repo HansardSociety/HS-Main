@@ -1,21 +1,19 @@
 .panel {
   @extend
-    %u-container-y-large,
+    %u-container-y-medium,
     %u-position-relative;
 
-  + .panel:not(.panel--flow) {
-    &::before {
-      content: '';
-      display: block;
+  &::before {
+    top: 0;
+    left: 50%;
 
-      width: 30rem;
+    border-top: 2px  solid $brand_white_1;
 
-      top: 0;
+    width: 10rem;
 
-      border-top: 2px  solid $brand_white_1;
-
-      @extend %u-absolute-center-x;
-    }
+    @extend
+      %u-absolute-center-x,
+      %u-pseudo-element-base;
   }
 }
 
@@ -27,7 +25,7 @@
 }
 
 .panel__carousel {
-  @extend %u-container-y-small;
+  @extend %u-container-small;
 }
 
 .panel__main,

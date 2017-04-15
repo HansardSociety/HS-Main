@@ -1,90 +1,80 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @entry                = entry
+- @content_type         = @entry.TYPE
+- @category             = @entry.category
+
+- @title                = @entry.title
+- @introduction         = @entry.introduction
+- @copy                 = @entry.copy
+
+- @promoted_page        = @entry.promoted_page
+- @author               = @entry.author
+
+- @banner_scroll_target = {\
+  'id': ('banner-scroll-target' if @content_type == 'landing_page') }.reject{ |key, value| value.nil? }
+
+////////////////////////////////////////////////////////////
+//  Content
+////////////////////////////////////////////////////////////
+
 .content{
-  class="#{ 'content--' + entry.category if entry.TYPE == 'child_page' }"
+  class="#{ 'content--' + @category if @content_type == 'child_page' }"
+  *@banner_scroll_target
 }
-  #banner_scroll_target.content__header
+  .content__section
     section.content__main.copy{
       class="#{
-        if entry.category == 'blog'
-          'content__main--stack-2'
-        elsif [ 'landing_page' ].include? entry.TYPE
-          'content__main--center'
-        end
+        ([ 'blog' ].include? @category) ?
+        'content__main--stack-2' : 'content__main--center'
       }"
     }
-      - if entry.TYPE == 'panel_content'
-        h2.title.title--large= entry.title
 
-      .byline
-        = Kramdown::Document.new(entry.introduction).to_html
+      = Kramdown::Document.new(@introduction + "\n{: .byline }").to_html
 
     / Only if child page
-    - if entry.TYPE == 'child_page'
+    - if @content_type == 'child_page'
 
       aside.content__aside{
-        class="#{ 'content__aside--stack-1' if entry.category == 'blog' }"
+        class="#{ 'content__aside--stack-1' if @category == 'blog' }"
       }
 
         / Promoted page
-        - if entry.promoted_page
+        - if @promoted_page
           = partial 'partials/side-card',
             locals: \
-            { image: entry.promoted_page.banner_image,
-              title: entry.promoted_page.title,
-              category: entry.promoted_page.category,
-              date: (entry.promoted_page.date_time.date if entry.promoted_page.date_time.date_time),
-              url: entry.promoted_page.slug }
+            { image: @promoted_page.banner_image,
+              title: @promoted_page.title,
+              category: @promoted_page.category,
+              date: (@promoted_page.date_time.date if @promoted_page.date_time.date_time),
+              url: @promoted_page.slug }
 
         / Author
-        - if entry.author
+        - if @author
           = partial 'partials/profile',
             locals: \
-            { photo: entry.author.photo,
-              full_name: entry.author.full_name,
-              role: entry.author.role,
-              organisation: entry.author.organisation,
-              biog: entry.author.biog,
-              email: entry.author.email,
-              twitter: entry.author.twitter,
-              linkedin: entry.author.linkedin }
+            { photo: @author.photo,
+              full_name: @author.full_name,
+              role: @author.role,
+              organisation: @author.organisation,
+              biog: @author.biog,
+              email: @author.email,
+              twitter: @author.twitter,
+              linkedin: @author.linkedin }
 
-  / If copy
-  - if entry.copy
-    section.content__main.copy
-      = Kramdown::Document.new(entry.copy).to_html
+  .content__section
 
-  / Only if child page
-  - if entry.TYPE == 'child_page'
+    / If copy
+    - if @copy
+      section.content__main.copy
+        = Kramdown::Document.new(@copy).to_html
 
-    aside.content__aside
+    / Only if child page
+    - if @content_type == 'child_page'
 
-      //////////////////////////////
-      // Tagging
-      //////////////////////////////
+      aside.content__aside
 
-      / Organise child pages by category
-      - @pages_by_category = data.hs.child_page.group_by{ |key, value| value[:category] }
-
-      / Loop through categorised pages
-      - @pages_by_category.each do |categories, pages|
-
-        /  Order by date (descending)
-        - @pages_by_date = pages.sort_by{ |key, value| - value.date_time.integer }
-
-        / Filter by tag, remove empty objects and remove this page
-        - @pages_tagged = @pages_by_date.map!{ |id, page| \
-          [id, page] if page.tags \
-                        && page.tags.any?{ |tags| entry.tags.include?(tags) } \
-                        && page.ID != entry.ID \
-        }.delete_if{ |page| page.nil? }
-
-        / Loop through first five objects in each category
-        - @pages_tagged[0..2].map do |id, page|
-
-          / Card
-          = partial 'partials/side-card',
-            locals: \
-            { image: page.banner_image,
-              title: page.title,
-              category: page.category,
-              date: (page.date_time.date if page.date_time),
-              url: page.slug }
+        = partial 'partials/related',
+          locals: { entry: @entry }

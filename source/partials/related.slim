@@ -17,10 +17,18 @@
   / Loop through first five objects in each category
   - @pages_tagged[0..2].map do |id, page|
 
+    / Child page
+    - if entry.TYPE == 'child_page'
+      = partial 'partials/side-card',
+        locals: \
+        { image: page.banner_image,
+          title: page.title,
+          category: page.category,
+          date: (page.date_time.date if page.date_time),
+          url: page.slug }
+
     / Landing pages
     - if entry.TYPE == 'landing_page'
-
-      / Main card
       = partial 'partials/main-card',
         locals: \
         { page: page }

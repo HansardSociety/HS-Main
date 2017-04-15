@@ -1,5 +1,5 @@
 .content,
-.content__header {
+.content__section {
   @extend %u-flex-row;
 }
 
@@ -11,9 +11,9 @@
     %u-row;
 }
 
-.content__header {
+.content__section {
   @extend
-    %u-container-y-small,
+    %u-margin-top-small,
     %u-width-full;
 }
 

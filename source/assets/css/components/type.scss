@@ -37,9 +37,7 @@
 ////////////////////////////////////////////////////////////
 
 .byline {
-  @extend
-    %u-font-size-byline,
-    %u-vertical-rhythm-medium;
+  @extend %u-font-size-byline;
 }
 
 .byline--center {
