@@ -22,7 +22,8 @@
     %u-flex-inline-row-center,
     %u-position-relative,
     %u-overflow-hidden,
-    %u-transition-base-all; // prevents svg viewbox overflow
+    %u-text-align-center,
+    %u-transition-base-all;
 }
 
 .button--small,
@@ -44,17 +45,15 @@
   border-bottom: .2em solid $brand_orange;
   background-image: linear-gradient($brand_orange, lighten($brand_orange, 8%));
 
-  width: 182px;
-
   @extend %u-color-brand-white;
 
   &:active {
-    border-bottom: .2em solid lighten($brand_orange, 3%);
+    border-bottom: .2em solid lighten($brand_orange, 8%);
   }
 
   @include above('large') {
     &:hover {
-      border-bottom: .2em solid lighten($brand_orange, 3%);
+      border-bottom: .2em solid lighten($brand_orange, 8%);
     }
   }
 }
@@ -73,7 +72,7 @@
   @include above('large') {
     &:hover {
       color: $brand_white;
-      background-color: $brand_green;
+      background-color: $brand_orange;
     }
   }
 }
@@ -93,12 +92,14 @@
 }
 
 .button__text--small {
+  min-width: 7rem;
   padding: 0 .5rem;
 
   @extend %u-font-size-xsmall;
 }
 
 .button__text--medium {
+  min-width: 12rem;
   padding: 0 1rem;
 
   @extend %u-font-size-small;
@@ -118,14 +119,14 @@
   }
 
   &::before {
-    content: attr(data-on-content);
+    content: attr(data-on-text);
     transform: translateY(0);
   }
 
   &::after {
     left: 0;
 
-    content: attr(data-off-content);
+    content: attr(data-off-text);
     transform: translateY(100%);
 
     @extend %u-position-absolute;

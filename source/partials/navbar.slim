@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////
+//  Navbar
+////////////////////////////////////////////////////////////
+
 nav#navbar.navbar.JS-inactive
 
   .navbar__inner
@@ -7,20 +11,22 @@ nav#navbar.navbar.JS-inactive
 
     .navbar__left
 
-      / Menu
+      / Menu (mobile)
       = partial 'partials/menu',
         locals: { local_data: \
-          { screen: 'mobile',
+          { id: 'menu-mobile',
+            screen: 'mobile',
             nav_items: data.hs.navigation }}
 
-      / Menu button
+      / Menu button (mobile)
       = partial 'partials/button',
-        locals: { data: \
+        locals: { local_data: \
           { type: 'state', size: 'small',
             page: 'no-scroll',
             icon: 'menu', icon_size: 'medium', icon_color: 'white',
             aria_id: 'activate-menu-mobile', aria_target_id: 'menu-mobile' }}
 
+    / Logo
     .navbar__center
       =partial 'partials/logo'
 
@@ -29,11 +35,11 @@ nav#navbar.navbar.JS-inactive
       ul.navbar__list
 
         - data.hs.navigation.each do |id, navigation|
-          li.navbar__item{
-            class="#{
-              'dropdown JS-state-local JS-inactive' if navigation.pages.length > 1
-            }"
-          }
+
+          / Base ID for menu and menu button (drop-down)
+          - @menu_desktop_id_base = 'menu-desktop' + navigation.title.parameterize
+
+          li.navbar__item
             h2.title.title--small.title--white{
               class="#{
                 'dropdown__title dropdown__title--inline' if navigation.pages.length > 1
@@ -52,37 +58,31 @@ nav#navbar.navbar.JS-inactive
               - if navigation.pages.length > 1
                 = navigation.title
 
+                / Dropdown
                 .dropdown__control
                   = partial 'partials/button',
-                    locals: { data: \
+                    locals: { local_data: \
                       { type: 'state', size: 'small',
                         page: 'no-scroll', exclusive: true, secondary_target: 'navbar',
                         icon: 'chevron-down', icon_size: 'medium', icon_color: 'white',
                         animation: 'rotate',
-                        aria_id: "activate-menu-desktop-#{ navigation.title.parameterize }",
-                        aria_target_id: "menu-desktop-#{ navigation.title.parameterize }" }}
+                        aria_id: "activate-#{ @menu_desktop_id_base }",
+                        aria_target_id: @menu_desktop_id_base }}
+
+            / Menu (desktop)
 
 
             = partial 'partials/menu',
               locals: { local_data: \
-                        { screen: 'desktop',
+                        { id: @menu_desktop_id_base,
+                          screen: 'desktop',
                           nav_items: navigation }}
 
       / Search
-      = partial 'partials/button-state',
-        locals: \
-        { type: nil,
-          size: 'small',
-          icon: \
-          { image: 'search',
-            size: 'medium',
-            color: 'white' },
-          text: nil,
-          animation: nil,
-          state: \
-          { scope: 'global',
-            action: 'show-search',
-            aria_id: 'navbar-search-button',
-            aria_target_id: 'search',
-            page: 'js-page-overlay',
-            excl: true }}
+      = partial 'partials/button',
+        locals: { local_data: \
+          { type: 'state', size: 'small',
+            page: 'no-scroll', exclusive: true,
+            icon: 'search', icon_size: 'medium', icon_color: 'white',
+            aria_id: "activate-search",
+            aria_target_id: "search" }}

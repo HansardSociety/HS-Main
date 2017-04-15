@@ -3,6 +3,13 @@ require 'public_suffix'
 require 'contentful_mappers'
 
 ############################################################
+##  Variables
+############################################################
+
+set :SITE_TITLE,  'Hansard Society'
+set :SITE_URL,    'https://www.hansardsociety.org.uk'
+
+############################################################
 ##  Helpers
 ############################################################
 
@@ -11,13 +18,6 @@ require 'contentful_mappers'
 #     {tag: 'button'}
 #   end
 # end
-
-############################################################
-##  Variables
-############################################################
-
-set :SITE_TITLE,  'Hansard Society'
-set :SITE_URL,    'https://www.hansardsociety.org.uk'
 
 ############################################################
 ##  Page options

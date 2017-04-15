@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @profile_modal_id_base = 'modal-' + full_name.parameterize
+
+////////////////////////////////////////////////////////////
+//  Profile
+////////////////////////////////////////////////////////////
+
 .profile.js-state-local.modal-is.js-off
   .profile__image
     img{
@@ -12,31 +22,23 @@
 
   .profile__actions
 
-
-    / Biog modal button
-    = partial 'partials/button-state',
-      locals: \
-      { type: 'secondary',
-        size: 'small',
-        icon: nil,
-        text: \
-        { on: 'Open biog',
-          off: 'Close' },
-        animation: nil,
-        state: \
-        { scope: 'local',
-          action: 'js-on',
-          page: 'js-page-overlay',
-          aria_id: "#{ full_name.parameterize }-biog-button",
-          aria_target_id: "modal-biog-#{ full_name.parameterize }",
-          excl: true }}
+    / Modal button
+    = partial 'partials/button',
+      locals: { local_data: \
+        { type: 'state', size: 'small', style: 'secondary',
+          text_on: 'Show biog', text_off: 'Close biog', text_size: 'small',
+          page: 'no-scroll', exclusive: true,
+          aria_id: "activate-#{ @profile_modal_id_base }",
+          aria_target_id: @profile_modal_id_base }}
 
     / Social follow
     = partial 'partials/social',
       locals: { icons: [ email, twitter, linkedin ] }
 
+    / Biog
     - if biog
       = partial 'partials/modal',
         locals: \
-        { title: full_name,
+        { id: @profile_modal_id_base,
+          title: full_name,
           content: biog }

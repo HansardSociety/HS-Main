@@ -79,6 +79,16 @@
 
   box-shadow: 0 0 6px 2px darken(rgba($brand_green, .9), 15%);
 
+  &::after {
+    top: 100%;
+
+    border-top: 1px solid $brand_black_2;
+
+    @extend
+      %u-pseudo-element-base,
+      %u-width-full;
+  }
+
   @extend
     %u-bgc-brand-green;
 

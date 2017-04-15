@@ -2,37 +2,40 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @type             = data[:type]
-- @style            = data[:style]
-- @size             = data[:size]
+- @type             = local_data[:type]
+- @style            = local_data[:style]
+- @size             = local_data[:size]
+- @reverse          = local_data[:reverse]
 
 //  Text
 ////////////////////////////
 
-- @text_on          = data[:text_on]
-- @text_off         = data[:text_off]
-- @text_size        = data[:text_size]
+- @text_on          = local_data[:text_on]
+- @text_off         = local_data[:text_off]
+- @text             = local_data[:text] # Links only
+- @text_size        = local_data[:text_size]
+- @url              = local_data[:url]
 
 //  Icon
 ////////////////////////////
 
-- @icon             = data[:icon]
-- @icon_size        = data[:icon_size]
-- @icon_color       = data[:icon_color]
-- @animation        = data[:animation]
+- @icon             = local_data[:icon]
+- @icon_size        = local_data[:icon_size]
+- @icon_color       = local_data[:icon_color]
+- @animation        = local_data[:animation]
 
 //  State
 ////////////////////////////
 
-- @exclusive        = data[:exclusive]
-- @page             = data[:page]
-- @secondary_target = data[:secondary_target]
+- @exclusive        = local_data[:exclusive]
+- @page             = local_data[:page]
+- @secondary_target = local_data[:secondary_target]
 
 //  ARIA
 ////////////////////////////
 
-- @aria_id          = data[:aria_id]
-- @aria_target_id   = data[:aria_target_id]
+- @aria_id          = local_data[:aria_id]
+- @aria_target_id   = local_data[:aria_target_id]
 
 //  Attributes
 ////////////////////////////
@@ -42,7 +45,7 @@
   ('button'),
   ('button--' + @size),
   ('button--' + @style if @style),
-  ('JS-off' if @type == 'state'),
+  (@type == 'state' && @reverse == nil ? 'JS-off' : ('JS-on' if @type == 'state')),
   ('JS-no-scroll' if @page == 'no-scroll'),
   ('JS-exclusive' if @exclusive) ].reject{ |value| value.nil? }
 
@@ -51,6 +54,7 @@
   'aria-controls':         (@aria_target_id if @aria_target_id),
   'id':                    (@aria_id if @aria_id),
   'role':                  ('button' if @aria_id),
+  'href':                  (@url if @url),
   'data-secondary-target': (@secondary_target if @secondary_target)}.reject{ |key, value| value.nil? }
 
 / .button__content classes
@@ -73,16 +77,21 @@
     aria-hidden="true"
   }
 
-    - if @icon != 'menu'
+    - if @icon && @icon != 'menu'
       = partial 'partials/icon',
         locals: { icon:  @icon,
                   size:  @icon_size,
                   color: @icon_color }
 
-    - if @text
+    - if @text_on
       span.button__text.button__text--change{
         class="#{ 'button__text--' + @text_size }"
 
         data-on-text="#{ @text_on }"
         data-off-text="#{ @text_off }"
       }
+
+    - if @type == 'link' && @text
+      span.button__text{
+        class="#{ 'button__text--' + @text_size }"
+      }= @text

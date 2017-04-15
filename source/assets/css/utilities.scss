@@ -374,12 +374,13 @@ $properties: (
 }
 
 %u-animate-fadein {
-  animation: FadeIn .4s ease-out;
+  animation: FadeIn $transition_base;
 }
 
-%u-animate-fadeinskin {
-  animation: FadeInSkin .4s ease-out;
+%u-animate-slide-up-in-center {
+  animation: SlideUpInCenter $transition_base;
 }
+
 
 ////////////////////////////////////////////////////////////
 //  =Type

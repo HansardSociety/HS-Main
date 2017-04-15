@@ -177,13 +177,11 @@ smoothScroll.init({ offset: 64 });
 
 var mySwiper = new Swiper ('.swiper-container', {
 
-  // Optional parameters
   direction: 'horizontal',
   loop: false,
   slidesPerView: 'auto',
   keyboardControl: true
-  // spaceBetween: 8
-})
+});
 
 
 ////////////////////////////////////////////////////////////
@@ -195,7 +193,7 @@ var mySwiper = new Swiper ('.swiper-container', {
 
 var stateGlobal   = document.querySelector('.JS-state-global'),
     btnsGlobal    = document.querySelectorAll('.button.JS-target-global'),
-    btns          = document.querySelectorAll('.button.JS-off'),
+    btns          = document.querySelectorAll('.button.JS-off, .button.JS-on'),
     nav           = document.querySelector('.navbar');
 
 // ** Toggle state - base **
@@ -204,22 +202,38 @@ var stateGlobal   = document.querySelector('.JS-state-global'),
 const changeState = function(trigger) {
   var target               = trigger.getAttribute('aria-controls'),
       targetElem           = document.querySelector('#' + target),
-      targetSecondary      = trigger.getAttribute('data-secondary-target'),
-      targetSecondaryElem  = document.querySelector('#' + targetSecondary);
+
+      triggerStates        = [ 'JS-on', 'JS-off' ],
+      targetElemStates     = [ 'JS-active', 'JS-inactive' ],
+
+      targetSec            = trigger.getAttribute('data-secondary-target'),
+      targetSecElem        = document.querySelector('#' + targetSec),
+      targetSecInactive    = targetSec != undefined && targetSecElem.classList.toString().indexOf('JS-inactive') > -1,
+
+      noScroll             = 'JS-no-scroll',
+      triggerNoScroll      = trigger.classList.toString().indexOf(noScroll) > -1,
+      checkNoScroll        = stateGlobal.classList.toString().indexOf(noScroll) > -1;
 
   // Toggle trigger
-  toggleClass(trigger, 'JS-on');
-  toggleClass(trigger, 'JS-off');
+  forEach(triggerStates, function(index, state){
+    toggleClass(trigger, state);
+  });
 
   // Toggle target
-  toggleClass(targetElem, 'JS-active');
-  toggleClass(targetElem, 'JS-inactive');
+  forEach(targetElemStates, function(index, state){
+    toggleClass(targetElem, state);
+  });
 
-  if (targetSecondary != undefined &&
-      targetSecondaryElem.classList.toString().indexOf('JS-inactive') > -1) {
+  // Activate no-scroll
+  if (triggerNoScroll && !checkNoScroll) {
+    toggleClass(stateGlobal, noScroll);
 
-    toggleClass(targetSecondaryElem, 'JS-active')
+  } else {
+    stateGlobal.classList.remove(noScroll);
   }
+
+  // Secondary target
+  if (targetSecInactive) { toggleClass(targetSecElem, 'JS-active'); }
 }
 
 // ** Exclusive state **

@@ -1,27 +1,48 @@
+.modal,
+.modal__inner {
+  @extend %u-overflow-hidden;
+}
+
 .modal {
-  left: -9999px;
-
   z-index: 300;
+  left: -9999px;
+  top: 0;
 
-  width: 40rem;
-  max-width: 100%;
+  background-color: rgba($brand_white, .85);
 
   @extend
-    %u-bgc-brand-white,
     %u-border-radius-small,
     %u-height-full-vh,
-    %u-overflow-hidden,
     %u-position-fixed,
-    %u-shadow-prime-black,
     %u-width-full-vw;
 }
 
+.modal__inner {
+  width: 40rem;
+  max-width: 100%;
+  height: 100%;
+
+  transform: translate(-50%, 100vh);
+  will-change: transform;
+
+  @extend
+    %u-absolute-center-xy,
+    %u-bgc-brand-white,
+    %u-border-radius-small,
+    %u-shadow-prime-black,
+    %u-transition-base-transform;
+
+  @include above('small') {
+    max-height: 95vh;
+  }
+}
+
 .modal__header {
-  height: 10%;
+  height: 2.5rem;
+  padding: 0 .5rem;
 
   @extend
     %u-accent-small-brand-white-1-bottom,
-    %u-container-small,
     %u-flex-row-center,
     %u-width-full;
 }
@@ -31,34 +52,23 @@
 }
 
 .modal__content {
-  height: 90%;
+  height: calc(100% - 2.5rem);
 
   @extend
     %u-container-small,
-    %u-overflow-y-auto ;
+    %u-overflow-y-auto;
 }
 
-.modal-is.js-on {
+////////////////////////////////////////////////////////////
+//  Behaviour
+////////////////////////////////////////////////////////////
 
-  .modal {
-    top: 0;
-    left: 0;
+.modal.JS-active {
+  left: 0;
 
-    @extend %u-animate-fadein;
+  @extend %u-animate-fadein;
 
-    @include above('small') {
-      top: 50%;
-      left: 50%;
-
-      max-height: 95vh;
-
-      transform: translate(-50%, -50%);
-
-      animation: SlideUpInCenter .2s ease-out;
-    }
-
-    @include above('medium') {
-      max-height: 90vh;
-    }
+  .modal__inner {
+    transform: translate(-50%, -50%);
   }
 }

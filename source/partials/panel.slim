@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @panel_modal_id_base = 'modal-' + panel.title.parameterize
+
+////////////////////////////////////////////////////////////
+//  Panel
+////////////////////////////////////////////////////////////
+
 section.panel{
   class="#{ panel.panel_type == 'basic' ? 'panel--flow' : nil }"
 }
@@ -24,39 +34,27 @@ section.panel{
           - panel.calls_to_action.each do |cta|
 
             - if cta.action == 'modal'
-              .js-state-local.modal-is.js-off
                 = partial 'partials/modal',
                   locals: \
-                  { title: cta.title,
+                  { id: @panel_modal_id_base,
+                    title: cta.title,
                     content: cta.modal }
 
                 / Modal button
-                = partial 'partials/button-state',
-                  locals: \
-                  { type: 'secondary',
-                    size: 'small',
-                    icon: nil,
-                    text: \
-                    { on: cta.button_text,
-                      off: 'Close' },
-                    animation: nil,
-                    state: \
-                    { scope: 'local',
-                      action: 'js-on',
-                      page: 'js-page-overlay',
-                      aria_id: "",
-                      aria_target_id: "",
-                      excl: true }}
+                = partial 'partials/button',
+                  locals: { local_data: \
+                    { type: 'state', size: 'small', style: 'secondary',
+                      text_on: cta.button_text, text_off: 'Close', text_size: 'small',
+                      page: 'no-scroll', exclusive: true,
+                      aria_id: "activate-#{ @panel_modal_id_base }",
+                      aria_target_id: @panel_modal_id_base }}
 
+            / Download
             - if cta.action == 'download'
-
-              / Modal button
-              = partial 'partials/button-link',
-                locals: \
-                { type: 'primary',
-                  size: 'medium',
-                  text: cta.button_text,
-                  url: cta.file.url }
+              = partial 'partials/button',
+                locals: { local_data: \
+                  { type: 'link', size: 'medium', style: 'primary',
+                    text: cta.button_text, text_size: 'medium', url: cta.file.url }}
 
 
     / If image

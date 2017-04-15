@@ -31,8 +31,6 @@
 .menu--desktop {
   transform: translateY(-100vh);
 
-  opacity: .85;
-
   @extend
     %u-display-none,
     %u-overflow-y-auto,
