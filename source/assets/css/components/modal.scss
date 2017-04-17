@@ -8,7 +8,15 @@
   left: -9999px;
   top: 0;
 
-  background-color: rgba($brand_white, .85);
+  &::before {
+    opacity: 0;
+
+    @extend
+      %u-bgc-brand-white,
+      %u-pseudo-element-base,
+      %u-width-full,
+      %u-height-full;
+  }
 
   @extend
     %u-border-radius-small,
@@ -29,8 +37,7 @@
     %u-absolute-center-xy,
     %u-bgc-brand-white,
     %u-border-radius-small,
-    %u-shadow-prime-black,
-    %u-transition-base-transform;
+    %u-shadow-prime-black;
 
   @include above('small') {
     max-height: 95vh;
@@ -55,7 +62,7 @@
   height: calc(100% - 2.5rem);
 
   @extend
-    %u-container-small,
+    %u-padding-small,
     %u-overflow-y-auto;
 }
 
@@ -66,9 +73,16 @@
 .modal.JS-active {
   left: 0;
 
-  @extend %u-animate-fadein;
+  &::before {
+    animation: FadeInSkin 200ms;
+    animation-delay: 400ms;
+
+    animation-fill-mode: forwards;
+  }
 
   .modal__inner {
-    transform: translate(-50%, -50%);
+    animation: SlideUpInCenter 400ms;
+
+    animation-fill-mode: forwards;
   }
 }

@@ -20,14 +20,13 @@
     %u-border-radius-small,
     %u-cursor-pointer,
     %u-flex-inline-row-center,
-    %u-position-relative,
     %u-overflow-hidden,
+    %u-position-relative,
     %u-text-align-center,
     %u-transition-base-all;
 }
 
-.button--small,
-.button--medium {
+.button--inline {
   @extend %u-inline-spacing-xsmall;
 }
 
@@ -42,7 +41,7 @@
 }
 
 .button--primary {
-  border-bottom: .2em solid $brand_orange;
+  border-bottom: .25em solid $brand_orange;
   background-image: linear-gradient($brand_orange, lighten($brand_orange, 8%));
 
   @extend %u-color-brand-white;

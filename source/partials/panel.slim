@@ -3,98 +3,109 @@
 ////////////////////////////////////////////////////////////
 
 - @entry_data           = local_data[:entry_data]
+- @panel_type           = @entry_data.panel_type
 
 - @type                 = local_data[:type]
 
-- @title                = local_data[:title]
-- @copy                 = local_data[:copy]
+- @title                = @entry_data.title
+- @copy                 = @entry_data.copy
 
-- @calls_to_action      = local_data[:calls_to_action]
+- @calls_to_action      = @entry_data.calls_to_action
 
-- @image_url            = local_data[:image]
-- @image_alt            = local_data[:alt]
-- @image_url            = local_data[:image]
+- @image                = @entry_data.image
+- @image_url            = @image.url if @image
+- @image_alt            = @image.alt if @image
 
 ////////////////////////////////////////////////////////////
 //  Panel
 ////////////////////////////////////////////////////////////
 
-section.panel
-  .panel__inner
+section.panel{
+  class="panel--#{
+    @panel_type == 'basic' ? 'flow' : 'block'
+  }"
+}
+  .panel__row
 
     //  Carousel
     ////////////////////////////
 
     - if @type == 'carousel'
-      .panel__section
+      .panel__content.panel__content--promoted
 
-        .panel__header
+        .panel__title
           h2.title.title--large Latest
 
-        .panel__content
-          = partial 'partials/carousel',
-            locals: { local_data: \
-              { entry_data: @entry_data,
-                content_source: 'related' }}
+        = partial 'partials/carousel',
+          locals: { local_data: \
+            { entry_data: @entry_data,
+              content_source: 'related' }}
 
 
     //  Standard
     ////////////////////////////
 
     - else
-      .panel__body{
-        class="#{ 'panel__body--order-2' if @image_url }"
+      .panel__content.panel__content--body{
+        class="#{
+          'panel__content--promoted' if @panel_type == 'promoted'
+        }"
       }
 
         / Title
-        h2.title.title--medium= @title
+        .panel__title
+          h2.title{
+            class="#{
+              @panel_type == 'promoted' ? 'title--large' : 'medium'
+            }"
+          }= @title
 
         / Copy
-        = Kramdown::Document.new(@copy).to_html
+        .panel__copy.copy
+          = Kramdown::Document.new(\
+            @panel_type == 'promoted' ? @copy + "\n {: .byline }" : @copy).to_html
 
         //  Calls to action
         ////////////////////////////
 
-      /   - if @calls_to_action
-      /     .panel__actions{
-      /       class="#{ 'panel__actions--center' if @type == 'header' }"
-      /     }
-      /
-      /       - @calls_to_action.each do |cta|
-      /
-      /         - @panel_modal_id_base  = 'modal-' + @title.parameterize
-      /
-      /         - if cta.action == 'modal'
-      /             = partial 'partials/modal',
-      /               locals: \
-      /               { id: @panel_modal_id_base,
-      /                 title: cta.title,
-      /                 content: cta.modal }
-      /
-      /             / Modal button
-      /             = partial 'partials/button',
-      /               locals: { local_data: \
-      /                 { type: 'state', size: 'small', style: 'secondary',
-      /                   text_on: cta.button_text, text_off: 'Close', text_size: 'small',
-      /                   page: 'no-scroll', exclusive: true,
-      /                   aria_id: "activate-#{ @panel_modal_id_base }",
-      /                   aria_target_id: @panel_modal_id_base }}
-      /
-      /         / Download
-      /         - if cta.action == 'download'
-      /           = partial 'partials/button',
-      /             locals: { local_data: \
-      /               { type: 'link', size: 'medium', style: 'primary',
-      /                 text: cta.button_text, text_size: 'medium', url: cta.file.url }}
-      /
-      / //  Image
-      / ////////////////////////////
-      /
-      / - if @image_url
-      /   .panel__aside{
-      /     class="#{ 'panel__aside--order-1' if @image_url }"
-      /   }
-      /     = partial 'partials/text-image',
-      /       locals: \
-      /       { url: @image_url,
-      /         alt: @image_alt }
+        - if @calls_to_action
+          .panel__actions{
+            class="#{ 'panel__actions--center' if @type == 'promoted' }"
+          }
+
+            - @calls_to_action.each do |cta|
+
+              - @panel_modal_id_base  = 'modal-' + @title.parameterize
+
+              / Modal
+              - if cta.action == 'modal'
+                  = partial 'partials/modal',
+                    locals: \
+                    { id: @panel_modal_id_base,
+                      title: cta.title,
+                      content: cta.modal }
+
+                  = partial 'partials/button',
+                    locals: { local_data: \
+                      { type: 'state', size: 'small', style: 'secondary', inline: true,
+                        text_on: cta.button_text, text_off: 'Close', text_size: 'small',
+                        page: 'no-scroll', exclusive: true,
+                        aria_id: "activate-#{ @panel_modal_id_base }",
+                        aria_target_id: @panel_modal_id_base }}
+
+              / Download
+              - if cta.action == 'download'
+                = partial 'partials/button',
+                  locals: { local_data: \
+                    { type: 'link', size: 'medium', style: 'primary', inline: true,
+                      text: cta.button_text, text_size: 'medium', url: cta.file.url }}
+
+      //  Image
+      ////////////////////////////
+
+      - if @image != nil
+        .panel__side
+          = partial 'partials/text-image',
+            locals: \
+            { url: @image_url,
+              alt: @image_alt }

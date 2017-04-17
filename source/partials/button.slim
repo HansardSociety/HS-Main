@@ -5,7 +5,8 @@
 - @type             = local_data[:type]
 - @style            = local_data[:style]
 - @size             = local_data[:size]
-- @reverse          = local_data[:reverse]
+- @reverse          = local_data[:reverse] # Starts from on state (eg. close button)
+- @inline           = local_data[:inline]
 
 //  Text
 ////////////////////////////
@@ -45,6 +46,7 @@
   ('button'),
   ('button--' + @size),
   ('button--' + @style if @style),
+  ('button--' + 'inline' if @inline),
   (@type == 'state' && @reverse == nil ? 'JS-off' : ('JS-on' if @type == 'state')),
   ('JS-no-scroll' if @page == 'no-scroll'),
   ('JS-exclusive' if @exclusive) ].reject{ |value| value.nil? }

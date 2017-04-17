@@ -20,3 +20,19 @@
           locals: { local_data: \
             { entry_data: @entry_data,
               card_wrapper_class: 'carousel__item swiper-slide' }}
+
+  .carousel__actions
+
+    .carousel__prev.alt-title
+      = partial 'partials/icon',
+        locals: { icon:  'chevron-left',
+                  size:  'small',
+                  color: 'green' }
+      | Prev
+
+    .carousel__next.alt-title
+      | Next
+      = partial 'partials/icon',
+        locals: { icon:  'chevron-right',
+                  size:  'small',
+                  color: 'green' }

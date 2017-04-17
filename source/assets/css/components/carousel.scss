@@ -4,7 +4,7 @@
 }
 
 .carousel__inner {
-  @extend %u-display-flex;
+  // @extend %u-display-flex;
 }
 
 .carousel__item {
@@ -19,5 +19,33 @@
   }
 
   margin-right: 1rem;
-  height: auto;
+}
+
+.carousel__actions {
+  width: 6.75rem;
+
+  justify-content: space-between;
+
+  @extend
+    %u-flex-row,
+    %u-margin-center-x,
+    %u-margin-top-small,
+    %u-position-relative;
+
+  &::before {
+    left: calc(50% - 1px);
+
+    height: 1rem;
+
+    content: '';
+
+    border-left: 2px solid $brand_white_2;
+
+    @extend %u-absolute-center-xy;
+  }
+}
+
+.carousel__prev,
+.carousel__next {
+  @extend %u-cursor-pointer;
 }

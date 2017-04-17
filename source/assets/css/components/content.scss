@@ -21,7 +21,7 @@
 .content__aside {
   @extend
     %u-margin-center-x,
-    %u-container-small;
+    %u-padding-small;
 }
 
 .content__main {

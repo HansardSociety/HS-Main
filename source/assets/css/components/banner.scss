@@ -15,7 +15,7 @@
 .banner__inner {
   @extend
     %u-absolute-center-xy,
-    %u-container-small,
+    %u-padding-small,
     %u-row;
 }
 

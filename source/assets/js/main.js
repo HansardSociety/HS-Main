@@ -174,6 +174,9 @@ smoothScroll.init({ offset: 64 });
 
 var mySwiper = new Swiper ('.swiper-container', {
 
+  nextButton: '.carousel__next',
+  prevButton: '.carousel__prev',
+
   direction: 'horizontal',
   loop: false,
   slidesPerView: 'auto',

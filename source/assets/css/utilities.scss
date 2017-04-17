@@ -132,7 +132,15 @@ $properties: (
 %u-cursor-pointer { cursor: pointer; }
 
 // Inline spacing
-%u-inline-spacing-xsmall:nth-last-child(1n + 2) { margin-right: .375rem; }
+%u-inline-spacing-container-xsmall {
+  margin-top: -.4rem;
+  margin-left: -.4rem;
+}
+
+%u-inline-spacing-xsmall {
+  margin-top: .4rem;
+  margin-left: .4rem;
+}
 
 ////////////////////////////////////////////////////////////
 //  =Display
@@ -217,15 +225,15 @@ $properties: (
 // ****************************
 
 // Containers
-%u-container-xsmall { padding: .5rem 1rem; }
-%u-container-small  { padding: 1rem; }
-%u-container-medium { padding: 2rem 1rem; }
-%u-container-large  { padding: 3rem 1rem; }
+%u-padding-xsmall { padding: .5rem 1rem; }
+%u-padding-small  { padding: 1rem; }
+%u-padding-medium { padding: 2rem 1rem; }
+%u-padding-large  { padding: 3rem 1rem; }
 
-%u-container-y-xsmall { padding: .5rem 0; }
-%u-container-y-small  { padding: 1rem 0; }
-%u-container-y-medium { padding: 2rem 0; }
-%u-container-y-large  { padding: 3rem 0; }
+%u-padding-y-xsmall { padding: .5rem 0; }
+%u-padding-y-small  { padding: 1rem 0; }
+%u-padding-y-medium { padding: 2rem 0; }
+%u-padding-y-large  { padding: 3rem 0; }
 
 
 %u-row,
@@ -416,4 +424,5 @@ $properties: (
 %u-uppercase { text-transform: uppercase; }
 %u-lowercase { text-transform: lowercase; }
 
-%u-text-align-center { text-align: center; }
+%u-text-align-center,
+.u-align-center { text-align: center; }

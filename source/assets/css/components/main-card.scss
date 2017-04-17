@@ -1,6 +1,8 @@
 .main-card {
   width: 100%;
 
+  text-align: left;
+
   overflow: hidden;
   border-radius: 2px;
 
@@ -33,7 +35,7 @@
   bottom: 0;
   left: 0;
 
-  @extend %u-container-small;
+  @extend %u-padding-small;
 }
 
 .main-card__introduction {

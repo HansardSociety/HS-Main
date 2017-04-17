@@ -34,36 +34,12 @@
 }
 
 .profile__actions {
+  padding-top: 1rem;
+
   align-items: center;
 
   @extend
     %u-flex-row,
-    %u-margin-top-small,
+    %u-inline-spacing-container-xsmall,
     %u-width-full;
 }
-
-// .profile__biog {
-//   top: 9rem;
-//   left: -9999px;
-//
-//   max-width: 100%;
-//
-//   height: calc(100% - 9rem);
-//
-//   border-top: 2px solid $brand_white_2;
-//
-//   @extend
-//     %u-container-small,
-//     %u-overflow-y-auto,
-//     %u-position-absolute;
-// }
-
-////////////////////////////////////////////////////////////
-//  Behaviour
-////////////////////////////////////////////////////////////
-
-// .profile.js-on {
-//   .profile__biog {
-//     left: 0;
-//   }
-// }

@@ -103,8 +103,8 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         image: ({
           url:           panel.image.url,
           alt:           panel.image.description
-        }.reject{ |key, value| value.nil? } if panel.image)
-      }
+        } if panel.image)
+      }.reject{ |key, value| value.nil? }
       end
     end
 

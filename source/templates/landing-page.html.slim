@@ -22,4 +22,4 @@ article
   - landing_page.panels.each do |panel|
     = partial 'partials/panel',
       locals: { local_data: \
-        { title: panel.title, copy: panel.copy }}
+        { entry_data: panel }}
