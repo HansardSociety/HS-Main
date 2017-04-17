@@ -20,7 +20,182 @@ const toggleClass = function(obj, className) {
 }
 
 ////////////////////////////////////////////////////////////
-//  States
+//  New JS
+////////////////////////////////////////////////////////////
+
+// ** Variables **
+// ****************************
+
+var stateGlobal   = document.querySelector('.JS-state-global'),
+    btnsGlobal    = document.querySelectorAll('.button.JS-target-global'),
+    btns          = document.querySelectorAll('.button.JS-off, .button.JS-on'),
+    nav           = document.querySelector('.navbar');
+
+// ** Toggle state - base **
+// ****************************
+
+const changeState = function(trigger) {
+  var target               = trigger.getAttribute('aria-controls'),
+      targetElem           = document.querySelector('#' + target),
+
+      triggerStates        = [ 'JS-on', 'JS-off' ],
+      targetElemStates     = [ 'JS-active', 'JS-inactive' ],
+
+      targetSec            = trigger.getAttribute('data-secondary-target'),
+      targetSecElem        = document.querySelector('#' + targetSec),
+      targetSecInactive    = targetSec != undefined && targetSecElem.classList.toString().indexOf('JS-inactive') > -1,
+
+      noScroll             = 'JS-no-scroll',
+      triggerNoScroll      = trigger.classList.toString().indexOf(noScroll) > -1,
+      checkNoScroll        = stateGlobal.classList.toString().indexOf(noScroll) > -1;
+
+  // Toggle trigger
+  forEach(triggerStates, function(index, state){
+    toggleClass(trigger, state);
+  });
+
+  // Toggle target
+  forEach(targetElemStates, function(index, state){
+    toggleClass(targetElem, state);
+  });
+
+  // Activate no-scroll
+  if (triggerNoScroll && !checkNoScroll) {
+    toggleClass(stateGlobal, noScroll);
+
+  } else {
+    stateGlobal.classList.remove(noScroll);
+  }
+
+  // Secondary target
+  if (targetSecInactive) { toggleClass(targetSecElem, 'JS-active'); }
+}
+
+// ** Exclusive state **
+// ****************************
+
+const exclState = function(trigger) {
+  var exclusiveTriggers = document.querySelectorAll('.JS-exclusive');
+
+  // If an exclusive event...
+  if (trigger.classList.contains('JS-exclusive')) {
+
+    // Loop through all exclusive triggers
+    forEach(exclusiveTriggers, function(index, elem) {
+
+      // If (this) trigger element != other exclusive triggers...
+      if ((elem != trigger) && (elem.classList.contains('JS-on'))) {
+
+        // Toggle global or local state depending on elem...
+        changeState(elem);
+      }
+    });
+  }
+}
+
+// ** Local state change **
+// ****************************
+
+forEach(btns, function(index, btn) {
+
+  btn.onclick = function() {
+    changeState(this);
+    exclState(this);
+  }
+});
+
+////////////////////////////////////////////////////////////
+//  Navbar
+////////////////////////////////////////////////////////////
+
+window.addEventListener('scroll', _.throttle(function() {
+
+  if (window.pageYOffset >= 1) {
+    navbar.classList.add('JS-active');
+    navbar.classList.remove('JS-inactive');
+
+  } else {
+    navbar.classList.add('JS-inactive');
+    navbar.classList.remove('JS-active');
+  }
+}, 500));
+
+////////////////////////////////////////////////////////////
+//  Truncate text
+////////////////////////////////////////////////////////////
+
+function truncate(container, text) {
+
+  var container       = container,
+      containerLines  = Math.round((container.offsetHeight / 1.5) / 18),
+
+      text            = container.querySelector(text),
+      textLines       = Math.round((text.offsetHeight / 1.5) / 18),
+      textLength      = text.innerText.length,
+
+      // Subtract container lines from text lines to get a
+      // negative difference.
+      lineDifference  = (textLines - containerLines),
+
+      // Divide line difference by text lines to get point value,
+      // eg. 2 / 8 = 0.25, and get opposite by subtracting from 1,
+      // ie. 0.75. Then multiply this by the number of characters
+      // in the text block, reducing the number of characters by
+      // the percentage difference between the conatiner lines
+      // and text lines.
+      characters      = Math.round(textLength * (1 - (lineDifference / textLines))),
+      truncate        = text.innerText.substr(0, characters).trim() + '…';
+
+  // Only execute if text block is larger than its container
+  if (containerLines < textLines) {
+    text.innerText = truncate;
+  }
+};
+
+forEach(document.querySelectorAll('.side-card__title'), function(index, elem) {
+  truncate(elem, '.title');
+
+  window.onresize = function() {
+    truncate(elem, '.title');
+  }
+});
+
+////////////////////////////////////////////////////////////
+//  Smooth scroll
+//  https://github.com/cferdinandi/smooth-scroll
+////////////////////////////////////////////////////////////
+
+smoothScroll.init({ offset: 64 });
+
+////////////////////////////////////////////////////////////
+//  Swiper
+//  http://idangero.us/swiper/
+////////////////////////////////////////////////////////////
+
+var mySwiper = new Swiper ('.swiper-container', {
+
+  direction: 'horizontal',
+  loop: false,
+  slidesPerView: 'auto',
+  keyboardControl: true
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////
+//  ARCHIVE
 ////////////////////////////////////////////////////////////
 
 // ** Variables **
@@ -104,167 +279,5 @@ forEach(buttonsLocal, function (index, button) {
 
     // If exclusive state
     exclusiveState(this);
-  }
-});
-
-////////////////////////////////////////////////////////////
-//  Navbar
-////////////////////////////////////////////////////////////
-
-window.addEventListener('scroll', _.throttle(function() {
-
-  if (window.pageYOffset >= 1) {
-    navbar.classList.add('JS-active');
-    navbar.classList.remove('JS-inactive');
-
-  } else {
-    navbar.classList.add('JS-inactive');
-    navbar.classList.remove('JS-active');
-  }
-}, 500));
-
-////////////////////////////////////////////////////////////
-//  Truncate text
-////////////////////////////////////////////////////////////
-
-function truncate(container, text) {
-
-  var container       = container,
-      containerLines  = Math.round((container.offsetHeight / 1.5) / 18),
-
-      text            = container.querySelector(text),
-      textLines       = Math.round((text.offsetHeight / 1.5) / 18),
-      textLength      = text.innerText.length,
-
-      // Subtract container lines from text lines to get a
-      // negative difference.
-      lineDifference  = (textLines - containerLines),
-
-      // Divide line difference by text lines to get point value,
-      // eg. 2 / 8 = 0.25, and get opposite by subtracting from 1,
-      // ie. 0.75. Then multiply this by the number of characters
-      // in the text block, reducing the number of characters by
-      // the percentage difference between the conatiner lines
-      // and text lines.
-      characters      = Math.round(textLength * (1 - (lineDifference / textLines))),
-      truncate        = text.innerText.substr(0, characters).trim() + '…';
-
-  // Only execute if text block is larger than its container
-  if (containerLines < textLines) {
-    text.innerText = truncate;
-  }
-};
-
-forEach(document.querySelectorAll('.side-card__title'), function(index, elem) {
-  truncate(elem, '.title');
-
-  window.onresize = function() {
-    truncate(elem, '.title');
-  }
-});
-
-////////////////////////////////////////////////////////////
-//  Smooth scroll
-//  https://github.com/cferdinandi/smooth-scroll
-////////////////////////////////////////////////////////////
-
-smoothScroll.init({ offset: 64 });
-
-////////////////////////////////////////////////////////////
-//  Swiper
-//  http://idangero.us/swiper/
-////////////////////////////////////////////////////////////
-
-var mySwiper = new Swiper ('.swiper-container', {
-
-  direction: 'horizontal',
-  loop: false,
-  slidesPerView: 'auto',
-  keyboardControl: true
-});
-
-
-////////////////////////////////////////////////////////////
-//  New JS
-////////////////////////////////////////////////////////////
-
-// ** Variables **
-// ****************************
-
-var stateGlobal   = document.querySelector('.JS-state-global'),
-    btnsGlobal    = document.querySelectorAll('.button.JS-target-global'),
-    btns          = document.querySelectorAll('.button.JS-off, .button.JS-on'),
-    nav           = document.querySelector('.navbar');
-
-// ** Toggle state - base **
-// ****************************
-
-const changeState = function(trigger) {
-  var target               = trigger.getAttribute('aria-controls'),
-      targetElem           = document.querySelector('#' + target),
-
-      triggerStates        = [ 'JS-on', 'JS-off' ],
-      targetElemStates     = [ 'JS-active', 'JS-inactive' ],
-
-      targetSec            = trigger.getAttribute('data-secondary-target'),
-      targetSecElem        = document.querySelector('#' + targetSec),
-      targetSecInactive    = targetSec != undefined && targetSecElem.classList.toString().indexOf('JS-inactive') > -1,
-
-      noScroll             = 'JS-no-scroll',
-      triggerNoScroll      = trigger.classList.toString().indexOf(noScroll) > -1,
-      checkNoScroll        = stateGlobal.classList.toString().indexOf(noScroll) > -1;
-
-  // Toggle trigger
-  forEach(triggerStates, function(index, state){
-    toggleClass(trigger, state);
-  });
-
-  // Toggle target
-  forEach(targetElemStates, function(index, state){
-    toggleClass(targetElem, state);
-  });
-
-  // Activate no-scroll
-  if (triggerNoScroll && !checkNoScroll) {
-    toggleClass(stateGlobal, noScroll);
-
-  } else {
-    stateGlobal.classList.remove(noScroll);
-  }
-
-  // Secondary target
-  if (targetSecInactive) { toggleClass(targetSecElem, 'JS-active'); }
-}
-
-// ** Exclusive state **
-// ****************************
-
-const exclState = function(trigger) {
-  var exclusiveTriggers = document.querySelectorAll('.JS-exclusive');
-
-  // If an exclusive event...
-  if (trigger.classList.contains('JS-exclusive')) {
-
-    // Loop through all exclusive triggers
-    forEach(exclusiveTriggers, function(index, elem) {
-
-      // If (this) trigger element != other exclusive triggers...
-      if ((elem != trigger) && (elem.classList.contains('JS-on'))) {
-
-        // Toggle global or local state depending on elem...
-        changeState(elem);
-      }
-    });
-  }
-}
-
-// ** Local state change **
-// ****************************
-
-forEach(btns, function(index, btn) {
-
-  btn.onclick = function() {
-    changeState(this);
-    exclState(this);
   }
 });

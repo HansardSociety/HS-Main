@@ -1,0 +1,22 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+
+- @entry_data           = local_data[:entry_data]
+- @content_source       = local_data[:content_source]
+
+
+////////////////////////////////////////////////////////////
+//  Carousel
+////////////////////////////////////////////////////////////
+
+.carousel.swiper-container
+  .carousel__inner.swiper-wrapper
+
+      / Related content
+      - if @content_source == 'related'
+        = partial 'partials/related',
+          locals: { local_data: \
+            { entry_data: @entry_data,
+              card_wrapper_class: 'carousel__item swiper-slide' }}

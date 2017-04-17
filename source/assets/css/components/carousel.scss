@@ -1,0 +1,23 @@
+.carousel,
+.carousel__inner {
+  @extend %u-width-full;
+}
+
+.carousel__inner {
+  @extend %u-display-flex;
+}
+
+.carousel__item {
+  max-width: 100%;
+
+  @include above('small') {
+    width: calc((100% / 2) - 1rem);
+  }
+
+  @include above('medium') {
+    width: calc((100% / 3) - 1rem);
+  }
+
+  margin-right: 1rem;
+  height: auto;
+}

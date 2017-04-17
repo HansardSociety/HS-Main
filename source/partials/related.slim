@@ -1,3 +1,18 @@
+////////////////////////////////////////////////////////////
+//  Data variables
+////////////////////////////////////////////////////////////
+
+- @entry_data         = local_data[:entry_data]
+- @card_wrapper_class = local_data[:card_wrapper_class]
+
+- @card_wrapper_elem  = { tag: 'div', class: @card_wrapper_class }
+
+
+
+////////////////////////////////////////////////////////////
+//  Related
+////////////////////////////////////////////////////////////
+
 / Organise child pages by category
 - @pages_by_category = data.hs.child_page.group_by{ |key, value| value[:category] }
 
@@ -10,15 +25,17 @@
   / Filter by tag, remove empty objects and remove this page
   - @pages_tagged = @pages_by_date.map!{ |id, page| \
     [id, page] if page.tags \
-                  && page.tags.any?{ |tags| entry.tags.include?(tags) } \
-                  && page.ID != entry.ID \
+                  && page.tags.any?{ |tags| @entry_data.tags.include?(tags) } \
+                  && page.ID != @entry_data.ID \
   }.delete_if{ |page| page.nil? }
 
   / Loop through first five objects in each category
   - @pages_tagged[0..2].map do |id, page|
 
-    / Child page
-    - if entry.TYPE == 'child_page'
+    //  Side card (child page)
+    ////////////////////////////
+
+    - if @entry_data.TYPE == 'child_page'
       = partial 'partials/side-card',
         locals: \
         { image: page.banner_image,
@@ -27,8 +44,12 @@
           date: (page.date_time.date if page.date_time),
           url: page.slug }
 
-    / Landing pages
-    - if entry.TYPE == 'landing_page'
-      = partial 'partials/main-card',
-        locals: \
-        { page: page }
+    //  Main card (landing page)
+    ////////////////////////////
+
+    - if @entry_data.TYPE == 'landing_page'
+
+      *@card_wrapper_elem
+        = partial 'partials/main-card',
+          locals: \
+          { page: page }

@@ -2,16 +2,16 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @entry                = entry
-- @content_type         = @entry.TYPE
-- @category             = @entry.category
+- @entry_data           = entry
+- @content_type         = entry.TYPE
+- @category             = entry.category
 
-- @title                = @entry.title
-- @introduction         = @entry.introduction
-- @copy                 = @entry.copy
+- @title                = entry.title
+- @introduction         = entry.introduction
+- @copy                 = entry.copy
 
-- @promoted_page        = @entry.promoted_page
-- @author               = @entry.author
+- @promoted_page        = entry.promoted_page
+- @author               = entry.author
 
 - @banner_scroll_target = {\
   'id': ('banner-scroll-target' if @content_type == 'landing_page') }.reject{ |key, value| value.nil? }
@@ -77,4 +77,5 @@
       aside.content__aside
 
         = partial 'partials/related',
-          locals: { entry: @entry }
+          locals: { local_data: \
+            { entry_data: @entry_data }}

@@ -16,9 +16,10 @@ article
   = partial 'partials/panel',
     locals: { local_data: \
       { entry_data: landing_page,
-        type: 'carousel' }}
+        type: 'carousel', content_source: 'related' }}
 
   / Panels
-  / - landing_page.panels.each do |panel|
-  /   = partial 'partials/panel',
-  /     locals: { panel: panel }
+  - landing_page.panels.each do |panel|
+    = partial 'partials/panel',
+      locals: { local_data: \
+        { title: panel.title, copy: panel.copy }}

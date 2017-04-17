@@ -1,15 +1,10 @@
 .main-card {
   width: 100%;
-  max-width: 342px; // = header height 192px (based on banner image ratio)
 
   overflow: hidden;
   border-radius: 2px;
 
   @extend %u-bgc-brand-white-1;
-
-  &:nth-last-child(1n + 2) {
-    margin-right: 1rem;
-  }
 }
 
 .main-card--events       { @extend %u-accent-medium-brand-blue-top; }

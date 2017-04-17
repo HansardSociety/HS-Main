@@ -20,76 +20,81 @@
 ////////////////////////////////////////////////////////////
 
 section.panel
-  .panel__content
+  .panel__inner
 
     //  Carousel
     ////////////////////////////
 
     - if @type == 'carousel'
-      .panel__carousel.swiper-container
-        h2.title.title--large Latest
-        .swiper-wrapper
-          = partial 'partials/related',
-            locals: { entry: @entry_data }
+      .panel__section
+
+        .panel__header
+          h2.title.title--large Latest
+
+        .panel__content
+          = partial 'partials/carousel',
+            locals: { local_data: \
+              { entry_data: @entry_data,
+                content_source: 'related' }}
+
 
     //  Standard
     ////////////////////////////
 
     - else
-      .panel__main{
-        class="#{ 'panel__main--order-2' if @image_url }"
+      .panel__body{
+        class="#{ 'panel__body--order-2' if @image_url }"
       }
 
         / Title
         h2.title.title--medium= @title
 
         / Copy
-        .panel__copy
-          = Kramdown::Document.new(@copy).to_html
+        = Kramdown::Document.new(@copy).to_html
 
         //  Calls to action
         ////////////////////////////
 
-        - if @calls_to_action
-          .panel__actions{
-            class="#{ 'panel__actions--center' if @type == 'header' }"
-          }
-
-            - @calls_to_action.each do |cta|
-
-              - @panel_modal_id_base  = 'modal-' + @title.parameterize
-
-              - if cta.action == 'modal'
-                  = partial 'partials/modal',
-                    locals: \
-                    { id: @panel_modal_id_base,
-                      title: cta.title,
-                      content: cta.modal }
-
-                  / Modal button
-                  = partial 'partials/button',
-                    locals: { local_data: \
-                      { type: 'state', size: 'small', style: 'secondary',
-                        text_on: cta.button_text, text_off: 'Close', text_size: 'small',
-                        page: 'no-scroll', exclusive: true,
-                        aria_id: "activate-#{ @panel_modal_id_base }",
-                        aria_target_id: @panel_modal_id_base }}
-
-              / Download
-              - if cta.action == 'download'
-                = partial 'partials/button',
-                  locals: { local_data: \
-                    { type: 'link', size: 'medium', style: 'primary',
-                      text: cta.button_text, text_size: 'medium', url: cta.file.url }}
-
-      //  Image
-      ////////////////////////////
-
-      - if @image_url
-        .panel__aside{
-          class="#{ 'panel__aside--order-1' if @image_url }"
-        }
-          = partial 'partials/text-image',
-            locals: \
-            { url: @image_url,
-              alt: @image_alt }
+      /   - if @calls_to_action
+      /     .panel__actions{
+      /       class="#{ 'panel__actions--center' if @type == 'header' }"
+      /     }
+      /
+      /       - @calls_to_action.each do |cta|
+      /
+      /         - @panel_modal_id_base  = 'modal-' + @title.parameterize
+      /
+      /         - if cta.action == 'modal'
+      /             = partial 'partials/modal',
+      /               locals: \
+      /               { id: @panel_modal_id_base,
+      /                 title: cta.title,
+      /                 content: cta.modal }
+      /
+      /             / Modal button
+      /             = partial 'partials/button',
+      /               locals: { local_data: \
+      /                 { type: 'state', size: 'small', style: 'secondary',
+      /                   text_on: cta.button_text, text_off: 'Close', text_size: 'small',
+      /                   page: 'no-scroll', exclusive: true,
+      /                   aria_id: "activate-#{ @panel_modal_id_base }",
+      /                   aria_target_id: @panel_modal_id_base }}
+      /
+      /         / Download
+      /         - if cta.action == 'download'
+      /           = partial 'partials/button',
+      /             locals: { local_data: \
+      /               { type: 'link', size: 'medium', style: 'primary',
+      /                 text: cta.button_text, text_size: 'medium', url: cta.file.url }}
+      /
+      / //  Image
+      / ////////////////////////////
+      /
+      / - if @image_url
+      /   .panel__aside{
+      /     class="#{ 'panel__aside--order-1' if @image_url }"
+      /   }
+      /     = partial 'partials/text-image',
+      /       locals: \
+      /       { url: @image_url,
+      /         alt: @image_alt }
