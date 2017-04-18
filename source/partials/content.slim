@@ -2,80 +2,119 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @entry_data           = entry
-- @content_type         = entry.TYPE
-- @category             = entry.category
+/ Entry data (meta)
+- @entry_data    = local_data[:entry_data]
+- @content_type  = @entry_data[:TYPE]
+- @category      = @entry_data[:category]
+- @panel_type    = @entry_data[:panel_type]
 
-- @title                = entry.title
-- @introduction         = entry.introduction
-- @copy                 = entry.copy
+/ Entry data (content)
+- @title         = @entry_data[:title]
+- @introduction  = @entry_data[:introduction]
+- @copy          = @entry_data[:copy]
+- @promoted_copy = @introduction || (@copy if @panel_type == 'promoted')
+- @image         = @entry_data[:image]
 
-- @promoted_page        = entry.promoted_page
-- @author               = entry.author
+/ Entry data (linked)
+- @promoted_page = @entry_data[:promoted_page]
+- @author        = @entry_data[:author]
 
+/ Locals
+- @context       = local_data[:context]
+
+/ For scroll target splat
 - @banner_scroll_target = {\
-  'id': ('banner-scroll-target' if @content_type == 'landing_page') }.reject{ |key, value| value.nil? }
+  'id': ('banner-scroll-target' if @content_type == 'landing_page')\
+}.reject{ |key, value| value.nil? }
+
+- @classes = [\
+  ('content__main' if @category == 'blog' || @context != 'carousel'),
+  ('content__main--center' if @category != 'blog' && @promoted_copy),
+  ('content__full' if @context == 'carousel')]
 
 ////////////////////////////////////////////////////////////
 //  Content
 ////////////////////////////////////////////////////////////
 
 .content{
-  class="#{ 'content--' + @category if @content_type == 'child_page' }"
+  class="#{
+    'content--white' if @content_type == 'child_page'
+  }"
   *@banner_scroll_target
 }
-  .content__section
-    section.content__main.copy{
-      class="#{
-        ([ 'blog' ].include? @category) ?
-        'content__main--stack-2' : 'content__main--center'
-      }"
+
+  //  Header/ introduction
+  ////////////////////////////
+
+  .content__row
+    section.copy{
+      class=@classes
     }
 
-      = Kramdown::Document.new(@introduction + "\n{: .byline }").to_html
+      - if [ 'panel', 'carousel' ].include? @context
+        h2.title{
+          class="title--#{
+            @panel_type == 'promoted' || @context == 'carousel' ?
+            'large' : 'medium'
+          }"
+        }= @context == 'panel' ? @title : 'Latest'
 
-    / Only if child page
-    - if @content_type == 'child_page'
+      - if @context != 'carousel'
+        = Kramdown::Document.new(\
+          @promoted_copy ? \
+          @promoted_copy + "\n{: .byline }" : @copy).to_html
 
-      aside.content__aside{
-        class="#{ 'content__aside--stack-1' if @category == 'blog' }"
-      }
-
-        / Promoted page
-        - if @promoted_page
-          = partial 'partials/side-card',
-            locals: \
-            { image: @promoted_page.banner_image,
-              title: @promoted_page.title,
-              category: @promoted_page.category,
-              date: (@promoted_page.date_time.date if @promoted_page.date_time.date_time),
-              url: @promoted_page.slug }
-
-        / Author
-        - if @author
-          = partial 'partials/profile',
-            locals: \
-            { photo: @author.photo,
-              full_name: @author.full_name,
-              role: @author.role,
-              organisation: @author.organisation,
-              biog: @author.biog,
-              email: @author.email,
-              twitter: @author.twitter,
-              linkedin: @author.linkedin }
-
-  .content__section
-
-    / If copy
-    - if @copy
-      section.content__main.copy
-        = Kramdown::Document.new(@copy).to_html
-
-    / Only if child page
-    - if @content_type == 'child_page'
-
-      aside.content__aside
-
-        = partial 'partials/related',
+      - else
+        = partial 'partials/carousel',
           locals: { local_data: \
-            { entry_data: @entry_data }}
+            { entry_data: @entry_data,
+              content_source: 'related' }}
+
+
+
+    //  Side content
+    ////////////////////////////
+
+  /   - if !@side_content.empty?
+  /     aside.content__side{
+  /       class="#{ 'content__side--stack-1' if @category == 'blog' }"
+  /     }
+  /
+  /       / Promoted page
+  /       - if @side_content[:page]
+  /         = partial 'partials/side-card',
+  /           locals: \
+  /           { image: @side_content[:page].banner_image,
+  /             title: @side_content[:page].title,
+  /             category: @side_content[:page].category,
+  /             date: (@side_content[:page].date_time.date if @side_content[:page].date_time.date_time),
+  /             url: @side_content[:page].slug }
+  /
+  /       / Author
+  /       - if @side_content[:author]
+  /         = partial 'partials/profile',
+  /           locals: \
+  /           { photo: @side_content[:author].photo,
+  /             full_name: @side_content[:author].full_name,
+  /             role: @side_content[:author].role,
+  /             organisation: @side_content[:author].organisation,
+  /             biog: @side_content[:author].biog,
+  /             email: @side_content[:author].email,
+  /             twitter: @side_content[:author].twitter,
+  /             linkedin: @side_content[:author].linkedin }
+  /
+  / //  Main body (child page)
+  / ////////////////////////////
+  /
+  / - if @content_type == 'child_page'
+  /   .content__section
+  /
+  /     / Copy
+  /     section.content__main.copy
+  /       = Kramdown::Document.new(@copy).to_html
+  /
+  /     / Side content
+  /     aside.content__side
+  /       = partial 'partials/related',
+  /         locals: { local_data: \
+  /           { entry_data: @entry_data }}

@@ -5,8 +5,8 @@
 - @type             = local_data[:type]
 - @style            = local_data[:style]
 - @size             = local_data[:size]
-- @reverse          = local_data[:reverse] # Starts from on state (eg. close button)
-- @inline           = local_data[:inline]
+- @reverse          = local_data[:reverse] # Starts from on state (eg. close btn)
+- @group            = local_data[:group]
 
 //  Text
 ////////////////////////////
@@ -41,39 +41,39 @@
 //  Attributes
 ////////////////////////////
 
-/ .button classes
+/ .btn classes
 - @class = [\
-  ('button'),
-  ('button--' + @size),
-  ('button--' + @style if @style),
-  ('button--' + 'inline' if @inline),
+  ('btn'),
+  ('btn--' + @size),
+  ('btn--' + @style if @style),
+  ('btn-group__btn' if @group),
   (@type == 'state' && @reverse == nil ? 'JS-off' : ('JS-on' if @type == 'state')),
   ('JS-no-scroll' if @page == 'no-scroll'),
   ('JS-exclusive' if @exclusive) ].reject{ |value| value.nil? }
 
-/ .button attributes
+/ .btn attributes
 - @attrs = {\
   'aria-controls':         (@aria_target_id if @aria_target_id),
   'id':                    (@aria_id if @aria_id),
-  'role':                  ('button' if @aria_id),
+  'role':                  ('btn' if @aria_id),
   'href':                  (@url if @url),
   'data-secondary-target': (@secondary_target if @secondary_target)}.reject{ |key, value| value.nil? }
 
-/ .button__content classes
+/ .btn__content classes
 - @class_content = [\
-  (@icon == 'menu' ? 'button__menu' : 'button__content'),
-  ('button__content--' + @animation if @animation) ]
+  (@icon == 'menu' ? 'btn__menu' : 'btn__content'),
+  ('btn__content--' + @animation if @animation) ]
 
 ////////////////////////////////////////////////////////////
 //  Button
 ////////////////////////////////////////////////////////////
 
-- @button = { tag: (@type == 'state' ? 'button' : 'a'),
-              class: @class }.merge(@attrs)
+- @btn = { tag: (@type == 'state' ? 'btn' : 'a'),
+           class: @class }.merge(@attrs)
 
-*@button
+*@btn
 
-  / .button__content
+  / .btn__content
   span{
     class= @class_content
     aria-hidden="true"
@@ -86,14 +86,14 @@
                   color: @icon_color }
 
     - if @text_on
-      span.button__text.button__text--change{
-        class="#{ 'button__text--' + @text_size }"
+      span.btn__text.btn__text--change{
+        class="#{ 'btn__text--' + @text_size }"
 
         data-on-text="#{ @text_on }"
         data-off-text="#{ @text_off }"
       }
 
     - if @type == 'link' && @text
-      span.button__text{
-        class="#{ 'button__text--' + @text_size }"
+      span.btn__text{
+        class="#{ 'btn__text--' + @text_size }"
       }= @text

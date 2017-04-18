@@ -1,0 +1,7 @@
+.grid {
+  @extend %u-flex-row;
+}
+
+.grid--xsmall {
+  @extend %u-inline-spacing-container-xsmall;
+}

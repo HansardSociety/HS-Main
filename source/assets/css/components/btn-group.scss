@@ -1,0 +1,7 @@
+.btn-group {
+  @extend %u-inline-spacing-container-xsmall;
+}
+
+.btn-group__btn {
+  @extend %u-inline-spacing-xsmall;
+}

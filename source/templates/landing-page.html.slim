@@ -6,20 +6,32 @@ article
       locals: { entry: landing_page }
 
   / Content
-  = partial 'partials/content',
-    locals: { entry: landing_page }
+  .panel
+    = partial 'partials/content',
+      locals: { local_data: \
+        { entry_data: landing_page }}
 
-  //////////////////////////////
-  // Tagging
-  //////////////////////////////
+  / Related
+  .panel.panel--block
+    = partial 'partials/content',
+      locals: { local_data: \
+        { entry_data: landing_page,
+          context: 'carousel' }}
 
-  = partial 'partials/panel',
-    locals: { local_data: \
-      { entry_data: landing_page,
-        type: 'carousel', content_source: 'related' }}
+  / = partial 'partials/panel',
+  /   locals: { local_data: \
+  /     { entry_data: landing_page,
+  /       type: 'carousel', content_source: 'related' }}
 
   / Panels
-  - landing_page.panels.each do |panel|
-    = partial 'partials/panel',
-      locals: { local_data: \
-        { entry_data: panel }}
+  - landing_page.panels.map do |panel|
+    .panel{
+      class="panel--#{
+        panel.panel_type == 'promoted' ?
+        'block' : 'flow'
+      }"
+    }
+
+      = partial 'partials/content',
+        locals: { local_data: \
+          { entry_data: panel, context: 'panel' }}

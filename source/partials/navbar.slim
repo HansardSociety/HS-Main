@@ -19,7 +19,7 @@ nav#navbar.navbar.JS-inactive
             nav_items: data.hs.navigation }}
 
       / Menu button (mobile)
-      = partial 'partials/button',
+      = partial 'partials/btn',
         locals: { local_data: \
           { type: 'state', size: 'small',
             page: 'no-scroll',
@@ -60,7 +60,7 @@ nav#navbar.navbar.JS-inactive
 
                 / Dropdown
                 .dropdown__control
-                  = partial 'partials/button',
+                  = partial 'partials/btn',
                     locals: { local_data: \
                       { type: 'state', size: 'small',
                         page: 'no-scroll', exclusive: true, secondary_target: 'navbar',
@@ -79,7 +79,7 @@ nav#navbar.navbar.JS-inactive
                           nav_items: navigation }}
 
       / Search
-      = partial 'partials/button',
+      = partial 'partials/btn',
         locals: { local_data: \
           { type: 'state', size: 'small',
             page: 'no-scroll', exclusive: true,

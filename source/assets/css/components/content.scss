@@ -1,24 +1,30 @@
 .content,
-.content__section {
+.content__row {
   @extend %u-flex-row;
 }
 
 .content {
   @extend
-    %u-bgc-brand-white,
     %u-border-radius-small,
     %u-overflow-hidden,
     %u-row;
 }
 
-.content__section {
-  @extend
-    %u-margin-top-small,
-    %u-width-full;
+.content--white {
+  @extend %u-bgc-brand-white;
+}
+
+.content--slim {
+  @extend %u-row;
+}
+
+.content__row {
+  @extend %u-width-full;
 }
 
 .content__main,
-.content__aside {
+.content__side,
+.content__full {
   @extend
     %u-margin-center-x,
     %u-padding-small;
@@ -34,7 +40,7 @@
   left: -9999px;
 }
 
-.content__aside {
+.content__side {
   @extend %u-content-aside;
 }
 
@@ -50,8 +56,8 @@
 // ** Ordering **
 // ****************************
 
-.content__aside--order-1,
-.content__aside--stack-1 {
+.content__side--order-1,
+.content__side--stack-1 {
   order: 1;
 }
 
@@ -60,7 +66,7 @@
   order: 2;
 }
 
-.content__aside--stack-1 {
+.content__side--stack-1 {
   @include above('medium') {
     order: 2;
   }
@@ -74,16 +80,4 @@
 
 .content__actions {
   @extend %u-margin-top-small;
-}
-
-////////////////////////////////////////////////////////////
-//  Behaviour
-////////////////////////////////////////////////////////////
-
-.content.js-on {
-  .content__main--show-more {
-    transform: translateY(0);
-    position: relative;
-    left: 0;
-  }
 }

@@ -27,8 +27,8 @@ const toggleClass = function(obj, className) {
 // ****************************
 
 var stateGlobal   = document.querySelector('.JS-state-global'),
-    btnsGlobal    = document.querySelectorAll('.button.JS-target-global'),
-    btns          = document.querySelectorAll('.button.JS-off, .button.JS-on'),
+    btnsGlobal    = document.querySelectorAll('.btn.JS-target-global'),
+    btns          = document.querySelectorAll('.btn.JS-off, .btn.JS-on'),
     nav           = document.querySelector('.navbar');
 
 // ** Toggle state - base **
@@ -205,8 +205,8 @@ var mySwiper = new Swiper ('.swiper-container', {
 // ****************************
 
 var globalState   = document.querySelector('.js-state-global'),
-    buttonsGlobal = document.querySelectorAll('.button.js-trigger-global'),
-    buttonsLocal  = document.querySelectorAll('.button.js-trigger-local'),
+    buttonsGlobal = document.querySelectorAll('.btn.js-trigger-global'),
+    buttonsLocal  = document.querySelectorAll('.btn.js-trigger-local'),
     navbar        = document.querySelector('.navbar');
 
 // ** Toggle state - base **

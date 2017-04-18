@@ -23,9 +23,9 @@
   .profile__actions
 
     / Modal button
-    = partial 'partials/button',
+    = partial 'partials/btn',
       locals: { local_data: \
-        { type: 'state', size: 'small', style: 'secondary', inline: true,
+        { type: 'state', size: 'small', style: 'secondary', group: true,
           text_on: 'Show biog', text_off: 'Close biog', text_size: 'small',
           page: 'no-scroll', exclusive: true,
           aria_id: "activate-#{ @profile_modal_id_base }",

@@ -20,52 +20,7 @@
 }
 
 .panel--flow {
-  &:nth-of-type(odd) {
+  &:nth-of-type(2n + 0) {
     background-color: $brand_white_1;
   }
 }
-
-.panel__row {
-  align-items: flex-start;
-
-  @extend
-    %u-row,
-    %u-flex-row;
-}
-
-.panel__content,
-.panel__side {
-  @extend
-    %u-margin-center-x,
-    %u-padding-small;
-}
-
-.panel__title {
-  @extend %u-padding-y-small;
-}
-
-.panel__content--body {
-  @extend
-    %u-content-main,
-    %u-flex-row;
-}
-
-.panel__content--promoted {
-  max-width: 100%;
-  justify-content: center;
-
-  @extend %u-text-align-center;
-}
-
-.panel__actions {
-  padding-top: 1.5rem;
-
-  @extend %u-inline-spacing-container-xsmall;
-}
-
-.panel__side {
-  @extend %u-content-aside;
-}
-
-// ** Ordering **
-// ****************************

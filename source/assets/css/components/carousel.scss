@@ -3,19 +3,19 @@
   @extend %u-width-full;
 }
 
-.carousel__inner {
-  // @extend %u-display-flex;
+.carousel {
+  @extend %u-margin-top-medium;
 }
 
 .carousel__item {
   max-width: 100%;
 
   @include above('small') {
-    width: calc((100% / 2) - 1rem);
+    width: calc((100% / 2) - .5rem);
   }
 
   @include above('medium') {
-    width: calc((100% / 3) - 1rem);
+    width: calc((100% / 3) - .6666rem);
   }
 
   margin-right: 1rem;

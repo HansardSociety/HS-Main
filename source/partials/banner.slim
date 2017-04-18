@@ -32,7 +32,7 @@ header.banner{
           - entry.actions.each do |action|
 
             / Download
-            = partial 'partials/button',
+            = partial 'partials/btn',
               locals: { local_data: \
                 { type: 'link', size: 'medium', style: 'primary',
                   text: action.text, text_size: 'medium', url: action.file.url }}
@@ -40,7 +40,7 @@ header.banner{
   / Scroll down
   - if entry.TYPE == 'landing_page'
     a.banner__scroll{
-      href="#banner_scroll_target"
+      href="#banner-scroll-target"
       data-scroll
     }
       = partial 'partials/icon',

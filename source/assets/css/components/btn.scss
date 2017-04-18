@@ -2,10 +2,10 @@
 //  Shared
 ////////////////////////////////////////////////////////////
 
-.button,
-.button__menu,
-.button__menu::before,
-.button__menu::after {
+.btn,
+.btn__menu,
+.btn__menu::before,
+.btn__menu::after {
   vertical-align: middle;
 
   @extend %u-display-inline-block;
@@ -15,7 +15,7 @@
 //  Main
 ////////////////////////////////////////////////////////////
 
-.button {
+.btn {
   @extend
     %u-border-radius-small,
     %u-cursor-pointer,
@@ -26,21 +26,21 @@
     %u-transition-base-all;
 }
 
-.button--inline {
+.btn--group {
   @extend %u-inline-spacing-xsmall;
 }
 
-.button--small {
+.btn--small {
   height: 2rem;
   min-width: 2rem;
 }
 
-.button--medium {
+.btn--medium {
   height: 3rem;
   min-width: 3rem;
 }
 
-.button--primary {
+.btn--primary {
   border-bottom: .25em solid $brand_orange;
   background-image: linear-gradient($brand_orange, lighten($brand_orange, 8%));
 
@@ -57,7 +57,7 @@
   }
 }
 
-.button--secondary {
+.btn--secondary {
   border: 2px solid $brand_orange;
 
   @extend %u-color-brand-orange;
@@ -76,35 +76,37 @@
   }
 }
 
-.button__content {
+.btn__content {
   @extend
     %u-display-block,
     %u-margin-center-x;
 }
 
-.button__text {
+.btn__text {
   text-transform: lowercase;
 
   font-variant: small-caps;
 
-  @extend %u-display-block;
+  @extend
+    %u-display-block,
+    %u-font-avenir-700-normal;
 }
 
-.button__text--small {
+.btn__text--small {
   min-width: 7rem;
   padding: 0 .5rem;
 
   @extend %u-font-size-xsmall;
 }
 
-.button__text--medium {
+.btn__text--medium {
   min-width: 12rem;
   padding: 0 1rem;
 
   @extend %u-font-size-small;
 }
 
-.button__text--change {
+.btn__text--change {
 
   &::before,
   &::after {
@@ -132,8 +134,8 @@
   }
 }
 
-.button.js-on {
-  .button__text {
+.btn.js-on {
+  .btn__text {
     &::before {
       transform: translateY(-200%);
     }
@@ -144,9 +146,9 @@
 }
 
 // Menu
-.button__menu,
-.button__menu::before,
-.button__menu::after {
+.btn__menu,
+.btn__menu::before,
+.btn__menu::after {
   left: 0;
 
   width: 1.5rem;
@@ -159,7 +161,7 @@
     %u-position-absolute;
 }
 
-.button__menu {
+.btn__menu {
   &::before,
   &::after {
     content: '';
@@ -179,8 +181,8 @@
 //  Behaviour
 ////////////////////////////////////////////////////////////
 
-.button.JS-on {
-  .button__menu {
+.btn.JS-on {
+  .btn__menu {
     background-color: transparent;
 
     &::before,
@@ -197,7 +199,7 @@
     }
   }
 
-  .button__content--rotate {
+  .btn__content--rotate {
     transform: rotate(180deg);
   }
 }
