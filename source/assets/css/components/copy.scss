@@ -2,7 +2,7 @@
 
 > h1, > h2, > h3, > h4, > h5, > h6, > p, > img, > iframe {
   &:nth-child(1n + 2) {
-    @extend %u-vertical-rhythm-medium;
+    @extend %u-vertical-rhythm-small;
   }
 }
 

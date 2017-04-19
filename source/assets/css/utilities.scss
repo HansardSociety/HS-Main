@@ -10,6 +10,14 @@ $properties: (
   opacity:  ( 0, 1 )
 );
 
+// *********************************************************
+// *********************************************************
+//
+//  Silent utilities
+//
+// *********************************************************
+// *********************************************************
+
 ////////////////////////////////////////////////////////////
 //  =Positioning
 ////////////////////////////////////////////////////////////
@@ -217,14 +225,10 @@ $properties: (
   }
 }
 
-// Padding
-%u-padding-top-small  { padding-top: 1rem; }
-%u-padding-top-medium { padding-top: 2rem; }
-
 // ** Row/ content **
 // ****************************
 
-// Containers
+// Padding
 %u-padding-xsmall { padding: .5rem 1rem; }
 %u-padding-small  { padding: 1rem; }
 %u-padding-medium { padding: 2rem 1rem; }
@@ -235,23 +239,38 @@ $properties: (
 %u-padding-y-medium { padding: 2rem 0; }
 %u-padding-y-large  { padding: 3rem 0; }
 
+%u-padding-x-xsmall { padding: 0 .5rem; }
+%u-padding-x-small  { padding: 0 1rem; }
+%u-padding-x-medium { padding: 0 2rem; }
+%u-padding-x-large  { padding: 0 3rem; }
 
-%u-row,
+%u-padding-top-small  { padding-top: 1rem; }
+%u-padding-top-medium { padding-top: 2rem; }
+
+%u-container-wide,
 %u-content-main,
 %u-content-aside {
   @extend %u-max-width-full;
 }
 
-// Row
-%u-row {
-  width: 40rem;
-
-  @extend %u-margin-center-x;
-
-  @include above('medium') {
-    width: 60rem;
-  }
+// Containers
+%u-container-narrow,
+%u-container-wide {
+  @extend
+    %u-margin-center-x,
+    %u-width-full;
 }
+
+%u-container-narrow {
+  max-width: 35rem;
+}
+
+%u-container-wide {
+  max-width: 60rem;
+}
+
+
+
 
 %u-content-main,
 %u-content-aside {
@@ -259,8 +278,8 @@ $properties: (
 }
 
 %u-content-aside {
-  @include above('medium') {
-    flex: 1;
+  @include above('large') {
+    width: 22rem;
   }
 }
 
@@ -394,9 +413,9 @@ $properties: (
 //  =Type
 ////////////////////////////////////////////////////////////
 
-%u-vertical-rhythm-small  { margin-top: .5em; }
-%u-vertical-rhythm-medium { margin-top: 1em; }
-%u-vertical-rhythm-large  { margin-top: 1.5em; }
+%u-vertical-rhythm-xsmall  { margin-top: .5em; }
+%u-vertical-rhythm-small { margin-top: 1em; }
+%u-vertical-rhythm-medium  { margin-top: 1.5em; }
 
 // Font families
 @each $font_name, $font in map-get($fonts, main) {
@@ -424,5 +443,44 @@ $properties: (
 %u-uppercase { text-transform: uppercase; }
 %u-lowercase { text-transform: lowercase; }
 
-%u-text-align-center,
-.u-align-center { text-align: center; }
+%u-text-align-center { text-align: center; }
+
+// *********************************************************
+// *********************************************************
+//
+//  Live utilities
+//
+// *********************************************************
+// *********************************************************
+
+////////////////////////////////////////////////////////////
+//  Colors
+////////////////////////////////////////////////////////////
+
+.u-col-white {
+  @extend %u-color-brand-white;
+}
+
+.u-bgc-white {
+  @extend %u-bgc-brand-white;
+}
+
+////////////////////////////////////////////////////////////
+//  Type
+////////////////////////////////////////////////////////////
+
+.u-align-center {
+  @extend %u-text-align-center;
+}
+
+////////////////////////////////////////////////////////////
+//  Box model
+////////////////////////////////////////////////////////////
+
+.u-mtop-sm {
+  @extend %u-margin-top-small;
+}
+
+.u-vr-sm {
+  @extend %u-vertical-rhythm-small;
+}

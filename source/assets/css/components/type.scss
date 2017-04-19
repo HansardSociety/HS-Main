@@ -16,8 +16,10 @@
 // ****************************
 
 .title {
+
   @extend
     %u-color-brand-green,
+    %u-display-block,
     %u-font-avenir-700-normal;
 }
 
@@ -32,14 +34,13 @@
 // ** Alt title **
 // ****************************
 
-.alt-title {
+.title--alt {
   text-transform: lowercase;
   font-variant: small-caps;
 
   @extend
     %u-color-brand-black-2,
-    %u-font-avenir-400-normal,
-    %u-font-size-xsmall;
+    %u-display-block;
 }
 
 ////////////////////////////////////////////////////////////
@@ -48,15 +49,4 @@
 
 .byline {
   @extend %u-font-size-byline;
-}
-
-.byline--center {
-  text-align: center;
-}
-
-.subtitle {
-  @extend
-    .byline,
-    %u-color-brand-white,
-    %u-margin-top-small;
 }

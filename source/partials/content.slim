@@ -3,21 +3,28 @@
 ////////////////////////////////////////////////////////////
 
 / Entry data (meta)
-- @entry_data    = local_data[:entry_data]
-- @content_type  = @entry_data[:TYPE]
-- @category      = @entry_data[:category]
-- @panel_type    = @entry_data[:panel_type]
+- @entry_data       = local_data[:entry_data]
+- @content_type     = @entry_data[:TYPE]
+- @category         = @entry_data[:category]
+- @panel_type       = @entry_data[:panel_type]
 
 / Entry data (content)
-- @title         = @entry_data[:title]
-- @introduction  = @entry_data[:introduction]
-- @copy          = @entry_data[:copy]
-- @promoted_copy = @introduction || (@copy if @panel_type == 'promoted')
-- @image         = @entry_data[:image]
+- @title            = @entry_data[:title]
+- @label            = @entry_data[:label]
+- @introduction     = @entry_data[:introduction]
+- @copy             = @entry_data[:copy]
+- @promoted_copy    = @introduction || (@copy if @panel_type == 'promoted')
+- @image            = @entry_data[:image]
+- @calls_to_action  = @entry_data[:calls_to_action]
+
 
 / Entry data (linked)
-- @promoted_page = @entry_data[:promoted_page]
-- @author        = @entry_data[:author]
+- @promoted_page    = @entry_data[:promoted_page]
+- @author           = @entry_data[:author]
+
+- @side_content  = {\
+  image:    @image,
+  author:   @author }.reject{ |key, value| value.nil? }
 
 / Locals
 - @context       = local_data[:context]
@@ -27,18 +34,24 @@
   'id': ('banner-scroll-target' if @content_type == 'landing_page')\
 }.reject{ |key, value| value.nil? }
 
-- @classes = [\
-  ('content__main' if @category == 'blog' || @context != 'carousel'),
-  ('content__main--center' if @category != 'blog' && @promoted_copy),
-  ('content__full' if @context == 'carousel')]
+/ - @content_inner_classes = [\
+/   ('grid__cell--7' if @category == 'blog' || @context != 'carousel'),
+/   ('content__main--center' if @side_content.empty?),
+/   ('content__main--stack-2' if @author),
+/   ('content__full' if @context == 'carousel')]
+
+/ Content side classes
+- @content_side_classes = [\
+  ('content__side--stack-1' if @author)]
+
 
 ////////////////////////////////////////////////////////////
 //  Content
 ////////////////////////////////////////////////////////////
 
-.content{
+.panel{
   class="#{
-    'content--white' if @content_type == 'child_page'
+    'panel--white' if @content_type == 'child_page'
   }"
   *@banner_scroll_target
 }
@@ -46,19 +59,33 @@
   //  Header/ introduction
   ////////////////////////////
 
-  .content__row
-    section.copy{
-      class=@classes
+  .grid
+
+    / Content inner - ie. .content__main / __full
+    section.grid__cell{
+      class="#{
+        ('grid__cell--7' if @category == 'blog' || @context != 'carousel') ||
+        ('grid__cell--12' if @context == 'carousel')
+      }"
     }
 
+      / Panel and carousel
       - if [ 'panel', 'carousel' ].include? @context
+
+
+        / Title
         h2.title{
           class="title--#{
             @panel_type == 'promoted' || @context == 'carousel' ?
             'large' : 'medium'
           }"
-        }= @context == 'panel' ? @title : 'Latest'
+        }
+          span.title.title--medium.title--alt= @label
+          = @context == 'carousel' ? 'Latest' : @title
 
+      / All content excluding 'carousel' context, since carousels
+      / with related data (ie. tagging) pull in the landing page
+      / entry data.
       - if @context != 'carousel'
         = Kramdown::Document.new(\
           @promoted_copy ? \
@@ -71,50 +98,47 @@
               content_source: 'related' }}
 
 
+      //  Calls to action
+      ////////////////////////////
+
+      - if @calls_to_action
+        = partial 'partials/btn-group',
+          locals: { local_data: \
+            { entry_data: @calls_to_action,
+              modal_id_base: @title }}
 
     //  Side content
     ////////////////////////////
 
-  /   - if !@side_content.empty?
-  /     aside.content__side{
-  /       class="#{ 'content__side--stack-1' if @category == 'blog' }"
-  /     }
-  /
-  /       / Promoted page
-  /       - if @side_content[:page]
-  /         = partial 'partials/side-card',
-  /           locals: \
-  /           { image: @side_content[:page].banner_image,
-  /             title: @side_content[:page].title,
-  /             category: @side_content[:page].category,
-  /             date: (@side_content[:page].date_time.date if @side_content[:page].date_time.date_time),
-  /             url: @side_content[:page].slug }
-  /
-  /       / Author
-  /       - if @side_content[:author]
-  /         = partial 'partials/profile',
-  /           locals: \
-  /           { photo: @side_content[:author].photo,
-  /             full_name: @side_content[:author].full_name,
-  /             role: @side_content[:author].role,
-  /             organisation: @side_content[:author].organisation,
-  /             biog: @side_content[:author].biog,
-  /             email: @side_content[:author].email,
-  /             twitter: @side_content[:author].twitter,
-  /             linkedin: @side_content[:author].linkedin }
-  /
-  / //  Main body (child page)
-  / ////////////////////////////
-  /
-  / - if @content_type == 'child_page'
-  /   .content__section
-  /
-  /     / Copy
-  /     section.content__main.copy
-  /       = Kramdown::Document.new(@copy).to_html
-  /
-  /     / Side content
-  /     aside.content__side
-  /       = partial 'partials/related',
-  /         locals: { local_data: \
-  /           { entry_data: @entry_data }}
+    - if !@side_content.empty?
+      aside.grid__cell.grid__cell--5{
+        class= @content_side_classes
+      }
+
+        / Promoted page
+        - if @side_content[:page]
+          = partial 'partials/side-card',
+            locals: \
+            { image: @side_content[:page].banner_image,
+              title: @side_content[:page].title,
+              category: @side_content[:page].category,
+              date: (@side_content[:page].date_time.date if @side_content[:page].date_time.date_time),
+              url: @side_content[:page].slug }
+
+        / Author
+        - if @side_content[:author]
+          = partial 'partials/profile',
+            locals: \
+            { photo: @side_content[:author].photo,
+              full_name: @side_content[:author].full_name,
+              role: @side_content[:author].role,
+              organisation: @side_content[:author].organisation,
+              biog: @side_content[:author].biog,
+              email: @side_content[:author].email,
+              twitter: @side_content[:author].twitter,
+              linkedin: @side_content[:author].linkedin }
+
+        - if @side_content[:image]
+          = partial 'partials/image',
+            locals: { local_data: \
+              { entry_data: @image }}

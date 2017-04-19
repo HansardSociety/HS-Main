@@ -1,37 +1,94 @@
+////////////////////////////////////////////////////////////
+//  Landing page
+////////////////////////////////////////////////////////////
+
 article
 
   / Banner
-  - if landing_page.banner_image
+  - if landing_page[:banner_image]
     = partial 'partials/banner',
       locals: { entry: landing_page }
 
   / Content
-  .panel
-    = partial 'partials/content',
-      locals: { local_data: \
-        { entry_data: landing_page }}
+  .panel#banner-scroll-target
+    .content.content--narrow.content--center
+        = Kramdown::Document.new(landing_page[:introduction] + "\n{: .byline }").to_html
 
   / Related
   .panel.panel--block
-    = partial 'partials/content',
-      locals: { local_data: \
-        { entry_data: landing_page,
-          context: 'carousel' }}
-
-  / = partial 'partials/panel',
-  /   locals: { local_data: \
-  /     { entry_data: landing_page,
-  /       type: 'carousel', content_source: 'related' }}
+    .content.content--wide.content--center.copy
+      h2 Latest
+      = partial 'partials/carousel',
+        locals: { local_data: \
+          { entry_data: landing_page,
+            content_source: 'related' }}
 
   / Panels
-  - landing_page.panels.map do |panel|
-    .panel{
-      class="panel--#{
-        panel.panel_type == 'promoted' ?
-        'block' : 'flow'
-      }"
-    }
+  - landing_page[:panels].each do |panel|
 
-      = partial 'partials/content',
-        locals: { local_data: \
-          { entry_data: panel, context: 'panel' }}
+    / Title classes
+    - @title_elem = {\
+      tag:    (panel[:panel_type] == 'promoted' ? 'h2' : 'h3') }
+
+
+    / Panel without image
+    - if panel[:image] == nil
+      .panel.panel--block
+        .content.content--narrow.content--center.copy
+
+          / Title
+          *@title_elem
+
+            / Title label
+            - if panel[:label]
+              span.title.title--medium.title--alt= panel[:label]
+
+            / Title text
+            = panel[:title]
+
+          = Kramdown::Document.new(panel[:copy] + "\n{: .byline }").to_html
+
+          / Calls to action
+          - if panel[:calls_to_action]
+            = partial 'partials/btn-group',
+              locals: { local_data: \
+                { entry_data: panel[:calls_to_action],
+                  modal_id_base: panel[:title] }}
+
+    / Panel with image
+    - if panel[:image]
+      .panel{
+        class="panel--#{
+          panel[:panel_type] == 'promoted' ? 'block' : 'flow'
+        }"
+      }
+        .content.content--wide
+          .grid
+            section.grid__cell.grid__cell--7.copy
+
+              / Title
+              *@title_elem
+
+                / Title label
+                - if panel[:label]
+                  span.title.title--medium.title--alt= panel[:label]
+
+                / Title text
+                = panel[:title]
+
+              = Kramdown::Document.new(\
+                panel[:panel_type] == 'promoted' ? \
+                panel[:copy] + "\n{: .byline }" : panel[:copy]).to_html
+
+              / Calls to action
+              - if panel[:calls_to_action]
+                = partial 'partials/btn-group',
+                  locals: { local_data: \
+                    { entry_data: panel[:calls_to_action],
+                      modal_id_base: panel[:title] }}
+
+            / Side content
+            aside.grid__cell.grid__cell--5.grid__cell--first
+              = partial 'partials/image',
+                locals: { local_data: \
+                  { entry_data: panel[:image] }}

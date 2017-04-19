@@ -31,7 +31,7 @@
   @extend
     %u-padding-small,
     %u-height-full,
-    %u-row;
+    %u-container-wide;
 
   @include above('large') {
     padding: 0;

@@ -4,6 +4,10 @@
     %u-position-relative;
 }
 
+.panel--white {
+  background-color: $brand_white;
+}
+
 .panel--block {
   &::before {
     top: 0;

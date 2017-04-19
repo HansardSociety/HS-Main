@@ -40,15 +40,15 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     ##############################
 
     if entry.actions
-      context.actions = entry.actions.map do |action| {
-        title:   action.title,
-        action:  action.action.parameterize,
-        text:    action.button_text,
+      context.calls_to_action = entry.actions.map do |cta| {
+        title:       cta.title,
+        action:      cta.action.parameterize,
+        button_text: cta.button_text,
         file: {
-          title: action.file.title,
-          url:   action.file.url
+          title:     cta.file.title,
+          url:       cta.file.url
         },
-        content: action.modal
+        content: cta.modal
       }.reject{ |key, value| value.nil? }
       end
     end
@@ -84,6 +84,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         ID:              panel.sys[:id],
         TYPE:            panel.content_type.id,
         title:           panel.title,
+        label:           panel.label,
         panel_type:      panel.panel_type.parameterize,
         copy:            panel.copy,
 

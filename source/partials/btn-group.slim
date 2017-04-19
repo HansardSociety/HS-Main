@@ -1,0 +1,37 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @entry_data    = local_data[:entry_data]
+- @modal_id_base = 'modal-' + local_data[:modal_id_base].parameterize if local_data[:modal_id_base]
+
+////////////////////////////////////////////////////////////
+//  Button group
+////////////////////////////////////////////////////////////
+
+.btn-group
+  - @entry_data.each do |cta|
+
+    / Modal
+    - if cta.action == 'modal'
+
+      = partial 'partials/modal',
+        locals: \
+        { id: @modal_id_base,
+          title: cta.title,
+          content: cta.modal }
+
+      = partial 'partials/btn',
+        locals: { local_data: \
+          { type: 'state', size: 'small', style: 'secondary', group: true,
+            text_on: cta.button_text, text_off: 'Close', text_size: 'small',
+            page: 'no-scroll', exclusive: true,
+            aria_id: "activate-#{ @modal_id_base }",
+            aria_target_id: @modal_id_base }}
+
+    / Download
+    - if cta.action == 'download'
+      = partial 'partials/btn',
+        locals: { local_data: \
+          { type: 'link', size: 'medium', style: 'primary', group: true,
+            text: cta.button_text, text_size: 'medium', url: cta.file.url }}

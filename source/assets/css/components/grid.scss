@@ -1,7 +1,33 @@
 .grid {
-  @extend %u-flex-row;
+  margin-top: -2rem;
+  margin-left: -2rem;
+
+  @extend
+    %u-flex-row;
 }
 
-.grid--xsmall {
-  @extend %u-inline-spacing-container-xsmall;
+.grid__cell {
+  @extend %u-width-full;
+
+  &:only-child {
+    @extend %u-margin-center-x;
+  }
+}
+
+.grid__cell {
+  margin-top: 2rem;
+  margin-left: 2rem;
+
+  order: 1;
+}
+
+.grid__cell--first {
+  order: 0;
+}
+
+// Cell 1 through 12 @ 5rem each
+@for $n from 1 through 12 {
+  .grid__cell--#{ $n } {
+    width: #{ (5 * $n) - 3 }rem; // 5rem - .content padding + .grid__cell margin
+  }
 }

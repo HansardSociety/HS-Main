@@ -9,10 +9,10 @@
   British democracy. Now in its 14th year, the study measures the 'political pulse'
   of the nation, providing a unique benchmark to gauge public opinion with regard
   to politics and the political process.
-:actions:
+:calls_to_action:
 - :title: 'Audit 14 report download :: Audit'
   :action: download
-  :text: Download Audit 14
+  :button_text: Download Audit 14
   :file:
     :title: 'Westminster Lens: Parliament and Delegated Legislation in the 2015-16
       Session :: Report'
@@ -29,11 +29,11 @@
 - :ID: 5gnvecuuys2CQmsA6eE8kQ
   :TYPE: panel
   :title: 'Audit of Political Engagement 14: the 2017 report'
+  :label: Key findings
   :panel_type: promoted
-  :copy: |-
-    ### Key findings
-
-    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.
+  :copy: At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+    praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
+    excepturi.
   :calls_to_action:
   - :title: 'Audit 14 report download :: Audit'
     :action: download

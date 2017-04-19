@@ -16,26 +16,20 @@ header.banner{
     }
 
       / Title
-      h1.title.title--white{
+      h1.title.u-col-white{
         class="#{ entry.title.size > 90 ? 'title--medium' :
                   (entry.TYPE == 'landing_page' ? 'title--xlarge' : 'title--large') }"
       }= entry.title
 
-      p.subtitle= entry.subtitle
+      p.byline.u-col-white= entry.subtitle
 
       / Landing page only
       - if entry.TYPE == 'landing_page'
 
         / Actions
-        .banner__actions
-
-          - entry.actions.each do |action|
-
-            / Download
-            = partial 'partials/btn',
-              locals: { local_data: \
-                { type: 'link', size: 'medium', style: 'primary',
-                  text: action.text, text_size: 'medium', url: action.file.url }}
+        = partial 'partials/btn-group',
+          locals: { local_data: \
+            { entry_data: entry.calls_to_action }}
 
   / Scroll down
   - if entry.TYPE == 'landing_page'

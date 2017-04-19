@@ -17,8 +17,8 @@
 
   .profile__main
     h1.title.title--small= full_name
-    p.alt-title= "#{ organisation != nil ? role + ',' : role }"
-    p.alt-title= organisation
+    p.title.title--xsmall.title--alt= "#{ organisation != nil ? role + ',' : role }"
+    p.title.title--xsmall.title--alt= organisation
 
   .profile__actions
 
