@@ -13,9 +13,9 @@
 
 figure.image
 
-  img{
+  img.image__img{
     src="#{ @url }"
     alt="#{ @alt }"
   }
 
-  / figcaption
+  figcaption.image__caption.title.title--xsmall.title--alt= @alt

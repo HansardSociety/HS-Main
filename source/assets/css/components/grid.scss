@@ -2,6 +2,8 @@
   margin-top: -2rem;
   margin-left: -2rem;
 
+  justify-content: center;
+
   @extend
     %u-flex-row;
 }
@@ -32,6 +34,9 @@
 // Cell 1 through 12 @ 5rem each
 @for $n from 1 through 12 {
   .grid__cell--#{ $n } {
-    width: #{ (5 * $n) - 3 }rem; // 5rem - .content padding + .grid__cell margin
+    flex: $n #{ 3.5 * $n }rem;
+    // flex: 1 1 #{ (5 * $n) - 3 }rem; // 5rem - .content padding + .grid__cell margin
+
+    max-width: 40rem;
   }
 }
