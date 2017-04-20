@@ -29,7 +29,7 @@ header.banner{
         / Actions
         = partial 'partials/btn-group',
           locals: { local_data: \
-            { entry_data: entry.calls_to_action }}
+            { entry_data: entry[:calls_to_action] }}
 
   / Scroll down
   - if entry.TYPE == 'landing_page'

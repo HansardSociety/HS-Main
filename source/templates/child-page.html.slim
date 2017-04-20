@@ -2,12 +2,12 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @entry_data       = child_page
+- @child_page       = child_page
 
-- @introduction     = @entry_data[:introduction]
-- @copy             = @entry_data[:copy]
-- @author           = @entry_data[:author]
-- @promoted_page    = @entry_data[:promoted_page]
+- @introduction     = @child_page[:introduction]
+- @copy             = @child_page[:copy]
+- @author           = @child_page[:author]
+- @promoted_page    = @child_page[:promoted_page]
 
 ////////////////////////////////////////////////////////////
 //  Child page
@@ -17,7 +17,7 @@ article
 
   / Banner
   = partial 'partials/banner',
-    locals: { entry: @entry_data }
+    locals: { entry: @child_page }
 
   / Header
   .content.content--wide.u-bgc-white
@@ -44,15 +44,8 @@ article
         / Author
         - if @author
           = partial 'partials/profile',
-            locals: \
-            { photo:        @author.photo,
-              full_name:    @author.full_name,
-              role:         @author.role,
-              organisation: @author.organisation,
-              biog:         @author.biog,
-              email:        @author.email,
-              twitter:      @author.twitter,
-              linkedin:     @author.linkedin }
+            locals: { local_data: \
+            { profile_data: @author }}
 
   / Body
   .content.content--wide.u-bgc-white
@@ -64,4 +57,4 @@ article
       aside.grid__cell.grid__cell--5
         = partial 'partials/related',
           locals: { local_data: \
-            { entry_data: @entry_data }}
+            { entry_data: @child_page }}

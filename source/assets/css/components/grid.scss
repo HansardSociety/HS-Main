@@ -6,6 +6,10 @@
     %u-flex-row;
 }
 
+.grid--center {
+  align-items: center;
+}
+
 .grid__cell {
   @extend %u-width-full;
 

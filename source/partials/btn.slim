@@ -55,7 +55,7 @@
 - @attrs = {\
   'aria-controls':         (@aria_target_id if @aria_target_id),
   'id':                    (@aria_id if @aria_id),
-  'role':                  ('btn' if @aria_id),
+  'role':                  ('button' if @aria_id),
   'href':                  (@url if @url),
   'data-secondary-target': (@secondary_target if @secondary_target)}.reject{ |key, value| value.nil? }
 
@@ -68,7 +68,7 @@
 //  Button
 ////////////////////////////////////////////////////////////
 
-- @btn = { tag: (@type == 'state' ? 'btn' : 'a'),
+- @btn = { tag: (@type == 'state' ? 'button' : 'a'),
            class: @class }.merge(@attrs)
 
 *@btn

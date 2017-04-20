@@ -30,7 +30,6 @@
   max-width: 100%;
   height: 100%;
 
-  transform: translate(-50%, 100vh);
   will-change: transform;
 
   @extend
@@ -40,7 +39,8 @@
     %u-shadow-prime-black;
 
   @include above('small') {
-    max-height: 95vh;
+    height: 30rem;
+    max-height: 90vh;
   }
 }
 
@@ -70,19 +70,22 @@
 //  Behaviour
 ////////////////////////////////////////////////////////////
 
+
 .modal.JS-active {
   left: 0;
 
   &::before {
-    animation: FadeInSkin 200ms;
+    animation: FadeInSkin 300ms linear;
     animation-delay: 400ms;
-
-    animation-fill-mode: forwards;
   }
 
   .modal__inner {
-    animation: SlideUpInCenter 400ms;
-
-    animation-fill-mode: forwards;
+    animation: SlideUpInCenter 300ms ease-out;
   }
+}
+
+// Must declare after
+.modal.JS-active::before,
+.modal.JS-active .modal__inner {
+  animation-fill-mode: forwards;
 }

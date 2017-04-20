@@ -39,6 +39,6 @@
 }
 
 @keyframes SlideUpInCenter {
-  0%   { transform: translate(-50%, 100vh); }
-  100% { transform: translate(-50%, -50%); }
+  0%   { transform: translate3d(-50%, 100vh, 0); }
+  100% { transform: translate3d(-50%, -50%, 0); }
 }

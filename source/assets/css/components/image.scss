@@ -1,3 +1,10 @@
 .image {
-  width: 100%;
+  box-shadow: map-get($box_shadow, prime_black);
+  border-radius: 2px;
+
+  @extend %u-padding-small;
+
+  > img {
+    @extend %u-width-full;
+  }
 }

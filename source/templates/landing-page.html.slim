@@ -1,42 +1,58 @@
 ////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @page_data = landing_page
+
+////////////////////////////////////////////////////////////
 //  Landing page
 ////////////////////////////////////////////////////////////
 
 article
 
-  / Banner
-  - if landing_page[:banner_image]
-    = partial 'partials/banner',
-      locals: { entry: landing_page }
+  //  Banner
+  ////////////////////////////
 
-  / Content
+  - if @page_data[:banner_image]
+    = partial 'partials/banner',
+      locals: { entry: @page_data }
+
+  //  Introduction
+  ////////////////////////////
+
   .panel#banner-scroll-target
     .content.content--narrow.content--center
-        = Kramdown::Document.new(landing_page[:introduction] + "\n{: .byline }").to_html
+        = Kramdown::Document.new(@page_data[:introduction] + "\n{: .byline }").to_html
 
-  / Related
+  //  'Latest' (related)
+  ////////////////////////////
+
   .panel.panel--block
     .content.content--wide.content--center.copy
       h2 Latest
       = partial 'partials/carousel',
         locals: { local_data: \
-          { entry_data: landing_page,
+          { entry_data: @page_data,
             content_source: 'related' }}
 
-  / Panels
-  - landing_page[:panels].each do |panel|
+  //  Curated panels
+  ////////////////////////////
 
-    / Title classes
+  - @page_data[:panels].each do |panel|
+
+    / Variable: title classes
     - @title_elem = {\
-      tag:    (panel[:panel_type] == 'promoted' ? 'h2' : 'h3') }
+      tag:   (panel[:panel_type] == 'promoted' ? 'h2' : 'h3'),
+      class: ('title title--' + (panel[:panel_type] == 'promoted' ? 'large' : 'medium')) }
 
+    //  Panel without image
+    ////////////////////////////
 
-    / Panel without image
     - if panel[:image] == nil
       .panel.panel--block
         .content.content--narrow.content--center.copy
 
-          / Title
+          / Title (h2/h3)
           *@title_elem
 
             / Title label
@@ -46,46 +62,145 @@ article
             / Title text
             = panel[:title]
 
-          = Kramdown::Document.new(panel[:copy] + "\n{: .byline }").to_html
+          = Kramdown::Document.new(\
+            panel[:panel_type] == 'promoted' ? \
+            panel[:copy] + "\n{: .byline }" : panel[:copy]).to_html
 
-          / Calls to action
-          - if panel[:calls_to_action]
-            = partial 'partials/btn-group',
-              locals: { local_data: \
-                { entry_data: panel[:calls_to_action],
-                  modal_id_base: panel[:title] }}
+          .btn-group
 
-    / Panel with image
+            / Show more
+            - if panel[:show_more]
+
+              / Modal
+              = partial 'partials/modal',
+                locals: \
+                { id: panel[:show_more].id,
+                  content: panel[:show_more].content }
+
+              / Button
+              = partial 'partials/btn',
+                locals: { local_data: \
+                  { type: 'state', size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                    style: 'secondary', group: true,
+                    text_on: 'Show more', text_off: 'Close',
+                    text_size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                    page: 'no-scroll', exclusive: true,
+                    aria_id: "activate-#{ panel[:show_more].id }",
+                    aria_target_id: panel[:show_more].id }}
+
+            / Panel calls to action
+            - if panel[:calls_to_action]
+              - panel[:calls_to_action].each do |cta|
+
+                / Download
+                - if cta.action == 'download'
+                  = partial 'partials/btn',
+                    locals: { local_data: \
+                      { type: 'link',
+                        size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                        style: 'primary', group: true,
+                        text: cta.button_text,
+                        text_size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                        url: cta.file.url }}
+
+                / Modal
+                - if cta.action == 'modal'
+
+                  / Modal
+                  = partial 'partials/modal',
+                    locals: \
+                    { id: cta[:modal].id,
+                      content: cta[:modal].content }
+
+                  / Button
+                  = partial 'partials/btn',
+                    locals: { local_data: \
+                      { type: 'state',
+                        size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                        style: 'secondary', group: true,
+                        text_on: cta[:button_text], text_off: 'Close',
+                        text_size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                        page: 'no-scroll', exclusive: true,
+                        aria_id: "activate-#{ cta[:modal].id }",
+                        aria_target_id: cta[:modal].id }}
+
+    //  Panel with image
+    ////////////////////////////
+
     - if panel[:image]
       .panel{
         class="panel--#{
           panel[:panel_type] == 'promoted' ? 'block' : 'flow'
         }"
       }
+
+        .content.content--narrow.content--center
+
+          / Title (h2/h3)
+          *@title_elem
+
+            / Title label
+            - if panel[:label]
+              span.title.title--medium.title--alt= panel[:label]
+
+            / Title text
+            = panel[:title]
+
         .content.content--wide
           .grid
             section.grid__cell.grid__cell--7.copy
-
-              / Title
-              *@title_elem
-
-                / Title label
-                - if panel[:label]
-                  span.title.title--medium.title--alt= panel[:label]
-
-                / Title text
-                = panel[:title]
-
               = Kramdown::Document.new(\
                 panel[:panel_type] == 'promoted' ? \
                 panel[:copy] + "\n{: .byline }" : panel[:copy]).to_html
 
-              / Calls to action
-              - if panel[:calls_to_action]
-                = partial 'partials/btn-group',
-                  locals: { local_data: \
-                    { entry_data: panel[:calls_to_action],
-                      modal_id_base: panel[:title] }}
+              .btn-group
+
+                / Show more
+                - if panel[:show_more]
+
+                  / Modal
+                  = partial 'partials/modal',
+                    locals: \
+                    { id: panel[:show_more].id,
+                      content: panel[:show_more].content }
+
+                  / Button
+                  = partial 'partials/btn',
+                    locals: { local_data: \
+                      { type: 'state', size: 'small', style: 'secondary', group: true,
+                        text_on: 'Show more', text_off: 'Close', text_size: 'small',
+                        page: 'no-scroll', exclusive: true,
+                        aria_id: "activate-#{ panel[:show_more].id }",
+                        aria_target_id: panel[:show_more].id }}
+
+                / Panel calls to action
+                - if panel[:calls_to_action]
+                  - panel[:calls_to_action].each do |cta|
+
+                    / Download
+                    - if cta.action == 'download'
+                      = partial 'partials/btn',
+                        locals: { local_data: \
+                          { type: 'link', size: 'small', style: 'primary', group: true,
+                            text: cta.button_text, text_size: 'small', url: cta.file.url }}
+
+                    / Modal
+                    - if cta.action == 'modal'
+
+                      / Modal
+                      = partial 'partials/modal',
+                        locals: \
+                        { id: cta[:modal].id,
+                          content: cta[:modal].content }
+
+                      / Button
+                      = partial 'partials/btn',
+                        locals: { local_data: \
+                          { type: 'state', size: 'small', style: 'secondary', group: true,
+                            text_on: cta[:button_text], text_off: 'Close', text_size: 'small',
+                            page: 'no-scroll', exclusive: true,
+                            aria_id: "activate-#{ cta[:modal].id }",
+                            aria_target_id: cta[:modal].id }}
 
             / Side content
             aside.grid__cell.grid__cell--5.grid__cell--first

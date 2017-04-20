@@ -41,14 +41,17 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
 
     if entry.actions
       context.calls_to_action = entry.actions.map do |cta| {
-        title:       cta.title,
+        title:       cta.title.split('::')[0],
         action:      cta.action.parameterize,
         button_text: cta.button_text,
-        file: {
-          title:     cta.file.title,
-          url:       cta.file.url
-        },
-        content: cta.modal
+        file: ({
+          title:       cta.file.title,
+          url:         cta.file.url
+        } if cta.file != nil),
+        modal: ({
+          id:       (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
+          content:  cta.modal
+        } if cta.action == 'modal'),
       }.reject{ |key, value| value.nil? }
       end
     end
@@ -87,17 +90,25 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         label:           panel.label,
         panel_type:      panel.panel_type.parameterize,
         copy:            panel.copy,
+        show_more: ({
+          id:            ('modal-' + panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]),
+          content:       panel.show_more
+        } if panel.show_more != nil),
 
         # Calls to action
         calls_to_action: (panel.calls_to_action ? panel.calls_to_action.map do |cta| {
-          title:         cta.title,
+          ID:            cta.sys[:id],
+          title:         cta.title.split('::')[0],
           action:        cta.action.parameterize,
           button_text:   cta.button_text,
           file: ({
             title:       cta.file.title,
             url:         cta.file.url
           } if cta.file != nil),
-          modal:         cta.modal
+          modal: ({
+            id:       (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
+            content:  cta.modal
+          } if cta.action == 'modal'),
         }.reject{ |key, value| value.nil? } end : nil),
 
         # Header image
@@ -158,7 +169,10 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         full_name:    entry.promoted.full_name,
         role:         entry.promoted.role,
         organisation: entry.promoted.organisation,
-        biog:         entry.promoted.biog,
+        biog: ({
+          id:       (entry.promoted.full_name.parameterize + '-' + entry.promoted.sys[:id]),
+          content:  entry.promoted.biog
+        } if entry.promoted.biog),
         email:        entry.promoted.email,
         twitter:      entry.promoted.twitter,
         linkedin:     entry.promoted.linkedin,

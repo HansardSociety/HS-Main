@@ -2,7 +2,17 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @profile_modal_id_base = 'modal-' + full_name.parameterize
+- @profile_data  = local_data[:profile_data]
+
+- @photo         = @profile_data[:photo]
+- @full_name     = @profile_data[:full_name]
+- @role          = @profile_data[:role]
+- @organisation  = @profile_data[:organisation]
+- @biog          = @profile_data[:biog]
+- @email         = @profile_data[:email]
+- @twitter       = @profile_data[:twitter]
+- @linkedin      = @profile_data[:linkedin]
+
 
 ////////////////////////////////////////////////////////////
 //  Profile
@@ -11,14 +21,14 @@
 .profile.js-state-local.modal-is.js-off
   .profile__image
     img{
-      src="#{ photo.url }?fit=fill&w=324&h=324"
-      alt="#{ photo.alt }"
+      src="#{ @photo.url }?fit=fill&w=324&h=324"
+      alt="#{ @photo.alt }"
     }
 
   .profile__main
-    h1.title.title--small= full_name
-    p.title.title--xsmall.title--alt= "#{ organisation != nil ? role + ',' : role }"
-    p.title.title--xsmall.title--alt= organisation
+    h1.title.title--small= @full_name
+    p.title.title--xsmall.title--alt= "#{ @organisation != nil ? @role + ',' : @role }"
+    p.title.title--xsmall.title--alt= @organisation
 
   .profile__actions
 
@@ -28,17 +38,16 @@
         { type: 'state', size: 'small', style: 'secondary', group: true,
           text_on: 'Show biog', text_off: 'Close biog', text_size: 'small',
           page: 'no-scroll', exclusive: true,
-          aria_id: "activate-#{ @profile_modal_id_base }",
-          aria_target_id: @profile_modal_id_base }}
+          aria_id: "activate-#{ @biog[:id] }",
+          aria_target_id: @biog[:id] }}
 
     / Social follow
     = partial 'partials/social',
-      locals: { icons: [ email, twitter, linkedin ] }
+      locals: { icons: [ @email, @twitter, @linkedin ] }
 
     / Biog
-    - if biog
+    - if @biog
       = partial 'partials/modal',
         locals: \
-        { id: @profile_modal_id_base,
-          title: full_name,
-          content: biog }
+        { id: @biog[:id],
+          content: @biog[:content] }

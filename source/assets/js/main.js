@@ -197,90 +197,90 @@ var mySwiper = new Swiper ('.swiper-container', {
 
 
 
-////////////////////////////////////////////////////////////
-//  ARCHIVE
-////////////////////////////////////////////////////////////
-
-// ** Variables **
-// ****************************
-
-var globalState   = document.querySelector('.js-state-global'),
-    buttonsGlobal = document.querySelectorAll('.btn.js-trigger-global'),
-    buttonsLocal  = document.querySelectorAll('.btn.js-trigger-local'),
-    navbar        = document.querySelector('.navbar');
-
-// ** Toggle state - base **
-// ****************************
-
-function toggleState(trigger, className, target) {
-  var state = trigger.getAttribute('data-state-action'),
-      page  = trigger.getAttribute('data-state-page');
-
-  // Toggle trigger class
-  toggleClass(trigger, className);
-
-  // Toggle target scope state
-  toggleClass(target, state);
-
-  if (page != undefined) {
-    toggleClass(globalState, page);
-  }
-}
-
-// ** If exclusive state **
-// ****************************
-
-const exclusiveState = function(trigger) {
-  var exclusiveTriggers = document.querySelectorAll('.JS-exclusive');
-
-  // If an exclusive event...
-  if (trigger.classList.contains('JS-exclusive')) {
-
-    // Loop through all exclusive triggers
-    forEach(exclusiveTriggers, function(index, elem) {
-
-      // If (this) trigger element != other exclusive triggers...
-      if ((elem != trigger) && (elem.classList.contains('JS-on'))) {
-
-        // Toggle global or local state depending on elem...
-        elem.classList.toString().indexOf('JS-exclusive') > -1 ? toggleState(elem, 'JS-on', globalState) : toggleState(elem, 'JS-on', elem.closest('.js-state-local'))
-      }
-    });
-  }
-}
-
-// ** Global state change **
-// ****************************
-// Needed if target element demands specific changes to global state
-
-forEach(buttonsGlobal, function (index, button) {
-
-  button.onclick = function() {
-    var trigger = this;
-
-    // Toggle global state
-    toggleState(trigger, 'js-on', globalState);
-
-    // If exclusive event
-    exclusiveState(trigger);
-  }
-});
-
-// ** Local state change **
-// ****************************
-
-forEach(buttonsLocal, function (index, button) {
-
-  button.onclick = function() {
-    var localState = this.closest('.js-state-local');
-
-    // Toggle local state
-    toggleState(this, 'js-on', localState);
-
-    // Toggle off state
-    toggleClass(localState, 'js-off');
-
-    // If exclusive state
-    exclusiveState(this);
-  }
-});
+// ////////////////////////////////////////////////////////////
+// //  ARCHIVE
+// ////////////////////////////////////////////////////////////
+//
+// // ** Variables **
+// // ****************************
+//
+// var globalState   = document.querySelector('.js-state-global'),
+//     buttonsGlobal = document.querySelectorAll('.btn.js-trigger-global'),
+//     buttonsLocal  = document.querySelectorAll('.btn.js-trigger-local'),
+//     navbar        = document.querySelector('.navbar');
+//
+// // ** Toggle state - base **
+// // ****************************
+//
+// function toggleState(trigger, className, target) {
+//   var state = trigger.getAttribute('data-state-action'),
+//       page  = trigger.getAttribute('data-state-page');
+//
+//   // Toggle trigger class
+//   toggleClass(trigger, className);
+//
+//   // Toggle target scope state
+//   toggleClass(target, state);
+//
+//   if (page != undefined) {
+//     toggleClass(globalState, page);
+//   }
+// }
+//
+// // ** If exclusive state **
+// // ****************************
+//
+// const exclusiveState = function(trigger) {
+//   var exclusiveTriggers = document.querySelectorAll('.JS-exclusive');
+//
+//   // If an exclusive event...
+//   if (trigger.classList.contains('JS-exclusive')) {
+//
+//     // Loop through all exclusive triggers
+//     forEach(exclusiveTriggers, function(index, elem) {
+//
+//       // If (this) trigger element != other exclusive triggers...
+//       if ((elem != trigger) && (elem.classList.contains('JS-on'))) {
+//
+//         // Toggle global or local state depending on elem...
+//         elem.classList.toString().indexOf('JS-exclusive') > -1 ? toggleState(elem, 'JS-on', globalState) : toggleState(elem, 'JS-on', elem.closest('.js-state-local'))
+//       }
+//     });
+//   }
+// }
+//
+// // ** Global state change **
+// // ****************************
+// // Needed if target element demands specific changes to global state
+//
+// forEach(buttonsGlobal, function (index, button) {
+//
+//   button.onclick = function() {
+//     var trigger = this;
+//
+//     // Toggle global state
+//     toggleState(trigger, 'js-on', globalState);
+//
+//     // If exclusive event
+//     exclusiveState(trigger);
+//   }
+// });
+//
+// // ** Local state change **
+// // ****************************
+//
+// forEach(buttonsLocal, function (index, button) {
+//
+//   button.onclick = function() {
+//     var localState = this.closest('.js-state-local');
+//
+//     // Toggle local state
+//     toggleState(this, 'js-on', localState);
+//
+//     // Toggle off state
+//     toggleClass(localState, 'js-off');
+//
+//     // If exclusive state
+//     exclusiveState(this);
+//   }
+// });
