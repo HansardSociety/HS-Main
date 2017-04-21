@@ -5,6 +5,7 @@
 - @type             = local_data[:type]
 - @style            = local_data[:style]
 - @size             = local_data[:size]
+- @fill             = local_data[:fill]
 - @reverse          = local_data[:reverse] # Starts from on state (eg. close btn)
 - @group            = local_data[:group]
 
@@ -46,6 +47,7 @@
   ('btn'),
   ('btn--' + @size),
   ('btn--' + @style if @style),
+  ('btn--fill' if @fill),
   ('btn-group__btn' if @group),
   (@type == 'state' && @reverse == nil ? 'JS-off' : ('JS-on' if @type == 'state')),
   ('JS-no-scroll' if @page == 'no-scroll'),

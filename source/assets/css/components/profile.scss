@@ -32,14 +32,3 @@
   flex: 1;
   padding-left: 1rem;
 }
-
-.profile__actions {
-  padding-top: 1rem;
-
-  align-items: center;
-
-  @extend
-    %u-flex-row,
-    %u-inline-spacing-container-xsmall,
-    %u-width-full;
-}

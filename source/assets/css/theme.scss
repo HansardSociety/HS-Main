@@ -47,6 +47,7 @@ $brand_white_3:        map-get($colors, brand_white_3);
 
 $box_shadow: (
   prime_black:         0 0 20px 6px rgba(#000, .25),
+  prime_black_light:   0 0 2px 2px rgba(#000, .1),
   brand_green:         0 0 10px 3px rgba(#000, .3333)
 );
 

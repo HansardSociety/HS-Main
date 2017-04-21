@@ -124,6 +124,17 @@ article
                         aria_id: "activate-#{ cta[:modal].id }",
                         aria_target_id: cta[:modal].id }}
 
+        / Accordian
+        - if panel[:accordian]
+          .content.content--wide
+            .grid
+              - panel[:accordian].each do |accordian|
+                .grid__cell.grid__cell--3
+                  = partial 'partials/accordian',
+                    locals: { local_data: \
+                      { accordian_data: accordian }}
+
+
     //  Panel with image
     ////////////////////////////
 
@@ -173,6 +184,14 @@ article
                         aria_id: "activate-#{ panel[:show_more].id }",
                         aria_target_id: panel[:show_more].id }}
 
+                - if panel[:share_buttons]
+
+                  / Social
+                  = partial 'partials/social',
+                    locals: { local_data: \
+                      { icons: [ 'https://twitter.com' ],
+                        group: true }}
+
                 / Panel calls to action
                 - if panel[:calls_to_action]
                   - panel[:calls_to_action].each do |cta|
@@ -206,4 +225,4 @@ article
             aside.grid__cell.grid__cell--5.grid__cell--first
               = partial 'partials/image',
                 locals: { local_data: \
-                  { entry_data: panel[:image] }}
+                  { image_data: panel[:image] }}

@@ -30,7 +30,7 @@
     p.title.title--xsmall.title--alt= "#{ @organisation != nil ? @role + ',' : @role }"
     p.title.title--xsmall.title--alt= @organisation
 
-  .profile__actions
+  .btn-group
 
     / Modal button
     = partial 'partials/btn',
@@ -41,9 +41,11 @@
           aria_id: "activate-#{ @biog[:id] }",
           aria_target_id: @biog[:id] }}
 
-    / Social follow
+    / Social
     = partial 'partials/social',
-      locals: { icons: [ @email, @twitter, @linkedin ] }
+      locals: { local_data: \
+        { icons: [ @email, @twitter, @linkedin ],
+          group: true }}
 
     / Biog
     - if @biog

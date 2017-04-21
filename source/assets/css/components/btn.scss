@@ -40,6 +40,10 @@
   min-width: 3rem;
 }
 
+.btn--fill {
+  @extend %u-width-full;
+}
+
 .btn--primary {
   border-bottom: .25em solid $brand_orange;
   background-image: linear-gradient($brand_orange, lighten($brand_orange, 8%));

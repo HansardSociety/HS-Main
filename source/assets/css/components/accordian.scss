@@ -1,0 +1,43 @@
+.accordian {
+  box-shadow: map-get($box_shadow, prime_black_light);
+
+  overflow: hidden;
+}
+
+.accordian--ctas {
+  max-width: 13rem
+}
+
+.accordian__expand {
+  max-height: 0;
+
+  transition: max-height 200ms ease;
+
+}
+
+.accordian__header,
+.accordian__content {
+  padding: .5rem 1rem;
+}
+
+.accordian__header {
+  position: relative;
+}
+
+.accordian__control {
+  right: .5rem;
+
+  @extend %u-absolute-center-y;
+}
+
+.accordian__content {
+  border-top: 2px solid $brand_white_1;
+}
+
+////////////////////////////////////////////////////////////
+//  Behaviour
+////////////////////////////////////////////////////////////
+
+.accordian__expand.JS-active {
+  max-height: 20rem;
+}

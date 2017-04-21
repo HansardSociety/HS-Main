@@ -1,7 +1,11 @@
 .btn-group {
+  padding-top: 1rem;
+
+  flex-flow: row wrap;
+
   @extend
-    %u-inline-spacing-container-xsmall,
-    %u-margin-top-small;
+    %u-display-inline-flex,
+    %u-inline-spacing-container-xsmall;
 }
 
 .btn-group__btn {

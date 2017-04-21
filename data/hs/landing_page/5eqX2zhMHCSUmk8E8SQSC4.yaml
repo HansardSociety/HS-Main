@@ -90,6 +90,8 @@
   :image:
     :url: "//images.contentful.com/xkbace0jm9pp/172GBvHUq06QkGcyqcScUW/1f9478e038496e45873f6a3ab2b44f7e/inline__test-4.png"
     :alt: Inline Test 4
+    :caption: true
+  :share_buttons: true
 - :ID: 5sy0MZs6HKa6a84emeE0Sc
   :TYPE: panel
   :title: 586 autem vel eum iure reprehenderit qui in ea voluptate
@@ -129,6 +131,8 @@
   :image:
     :url: "//images.contentful.com/xkbace0jm9pp/2T7kPzZKgoMi48OS0aYAOO/1b96b6fa47321b025275875dd6046fd1/inline__test-3.png"
     :alt: Inline Test 3
+    :caption: true
+  :share_buttons: true
 - :ID: 5nH640H6SI8giqm8mgG6I0
   :TYPE: panel
   :title: 37% odio dignissimos ducimus qui blanditiis praesentium
@@ -168,6 +172,8 @@
   :image:
     :url: "//images.contentful.com/xkbace0jm9pp/75lUpnW5k4KYeao8MMKO8C/a0b83a2493ff7b728f63e3cbfaf99280/inline__test-1.png"
     :alt: Inline test 1
+    :caption: true
+  :share_buttons: true
 - :ID: 5b11xqnt1uQgmqEI8meoaO
   :TYPE: panel
   :title: 22% magni dolores eos qui ratione voluptatem sequi nesciunt
@@ -207,6 +213,8 @@
   :image:
     :url: "//images.contentful.com/xkbace0jm9pp/6NzlCJtjBCk6MkiomQYeeq/6a48a7c63d483a77dd31ffa274375a22/inline__test-2.png"
     :alt: Inline Test 2
+    :caption: true
+  :share_buttons: true
 - :ID: 1P85AMaKtCA6U2MISQ0q22
   :TYPE: panel
   :title: What do we measure?
@@ -246,6 +254,328 @@
   :image:
     :url: "//images.contentful.com/xkbace0jm9pp/SwBg1O3YWs4IwICwiKU4i/02430c4548dbe84ccda1b139b09dea95/header__indicators-of-engagement--01.svg"
     :alt: The Audit of Political Engagement's indicators of engagement
+    :caption: false
+  :share_buttons: false
+- :ID: 6NsQXhk57G062aeO8IyisE
+  :TYPE: panel
+  :title: Download 14 years of Audit findings and data
+  :label: Reports and data
+  :panel_type: promoted
+  :copy: Every Audit of Political Engagement covering 14 years, including their SPSS
+    datasets and tables, is free to download below.
+  :accordian:
+  - :id: 6A1nNbIvMAqwOAcS0S0mO8
+    :title: Audit 14 (2017)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: 29gPWYzTK8yqMYwWSGSq2s
+    :title: Audit 13 (2016)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: 4PQRIXV44MYg4coceeyG8C
+    :title: Audit 12 (2015)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: 6BzurFFE6kwWYKE8Ug0c0U
+    :title: Audit 11 (2014)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: 1q7LelCqEkk84QY8SIYMee
+    :title: Audit 10 (2013)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: 5Ka1z6YYVOAIeYaEQaiIeE
+    :title: Audit 9 (2012)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: Ib6bifCwSI0MOqcYIoKaa
+    :title: Audit 8 (2011)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: go95F28LVmMCGmGKSsCSy
+    :title: Audit 7 (2010)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: 1vrTZ5MIqYiEsAou2iuc8
+    :title: Audit 6 (2009)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: 5Vv4Bibpn2amu0QwCWA2a4
+    :title: Audit 4 (2007)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: 6aFSHCcuByi6sGIAuqksCo
+    :title: Audit 3 (2006)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: 3q1xMom688UucMaUGoqCEe
+    :title: Audit 2 (2005)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
+  - :id: YG8quNiuGsyuOGWa4wKg0
+    :title: Audit 1 (2004)
+    :calls_to_action:
+    - :ID: 4JrZAvksU0o82o2QwoyGwm
+      :title: 'Audit of Political Engagement 12: Report'
+      :action: download
+      :button_text: Report
+      :file:
+        :title: 'Audit of Political Engagement 12: Report'
+        :url: "//assets.contentful.com/xkbace0jm9pp/4f7nGITB8IGmGmWe6Q0uAE/bb901a0e8eff34f6ecb8944cd66452bb/Audit-of-Political-Engagement-12-Report.pdf"
+    - :ID: 1JlQWWK9VCgMGmSIgk8GYU
+      :title: 'Audit of Political Engagement 12: Data'
+      :action: download
+      :button_text: Data
+      :file:
+        :title: 'Audit of Political Engagement 12: Data'
+        :url: "//assets.contentful.com/xkbace0jm9pp/MyhSMSkvamUYG8IQuqyoE/bad11fb95ae0a3b45f227340ba27b33a/Audit-of-Political-Engagement-12-SPSS.zip"
+    - :ID: OuiMJPCcc8CyMQcakUwWo
+      :title: 'Audit of Political Engagement 12: Tables'
+      :action: download
+      :button_text: Tables
+      :file:
+        :title: 'Audit of Political Engagement 12: Tables'
+        :url: "//assets.contentful.com/xkbace0jm9pp/1dXCuqc542sACgIqq0QCw8/f6d2c7928bfb68db7c7374d029c7a02d/Audit-of-Political-Engagement-12-Tables.pdf"
 :tags:
 - :tag: audit-of-political-engagement
 - :tag: political-engagement

@@ -82,9 +82,10 @@ const exclState = function(trigger) {
 
     // Loop through all exclusive triggers
     forEach(exclusiveTriggers, function(index, elem) {
+      var deactivateTrigger = !elem.getAttribute('id').indexOf('deactivate') > -1;
 
       // If (this) trigger element != other exclusive triggers...
-      if ((elem != trigger) && (elem.classList.contains('JS-on'))) {
+      if ((elem != trigger) && (elem.classList.contains('JS-on') && deactivateTrigger)) {
 
         // Toggle global or local state depending on elem...
         changeState(elem);

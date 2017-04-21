@@ -1,15 +1,11 @@
 .social {
-  @extend %u-flex-row;
-}
-
-.social__icon {
   width: 2rem;
   height: 2rem;
 
   @extend
     %u-border-radius-small,
     %u-bgc-brand-white-1,
-    %u-inline-spacing-xsmall,
+    %u-display-inline-block,
     %u-transition-base-all,
     %u-position-relative;
 
@@ -21,4 +17,8 @@
     margin-top: -1px;
     @extend %u-absolute-center-xy;
   }
+}
+
+.social--group {
+  @extend %u-inline-spacing-xsmall;
 }

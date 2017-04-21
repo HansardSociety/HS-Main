@@ -2,10 +2,11 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @entry_data         = local_data[:entry_data]
+- @image_data         = local_data[:image_data]
 
-- @url                = @entry_data[:url]
-- @alt                = @entry_data[:alt]
+- @url                = @image_data[:url]
+- @alt                = @image_data[:alt]
+- @caption            = @image_data[:caption]
 
 ////////////////////////////////////////////////////////////
 //  Image
@@ -18,4 +19,5 @@ figure.image
     alt="#{ @alt }"
   }
 
-  figcaption.image__caption.title.title--xsmall.title--alt= @alt
+  - if @caption == true
+    figcaption.image__caption.title.title--xsmall.title--alt= @alt

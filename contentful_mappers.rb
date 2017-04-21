@@ -106,16 +106,42 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
             url:         cta.file.url
           } if cta.file != nil),
           modal: ({
-            id:       (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
-            content:  cta.modal
-          } if cta.action == 'modal'),
+            id:          (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
+            content:     cta.modal
+          } if cta.action == 'modal')
         }.reject{ |key, value| value.nil? } end : nil),
 
         # Header image
         image: ({
           url:           panel.image.url,
-          alt:           panel.image.description
-        } if panel.image)
+          alt:           panel.image.description,
+          caption:       panel.image_caption
+        } if panel.image),
+
+        # Share buttons
+        share_buttons:  panel.share_buttons,
+
+        # Accordian
+        accordian: (panel.accordian ? panel.accordian.map do |accordian| {
+          id:               accordian.sys[:id],
+          title:            accordian.title,
+          copy:             accordian.copy,
+          calls_to_action:  (accordian.calls_to_action ? accordian.calls_to_action.map do |cta| {
+            ID:             cta.sys[:id],
+            title:          cta.title.split('::')[0],
+            action:         cta.action.parameterize,
+            button_text:    cta.button_text,
+            file: ({
+              title:       cta.file.title,
+              url:         cta.file.url
+            } if cta.file != nil),
+            modal: ({
+              id:          (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
+              content:     cta.modal
+            } if cta.action == 'modal')
+          }.reject{ |key, value| value.nil? } end : nil)
+        }.reject{ |key, value| value.nil? } end : nil)
+
       }.reject{ |key, value| value.nil? }
       end
     end

@@ -1,0 +1,48 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @accordian_data     = local_data[:accordian_data]
+
+- @title              = @accordian_data[:title]
+- @id                 = @accordian_data[:id]
+- @calls_to_action    = @accordian_data[:calls_to_action]
+
+
+////////////////////////////////////////////////////////////
+//  Accordian
+////////////////////////////////////////////////////////////
+
+section.accordian{
+  class="#{
+    'accordian--ctas' if @calls_to_action
+  }"
+}
+
+  .accordian__header
+    h3.title.title--small= @title
+
+    .accordian__control
+      = partial 'partials/btn',
+        locals: { local_data: \
+          { type: 'state', size: 'small',
+            icon: 'chevron-down', icon_size: 'small', icon_color: 'green',
+            animation: 'rotate',
+            aria_id: "activate-accordian-#{ @id }", aria_target_id: "accordian-#{ @id }" }}
+
+  .accordian__expand.JS-inactive{
+    id="accordian-#{ @id }"
+  }
+    .accordian__content
+
+      / Calls to action
+      - if @calls_to_action
+        .btn-group
+          - @calls_to_action.each do |cta|
+
+            / Download
+            - if cta.action == 'download'
+              = partial 'partials/btn',
+                locals: { local_data: \
+                  { type: 'link', size: 'small', fill: true, style: 'primary', group: true,
+                    text: cta.button_text, text_size: 'small', url: cta.file.url }}

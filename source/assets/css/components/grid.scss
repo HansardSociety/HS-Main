@@ -1,8 +1,6 @@
 .grid {
-  margin-top: -2rem;
+  margin-top: -1rem;
   margin-left: -2rem;
-
-  justify-content: center;
 
   @extend
     %u-flex-row;
@@ -10,6 +8,7 @@
 
 .grid--center {
   align-items: center;
+  justify-content: center;
 }
 
 .grid__cell {
@@ -21,7 +20,7 @@
 }
 
 .grid__cell {
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-left: 2rem;
 
   order: 1;

@@ -62,7 +62,7 @@ end
 activate :contentful do |f|
   f.space         = { hs: 'xkbace0jm9pp' }
   f.access_token  = 'd1270ddb68c436e381efa9ae456472610081a17d7e9e3fbb3d8309b702a852e2'
-  f.cda_query     = { include: 4 }
+  f.cda_query     = { include: 8 }
   f.content_types = {
     SITE: '__GLOBAL__',
     child_page:   { mapper: ChildPageMap,   id: 'child_page' },
