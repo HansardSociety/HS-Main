@@ -4,11 +4,13 @@
 :category: research
 :title: Audit of Political Engagement
 :slug: audit-of-political-engagement
-:subtitle: Measuring the political pulse of the nation
-:introduction: The Audit of Political Engagement is the only annual health check on
-  British democracy. Now in its 14th year, the study measures the 'political pulse'
-  of the nation, providing a unique benchmark to gauge public opinion with regard
-  to politics and the political process.
+:subtitle: The only annual health check on public attitudes towards British politics
+  and Parliament
+:introduction: Now in its 14th year, each Audit measures the 'political pulse' of
+  the nation, providing a unique benchmark to gauge public opinion across Great Britain
+  about politics and the political process. With a particular focus on MPs and Parliament
+  the study is supported by the House of Commons.
+:toc: '[2017 key findings](#panel-0){: data-scroll="" }'
 :calls_to_action:
 - :title: 'Audit 14 report download '
   :action: download
@@ -18,9 +20,8 @@
       Session :: Report'
     :url: "//assets.contentful.com/xkbace0jm9pp/3tuWTgIiJWaW6CW4GMWs06/743ec4fa5b015dde5befade5e4830139/report__westminster-lens-2015-16.pdf"
 :banner_image:
-  :url: "//images.contentful.com/xkbace0jm9pp/4q7AGnbCPYkei8qgcKoaIU/0f1048d14a5b57846c4e85e2862677d2/banner__uk-political-pulse--01.jpg"
-  :alt: Aerial photo of the United Kingdom showing air traffic lines, depicting a
-    'political pulse'
+  :url: "//images.contentful.com/xkbace0jm9pp/3ryBUQCs244o8CQKOeKme/93d2eacaa44f26eeb9af437dcb871ec9/banner__commuters--01.jpg"
+  :alt: Commuters at Victoria Station, London
   :focus: center
 :date_time:
   :integer: 1081555200
@@ -258,11 +259,12 @@
   :share_buttons: false
 - :ID: 6NsQXhk57G062aeO8IyisE
   :TYPE: panel
-  :title: Download 14 years of Audit findings and data
+  :title: 14 years of Audit findings and data
   :label: Reports and data
   :panel_type: promoted
-  :copy: Every Audit of Political Engagement covering 14 years, including their SPSS
-    datasets and tables, is free to download below.
+  :copy: Download every Audit of Political Engagement since 2004, including their
+    SPSS datasets and tables, covering 14 years of insight into public attitudes towards
+    politics in Great Britain.
   :accordian:
   - :id: 6A1nNbIvMAqwOAcS0S0mO8
     :title: Audit 14 (2017)

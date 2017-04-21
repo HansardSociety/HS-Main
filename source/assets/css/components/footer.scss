@@ -1,0 +1,14 @@
+.footer {
+  padding: 2rem 1rem;
+
+  color: $brand_white;
+  background-color: $brand_black;
+
+  font-size: .75rem;
+
+}
+
+.footer__inner {
+  @extend %u-container-wide;
+
+}

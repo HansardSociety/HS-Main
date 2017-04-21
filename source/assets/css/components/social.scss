@@ -2,6 +2,8 @@
   width: 2rem;
   height: 2rem;
 
+  // border-bottom: 2px solid $brand_white_2;
+
   @extend
     %u-border-radius-small,
     %u-bgc-brand-white-1,

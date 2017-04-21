@@ -11,25 +11,34 @@ header.banner{
   }
 
     / Content
-    .banner__content{
+    .banner__content.copy.copy--white{
       class="#{ 'banner__content--center' if entry.TYPE == 'landing_page' }"
     }
 
       / Title
-      h1.title.u-col-white{
+      h1.title{
         class="#{ entry.title.size > 90 ? 'title--medium' :
                   (entry.TYPE == 'landing_page' ? 'title--xlarge' : 'title--large') }"
       }= entry.title
 
-      p.byline.u-col-white= entry.subtitle
+      p.byline= entry.subtitle
 
       / Landing page only
       - if entry.TYPE == 'landing_page'
 
         / Actions
-        = partial 'partials/btn-group',
-          locals: { local_data: \
-            { entry_data: entry[:calls_to_action] }}
+        / = partial 'partials/btn-group',
+        /   locals: { local_data: \
+        /     { entry_data: entry[:calls_to_action] }}
+
+        .btn-group.u-ptop-md
+          - entry[:calls_to_action].each do |cta|
+            - if cta.action == 'download'
+              = partial 'partials/btn',
+                locals: { local_data: \
+                  { type: 'link', size: 'medium', style: 'primary', group: true,
+                    text: cta.button_text, text_size: 'medium', url: cta.file.url }}
+
 
   / Scroll down
   - if entry.TYPE == 'landing_page'

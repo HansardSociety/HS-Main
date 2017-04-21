@@ -1,9 +1,26 @@
 .content {
+  @extend %u-padding-medium;
+}
+
+.content__inner {
   @extend
     %u-border-radius-small,
-    %u-margin-center-x,
-    %u-padding-medium;
+    %u-margin-center-x;
+
+  &:nth-child(1n + 2) {
+    @extend %u-margin-top-medium;
+  }
 }
+
+.content__inner--narrow {
+  @extend %u-container-narrow;
+}
+
+.content__inner--wide {
+  @extend %u-container-wide;
+}
+
+
 
 .content--narrow {
   @extend %u-container-narrow;
@@ -13,6 +30,6 @@
   @extend %u-container-wide;
 }
 
-.content--center {
+.content__inner--center {
   @extend %u-text-align-center;
 }

@@ -35,6 +35,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     context.slug         = entry.slug.parameterize
     context.subtitle     = entry.subtitle
     context.introduction = entry.introduction
+    context.toc          = entry.table_of_contents
 
     ##  Call(s) to action
     ##############################

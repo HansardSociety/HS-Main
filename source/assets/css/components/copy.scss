@@ -15,6 +15,26 @@
 > h3 { @extend .title--medium; }
 > h4 { @extend .title--small; }
 
+> p > a {
+  border-bottom: 1px solid rgba($brand_green, .2);
+
+  font-weight: bold;
+
+  @extend
+    %u-color-brand-green,
+    %u-transition-base-all;
+
+  &:hover {
+    border-bottom: 1px solid $brand_green;
+  }
+}
+
 @extend %u-position-relative;
 
+}
+
+.copy--white {
+  > h1, > h2, > h3, > h4, > p {
+    @extend %u-color-brand-white;
+  }
 }

@@ -481,6 +481,14 @@ $properties: (
   @extend %u-margin-top-small;
 }
 
+.u-ptop-sm, {
+  padding-top: 1rem;
+}
+
+.u-ptop-md, {
+  padding-top: 2rem;
+}
+
 .u-vr-sm {
   @extend %u-vertical-rhythm-small;
 }
