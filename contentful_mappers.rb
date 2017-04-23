@@ -278,3 +278,32 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     end
   end
 end
+
+############################################################
+##  Root page
+############################################################
+
+class LandingPageMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+
+    ##  Core
+    ##############################
+
+    context.ID           = entry.sys[:id]
+    context.TYPE         = entry.content_type.id
+    context.category     = entry.category.parameterize
+    context.title        = entry.title
+    context.subtitle     = entry.subtitle
+
+    ##  Banner image
+    ##############################
+
+    if entry.banner_image
+      context.banner_image = {
+        url:   entry.banner_image.url,
+        alt:   entry.banner_image.description,
+        focus: entry.image_focus.parameterize
+      }
+    end
+  end
+end

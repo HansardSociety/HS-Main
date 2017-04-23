@@ -64,9 +64,14 @@ activate :contentful do |f|
   f.access_token  = 'd1270ddb68c436e381efa9ae456472610081a17d7e9e3fbb3d8309b702a852e2'
   f.cda_query     = { include: 6 }
   f.content_types = {
-    SITE: '__GLOBAL__',
+
+    # Pages
     child_page:   { mapper: ChildPageMap,   id: 'child_page' },
     landing_page: { mapper: LandingPageMap, id: 'landing_page' },
+    root_page:    { mapper: RootPageMap,    id: 'root_page' },
+
+    # Components
+    SITE: '__GLOBAL__',
     navigation:   { mapper: NavigationMap,  id: 'navigation' }
   }
 end
@@ -84,6 +89,14 @@ if Dir.exist?(config.data_dir)
   #         "/templates/home.html",
   #         ignore: true,
   #         locals: { home: home }
+  # end
+
+  # Blog
+  # data.hs.home.each do |id, home|
+  #   proxy "/index.html",
+  #         "/templates/home.html",
+  #         ignore: true,
+  #         locals: { blog: home }
   # end
 
   # Child pages

@@ -132,8 +132,6 @@ DEPENDENCIES
   middleman
   public_suffix
   slim
-  tzinfo-data
-  wdm (~> 0.1.0)
 
 BUNDLED WITH
    1.14.4
