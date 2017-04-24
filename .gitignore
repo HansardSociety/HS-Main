@@ -7,3 +7,4 @@ npm-debug.log
 .main-space-hash
 .contentful-space-hash
 /.sass-cache
+/data
