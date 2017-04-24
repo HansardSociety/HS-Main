@@ -9,6 +9,7 @@
 
 .carousel__item {
   max-width: 100%;
+  height: auto;
 
   @include above('small') {
     width: calc((100% / 2) - .5rem);
@@ -49,5 +50,7 @@
 
 .carousel__prev,
 .carousel__next {
-  @extend %u-cursor-pointer;
+  @extend
+    %u-cursor-pointer,
+    %u-flex-row-center;
 }

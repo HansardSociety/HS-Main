@@ -1,4 +1,42 @@
 ############################################################
+##  Global
+############################################################
+
+class UniversalMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+    context.ID           = entry.sys[:id]
+    context.TYPE         = entry.content_type.id
+    context.title        = entry.title
+    context.logo_mobile = {
+      url:   entry.logo_mobile.url,
+      alt:   entry.logo_mobile.description
+    }
+    context.logo_desktop = {
+      url:   entry.logo_desktop.url,
+      alt:   entry.logo_desktop.description
+    }
+  end
+end
+
+############################################################
+##  Homepage
+############################################################
+
+class HomeMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+    context.ID           = entry.sys[:id]
+    context.TYPE         = entry.content_type.id
+    context.title        = entry.title
+    context.subtitle     = entry.subtitle
+    context.banner_image = {
+      url:   entry.banner_image.url,
+      alt:   entry.banner_image.description,
+      focus: entry.image_focus.parameterize
+    }
+  end
+end
+
+############################################################
 ##  Navigation
 ############################################################
 
@@ -10,7 +48,7 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
     if entry.pages
       context.pages = entry.pages.map do |page| {
         title:    page.title,
-        slug:     page.slug.parameterize,
+        slug:     page.slug,
         category: page.category.parameterize
       }
       end
@@ -216,8 +254,15 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     if entry.promoted && entry.promoted.content_type.id == 'registration'
       context.registration = {
         title:        entry.promoted.title,
-        date:         entry.promoted.date.strftime('%d %b, %y'),
-        embed_code:   entry.promoted.embed_code
+        date_time: {
+          integer:    entry.date_time.strftime('%s').to_i,
+          date:       entry.promoted.date.strftime('%I:%M %p, %d %b, %y'),
+          day:        entry.promoted.date.strftime('%d'),
+          month:      entry.promoted.date.strftime('%b'),
+          year:       entry.promoted.date.strftime('%y')
+        },
+        embed_code:   entry.promoted.embed_code,
+        url:          entry.promoted.url
       }
     end
 
@@ -283,7 +328,7 @@ end
 ##  Root page
 ############################################################
 
-class LandingPageMap < ContentfulMiddleman::Mapper::Base
+class RootPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
 
     ##  Core

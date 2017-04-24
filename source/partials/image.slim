@@ -4,6 +4,8 @@
 
 - @image_data         = local_data[:image_data]
 
+- @feature            = local_data[:feature]
+
 - @url                = @image_data[:url]
 - @alt                = @image_data[:alt]
 - @caption            = @image_data[:caption]
@@ -12,7 +14,9 @@
 //  Image
 ////////////////////////////////////////////////////////////
 
-figure.image
+figure.image{
+  class="#{ 'image--feature' if  @feature }"
+}
 
   img.image__img{
     src="#{ @url }"
@@ -20,4 +24,4 @@ figure.image
   }
 
   - if @caption == true
-    figcaption.image__caption.title.title--xsmall.title--alt= @alt
+    figcaption.image__caption.alt-title.alt-title--xs= @alt

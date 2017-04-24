@@ -1,5 +1,7 @@
 .content {
-  @extend %u-padding-medium;
+  @extend
+    %u-border-radius-small,
+    %u-padding-small;
 }
 
 .content__inner {
@@ -20,7 +22,11 @@
   @extend %u-container-wide;
 }
 
+.content__inner--flow {
+  border-bottom: 2px solid $brand_white_2;
 
+  padding-bottom: 2rem;
+}
 
 .content--narrow {
   @extend %u-container-narrow;

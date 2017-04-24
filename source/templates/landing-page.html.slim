@@ -27,7 +27,7 @@ article
       .content__inner.content__inner--narrow.content__inner--center
         .byline
           = Kramdown::Document.new(@page_data[:introduction]).to_html
-        .toc.copy
+        .toc
           = Kramdown::Document.new(@page_data[:toc]).to_html
 
   //  'Latest' (related)
@@ -35,12 +35,13 @@ article
 
   .panel.panel--block
     .content
-      .content__inner.content__inner--wide.content__inner--center.copy
-        h2 Latest
-        = partial 'partials/carousel',
-          locals: { local_data: \
-            { entry_data: @page_data,
-              content_source: 'related' }}
+      .content__inner.content__inner--wide.content__inner--center
+        h2.title.title--large Latest
+        .u-mtop-sm
+          = partial 'partials/carousel',
+            locals: { local_data: \
+              { entry_data: @page_data,
+                content_source: 'related' }}
 
   //  Curated panels
   ////////////////////////////
@@ -60,14 +61,14 @@ article
         id="panel-#{ index }"
       }
         .content
-          .content__inner.content__inner--narrow.content__inner--center.copy
+          .content__inner.content__inner--narrow.content__inner--center
 
             / Title (h2/h3)
             *@title_elem
 
               / Title label
               - if panel[:label]
-                span.title.title--medium.title--alt= panel[:label]
+                span.alt-title.alt-title--sm= panel[:label]
 
               / Title text
               = panel[:title]
@@ -161,14 +162,14 @@ article
 
               / Title label
               - if panel[:label]
-                span.title.title--medium.title--alt= panel[:label]
+                span.alt-title.alt-title--sm= panel[:label]
 
               / Title text
               = panel[:title]
 
         .content.content--wide
           .grid
-            section.grid__cell.grid__cell--7.copy
+            section.grid__cell.grid__cell--7
               = Kramdown::Document.new(\
                 panel[:panel_type] == 'promoted' ? \
                 panel[:copy] + "\n{: .byline }" : panel[:copy]).to_html
@@ -234,4 +235,5 @@ article
             aside.grid__cell.grid__cell--5.grid__cell--first
               = partial 'partials/image',
                 locals: { local_data: \
-                  { image_data: panel[:image] }}
+                  { image_data: panel[:image],
+                    feature: true }}

@@ -34,14 +34,19 @@
 // ** Alt title **
 // ****************************
 
-.title--alt {
-  text-transform: lowercase;
-  font-variant: small-caps;
+.alt-title {
+  text-transform: uppercase;
 
   @extend
     %u-color-brand-black-2,
     %u-display-block;
 }
+
+.alt-title--xs { font-size: .625rem; }
+.alt-title--sm { font-size: 1rem; }
+.alt-title--md { font-size: 1.125rem; }
+.alt-title--lg { font-size: .625rem; }
+.alt-title--xl { font-size: .625rem; }
 
 ////////////////////////////////////////////////////////////
 //  Paragraphs
@@ -49,4 +54,18 @@
 
 .byline {
   @extend %u-font-size-byline;
+}
+
+.link {
+  border-bottom: 1px solid rgba($brand_green, .2);
+
+  font-weight: bold;
+
+  @extend
+    %u-color-brand-green,
+    %u-transition-base-all;
+
+  &:hover {
+    border-bottom: 1px solid $brand_green;
+  }
 }

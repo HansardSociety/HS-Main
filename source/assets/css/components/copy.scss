@@ -1,6 +1,6 @@
 .copy {
 
-> h1, > h2, > h3, > h4, > h5, > h6, > p, > img, > iframe {
+> h1, > h2, > h3, > h4, > h5, > h6, > p, > img, > iframe, ul {
   &:nth-child(1n + 2) {
     @extend %u-vertical-rhythm-small;
   }
@@ -10,28 +10,27 @@
   @extend .title;
 }
 
-> h1 { @extend .title--xlarge; }
-> h2 { @extend .title--large; }
-> h3 { @extend .title--medium; }
+> h1 { @extend .title--large; }
+> h2 { @extend .title--medium; }
+> h3 { @extend .title--small; }
 > h4 { @extend .title--small; }
 
 > p > a {
-  border-bottom: 1px solid rgba($brand_green, .2);
-
-  font-weight: bold;
-
-  @extend
-    %u-color-brand-green,
-    %u-transition-base-all;
-
-  &:hover {
-    border-bottom: 1px solid $brand_green;
-  }
+  @extend .link;
 }
 
 @extend %u-position-relative;
 
 }
+
+ul {
+  padding-left: 1rem;
+}
+
+li {
+  list-style: circle;
+}
+
 
 .copy--white {
   > h1, > h2, > h3, > h4, > p {

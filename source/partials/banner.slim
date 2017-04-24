@@ -1,6 +1,6 @@
 header.banner{
   class="banner--#{
-    entry.TYPE == 'landing_page' ?
+    ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) ?
     'full' : 'square'
   }"
 }
@@ -11,26 +11,24 @@ header.banner{
   }
 
     / Content
-    .banner__content.copy.copy--white{
-      class="#{ 'banner__content--center' if entry.TYPE == 'landing_page' }"
+    .banner__content {
+      class="#{ 'banner__content--center' if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) }"
     }
 
+      / Date (blog only)
+      - if entry.TYPE == 'child_page' && entry[:category] == 'blog'
+        span.alt-title.alt-title--xs.u-col-white= entry[:date_time].date
+
       / Title
-      h1.title{
-        class="#{ entry.title.size > 90 ? 'title--medium' :
-                  (entry.TYPE == 'landing_page' ? 'title--xlarge' : 'title--large') }"
+      h1.title.u-col-white{
+        class="#{ ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) ? 'title--xlarge' : 'title--large' }"
       }= entry.title
 
-      p.byline= entry.subtitle
+      - if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE)
+        p.byline.u-col-white.u-mtop-md= entry.subtitle
 
-      / Landing page only
+      / Actions
       - if entry.TYPE == 'landing_page'
-
-        / Actions
-        / = partial 'partials/btn-group',
-        /   locals: { local_data: \
-        /     { entry_data: entry[:calls_to_action] }}
-
         .btn-group.u-ptop-md
           - entry[:calls_to_action].each do |cta|
             - if cta.action == 'download'
@@ -41,7 +39,7 @@ header.banner{
 
 
   / Scroll down
-  - if entry.TYPE == 'landing_page'
+  - if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE)
     a.banner__scroll{
       href="#banner-scroll-target"
       data-scroll

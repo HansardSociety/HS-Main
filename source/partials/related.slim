@@ -12,7 +12,12 @@
 ////////////////////////////////////////////////////////////
 
 / Organise child pages by category
-- @pages_by_category = data.hs.child_page.group_by{ |key, value| value[:category] }
+- @child_pages       = data.hs.child_page
+- @landing_pages     = data.hs.landing_page
+
+- @merged_pages      = @landing_pages.merge(@child_pages)
+
+- @pages_by_category = @merged_pages.group_by{ |key, value| value[:category] }
 
 / Loop through categorised pages
 - @pages_by_category.each do |categories, pages|
@@ -35,12 +40,8 @@
 
     - if @entry_data.TYPE == 'child_page'
       = partial 'partials/side-card',
-        locals: \
-        { image: page.banner_image,
-          title: page.title,
-          category: page.category,
-          date: (page.date_time.date if page.date_time),
-          url: page.slug }
+        locals: { local_data: \
+          { side_card_data: page }}
 
     //  Main card (landing page)
     ////////////////////////////

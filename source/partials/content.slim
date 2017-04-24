@@ -34,16 +34,6 @@
   'id': ('banner-scroll-target' if @content_type == 'landing_page')\
 }.reject{ |key, value| value.nil? }
 
-/ - @content_inner_classes = [\
-/   ('grid__cell--7' if @category == 'blog' || @context != 'carousel'),
-/   ('content__main--center' if @side_content.empty?),
-/   ('content__main--stack-2' if @author),
-/   ('content__full' if @context == 'carousel')]
-
-/ Content side classes
-- @content_side_classes = [\
-  ('content__side--stack-1' if @author)]
-
 
 ////////////////////////////////////////////////////////////
 //  Content
@@ -80,7 +70,7 @@
             'large' : 'medium'
           }"
         }
-          span.title.title--medium.title--alt= @label
+          span.alt-title.alt-title--sm= @label
           = @context == 'carousel' ? 'Latest' : @title
 
       / All content excluding 'carousel' context, since carousels
@@ -118,12 +108,8 @@
         / Promoted page
         - if @side_content[:page]
           = partial 'partials/side-card',
-            locals: \
-            { image: @side_content[:page].banner_image,
-              title: @side_content[:page].title,
-              category: @side_content[:page].category,
-              date: (@side_content[:page].date_time.date if @side_content[:page].date_time.date_time),
-              url: @side_content[:page].slug }
+            locals: { local_data: \
+              { side_card_data: @side_content[:page] }}
 
         / Author
         - if @side_content[:author]

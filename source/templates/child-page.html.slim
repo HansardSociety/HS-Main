@@ -4,10 +4,12 @@
 
 - @child_page       = child_page
 
-- @introduction     = @child_page[:introduction]
-- @copy             = @child_page[:copy]
 - @author           = @child_page[:author]
+- @category         = @child_page[:category]
+- @copy             = @child_page[:copy]
+- @introduction     = @child_page[:introduction]
 - @promoted_page    = @child_page[:promoted_page]
+- @registration     = @child_page[:registration]
 
 ////////////////////////////////////////////////////////////
 //  Child page
@@ -20,7 +22,7 @@ article
     locals: { entry: @child_page }
 
   / Header
-  .content.content--wide.u-bgc-white
+  .content.content--wide.u-bgc-white.u-ptop-md
     .grid
 
       / Content inner - ie. .content__main / __full
@@ -31,21 +33,24 @@ article
       / Promoted side content
       aside.grid__cell.grid__cell--5
 
-        / Promoted page
-        - if @promoted_page
-          = partial 'partials/side-card',
-            locals: \
-            { image:    @promoted_page.banner_image,
-              title:    @promoted_page.title,
-              category: @promoted_page.category,
-              date:     (@promoted_page.date_time.date if @promoted_page.date_time.date_time),
-              url:      @promoted_page.slug }
-
         / Author
         - if @author
           = partial 'partials/profile',
             locals: { local_data: \
-            { profile_data: @author }}
+            { profile_data: @author,
+              actions: true, side: true }}
+
+        / Registration
+        - if @registration
+          = partial 'partials/registration',
+            locals: { local_data: \
+              { registration_data: @registration }}
+
+        / Promoted page
+        - if @promoted_page
+          = partial 'partials/side-card',
+            locals: { local_data: \
+              { side_card_data: @promoted_page }}
 
   / Body
   .content.content--wide.u-bgc-white

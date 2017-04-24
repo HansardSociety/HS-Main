@@ -1,0 +1,41 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @page_data    = root_page
+
+- @child_pages  = data.hs.child_page
+
+- @pages_by_date = @child_pages.sort_by{ |key, value| - value.date_time.integer }
+
+////////////////////////////////////////////////////////////
+//  Landing page
+////////////////////////////////////////////////////////////
+
+article
+
+  //  Banner
+  ////////////////////////////
+
+  - if @page_data[:banner_image]
+    = partial 'partials/banner',
+      locals: { entry: @page_data }
+
+  //  Feed
+  ////////////////////////////
+
+  .panel#banner-scroll-target
+    .content
+      - @pages_by_date.each do |id, page|
+
+        / Blog
+        - if @page_data[:category] == 'blog' && page[:category] == 'blog'
+          = partial 'partials/compounds/feed-item',
+            locals: { local_data: \
+              { feed_data: page }}
+
+        / Events
+        - if @page_data[:category] == 'events' && page[:category] == 'events'
+          = partial 'partials/compounds/feed-item',
+            locals: { local_data: \
+              { feed_data: page }}

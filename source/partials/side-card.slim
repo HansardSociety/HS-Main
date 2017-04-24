@@ -1,17 +1,35 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @side_card_data     = local_data[:side_card_data]
+
+
+- @image      = @side_card_data[:banner_image]
+- @title      = @side_card_data[:title]
+- @category   = @side_card_data[:category]
+- @date_time  = @side_card_data[:date_time]
+- @url        = @side_card_data[:slug]
+
+
+////////////////////////////////////////////////////////////
+//  Side card
+////////////////////////////////////////////////////////////
+
 article.side-card{
-  class="side-card--#{ category }"
+  class="side-card--#{ @category }"
 }
   a.side-card__inner{
-    href="#{ 'https://www.hansardsociety.org.uk/' + category + '/' + url }"
+    href="#{ config[:SITE_URL] + '/' + @category + '/' + @url }"
   }
     .side-card__image
       img{
-        src="#{ image.url }?fit=fill&w=182&h=324&f=#{ image.focus }"
-        alt="#{ image.alt }"
+        src="#{ @image[:url] }?fit=fill&w=182&h=324&f=#{ @image[:focus] }"
+        alt="#{ @image[:alt] }"
       }
 
     .side-card__content
       .side-card__meta
-        span.title.title--xsmall.title--alt= category
+        span.alt-title.alt-title--xs= ([ 'blog', 'events' ].include? @category) ? @category + ' / ' + @date_time[:date] : @category
       .side-card__title
-        h1.title.title--small= title
+        h1.title.title--small= @title

@@ -1,19 +1,23 @@
 article.main-card.swiper-slide{
-  class="#{ 'main-card--' + page.category }"
+  class="#{ 'main-card--' + page[:category] }"
 }
 
   a{
-    href="#{ config[:SITE_URL] + '/' + page.category + '/' + page.slug }"
+    href="#{ config[:SITE_URL] + '/' + page[:category] + '/' + page[:slug] }"
   }
     / Header
     .main-card__header
       .main-card__image
         img{
-          src="#{ page.banner_image.url }"
-          alt="#{ page.banner_image.alt }"
+          src="#{ page[:banner_image].url }"
+          alt="#{ page[:banner_image].alt }"
         }
-      h1.main-card__title.title.title--small.title--white= page.title
+
+      .main-card__meta
+        span.alt-title.alt-title--xs.u-col-white= page[:category]
+
+      h1.main-card__title.title.title--small.title--white= page[:title]
 
     / Introduction
     .main-card__introduction
-      p= page.introduction[0..195].chomp('.') + '…'
+      p= page[:introduction][0..195].chomp('.') + '…'

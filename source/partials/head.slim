@@ -18,5 +18,4 @@ head
   = partial 'assets/images/svg/sprite.symbol.svg'
 
   / Title
-  - data.hs.SITE(0).each do |id, site|
-    title= (@title ? @title + " " + site.organisation : site.organisation)
+  title= config[:SITE_TITILE]

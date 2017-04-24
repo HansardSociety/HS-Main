@@ -1,0 +1,38 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @feed_data      = local_data[:feed_data]
+
+////////////////////////////////////////////////////////////
+//  Feed item
+////////////////////////////////////////////////////////////
+
+.content__inner.content__inner--wide.content__inner--flow
+  .grid
+    .grid__cell.grid__cell--7
+
+      - if @feed_data[:category] == 'blog'
+        span.alt-title.alt-title--xs= @feed_data[:date_time].date
+
+      h1.title.title--medium{
+        class="#{ 'u-mtop-xs' if @feed_data[:category] == 'blog' }"
+      }
+        a.link{
+          href="#{ config[:SITE_URL] + '/' + @feed_data[:category] + '/' + @feed_data[:slug] }"
+        }= @feed_data[:title]
+
+      - if @feed_data[:category] == 'blog'
+        .u-mtop-sm
+          = partial 'partials/profile',
+            locals: { local_data: \
+            { profile_data: @feed_data[:author] }}
+
+
+    .grid__cell.grid__cell--5.grid__cell--first
+      a{
+        href="#{ config[:SITE_URL] + '/' + @feed_data[:category] + '/' + @feed_data[:slug] }"
+      }
+        = partial 'partials/image',
+          locals: { local_data: \
+            { image_data: @feed_data[:banner_image] }}

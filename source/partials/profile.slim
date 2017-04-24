@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////
 
 - @profile_data  = local_data[:profile_data]
+- @actions       = local_data[:actions]
 
 - @photo         = @profile_data[:photo]
 - @full_name     = @profile_data[:full_name]
@@ -13,12 +14,13 @@
 - @twitter       = @profile_data[:twitter]
 - @linkedin      = @profile_data[:linkedin]
 
-
 ////////////////////////////////////////////////////////////
 //  Profile
 ////////////////////////////////////////////////////////////
 
-.profile.js-state-local.modal-is.js-off
+.profile{
+  class="#{ 'profile--side' if local_data[:side] }"
+}
   .profile__image
     img{
       src="#{ @photo.url }?fit=fill&w=324&h=324"
@@ -27,29 +29,32 @@
 
   .profile__main
     h1.title.title--small= @full_name
-    p.title.title--xsmall.title--alt= "#{ @organisation != nil ? @role + ',' : @role }"
-    p.title.title--xsmall.title--alt= @organisation
+    p.alt-title.alt-title--xs= "#{ @organisation != nil ? @role + ',' : @role }"
+    p.alt-title.alt-title--xs= @organisation
 
-  .btn-group
+  - if @actions == true
+    .profile__actions
+      .btn-group
 
-    / Modal button
-    = partial 'partials/btn',
-      locals: { local_data: \
-        { type: 'state', size: 'small', style: 'secondary', group: true,
-          text_on: 'Show biog', text_off: 'Close biog', text_size: 'small',
-          page: 'no-scroll', exclusive: true,
-          aria_id: "activate-#{ @biog[:id] }",
-          aria_target_id: @biog[:id] }}
+        / Modal button
+        - if @biog
+          = partial 'partials/btn',
+            locals: { local_data: \
+              { type: 'state', size: 'small', style: 'secondary', group: true,
+                text_on: 'Show biog', text_off: 'Close biog', text_size: 'small',
+                page: 'no-scroll', exclusive: true,
+                aria_id: "activate-#{ @biog[:id] }",
+                aria_target_id: @biog[:id] }}
 
-    / Social
-    = partial 'partials/social',
-      locals: { local_data: \
-        { icons: [ @email, @twitter, @linkedin ],
-          group: true }}
+        / Social
+        = partial 'partials/social',
+          locals: { local_data: \
+            { icons: [ @email, @twitter, @linkedin ],
+              group: true }}
 
-    / Biog
-    - if @biog
-      = partial 'partials/modal',
-        locals: \
-        { id: @biog[:id],
-          content: @biog[:content] }
+        / Biog
+        - if @biog
+          = partial 'partials/modal',
+            locals: \
+            { id: @biog[:id],
+              content: @biog[:content] }

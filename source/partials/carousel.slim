@@ -2,10 +2,10 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
+- @entry_data        = local_data[:entry_data]
+- @content_source    = local_data[:content_source]
 
-- @entry_data           = local_data[:entry_data]
-- @content_source       = local_data[:content_source]
-
+/ - @carousel_data     = local_data[:carousel_data]
 
 ////////////////////////////////////////////////////////////
 //  Carousel
@@ -14,24 +14,37 @@
 .carousel.swiper-container
   .carousel__inner.swiper-wrapper
 
-      / Related content
+      / Latest content (related)
       - if @content_source == 'related'
         = partial 'partials/related',
           locals: { local_data: \
             { entry_data: @entry_data,
               card_wrapper_class: 'carousel__item swiper-slide' }}
 
+      - if @content_source == 'latest'
+        - @entry_data[0, 5].each do |id, page|
+          .carousel__item.swiper-slide
+            = partial 'partials/main-card',
+              locals: { page: page }
+
+      - if @content_source == 'ten'
+        - @entry_data[0, 9].each do |id, page|
+          .carousel__item.swiper-slide
+            = partial 'partials/main-card',
+              locals: { page: page }
+
+
   .carousel__actions
 
-    .carousel__prev.title.title--xsmall.title--alt
+    .carousel__prev.alt-title.alt-title--xs
       = partial 'partials/icon',
         locals: { icon:  'chevron-left',
                   size:  'small',
                   color: 'green' }
-      | Prev
+      span Prev
 
-    .carousel__next.title.title--xsmall.title--alt
-      | Next
+    .carousel__next.alt-title.alt-title--xs
+      span Next
       = partial 'partials/icon',
         locals: { icon:  'chevron-right',
                   size:  'small',

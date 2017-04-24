@@ -338,13 +338,13 @@ $properties: (
 %u-overlay,
 %u-overlay-medium {
   &::after {
-    background-color: rgba($brand_black, .5);
+    background-color: rgba(#000, .5);
   }
 }
 
 %u-overlay-dark {
   &::after {
-    background-color: rgba($brand_black, .75);
+    background-color: rgba(#000, .6666);
   }
 }
 
@@ -414,7 +414,7 @@ $properties: (
 ////////////////////////////////////////////////////////////
 
 %u-vertical-rhythm-xsmall  { margin-top: .5em; }
-%u-vertical-rhythm-small { margin-top: 1em; }
+%u-vertical-rhythm-small   { margin-top: 1em; }
 %u-vertical-rhythm-medium  { margin-top: 1.5em; }
 
 // Font families
@@ -457,13 +457,10 @@ $properties: (
 //  Colors
 ////////////////////////////////////////////////////////////
 
-.u-col-white {
-  @extend %u-color-brand-white;
-}
+.u-col-white { color: $brand_white !important; }
 
-.u-bgc-white {
-  @extend %u-bgc-brand-white;
-}
+.u-bgc-white      { @extend %u-bgc-brand-white; }
+.u-bgc-blue { background-color: $brand_blue !important; }
 
 ////////////////////////////////////////////////////////////
 //  Type
@@ -477,18 +474,16 @@ $properties: (
 //  Box model
 ////////////////////////////////////////////////////////////
 
-.u-mtop-sm {
-  @extend %u-margin-top-small;
-}
+.u-mtop-xs { @extend %u-margin-top-xsmall; }
+.u-mtop-sm { @extend %u-margin-top-small; }
+.u-mtop-md { @extend %u-margin-top-medium; }
 
-.u-ptop-sm, {
-  padding-top: 1rem;
-}
+.u-ptop-sm { padding-top: 1rem; }
+.u-ptop-md { padding-top: 2rem; }
 
-.u-ptop-md, {
-  padding-top: 2rem;
-}
+.u-vr-xs { @extend %u-vertical-rhythm-small; }
+.u-vr-sm { @extend %u-vertical-rhythm-small; }
 
-.u-vr-sm {
-  @extend %u-vertical-rhythm-small;
+.u-accb-grey {
+  border-bottom: 2px solid $brand_white_2;
 }

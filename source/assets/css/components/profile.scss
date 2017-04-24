@@ -1,20 +1,7 @@
 .profile {
-  padding-bottom: 2rem;
-
-  border-bottom: 2px solid $brand_white_2;
-
-  align-content: flex-start;
-
   @extend
-    %u-flex-row-start,
+    %u-flex-row-center,
     %u-border-radius-small;
-
-  @include above('medium') {
-    padding-left: 1rem;
-
-    border-bottom: none;
-    border-left: 2px solid $brand_white_2;
-  }
 }
 
 .profile__image {
@@ -28,7 +15,19 @@
   }
 }
 
+.profile--side {
+  @extend
+    %u-bgc-brand-white-1,
+    %u-padding-small;
+}
+
 .profile__main {
   flex: 1;
   padding-left: 1rem;
+}
+
+.profile__actions {
+  @extend
+    %u-margin-top-small,
+    %u-width-full;
 }

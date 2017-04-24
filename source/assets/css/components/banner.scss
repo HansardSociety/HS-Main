@@ -29,6 +29,7 @@
 .banner__content {
 
   @extend
+    %u-color-brand-white,
     %u-content-main,
     %u-position-relative;
 }

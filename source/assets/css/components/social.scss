@@ -2,17 +2,20 @@
   width: 2rem;
   height: 2rem;
 
-  // border-bottom: 2px solid $brand_white_2;
+  border: 2px solid $brand_orange;
 
   @extend
     %u-border-radius-small,
-    %u-bgc-brand-white-1,
     %u-display-inline-block,
     %u-transition-base-all,
     %u-position-relative;
 
   &:hover {
-    @extend %u-bgc-brand-white-2;
+    @extend %u-bgc-brand-orange;
+
+    svg {
+      fill: $brand_white;
+    }
   }
 
   & > span {
