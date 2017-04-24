@@ -169,7 +169,7 @@ article
 
         .content.content--wide
           .grid
-            section.grid__cell.grid__cell--7
+            section.grid__cell.grid__cell--7.copy
               = Kramdown::Document.new(\
                 panel[:panel_type] == 'promoted' ? \
                 panel[:copy] + "\n{: .byline }" : panel[:copy]).to_html
