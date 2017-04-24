@@ -73,9 +73,10 @@ article
               / Title text
               = panel[:title]
 
-            = Kramdown::Document.new(\
-              panel[:panel_type] == 'promoted' ? \
-              "{:refdef: .byline }\n" + panel[:copy] + "\n{: refdef }" : panel[:copy]).to_html
+            .u-mtop-sm
+              = Kramdown::Document.new(\
+                panel[:panel_type] == 'promoted' ? \
+                "{:refdef: .byline }\n" + panel[:copy] + "\n{: refdef }" : panel[:copy]).to_html
 
             .btn-group.u-ptop-md
 
@@ -157,6 +158,7 @@ article
 
         .content
           .content__inner.content__inner--narrow.content__inner--center
+
             / Title (h2/h3)
             *@title_elem
 
