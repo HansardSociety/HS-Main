@@ -34,7 +34,7 @@ class PeopleMap < ContentfulMiddleman::Mapper::Base
     context.tel          = entry.tel
     context.twitter      = entry.twitter
     context.linkedin     = entry.linkedin
-    context.employment   = entry.employment.parameterize
+    context.employment   = (entry.employment.parameterize if entry.employment)
     context.photo = {
       url:   entry.photo.url,
       alt:   entry.photo.description
