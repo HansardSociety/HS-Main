@@ -36,8 +36,8 @@ class PeopleMap < ContentfulMiddleman::Mapper::Base
     context.linkedin     = entry.linkedin
     context.employment   = entry.employment
     context.photo = {
-      url:   entry.logo_desktop.url,
-      alt:   entry.logo_desktop.description
+      url:   entry.photo.url,
+      alt:   entry.photo.description
     }
   end
 end

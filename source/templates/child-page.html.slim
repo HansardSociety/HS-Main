@@ -66,7 +66,15 @@ article
   .content.content--wide.u-bgc-white
     .grid
       .grid__cell.grid__cell--7.copy
-        = Kramdown::Document.new(@copy).to_html
+
+        - if @copy
+          = Kramdown::Document.new(@copy).to_html
+
+
+        - if @child_page[:tags].select{ |tag| tag == '__our_people__' }
+          - data.hs.people.each do |id, profile|
+            - if profile[:employment] == 'Staff'
+              p= profile[:full_name]
 
       / Side content
       aside.grid__cell.grid__cell--5
