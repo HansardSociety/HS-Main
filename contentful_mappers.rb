@@ -19,6 +19,30 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
 end
 
 ############################################################
+##  Global
+############################################################
+
+class PeopleMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+    context.ID           = entry.sys[:id]
+    context.TYPE         = entry.content_type.id
+    context.full_name    = entry.full_name
+    context.role         = entry.role
+    context.organisation = entry.organisation
+    context.biog         = entry.biog
+    context.email        = entry.email
+    context.tel          = entry.tel
+    context.twitter      = entry.twitter
+    context.linkedin     = entry.linkedin
+    context.employment   = entry.employment
+    context.photo = {
+      url:   entry.logo_desktop.url,
+      alt:   entry.logo_desktop.description
+    }
+  end
+end
+
+############################################################
 ##  Homepage
 ############################################################
 

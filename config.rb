@@ -70,12 +70,13 @@ activate :contentful do |f|
   f.access_token  = 'd1270ddb68c436e381efa9ae456472610081a17d7e9e3fbb3d8309b702a852e2'
   f.cda_query     = { include: 6 }
   f.content_types = {
-    child_page: { mapper: ChildPageMap, id: 'child_page' },
-    homepage: { mapper: HomeMap, id: 'home' },
+    child_page:   { mapper: ChildPageMap,   id: 'child_page' },
+    homepage:     { mapper: HomeMap,        id: 'home' },
     landing_page: { mapper: LandingPageMap, id: 'landing_page' },
-    root_page: { mapper: RootPageMap, id: 'root_page' },
-    navigation: { mapper: NavigationMap, id: 'navigation' },
-    universal: { mapper: UniversalMap, id: 'universal' }
+    root_page:    { mapper: RootPageMap,    id: 'root_page' },
+    navigation:   { mapper: NavigationMap,  id: 'navigation' },
+    universal:    { mapper: UniversalMap,   id: 'universal' },
+    people:       { mapper: PeopleMap,      id: 'people' }
   }
 end
 
