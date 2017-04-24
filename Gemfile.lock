@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/contentful/contentful_middleman.git
-  revision: f18090455ff40965e59fe6106b6520f1105681ff
-  branch: dl/upgrade-to-v4
+  revision: d75146dbe34216397184898bf9de658f60f8b4fd
+  branch: v4-1.x-stable
   specs:
     contentful_middleman (1.5.0)
       contentful (~> 1.0)
@@ -32,7 +32,7 @@ GEM
       multi_json (~> 1)
     contentful-webhook-listener (0.3.0)
     contracts (0.13.0)
-    domain_name (0.5.20170223)
+    domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.0)
     erubis (2.7.0)
@@ -122,7 +122,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.2)
+    unf_ext (0.0.7.4)
 
 PLATFORMS
   ruby

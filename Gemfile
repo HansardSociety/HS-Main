@@ -11,5 +11,5 @@ source 'https://rubygems.org'
 # Gems
 gem 'middleman'
 gem 'slim'
-gem 'contentful_middleman', :git => 'https://github.com/contentful/contentful_middleman.git', :branch => 'dl/upgrade-to-v4'
+gem 'contentful_middleman', :git => 'https://github.com/contentful/contentful_middleman.git', :branch => 'v4-1.x-stable'
 gem 'public_suffix'
