@@ -327,7 +327,6 @@ $properties: (
 %u-overlay-medium,
 %u-overlay-dark {
   &::after {
-    background-color: rgba($brand_black, .5);
     @extend
       %u-height-full,
       %u-pseudo-element-base,
@@ -344,7 +343,7 @@ $properties: (
 
 %u-overlay-dark {
   &::after {
-    background-color: rgba(#000, .6666);
+    background-color: rgba(#000, .5);
   }
 }
 

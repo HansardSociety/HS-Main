@@ -11,6 +11,16 @@
 - @promoted_page    = @child_page[:promoted_page]
 - @registration     = @child_page[:registration]
 
+
+/ For 'Latest'
+- @child_pages       = data.hs.child_page
+- @landing_pages     = data.hs.landing_page
+- @merged_pages      = @landing_pages.merge(@child_pages)
+- @pages_by_date     = @merged_pages.sort_by{ |key, page| - page.date_time.integer }
+
+- @main_pages = @pages_by_date.map{ |id, page| [ id, page ] \
+  if ([ 'research', 'blog', 'events' ].include? page[:category])}.delete_if{ |page| page.nil? }
+
 ////////////////////////////////////////////////////////////
 //  Child page
 ////////////////////////////////////////////////////////////
@@ -60,6 +70,14 @@ article
 
       / Side content
       aside.grid__cell.grid__cell--5
-        = partial 'partials/related',
-          locals: { local_data: \
-            { entry_data: @child_page }}
+
+        - if ([ 'events', 'blog', 'research' ].include? @category)
+          = partial 'partials/related',
+            locals: { local_data: \
+              { entry_data: @child_page }}
+
+        - if ([ 'about' ].include? @category)
+          - @main_pages[0, 4].each do |id, page|
+            = partial 'partials/side-card',
+              locals: { local_data: \
+                { side_card_data: page }}
