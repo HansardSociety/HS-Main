@@ -7,7 +7,7 @@ require 'contentful_mappers'
 ############################################################
 
 set :SITE_TITLE,  'Hansard Society'
-set :SITE_URL,    'http://localhost:7000'
+set :SITE_URL,    ''
 
 ############################################################
 ##  Helpers

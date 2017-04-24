@@ -28,7 +28,7 @@ article
         .byline
           = Kramdown::Document.new(@page_data[:introduction]).to_html
         .toc
-          = Kramdown::Document.new(@page_data[:toc]).to_html
+          = Kramdown::Document.new(@page_data[:toc] + "{: .link}").to_html
 
   //  'Latest' (related)
   ////////////////////////////

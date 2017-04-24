@@ -49,7 +49,7 @@
   ('btn--' + @style if @style),
   ('btn--fill' if @fill),
   ('btn-group__btn' if @group),
-  (@type == 'state' && @reverse == nil ? 'JS-off' : ('JS-on' if @type == 'state')),
+  (@type == 'state' && @reverse == nil ? 'JS-off JS-deactivate' : ('JS-on' if @type == 'state')),
   ('JS-no-scroll' if @page == 'no-scroll'),
   ('JS-exclusive' if @exclusive) ].reject{ |value| value.nil? }
 
