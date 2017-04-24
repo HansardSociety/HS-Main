@@ -1,23 +1,39 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @main_card          = local_data[:entry_data]
+
+- @main_card_inner_elem  = {\
+  tag: (@main_card[:category] == 'hello' ? \
+        'a' : 'div'),
+  href: (@main_card[:category] == 'hello' ? \
+        config[:SITE_URL] + '/' + @main_card[:category] + '/' + @main_card[:slug] : \
+        nil) }
+
+////////////////////////////////////////////////////////////
+//  Main card
+////////////////////////////////////////////////////////////
+
 article.main-card.swiper-slide{
-  class="#{ 'main-card--' + page[:category] }"
+  class="#{ 'main-card--' + @main_card[:category] if @main_card[:category] }"
 }
 
-  a{
-    href="#{ config[:SITE_URL] + '/' + page[:category] + '/' + page[:slug] }"
-  }
+  *@main_card_inner_elem
+
     / Header
     .main-card__header
       .main-card__image
         img{
-          src="#{ page[:banner_image].url }"
-          alt="#{ page[:banner_image].alt }"
+          src="#{ @main_card[:banner_image].url }"
+          alt="#{ @main_card[:banner_image].alt }"
         }
 
       .main-card__meta
-        span.alt-title.alt-title--xs.u-col-white= page[:category]
+        span.alt-title.alt-title--xs.u-col-white= @main_card[:category]
 
-      h1.main-card__title.title.title--small.title--white= page[:title]
+      h1.main-card__title.title.title--small.title--white= @main_card[:title]
 
     / Introduction
     .main-card__introduction
-      p= page[:introduction][0..195].chomp('.') + '…'
+      p= @main_card[:introduction][0..195].chomp('.') + '…'

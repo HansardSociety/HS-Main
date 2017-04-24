@@ -3,52 +3,63 @@
 ////////////////////////////////////////////////////////////
 
 - @entry_data         = local_data[:entry_data]
-- @card_wrapper_class = local_data[:card_wrapper_class]
 
+/ Custom elements
+- @card_wrapper_class = local_data[:card_wrapper_class]
 - @card_wrapper_elem  = { tag: 'div', class: @card_wrapper_class }
 
-////////////////////////////////////////////////////////////
-//  Related
-////////////////////////////////////////////////////////////
-
-/ Organise child pages by category
+/ Core
 - @child_pages       = data.hs.child_page
 - @landing_pages     = data.hs.landing_page
-
 - @merged_pages      = @landing_pages.merge(@child_pages)
 
-- @pages_by_category = @merged_pages.group_by{ |key, value| value[:category] }
+////////////////////////////////////////////////////////////
+//  Related (child pages)
+////////////////////////////////////////////////////////////
 
-/ Loop through categorised pages
-- @pages_by_category.each do |categories, pages|
+- if @entry_data.TYPE == 'child_page'
 
-  /  Order by date (descending)
-  - @pages_by_date = pages.sort_by{ |key, value| - value.date_time.integer }
+  / Organise categories
+  - @group_pages_by_category = @merged_pages.group_by{ |key, value| value[:category] }
+  - @order_categories        = [ 'research', 'publications', 'blog', 'events', 'about' ]
+  - @sort_categories         = @group_pages_by_category.sort_by{ |k, v| @order_categories.index(k) }
 
-  / Filter by tag, remove empty objects and remove this page
-  - @pages_tagged = @pages_by_date.map!{ |id, page| \
-    [id, page] if page.tags \
-                  && page.tags.any?{ |tags| @entry_data.tags.include?(tags) } \
-                  && page.ID != @entry_data.ID \
-  }.delete_if{ |page| page.nil? }
+  / Loop through categorised pages
+  - @sort_categories.each do |categories, pages|
 
-  / Loop through first five objects in each category
-  - @pages_tagged[0..2].map do |id, page|
+    /  Order by date (descending)
+    - @pages_by_date = pages.sort_by{ |key, value| - value.date_time.integer }
 
-    //  Side card (child page)
-    ////////////////////////////
+    / Filter by tag, remove empty objects and remove this page
+    - @pages_tagged = @pages_by_date.map { |id, page| \
+      [ id, page ] if page[:tags] \
+      && page[:tags].any?{ |tags| @entry_data[:tags].include?(tags) } \
+      && page.ID != @entry_data.ID \
+    }.delete_if{ |page| page.nil? }
 
-    - if @entry_data.TYPE == 'child_page'
+    / Loop through first three objects in each category
+    - @pages_tagged[0..2].map do |id, page|
       = partial 'partials/side-card',
         locals: { local_data: \
           { side_card_data: page }}
 
-    //  Main card (landing page)
-    ////////////////////////////
+////////////////////////////////////////////////////////////
+//  Related (landing pages)
+////////////////////////////////////////////////////////////
 
-    - if @entry_data.TYPE == 'landing_page'
+- if @entry_data.TYPE == 'landing_page'
 
-      *@card_wrapper_elem
-        = partial 'partials/main-card',
-          locals: \
-          { page: page }
+  - @pages_by_date = @merged_pages.sort_by{ |id, page| - page.date_time.integer }
+
+  / Filter by tag, remove empty objects and remove this page
+  - @pages_tagged = @pages_by_date.map { |id, page| \
+    [ id, page ] if page[:tags] \
+    && page[:tags].any?{ |tags| @entry_data[:tags].include?(tags) } \
+    && page.ID != @entry_data.ID \
+  }.delete_if{ |page| page.nil? }
+
+  - @pages_tagged[0..4].each do |id, page|
+    *@card_wrapper_elem
+      = partial 'partials/main-card',
+        locals: { local_data: \
+          { entry_data: page }}

@@ -25,13 +25,15 @@
         - @entry_data[0, 5].each do |id, page|
           .carousel__item.swiper-slide
             = partial 'partials/main-card',
-              locals: { page: page }
+              locals: { local_data: \
+                { entry_data: page }}
 
       - if @content_source == 'ten'
         - @entry_data[0, 9].each do |id, page|
           .carousel__item.swiper-slide
             = partial 'partials/main-card',
-              locals: { page: page }
+              locals: { local_data: \
+                { entry_data: page }}
 
 
   .carousel__actions

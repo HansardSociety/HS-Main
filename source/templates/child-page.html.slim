@@ -65,14 +65,6 @@ article
   / Body
   .content.content--wide.u-bgc-white
 
-    - if @child_page[:tags].select{ |tag| tag == '__our_people__' }
-
-      - data.hs.people.each do |id, profile|
-        - if profile[:employment] == 'staff'
-          p= profile[:full_name]
-
-
-    - else
       .grid
 
         / Copy
