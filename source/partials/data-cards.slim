@@ -63,7 +63,7 @@
       && page.ID != @entry_data.ID \
     }.delete_if{ |page| page.nil? }
 
-    - @pages_tagged[0..4].each do |id, page|
+    - @pages_tagged[0..2].each do |id, page|
       *@card_wrapper_elem
         = partial 'partials/main-card',
           locals: { local_data: \

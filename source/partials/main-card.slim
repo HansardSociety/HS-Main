@@ -38,7 +38,7 @@
 
       / Introduction
       .main-card__introduction
-        p= @main_card[:introduction][0..195].chomp('.') + '…'
+        = Kramdown::Document.new(@main_card[:introduction][0..195].chomp('.') + '…').to_html
 
 ////////////////////////////////////////////////////////////
 //  Profile

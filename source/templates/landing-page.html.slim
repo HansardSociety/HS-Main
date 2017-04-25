@@ -70,10 +70,11 @@ article
             / Title text
             = panel[:title]
 
-          .u-mtop-sm
-            = Kramdown::Document.new(\
-              panel[:panel_type] == 'promoted' ? \
-              "{:refdef: .byline }\n" + panel[:copy] + "\n{: refdef }" : panel[:copy]).to_html
+          - if panel[:copy]
+            .u-mtop-sm
+              = Kramdown::Document.new(\
+                panel[:panel_type] == 'promoted' ? \
+                "{:refdef: .byline }\n" + panel[:copy] + "\n{: refdef }" : panel[:copy]).to_html
 
           .btn-group.u-ptop-md
 

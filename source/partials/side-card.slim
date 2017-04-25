@@ -40,7 +40,7 @@ article.side-card{
 
     .side-card__content
       .side-card__meta
-        - if 'product'
+        - if @product
           span.alt-title.alt-title--xs Publication
 
         - if ([ 'research', 'publications' ]).include? @category
