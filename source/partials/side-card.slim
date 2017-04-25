@@ -40,6 +40,8 @@ article.side-card{
 
     .side-card__content
       .side-card__meta
+        - if 'product'
+          span.alt-title.alt-title--xs Publication
 
         - if ([ 'research', 'publications' ]).include? @category
           span.alt-title.alt-title--xs= @category
@@ -72,7 +74,7 @@ article.side-card{
                   { type: 'link', size: 'small', style: 'primary',
                     text: 'Download', text_size: 'small', url: @product[:download] }}
 
-          - if @product[:price] > 0
+          - else
             .u-mtop-xs
               = partial 'partials/btn',
                 locals: { local_data: \
