@@ -65,7 +65,7 @@
               li.menu__category{
                 class="menu__category--#{ category.downcase }"
               }
-                h3.alt-title.alt-title--xs= category if navigation.title != category
+                h3.alt-title.alt-title--xs.u-mtop-xs= category if navigation.title != category
                 ul
 
                   - pages.each do |page|
@@ -84,7 +84,7 @@
         li.menu__column{
           class="menu__column--#{ category.parameterize }"
         }
-          h3.alt-title.alt-title--xs= category
+          h3.alt-title.alt-title--xs.u-mtop-xs= category
 
           - pages.each do |page|
             h4.title.title--small.title--white

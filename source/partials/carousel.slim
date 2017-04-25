@@ -3,9 +3,10 @@
 ////////////////////////////////////////////////////////////
 
 - @entry_data        = local_data[:entry_data]
+
 - @content_source    = local_data[:content_source]
 
-/ - @carousel_data     = local_data[:carousel_data]
+- @carousel_data     = local_data[:carousel_data]
 
 ////////////////////////////////////////////////////////////
 //  Carousel
@@ -16,28 +17,35 @@
 
       / Latest content (related)
       - if @content_source == 'related'
-        = partial 'partials/related',
+        = partial 'partials/data-cards',
           locals: { local_data: \
             { entry_data: @entry_data,
+              context: 'related',
               card_wrapper_class: 'carousel__item swiper-slide' }}
 
       - if @content_source == 'latest'
-        - @entry_data[0, 5].each do |id, page|
+        - @entry_data[0..5].each do |id, page|
           .carousel__item.swiper-slide
             = partial 'partials/main-card',
               locals: { local_data: \
                 { entry_data: page }}
 
-      - if @content_source == 'ten'
-        - @entry_data[0, 9].each do |id, page|
+      - if @content_source == 'category-latest'
+        - @entry_data[0..9].each do |id, page|
           .carousel__item.swiper-slide
             = partial 'partials/main-card',
               locals: { local_data: \
                 { entry_data: page }}
 
+      - if @content_source == 'profiles'
+        - @entry_data.each do |id, profile|
+          .carousel__item.swiper-slide
+            = partial 'partials/main-card',
+              locals: { local_data: \
+                { entry_data: profile }}
 
+  / Actions
   .carousel__actions
-
     .carousel__prev.alt-title.alt-title--xs
       = partial 'partials/icon',
         locals: { icon:  'chevron-left',
@@ -51,3 +59,11 @@
         locals: { icon:  'chevron-right',
                   size:  'small',
                   color: 'green' }
+
+- if @content_source == 'profiles'
+  - @entry_data.each do |id, profile|
+    - if profile[:biog]
+      = partial 'partials/modal',
+        locals: \
+        { id: "modal-#{profile[:ID]}",
+          content: profile[:biog] }

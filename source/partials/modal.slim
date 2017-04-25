@@ -10,9 +10,8 @@
         / Menu button (mobile)
         = partial 'partials/btn',
           locals: { local_data: \
-            { type: 'state', size: 'small', reverse: true,
-              icon: 'close', icon_size: 'small', icon_color: 'green',
-              aria_id: "deactivate-#{ id }", aria_target_id: id }}
+            { size: 'small', CLOSEALL: true,
+              icon: 'close', icon_size: 'small', icon_color: 'green' }}
 
     .modal__content.copy
       = Kramdown::Document.new(content).to_html

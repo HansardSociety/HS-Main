@@ -9,12 +9,5 @@
 ////////////////////////////////////////////////////////////
 //  Registration
 ////////////////////////////////////////////////////////////
-
-.registration
-  .registration__date
-    = partial 'partials/date',
-      locals: { local_data: \
-        { date_data: @registration_data[:date_time] }}
-  .registration__content
-
-/ = Kramdown::Document.new(@embed_code).to_html
+.embed-code
+  = Kramdown::Document.new(@embed_code).to_html

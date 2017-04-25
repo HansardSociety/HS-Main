@@ -6,8 +6,8 @@ require 'contentful_mappers'
 ##  Variables
 ############################################################
 
-set :SITE_TITLE,  'Hansard Society'
-set :SITE_URL,    ''
+set :SITE_TITLE,    'Hansard Society'
+set :SITE_URL,      ''
 
 ############################################################
 ##  Helpers

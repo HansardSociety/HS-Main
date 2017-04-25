@@ -9,16 +9,18 @@
 - @pages_by_date     = @merged_pages.sort_by{ |key, page| - page.date_time.integer }
 
 - @main_pages = @pages_by_date.map{ |id, page| [ id, page ] \
-  if ([ 'research', 'blog', 'events' ].include? page[:category])}.delete_if{ |page| page.nil? }
+                if ([ 'research', 'publications', 'blog', 'events' ].include? \
+                page[:category])}.delete_if{ |page| page.nil? }
 
-- @our_work          = @pages_by_date.map{ |id, page| [ id, page ] \
-  if ([ 'research' ].include? page[:category])}.delete_if{ |page| page.nil? }
+- @our_work   = @pages_by_date.map{ |id, page| [ id, page ] \
+                if ([ 'research', 'publications' ].include? \
+                page[:category])}.delete_if{ |page| page.nil? }
 
-- @events          = @pages_by_date.map{ |id, page| [ id, page ] \
-  if ([ 'events' ].include? page[:category])}.delete_if{ |page| page.nil? }
+- @events     = @pages_by_date.map{ |id, page| [ id, page ] \
+                if page[:category] == 'events' }.delete_if{ |page| page.nil? }
 
-- @blog          = @pages_by_date.map{ |id, page| [ id, page ] \
-  if ([ 'blog' ].include? page[:category])}.delete_if{ |page| page.nil? }
+- @blog       = @pages_by_date.map{ |id, page| [ id, page ] \
+                if page[:category] == 'blog' }.delete_if{ |page| page.nil? }
 
 ////////////////////////////////////////////////////////////
 //  Homepage
@@ -54,7 +56,7 @@ article
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @our_work,
-              content_source: 'ten' }}
+              content_source: 'category-latest' }}
 
   //  Events
   ////////////////////////////
@@ -66,7 +68,7 @@ article
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @events,
-              content_source: 'ten' }}
+              content_source: 'category-latest' }}
 
   //  Events
   ////////////////////////////
@@ -78,4 +80,4 @@ article
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @blog,
-              content_source: 'ten' }}
+              content_source: 'category-latest' }}

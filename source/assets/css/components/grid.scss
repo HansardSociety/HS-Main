@@ -2,8 +2,7 @@
   margin-top: -1rem;
   margin-left: -2rem;
 
-  @extend
-    %u-flex-row;
+  @extend %u-flex-row;
 }
 
 .grid--center {

@@ -1,4 +1,12 @@
 ////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @order_nav  = [ 'Our work', 'About', 'Blog', 'Events' ]
+- @sort_nav   = data.hs.navigation.sort_by{ |k, v| @order_nav.index(v[:title]) }
+
+
+////////////////////////////////////////////////////////////
 //  Navbar
 ////////////////////////////////////////////////////////////
 
@@ -34,7 +42,7 @@ nav#navbar.navbar.JS-inactive
 
       ul.navbar__list
 
-        - data.hs.navigation.each do |id, navigation|
+        - @sort_nav.each do |id, navigation|
 
           / Base ID for menu and menu button (drop-down)
           - @menu_desktop_id_base = 'menu-desktop' + navigation.title.parameterize
@@ -70,8 +78,6 @@ nav#navbar.navbar.JS-inactive
                         aria_target_id: @menu_desktop_id_base }}
 
             / Menu (desktop)
-
-
             = partial 'partials/menu',
               locals: { local_data: \
                         { id: @menu_desktop_id_base,

@@ -23,25 +23,23 @@ article
   ////////////////////////////
 
   .panel#banner-scroll-target
-    .content
-      .content__inner.content__inner--narrow.content__inner--center
-        .byline
-          = Kramdown::Document.new(@page_data[:introduction]).to_html
-        .toc
-          = Kramdown::Document.new(@page_data[:toc] + "{: .link}").to_html
+    .content.content--narrow.content--center
+      .byline
+        = Kramdown::Document.new(@page_data[:introduction]).to_html
+      .toc
+        = Kramdown::Document.new(@page_data[:toc] + "{: .link}").to_html
 
   //  'Latest' (related)
   ////////////////////////////
 
   .panel.panel--block
-    .content
-      .content__inner.content__inner--wide.content__inner--center
-        h2.title.title--large Latest
-        .u-mtop-sm
-          = partial 'partials/carousel',
-            locals: { local_data: \
-              { entry_data: @page_data,
-                content_source: 'related' }}
+    .content.content--wide.content--center
+      h2.title.title--large Latest
+      .u-mtop-sm
+        = partial 'partials/carousel',
+          locals: { local_data: \
+            { entry_data: @page_data,
+              content_source: 'related' }}
 
   //  Curated panels
   ////////////////////////////
@@ -60,91 +58,93 @@ article
       .panel.panel--block{
         id="panel-#{ index }"
       }
-        .content
-          .content__inner.content__inner--narrow.content__inner--center
+        .content.content--narrow.content--center
 
-            / Title (h2/h3)
-            *@title_elem
+          / Title (h2/h3)
+          *@title_elem
 
-              / Title label
-              - if panel[:label]
-                span.alt-title.alt-title--sm= panel[:label]
+            / Title label
+            - if panel[:label]
+              span.alt-title.alt-title--sm= panel[:label]
 
-              / Title text
-              = panel[:title]
+            / Title text
+            = panel[:title]
 
-            .u-mtop-sm
-              = Kramdown::Document.new(\
-                panel[:panel_type] == 'promoted' ? \
-                "{:refdef: .byline }\n" + panel[:copy] + "\n{: refdef }" : panel[:copy]).to_html
+          .u-mtop-sm
+            = Kramdown::Document.new(\
+              panel[:panel_type] == 'promoted' ? \
+              "{:refdef: .byline }\n" + panel[:copy] + "\n{: refdef }" : panel[:copy]).to_html
 
-            .btn-group.u-ptop-md
+          .btn-group.u-ptop-md
 
-              / Show more
-              - if panel[:show_more]
+            / Show more
+            - if panel[:show_more]
+
+              / Modal
+              = partial 'partials/modal',
+                locals: \
+                { id: panel[:show_more].id,
+                  content: panel[:show_more].content }
+
+
+
+              / Button
+              = partial 'partials/btn',
+                locals: { local_data: \
+                  { type: 'state', size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                    style: 'secondary', group: true,
+                    text_on: 'Show more', text_off: 'Close',
+                    text_size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                    page: 'no-scroll', exclusive: true,
+                    aria_id: "activate-#{ panel[:show_more].id }",
+                    aria_target_id: panel[:show_more].id }}
+
+
+            / Panel calls to action
+            - if panel[:calls_to_action]
+              - panel[:calls_to_action].each do |cta|
+
+                / Download
+                - if cta.action == 'download'
+                  = partial 'partials/btn',
+                    locals: { local_data: \
+                      { type: 'link',
+                        size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                        style: 'primary', group: true,
+                        text: cta.button_text,
+                        text_size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                        url: cta.file.url }}
 
                 / Modal
-                = partial 'partials/modal',
-                  locals: \
-                  { id: panel[:show_more].id,
-                    content: panel[:show_more].content }
-
-                / Button
-                = partial 'partials/btn',
-                  locals: { local_data: \
-                    { type: 'state', size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
-                      style: 'secondary', group: true,
-                      text_on: 'Show more', text_off: 'Close',
-                      text_size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
-                      page: 'no-scroll', exclusive: true,
-                      aria_id: "activate-#{ panel[:show_more].id }",
-                      aria_target_id: panel[:show_more].id }}
-
-              / Panel calls to action
-              - if panel[:calls_to_action]
-                - panel[:calls_to_action].each do |cta|
-
-                  / Download
-                  - if cta.action == 'download'
-                    = partial 'partials/btn',
-                      locals: { local_data: \
-                        { type: 'link',
-                          size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
-                          style: 'primary', group: true,
-                          text: cta.button_text,
-                          text_size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
-                          url: cta.file.url }}
+                - if cta.action == 'modal'
 
                   / Modal
-                  - if cta.action == 'modal'
+                  = partial 'partials/modal',
+                    locals: \
+                    { id: cta[:modal].id,
+                      content: cta[:modal].content }
 
-                    / Modal
-                    = partial 'partials/modal',
-                      locals: \
-                      { id: cta[:modal].id,
-                        content: cta[:modal].content }
+                  / Button
+                  = partial 'partials/btn',
+                    locals: { local_data: \
+                      { type: 'state',
+                        size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                        style: 'secondary', group: true,
+                        text_on: cta[:button_text], text_off: 'Close',
+                        text_size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
+                        page: 'no-scroll', exclusive: true,
+                        aria_id: "activate-#{ cta[:modal].id }",
+                        aria_target_id: cta[:modal].id }}
 
-                    / Button
-                    = partial 'partials/btn',
-                      locals: { local_data: \
-                        { type: 'state',
-                          size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
-                          style: 'secondary', group: true,
-                          text_on: cta[:button_text], text_off: 'Close',
-                          text_size: (panel[:panel_type] == 'promoted' ? 'medium' : 'small'),
-                          page: 'no-scroll', exclusive: true,
-                          aria_id: "activate-#{ cta[:modal].id }",
-                          aria_target_id: cta[:modal].id }}
-
-          / Accordian
-          - if panel[:accordian]
-            .content__inner.content__inner--wide
-              .grid
-                - panel[:accordian].each do |accordian|
-                  .grid__cell.grid__cell--3
-                    = partial 'partials/accordian',
-                      locals: { local_data: \
-                        { accordian_data: accordian }}
+        / Accordian
+        - if panel[:accordian]
+          .content.content--wide
+            .grid
+              - panel[:accordian].each do |accordian|
+                .grid__cell.grid__cell--3
+                  = partial 'partials/accordian',
+                    locals: { local_data: \
+                      { accordian_data: accordian }}
 
 
     //  Panel with image
@@ -156,18 +156,17 @@ article
         id="panel-#{ index }"
       }
 
-        .content
-          .content__inner.content__inner--narrow.content__inner--center
+        .content.content--narrow.content--center
 
-            / Title (h2/h3)
-            *@title_elem
+          / Title (h2/h3)
+          *@title_elem
 
-              / Title label
-              - if panel[:label]
-                span.alt-title.alt-title--sm= panel[:label]
+            / Title label
+            - if panel[:label]
+              span.alt-title.alt-title--sm= panel[:label]
 
-              / Title text
-              = panel[:title]
+            / Title text
+            = panel[:title]
 
         .content.content--wide
           .grid

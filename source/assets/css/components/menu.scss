@@ -44,7 +44,7 @@
 
 .menu__container--columns {
   flex-flow: row nowrap;
-  justify-content: space-between;
+  // justify-content: space-between;
 
   @extend
     %u-display-flex,
@@ -67,6 +67,10 @@
   flex: 0 30%;
 
   @extend %u-margin-top-medium;
+
+  &:nth-child(1n + 2) {
+    margin-left: 2rem;
+  }
 }
 
 // Accents
@@ -76,6 +80,8 @@
 .menu__category--about        { @extend %u-accent-medium-brand-green-top; }
 .menu__column--resources,
 .menu__category--resources    { @extend %u-accent-medium-brand-light-green-top; }
+.menu__column--publications,
+.menu__category--publications    { @extend %u-accent-medium-brand-light-green-top; }
 .menu__column--intelligence,
 .menu__category--intelligence { @extend %u-accent-medium-brand-light-blue-top; }
 

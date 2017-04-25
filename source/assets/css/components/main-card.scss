@@ -49,3 +49,28 @@
 .main-card__introduction {
   padding: 1rem;
 }
+
+////////////////////////////////////////////////////////////
+//  TEMP
+////////////////////////////////////////////////////////////
+
+.main-card__header--side {
+  height: 162px;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+
+  border-bottom: 2px solid $brand_white_3;
+}
+
+.main-card__side-image {
+  height: 100%;
+  > img {
+    height: 100% ;
+  }
+}
+
+.main-card__content {
+  padding: 1rem 1rem 1rem .5rem;
+}

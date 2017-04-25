@@ -27,6 +27,9 @@ class PeopleMap < ContentfulMiddleman::Mapper::Base
     context.ID           = entry.sys[:id]
     context.TYPE         = entry.content_type.id
     context.full_name    = entry.full_name
+    context.title        = entry.title
+    context.first_name   = entry.first_name
+    context.surname      = entry.surname
     context.role         = entry.role
     context.organisation = entry.organisation
     context.biog         = entry.biog
@@ -238,6 +241,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     context.slug         = entry.slug.parameterize
     context.introduction = entry.introduction
     context.copy         = entry.copy
+    context.our_people   = entry.our_people
 
     ##  Banner image
     ##############################
@@ -290,6 +294,22 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       }
     end
 
+    ##  Promoted (product)
+    ##############################
+
+    if entry.promoted && entry.promoted.content_type.id == 'product'
+      context.product = {
+        title:        entry.promoted.title,
+        product_id:   entry.promoted.product_id,
+        price:        entry.promoted.price,
+        image: {
+          url:        entry.promoted.image.url,
+          alt:        entry.promoted.image.description
+        },
+        download:     (entry.promoted.media.url if entry.promoted.media)
+      }
+    end
+
     ##  Promoted (pages)
     ##############################
 
@@ -317,7 +337,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           ID:       entry.promoted.promoted.sys[:id],
           title:    entry.promoted.promoted.title,
           price:    entry.promoted.promoted.price,
-          download: entry.promoted.promoted.media.url,
+          download: (entry.promoted.promoted.media.url if entry.promoted.promoted.media != nil),
           image: {
             url:    entry.promoted.promoted.image.url,
             alt:    entry.promoted.promoted.image.description

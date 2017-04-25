@@ -5,9 +5,9 @@
 - @main_card          = local_data[:entry_data]
 
 - @main_card_inner_elem  = {\
-  tag: (@main_card[:category] == 'hello' ? \
+  tag: (@main_card[:category] ? \
         'a' : 'div'),
-  href: (@main_card[:category] == 'hello' ? \
+  href: (@main_card[:category] ? \
         config[:SITE_URL] + '/' + @main_card[:category] + '/' + @main_card[:slug] : \
         nil) }
 
@@ -15,25 +15,69 @@
 //  Main card
 ////////////////////////////////////////////////////////////
 
-article.main-card.swiper-slide{
-  class="#{ 'main-card--' + @main_card[:category] if @main_card[:category] }"
-}
+- if @main_card[:category]
 
-  *@main_card_inner_elem
+  article.main-card.swiper-slide{
+    class="#{ 'main-card--' + @main_card[:category] if @main_card[:category] }"
+  }
 
-    / Header
-    .main-card__header
-      .main-card__image
-        img{
-          src="#{ @main_card[:banner_image].url }"
-          alt="#{ @main_card[:banner_image].alt }"
-        }
+    *@main_card_inner_elem
 
-      .main-card__meta
-        span.alt-title.alt-title--xs.u-col-white= @main_card[:category]
+      / Header
+      .main-card__header
+        .main-card__image
+          img{
+            src="#{ @main_card[:banner_image].url }"
+            alt="#{ @main_card[:banner_image].alt }"
+          }
 
-      h1.main-card__title.title.title--small.title--white= @main_card[:title]
+        .main-card__meta
+          span.alt-title.alt-title--xs.u-col-white= @main_card[:category]
 
-    / Introduction
-    .main-card__introduction
-      p= @main_card[:introduction][0..195].chomp('.') + '…'
+        h1.main-card__title.title.title--small.title--white= @main_card[:title]
+
+      / Introduction
+      .main-card__introduction
+        p= @main_card[:introduction][0..195].chomp('.') + '…'
+
+////////////////////////////////////////////////////////////
+//  Profile
+////////////////////////////////////////////////////////////
+
+- if @main_card[:TYPE] == 'people'
+
+  article.main-card.swiper-slide
+
+      / Header
+      .main-card__header.main-card__header--side
+
+        .main-card__side-image
+          img{
+            src="#{ @main_card[:photo].url }?fit=fill&w=229&h=324"
+            alt="#{ @main_card[:photo].alt }"
+          }
+
+        .main-card__content
+          h2.title.title--small= @main_card[:full_name]
+          p.alt-title.alt-title--xs= @main_card[:role]
+
+
+      .main-card__introduction
+        - if @main_card[:email]
+          a.alt-title.alt-title--xs{ href="mailto:#{ @main_card[:email] }" }= @main_card[:email]
+
+        .btn-group.u-mtop-xs
+
+          = partial 'partials/btn',
+            locals: { local_data: \
+              { type: 'state', size: 'small', style: 'secondary', group: true,
+                text_on: 'Show biog', text_off: 'Close biog', text_size: 'small',
+                page: 'no-scroll', exclusive: true,
+                aria_id: "activate-modal-#{ @main_card[:ID] }",
+                aria_target_id: "modal-#{@main_card[:ID]}" }}
+
+          / Social
+          = partial 'partials/social',
+            locals: { local_data: \
+              { icons: [ @main_card[:twitter], @main_card[:linkedin] ],
+                group: true }}

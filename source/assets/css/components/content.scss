@@ -4,10 +4,15 @@
     %u-padding-small;
 }
 
+.content--overlap {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+
+  @extend %u-bgc-brand-white;
+}
+
 .content__inner {
-  @extend
-    %u-border-radius-small,
-    %u-margin-center-x;
+  @extend %u-margin-center-x;
 
   &:nth-child(1n + 2) {
     @extend %u-margin-top-medium;
@@ -36,6 +41,6 @@
   @extend %u-container-wide;
 }
 
-.content__inner--center {
+.content--center {
   @extend %u-text-align-center;
 }

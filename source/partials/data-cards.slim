@@ -1,0 +1,90 @@
+////////////////////////////////////////////////////////////
+//  Data variables
+////////////////////////////////////////////////////////////
+
+- @entry_data         = local_data[:entry_data]
+- @cards_context      = local_data[:context]
+
+/ Custom elements
+- @card_wrapper_class = local_data[:card_wrapper_class]
+- @card_wrapper_elem  = { tag: 'div', class: @card_wrapper_class }
+
+/ Core
+- @child_pages       = data.hs.child_page
+- @landing_pages     = data.hs.landing_page
+- @merged_pages      = @landing_pages.merge(@child_pages)
+- @pages_by_date     = @merged_pages.sort_by{ |id, page| - page.date_time.integer }
+
+/ Organise categories
+- @group_pages_by_category = @merged_pages.group_by{ |key, value| value[:category] }
+- @order_categories        = [ 'research', 'publications', 'blog', 'events',
+                               'about', ('intelligence' if 'intelligence') ]
+- @sort_categories         = @group_pages_by_category.sort_by{ |k, v| @order_categories.index(k) }
+
+////////////////////////////////////////////////////////////
+//  Related
+////////////////////////////////////////////////////////////
+
+- if @cards_context == 'related'
+
+  //  Child page
+  ////////////////////////////
+
+  - if @entry_data.TYPE == 'child_page'
+
+    / Loop through categorised pages
+    - @sort_categories.each do |categories, pages|
+
+      /  Order by date (descending)
+      - @pages_by_date = pages.sort_by{ |key, value| - value.date_time.integer }
+
+      / Filter by tag, remove empty objects and remove this page
+      - @pages_tagged = @pages_by_date.map { |id, page| \
+        [ id, page ] if page[:tags] \
+        && page[:tags].any?{ |tags| @entry_data[:tags].include?(tags) } \
+        && page.ID != @entry_data.ID \
+      }.delete_if{ |page| page.nil? }
+
+      / Loop through first three objects in each category
+      - @pages_tagged[0..2].map do |id, page|
+        = partial 'partials/side-card',
+          locals: { local_data: \
+            { side_card_data: page }}
+
+  //  Landing page
+  ////////////////////////////
+
+  - if @entry_data.TYPE == 'landing_page'
+
+    / Filter by tag, remove empty objects and remove this page
+    - @pages_tagged = @pages_by_date.map { |id, page| \
+      [ id, page ] if page[:tags] \
+      && page[:tags].any?{ |tags| @entry_data[:tags].include?(tags) } \
+      && page.ID != @entry_data.ID \
+    }.delete_if{ |page| page.nil? }
+
+    - @pages_tagged[0..4].each do |id, page|
+      *@card_wrapper_elem
+        = partial 'partials/main-card',
+          locals: { local_data: \
+            { entry_data: page }}
+
+////////////////////////////////////////////////////////////
+//  Latest
+////////////////////////////////////////////////////////////
+
+- if @cards_context == 'latest'
+
+  /  Order by date (descending)
+  - @pages_by_date = @merged_pages.sort_by{ |key, value| - value.date_time.integer }
+
+  / Main pages
+  - @main_pages = @pages_by_date.map{ |id, page| [ id, page ] \
+                  if ([ 'research', 'publications', 'blog', 'events',
+                        ('intelligence' if 'intelligence') ].include? \
+                  page[:category])}.delete_if{ |page| page.nil? }
+
+  - @main_pages[0..4].each do |id, page|
+    = partial 'partials/side-card',
+      locals: { local_data: \
+        { side_card_data: page }}

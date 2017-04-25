@@ -82,17 +82,54 @@ const exclState = function(trigger) {
 
     // Loop through all exclusive triggers
     forEach(exclusiveTriggers, function(index, elem) {
-      var deactivateTrigger = !elem.classList.contains('.JS-deactivate');
+
+      // document.querySelector('body').classList.remove('JS-no-scroll');
 
       // If (this) trigger element != other exclusive triggers...
-      if ((elem != trigger) && (elem.classList.contains('JS-on') && deactivateTrigger)) {
+      if ((elem != trigger) && (elem.classList.contains('JS-on'))) {
 
         // Toggle global or local state depending on elem...
         changeState(elem);
       }
+
     });
   }
 }
+
+// ** Close all HACK **
+// ****************************
+
+var CLOSEALL = document.querySelectorAll('.btn--CLOSEALL');
+
+// Loop through all exclusive triggers
+forEach(CLOSEALL, function(index, elem) {
+
+  elem.onclick = function() {
+    console.log('CLICK!');
+
+    var JS_ON       = document.querySelectorAll('.JS-on');
+    var JS_ACTIVE   = document.querySelectorAll('.JS-active');
+
+    // Loop through all exclusive triggers
+    forEach(JS_ON, function(index, elem) {
+      elem.classList.remove('JS-on');
+      elem.classList.add('JS-off');
+
+    });
+    forEach(JS_ACTIVE, function(index, elem) {
+      if (elem.classList.toString().indexOf('navbar')) {
+        elem.classList.remove('JS-active');
+        elem.classList.add('JS-inactive');
+      }
+
+    });
+
+    document.querySelector('body').classList.remove('JS-no-scroll');
+
+  }
+});
+
+
 
 // ** Local state change **
 // ****************************

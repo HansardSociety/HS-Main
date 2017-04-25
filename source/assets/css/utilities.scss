@@ -337,7 +337,7 @@ $properties: (
 %u-overlay,
 %u-overlay-medium {
   &::after {
-    background-color: rgba(#000, .5);
+    background-color: rgba(#000, .3333);
   }
 }
 
@@ -485,4 +485,8 @@ $properties: (
 
 .u-accb-grey {
   border-bottom: 2px solid $brand_white_2;
+}
+
+.u-bold {
+  font-weight: bold;
 }

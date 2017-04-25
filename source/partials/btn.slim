@@ -39,6 +39,16 @@
 - @aria_id          = local_data[:aria_id]
 - @aria_target_id   = local_data[:aria_target_id]
 
+//  Product
+////////////////////////////
+
+- @product          = local_data[:product]
+
+//  Hack
+////////////////////////////
+
+- @CLOSEALL         = local_data[:CLOSEALL]
+
 //  Attributes
 ////////////////////////////
 
@@ -48,10 +58,12 @@
   ('btn--' + @size),
   ('btn--' + @style if @style),
   ('btn--fill' if @fill),
+  ('btn--CLOSEALL' if @CLOSEALL),
   ('btn-group__btn' if @group),
   (@type == 'state' && @reverse == nil ? 'JS-off JS-deactivate' : ('JS-on' if @type == 'state')),
   ('JS-no-scroll' if @page == 'no-scroll'),
-  ('JS-exclusive' if @exclusive) ].reject{ |value| value.nil? }
+  ('JS-exclusive' if @exclusive),
+  ('snipcart-add-item' if @product) ].reject{ |value| value.nil? }
 
 / .btn attributes
 - @attrs = {\
@@ -71,7 +83,11 @@
 ////////////////////////////////////////////////////////////
 
 - @btn = { tag: (@type == 'state' ? 'button' : 'a'),
-           class: @class }.merge(@attrs)
+           class: @class,
+           'data-item-name':  (@product[:title] if @product),
+           'data-item-id':    (@product[:product_id] if @product),
+           'data-item-price': (@product[:price] if @product),
+           'data-item-url':   ('https://www.hansardsociety.org.uk/' if @product)}.merge(@attrs)
 
 *@btn
 

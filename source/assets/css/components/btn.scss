@@ -87,9 +87,8 @@
 }
 
 .btn__text {
-  text-transform: lowercase;
-
-  font-variant: small-caps;
+  text-transform: uppercase;
+  font-size: .625rem;
 
   @extend
     %u-display-block,

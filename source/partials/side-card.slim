@@ -5,13 +5,15 @@
 - @side_card_data     = local_data[:side_card_data]
 
 
-- @image          = @side_card_data[:banner_image]
+- @banner_image   = @side_card_data[:banner_image]
+- @image          = @side_card_data[:image]
+
 - @title          = @side_card_data[:title]
 - @category       = @side_card_data[:category]
 - @date_time      = @side_card_data[:date_time]
 - @url            = @side_card_data[:slug]
 
-- @product        = @side_card_data[:product]
+/ - @product        = @side_card_data[:product]
 
 
 ////////////////////////////////////////////////////////////
@@ -23,10 +25,18 @@ article.side-card{
 }
   .side-card__inner
     .side-card__image
-      img{
-        src="#{ @image[:url] }?fit=fill&w=229&h=324&f=#{ @image[:focus] }"
-        alt="#{ @image[:alt] }"
-      }
+
+      - if @banner_image
+        img{
+          src="#{ @banner_image[:url] }?fit=fill&w=229&h=324&f=#{ @banner_image[:focus] }"
+          alt="#{ @banner_image[:alt] }"
+        }
+
+      - if @image
+        img{
+          src="#{ @image[:url] }?"
+        }
+
 
     .side-card__content
       .side-card__meta
@@ -43,17 +53,28 @@ article.side-card{
             @category + ' / ' + @date_time[:date]
 
       .side-card__title
-        h1.title{
-          class="#{ @product ? 'title--xsmall' : 'title--small' }"
-        }
-          a.link{
-            href="#{ config[:SITE_URL] + '/' + @category + '/' + @url }"
-          }= @title
+        - if @category
+          h1.title{
+            class="#{ @product ? 'title--xsmall' : 'title--small' }"
+          }
+            a.link{
+              href="#{ config[:SITE_URL] + '/' + @category + '/' + @url }"
+            }= @title
 
         - if @product
+
+          h1.title.title--xsmall= @title
+
           - if @product[:price] == 0
             .u-mtop-xs
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'small', style: 'primary',
                     text: 'Download', text_size: 'small', url: @product[:download] }}
+
+          - if @product[:price] > 0
+            .u-mtop-xs
+              = partial 'partials/btn',
+                locals: { local_data: \
+                  { type: 'link', size: 'small', style: 'primary', product: @product,
+                    text: "Buy (£#{ @product[:price] })", text_size: 'small' }}

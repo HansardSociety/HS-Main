@@ -25,7 +25,7 @@ header.banner{
       }= entry.title
 
       - if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE)
-        p.byline.u-col-white.u-mtop-md= entry.subtitle
+        p.byline.u-col-white.u-mtop-md.u-bold= entry.subtitle
 
       / Actions
       - if entry.TYPE == 'landing_page'
