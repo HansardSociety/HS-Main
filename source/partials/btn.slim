@@ -60,7 +60,7 @@
   ('btn--fill' if @fill),
   ('btn--CLOSEALL' if @CLOSEALL),
   ('btn-group__btn' if @group),
-  (@type == 'state' && @reverse == nil ? 'JS-off JS-deactivate' : ('JS-on' if @type == 'state')),
+  ('JS-off' if @type == 'state'),
   ('JS-no-scroll' if @page == 'no-scroll'),
   ('JS-exclusive' if @exclusive),
   ('snipcart-add-item' if @product) ].reject{ |value| value.nil? }

@@ -53,11 +53,12 @@
                     { type: 'state', size: 'small',
                       icon: 'chevron-down', icon_size: 'medium', icon_color: 'white',
                       animation: 'rotate',
-                      aria_id: 'activate-menu-mobile', aria_target_id: 'menu-mobile' }}
+                      aria_id: "activate-menu-dropdown-#{ navigation.title.parameterize }",
+                      aria_target_id: "menu-dropdown-#{ navigation.title.parameterize }" }}
 
           ul{
-            class="#{ 'dropdown__content' if navigation.pages }"
-            id="menu-dropdown-#{ navigation.title.downcase }-content"
+            class="#{ 'dropdown__content JS-inactive' if navigation.pages }"
+            id="menu-dropdown-#{ navigation.title.parameterize }"
           }
 
             / Group pages by category

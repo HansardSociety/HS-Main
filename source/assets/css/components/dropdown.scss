@@ -25,18 +25,10 @@
 //  Behaviour
 ////////////////////////////////////////////////////////////
 
-.dropdown.js-on {
 
-  .dropdown__content {
-    height: inherit;
-    width: inherit;;
+.dropdown__content.JS-active {
+  height: inherit;
+  width: inherit;
 
-    @extend %u-overflow-auto;
-  }
-
-  .menu {
-    top: 0;
-
-    @extend %u-opacity-1;
-  }
+  @extend %u-overflow-auto;
 }
