@@ -1,0 +1,74 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @panel_data         = local_data[:entry_data]
+- @index              = local_data[:index]
+
+////////////////////////////////////////////////////////////
+//  Panel promoted
+////////////////////////////////////////////////////////////
+
+.panel.panel--flow{
+  id="panel-#{ @index }"
+}
+  .content.content--wide
+    .grid
+
+      .grid__cell.grid__cell--small-8.grid__cell--small-offset-4
+        h3.title.title--medium= @panel_data[:title]
+
+      .grid__cell.grid__cell--small-4
+
+        - if @panel_data[:images]
+          - @panel_data[:images].each do |image|
+
+            = partial 'partials/image',
+              locals: { local_data: \
+                { image_data: image,
+                  feature: true }}
+
+
+      .grid__cell.grid__cell--small-8.copy
+
+        / Copy
+        = Kramdown::Document.new(@panel_data[:copy]).to_html
+
+
+        / Calls to action
+        - if @panel_data[:calls_to_action]
+
+          .btn-group.u-mtop-md
+            - @panel_data[:calls_to_action].each do |cta|
+
+              / Download
+              - if cta.action == 'download'
+                = partial 'partials/btn',
+                  locals: { local_data: \
+                    { type: 'link',
+                      size: 'medium',
+                      style: 'primary', group: true,
+                      text: cta[:button_text],
+                      text_size: 'medium',
+                      url: cta[:file].url }}
+
+              / Modal
+              - if cta.action == 'modal'
+
+                / Modal window
+                = partial 'partials/modal',
+                  locals: \
+                  { id: cta[:modal].id,
+                    content: cta[:modal].content }
+
+                / Modal button
+                = partial 'partials/btn',
+                  locals: { local_data: \
+                    { type: 'state',
+                      size: 'medium',
+                      style: 'secondary', group: true,
+                      text_on: cta[:button_text], text_off: 'Close',
+                      text_size: 'medium',
+                      page: 'no-scroll', exclusive: true,
+                      aria_id: "activate-#{ cta[:modal].id }",
+                      aria_target_id: cta[:modal].id }}

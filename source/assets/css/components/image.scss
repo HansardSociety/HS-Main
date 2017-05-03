@@ -1,8 +1,4 @@
 .image {
-  width: 100vw;
-  max-width: 30rem;
-  margin-left: -1rem;
-
   align-items: flex-start;
 
   @extend
@@ -11,8 +7,6 @@
 
   @include above('xsmall') {
     width: 100%;
-    margin-right: auto;
-    margin-left: auto;
 
     border-radius: 2px;
   }
@@ -21,7 +15,9 @@
 .image--feature {
   box-shadow: map-get($box_shadow, prime_black);
 
-  padding: 1rem;
+  padding: .5rem;
+
+  @extend %u-bgc-brand-white;
 }
 
 .image__img {

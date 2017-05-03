@@ -42,5 +42,9 @@
 }
 
 .content--center {
-  @extend %u-text-align-center;
+  justify-content: space-around;
+
+  @extend
+    %u-flex-row-center,
+    %u-text-align-center;
 }

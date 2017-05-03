@@ -1,5 +1,6 @@
 .btn-group {
   flex-flow: row wrap;
+  justify-content: space-around;
 
   @extend
     %u-display-inline-flex,

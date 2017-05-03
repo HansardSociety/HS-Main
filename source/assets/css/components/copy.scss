@@ -1,18 +1,15 @@
 .copy {
 
   > h1, > h2, > h3, > h4, > h5, > h6, > p, > img, > iframe, ul {
-    &:nth-child(1n + 2) {
-      @extend %u-vertical-rhythm-small;
-    }
+    margin-bottom: 1rem;
   }
 
   > h1, > h2, > h3, > h4 {
     @extend .title;
   }
 
-  > h1 { @extend .title--large; }
-  > h2 { @extend .title--medium; }
-  > h3 { @extend .title--small; }
+  > h2 { @extend .title--large; }
+  > h3 { @extend .title--medium; }
   > h4 { @extend .title--small; }
 
   > p > a {

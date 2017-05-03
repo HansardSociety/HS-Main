@@ -100,7 +100,6 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     context.slug         = entry.slug.parameterize
     context.subtitle     = entry.subtitle
     context.introduction = entry.introduction
-    context.toc          = entry.table_of_contents
 
     ##  Call(s) to action
     ##############################
@@ -153,13 +152,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         ID:              panel.sys[:id],
         TYPE:            panel.content_type.id,
         title:           panel.title,
-        label:           panel.label,
-        panel_type:      panel.panel_type.parameterize,
-        copy:            panel.copy,
-        show_more: ({
-          id:            ('modal-' + panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]),
-          content:       panel.show_more
-        } if panel.show_more != nil),
+        copy:            (panel.copy if panel.copy), # optional
 
         # Calls to action
         calls_to_action: (panel.calls_to_action ? panel.calls_to_action.map do |cta| {
@@ -177,36 +170,44 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           } if cta.action == 'modal')
         }.reject{ |key, value| value.nil? } end : nil),
 
-        # Header image
+        # Panel promoted
+        label:      (panel.label if panel.content_type.id == 'panel_promoted'),
         image: ({
-          url:           panel.image.url,
-          alt:           panel.image.description,
-          caption:       panel.image_caption
-        } if panel.image),
+          url:      panel.image.url,
+          alt:      panel.image.description
+        } if panel.content_type.id == 'panel_promoted' && panel.image), # optional
 
-        # Share buttons
-        share_buttons:  panel.share_buttons,
+        # Panel content
+        show_more: ({
+          id:            ('modal-' + panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]),
+          content:       panel.show_more
+        } if panel.content_type.id == 'panel_content' && panel.show_more), # optional
+        share_buttons:   (panel.share_buttons if panel.content_type.id == 'panel_content'),
+        images: (panel.content_type.id == 'panel_content' && panel.images ? panel.images.map do |image| {
+          url:      image.url,
+          alt:      image.description
+        }.reject{ |key, value| value.nil? } end : nil),
 
         # Accordian
-        accordian: (panel.accordian ? panel.accordian.map do |accordian| {
-          id:               accordian.sys[:id],
-          title:            accordian.title,
-          copy:             accordian.copy,
-          calls_to_action:  (accordian.calls_to_action ? accordian.calls_to_action.map do |cta| {
-            ID:             cta.sys[:id],
-            title:          cta.title.split('::')[0],
-            action:         cta.action.parameterize,
-            button_text:    cta.button_text,
-            file: ({
-              title:       cta.file.title,
-              url:         cta.file.url
-            } if cta.file != nil),
-            modal: ({
-              id:          (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
-              content:     cta.modal
-            } if cta.action == 'modal')
-          }.reject{ |key, value| value.nil? } end : nil)
-        }.reject{ |key, value| value.nil? } end : nil)
+        # accordian: (panel.accordian ? panel.accordian.map do |accordian| {
+        #   id:               accordian.sys[:id],
+        #   title:            accordian.title,
+        #   copy:             accordian.copy,
+        #   calls_to_action:  (accordian.calls_to_action ? accordian.calls_to_action.map do |cta| {
+        #     ID:             cta.sys[:id],
+        #     title:          cta.title.split('::')[0],
+        #     action:         cta.action.parameterize,
+        #     button_text:    cta.button_text,
+        #     file: ({
+        #       title:       cta.file.title,
+        #       url:         cta.file.url
+        #     } if cta.file != nil),
+        #     modal: ({
+        #       id:          (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
+        #       content:     cta.modal
+        #     } if cta.action == 'modal')
+        #   }.reject{ |key, value| value.nil? } end : nil)
+        # }.reject{ |key, value| value.nil? } end : nil)
 
       }.reject{ |key, value| value.nil? }
       end
