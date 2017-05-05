@@ -2,16 +2,13 @@
   id= id
 }
   .modal__inner
+
     .modal__header
-
-      / Close
       .modal__close
-
-        / Menu button (mobile)
         = partial 'partials/btn',
           locals: { local_data: \
-            { size: 'small', CLOSEALL: true,
-              icon: 'close', icon_size: 'small', icon_color: 'green' }}
+            { size: 'xsmall', CLOSEALL: true,
+              icon: 'close', icon_size: 'xsmall', icon_color: 'green' }}
 
     .modal__content.copy
       = Kramdown::Document.new(content).to_html

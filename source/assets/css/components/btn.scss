@@ -2,14 +2,12 @@
 //  Shared
 ////////////////////////////////////////////////////////////
 
-.btn,
-.btn__menu,
-.btn__menu::before,
-.btn__menu::after {
-  vertical-align: middle;
-
-  @extend %u-display-inline-block;
-}
+// .btn,
+// .btn__menu,
+// .btn__menu::before,
+// .btn__menu::after {
+//   vertical-align: middle;
+// }
 
 ////////////////////////////////////////////////////////////
 //  Main
@@ -28,6 +26,11 @@
 
 .btn--group {
   @extend %u-inline-spacing-xsmall;
+}
+
+.btn--xsmall {
+  height: 1.5rem;
+  min-width: 1.5rem;
 }
 
 .btn--small {
@@ -83,7 +86,8 @@
 .btn__content {
   @extend
     %u-display-block,
-    %u-margin-center-x;
+    %u-margin-center-x,
+    %u-width-full;
 }
 
 .btn__text {

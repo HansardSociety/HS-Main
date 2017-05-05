@@ -114,7 +114,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           url:         cta.file.url
         } if cta.file != nil),
         modal: ({
-          id:       (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
+          cta_id:   (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
           content:  cta.modal
         } if cta.action == 'modal'),
       }.reject{ |key, value| value.nil? }
@@ -165,7 +165,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
             url:         cta.file.url
           } if cta.file != nil),
           modal: ({
-            id:          (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
+            cta_id:      (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
             content:     cta.modal
           } if cta.action == 'modal')
         }.reject{ |key, value| value.nil? } end : nil),
@@ -179,7 +179,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
 
         # Panel content
         show_more: ({
-          id:            ('modal-' + panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]),
+          cta_id:        ('modal-' + panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]),
           content:       panel.show_more
         } if panel.content_type.id == 'panel_content' && panel.show_more), # optional
         share_buttons:   (panel.share_buttons if panel.content_type.id == 'panel_content'),

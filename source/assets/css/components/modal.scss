@@ -1,12 +1,13 @@
-.modal,
-.modal__inner {
-  @extend %u-overflow-hidden;
-}
-
 .modal {
   z-index: 300;
   left: -9999px;
   top: 0;
+
+  @extend
+    %u-border-radius-small,
+    %u-height-full-vh,
+    %u-position-fixed,
+    %u-width-full-vw;
 
   &::before {
     opacity: 0;
@@ -17,18 +18,12 @@
       %u-width-full,
       %u-height-full;
   }
-
-  @extend
-    %u-border-radius-small,
-    %u-height-full-vh,
-    %u-position-fixed,
-    %u-width-full-vw;
 }
 
 .modal__inner {
   width: 40rem;
   max-width: 100%;
-  height: 100%;
+  height: 100vh;
 
   will-change: transform;
 
@@ -36,34 +31,37 @@
     %u-absolute-center-xy,
     %u-bgc-brand-white,
     %u-border-radius-small,
+    %u-flex-row,
     %u-shadow-prime-black;
 
   @include above('small') {
-    height: 30rem;
+    height: auto;
+    min-height: 5rem;
     max-height: 90vh;
   }
 }
 
 .modal__header {
-  height: 2.5rem;
-  padding: 0 .5rem;
+  top: 0;
+  left: 0;
+  height: 1.75rem;
 
   @extend
     %u-accent-small-brand-white-1-bottom,
-    %u-flex-row-center,
+    %u-position-absolute,
     %u-width-full;
 }
 
 .modal__close {
-  margin-left: auto;
+  margin-left: calc(100% - 1.5rem);
 }
 
 .modal__content {
-  height: calc(100% - 2.5rem);
+  margin-top: 1.75rem;
 
   @extend
-    %u-padding-small,
-    %u-overflow-y-auto;
+    %u-overflow-y-auto,
+    %u-padding-small;
 }
 
 ////////////////////////////////////////////////////////////
