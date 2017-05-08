@@ -56,3 +56,10 @@ article
         locals: { local_data: \
           { entry_data: panel,
             index: index }}
+
+    / Accordian panel
+    - if panel.TYPE == 'panel_accordians'
+      = partial 'partials/panel-accordians',
+        locals: { local_data: \
+          { entry_data: panel,
+            index: index }}

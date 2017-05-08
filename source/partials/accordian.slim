@@ -4,8 +4,9 @@
 
 - @accordian_data     = local_data[:accordian_data]
 
+- @ID                 = @accordian_data[:id]
 - @title              = @accordian_data[:title]
-- @id                 = @accordian_data[:id]
+- @cta_id             = @accordian_data[:cta_id]
 - @calls_to_action    = @accordian_data[:calls_to_action]
 
 
@@ -28,10 +29,10 @@ section.accordian{
           { type: 'state', size: 'small',
             icon: 'chevron-down', icon_size: 'small', icon_color: 'green',
             animation: 'rotate',
-            aria_id: "activate-accordian-#{ @id }", aria_target_id: "accordian-#{ @id }" }}
+            aria_id: "activate-#{ @cta_id }", aria_target_id: "#{ @cta_id }" }}
 
   .accordian__expand.JS-inactive{
-    id="accordian-#{ @id }"
+    id="#{ @cta_id }"
   }
     .accordian__content
 

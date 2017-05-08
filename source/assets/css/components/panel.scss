@@ -10,10 +10,10 @@
 
 .panel--block {
   &::before {
-    top: 0;
+    top: -2px;
     left: 50%;
 
-    border-top: 2px  solid $brand_white_1;
+    border-top: 2px  solid $brand_white_2;
 
     width: 10rem;
 

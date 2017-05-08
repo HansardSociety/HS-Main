@@ -106,7 +106,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
 
     if entry.actions
       context.calls_to_action = entry.actions.map do |cta| {
-        title:       cta.title.split('::')[0],
+        title:       cta.title.split('::')[0], # split '::' for contentful name-spacing
         action:      cta.action.parameterize,
         button_text: cta.button_text,
         file: ({
@@ -114,7 +114,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           url:         cta.file.url
         } if cta.file != nil),
         modal: ({
-          cta_id:   (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
+          cta_id:   (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
           content:  cta.modal
         } if cta.action == 'modal'),
       }.reject{ |key, value| value.nil? }
@@ -155,17 +155,17 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         copy:            (panel.copy if panel.copy), # optional
 
         # Calls to action
-        calls_to_action: (panel.calls_to_action ? panel.calls_to_action.map do |cta| {
+        calls_to_action: (defined?(panel.calls_to_action) && panel.calls_to_action != nil ? panel.calls_to_action.map do |cta| {
           ID:            cta.sys[:id],
-          title:         cta.title.split('::')[0],
-          action:        cta.action.parameterize,
+          title:         cta.title.split('::')[0], # split '::' for contentful name-spacing
+          action:        cta.action.parameterize, # eg. modal, download etc
           button_text:   cta.button_text,
           file: ({
             title:       cta.file.title,
             url:         cta.file.url
           } if cta.file != nil),
           modal: ({
-            cta_id:      (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
+            cta_id:      (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
             content:     cta.modal
           } if cta.action == 'modal')
         }.reject{ |key, value| value.nil? } end : nil),
@@ -179,7 +179,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
 
         # Panel content
         show_more: ({
-          cta_id:        ('modal-' + panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]),
+          cta_id:        ('modal-' + panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]), # split '::' for contentful name-spacing
           content:       panel.show_more
         } if panel.content_type.id == 'panel_content' && panel.show_more), # optional
         share_buttons:   (panel.share_buttons if panel.content_type.id == 'panel_content'),
@@ -188,27 +188,27 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           alt:      image.description
         }.reject{ |key, value| value.nil? } end : nil),
 
-        # Accordian
-        # accordian: (panel.accordian ? panel.accordian.map do |accordian| {
-        #   id:               accordian.sys[:id],
-        #   title:            accordian.title,
-        #   copy:             accordian.copy,
-        #   calls_to_action:  (accordian.calls_to_action ? accordian.calls_to_action.map do |cta| {
-        #     ID:             cta.sys[:id],
-        #     title:          cta.title.split('::')[0],
-        #     action:         cta.action.parameterize,
-        #     button_text:    cta.button_text,
-        #     file: ({
-        #       title:       cta.file.title,
-        #       url:         cta.file.url
-        #     } if cta.file != nil),
-        #     modal: ({
-        #       id:          (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]),
-        #       content:     cta.modal
-        #     } if cta.action == 'modal')
-        #   }.reject{ |key, value| value.nil? } end : nil)
-        # }.reject{ |key, value| value.nil? } end : nil)
-
+        # Panel accordian
+        accordians: (panel.content_type.id == 'panel_accordians' ? panel.accordians.map do |accordian| {
+          ID:               accordian.sys[:id],
+          cta_id:           ('accordian-' + accordian.title.split('::')[0].parameterize + '-' + accordian.sys[:id]), # split '::' for contentful name-spacing
+          title:            accordian.title,
+          copy:             accordian.copy,
+          calls_to_action:  (accordian.calls_to_action ? accordian.calls_to_action.map do |cta| {
+            ID:             cta.sys[:id],
+            title:          cta.title.split('::')[0], # split '::' for contentful name-spacing
+            action:         cta.action.parameterize, # eg. modal, download etc
+            button_text:    cta.button_text,
+            file: ({
+              title:        cta.file.title,
+              url:          cta.file.url
+            } if cta.file != nil),
+            modal: ({
+              id:           (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
+              content:      cta.modal
+            } if cta.action == 'modal')
+          }.reject{ |key, value| value.nil? } end : nil)
+        }.reject{ |key, value| value.nil? } end : nil)
       }.reject{ |key, value| value.nil? }
       end
     end

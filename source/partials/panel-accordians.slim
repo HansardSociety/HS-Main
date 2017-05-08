@@ -1,0 +1,34 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @panel_data         = local_data[:entry_data]
+- @index              = local_data[:index]
+
+////////////////////////////////////////////////////////////
+//  Panel promoted
+////////////////////////////////////////////////////////////
+
+.panel.panel--block{
+  id="panel-#{ @index }"
+}
+  .content.content--narrow.content--center
+
+    / Label
+    - if @panel_data[:label]
+      span.alt-title.alt-title--sm= @panel_data[:label]
+
+    / Title
+    h2.title.title--large= @panel_data[:title]
+
+    / Copy
+    - if @panel_data.copy
+      = Kramdown::Document.new(@panel_data[:copy] + "\n{: .byline }").to_html
+
+  .content.content--wide
+    .grid
+      - @panel_data[:accordians].each do |accordian|
+        .grid__cell.grid__cell--3
+          = partial 'partials/accordian',
+            locals: { local_data: \
+              { accordian_data: accordian }}

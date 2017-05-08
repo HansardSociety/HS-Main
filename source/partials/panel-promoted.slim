@@ -29,7 +29,7 @@
 
     / Copy
     - if @panel_data.copy
-      = Kramdown::Document.new(@panel_data[:copy]).to_html
+      = Kramdown::Document.new(@panel_data[:copy] + "\n{: .byline }").to_html
 
 
     / Calls to action

@@ -54,6 +54,10 @@
 
 .byline {
   @extend %u-font-size-byline;
+
+  &:not(:first-child) {
+    @extend %u-margin-top-small;
+  }
 }
 
 .link {
