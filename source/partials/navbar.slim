@@ -2,7 +2,7 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @order_nav  = [ 'Our work', 'About', 'Blog', 'Events' ]
+- @order_nav  = [ 'Our work', 'About', 'Blog', 'Events', 'Scholars' ]
 - @sort_nav   = data.hs.navigation.sort_by{ |k, v| @order_nav.index(v[:title]) }
 
 
@@ -50,20 +50,28 @@ nav#navbar.navbar.JS-inactive
           li.navbar__item
             h2.title.title--small.title--white{
               class="#{
-                'dropdown__title dropdown__title--inline' if navigation.pages.length > 1
+                'dropdown__title dropdown__title--inline' if navigation.pages && navigation.pages.length > 1
               }"
             }
 
               / If navigation item contains one or no pages
-              - if navigation.pages.length <= 1
+              - if navigation.pages && navigation.pages.length <= 1
                 - navigation.pages.each do |page|
                   a{
                     href="#{ config[:SITE_URL] + '/' + page.slug }"
                     title="#{ navigation.title + ' - ' + config[:SITE_TITLE] }"
                   }= navigation.title
 
+              / If navigation item = external URL
+              - if navigation[:external_url]
+                a{
+                  href="#{ navigation[:external_url] }"
+                  title="#{ navigation[:title] }"
+                  target="_blank"
+                }= navigation[:title]
+
               / If navigation item contains more than one page
-              - if navigation.pages.length > 1
+              - if navigation.pages && navigation.pages.length > 1
                 = navigation.title
 
                 / Dropdown

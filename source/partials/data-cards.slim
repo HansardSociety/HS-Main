@@ -17,7 +17,7 @@
 
 / Organise categories
 - @group_pages_by_category = @merged_pages.group_by{ |key, value| value[:category] }
-- @order_categories        = [ 'research', 'publications', 'blog', 'events', 'about' ]
+- @order_categories        = [ 'research', 'resources', 'blog', 'events', 'about' ]
 - @sort_categories         = @group_pages_by_category.sort_by{ |k, v| @order_categories.index(k) }
 
 ////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@
 
   / Main pages
   - @main_pages = @pages_by_date.map{ |id, page| [ id, page ] \
-                  if ([ 'research', 'publications', 'blog', 'events' ].include? \
+                  if ([ 'research', 'resources', 'blog', 'events' ].include? \
                   page[:category])}.delete_if{ |page| page.nil? }
 
   - @main_pages[0..4].each do |id, page|

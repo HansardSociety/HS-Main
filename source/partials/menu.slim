@@ -26,15 +26,15 @@
     - if @screen == 'mobile'
       - @nav_items.each do |id, navigation|
         li.menu__category.menu__category--outer{
-          class="#{ 'dropdown js-state-local' if navigation.pages.length > 1 }"
+          class="#{ 'dropdown' if navigation.pages && navigation.pages.length > 1 }"
         }
 
           h2.title.title--medium.title--white{
-            class="#{ 'dropdown__title' if navigation.pages.length > 1 }"
+            class="#{ 'dropdown__title' if navigation.pages && navigation.pages.length > 1 }"
           }
 
             / If navigation item contains one or no pages
-            - if navigation.pages.length <= 1
+            - if navigation.pages && navigation.pages.length <= 1
               - navigation.pages.each do |page|
                 a{
                   href="#{ config[:SITE_URL] }/#{ page.slug }"
@@ -42,7 +42,7 @@
                 }= navigation.title
 
             / If navigation item contains more than one page
-            - if navigation.pages.length > 1
+            - if navigation.pages && navigation.pages.length > 1
               = navigation.title
 
               .dropdown__control
@@ -62,25 +62,26 @@
           }
 
             / Group pages by category
-            - navigation.pages.group_by(&:category).each do |category, pages|
-              li.menu__category{
-                class="menu__category--#{ category.downcase }"
-              }
-                h3.alt-title.alt-title--xs.u-mtop-xs= category if navigation.title != category
-                ul
+            - if navigation.pages
+              - navigation.pages.group_by(&:category).each do |category, pages|
+                li.menu__category{
+                  class="menu__category--#{ category.downcase }"
+                }
+                  h3.alt-title.alt-title--xs.u-mtop-xs= category if navigation.title != category
+                  ul
 
-                  - pages.each do |page|
-                    li
-                      h4.title.title--small.title--white
-                        a.menu__link{
-                          href= "#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug}"
-                        }= page.title
+                    - pages.each do |page|
+                      li
+                        h4.title.title--small.title--white
+                          a.menu__link{
+                            href= "#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug}"
+                          }= page.title
 
     ////////////////////////////////////////////////////////
     // Desktop
     ////////////////////////////////////////////////////////
 
-    - if @screen == 'desktop'
+    - if @screen == 'desktop' && @nav_items.pages
       - @nav_items.pages.group_by(&:category).each do |category, pages|
         li.menu__column{
           class="menu__column--#{ category.parameterize }"

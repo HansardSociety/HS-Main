@@ -55,16 +55,36 @@
                   aria_id: "activate-#{  @panel_data[:show_more].cta_id }",
                   aria_target_id:  @panel_data[:show_more].cta_id }}
 
-            / - @panel_data[:calls_to_action].each do |cta|
-            /
-            /   / Download
-            /   - if cta[:action] == 'download'
-            /     = partial 'partials/btn',
-            /       locals: { local_data: \
-            /         { type: 'link',
-            /           size: 'medium',
-            /           style: 'primary', group: true,
-            /           text: cta[:button_text],
-            /           text_size: 'medium',
-            /           url: cta[:file].url }}
-            /
+          - if @panel_data[:calls_to_action]
+            - @panel_data[:calls_to_action].each do |cta|
+
+              / Modal
+              - if cta[:action] == 'modal'
+
+                / Modal window
+                = partial 'partials/modal',
+                  locals: \
+                  { id: cta.modal[:cta_id],
+                    content: cta.modal[:content] }
+
+                / Modal button
+                = partial 'partials/btn',
+                  locals: { local_data: \
+                    { type: 'state',
+                      size: 'small',
+                      style: 'secondary', group: true,
+                      text_on: cta[:button_text], text_off: 'Close',
+                      text_size: 'small',
+                      page: 'no-scroll', exclusive: true,
+                      aria_id: "activate-#{  cta.modal[:cta_id] }",
+                      aria_target_id: cta.modal[:cta_id] }}
+
+              / - if cta[:action] == 'download'
+              /   = partial 'partials/btn',
+              /     locals: { local_data: \
+              /       { type: 'link',
+              /         size: 'medium',
+              /         style: 'primary', group: true,
+              /         text: cta[:button_text],
+              /         text_size: 'medium',
+              /         url: cta[:file].url }}

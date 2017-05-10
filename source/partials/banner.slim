@@ -28,7 +28,7 @@ header.banner{
         p.byline.u-col-white.u-mtop-md.u-bold= entry.subtitle
 
       / Actions
-      - if entry.TYPE == 'landing_page'
+      - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
         .btn-group.u-ptop-md
           - entry[:calls_to_action].each do |cta|
             - if cta.action == 'download'

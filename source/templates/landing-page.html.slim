@@ -30,13 +30,14 @@ article
   //  'Latest' (related)
   ////////////////////////////
 
-  .panel.panel--block
-    .content.content--wide.content--center
-      h2.title.title--large Latest
-      = partial 'partials/carousel',
-        locals: { local_data: \
-          { entry_data: @page_data,
-            content_source: 'related' }}
+  - if @page_data[:latest_carousel] == true
+    .panel.panel--block
+      .content.content--wide.content--center
+        h2.title.title--large Latest
+        = partial 'partials/carousel',
+          locals: { local_data: \
+            { entry_data: @page_data,
+              content_source: 'related' }}
 
   //  Curated panels
   ////////////////////////////

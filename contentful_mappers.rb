@@ -72,6 +72,7 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
 
     context.title = entry.title
 
+    # Site pages
     if entry.pages
       context.pages = entry.pages.map do |page| {
         title:    page.title,
@@ -79,6 +80,11 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
         category: page.category.parameterize
       }
       end
+    end
+
+    # External pages
+    if entry.url
+      context.external_url = entry.url
     end
   end
 end
@@ -93,13 +99,14 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     ##  Core
     ##############################
 
-    context.ID           = entry.sys[:id]
-    context.TYPE         = entry.content_type.id
-    context.category     = entry.category.parameterize
-    context.title        = entry.title
-    context.slug         = entry.slug.parameterize
-    context.subtitle     = entry.subtitle
-    context.introduction = entry.introduction
+    context.ID              = entry.sys[:id]
+    context.TYPE            = entry.content_type.id
+    context.category        = entry.category.parameterize
+    context.title           = entry.title
+    context.slug            = entry.slug.parameterize
+    context.subtitle        = entry.subtitle
+    context.introduction    = entry.introduction
+    context.latest_carousel = entry.latest_carousel
 
     ##  Call(s) to action
     ##############################
@@ -167,7 +174,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           modal: ({
             cta_id:      (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
             content:     cta.modal
-          } if cta.action == 'modal')
+          } if cta.action == 'Modal')
         }.reject{ |key, value| value.nil? } end : nil),
 
         # Panel promoted
