@@ -212,7 +212,7 @@ gulp.task('default', function(cb) {
 });
 
 gulp.task('build', function(cb) {
-  runSequence('css:main', 'css:vendor', 'js:bundle', 'fonts', cb);
+  runSequence('css:main', 'css:vendor', 'js:bundle', 'copy', cb);
 });
 
 gulp.task('lint', function(cb) {
