@@ -78,6 +78,7 @@ var
     images: {
       icons: __dirname + '/node_modules/evil-icons/assets/icons/*.svg'
     },
+    redirects: __dirname + '/source/_redirects',
     tmp: {
       dir: __dirname + '/.tmp',
       css: __dirname + '/.tmp/main.css',
@@ -194,11 +195,11 @@ gulp.task('svg', function() {
 });
 
 ////////////////////////////////////////////////////////////
-//  Fonts
+//  Copy to build directory
 ////////////////////////////////////////////////////////////
 
-gulp.task('fonts', function() {
-  return gulp.src(PATH.fonts)
+gulp.task('copy', function() {
+  return gulp.src([PATH.fonts, PATH.redirects])
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 
