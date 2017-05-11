@@ -34,7 +34,7 @@ page '/*.json', layout: false
 page '/*.txt', layout: false
 
 ############################################################
-##  Build/ Dev
+##  Envs
 ############################################################
 
 # Build
@@ -120,3 +120,12 @@ if Dir.exist?(config.data_dir)
           locals: { root_page: root_page }
   end
 end
+
+############################################################
+##  Misc
+############################################################
+
+##  Netlify
+##############################
+
+proxy "_redirects", "netlify-redirects", ignore: true
