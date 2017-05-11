@@ -1,6 +1,7 @@
 require 'slim'
 require 'public_suffix'
 require 'contentful_mappers'
+require 'securerandom'
 
 ############################################################
 ##  Variables

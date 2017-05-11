@@ -119,11 +119,11 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         file: ({
           title:       cta.file.title,
           url:         cta.file.url
-        } if cta.file != nil),
+        } if cta.action == 'Download'),
         modal: ({
-          cta_id:   (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
+          cta_id:   (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id] + 'banner'), # split '::' for contentful name-spacing
           content:  cta.modal
-        } if cta.action == 'modal'),
+        } if cta.action == 'Modal'),
       }.reject{ |key, value| value.nil? }
       end
     end

@@ -31,12 +31,38 @@ header.banner{
       - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
         .btn-group.u-ptop-md
           - entry[:calls_to_action].each do |cta|
-            - if cta.action == 'download'
+
+            / Download
+            - if cta[:action] == 'download'
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'medium', style: 'primary', group: true,
                     text: cta.button_text, text_size: 'medium', url: cta.file.url }}
 
+            / Modal
+            - if cta[:action] == 'modal'
+
+              / Modal button
+              = partial 'partials/btn',
+                locals: { local_data: \
+                  { type: 'state',
+                    size: 'medium',
+                    style: 'secondary', group: true,
+                    text_on: cta[:button_text], text_off: 'Close',
+                    text_size: 'medium',
+                    page: 'no-scroll', exclusive: true,
+                    aria_id: "activate-#{  cta.modal[:cta_id] }",
+                    aria_target_id: cta.modal[:cta_id] }}
+
+  / Modal content (here to avoid banner__inner transform cascade)
+  - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
+    .banner__modal-content
+      - entry[:calls_to_action].each do |cta|
+        - if cta[:action] == 'modal'
+          = partial 'partials/modal',
+            locals: \
+            { id: cta.modal[:cta_id],
+              content: cta.modal[:content] }
 
   / Scroll down
   - if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE)

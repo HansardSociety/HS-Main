@@ -135,7 +135,7 @@
     left: 0;
 
     content: attr(data-off-text);
-    transform: translateY(100%);
+    transform: translateY(150%);
 
     @extend %u-position-absolute;
   }
