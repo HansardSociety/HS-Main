@@ -8,4 +8,4 @@ npm-debug.log
 .contentful-space-hash
 /.sass-cache
 /data
-/.hs-space-hash
+.hs-space-hash

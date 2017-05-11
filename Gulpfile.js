@@ -78,7 +78,7 @@ var
     images: {
       icons: __dirname + '/node_modules/evil-icons/assets/icons/*.svg'
     },
-    redirects: __dirname + '/source/_redirects',
+    redirects: __dirname + '/source/netlify-redirects',
     tmp: {
       dir: __dirname + '/.tmp',
       css: __dirname + '/.tmp/main.css',
@@ -86,14 +86,14 @@ var
     },
     build: __dirname + '/build',
   }
-; // END var
+; // END vars
 
 ////////////////////////////////////////////////////////////
 //  Server
 ////////////////////////////////////////////////////////////
 
 gulp.task('watch',
-  [ 'css:main', 'css:vendor', 'js:bundle', 'fonts' ],
+  [ 'css:main', 'css:vendor', 'js:bundle', 'copy' ],
 
   function(gulpCallback) {
 
