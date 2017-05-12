@@ -340,6 +340,12 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           focus:    entry.promoted.image_focus.parameterize
         } if entry.promoted.banner_image),
 
+        # Blog
+        date_time: ({
+          integer: entry.date_time.strftime('%s').to_i,
+          date:    entry.date_time.strftime('%d %b, %y')
+        }),
+
         # Product
         product: ({
           ID:       entry.promoted.promoted.sys[:id],

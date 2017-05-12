@@ -4,8 +4,6 @@
 /node_modules
 npm-debug.log
 /.tmp
-.main-space-hash
-.contentful-space-hash
 /.sass-cache
 /data
 .hs-space-hash
