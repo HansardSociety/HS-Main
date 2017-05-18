@@ -20,7 +20,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
         url:           entry.logo_desktop.url,
         alt:           entry.logo_desktop.description
       }
-    },
+    }
 
     ##  Meta content
     ##############################
