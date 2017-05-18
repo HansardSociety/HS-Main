@@ -6,4 +6,5 @@ npm-debug.log
 /.tmp
 /.sass-cache
 /data
-/.hs-space-hash
+.hs-space-hash
+
