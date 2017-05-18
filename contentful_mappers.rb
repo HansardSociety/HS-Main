@@ -4,16 +4,22 @@
 
 class UniversalMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    context.ID           = entry.sys[:id]
-    context.TYPE         = entry.content_type.id
-    context.title        = entry.title
-    context.logo_mobile = {
-      url:   entry.logo_mobile.url,
-      alt:   entry.logo_mobile.description
+    context.ID            = entry.sys[:id]
+    context.TYPE          = entry.content_type.id
+    context.title         = entry.title
+
+    context.logo_mobile   = {
+      url:                  entry.logo_mobile.url,
+      alt:                  entry.logo_mobile.description
     }
-    context.logo_desktop = {
-      url:   entry.logo_desktop.url,
-      alt:   entry.logo_desktop.description
+
+    context.logo_desktop  = {
+      url:                  entry.logo_desktop.url,
+      alt:                  entry.logo_desktop.description
+    },
+
+    context.meta_content  = {
+      analytics:            entry.meta_analytics
     }
   end
 end
