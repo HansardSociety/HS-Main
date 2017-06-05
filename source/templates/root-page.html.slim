@@ -30,12 +30,12 @@ article
 
         / Blog
         - if @page_data[:category] == 'blog' && page[:category] == 'blog'
-          = partial 'partials/compounds/feed-item',
+          = partial 'partials/feed-item',
             locals: { local_data: \
               { feed_data: page }}
 
         / Events
         - if @page_data[:category] == 'events' && page[:category] == 'events'
-          = partial 'partials/compounds/feed-item',
+          = partial 'partials/feed-item',
             locals: { local_data: \
               { feed_data: page }}

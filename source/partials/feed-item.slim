@@ -35,7 +35,7 @@
 
       - if @feed_data[:category] == 'events'
         .u-mtop-sm
-          = Kramdown::Document.new(@feed_data[:introduction][0..195].chomp('.') + '…').to_html
+          = Kramdown::Document.new(@feed_data[:introduction][0..194].chomp('.') + '…').to_html
 
     .grid__cell.grid__cell--5.grid__cell--first
       a{
