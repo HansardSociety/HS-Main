@@ -1,8 +1,9 @@
-/.bundle
-/build
+.bundle/
+build/
 .DS_Store
-/node_modules
+node_modules/
 npm-debug.log
+<<<<<<< HEAD
 /.tmp
 /.sass-cache
 /data
@@ -11,4 +12,10 @@ npm-debug.log
 
 =======
 /.hs-space-hash/
+>>>>>>> master
+=======
+.tmp/
+.sass-cache/
+data/
+.hs-space-hash
 >>>>>>> master
