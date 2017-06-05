@@ -17,7 +17,7 @@
 
 / Organise categories
 - @group_pages_by_category = @merged_pages.group_by{ |key, value| value[:category] }
-- @order_categories        = [ 'research', 'resources', 'blog', 'events', 'about' ]
+- @order_categories        = [ 'events', 'intelligence', 'blog', 'research', 'resources', 'about' ]
 - @sort_categories         = @group_pages_by_category.sort_by{ |k, v| @order_categories.index(k) }
 
 ////////////////////////////////////////////////////////////
@@ -35,17 +35,29 @@
     - @sort_categories.each do |categories, pages|
 
       /  Order by date (descending)
-      - @pages_by_date = pages.sort_by{ |key, value| - value.date_time.integer }
+      - @pages_by_date = pages.sort_by{ |key, value| - value.date_time[:integer] }
 
       / Filter by tag, remove empty objects and remove this page
       - @pages_tagged = @pages_by_date.map { |id, page| \
         [ id, page ] if page[:tags] \
         && page[:tags].any?{ |tags| @entry_data[:tags].include?(tags) } \
-        && page.ID != @entry_data.ID \
+        && page[:ID] != @entry_data[:ID] \
       }.delete_if{ |page| page.nil? }
 
-      / Loop through first three objects in each category
-      - @pages_tagged[0..2].map do |id, page|
+      / Events and/ or innovation - latest 1
+      - @pages_tagged.select{ |id, page| ([ 'events', 'innovation' ].include? page[:category]) && page.date_time[:integer] >= Time.now.strftime('%s').to_i  }[0..0].map do |id, page|
+        = partial 'partials/side-card',
+          locals: { local_data: \
+            { side_card_data: page }}
+
+      / Blog - latest 5
+      - @pages_tagged.select{ |id, page| page[:category] == 'blog' }[0..3].map do |id, page|
+        = partial 'partials/side-card',
+          locals: { local_data: \
+            { side_card_data: page }}
+
+      / Research - latest 3
+      - @pages_tagged.select{ |id, page| page[:category] == 'research' }[0..2].map do |id, page|
         = partial 'partials/side-card',
           locals: { local_data: \
             { side_card_data: page }}
