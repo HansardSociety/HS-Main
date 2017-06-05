@@ -45,7 +45,7 @@
       }.delete_if{ |page| page.nil? }
 
       / Events and/ or innovation - latest 1
-      - @pages_tagged.select{ |id, page| ([ 'events', 'innovation' ].include? page[:category]) && page.date_time[:integer] >= Time.now.strftime('%s').to_i  }[0..0].map do |id, page|
+      - @pages_tagged.select{ |id, page| ([ 'events', 'intelligence' ].include? page[:category]) && page.date_time[:integer] >= Time.now.strftime('%s').to_i  }[0..1].map do |id, page|
         = partial 'partials/side-card',
           locals: { local_data: \
             { side_card_data: page }}
