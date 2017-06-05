@@ -2,18 +2,18 @@
 //  Data variables
 ////////////////////////////////////////////////////////////
 
-- @entry_data         = local_data[:entry_data]
-- @cards_context      = local_data[:context]
+- @entry_data               = local_data[:entry_data]
+- @cards_context            = local_data[:context]
 
 / Custom elements
-- @card_wrapper_class = local_data[:card_wrapper_class]
-- @card_wrapper_elem  = { tag: 'div', class: @card_wrapper_class }
+- @card_wrapper_class       = local_data[:card_wrapper_class]
+- @card_wrapper_elem        = { tag: 'div', class: @card_wrapper_class }
 
 / Core
-- @child_pages       = data.hs.child_page
-- @landing_pages     = data.hs.landing_page
-- @merged_pages      = @landing_pages.merge(@child_pages)
-- @pages_by_date     = @merged_pages.sort_by{ |id, page| - page.date_time.integer }
+- @child_pages              = data.hs.child_page
+- @landing_pages            = data.hs.landing_page
+- @merged_pages             = @landing_pages.merge(@child_pages)
+- @pages_by_date            = @merged_pages.sort_by{ |id, page| - page.date_time.integer }
 
 / Organise categories
 - @group_pages_by_category = @merged_pages.group_by{ |key, value| value[:category] }
