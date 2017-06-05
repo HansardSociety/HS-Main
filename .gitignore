@@ -1,9 +1,8 @@
-.bundle/
-build/
+/.bundle
+/build
 .DS_Store
-node_modules/
+/node_modules
 npm-debug.log
-.tmp/
-.sass-cache/
-data/
-.hs-space-hash/
+/.tmp
+/.sass-cache
+/data
