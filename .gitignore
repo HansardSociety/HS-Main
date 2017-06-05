@@ -1,14 +1,9 @@
-/.bundle
-/build
+.bundle/
+build/
 .DS_Store
-/node_modules
+node_modules/
 npm-debug.log
-/.tmp
-/.sass-cache
-/data
-<<<<<<< HEAD
-.hs-space-hash
-
-=======
-/.hs-space-hash/
->>>>>>> dev
+.tmp/
+.sass-cache/
+data/
+.hs-space-hash/
