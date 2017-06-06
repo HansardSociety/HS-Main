@@ -1,7 +1,5 @@
 .content {
-  @extend
-    %u-border-radius-small,
-    %u-padding-small;
+  @extend %u-padding-small;
 }
 
 .content--overlap {
