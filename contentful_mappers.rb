@@ -354,18 +354,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
             integer: featured.date_time.strftime('%s').to_i,
             date:    featured.date_time.strftime('%d %b, %y')
           }.reject{ |key, value| value.nil? } if featured.date_time),
-
-          # Product
-          # product: ({
-          #   ID:       featured.featured.sys[:id],
-          #   title:    featured.featured.title,
-          #   price:    featured.featured.price,
-          #   download: (featured.featured.media.url if featured.featured.media != nil),
-          #   image: {
-          #     url:    featured.featured.image.url,
-          #     alt:    featured.featured.image.description
-          #   }
-          # }.reject{ |key, value| value.nil? } if featured.featured && featured.featured.content_type.id == 'blog')
         }.reject{ |key, value| value.nil? } if featured.content_type.id == 'child_page')
       }.reject{ |key, value| value.nil? }
       end # End: Featured map
