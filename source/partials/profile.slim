@@ -11,6 +11,7 @@
 - @organisation  = @profile_data[:organisation]
 - @biog          = @profile_data[:biog]
 - @email         = @profile_data[:email]
+- @tel           = @profile_data[:tel]
 - @twitter       = @profile_data[:twitter]
 - @linkedin      = @profile_data[:linkedin]
 
@@ -32,12 +33,14 @@
     p.alt-title.alt-title--xs= "#{ @organisation != nil ? @role + ',' : @role }"
     p.alt-title.alt-title--xs= @organisation
 
-  - if @actions == true
+  - if (@biog || @twitter || @linkedin) && @actions != false
     .profile__actions
       .btn-group
 
-        / Modal button
+        / Biog
         - if @biog
+
+          / Button
           = partial 'partials/btn',
             locals: { local_data: \
               { type: 'state', size: 'small', style: 'secondary', group: true,
@@ -46,15 +49,14 @@
                 aria_id: "activate-#{ @biog[:id] }",
                 aria_target_id: @biog[:id] }}
 
+          / Modal
+          = partial 'partials/modal',
+            locals: \
+            { id: @biog[:id],
+              content: @biog[:content] }
+
         / Social
         = partial 'partials/social',
           locals: { local_data: \
             { icons: [ @email, @twitter, @linkedin ],
               group: true }}
-
-        / Biog
-        - if @biog
-          = partial 'partials/modal',
-            locals: \
-            { id: @biog[:id],
-              content: @biog[:content] }

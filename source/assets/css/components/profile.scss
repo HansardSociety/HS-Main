@@ -1,4 +1,8 @@
 .profile {
+  &:nth-child(1n + 2) {
+    @extend %u-margin-top-xsmall;
+  }
+
   @extend
     %u-flex-row-center,
     %u-border-radius-small;
@@ -11,7 +15,7 @@
   @extend %u-overflow-hidden;
 
   & > img {
-    height: 100%;
+    @extend %u-height-full;
   }
 }
 

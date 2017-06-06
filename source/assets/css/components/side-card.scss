@@ -11,20 +11,16 @@
     %u-transition-base-all,
     %u-border-radius-small;
 
-  &:hover {
-    @extend %u-bgc-brand-white-2;
-  }
-
   &:nth-child(1n + 2) {
-    @extend %u-margin-top-small;
+    @extend %u-margin-top-xsmall;
   }
 }
 
-.side-card--events       { @extend %u-accent-medium-brand-blue-left; }
-.side-card--blog         { @extend %u-accent-medium-brand-brown-left; }
-.side-card--innovation   { @extend %u-accent-medium-brand-light-blue-left; }
-.side-card--publications { @extend %u-accent-medium-brand-light-green-left; }
-.side-card--research     { @extend %u-accent-medium-brand-green-left; }
+.side-card--events     { @extend %u-accent-medium-brand-blue-left; }
+.side-card--blog       { @extend %u-accent-medium-brand-brown-left; }
+.side-card--innovation { @extend %u-accent-medium-brand-light-blue-left; }
+.side-card--resources  { @extend %u-accent-medium-brand-light-green-left; }
+.side-card--research   { @extend %u-accent-medium-brand-green-left; }
 
 .side-card__inner {
   @extend %u-flex-row-start;
@@ -54,8 +50,3 @@
 .side-card__title {
   height: 7rem;
 }
-
-
-////////////////////////////////////////////////////////////
-//  Behaviour
-////////////////////////////////////////////////////////////
