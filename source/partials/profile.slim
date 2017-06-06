@@ -30,7 +30,7 @@
 
   .profile__main
     h1.title.title--small= @full_name
-    p.alt-title.alt-title--xs= "#{ @organisation != nil ? @role + ',' : @role }"
+    p.alt-title.alt-title--xs.u-bold= @role
     p.alt-title.alt-title--xs= @organisation
 
   - if (@biog || @twitter || @linkedin) && @actions != false

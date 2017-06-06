@@ -315,7 +315,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           },
           embed_code:   featured.embed_code,
           url:          featured.url
-        } if featured.content_type.id == 'registration'),
+        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'registration'),
 
         ##  Featured (product)
         ##############################
@@ -329,7 +329,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
             alt:        featured.image.description
           },
           download:     (featured.media.url if featured.media)
-        } if featured.content_type.id == 'product'),
+        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'product'),
 
         ##  Featured (page)
         ##############################
@@ -343,30 +343,30 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           category:   featured.category.parameterize,
 
           # Banner image
-          banner_image: ({
+          banner_image: {
             url:      featured.banner_image.url,
             alt:      featured.banner_image.description,
             focus:    featured.image_focus.parameterize
-          } if featured.banner_image),
+          },
 
-          # Blog
+          # Blog/ event
           date_time: ({
             integer: featured.date_time.strftime('%s').to_i,
             date:    featured.date_time.strftime('%d %b, %y')
-          } if featured.date_time),
+          }.reject{ |key, value| value.nil? } if featured.date_time),
 
           # Product
-          product: ({
-            ID:       featured.featured.sys[:id],
-            title:    featured.featured.title,
-            price:    featured.featured.price,
-            download: (featured.featured.media.url if featured.featured.media != nil),
-            image: {
-              url:    featured.featured.image.url,
-              alt:    featured.featured.image.description
-            }
-          } if featured.featured && featured.featured.content_type.id == 'product')
-        } if featured.content_type.id == 'child_page')
+          # product: ({
+          #   ID:       featured.featured.sys[:id],
+          #   title:    featured.featured.title,
+          #   price:    featured.featured.price,
+          #   download: (featured.featured.media.url if featured.featured.media != nil),
+          #   image: {
+          #     url:    featured.featured.image.url,
+          #     alt:    featured.featured.image.description
+          #   }
+          # }.reject{ |key, value| value.nil? } if featured.featured && featured.featured.content_type.id == 'blog')
+        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'child_page')
       }.reject{ |key, value| value.nil? }
       end # End: Featured map
     end # End: All featured

@@ -45,20 +45,17 @@ article
                   side: true }}
 
           / Blog (authors)
-          / - if @entry[:category] !== 'blog'
-          /   h1 YO
+          - if @entry[:category] != 'blog'
+            - @entry[:featured][0..0].map do |featured|
+              = partial 'partials/side-card',
+                locals: { local_data: \
+                  { side_card_data: featured[:page] }}
 
           / / Registration
           / - if @registration
           /   = partial 'partials/registration',
           /     locals: { local_data: \
           /       { registration_data: @registration }}
-
-          / / Promoted page
-          / - if @promoted_page
-          /   = partial 'partials/side-card',
-          /     locals: { local_data: \
-          /       { side_card_data: @promoted_page }}
 
           / / Product
           / - if @entry[:category] == 'publications'
