@@ -38,6 +38,9 @@
 
       / Introduction
       .main-card__introduction
+
+        / Strip HTML from markdown, trucate text and replace all
+        / non-alphanumeric final characters with an elipsis.
         = Kramdown::Document.new(@main_card[:introduction]).to_html.gsub(/<\/?[^>]*>/, "")[0..195].gsub(/[^0-9a-zA-Z]+$/, '') + '…'
 
 ////////////////////////////////////////////////////////////
