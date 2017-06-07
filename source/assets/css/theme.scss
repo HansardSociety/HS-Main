@@ -22,13 +22,17 @@ $secondary_colors: (
   brand_black_3:       lighten(map-get($primary_colors, brand_black), 30%),
   brand_white_1:       darken(map-get($primary_colors, brand_white), 5%),
   brand_white_2:       darken(map-get($primary_colors, brand_white), 10%),
-  brand_white_3:       darken(map-get($primary_colors, brand_white), 15%)
+  brand_white_3:       darken(map-get($primary_colors, brand_white), 15%),
+  brand_orange_1:      darken(map-get($primary_colors, brand_orange), 5%),
+  brand_orange_2:      darken(map-get($primary_colors, brand_orange), 10%),
 );
 
 $colors:               map-merge($primary_colors, $secondary_colors);
 
 $brand_black:          map-get($colors, brand_black);
 $brand_orange:         map-get($colors, brand_orange);
+$brand_orange_1:       map-get($colors, brand_orange_1);
+$brand_orange_2:       map-get($colors, brand_orange_2);
 $brand_blue:           map-get($colors, brand_blue);
 $brand_brown:          map-get($colors, brand_brown);
 $brand_green:          map-get($colors, brand_green);

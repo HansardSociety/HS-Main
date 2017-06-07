@@ -24,32 +24,51 @@ article
   = partial 'partials/banner',
     locals: { entry: @entry }
 
-  / Header
-  .content.content--wide.content--overlap
-    .grid
+  .content.content--wide.content--paper
 
-      / Content inner - ie. .content__main / __full
+    / Page intro/ featured item
+    .grid
       section.grid__cell.grid__cell--7.copy
         = Kramdown::Document.new(@introduction + "\n{: .byline }").to_html
 
       / Featured side content
       aside.grid__cell.grid__cell--5
+
+        / Need to perform check for older posts without featured content.
         - if @entry[:featured]
 
           / Blog (authors)
           - if @entry[:category] == 'blog'
             - @entry[:featured].map do |featured|
-              = partial 'partials/profile',
-                locals: { local_data: \
-                { profile_data: featured[:author],
-                  side: true }}
+              - if featured[:author]
+                = partial 'partials/profile',
+                  locals: { local_data: \
+                  { profile_data: featured[:author],
+                    side: true }}
 
-          / Blog (authors)
-          - if @entry[:category] != 'blog'
-            - @entry[:featured][0..0].map do |featured|
-              = partial 'partials/side-card',
-                locals: { local_data: \
-                  { side_card_data: featured[:page] }}
+          / Research
+          - if @entry[:category] == 'research'
+            - @entry[:featured].first(1).map do |featured|
+              - if featured[:page]
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:page] }}
+
+          / Resources
+          - if @entry[:category] == 'resources'
+            - @entry[:featured].first(1).map do |featured|
+
+              / Product
+              - if featured[:product]
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:product] }}
+
+              - if featured[:page]
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:page] }}
+
 
           / / Registration
           / - if @registration
@@ -64,8 +83,7 @@ article
           /     locals: { local_data: \
           /       { side_card_data: @entry[:product] }}
 
-  / Body
-  .content.content--wide.u-bgc-white
+    / Body
 
     / If 'Our people' page
     - if @entry[:our_people] == true
@@ -99,14 +117,33 @@ article
         / Side content
         aside.grid__cell.grid__cell--5
 
-          - if ([ 'events', 'blog', 'research' ].include? @category)
+          - if [ 'events', 'blog', 'research' ].include? @category
+
+            / If blog, add all non-author featured content to sidebar
+            - if @entry[:category] == 'blog'
+              - @entry[:featured].map do |featured|
+                - if !featured[:author]
+                  = partial 'partials/side-card',
+                    locals: { local_data: \
+                      { side_card_data: featured[:page] }}
+
+            / If not blog, add all featured items to the sidebar except
+            / the first, which is featured alongside the intro text.
+            - if @entry[:category] != 'blog' && @entry[:featured].length > 1
+              - @entry[:featured].drop(1).map do |featured|
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:page] }}
+
+            / All tagged/ related content
             = partial 'partials/data-cards',
               locals: { local_data: \
                 { entry_data: @entry,
                   context: 'related' }}
 
-          - if @category == 'about'
-            = partial 'partials/data-cards',
-              locals: { local_data: \
-                { entry_data: @entry,
-                  context: 'latest' }}
+            / Latest items for about pages
+            - if @category == 'about'
+              = partial 'partials/data-cards',
+                locals: { local_data: \
+                  { entry_data: @entry,
+                    context: 'latest' }}
