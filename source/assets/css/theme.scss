@@ -22,13 +22,17 @@ $secondary_colors: (
   brand_black_3:       lighten(map-get($primary_colors, brand_black), 30%),
   brand_white_1:       darken(map-get($primary_colors, brand_white), 5%),
   brand_white_2:       darken(map-get($primary_colors, brand_white), 10%),
-  brand_white_3:       darken(map-get($primary_colors, brand_white), 15%)
+  brand_white_3:       darken(map-get($primary_colors, brand_white), 15%),
+  brand_orange_1:      darken(map-get($primary_colors, brand_orange), 5%),
+  brand_orange_2:      darken(map-get($primary_colors, brand_orange), 10%),
 );
 
 $colors:               map-merge($primary_colors, $secondary_colors);
 
 $brand_black:          map-get($colors, brand_black);
 $brand_orange:         map-get($colors, brand_orange);
+$brand_orange_1:       map-get($colors, brand_orange_1);
+$brand_orange_2:       map-get($colors, brand_orange_2);
 $brand_blue:           map-get($colors, brand_blue);
 $brand_brown:          map-get($colors, brand_brown);
 $brand_green:          map-get($colors, brand_green);
@@ -47,7 +51,9 @@ $brand_white_3:        map-get($colors, brand_white_3);
 
 $box_shadow: (
   prime_black:         0 0 20px 6px rgba(#000, .25),
-  prime_black_light:   0 0 2px 2px rgba(#000, .1),
+  prime_black_light:   (0 2px 2px 0 rgba(0,0,0,0.14),
+                        0 1px 5px 0 rgba(0,0,0,0.12),
+                        0 3px 1px -2px rgba(0,0,0,0.2)),
   brand_green:         0 0 10px 3px rgba(#000, .3333)
 );
 

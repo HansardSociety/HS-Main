@@ -1,12 +1,12 @@
 .content {
-  @extend
-    %u-border-radius-small,
-    %u-padding-small;
+  @extend %u-padding-small;
 }
 
-.content--overlap {
+.content--paper {
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
+
+  box-shadow: map-get($box_shadow, prime_black_light);
 
   @extend %u-bgc-brand-white;
 }

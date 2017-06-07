@@ -61,7 +61,7 @@
 }
 
 .link {
-  border-bottom: 1px solid rgba($brand_green, .2);
+  border-bottom: 2px solid rgba($brand_green, .15);
 
   font-weight: bold;
 
@@ -70,6 +70,6 @@
     %u-transition-base-all;
 
   &:hover {
-    border-bottom: 1px solid $brand_green;
+    border-bottom: 2px solid $brand_green;
   }
 }

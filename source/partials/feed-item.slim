@@ -27,9 +27,11 @@
 
       - if @feed_data[:category] == 'blog'
         .u-mtop-sm
-          = partial 'partials/profile',
-            locals: { local_data: \
-            { profile_data: @feed_data[:author] }}
+          - @feed_data[:featured].each do |featured|
+            = partial 'partials/profile',
+              locals: { local_data: \
+              { profile_data: featured[:author],
+                actions: false }}
 
       - if @feed_data[:category] == 'events'
         .u-mtop-sm

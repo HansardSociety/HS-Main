@@ -48,18 +48,17 @@
 }
 
 .btn--primary {
-  border-bottom: .25em solid $brand_orange;
-  background-image: linear-gradient($brand_orange, lighten($brand_orange, 8%));
-
-  @extend %u-color-brand-white;
+  @extend
+    %u-bgc-brand-orange,
+    %u-color-brand-white;
 
   &:active {
-    border-bottom: .2em solid lighten($brand_orange, 8%);
+    @extend %u-bgc-brand-orange-1;
   }
 
   @include above('large') {
     &:hover {
-      border-bottom: .2em solid lighten($brand_orange, 8%);
+      background-color: $brand_orange_1;
     }
   }
 }

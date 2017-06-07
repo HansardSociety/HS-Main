@@ -32,7 +32,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
 end
 
 ############################################################
-##  Global
+##  People
 ############################################################
 
 class PeopleMap < ContentfulMiddleman::Mapper::Base
@@ -275,103 +275,90 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       }
     end
 
-    ##  Promoted (people)
+    ##  Featured
     ##############################
 
-    if entry.promoted && entry.promoted.content_type.id == 'people'
-      context.author = {
-        full_name:    entry.promoted.full_name,
-        role:         entry.promoted.role,
-        organisation: entry.promoted.organisation,
-        biog: ({
-          id:       (entry.promoted.full_name.parameterize + '-' + entry.promoted.sys[:id]),
-          content:  entry.promoted.biog
-        } if entry.promoted.biog),
-        email:        entry.promoted.email,
-        twitter:      entry.promoted.twitter,
-        linkedin:     entry.promoted.linkedin,
-        photo: {
-          url:        entry.promoted.photo.url,
-          alt:        entry.promoted.photo.description
-        }
-      }
-    end
+    if entry.featured
+      context.featured = entry.featured.map do |featured| {
 
-    ##  Promoted (registration)
-    ##############################
+        ##  Featured (people)
+        ##############################
 
-    if entry.promoted && entry.promoted.content_type.id == 'registration'
-      context.registration = {
-        title:        entry.promoted.title,
-        date_time: {
-          integer:    entry.date_time.strftime('%s').to_i,
-          date:       entry.promoted.date.strftime('%I:%M %p, %d %b, %y'),
-          day:        entry.promoted.date.strftime('%d'),
-          month:      entry.promoted.date.strftime('%b'),
-          year:       entry.promoted.date.strftime('%y')
-        },
-        embed_code:   entry.promoted.embed_code,
-        url:          entry.promoted.url
-      }
-    end
-
-    ##  Promoted (product)
-    ##############################
-
-    if entry.promoted && entry.promoted.content_type.id == 'product'
-      context.product = {
-        title:        entry.promoted.title,
-        product_id:   entry.promoted.product_id,
-        price:        entry.promoted.price,
-        image: {
-          url:        entry.promoted.image.url,
-          alt:        entry.promoted.image.description
-        },
-        download:     (entry.promoted.media.url if entry.promoted.media)
-      }
-    end
-
-    ##  Promoted (pages)
-    ##############################
-
-    if entry.promoted && entry.promoted.content_type.id == 'child_page'
-
-      @linked_product = entry.promoted.promoted && entry.promoted.promoted.content_type.id == 'product'
-
-      context.promoted_page = {
-
-        # Core
-        ID:         entry.promoted.sys[:id],
-        title:      entry.promoted.title,
-        slug:       entry.promoted.slug.parameterize,
-        category:   entry.promoted.category.parameterize,
-
-        # Banner image
-        banner_image: ({
-          url:      entry.promoted.banner_image.url,
-          alt:      entry.promoted.banner_image.description,
-          focus:    entry.promoted.image_focus.parameterize
-        } if entry.promoted.banner_image),
-
-        # Blog
-        date_time: ({
-          integer: entry.date_time.strftime('%s').to_i,
-          date:    entry.date_time.strftime('%d %b, %y')
-        }),
-
-        # Product
-        product: ({
-          ID:       entry.promoted.promoted.sys[:id],
-          title:    entry.promoted.promoted.title,
-          price:    entry.promoted.promoted.price,
-          download: (entry.promoted.promoted.media.url if entry.promoted.promoted.media != nil),
-          image: {
-            url:    entry.promoted.promoted.image.url,
-            alt:    entry.promoted.promoted.image.description
+        author: ({
+          full_name:    featured.full_name,
+          role:         featured.role,
+          organisation: featured.organisation,
+          biog: ({
+            id:         (featured.full_name.parameterize + '-' + featured.sys[:id]),
+            content:    featured.biog
+          } if featured.biog),
+          email:        featured.email,
+          twitter:      featured.twitter,
+          linkedin:     featured.linkedin,
+          photo: {
+            url:        featured.photo.url,
+            alt:        featured.photo.description
           }
-        } if @linked_product)
+        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'people'),
+
+        ##  Featured (registration)
+        ##############################
+
+        registration: ({
+          title:        featured.title,
+          date_time: {
+            integer:    entry.date_time.strftime('%s').to_i,
+            date:       featured.date.strftime('%I:%M %p, %d %b, %y'),
+            day:        featured.date.strftime('%d'),
+            month:      featured.date.strftime('%b'),
+            year:       featured.date.strftime('%y')
+          },
+          embed_code:   featured.embed_code,
+          url:          featured.url
+        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'registration'),
+
+        ##  Featured (product)
+        ##############################
+
+        product: ({
+          title:        featured.title,
+          category:     featured.category,
+          product_id:   featured.product_id,
+          price:        featured.price,
+          image: {
+            url:        featured.image.url,
+            alt:        featured.image.description
+          },
+          download:     (featured.media.url if featured.media)
+        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'product'),
+
+        ##  Featured (page)
+        ##############################
+
+        page: ({
+
+          # Core
+          ID:         featured.sys[:id],
+          title:      featured.title,
+          slug:       featured.slug.parameterize,
+          category:   featured.category.parameterize,
+
+          # Banner image
+          banner_image: {
+            url:      featured.banner_image.url,
+            alt:      featured.banner_image.description,
+            focus:    featured.image_focus.parameterize
+          },
+
+          # Blog/ event
+          date_time: ({
+            integer: featured.date_time.strftime('%s').to_i,
+            date:    featured.date_time.strftime('%d %b, %y')
+          }.reject{ |key, value| value.nil? } if featured.date_time),
+        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'child_page')
       }.reject{ |key, value| value.nil? }
-    end
+      end # End: Featured map
+    end # End: All featured
 
     ##  Date/ time
     ##############################
