@@ -46,7 +46,7 @@ article
 
           / Blog (authors)
           - if @entry[:category] != 'blog'
-            - @entry[:featured][0..0].map do |featured|
+            - @entry[:featured].first(1).map do |featured|
               = partial 'partials/side-card',
                 locals: { local_data: \
                   { side_card_data: featured[:page] }}
@@ -98,14 +98,21 @@ article
         / Side content
         aside.grid__cell.grid__cell--5
 
-          - if ([ 'events', 'blog', 'research' ].include? @category)
-            = partial 'partials/data-cards',
-              locals: { local_data: \
-                { entry_data: @entry,
-                  context: 'related' }}
+          - if [ 'events', 'blog', 'research' ].include? @category
 
-          - if @category == 'about'
-            = partial 'partials/data-cards',
-              locals: { local_data: \
-                { entry_data: @entry,
-                  context: 'latest' }}
+            - if @entry[:category] != 'blog'
+              - @entry[:featured].drop(1).map do |featured|
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:page] }}
+
+              = partial 'partials/data-cards',
+                locals: { local_data: \
+                  { entry_data: @entry,
+                    context: 'related' }}
+
+            - if @category == 'about'
+              = partial 'partials/data-cards',
+                locals: { local_data: \
+                  { entry_data: @entry,
+                    context: 'latest' }}
