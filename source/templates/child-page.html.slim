@@ -24,32 +24,51 @@ article
   = partial 'partials/banner',
     locals: { entry: @entry }
 
-  / Header
   .content.content--wide.content--paper
-    .grid
 
-      / Content inner - ie. .content__main / __full
+    / Page intro/ featured item
+    .grid
       section.grid__cell.grid__cell--7.copy
         = Kramdown::Document.new(@introduction + "\n{: .byline }").to_html
 
       / Featured side content
       aside.grid__cell.grid__cell--5
+
+        / Need to perform check for older posts without featured content.
         - if @entry[:featured]
 
           / Blog (authors)
           - if @entry[:category] == 'blog'
             - @entry[:featured].map do |featured|
-              = partial 'partials/profile',
-                locals: { local_data: \
-                { profile_data: featured[:author],
-                  side: true }}
+              - if featured[:author]
+                = partial 'partials/profile',
+                  locals: { local_data: \
+                  { profile_data: featured[:author],
+                    side: true }}
 
-          / Blog (authors)
-          - if @entry[:category] != 'blog'
+          / Research
+          - if @entry[:category] == 'research'
             - @entry[:featured].first(1).map do |featured|
-              = partial 'partials/side-card',
-                locals: { local_data: \
-                  { side_card_data: featured[:page] }}
+              - if featured[:page]
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:page] }}
+
+          / Resources
+          - if @entry[:category] == 'resources'
+            - @entry[:featured].first(1).map do |featured|
+
+              / Product
+              - if featured[:product]
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:product] }}
+
+              - if featured[:page]
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:page] }}
+
 
           / / Registration
           / - if @registration
@@ -100,17 +119,29 @@ article
 
           - if [ 'events', 'blog', 'research' ].include? @category
 
-            - if @entry[:category] != 'blog'
+            / If blog, add all non-author featured content to sidebar
+            - if @entry[:category] == 'blog'
+              - @entry[:featured].map do |featured|
+                - if !featured[:author]
+                  = partial 'partials/side-card',
+                    locals: { local_data: \
+                      { side_card_data: featured[:page] }}
+
+            / If not blog, add all featured items to the sidebar except
+            / the first, which is featured alongside the intro text.
+            - if @entry[:category] != 'blog' && @entry[:featured].length > 1
               - @entry[:featured].drop(1).map do |featured|
                 = partial 'partials/side-card',
                   locals: { local_data: \
                     { side_card_data: featured[:page] }}
 
-              = partial 'partials/data-cards',
-                locals: { local_data: \
-                  { entry_data: @entry,
-                    context: 'related' }}
+            / All tagged/ related content
+            = partial 'partials/data-cards',
+              locals: { local_data: \
+                { entry_data: @entry,
+                  context: 'related' }}
 
+            / Latest items for about pages
             - if @category == 'about'
               = partial 'partials/data-cards',
                 locals: { local_data: \

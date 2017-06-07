@@ -2,8 +2,7 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @side_card_data     = local_data[:side_card_data]
-
+- @side_card_data = local_data[:side_card_data]
 
 - @banner_image   = @side_card_data[:banner_image]
 - @image          = @side_card_data[:image]
@@ -13,8 +12,7 @@
 - @date_time      = @side_card_data[:date_time]
 - @url            = @side_card_data[:slug]
 
-/ - @product        = @side_card_data[:product]
-
+- @is_product     = @side_card_data.key?('price')
 
 ////////////////////////////////////////////////////////////
 //  Side card
@@ -37,13 +35,12 @@ article.side-card{
           src="#{ @image[:url] }"
         }
 
-
     .side-card__content
       .side-card__meta
-        - if @product
-          span.alt-title.alt-title--xs Publication
+        - if @is_product
+          span.alt-title.alt-title--xs= @category
 
-        - if ([ 'research', 'publications' ]).include? @category
+        - if ([ 'research', 'resources' ]).include? @category
           span.alt-title.alt-title--xs= @category
 
         - if @category == 'blog'
@@ -55,28 +52,31 @@ article.side-card{
             @category + ' / ' + @date_time[:date]
 
       .side-card__title
-        - if @category
+
+        - if !@is_product
           h1.title{
-            class="#{ @product ? 'title--xsmall' : 'title--small' }"
+            class="#{ @is_product ? 'title--xsmall' : 'title--small' }"
           }
             a.link{
               href="#{ config[:SITE_URL] + '/' + @category + '/' + @url }"
             }= @title
 
-        - if @product
+        - if @is_product
 
           h1.title.title--xsmall= @title
 
-          - if @product[:price] == 0
-            .u-mtop-xs
-              = partial 'partials/btn',
-                locals: { local_data: \
-                  { type: 'link', size: 'small', style: 'primary',
-                    text: 'Download', text_size: 'small', url: @product[:download] }}
+      - if @is_product
 
-          - else
-            .u-mtop-xs
-              = partial 'partials/btn',
-                locals: { local_data: \
-                  { type: 'link', size: 'small', style: 'primary', product: @product,
-                    text: "Buy (£#{ @product[:price] })", text_size: 'small' }}
+        - if @side_card_data[:price] == 0
+          .u-mtop-xs
+            = partial 'partials/btn',
+              locals: { local_data: \
+                { type: 'link', size: 'small', style: 'primary',
+                  text: 'Download', text_size: 'small', url: @side_card_data[:download] }}
+
+        - if @side_card_data[:price] > 0
+          .u-mtop-xs
+            = partial 'partials/btn',
+              locals: { local_data: \
+                { type: 'link', size: 'small', style: 'primary', product: @side_card_data,
+                  text: "Buy (£#{ @side_card_data[:price] })", text_size: 'small' }}
