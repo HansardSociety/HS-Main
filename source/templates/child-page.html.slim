@@ -25,7 +25,7 @@ article
     locals: { entry: @entry }
 
   / Header
-  .content.content--wide.content--overlap
+  .content.content--wide.content--paper
     .grid
 
       / Content inner - ie. .content__main / __full
@@ -64,8 +64,7 @@ article
           /     locals: { local_data: \
           /       { side_card_data: @entry[:product] }}
 
-  / Body
-  .content.content--wide.u-bgc-white
+    / Body
 
     / If 'Our people' page
     - if @entry[:our_people] == true
