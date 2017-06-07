@@ -57,13 +57,13 @@ article.side-card{
           h1.title{
             class="#{ @is_product ? 'title--xsmall' : 'title--small' }"
           }
-            a.link{
+            a.link.JS-truncate{
               href="#{ config[:SITE_URL] + '/' + @category + '/' + @url }"
             }= @title
 
         - if @is_product
 
-          h1.title.title--xsmall= @title
+          h1.title.title--xsmall.JS-truncate= @title
 
       - if @is_product
 

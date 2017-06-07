@@ -200,12 +200,12 @@ const truncate = (container, content) => {
 };
 
 forEach(document.querySelectorAll('.side-card__content'), function(index, elem) {
-  truncate(elem, '.title');
+  truncate(elem, '.JS-truncate');
 });
 
 window.onresize = function() {
   forEach(document.querySelectorAll('.side-card__content'), function(index, elem) {
-    truncate(elem, '.title');
+    truncate(elem, '.JS-truncate');
   });
 };
 

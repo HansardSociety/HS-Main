@@ -129,7 +129,7 @@ article
 
             / If not blog, add all featured items to the sidebar except
             / the first, which is featured alongside the intro text.
-            - if @entry[:category] != 'blog' && @entry[:featured].length > 1
+            - if @entry[:category] != 'blog' && @entry[:featured] && @entry[:featured].length > 1
               - @entry[:featured].drop(1).map do |featured|
                 = partial 'partials/side-card',
                   locals: { local_data: \
