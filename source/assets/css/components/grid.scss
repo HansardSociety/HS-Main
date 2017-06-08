@@ -39,6 +39,11 @@
   .grid__cell--offset-#{ $n } {
     margin-left: calc(#{ 8.3333 * $n + '%'} + 2rem);
   }
+
+  // Order
+  .grid__cell--order-#{ $n } {
+    order: #{ $n };
+  }
 }
 
 @each $screen in map-keys($breakpoints) {
@@ -53,6 +58,11 @@
       // Offset
       .grid__cell--#{ $screen }-offset-#{ $n } {
         margin-left: calc(#{ 8.3333 * $n + '%'} + 2rem);
+      }
+
+      // Order
+      .grid__cell--order-#{ $n }-#{ $screen } {
+        order: #{ $n };
       }
     }
   }

@@ -9,4 +9,6 @@
 ////////////////////////////////////////////////////////////
 
 .date
-  p= @date_data[:integer]
+  span.date__d= @date_data[:day]
+  span.date__tmy= @date_data[:month] + ' ' + @date_data[:year]
+  span.date__tmy= @date_data[:time]

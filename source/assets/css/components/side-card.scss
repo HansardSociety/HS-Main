@@ -27,8 +27,10 @@
 }
 
 .side-card__image {
+  width: 114.5px;
+
   @extend
-    %u-overlay,
+    %u-flex-row-center,
     %u-position-relative;
 
   > img {
@@ -36,6 +38,16 @@
       %u-display-block,
       %u-height-full;
   }
+}
+
+.side-card__image--overlay {
+  @extend %u-overlay;
+}
+
+.side-card__image--events {
+  @extend
+    %u-bgc-brand-blue,
+    %u-color-brand-white;
 }
 
 .side-card__content {

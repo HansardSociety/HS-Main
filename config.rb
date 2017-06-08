@@ -45,6 +45,8 @@ configure :build do
   ignore 'partials/**'
   ignore 'templates/**'
 
+  activate :directory_indexes
+
   activate :external_pipeline,
     name: :gulp,
     command: 'npm run build',

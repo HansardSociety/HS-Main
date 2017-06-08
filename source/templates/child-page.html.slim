@@ -28,11 +28,15 @@ article
 
     / Page intro/ featured item
     .grid
-      section.grid__cell.grid__cell--7.copy
+      section.grid__cell.grid__cell--small-7.copy{
+        class="#{ 'grid__cell--order-2 grid__cell--order-1-small' if [ 'blog', 'events' ].include? @entry[:category]  }"
+      }
         = Kramdown::Document.new(@introduction + "\n{: .byline }").to_html
 
       / Featured side content
-      aside.grid__cell.grid__cell--5
+      aside.grid__cell.grid__cell--small-5{
+        class="#{ 'grid__cell--order-1 grid__cell--order-2-small' if [ 'blog', 'events' ].include? @entry[:category]  }"
+      }
 
         / Need to perform check for older posts without featured content.
         - if @entry[:featured]
@@ -70,20 +74,13 @@ article
                     { side_card_data: featured[:page] }}
 
 
-          / / Registration
-          / - if @registration
-          /   = partial 'partials/registration',
-          /     locals: { local_data: \
-          /       { registration_data: @registration }}
-
-          / / Product
-          / - if @entry[:category] == 'publications'
-          /   - @product = @entry[:product]
-          /   = partial 'partials/side-card',
-          /     locals: { local_data: \
-          /       { side_card_data: @entry[:product] }}
-
-    / Body
+            / Registration
+          - if @entry[:category] == 'events'
+            - @entry[:featured].first(1).map do |featured|
+              - if featured[:registration]
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:registration] }}
 
     / If 'Our people' page
     - if @entry[:our_people] == true
@@ -110,14 +107,14 @@ article
       .grid
 
         / Copy
-        .grid__cell.grid__cell--7.copy
+        .grid__cell.grid__cell--small-7.copy
 
           = Kramdown::Document.new(@copy).to_html
 
         / Side content
-        aside.grid__cell.grid__cell--5
+        aside.grid__cell.grid__cell--small-5
 
-          - if [ 'events', 'blog', 'research' ].include? @category
+          - if [ 'blog', 'events', 'intelligence', 'research', 'resources' ].include? @entry[:category]
 
             / If blog, add all non-author featured content to sidebar
             - if @entry[:category] == 'blog'
@@ -129,7 +126,8 @@ article
 
             / If not blog, add all featured items to the sidebar except
             / the first, which is featured alongside the intro text.
-            - if @entry[:category] != 'blog' && @entry[:featured].length > 1
+            / TODO: Exclude content types (ie. registration, author and product)
+            - if @entry[:category] != 'blog' && @entry[:featured] && @entry[:featured].length > 1
               - @entry[:featured].drop(1).map do |featured|
                 = partial 'partials/side-card',
                   locals: { local_data: \
