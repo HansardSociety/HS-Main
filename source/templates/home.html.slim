@@ -9,7 +9,7 @@
 - @pages_by_date     = @merged_pages.sort_by{ |key, page| - page.date_time.integer }
 
 - @main_pages = @pages_by_date.map{ |id, page| [ id, page ] \
-                if ([ 'research', 'publications', 'blog', 'events' ].include? \
+                if ([ 'resources', 'blog', 'events' ].include? \
                 page[:category])}.delete_if{ |page| page.nil? }
 
 - @our_work   = @pages_by_date.map{ |id, page| [ id, page ] \
