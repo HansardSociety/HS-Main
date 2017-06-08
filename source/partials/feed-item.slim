@@ -6,17 +6,18 @@
 ////////////////////////////////////////////////////////////
 //  Feed item
 ////////////////////////////////////////////////////////////
+
 .content__inner.content__inner--wide.content__inner--flow
   .grid
-    .grid__cell.grid__cell--7
+    .grid__cell.grid__cell--small-7
 
       - if @feed_data[:category] == 'blog'
         span.alt-title.alt-title--xs= @feed_data[:date_time].date
 
       - if @feed_data[:category] == 'events'
-        span.alt-title.alt-title--xs= @feed_data[:registration] != nil ? \
-          (@feed_data[:category] + ' / ' + @feed_data[:registration].date_time.date) : \
-          @feed_data[:category] + ' / ' + @feed_data[:date_time].date
+        - @feed_data[:featured].map do |featured|
+          - if featured[:registration]
+            span.alt-title.alt-title--xs= @feed_data[:category] + ' / ' + featured[:registration][:date_time][:date]
 
       h1.title.title--medium{
         class="#{ 'u-mtop-xs' if @feed_data[:category] == 'blog' }"
@@ -37,7 +38,7 @@
         .u-mtop-sm
           = Kramdown::Document.new(@feed_data[:introduction][0..195].chomp('.') + '…').to_html
 
-    .grid__cell.grid__cell--5.grid__cell--first
+    .grid__cell.grid__cell--small-5.grid__cell--first
       a{
         href="#{ config[:SITE_URL] + '/' + @feed_data[:category] + '/' + @feed_data[:slug] }"
       }
