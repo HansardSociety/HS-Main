@@ -1,0 +1,21 @@
+.date {
+  @extend
+    %u-padding-small,
+    %u-text-align-center,
+    %u-width-full;
+}
+
+.date__day,
+.date__tmy {
+  @extend %u-display-block;
+}
+
+.date__d {
+  line-height: 1;
+  font-size: 3.25rem;
+}
+
+.date__tmy {
+  font-size: .75rem;
+  text-transform: uppercase;
+}

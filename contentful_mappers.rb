@@ -305,16 +305,22 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         ##############################
 
         registration: ({
-          title:        featured.title,
+          meta_title:   featured.meta_title,
+          category:     featured.category,
+          venue:        featured.venue,
           date_time: {
-            integer:    entry.date_time.strftime('%s').to_i,
-            date:       featured.date.strftime('%I:%M %p, %d %b, %y'),
-            day:        featured.date.strftime('%d'),
-            month:      featured.date.strftime('%b'),
-            year:       featured.date.strftime('%y')
+            integer:    featured.date_time.strftime('%s').to_i,
+            date:       featured.date_time.strftime('%I:%M %p, %d %b, %y'),
+            time:       featured.date_time.strftime('%I:%M %p'),
+            day:        featured.date_time.strftime('%d'),
+            month:      featured.date_time.strftime('%b'),
+            year:       featured.date_time.strftime('%Y')
           },
           embed_code:   featured.embed_code,
-          url:          featured.url
+          modal: {
+            cta_id:     (featured.meta_title.split('::')[0].parameterize + '-' + featured.sys[:id]), # split '::' for contentful name-spacing
+            content:    featured.embed_code
+          }
         }.reject{ |key, value| value.nil? } if featured.content_type.id == 'registration'),
 
         ##  Featured (product)
