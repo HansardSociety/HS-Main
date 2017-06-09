@@ -366,6 +366,19 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       end # End: Featured map
     end # End: All featured
 
+    ##  External links
+    ##############################
+
+    if entry.external_links
+      context.external_links = entry.external_links.map do |link| {
+        title:    link.title,
+        category: link.category.parameterize,
+        outlet:   PublicSuffix.parse(link.url).domain,
+        url:      link.url
+      }
+      end
+    end
+
     ##  Date/ time
     ##############################
 
