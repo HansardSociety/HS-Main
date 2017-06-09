@@ -1,0 +1,22 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @ext_link_data = local_data[:ext_link_data]
+
+////////////////////////////////////////////////////////////
+//  External link
+////////////////////////////////////////////////////////////
+
+article.ext-link
+  h1
+    a
+      .ext-link__icon
+        = partial 'partials/icon',
+          locals: { icon:  (\
+                      ('pencil' if @ext_link_data[:category] == 'article') || \
+                      ('arrow-down' if @ext_link_data[:category] == 'download')),
+                    size:  'small',
+                    color: 'green' }
+
+      .ext-link__text

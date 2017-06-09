@@ -82,6 +82,8 @@ article
                   locals: { local_data: \
                     { side_card_data: featured[:registration] }}
 
+        / End: Featured
+
     / If 'Our people' page
     - if @entry[:our_people] == true
 
@@ -114,6 +116,14 @@ article
         / Side content
         aside.grid__cell.grid__cell--small-5
 
+          / External links
+          - if @entry[:external_links]
+            - @entry[:external_links].map do |link|
+              = partial 'partials/ext-link',
+                locals: { local_data: \
+                  { ext_link_data: link }}
+
+          / Tagging
           - if [ 'blog', 'events', 'intelligence', 'research', 'resources' ].include? @entry[:category]
 
             / If blog, add all non-author featured content to sidebar

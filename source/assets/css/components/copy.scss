@@ -28,6 +28,8 @@
 
   img {
     max-width: 100%;
+
+    @extend %u-border-radius-small;
   }
 }
 
