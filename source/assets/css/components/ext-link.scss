@@ -1,0 +1,27 @@
+.ext-link {
+  margin-bottom: 1.5rem;
+}
+
+.ext-link__inner {
+  align-items: flex-start;
+
+  @extend %u-flex-row-nowrap;
+}
+
+.ext-link__icon {
+  margin-right: .5rem;
+
+  border-radius: 50%;
+
+  width: 2rem;
+  height: 2rem;
+
+  @extend
+    %u-bgc-brand-white-1,
+    %u-display-inline-flex,
+    %u-padding-xsmall;
+}
+
+.ext-link__text {
+  @extend %u-display-inline;
+}

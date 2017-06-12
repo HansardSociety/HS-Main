@@ -20,7 +20,7 @@
   @extend
     %u-color-brand-green,
     %u-display-block,
-    %u-font-avenir-700-normal;
+    %u-font-avenir-400-normal;
 }
 
 .title--xsmall { @extend %u-font-size-xsmall; }
@@ -39,7 +39,8 @@
 
   @extend
     %u-color-brand-black-2,
-    %u-display-block;
+    %u-display-block,
+    %u-font-avenir-300-normal;
 }
 
 .alt-title--xs { font-size: .625rem; }
@@ -62,8 +63,6 @@
 
 .link {
   border-bottom: 2px solid rgba($brand_green, .15);
-
-  // font-weight: bold;
 
   @extend
     %u-color-brand-green,

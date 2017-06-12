@@ -48,10 +48,34 @@ var
 //  Sprites
 ////////////////////////////////////////////////////////////
 
+  // Icons (Ionicons)
+  iconsList =
+    'android-search|' +
+    'chevron-down|' +
+    'chevron-right|' +
+    'chevron-left|' +
+    'social-twitter|' +
+    'social-facebook|' +
+    'social-linkedin|' +
+    'email|' +
+    'headphone|' +
+    'ios-videocam|' +
+    'book|' +
+    'android-download|' +
+    'ios-paper|',
+
+  // Sprite config
   svgSpriteConfig = {
     mode: {
       symbol: {
         dest: '.'
+      }
+    },
+    svg: {
+      doctypeDeclaration: false,
+      xmlDeclaration: false,
+      rootAttributes: {
+        style: 'display:none;'
       }
     }
   },
@@ -76,7 +100,7 @@ var
     },
     fonts: __dirname + '/source/assets/fonts/**.*',
     images: {
-      icons: __dirname + '/node_modules/evil-icons/assets/icons/*.svg'
+      icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
     },
     redirects: __dirname + '/source/netlify-redirects',
     tmp: {
@@ -114,6 +138,7 @@ gulp.task('watch',
 
     // Server running...
     function callback() {
+
       // Inject CSS/ JS
       gulp.watch(PATH.css.all, [ 'css:main' ]);
       gulp.watch(PATH.js.main, [ 'js:bundle' ]);
