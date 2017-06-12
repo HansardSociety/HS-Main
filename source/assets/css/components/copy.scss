@@ -1,7 +1,11 @@
 .copy {
 
-  > h1, > h2, > h3, > h4, > h5, > h6, > p, > img, > iframe, ul {
+  > h1, > h2, > h3, > h4, > h5, > h6, > p:not(.byline), > img, > iframe, ul {
     margin-bottom: 1rem;
+  }
+
+  > h1, > h2, > h3, > h4, > h5, > h6 {
+    margin-top: 1em;
   }
 
   > h1, > h2, > h3, > h4 {
@@ -28,6 +32,8 @@
 
   img {
     max-width: 100%;
+
+    @extend %u-border-radius-small;
   }
 }
 

@@ -77,9 +77,9 @@ nav#navbar.navbar.JS-inactive
                 .dropdown__control
                   = partial 'partials/btn',
                     locals: { local_data: \
-                      { type: 'state', size: 'small',
+                      { type: 'state', size: 'xsmall',
                         page: 'no-scroll', exclusive: true, secondary_target: 'navbar',
-                        icon: 'chevron-down', icon_size: 'medium', icon_color: 'white',
+                        icon: 'chevron-down', icon_size: 'xsmall', icon_color: 'white',
                         animation: 'rotate',
                         aria_id: "activate-#{ @menu_desktop_id_base }",
                         aria_target_id: @menu_desktop_id_base }}
@@ -96,6 +96,6 @@ nav#navbar.navbar.JS-inactive
         locals: { local_data: \
           { type: 'state', size: 'small',
             page: 'no-scroll', exclusive: true,
-            icon: 'search', icon_size: 'medium', icon_color: 'white',
+            icon: 'android-search', icon_size: 'small', icon_color: 'white',
             aria_id: "activate-search",
             aria_target_id: "search" }}

@@ -1,0 +1,29 @@
+////////////////////////////////////////////////////////////
+//  Variables
+////////////////////////////////////////////////////////////
+
+- @ext_link_data = local_data[:ext_link_data]
+
+////////////////////////////////////////////////////////////
+//  External link
+////////////////////////////////////////////////////////////
+
+article.ext-link
+  h1.title.title--small
+    a.ext-link__inner{
+      href= @ext_link_data[:url]
+    }
+      span.ext-link__icon
+        = partial 'partials/icon',
+          locals: { icon:  (\
+                      ('ios-paper' if @ext_link_data[:category] == 'article') || \
+                      ('android-download' if @ext_link_data[:category] == 'download')),
+                      ('headphone' if @ext_link_data[:category] == 'audio')),
+                      ('ios-videocam' if @ext_link_data[:category] == 'video')),
+                      ('ios-book' if @ext_link_data[:category] == 'book')),
+                    size:  'xsmall',
+                    color: 'green' }
+
+      span
+        span.ex-link__meta.alt-title.alt-title--xs= @ext_link_data[:outlet]
+        span.link.u-font-sm= @ext_link_data[:title]

@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////
 
 $properties: (
-  display:  ( none, block, inline-block, flex, inline-flex ),
+  display:  ( none, inline, block, inline-block, flex, inline-flex ),
   position: ( relative, absolute, fixed ),
   origins:  ( left, top, right, bottom ),
   axies:    ( 0, 50, 100 ),
@@ -175,7 +175,8 @@ $properties: (
   flex-flow: row wrap;
 }
 
-%u-flex-row { @extend %u-display-flex; }
+%u-flex-row,
+%u-flex-row-nowrap { @extend %u-display-flex; }
 %u-flex-inline-row { @extend %u-display-inline-flex; }
 
 %u-flex-row-start {
@@ -187,6 +188,10 @@ $properties: (
 %u-flex-row-center,
 %u-flex-inline-row-center {
   align-items: center;
+}
+
+%u-flex-row-nowrap {
+  flex-flow: row nowrap;
 }
 
 %u-flex-row-center {  @extend %u-flex-row; }
@@ -465,6 +470,10 @@ $properties: (
 
 .u-align-center {
   @extend %u-text-align-center;
+}
+
+.u-font-sm {
+  font-size: 1rem;
 }
 
 ////////////////////////////////////////////////////////////

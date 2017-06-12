@@ -50,7 +50,11 @@
 
 .carousel__prev,
 .carousel__next {
+
   @extend
     %u-cursor-pointer,
     %u-flex-row-center;
 }
+
+.carousel__prev > span { margin-left: .25rem; }
+.carousel__next > span { margin-right: .25rem; }
