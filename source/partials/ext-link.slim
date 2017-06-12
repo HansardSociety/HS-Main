@@ -17,9 +17,9 @@ article.ext-link
         = partial 'partials/icon',
           locals: { icon:  (\
                       ('ios-paper' if @ext_link_data[:category] == 'article') || \
-                      ('android-download' if @ext_link_data[:category] == 'download')),
-                      ('headphone' if @ext_link_data[:category] == 'audio')),
-                      ('ios-videocam' if @ext_link_data[:category] == 'video')),
+                      ('android-download' if @ext_link_data[:category] == 'download')) || \
+                      ('headphone' if @ext_link_data[:category] == 'audio')) || \
+                      ('ios-videocam' if @ext_link_data[:category] == 'video')) || \
                       ('ios-book' if @ext_link_data[:category] == 'book')),
                     size:  'xsmall',
                     color: 'green' }
