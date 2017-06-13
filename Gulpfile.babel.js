@@ -62,6 +62,7 @@ var
     'ios-videocam|' +
     'book|' +
     'android-download|' +
+    'close-round|' +
     'ios-paper|',
 
   // Sprite config
