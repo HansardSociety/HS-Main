@@ -43,7 +43,10 @@
         [ id, page ] if page[:tags] \
         && page[:tags].any?{ |tags| @entry_data[:tags].include?(tags) } \
         && page[:ID] != @entry_data[:ID] \
-        && (!@entry_data[:featured].any?{ |featured| page[:ID].include?(featured.page[:ID]) if ![ 'blog', 'events', 'resources' ].include? @entry_data[:category] } if @entry_data[:featured]) \
+        && (!@entry_data[:featured].any?{ |featured| \
+            page[:ID].include?(featured.page[:ID]) \
+            if ![ 'blog', 'events', 'resources' ].include? @entry_data[:category] \
+        } if @entry_data[:featured]) \
       }.delete_if{ |page| page.nil? }
 
       / Events and/ or innovation - latest 1
