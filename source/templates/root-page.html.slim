@@ -2,7 +2,7 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @page_data    = root_page
+- @entry    = root_page
 
 - @child_pages  = data.hs.child_page
 
@@ -17,9 +17,9 @@ article
   //  Banner
   ////////////////////////////
 
-  - if @page_data[:banner_image]
+  - if @entry[:banner_image]
     = partial 'partials/banner',
-      locals: { entry: @page_data }
+      locals: { entry: @entry }
 
   //  Feed
   ////////////////////////////
@@ -29,13 +29,13 @@ article
       - @pages_by_date.each do |id, page|
 
         / Blog
-        - if @page_data[:category] == 'blog' && page[:category] == 'blog'
+        - if @entry[:category] == 'blog' && page[:category] == 'blog'
           = partial 'partials/feed-item',
             locals: { local_data: \
               { feed_data: page }}
 
         / Events
-        - if @page_data[:category] == 'events' && page[:category] == 'events'
+        - if @entry[:category] == 'events' && page[:category] == 'events'
           = partial 'partials/feed-item',
             locals: { local_data: \
               { feed_data: page }}

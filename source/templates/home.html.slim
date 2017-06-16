@@ -2,7 +2,8 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-/ Latest pages
+- @entry = home
+
 - @child_pages       = data.hs.child_page
 - @landing_pages     = data.hs.landing_page
 - @merged_pages      = @landing_pages.merge(@child_pages)
@@ -32,7 +33,7 @@ article
   ////////////////////////////
 
   = partial 'partials/banner',
-    locals: { entry: home }
+    locals: { entry: @entry }
 
   //  'Latest' (related)
   ////////////////////////////

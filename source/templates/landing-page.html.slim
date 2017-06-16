@@ -2,9 +2,9 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @page_data = landing_page
+- @entry = landing_page
 
-- @page_url  = "#{ config[:SITE_URL] }/#{ @page_data[:category] }/#{ @page_data[:slug] }"
+- @page_url  = "#{ config[:SITE_URL] }/#{ @entry[:category] }/#{ @entry[:slug] }"
 
 ////////////////////////////////////////////////////////////
 //  Landing page
@@ -15,9 +15,9 @@ article
   //  Banner
   ////////////////////////////
 
-  - if @page_data[:banner_image]
+  - if @entry[:banner_image]
     = partial 'partials/banner',
-      locals: { entry: @page_data }
+      locals: { entry: @entry }
 
   //  Introduction
   ////////////////////////////
@@ -25,24 +25,24 @@ article
   .panel#banner-scroll-target
     .content.content--narrow.content--center
       .byline
-        = Kramdown::Document.new(@page_data[:introduction]).to_html
+        = Kramdown::Document.new(@entry[:introduction]).to_html
 
   //  'Latest' (related)
   ////////////////////////////
 
-  - if @page_data[:latest_carousel] == true
+  - if @entry[:latest_carousel] == true
     .panel.panel--block
       .content.content--wide.content--center
         h2.title.title--large Latest
         = partial 'partials/carousel',
           locals: { local_data: \
-            { entry_data: @page_data,
+            { entry_data: @entry,
               content_source: 'related' }}
 
   //  Curated panels
   ////////////////////////////
 
-  - @page_data[:panels].each_with_index do |panel, index|
+  - @entry[:panels].each_with_index do |panel, index|
 
     / Promoted panel
     - if panel.TYPE == 'panel_promoted'

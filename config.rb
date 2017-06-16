@@ -2,6 +2,7 @@ require 'slim'
 require 'public_suffix'
 require 'contentful_mappers'
 require 'securerandom'
+require 'json'
 
 ############################################################
 ##  Variables
@@ -10,15 +11,14 @@ require 'securerandom'
 set :SITE_TITLE,    'Hansard Society'
 set :SITE_URL,      ''
 
-############################################################
-##  Helpers
-############################################################
+##  Cach-busting
+##############################
 
-# helpers do
-#   def myTag
-#     {tag: 'button'}
-#   end
-# end
+# manifest = File.read('.tmp/rev-manifest.json')
+# manifest_hash = JSON.parse(manifest)
+
+# set :CSS_MAIN,    manifest_hash['main.css']
+# set :CSS_VENDOR,  manifest_hash['vendor.css']
 
 ############################################################
 ##  Markdown

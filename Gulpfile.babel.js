@@ -5,6 +5,9 @@ var
 //  Plugins
 ////////////////////////////////////////////////////////////
 
+  // Environments
+  ENV          = process.env.NODE_ENV,
+
   // Native
   path         = require('path'),
 
@@ -16,6 +19,7 @@ var
   concat       = require('gulp-concat'),
   es           = require('event-stream'),
   gutil        = require('gulp-util'),
+  rev          = require('gulp-rev'),
   runSequence  = require('run-sequence'),
   sass         = require('gulp-sass'),
   source       = require('vinyl-source-stream'),
@@ -76,7 +80,7 @@ var
       doctypeDeclaration: false,
       xmlDeclaration: false,
       rootAttributes: {
-        style: 'display:none;'
+        style: 'display:none;position:absolute;left:-9999px;'
       }
     }
   },
@@ -87,6 +91,7 @@ var
 
   PATH = {
     source: __dirname + '/source',
+    assets: __dirname + '/source/assets',
     css: {
       all: __dirname + '/source/assets/css/**/*.scss',
       main: __dirname + '/source/assets/css/main.scss',
@@ -165,6 +170,11 @@ gulp.task('css:main', function() {
       autoprefixer(postcssOpts.autoprefixer),
       mqpacker(postcssOpts.mqpacker)
     ]))
+    .pipe(rev())
+    .pipe(gulp.dest(PATH.tmp.dir))
+    .pipe(rev.manifest({
+      merge: true
+    }))
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 
@@ -172,7 +182,12 @@ gulp.task('css:main', function() {
 gulp.task('css:vendor', function() {
   return gulp.src(PATH.css.vendor)
     .pipe(concat('vendor.css'))
-    .pipe(gulp.dest(PATH.tmp.dir));
+    .pipe(ENV == 'production' && rev())
+    .pipe(gulp.dest(PATH.tmp.dir))
+    .pipe(ENV == 'production' && rev.manifest({
+      merge: true
+    }))
+    .pipe(ENV == 'production' && gulp.dest(PATH.tmp.dir));
 });
 
 // Lint
