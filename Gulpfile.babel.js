@@ -108,7 +108,7 @@ var
     images: {
       icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
     },
-    redirects: __dirname + '/source/netlify-redirects',
+    redirects: __dirname + '/_redirects',
     tmp: {
       dir: __dirname + '/.tmp',
       css: __dirname + '/.tmp/main.css',
@@ -170,7 +170,15 @@ function cacheHash() {
 
 function cacheManifest() {
   return gutil.env.GULP_ENV === 'production'
-    ? rev.manifest({ merge: true })
+    ? rev.manifest({
+      merge: true
+    })
+    : gutil.noop();
+}
+
+function cacheManifestDest() {
+  return gutil.env.GULP_ENV === 'production'
+    ? gulp.dest(PATH.assets)
     : gutil.noop();
 }
 
@@ -185,7 +193,7 @@ gulp.task('css:main', function() {
     .pipe(cacheHash())
     .pipe(gulp.dest(PATH.tmp.dir))
     .pipe(cacheManifest())
-    .pipe(gulp.dest(PATH.tmp.dir));
+    .pipe(cacheManifestDest());
 });
 
 // Vendor
@@ -195,7 +203,7 @@ gulp.task('css:vendor', function() {
     .pipe(cacheHash())
     .pipe(gulp.dest(PATH.tmp.dir))
     .pipe(cacheManifest())
-    .pipe(gulp.dest(PATH.tmp.dir));
+    .pipe(cacheManifestDest());
 });
 
 // Lint
@@ -212,7 +220,7 @@ gulp.task('css:lint', function() {
 });
 
 ////////////////////////////////////////////////////////////
-//  Javascript
+//  Scripts
 ////////////////////////////////////////////////////////////
 
 gulp.task('js:bundle', function() {
@@ -244,16 +252,16 @@ gulp.task('svg', function() {
 });
 
 ////////////////////////////////////////////////////////////
-//  Copy to build directory
+//  Copy
 ////////////////////////////////////////////////////////////
 
 gulp.task('copy', function() {
-  return gulp.src([PATH.fonts, PATH.redirects])
+  return gulp.src([ PATH.fonts, PATH.redirects ])
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 
 ////////////////////////////////////////////////////////////
-//  Task-flows
+//  Sequences
 ////////////////////////////////////////////////////////////
 
 gulp.task('default', function(cb) {

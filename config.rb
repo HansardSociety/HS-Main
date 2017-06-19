@@ -35,10 +35,10 @@ page '/*.txt', layout: false
 configure :build do
 
   # Cache-busting
-  manifest = File.read('.tmp/rev-manifest.json')
+  manifest = File.read('source/assets/rev-manifest.json')
   manifest_hash = JSON.parse(manifest)
-  set :CSS_MAIN,    manifest_hash['main.css']
-  set :CSS_VENDOR,  manifest_hash['vendor.css']
+  set :CSS_MAIN,    '/' + manifest_hash['main.css']
+  set :CSS_VENDOR,  '/' + manifest_hash['vendor.css']
 
   ignore 'assets/**'
   ignore 'layouts/**'
@@ -59,8 +59,8 @@ end
 
 configure :server do
 
-  set :CSS_MAIN,    'main.css'
-  set :CSS_VENDOR,  'vendor.css'
+  set :CSS_MAIN,    '/main.css'
+  set :CSS_VENDOR,  '/vendor.css'
 
   activate :directory_indexes
   activate :external_pipeline,
@@ -137,4 +137,4 @@ end
 ##  Netlify
 ##############################
 
-proxy "_redirects", "netlify-redirects", ignore: true
+# proxy "_redirects", "netlify-redirects", ignore: true
