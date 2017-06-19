@@ -63,8 +63,8 @@ configure :server do
 
   set :CSS_MAIN,    '/main.css'
   set :CSS_VENDOR,  '/vendor.css'
-  set :JS_MAIN,    '/main.js'
-  set :JS_VENDOR,  '/vendor.js'
+  set :JS_MAIN,     '/main.js'
+  set :JS_VENDOR,   '/vendor.js'
 
   activate :directory_indexes
   activate :external_pipeline,
