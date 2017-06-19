@@ -5,6 +5,9 @@ var
 //  Plugins
 ////////////////////////////////////////////////////////////
 
+  // Environments
+  ENV          = process.env.NODE_ENV,
+
   // Native
   path         = require('path'),
 
@@ -16,6 +19,7 @@ var
   concat       = require('gulp-concat'),
   es           = require('event-stream'),
   gutil        = require('gulp-util'),
+  rev          = require('gulp-rev'),
   runSequence  = require('run-sequence'),
   sass         = require('gulp-sass'),
   source       = require('vinyl-source-stream'),
@@ -45,7 +49,7 @@ var
   },
 
 ////////////////////////////////////////////////////////////
-//  Sprites
+//  Sprite
 ////////////////////////////////////////////////////////////
 
   // Icons (Ionicons)
@@ -76,7 +80,7 @@ var
       doctypeDeclaration: false,
       xmlDeclaration: false,
       rootAttributes: {
-        style: 'display:none;'
+        style: 'display:none;position:absolute;left:-9999px;'
       }
     }
   },
@@ -87,6 +91,7 @@ var
 
   PATH = {
     source: __dirname + '/source',
+    assets: __dirname + '/source/assets',
     css: {
       all: __dirname + '/source/assets/css/**/*.scss',
       main: __dirname + '/source/assets/css/main.scss',
@@ -103,7 +108,7 @@ var
     images: {
       icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
     },
-    redirects: __dirname + '/source/netlify-redirects',
+    redirects: __dirname + '/_redirects',
     tmp: {
       dir: __dirname + '/.tmp',
       css: __dirname + '/.tmp/main.css',
@@ -157,6 +162,26 @@ gulp.task('watch',
 //  CSS
 ////////////////////////////////////////////////////////////
 
+function cacheHash() {
+  return gutil.env.GULP_ENV === 'production'
+    ? rev()
+    : gutil.noop();
+}
+
+function cacheManifest() {
+  return gutil.env.GULP_ENV === 'production'
+    ? rev.manifest({
+      merge: true
+    })
+    : gutil.noop();
+}
+
+function cacheManifestDest() {
+  return gutil.env.GULP_ENV === 'production'
+    ? gulp.dest(PATH.assets)
+    : gutil.noop();
+}
+
 // Main
 gulp.task('css:main', function() {
   return gulp.src(PATH.css.main)
@@ -165,14 +190,20 @@ gulp.task('css:main', function() {
       autoprefixer(postcssOpts.autoprefixer),
       mqpacker(postcssOpts.mqpacker)
     ]))
-    .pipe(gulp.dest(PATH.tmp.dir));
+    .pipe(cacheHash())
+    .pipe(gulp.dest(PATH.tmp.dir))
+    .pipe(cacheManifest())
+    .pipe(cacheManifestDest());
 });
 
 // Vendor
 gulp.task('css:vendor', function() {
   return gulp.src(PATH.css.vendor)
     .pipe(concat('vendor.css'))
-    .pipe(gulp.dest(PATH.tmp.dir));
+    .pipe(cacheHash())
+    .pipe(gulp.dest(PATH.tmp.dir))
+    .pipe(cacheManifest())
+    .pipe(cacheManifestDest());
 });
 
 // Lint
@@ -189,7 +220,7 @@ gulp.task('css:lint', function() {
 });
 
 ////////////////////////////////////////////////////////////
-//  Javascript
+//  Scripts
 ////////////////////////////////////////////////////////////
 
 gulp.task('js:bundle', function() {
@@ -221,16 +252,16 @@ gulp.task('svg', function() {
 });
 
 ////////////////////////////////////////////////////////////
-//  Copy to build directory
+//  Copy
 ////////////////////////////////////////////////////////////
 
 gulp.task('copy', function() {
-  return gulp.src([PATH.fonts, PATH.redirects])
+  return gulp.src([ PATH.fonts, PATH.redirects ])
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 
 ////////////////////////////////////////////////////////////
-//  Task-flows
+//  Sequences
 ////////////////////////////////////////////////////////////
 
 gulp.task('default', function(cb) {

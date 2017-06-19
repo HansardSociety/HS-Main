@@ -2,6 +2,7 @@ require 'slim'
 require 'public_suffix'
 require 'contentful_mappers'
 require 'securerandom'
+require 'json'
 
 ############################################################
 ##  Variables
@@ -9,16 +10,6 @@ require 'securerandom'
 
 set :SITE_TITLE,    'Hansard Society'
 set :SITE_URL,      ''
-
-############################################################
-##  Helpers
-############################################################
-
-# helpers do
-#   def myTag
-#     {tag: 'button'}
-#   end
-# end
 
 ############################################################
 ##  Markdown
@@ -38,8 +29,17 @@ page '/*.txt', layout: false
 ##  Envs
 ############################################################
 
-# Build
+##  Build
+##############################
+
 configure :build do
+
+  # Cache-busting
+  manifest = File.read('source/assets/rev-manifest.json')
+  manifest_hash = JSON.parse(manifest)
+  set :CSS_MAIN,    '/' + manifest_hash['main.css']
+  set :CSS_VENDOR,  '/' + manifest_hash['vendor.css']
+
   ignore 'assets/**'
   ignore 'layouts/**'
   ignore 'partials/**'
@@ -54,8 +54,14 @@ configure :build do
     latency: 1
 end
 
-# Server
+##  Server
+##############################
+
 configure :server do
+
+  set :CSS_MAIN,    '/main.css'
+  set :CSS_VENDOR,  '/vendor.css'
+
   activate :directory_indexes
   activate :external_pipeline,
     name: :gulp,
@@ -131,4 +137,4 @@ end
 ##  Netlify
 ##############################
 
-proxy "_redirects", "netlify-redirects", ignore: true
+# proxy "_redirects", "netlify-redirects", ignore: true
