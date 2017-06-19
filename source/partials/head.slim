@@ -31,8 +31,8 @@ head
       }
 
   / Assets
-  / link{ rel="stylesheet" href="#{ config[:CSS_VENDOR] }" }
-  / link{ rel="stylesheet" href="#{ config[:CSS_MAIN] }" }
+  link{ rel="stylesheet" href="#{ config[:CSS_VENDOR] }" }
+  link{ rel="stylesheet" href="#{ config[:CSS_MAIN] }" }
 
   - data.hs.universal(0).each do |id, site|
     = site.meta.analytics

@@ -49,7 +49,7 @@ var
   },
 
 ////////////////////////////////////////////////////////////
-//  Sprites
+//  Sprite
 ////////////////////////////////////////////////////////////
 
   // Icons (Ionicons)
@@ -162,6 +162,18 @@ gulp.task('watch',
 //  CSS
 ////////////////////////////////////////////////////////////
 
+function cacheHash() {
+  return gutil.env.GULP_ENV === 'production'
+    ? rev()
+    : gutil.noop();
+}
+
+function cacheManifest() {
+  return gutil.env.GULP_ENV === 'production'
+    ? rev.manifest({ merge: true })
+    : gutil.noop();
+}
+
 // Main
 gulp.task('css:main', function() {
   return gulp.src(PATH.css.main)
@@ -170,11 +182,9 @@ gulp.task('css:main', function() {
       autoprefixer(postcssOpts.autoprefixer),
       mqpacker(postcssOpts.mqpacker)
     ]))
-    .pipe(rev())
+    .pipe(cacheHash())
     .pipe(gulp.dest(PATH.tmp.dir))
-    .pipe(rev.manifest({
-      merge: true
-    }))
+    .pipe(cacheManifest())
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 
@@ -182,12 +192,10 @@ gulp.task('css:main', function() {
 gulp.task('css:vendor', function() {
   return gulp.src(PATH.css.vendor)
     .pipe(concat('vendor.css'))
-    .pipe(ENV == 'production' && rev())
+    .pipe(cacheHash())
     .pipe(gulp.dest(PATH.tmp.dir))
-    .pipe(ENV == 'production' && rev.manifest({
-      merge: true
-    }))
-    .pipe(ENV == 'production' && gulp.dest(PATH.tmp.dir));
+    .pipe(cacheManifest())
+    .pipe(gulp.dest(PATH.tmp.dir));
 });
 
 // Lint

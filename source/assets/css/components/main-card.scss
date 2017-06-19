@@ -4,11 +4,12 @@
   text-align: left;
 
   overflow: hidden;
-  border-radius: 80px;
 
   box-shadow: map-get($box_shadow, prime_black_light);
 
-  @extend %u-bgc-brand-white-1;
+  @extend
+    %u-bgc-brand-white-1,
+    %u-border-radius-small;
 }
 
 .main-card--events       { @extend %u-accent-medium-brand-blue-top; }
@@ -27,8 +28,9 @@
   @extend %u-overlay-dark;
 
   & > img {
-    display: block;
-    width: 100%;
+    @extend
+      %u-display-block,
+      %u-width-full;
   }
 }
 
