@@ -39,6 +39,8 @@ configure :build do
   manifest_hash = JSON.parse(manifest)
   set :CSS_MAIN,    '/' + manifest_hash['main.css']
   set :CSS_VENDOR,  '/' + manifest_hash['vendor.css']
+  set :JS_MAIN,     '/' + manifest_hash['main.js']
+  set :JS_VENDOR,   '/' + manifest_hash['vendor.js']
 
   ignore 'assets/**'
   ignore 'layouts/**'
@@ -61,6 +63,8 @@ configure :server do
 
   set :CSS_MAIN,    '/main.css'
   set :CSS_VENDOR,  '/vendor.css'
+  set :JS_MAIN,    '/main.js'
+  set :JS_VENDOR,  '/vendor.js'
 
   activate :directory_indexes
   activate :external_pipeline,

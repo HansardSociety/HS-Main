@@ -23,6 +23,7 @@ var
   runSequence  = require('run-sequence'),
   sass         = require('gulp-sass'),
   source       = require('vinyl-source-stream'),
+  streamify    = require('gulp-streamify'),
   svgSprite    = require('gulp-svg-sprite'),
   touch        = require('gulp-touch'),
 
@@ -171,7 +172,9 @@ function cacheHash() {
 function cacheManifest() {
   return gutil.env.GULP_ENV === 'production'
     ? rev.manifest({
-      merge: true
+      merge: true,
+      base: 'source/assets',
+      path: 'source/assets/rev-manifest.json'
     })
     : gutil.noop();
 }
@@ -235,7 +238,10 @@ gulp.task('js:bundle', function() {
         gutil.log(e);
       })
       .pipe(source(entry.split('/').pop()))
-      .pipe(gulp.dest(PATH.tmp.dir));
+      .pipe(streamify(cacheHash()))
+      .pipe(gulp.dest(PATH.tmp.dir))
+      .pipe(streamify(cacheManifest()))
+      .pipe(streamify(cacheManifestDest()));
   });
 
   return es.merge(tasks);
