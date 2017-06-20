@@ -6,5 +6,5 @@ node_modules/
 .tmp/
 .DS_Store
 .hs-space-hash
-manifest.json
+source/assets/rev-manifest.json
 npm-debug.log
