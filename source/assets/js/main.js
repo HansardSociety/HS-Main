@@ -129,8 +129,6 @@ forEach(CLOSEALL, function(index, elem) {
   }
 });
 
-
-
 // ** Local state change **
 // ****************************
 
