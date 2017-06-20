@@ -1,21 +1,10 @@
 .bundle/
 build/
-.DS_Store
-node_modules/
-npm-debug.log
-<<<<<<< HEAD
-/.tmp
-/.sass-cache
-/data
-<<<<<<< HEAD
-.hs-space-hash
-
-=======
-/.hs-space-hash/
->>>>>>> master
-=======
-.tmp/
-.sass-cache/
 data/
+node_modules/
+.sass-cache/
+.tmp/
+.DS_Store
 .hs-space-hash
->>>>>>> master
+manifest.json
+npm-debug.log

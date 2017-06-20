@@ -177,8 +177,8 @@ function cacheManifest() {
   return gutil.env.GULP_ENV === 'production'
     ? rev.manifest({
       merge: true,
-      base: 'source/assets',
-      path: 'source/assets/rev-manifest.json'
+      base: './',
+      path: './manifest.json'
     })
     : gutil.noop();
 }
