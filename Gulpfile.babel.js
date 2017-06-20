@@ -81,7 +81,7 @@ var
       doctypeDeclaration: false,
       xmlDeclaration: false,
       rootAttributes: {
-        style: 'display:none;position:absolute;left:-9999px;'
+        style: 'display:none;'
       }
     }
   },
@@ -109,13 +109,17 @@ var
     images: {
       icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
     },
-    redirects: __dirname + '/netlify-redirects',
+    redirects: __dirname + '/redirects',
     tmp: {
       dir: __dirname + '/.tmp',
+      assets: __dirname + '/.tmp/assets',
       css: __dirname + '/.tmp/main.css',
       js: __dirname + '/.tmp/main.js',
     },
-    build: __dirname + '/build',
+    build: {
+      dir: __dirname + '/build',
+      assets: __dirname + '/build/assets'
+    }
   }
 ; // END vars
 
@@ -262,6 +266,7 @@ gulp.task('svg', function() {
 ////////////////////////////////////////////////////////////
 
 gulp.task('copy', function() {
+
   return gulp.src([ PATH.fonts, PATH.redirects ])
     .pipe(gulp.dest(PATH.tmp.dir));
 });

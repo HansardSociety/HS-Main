@@ -138,7 +138,6 @@ end
 ##  Misc
 ############################################################
 
-##  Netlify
-##############################
-
-proxy "_redirects", "netlify-redirects", ignore: true
+after_build do
+  File.rename 'build/redirects', 'build/_redirects'
+end
