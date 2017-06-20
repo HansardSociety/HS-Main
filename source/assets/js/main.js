@@ -219,7 +219,7 @@ smoothScroll.init({ offset: 64 });
 //  http://idangero.us/swiper/
 ////////////////////////////////////////////////////////////
 
-var carouselSwiper = new Swiper ('.swiper-container', {
+var panelSwiper = new Swiper ('.swiper-container', {
 
   nextButton: '.carousel__next',
   prevButton: '.carousel__prev',
