@@ -279,8 +279,12 @@ gulp.task('default', function(cb) {
   runSequence([ 'watch' ], cb);
 });
 
+gulp.task('assets', function(cb) {
+  runSequence([ 'css:main', 'css:vendor', 'js:bundle' ], cb);
+});
+
 gulp.task('build', function(cb) {
-  runSequence('css:main', 'css:vendor', 'js:bundle', 'copy', cb);
+  runSequence('assets', 'copy', cb);
 });
 
 gulp.task('lint', function(cb) {

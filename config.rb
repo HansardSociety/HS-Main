@@ -35,7 +35,7 @@ page '/*.txt', layout: false
 configure :build do
 
   # Cache-busting
-  manifest = File.read('manifest.json')
+  manifest = File.read('source/assets/rev-manifest.json')
   manifest_hash = JSON.parse(manifest)
   set :CSS_MAIN,    '/' + manifest_hash['main.css']
   set :CSS_VENDOR,  '/' + manifest_hash['vendor.css']
