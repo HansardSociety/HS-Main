@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "rm -rf .tmp/ && gulp assets --GULP_ENV=production",
+    "prebuild": "gulp assets --GULP_ENV=production",
     "build": "gulp build --GULP_ENV=production",
     "start": "gulp --GULP_ENV=development",
     "data": "bundle exec middleman contentful",
