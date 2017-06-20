@@ -280,7 +280,7 @@ gulp.task('default', function(cb) {
 });
 
 gulp.task('assets', function(cb) {
-  runSequence([ 'css:main', 'css:vendor', 'js:bundle' ], cb);
+  runSequence('css:main', 'css:vendor', 'js:bundle', cb);
 });
 
 gulp.task('build', function(cb) {
