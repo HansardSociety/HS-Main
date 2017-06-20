@@ -34,13 +34,17 @@ page '/*.txt', layout: false
 
 configure :build do
 
-  # Cache-busting
+  # Cache-busting assets
   manifest = File.read('source/assets/rev-manifest.json')
   manifest_hash = JSON.parse(manifest)
   set :CSS_MAIN,    '/' + manifest_hash['main.css']
   set :CSS_VENDOR,  '/' + manifest_hash['vendor.css']
   set :JS_MAIN,     '/' + manifest_hash['main.js']
   set :JS_VENDOR,   '/' + manifest_hash['vendor.js']
+
+  # Snipcart
+  set :SNIPCART_API, 'ZTgyODg2YTctZWRmMy00NjY1LTkyOGUtOTZjZDg4NGIxNWNhNjM2MDAwMjg2MjA3NjcyNDEw'
+
 
   ignore 'assets/**'
   ignore 'layouts/**'
@@ -61,10 +65,14 @@ end
 
 configure :server do
 
+  # Assets
   set :CSS_MAIN,    '/main.css'
   set :CSS_VENDOR,  '/vendor.css'
   set :JS_MAIN,     '/main.js'
   set :JS_VENDOR,   '/vendor.js'
+
+  # Snipcart
+  set :SNIPCART_API, 'ZDExODZhOTktNzZkYy00NmRkLTg1OWQtYmU0YTQ3MGE0M2Q0NjM2MDAwMjg2MjA3NjcyNDEw'
 
   activate :directory_indexes
   activate :external_pipeline,

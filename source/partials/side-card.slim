@@ -76,13 +76,13 @@ article.side-card{
           / Product
           - if @is_product
 
-            - if @side_card_data[:price] == 0
+            - if @side_card_data[:price] == 0 && @side_card_data[:donation] == false
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'small', style: 'primary',
                     text: 'Download', text_size: 'small', url: @side_card_data[:download] }}
 
-            - if @side_card_data[:price] > 0
+            - if @side_card_data[:price] > 0 || @side_card_data[:donation] == true
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'small', style: 'primary', product: @side_card_data,

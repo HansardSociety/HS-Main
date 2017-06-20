@@ -87,7 +87,11 @@
            'data-item-id':    (@product[:product_id] if @product),
            'data-item-name':  (@product[:title] if @product),
            'data-item-price': (@product[:price] if @product),
-           'data-item-url':   ("https://www.hansardsociety.org.uk/#{ @entry[:category] }/#{ @entry[:slug] }" if @product)}.merge(@attrs)
+           'data-item-url':   ("https://www.hansardsociety.org.uk/#{ @entry[:category] }/#{ @entry[:slug] }" if @product),
+           'data-item-custom1-required': ("true" if @product && @product[:donation] == true),
+           'data-item-custom1-name':     ("Make a donation" if @product && @product[:donation] == true),
+           'data-item-custom1-options':  ("£0|£1|£5|£10|£20" if @product && @product[:donation] == true),
+           'data-item-custom1-value':    ("£1" if @product && @product[:donation] == true) }.merge(@attrs)
 
 *@btn
 
