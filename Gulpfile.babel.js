@@ -109,7 +109,7 @@ var
     images: {
       icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
     },
-    redirects: __dirname + '/redirects',
+    redirects: __dirname + '/netlify-redirects',
     tmp: {
       dir: __dirname + '/.tmp',
       css: __dirname + '/.tmp/main.css',

@@ -141,4 +141,4 @@ end
 ##  Netlify
 ##############################
 
-proxy "_redirects", "redirects", ignore: true
+proxy "_redirects", "netlify-redirects", ignore: true
