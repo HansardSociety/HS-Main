@@ -99,7 +99,8 @@ var
       vendor: [
         __dirname + '/node_modules/normalize.css/normalize.css',
         __dirname + '/node_modules/swiper/dist/css/swiper.css'
-      ]
+      ],
+      snipcart: __dirname + '/source/assets/snipcart/snipcart.scss'
     },
     js: {
       main: __dirname + '/source/assets/js/main.js',
@@ -128,7 +129,7 @@ var
 ////////////////////////////////////////////////////////////
 
 gulp.task('watch',
-  [ 'css:main', 'css:vendor', 'js:bundle', 'copy' ],
+  [ 'css:main', 'css:snipcart', 'css:vendor', 'js:bundle', 'copy' ],
 
   function(gulpCallback) {
 
@@ -213,6 +214,20 @@ gulp.task('css:vendor', function() {
     .pipe(cacheManifestDest());
 });
 
+// Snipcart
+gulp.task('css:snipcart', function() {
+  return gulp.src(PATH.css.snipcart)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([
+      autoprefixer(postcssOpts.autoprefixer),
+      mqpacker(postcssOpts.mqpacker)
+    ]))
+    .pipe(cacheHash())
+    .pipe(gulp.dest(PATH.tmp.dir))
+    .pipe(cacheManifest())
+    .pipe(cacheManifestDest());
+});
+
 // Lint
 gulp.task('css:lint', function() {
   return gulp.src(path.join(PATH.css, '**.scss'))
@@ -280,7 +295,7 @@ gulp.task('default', function(cb) {
 });
 
 gulp.task('assets', function(cb) {
-  runSequence('css:main', 'css:vendor', 'js:bundle', cb);
+  runSequence('css:main', 'css:snipcart', 'css:vendor', 'js:bundle', cb);
 });
 
 gulp.task('build', function(cb) {
