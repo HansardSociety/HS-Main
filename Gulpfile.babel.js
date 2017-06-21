@@ -100,7 +100,7 @@ var
         __dirname + '/node_modules/normalize.css/normalize.css',
         __dirname + '/node_modules/swiper/dist/css/swiper.css'
       ],
-      snipcart: __dirname + '/source/assets/snipcart/snipcart.scss'
+      snipcart: __dirname + '/source/assets/css/snipcart/snipcart.scss'
     },
     js: {
       main: __dirname + '/source/assets/js/main.js',
@@ -141,6 +141,7 @@ gulp.task('watch',
       reloadOnRestart: true,
       files: [
         PATH.tmp.css,
+        PATH.tmp.snipcart,
         PATH.tmp.js,
         __dirname + '/source/**/*.slim'
       ],
@@ -152,7 +153,7 @@ gulp.task('watch',
     function callback() {
 
       // Inject CSS/ JS
-      gulp.watch(PATH.css.all, [ 'css:main' ]);
+      gulp.watch(PATH.css.all, [ 'css:main', 'css:snipcart' ]);
       gulp.watch(PATH.js.main, [ 'js:bundle' ]);
 
       // Reload browserSync after html changes

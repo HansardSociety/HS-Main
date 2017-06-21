@@ -19,6 +19,7 @@ head
   link{ rel="stylesheet" href="#{ config[:CSS_VENDOR] }" }
   link{ rel="stylesheet" href="#{ config[:CSS_MAIN] }" }
 
+
   / Snipcart
   - if @entry[:featured]
     - if @entry[:featured].any? { |featured| featured.include? 'product' }
@@ -28,11 +29,7 @@ head
         id="snipcart"
         data-api-key="#{ config[:SNIPCART_API] }"
       }
-      link{
-        href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css"
-        type="text/css"
-        rel="stylesheet"
-      }
+      link{ rel="stylesheet" href="#{ config[:CSS_SNIPCART] }" }
 
   - data.hs.universal(0).each do |id, site|
     = site.meta.analytics
