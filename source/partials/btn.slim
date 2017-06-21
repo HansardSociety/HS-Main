@@ -1,7 +1,6 @@
 ////////////////////////////////////////////////////////////
 //  Variables
 ////////////////////////////////////////////////////////////
-
 - @type             = local_data[:type]
 - @style            = local_data[:style]
 - @size             = local_data[:size]
@@ -11,7 +10,6 @@
 
 //  Text
 ////////////////////////////
-
 - @text_on          = local_data[:text_on]
 - @text_off         = local_data[:text_off]
 - @text             = local_data[:text] # Links only
@@ -20,7 +18,6 @@
 
 //  Icon
 ////////////////////////////
-
 - @icon             = local_data[:icon]
 - @icon_size        = local_data[:icon_size]
 - @icon_color       = local_data[:icon_color]
@@ -28,30 +25,25 @@
 
 //  State
 ////////////////////////////
-
 - @exclusive        = local_data[:exclusive]
 - @page             = local_data[:page]
 - @secondary_target = local_data[:secondary_target]
 
 //  ARIA
 ////////////////////////////
-
 - @aria_id          = local_data[:aria_id]
 - @aria_target_id   = local_data[:aria_target_id]
 
 //  Product
 ////////////////////////////
-
 - @product          = local_data[:product]
 
 //  Hack
 ////////////////////////////
-
 - @CLOSEALL         = local_data[:CLOSEALL]
 
 //  Attributes
 ////////////////////////////
-
 / .btn classes
 - @class = [\
   ('btn'),
@@ -81,17 +73,12 @@
 ////////////////////////////////////////////////////////////
 //  Button
 ////////////////////////////////////////////////////////////
-
 - @btn = { tag: (@type == 'state' ? 'button' : 'a'),
            class: @class,
            'data-item-id':    (@product[:product_id] if @product),
            'data-item-name':  (@product[:title] if @product),
            'data-item-price': (@product[:price] if @product),
-           'data-item-url':   ("https://www.hansardsociety.org.uk/#{ @entry[:category] }/#{ @entry[:slug] }" if @product),
-           'data-item-custom1-required': ("true" if @product && @product[:donation] == true),
-           'data-item-custom1-name':     ("Make a donation" if @product && @product[:donation] == true),
-           'data-item-custom1-options':  ("£0|£1|£5|£10|£20" if @product && @product[:donation] == true),
-           'data-item-custom1-value':    ("£1" if @product && @product[:donation] == true) }.merge(@attrs)
+           'data-item-url':   ("https://www.hansardsociety.org.uk/#{ @entry[:category] }/#{ @entry[:slug] }" if @product)}.merge(@attrs)
 
 *@btn
 

@@ -328,10 +328,9 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
 
         product: ({
           title:        featured.title,
-          category:     featured.category,
+          category:     featured.category.parameterize,
           product_id:   featured.product_id,
           price:        featured.price,
-          donation:     featured.donation,
           image: {
             url:        featured.image.url,
             alt:        featured.image.description
