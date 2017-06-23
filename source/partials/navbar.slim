@@ -57,7 +57,7 @@ nav#navbar.navbar.JS-inactive
               - if navigation.pages && navigation.pages.length <= 1
                 - navigation.pages.each do |page|
                   a{
-                    href="#{ config[:SITE_URL] + '/' + page.slug }"
+                    href="#{ config[:SITE_URL] + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '') }"
                     title="#{ navigation.title + ' - ' + config[:SITE_TITLE] }"
                   }= navigation.title
 

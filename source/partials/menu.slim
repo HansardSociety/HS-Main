@@ -37,7 +37,7 @@
             - if navigation.pages && navigation.pages.length <= 1
               - navigation.pages.each do |page|
                 a{
-                  href="#{ config[:SITE_URL] }/#{ page.slug }"
+                  href="#{ config[:SITE_URL] }/#{ page.slug + (config[:ENV] == 'development' ? '.html' : '') }"
                   title="#{ navigation.title } - #{ config[:SITE_TITLE] }"
                 }= navigation.title
 
@@ -74,7 +74,7 @@
                       li
                         h4.title.title--small.title--white
                           a.menu__link{
-                            href= "#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug}"
+                            href= "#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
                           }= page.title
 
     ////////////////////////////////////////////////////////
@@ -91,5 +91,5 @@
           - pages.each do |page|
             h4.title.title--small.title--white
               a.menu__link{
-                href="#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug}"
+                href="#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
               }= page.title

@@ -4,12 +4,13 @@
 
 - @main_card          = local_data[:entry_data]
 
-- @main_card_inner_elem  = {\
-  tag: (@main_card[:category] ? \
-        'a' : 'div'),
-  href: (@main_card[:category] ? \
-        config[:SITE_URL] + '/' + @main_card[:category] + '/' + @main_card[:slug] : \
-        nil) }
+- @main_card_inner_elem  = { \
+  tag: (@main_card[:category] \
+        ? 'a' \
+        : 'div'),
+  href: (@main_card[:category] \
+         ? config[:SITE_URL] + '/' + @main_card[:category] + '/' + @main_card[:slug] + (config[:ENV] == 'development' ? '.html' : '') \
+         : nil) }
 
 ////////////////////////////////////////////////////////////
 //  Main card

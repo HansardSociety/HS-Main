@@ -34,6 +34,9 @@ page '/*.txt', layout: false
 
 configure :build do
 
+  # Env variable
+  set :ENV, 'production'
+
   # Cache-busting assets
   manifest = File.read('source/assets/rev-manifest.json')
   manifest_hash = JSON.parse(manifest)
@@ -45,7 +48,6 @@ configure :build do
 
   # Snipcart
   set :SNIPCART_API, 'ZTgyODg2YTctZWRmMy00NjY1LTkyOGUtOTZjZDg4NGIxNWNhNjM2MDAwMjg2MjA3NjcyNDEw'
-
 
   ignore 'assets/**'
   ignore 'layouts/**'
@@ -65,6 +67,9 @@ end
 ##############################
 
 configure :server do
+
+  # Env variable
+  set :ENV, 'development'
 
   # Assets
   set :CSS_MAIN,     '/main.css'

@@ -60,7 +60,7 @@ article.side-card{
             class="#{ @is_product ? 'title--xsmall' : 'title--small' }"
           }
             a.link.JS-truncate{
-              href="#{ config[:SITE_URL] + '/' + @side_card_data[:category] + '/' + @side_card_data[:slug] }"
+              href="#{ config[:SITE_URL] + '/' + @side_card_data[:category] + '/' + @side_card_data[:slug] + (config[:ENV] == 'development' ? '.html' : '') }"
             }= @side_card_data[:title]
 
         / Is product
