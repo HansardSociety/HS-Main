@@ -17,8 +17,8 @@
   top: 0; left: 0;
 
   @extend
-    %u-position-fixed,
-    %u-transition-base-all;
+    %E-position-fixed,
+    %E-transition-base-all;
 
   @include above('medium') {
     height: 8rem;
@@ -29,10 +29,10 @@
   justify-content: space-between;
 
   @extend
-    %u-container-wide,
-    %u-height-full,
-    %u-margin-center-x,
-    %u-padding-small;
+    %E-container-wide,
+    %E-height-full,
+    %E-margin-center-x,
+    %E-padding-small;
 
   @include above('large') {
     padding: 0;
@@ -41,25 +41,25 @@
 
 .navbar__inner,
 .navbar__right {
-  @extend %u-flex-row-center;
+  @extend %E-flex-row-center;
 }
 
 .navbar__left {
   @include above('medium') {
-    @extend %u-display-none__medium;
+    @extend %E-display-none__medium;
   }
 }
 
 .navbar__center {
-  @extend %u-overflow-hidden;
+  @extend %E-overflow-hidden;
 }
 
 .navbar__list,
 .navbar__item {
-  @extend %u-display-none;
+  @extend %E-display-none;
 
   @include above('medium') {
-    @extend %u-display-inline-block__medium;
+    @extend %E-display-inline-block__medium;
   }
 }
 
@@ -86,12 +86,12 @@
     border-top: 1px solid $brand_black_2;
 
     @extend
-      %u-pseudo-elem,
-      %u-width-full;
+      %E-pseudo-elem,
+      %E-width-full;
   }
 
   @extend
-    %u-bgc-brand-green;
+    %E-bgc-brand-green;
 
   @include above('medium') {
     height: 3.5rem;

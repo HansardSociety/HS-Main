@@ -1,0 +1,13 @@
+///////////////////////////////////////////////////////////
+//  =Containers
+////////////////////////////////////////////////////////////
+
+%E-container-narrow,
+%E-container-wide {
+  @extend
+    %E-max-width-full,
+    %E-width-full;
+}
+
+%E-container-narrow { width: 35rem; }
+%E-container-wide   { width: 65rem; }

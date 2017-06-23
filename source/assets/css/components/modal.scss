@@ -4,19 +4,19 @@
   top: 0;
 
   @extend
-    %u-border-radius-small,
-    %u-height-full-vh,
-    %u-position-fixed,
-    %u-width-full-vw;
+    %E-border-radius-small,
+    %E-height-full-vh,
+    %E-position-fixed,
+    %E-width-full-vw;
 
   &::before {
     opacity: 0;
 
     @extend
-      %u-bgc-brand-white,
-      %u-pseudo-elem,
-      %u-width-full,
-      %u-height-full;
+      %E-bgc-brand-white,
+      %E-pseudo-elem,
+      %E-width-full,
+      %E-height-full;
   }
 }
 
@@ -26,14 +26,14 @@
   will-change: transform;
 
   @extend
-    %u-absolute-center-xy,
-    %u-bgc-brand-white,
-    %u-border-radius-small,
-    %u-flex-row,
-    %u-height-full-vh,
-    %u-max-width-full,
-    %u-overflow-y-hidden,
-    %u-shadow-prime-black;
+    %E-absolute-center-xy,
+    %E-bgc-brand-white,
+    %E-border-radius-small,
+    %E-flex-row,
+    %E-height-full-vh,
+    %E-max-width-full,
+    %E-overflow-y-hidden,
+    %E-shadow-prime-black;
 
   @include above('small') {
     // height: 100%;
@@ -49,9 +49,9 @@
   height: 1.75rem;
 
   @extend
-    %u-accent-small-brand-white-1-bottom,
-    %u-position-absolute,
-    %u-width-full;
+    %E-accent-small-brand-white-1-bottom,
+    %E-position-absolute,
+    %E-width-full;
 }
 
 .modal__close {
@@ -63,8 +63,8 @@
   max-height: calc(90vh - 1.75rem); // must use units for Edge scroll
 
   @extend
-    %u-overflow-y-auto,
-    %u-padding-small;
+    %E-overflow-y-auto,
+    %E-padding-small;
 }
 
 ////////////////////////////////////////////////////////////

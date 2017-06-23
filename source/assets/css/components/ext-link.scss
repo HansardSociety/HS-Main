@@ -5,7 +5,7 @@
 .ext-link__inner {
   align-items: flex-start;
 
-  @extend %u-flex-row-nowrap;
+  @extend %E-flex-row-nowrap;
 }
 
 .ext-link__icon {
@@ -17,11 +17,11 @@
   height: 2rem;
 
   @extend
-    %u-bgc-brand-white-1,
-    %u-display-inline-flex,
-    %u-padding-xsmall;
+    %E-bgc-brand-white-1,
+    %E-display-inline-flex,
+    %E-padding-xsmall;
 }
 
 .ext-link__text {
-  @extend %u-display-inline;
+  @extend %E-display-inline;
 }

@@ -2,8 +2,8 @@
   align-items: flex-start;
 
   @extend
-    %u-flex-row,
-    %u-overflow-hidden;
+    %E-flex-row,
+    %E-overflow-hidden;
 
   @include above('xsmall') {
     width: 100%;
@@ -17,13 +17,13 @@
 
   padding: .5rem;
 
-  @extend %u-bgc-brand-white;
+  @extend %E-bgc-brand-white;
 }
 
 .image__img {
   order: 2;
 
-  @extend %u-width-full;
+  @extend %E-width-full;
 }
 
 .image__caption {
@@ -33,5 +33,5 @@
   border-bottom: 2px solid $brand_white_2;
 
   order: 1;
-  @extend %u-padding-xsmall;
+  @extend %E-padding-xsmall;
 }

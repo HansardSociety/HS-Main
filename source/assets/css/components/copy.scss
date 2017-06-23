@@ -20,7 +20,7 @@
     @extend .link;
   }
 
-  @extend %u-position-relative;
+  @extend %E-position-relative;
 
   ul {
     padding-left: 1rem;
@@ -33,12 +33,12 @@
   img {
     max-width: 100%;
 
-    @extend %u-border-radius-small;
+    @extend %E-border-radius-small;
   }
 }
 
 .copy--white {
   > h1, > h2, > h3, > h4, > p {
-    @extend %u-color-brand-white;
+    @extend %E-color-brand-white;
   }
 }

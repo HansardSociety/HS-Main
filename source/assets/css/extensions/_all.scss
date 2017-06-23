@@ -30,7 +30,7 @@
 
 .u-col-white { color: $brand_white !important; }
 
-.u-bgc-white      { @extend %u-bgc-brand-white; }
+.u-bgc-white      { @extend %E-bgc-brand-white; }
 .u-bgc-blue { background-color: $brand_blue !important; }
 
 ////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@
 ////////////////////////////////////////////////////////////
 
 .u-align-center {
-  @extend %u-text-align-center;
+  @extend %E-text-align-center;
 }
 
 .u-font-sm {
@@ -49,15 +49,15 @@
 //  Box model
 ////////////////////////////////////////////////////////////
 
-.u-mtop-xs { @extend %u-margin-top-xsmall; }
-.u-mtop-sm { @extend %u-margin-top-small; }
-.u-mtop-md { @extend %u-margin-top-medium; }
+.u-mtop-xs { @extend %E-margin-top-xsmall; }
+.u-mtop-sm { @extend %E-margin-top-small; }
+.u-mtop-md { @extend %E-margin-top-medium; }
 
 .u-ptop-sm { padding-top: 1rem; }
 .u-ptop-md { padding-top: 2rem; }
 
-.u-vr-xs { @extend %u-vertical-rhythm-small; }
-.u-vr-sm { @extend %u-vertical-rhythm-small; }
+.u-vr-xs { @extend %E-vertical-rhythm-small; }
+.u-vr-sm { @extend %E-vertical-rhythm-small; }
 
 .u-accb-grey {
   border-bottom: 2px solid $brand_white_2;

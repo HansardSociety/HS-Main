@@ -1,16 +1,16 @@
 // Box shadow
 @mixin box-shadow($color) {
-  @extend %u-box-shadow-#{ $color };
+  @extend %E-box-shadow-#{ $color };
 }
 
 // Accent
 @mixin accent($color, $position) {
-  @extend %u-accent-brand-#{ $color }-#{ $position };
+  @extend %E-accent-brand-#{ $color }-#{ $position };
 }
 
 // Margin
 @mixin margin($side, $size) {
-  @extend %u-margin-#{ $side }-#{ $size };
+  @extend %E-margin-#{ $side }-#{ $size };
 }
 
 ////////////////////////////////////////////////////////////

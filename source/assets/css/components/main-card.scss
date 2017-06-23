@@ -8,15 +8,15 @@
   box-shadow: map-get($box_shadow, prime_black_light);
 
   @extend
-    %u-bgc-brand-white-1,
-    %u-border-radius-small;
+    %E-bgc-brand-white-1,
+    %E-border-radius-small;
 }
 
-.main-card--events       { @extend %u-accent-medium-brand-blue-top; }
-.main-card--blog         { @extend %u-accent-medium-brand-brown-top; }
-.main-card--innovation   { @extend %u-accent-medium-brand-light-blue-top; }
-.main-card--resources    { @extend %u-accent-medium-brand-light-green-top; }
-.main-card--research     { @extend %u-accent-medium-brand-green-top; }
+.main-card--events       { @extend %E-accent-medium-brand-blue-top; }
+.main-card--blog         { @extend %E-accent-medium-brand-brown-top; }
+.main-card--innovation   { @extend %E-accent-medium-brand-light-blue-top; }
+.main-card--resources    { @extend %E-accent-medium-brand-light-green-top; }
+.main-card--research     { @extend %E-accent-medium-brand-green-top; }
 
 .main-card__header {
   position: relative;
@@ -25,12 +25,12 @@
 
 .main-card__image {
 
-  @extend %u-overlay-dark;
+  @extend %E-overlay-dark;
 
   & > img {
     @extend
-      %u-display-block,
-      %u-width-full;
+      %E-display-block,
+      %E-width-full;
   }
 }
 
@@ -45,7 +45,7 @@
   bottom: 0;
   left: 0;
 
-  @extend %u-padding-small;
+  @extend %E-padding-small;
 }
 
 .main-card__introduction {

@@ -1,0 +1,88 @@
+///////////////////////////////////////////////////////////
+//  =Box model
+////////////////////////////////////////////////////////////
+
+//  =Margins
+//////////////////////////////
+
+// Base
+
+%E-margin-0          { margin: 0 }
+%E-margin-top-xsmall { margin-top: .5rem; }
+%E-margin-top-small  { margin-top: 1rem; }
+%E-margin-top-medium { margin-top: 2rem; }
+
+// Center
+
+%E-margin-center-x {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Center @ screen
+
+@each $screen in map-keys($breakpoints) {
+  @include above('#{ $screen }') {
+
+    %E-margin-center-x__#{ $screen } {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+//  =Padding
+//////////////////////////////
+
+// All
+
+%E-padding-xsmall { padding: .5rem; }
+%E-padding-small  { padding: 1rem; }
+%E-padding-medium { padding: 2rem; }
+%E-padding-large  { padding: 3rem; }
+
+// Vertical (Y)
+
+%E-padding-y-xsmall { padding: .5rem 0; }
+%E-padding-y-small  { padding: 1rem 0; }
+%E-padding-y-medium { padding: 2rem 0; }
+%E-padding-y-large  { padding: 3rem 0; }
+
+// Horizontal (X)
+
+%E-padding-x-xsmall { padding: 0 .5rem; }
+%E-padding-x-small  { padding: 0 1rem; }
+%E-padding-x-medium { padding: 0 2rem; }
+%E-padding-x-large  { padding: 0 3rem; }
+
+// Sides
+
+%E-padding-top-small  { padding-top: 1rem; }
+%E-padding-top-medium { padding-top: 2rem; }
+
+//  =Borders
+//////////////////////////////
+
+// Accents
+
+@each $name, $color in $colors {
+
+  @each $side in map-get($properties, origins) {
+
+    %E-accent-small-#{ str-replace($name, '_', '-') }-#{ $side } {
+      border-#{ $side }: 2px solid map-get($colors, $name);
+    }
+
+    %E-accent-medium-#{ str-replace($name, '_', '-') }-#{ $side } {
+      border-#{ $side }: 4px solid map-get($colors, $name);
+    }
+
+    %E-accent-large-#{ str-replace($name, '_', '-') }-#{ $side } {
+      border-#{ $side }: 6px solid map-get($colors, $name);
+    }
+  }
+}
+
+// Border radius
+
+%E-border-radius-small { border-radius: 2px; }

@@ -2,7 +2,7 @@
 //  =Hidden
 ////////////////////////////////////////////////////////////
 
-%u-hidden {
+%E-hidden {
   clip: rect(1px, 1px, 1px, 1px);
 
   width: 1px;
@@ -10,6 +10,6 @@
 
   word-wrap: normal;
 
-  @extend %u-position-absolute;
-  @extend %u-overflow-hidden;
+  @extend %E-position-absolute;
+  @extend %E-overflow-hidden;
 }

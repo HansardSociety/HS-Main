@@ -5,12 +5,12 @@
 @each $name, $color in $colors {
 
   // Colors
-  %u-color-#{ str-replace($name, '_', '-') } {
+  %E-color-#{ str-replace($name, '_', '-') } {
     color: map-get($colors, $name);
   }
 
   // BGCs
-  %u-bgc-#{ str-replace($name, '_', '-') } {
+  %E-bgc-#{ str-replace($name, '_', '-') } {
     background-color: map-get($colors, $name);
   }
 }

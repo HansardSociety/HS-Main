@@ -1,13 +1,13 @@
 .date {
   @extend
-    %u-padding-small,
-    %u-text-align-center,
-    %u-width-full;
+    %E-padding-small,
+    %E-text-align-center,
+    %E-width-full;
 }
 
 .date__day,
 .date__tmy {
-  @extend %u-display-block;
+  @extend %E-display-block;
 }
 
 .date__d {

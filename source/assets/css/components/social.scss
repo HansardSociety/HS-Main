@@ -5,13 +5,13 @@
   border: 2px solid $brand_orange;
 
   @extend
-    %u-border-radius-small,
-    %u-display-inline-block,
-    %u-transition-base-all,
-    %u-position-relative;
+    %E-border-radius-small,
+    %E-display-inline-block,
+    %E-transition-base-all,
+    %E-position-relative;
 
   &:hover {
-    @extend %u-bgc-brand-orange;
+    @extend %E-bgc-brand-orange;
 
     svg {
       fill: $brand_white;
@@ -20,10 +20,10 @@
 
   & > span {
     margin-top: -1px;
-    @extend %u-absolute-center-xy;
+    @extend %E-absolute-center-xy;
   }
 }
 
 .social--group {
-  @extend %u-grid-flow__item--xsmall;
+  @extend %E-grid-flow__item--xsmall;
 }

@@ -3,10 +3,10 @@
   justify-content: space-around;
 
   @extend
-    %u-display-inline-flex,
-    %u-grid-flow--xsmall;
+    %E-display-inline-flex,
+    %E-grid-flow--xsmall;
 }
 
 .btn-group__btn {
-  @extend %u-grid-flow__item--xsmall;
+  @extend %E-grid-flow__item--xsmall;
 }

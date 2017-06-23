@@ -15,17 +15,17 @@
 
 .btn {
   @extend
-    %u-border-radius-small,
-    %u-cursor-pointer,
-    %u-flex-inline-row-center,
-    %u-overflow-hidden,
-    %u-position-relative,
-    %u-text-align-center,
-    %u-transition-base-all;
+    %E-border-radius-small,
+    %E-cursor-pointer,
+    %E-flex-inline-row-center,
+    %E-overflow-hidden,
+    %E-position-relative,
+    %E-text-align-center,
+    %E-transition-base-all;
 }
 
 .btn--group {
-  @extend %u-grid-flow__item--xsmall;
+  @extend %E-grid-flow__item--xsmall;
 }
 
 .btn--xsmall {
@@ -44,16 +44,16 @@
 }
 
 .btn--fill {
-  @extend %u-width-full;
+  @extend %E-width-full;
 }
 
 .btn--primary {
   @extend
-    %u-bgc-brand-orange,
-    %u-color-brand-white;
+    %E-bgc-brand-orange,
+    %E-color-brand-white;
 
   &:active {
-    @extend %u-bgc-brand-orange-1;
+    @extend %E-bgc-brand-orange-1;
   }
 
   @include above('large') {
@@ -66,12 +66,12 @@
 .btn--secondary {
   border: 2px solid $brand_orange;
 
-  @extend %u-color-brand-orange;
+  @extend %E-color-brand-orange;
 
   &:active {
     @extend
-      %u-bgc-brand-orange,
-      %u-color-brand-white;
+      %E-bgc-brand-orange,
+      %E-color-brand-white;
   }
 
   @include above('large') {
@@ -84,9 +84,9 @@
 
 .btn__content {
   @extend
-    %u-display-block,
-    %u-margin-center-x,
-    %u-width-full;
+    %E-display-block,
+    %E-margin-center-x,
+    %E-width-full;
 }
 
 .btn__text {
@@ -94,22 +94,22 @@
   font-size: .625rem;
 
   @extend
-    %u-display-block,
-    %u-font-avenir-700-normal;
+    %E-display-block,
+    %E-font-avenir-700-normal;
 }
 
 .btn__text--small {
   min-width: 7rem;
   padding: 0 .5rem;
 
-  @extend %u-font-size-xsmall;
+  @extend %E-font-size-xsmall;
 }
 
 .btn__text--medium {
   min-width: 12rem;
   padding: 0 1rem;
 
-  @extend %u-font-size-small;
+  @extend %E-font-size-small;
 }
 
 .btn__text--change {
@@ -119,10 +119,10 @@
     text-align: center;
 
     @extend
-      %u-display-block,
-      %u-position-relative,
-      %u-transition-base-transform,
-      %u-width-full;
+      %E-display-block,
+      %E-position-relative,
+      %E-transition-base-transform,
+      %E-width-full;
   }
 
   &::before {
@@ -136,7 +136,7 @@
     content: attr(data-off-text);
     transform: translateY(150%);
 
-    @extend %u-position-absolute;
+    @extend %E-position-absolute;
   }
 }
 
@@ -163,8 +163,8 @@
   transition: $transition_all;
 
   @extend
-    %u-bgc-brand-white,
-    %u-position-absolute;
+    %E-bgc-brand-white,
+    %E-position-absolute;
 }
 
 .btn__menu {

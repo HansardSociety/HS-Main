@@ -2,10 +2,10 @@
 //  =Pseudo element
 ////////////////////////////////////////////////////////////
 
-%u-pseudo-elem {
+%E-pseudo-elem {
   content: '';
 
   @extend
-    %u-display-block,
-    %u-position-absolute-0;
+    %E-display-block,
+    %E-position-absolute-0;
 }

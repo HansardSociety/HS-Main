@@ -18,18 +18,18 @@
 .title {
 
   @extend
-    %u-color-brand-green,
-    %u-display-block,
-    %u-font-avenir-400-normal;
+    %E-color-brand-green,
+    %E-display-block,
+    %E-font-avenir-400-normal;
 }
 
-.title--xsmall { @extend %u-font-size-xsmall; }
-.title--small  { @extend %u-font-size-small; }
-.title--medium { @extend %u-font-size-medium; }
-.title--large  { @extend %u-font-size-large; }
-.title--xlarge { @extend %u-font-size-xlarge; }
+.title--xsmall { @extend %E-font-size-xsmall; }
+.title--small  { @extend %E-font-size-small; }
+.title--medium { @extend %E-font-size-medium; }
+.title--large  { @extend %E-font-size-large; }
+.title--xlarge { @extend %E-font-size-xlarge; }
 
-.title--white  { @extend %u-color-brand-white; }
+.title--white  { @extend %E-color-brand-white; }
 
 // ** Alt title **
 // ****************************
@@ -38,9 +38,9 @@
   text-transform: uppercase;
 
   @extend
-    %u-color-brand-black-2,
-    %u-display-block,
-    %u-font-avenir-300-normal;
+    %E-color-brand-black-2,
+    %E-display-block,
+    %E-font-avenir-300-normal;
 }
 
 .alt-title--xs { font-size: .625rem; }
@@ -54,10 +54,10 @@
 ////////////////////////////////////////////////////////////
 
 .byline {
-  @extend %u-font-size-byline;
+  @extend %E-font-size-byline;
 
   &:not(:first-child) {
-    @extend %u-margin-top-small;
+    @extend %E-margin-top-small;
   }
 }
 
@@ -65,8 +65,8 @@
   border-bottom: 2px solid rgba($brand_green, .15);
 
   @extend
-    %u-color-brand-green,
-    %u-transition-base-all;
+    %E-color-brand-green,
+    %E-transition-base-all;
 
   &:hover {
     border-bottom: 2px solid $brand_green;

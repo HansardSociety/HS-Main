@@ -5,11 +5,11 @@
 // **
 // Negative z-index
 
-%u-zidx-neg { z-index: -1; }
+%E-zidx-neg { z-index: -1; }
 
 @each $screen in map-keys($breakpoints) {
   @include above('#{ $screen }') {
 
-    %u-zidx-neg__#{ $screen } { z-index: -1; }
+    %E-zidx-neg__#{ $screen } { z-index: -1; }
   }
 }

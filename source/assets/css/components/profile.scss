@@ -1,28 +1,28 @@
 .profile {
   &:nth-child(1n + 2) {
-    @extend %u-margin-top-xsmall;
+    @extend %E-margin-top-xsmall;
   }
 
   @extend
-    %u-flex-row-center,
-    %u-border-radius-small;
+    %E-flex-row-center,
+    %E-border-radius-small;
 }
 
 .profile__image {
   height: 4rem;
   border-radius: 50%;
 
-  @extend %u-overflow-hidden;
+  @extend %E-overflow-hidden;
 
   & > img {
-    @extend %u-height-full;
+    @extend %E-height-full;
   }
 }
 
 .profile--side {
   @extend
-    %u-bgc-brand-white-1,
-    %u-padding-small;
+    %E-bgc-brand-white-1,
+    %E-padding-small;
 }
 
 .profile__main {
@@ -32,6 +32,6 @@
 
 .profile__actions {
   @extend
-    %u-margin-top-small,
-    %u-width-full;
+    %E-margin-top-small,
+    %E-width-full;
 }

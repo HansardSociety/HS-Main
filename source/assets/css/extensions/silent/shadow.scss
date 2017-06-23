@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////
 
 @each $name, $shadow in $box_shadow {
-  %u-shadow-#{ str-replace($name, '_', '-') } {
+  %E-shadow-#{ str-replace($name, '_', '-') } {
     box-shadow: $shadow;
   }
 }

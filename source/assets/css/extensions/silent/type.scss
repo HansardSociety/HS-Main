@@ -2,9 +2,9 @@
 //  =Type
 ////////////////////////////////////////////////////////////
 
-%u-vertical-rhythm-xsmall  { margin-top: .5em; }
-%u-vertical-rhythm-small   { margin-top: 1em; }
-%u-vertical-rhythm-medium  { margin-top: 1.5em; }
+%E-vertical-rhythm-xsmall  { margin-top: .5em; }
+%E-vertical-rhythm-small   { margin-top: 1em; }
+%E-vertical-rhythm-medium  { margin-top: 1.5em; }
 
 // Font families
 
@@ -12,7 +12,7 @@
   @each $weight_name, $weight in $font {
     @each $style_name, $style in $weight {
 
-      %u-font-#{ to-lower-case($font_name) }-#{ $weight_name }-#{ $style_name } {
+      %E-font-#{ to-lower-case($font_name) }-#{ $weight_name }-#{ $style_name } {
         font-family: '#{ $font_name } #{ $weight_name } #{ $style_name }';
       }
     }
@@ -23,19 +23,19 @@
 
 @each $size_name, $size in $font_sizes {
 
-  %u-font-size-#{ $size_name } { font-size: #{ $size }; }
+  %E-font-size-#{ $size_name } { font-size: #{ $size }; }
 
   @each $screen in map-keys($breakpoints) {
     @include above('#{ $screen }') {
 
-      %u-font-size-#{ $size_name }__#{ $screen } {
+      %E-font-size-#{ $size_name }__#{ $screen } {
         font-size: #{ $size };
       }
     }
   }
 }
 
-%u-uppercase { text-transform: uppercase; }
-%u-lowercase { text-transform: lowercase; }
+%E-uppercase { text-transform: uppercase; }
+%E-lowercase { text-transform: lowercase; }
 
-%u-text-align-center { text-align: center; }
+%E-text-align-center { text-align: center; }

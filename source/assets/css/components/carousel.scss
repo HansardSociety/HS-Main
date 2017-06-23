@@ -1,10 +1,10 @@
 .carousel,
 .carousel__inner {
-  @extend %u-width-full;
+  @extend %E-width-full;
 }
 
 .carousel {
-  @extend %u-margin-top-medium;
+  @extend %E-margin-top-medium;
 }
 
 .carousel__item {
@@ -30,10 +30,10 @@
   justify-content: space-between;
 
   @extend
-    %u-flex-row,
-    %u-margin-center-x,
-    %u-margin-top-small,
-    %u-position-relative;
+    %E-flex-row,
+    %E-margin-center-x,
+    %E-margin-top-small,
+    %E-position-relative;
 
   &::before {
     left: calc(50% - 1px);
@@ -44,7 +44,7 @@
 
     border-left: 2px solid $brand_white_2;
 
-    @extend %u-absolute-center-xy;
+    @extend %E-absolute-center-xy;
   }
 }
 
@@ -52,8 +52,8 @@
 .carousel__next {
 
   @extend
-    %u-cursor-pointer,
-    %u-flex-row-center;
+    %E-cursor-pointer,
+    %E-flex-row-center;
 }
 
 .carousel__prev > span { margin-left: .25rem; }

@@ -1,7 +1,7 @@
 .panel {
   @extend
-    %u-padding-y-medium,
-    %u-position-relative;
+    %E-padding-y-medium,
+    %E-position-relative;
 }
 
 .panel--white {
@@ -18,8 +18,8 @@
     width: 10rem;
 
     @extend
-      %u-absolute-center-x,
-      %u-pseudo-elem;
+      %E-absolute-center-x,
+      %E-pseudo-elem;
   }
 }
 

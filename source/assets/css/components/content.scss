@@ -1,5 +1,5 @@
 .content {
-  @extend %u-padding-small;
+  @extend %E-padding-small;
 }
 
 .content--paper {
@@ -8,27 +8,27 @@
 
   box-shadow: map-get($box_shadow, prime_black_light);
 
-  @extend %u-bgc-brand-white;
+  @extend %E-bgc-brand-white;
 }
 
 .content__inner {
-  @extend %u-margin-center-x;
+  @extend %E-margin-center-x;
 
   &:nth-child(1n + 2) {
-    @extend %u-margin-top-medium;
+    @extend %E-margin-top-medium;
   }
 }
 
 .content__inner--narrow {
   @extend
-    %u-container-narrow,
-    %u-margin-center-x;
+    %E-container-narrow,
+    %E-margin-center-x;
 }
 
 .content__inner--wide {
   @extend
-    %u-container-wide,
-    %u-margin-center-x;
+    %E-container-wide,
+    %E-margin-center-x;
 }
 
 .content__inner--flow {
@@ -39,20 +39,20 @@
 
 .content--narrow {
   @extend
-    %u-container-narrow,
-    %u-margin-center-x;
+    %E-container-narrow,
+    %E-margin-center-x;
 }
 
 .content--wide {
   @extend
-    %u-container-wide,
-    %u-margin-center-x;
+    %E-container-wide,
+    %E-margin-center-x;
 }
 
 .content--center {
   justify-content: space-around;
 
   @extend
-    %u-flex-row-center,
-    %u-text-align-center;
+    %E-flex-row-center,
+    %E-text-align-center;
 }
