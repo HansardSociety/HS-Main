@@ -1,0 +1,10 @@
+////////////////////////////////////////////////////////////
+//  Overflow
+////////////////////////////////////////////////////////////
+
+@each $overflow in map-get($properties, overflow) {
+
+  %u-overflow-#{ $overflow }   { overflow: $overflow };
+  %u-overflow-y-#{ $overflow } { overflow-y: $overflow };
+  %u-overflow-x-#{ $overflow } { overflow-x: $overflow };
+}

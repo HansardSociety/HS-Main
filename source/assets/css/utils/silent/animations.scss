@@ -1,0 +1,11 @@
+///////////////////////////////////////////////////////////
+//  =Animations
+////////////////////////////////////////////////////////////
+
+%u-animate-fadein {
+  animation: FadeIn $transition_base;
+}
+
+%u-animate-slide-up-in-center {
+  animation: SlideUpInCenter $transition_base;
+}

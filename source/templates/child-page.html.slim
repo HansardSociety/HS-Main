@@ -27,15 +27,15 @@ article
   .content.content--wide.content--paper
 
     / Page intro/ featured item
-    .grid
-      section.grid__cell.grid__cell--small-7.copy{
-        class="#{ 'grid__cell--order-2 grid__cell--order-1-small' if [ 'blog', 'events' ].include? @entry[:category]  }"
+    .grid.grid--center
+      section.grid__cell.grid__cell--medium-7.copy{
+        class="#{ 'grid__cell--order-2 grid__cell--order-1-medium' if [ 'blog', 'events' ].include? @entry[:category]  }"
       }
         = Kramdown::Document.new(@introduction + "\n{: .byline }").to_html
 
       / Featured side content
-      aside.grid__cell.grid__cell--small-5{
-        class="#{ 'grid__cell--order-1 grid__cell--order-2-small' if [ 'blog', 'events' ].include? @entry[:category]  }"
+      aside.grid__cell.grid__cell--medium-5{
+        class="#{ 'grid__cell--order-1 grid__cell--order-2-medium' if [ 'blog', 'events' ].include? @entry[:category]  }"
       }
 
         / Need to perform check for older posts without featured content.
@@ -106,15 +106,15 @@ article
             content_source: 'profiles' }}
 
     - else
-      .grid
+      .grid.grid--center
 
         / Copy
-        .grid__cell.grid__cell--small-7.copy
+        .grid__cell.grid__cell--medium-7.copy
 
           = Kramdown::Document.new(@copy).to_html
 
         / Side content
-        aside.grid__cell.grid__cell--small-5
+        aside.grid__cell.grid__cell--medium-5
 
           / External links
           - if @entry[:external_links]

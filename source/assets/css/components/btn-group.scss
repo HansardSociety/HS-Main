@@ -4,9 +4,9 @@
 
   @extend
     %u-display-inline-flex,
-    %u-inline-spacing-container-xsmall;
+    %u-grid-flow--xsmall;
 }
 
 .btn-group__btn {
-  @extend %u-inline-spacing-xsmall;
+  @extend %u-grid-flow__item--xsmall;
 }

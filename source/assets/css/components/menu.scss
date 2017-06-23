@@ -10,7 +10,7 @@
     %u-height-full,
     %u-position-fixed,
     %u-transition-base-transform,
-    %u-zindex-negative;
+    %u-zidx-neg;
 }
 
 .menu--mobile {
@@ -44,11 +44,11 @@
 
 .menu__container--columns {
   flex-flow: row nowrap;
-  // justify-content: space-between;
 
   @extend
+    %u-container-wide,
     %u-display-flex,
-    %u-container-wide;
+    %u-margin-center-x;
 }
 
 .menu__category {

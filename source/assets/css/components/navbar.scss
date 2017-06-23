@@ -29,9 +29,10 @@
   justify-content: space-between;
 
   @extend
-    %u-padding-small,
+    %u-container-wide,
     %u-height-full,
-    %u-container-wide;
+    %u-margin-center-x,
+    %u-padding-small;
 
   @include above('large') {
     padding: 0;
@@ -85,7 +86,7 @@
     border-top: 1px solid $brand_black_2;
 
     @extend
-      %u-pseudo-element-base,
+      %u-pseudo-elem,
       %u-width-full;
   }
 

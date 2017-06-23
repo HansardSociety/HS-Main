@@ -1,3 +1,7 @@
+// Theme files
+@import "./fonts";
+
+
 ////////////////////////////////////////////////////////////
 //  Colours
 ////////////////////////////////////////////////////////////
@@ -79,40 +83,6 @@ $transition_base:      ease-out .25s;
 // cubic-bezier(0.175, 0.885, 0.32, 1.275)
 
 ////////////////////////////////////////////////////////////
-//  Fonts
-////////////////////////////////////////////////////////////
-
-$fonts: (
-  main: (
-    Avenir: (
-      300: (
-        normal: 'AvenirLTStd-Light.otf',
-        italic: 'AvenirLTStd-LightOblique.otf'
-      ),
-      400: (
-        normal: 'AvenirLTStd-Book.otf',
-        italic: 'AvenirLTStd-BookOblique.otf'
-      ),
-      700: (
-        normal: 'AvenirLTStd-Heavy.otf',
-        italic: 'AvenirLTStd-HeavyOblique.otf'
-      )
-    )
-  )
-);
-
-$font_base: map-deep-get($fonts, 'main', 'Avenir', '300', 'normal' );
-
-$font_sizes: (
-  xsmall:   .875rem,
-  small:    1rem,
-  byline:   1.25rem,
-  medium:   1.5rem,
-  large:    1.75rem,
-  xlarge:   2.25rem
-);
-
-////////////////////////////////////////////////////////////
 //  Media Queries
 ////////////////////////////////////////////////////////////
 
@@ -128,11 +98,3 @@ $orientations: (
   'portrait': portrait,
   'landscape': landscape
 );
-
-////////////////////////////////////////////////////////////
-//  Paths
-////////////////////////////////////////////////////////////
-
-$path: (
-  'fonts': __dirname + '/source/assets/fonts'
-)

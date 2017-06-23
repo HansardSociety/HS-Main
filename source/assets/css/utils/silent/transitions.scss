@@ -1,0 +1,14 @@
+///////////////////////////////////////////////////////////
+//  =Transitions
+////////////////////////////////////////////////////////////
+
+%u-transition-base-all       { transition: all $transition_base; }
+%u-transition-base-transform { transition: transform $transition_base; }
+
+@each $screen in map-keys($breakpoints) {
+  @include above('#{ $screen }') {
+
+    %u-transition-base-all__#{ $screen }       { transition: all $transition_base; }
+    %u-transition-base-transform__#{ $screen } { transition: transform $transition_base; }
+  }
+}

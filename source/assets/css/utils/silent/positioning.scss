@@ -1,0 +1,103 @@
+////////////////////////////////////////////////////////////
+//  =Positioning
+////////////////////////////////////////////////////////////
+
+// All position placeholders
+
+@each $position in map-get($properties, position) {
+
+  // Base positioning
+
+  %u-position-#{ $position } { position: #{ $position } }
+
+  @each $screen in map-keys($breakpoints) {
+    @include above('#{ $screen }') {
+
+      %u-position-#{ $position }__#{ $screen } {
+        position: #{ $position }
+      }
+    }
+  }
+
+  // x/y axies positioning
+
+  @each $origin in map-get($properties, origins) {
+
+    @each $axis in map-get($properties, axies) {
+
+      %u-position-#{ $position }-#{ $origin }-#{ $axis } {
+        #{ $origin }: #{ $axis + '%' };
+        @extend %u-position-#{ $position };
+      }
+    }
+
+    @each $screen in map-keys($breakpoints) {
+      @include above('#{ $screen }') {
+        @each $axis in map-get($properties, axies) {
+
+          %u-position-#{ $position }-#{ $origin }-#{ $axis }__#{ $screen } {
+            #{ $origin }: #{ $axis + '%' };
+            @extend %u-position-#{ $position }__#{ $screen };
+          }
+        }
+      }
+    }
+  }
+}
+
+// Position absolute top-left placeholders only
+
+@each $axis in map-get($properties, axies) {
+
+  %u-position-absolute-#{ $axis } {
+    top: #{ $axis + '%' }; left: #{ $axis + '%' };
+    @extend %u-position-absolute;
+  }
+
+  @each $screen in map-keys($breakpoints) {
+    @include above('#{ $screen }') {
+
+      %u-position-absolute-#{ $axis }__#{ $screen } {
+        top: #{ $axis + '%' }; left: #{ $axis + '%' };
+        @extend %u-position-absolute__#{ $screen };
+      }
+    }
+  }
+}
+
+// Position absolute center
+
+%u-absolute-center-x,
+%u-absolute-center-xy {
+  @extend %u-position-absolute-left-50;
+}
+
+%u-absolute-center-y,
+%u-absolute-center-xy {
+  @extend %u-position-absolute-top-50;
+}
+
+%u-absolute-center-x  { transform: translateX(-50%); }
+%u-absolute-center-y  { transform: translateY(-50%); }
+%u-absolute-center-xy { transform: translate(-50%, -50%); }
+
+// Position absolute center breakpoints
+
+@each $screen in map-keys($breakpoints) {
+  @include above('#{ $screen }') {
+
+    %u-absolute-center-x__#{ $screen },
+    %u-absolute-center-xy__#{ $screen } {
+      @extend %u-position-absolute-left-50__#{ $screen };
+    }
+
+    %u-absolute-center-y__#{ $screen },
+    %u-absolute-center-xy__#{ $screen } {
+      @extend %u-position-absolute-top-50__#{ $screen };
+    }
+
+    %u-absolute-center-x__#{ $screen }  { transform: translateX(-50%); }
+    %u-absolute-center-y__#{ $screen }  { transform: translateY(-50%); }
+    %u-absolute-center-xy__#{ $screen } { transform: translate(-50%, -50%); }
+  }
+}

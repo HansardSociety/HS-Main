@@ -20,11 +20,15 @@
 }
 
 .content__inner--narrow {
-  @extend %u-container-narrow;
+  @extend
+    %u-container-narrow,
+    %u-margin-center-x;
 }
 
 .content__inner--wide {
-  @extend %u-container-wide;
+  @extend
+    %u-container-wide,
+    %u-margin-center-x;
 }
 
 .content__inner--flow {
@@ -34,11 +38,15 @@
 }
 
 .content--narrow {
-  @extend %u-container-narrow;
+  @extend
+    %u-container-narrow,
+    %u-margin-center-x;
 }
 
 .content--wide {
-  @extend %u-container-wide;
+  @extend
+    %u-container-wide,
+    %u-margin-center-x;
 }
 
 .content--center {

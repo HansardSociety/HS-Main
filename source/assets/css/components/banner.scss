@@ -30,7 +30,7 @@
 
   @extend
     %u-color-brand-white,
-    %u-content-main,
+    %u-container-narrow,
     %u-position-relative;
 }
 
@@ -48,9 +48,9 @@
   @extend
     %u-height-full-vh,
     %u-overflow-hidden,
-    %u-overlay,
+    %u-overlay-medium,
     %u-position-absolute-0,
-    %u-zindex-negative;
+    %u-zidx-neg;
 }
 
 .banner__image img {

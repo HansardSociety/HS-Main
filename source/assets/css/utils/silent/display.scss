@@ -1,0 +1,63 @@
+////////////////////////////////////////////////////////////
+//  =Display
+////////////////////////////////////////////////////////////
+
+@each $property in map-get($properties, display) {
+
+  // Display base
+  %u-display-#{ $property } { display: #{ $property } }
+
+  // Display breakpoints
+  @each $screen in map-keys($breakpoints) {
+    @include above('#{ $screen }') {
+
+      %u-display-#{ $property }__#{ $screen } {
+        display: #{ $property }
+      }
+    }
+  }
+}
+
+// Flex base
+
+%u-flex-row,
+%u-flex-row-nowrap {
+  @extend %u-display-flex;
+}
+
+%u-flex-inline-row {
+  @extend %u-display-inline-flex;
+}
+
+// Flex direction
+
+%u-flex-row,
+%u-flex-inline-row {
+  flex-flow: row wrap;
+}
+
+// Flex alignment
+
+%u-flex-row-start,
+%u-flex-row-center {
+  @extend %u-flex-row;
+}
+
+%u-flex-inline-row-center {
+  @extend %u-flex-inline-row;
+}
+
+%u-flex-row-start {
+  align-items: flex-start;
+}
+
+%u-flex-row-center,
+%u-flex-inline-row-center {
+  align-items: center;
+}
+
+// Flex wrap
+
+%u-flex-row-nowrap {
+  flex-flow: row nowrap;
+}
