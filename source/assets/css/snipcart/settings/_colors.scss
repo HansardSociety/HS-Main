@@ -12,12 +12,12 @@ $palettes: (
         link: #999
     ),
     button: (
-        background: #555,
-        background--highlight: #efe778,
+        background: #222,
+        background--highlight: $brand_orange,
         background--hover: darken(#555, 10%),
         background--highlight-hover: darken(#efe778, 10%),
         color: #fff,
-        color--highlight: #222
+        color--highlight: $brand_white
     ),
     error: (
         color: #f10,
@@ -47,7 +47,7 @@ $palettes: (
         label-color: #999
     ),
     header: (
-        background: #222,
+        background: $brand_green,
         background--highlight: #111,
         color: #fff,
         label-color: #999

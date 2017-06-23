@@ -101,6 +101,8 @@ $fonts: (
   )
 );
 
+$font_base: map-deep-get($fonts, 'main', 'Avenir', '300', 'normal' );
+
 $font_sizes: (
   xsmall:   .875rem,
   small:    1rem,
@@ -131,6 +133,6 @@ $orientations: (
 //  Paths
 ////////////////////////////////////////////////////////////
 
-// $path: (
-//   'fonts': __dirname +
-// )
+$path: (
+  'fonts': __dirname + '/source/assets/fonts'
+)

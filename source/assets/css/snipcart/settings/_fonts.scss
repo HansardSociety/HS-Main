@@ -4,7 +4,7 @@
     We don't want to load many fonts on your site so we stay classic.
     You can add your custom fonts here and/or define your own fonts family variables.
 */
-$font-base: Arial, sans-serif;
+$font-base: $font_base;
 
 
 /**
@@ -12,8 +12,8 @@ $font-base: Arial, sans-serif;
 */
 @font-face {
     font-family: "Snipcart";
-    src: url('fonts/snipcart/Snipcart.woff?94043836') format("woff"),
-         url('fonts/snipcart/Snipcart.ttf?94043836') format("truetype");
+    src: url('../../../Snipcart.woff?94043836') format("woff"),
+         url('../../../Snipcart.ttf?94043836') format("truetype");
     font-weight: normal;
     font-style: normal;
 }

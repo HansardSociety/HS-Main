@@ -67,7 +67,7 @@ $_product-disabled-opacity: 0.2;
     color: palette(product, color--highlight);
     font-size: 1.125em;
     overflow: hidden;
-    text-transform: uppercase;
+    // text-transform: uppercase;
 
     @media #{$mq-medium} {
         font-size: fontsize(product, base);
