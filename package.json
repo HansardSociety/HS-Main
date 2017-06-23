@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "gulp assets --GULP_ENV=production",
-    "build": "gulp build --GULP_ENV=production",
-    "start": "gulp --GULP_ENV=development",
-    "data": "bundle exec middleman contentful",
-    "poll": "bundle exec middleman server --watcher-force-polling"
+    "epipe:pre": "gulp assets --GULP_ENV=production",
+    "epipe:build": "gulp build --GULP_ENV=production",
+    "epipe:dev": "gulp --GULP_ENV=development",
+    "build": "npm run epipe:pre && bundle exec middleman build",
+    "build:clean": "rm -rf data/ .tmp/ build/ && bundle exec middleman contentful && bundle exec middleman build",
+    "dev": "npm run epipe:pre && bundle exec middleman server",
+    "dev:clean": "rm -rf data/ .tmp/ build/ && bundle exec middleman contentful && bundle exec middleman server",
+    "dev:poll": "bundle exec middleman server --watcher-force-polling",
+    "data": "bundle exec middleman contentful"
   },
   "keywords": [],
   "author": "@LukeBoga",
