@@ -1,11 +1,10 @@
-// Theme
+// Core 1
 @import "./theme/_all";
+@import "./functions/_all";
 
-
-
+// Core 2
 @import "./components/fonts";
 @import "./extensions/_all";
-@import "./functions/_all";
 
 // Components
 @import "./components/core";
