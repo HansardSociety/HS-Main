@@ -2,12 +2,11 @@
 //  Mapping
 ////////////////////////////////////////////////////////////
 
-
 // Map deep-get
-@function map-deep-get($map, $keys...) {
-  @each $key in $keys {
-    $map: map-get($map, $key);
-  }
+// @function map-deep-get($map, $keys...) {
+//   @each $key in $keys {
+//     $map: map-get($map, $key);
+//   }
 
-  @return $map;
-}
+//   @return $map;
+// }

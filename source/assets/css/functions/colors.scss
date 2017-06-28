@@ -3,10 +3,11 @@
 ////////////////////////////////////////////////////////////
 
 // Color map
-@function colorMap($type, $color) {
+@function color($type, $color) {
   @if not map-has-key($colors, $type) {
     @warn "No palette found for `#{$type}` in $colors map.";
   }
 
   @return map-get(map-get($colors, $type), $color);
 }
+

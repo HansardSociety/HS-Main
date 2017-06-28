@@ -65,19 +65,19 @@
 
 // Accents
 
-@each $name, $color in $colors {
+@each $name, $color in map-get($colors, brand) {
 
   @each $side in map-get($properties, origins) {
 
-    %E-accent-small-#{ str-replace($name, '_', '-') }-#{ $side } {
+    %E-accent-small-brand-#{ $name }-#{ $side } {
       border-#{ $side }: 2px solid map-get($colors, $name);
     }
 
-    %E-accent-medium-#{ str-replace($name, '_', '-') }-#{ $side } {
+    %E-accent-medium-brand-#{ $name }-#{ $side } {
       border-#{ $side }: 4px solid map-get($colors, $name);
     }
 
-    %E-accent-large-#{ str-replace($name, '_', '-') }-#{ $side } {
+    %E-accent-large-brand-#{ $name }-#{ $side } {
       border-#{ $side }: 6px solid map-get($colors, $name);
     }
   }

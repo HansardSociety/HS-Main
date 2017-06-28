@@ -39,7 +39,7 @@
 .btn--primary {
   @extend
     %E-bgc-brand-orange,
-    %E-col-brand-white;
+    %E-color-brand-white;
 
   &:active {
     @extend %E-bgc-brand-orange-1;

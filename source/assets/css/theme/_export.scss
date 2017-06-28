@@ -1,57 +1,59 @@
 // Theme files
+@import "./colors";
 @import "./fonts";
+
 
 
 ////////////////////////////////////////////////////////////
 //  Colours
 ////////////////////////////////////////////////////////////
 
-$primary_colors: (
-  brand_orange:        #f57300,
-  brand_black:         #1d252d,
-  brand_blue:          #236192,
-  brand_brown:         #8f3237,
-  brand_green:         #00685e,
-  brand_olive:         #ac9f3c,
-  brand_white:         #fefefe,
-  brand_light_brown:   #ae8a79,
-  brand_light_green:   #80967a,
-  brand_light_blue:    #6ba4b8,
-  brand_dark_brown:    #572932,
-);
+// $primary_colors: (
+//   brand_orange:        #f57300,
+//   brand_black:         #1d252d,
+//   brand_blue:          #236192,
+//   brand_brown:         #8f3237,
+//   brand_green:         #00685e,
+//   brand_olive:         #ac9f3c,
+//   brand_white:         #fefefe,
+//   brand_light_brown:   #ae8a79,
+//   brand_light_green:   #80967a,
+//   brand_light_blue:    #6ba4b8,
+//   brand_dark_brown:    #572932,
+// );
 
-$secondary_colors: (
-  brand_black_1:       lighten(map-get($primary_colors, brand_black), 10%),
-  brand_black_2:       lighten(map-get($primary_colors, brand_black), 20%),
-  brand_black_3:       lighten(map-get($primary_colors, brand_black), 30%),
-  brand_white_1:       darken(map-get($primary_colors, brand_white), 5%),
-  brand_white_2:       darken(map-get($primary_colors, brand_white), 10%),
-  brand_white_3:       darken(map-get($primary_colors, brand_white), 15%),
-  brand_orange_1:      darken(map-get($primary_colors, brand_orange), 5%),
-  brand_orange_2:      darken(map-get($primary_colors, brand_orange), 10%),
-);
+// $secondary_colors: (
+//   brand_black_1:       lighten(map-get($primary_colors, brand_black), 10%),
+//   brand_black_2:       lighten(map-get($primary_colors, brand_black), 20%),
+//   brand_black_3:       lighten(map-get($primary_colors, brand_black), 30%),
+//   brand_white_1:       darken(map-get($primary_colors, brand_white), 5%),
+//   brand_white_2:       darken(map-get($primary_colors, brand_white), 10%),
+//   brand_white_3:       darken(map-get($primary_colors, brand_white), 15%),
+//   brand_orange_1:      darken(map-get($primary_colors, brand_orange), 5%),
+//   brand_orange_2:      darken(map-get($primary_colors, brand_orange), 10%),
+// );
 
-$colors:               map-merge($primary_colors, $secondary_colors);
+// $colors:               map-merge($primary_colors, $secondary_colors);
 
-$brand_black:          map-get($colors, brand_black);
-$brand_orange:         map-get($colors, brand_orange);
-$brand_orange_1:       map-get($colors, brand_orange_1);
-$brand_orange_2:       map-get($colors, brand_orange_2);
-$brand_blue:           map-get($colors, brand_blue);
-$brand_brown:          map-get($colors, brand_brown);
-$brand_green:          map-get($colors, brand_green);
-$brand_olive:          map-get($colors, brand_olive);
-$brand_white:          map-get($colors, brand_white);
-$brand_light_brown:    map-get($colors, brand_light_brown);
-$brand_light_green:    map-get($colors, brand_light_green);
-$brand_light_blue:     map-get($colors, brand_light_blue);
-$brand_dark_brown:     map-get($colors, brand_dark_brown);
-$brand_black_1:        map-get($colors, brand_black_1);
-$brand_black_2:        map-get($colors, brand_black_2);
-$brand_black_3:        map-get($colors, brand_black_3);
-$brand_white_1:        map-get($colors, brand_white_1);
-$brand_white_2:        map-get($colors, brand_white_2);
-$brand_white_3:        map-get($colors, brand_white_3);
+// $brand_black:          map-get($colors, brand_black);
+// $brand_orange:         map-get($colors, brand_orange);
+// $brand_orange_1:       map-get($colors, brand_orange_1);
+// $brand_orange_2:       map-get($colors, brand_orange_2);
+// $brand_blue:           map-get($colors, brand_blue);
+// $brand_brown:          map-get($colors, brand_brown);
+// $brand_green:          map-get($colors, brand_green);
+// $brand_olive:          map-get($colors, brand_olive);
+// $brand_white:          map-get($colors, brand_white);
+// $brand_light_brown:    map-get($colors, brand_light_brown);
+// $brand_light_green:    map-get($colors, brand_light_green);
+// $brand_light_blue:     map-get($colors, brand_light_blue);
+// $brand_dark_brown:     map-get($colors, brand_dark_brown);
+// $brand_black_1:        map-get($colors, brand_black_1);
+// $brand_black_2:        map-get($colors, brand_black_2);
+// $brand_black_3:        map-get($colors, brand_black_3);
+// $brand_white_1:        map-get($colors, brand_white_1);
+// $brand_white_2:        map-get($colors, brand_white_2);
+// $brand_white_3:        map-get($colors, brand_white_3);
 
 $box_shadow: (
   prime_black:         0 0 20px 6px rgba(#000, .25),
@@ -65,13 +67,13 @@ $box_shadow: (
 //  Site Categories
 ////////////////////////////////////////////////////////////
 
-$categories: (
-  about:               $brand_green,
-  blog:                $brand_light_brown,
-  intelligence:        $brand_light_blue,
-  research:            $brand_green,
-  resources:           brand_light_green
-);
+// $categories: (
+//   about:               $brand_green,
+//   blog:                $brand_light_brown,
+//   intelligence:        $brand_light_blue,
+//   research:            $brand_green,
+//   resources:           brand_light_green
+// );
 
 ////////////////////////////////////////////////////////////
 //  Transitions
