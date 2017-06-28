@@ -100,7 +100,7 @@ var
         __dirname + '/node_modules/normalize.css/normalize.css',
         __dirname + '/node_modules/swiper/dist/css/swiper.css'
       ],
-      snipcart: __dirname + '/source/assets/css/snipcart/snipcart.scss'
+      snipcart: __dirname + '/source/assets/css/vendors/snipcart/snipcart.scss'
     },
     js: {
       main: __dirname + '/source/assets/js/main.js',

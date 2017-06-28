@@ -2,6 +2,26 @@
 //  =Colors
 ////////////////////////////////////////////////////////////
 
+@each $name, $color in map-get($colors, brand) {
+
+  // Colors
+  %E-col-brand-#{ $color } {
+    color: $color;
+  }
+
+  // Background colors
+  %E-bgc-#{ $color } {
+    background-color: $color;
+  }
+}
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
 @each $name, $color in $colors {
 
   // Colors

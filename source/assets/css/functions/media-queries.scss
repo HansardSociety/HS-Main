@@ -1,20 +1,5 @@
-// Box shadow
-@mixin box-shadow($color) {
-  @extend %E-box-shadow-#{ $color };
-}
-
-// Accent
-@mixin accent($color, $position) {
-  @extend %E-accent-brand-#{ $color }-#{ $position };
-}
-
-// Margin
-@mixin margin($side, $size) {
-  @extend %E-margin-#{ $side }-#{ $size };
-}
-
 ////////////////////////////////////////////////////////////
-//  Medi queries
+//  Media queries
 ////////////////////////////////////////////////////////////
 
 // Breakpoints
@@ -52,7 +37,6 @@
   }
 }
 
-
 // Orientations
 @mixin orientation($orientation) {
   $value: map-get($orientations, $orientation);
@@ -71,28 +55,3 @@
   }
 }
 
-////////////////////////////////////////////////////////////
-//  String replace
-////////////////////////////////////////////////////////////
-
-// From: https://css-tricks.com/snippets/sass/str-replace-function/
-@function str-replace($string, $search, $replace: '') {
-  $index: str-index($string, $search);
-
-  @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-  }
-  @return $string;
-}
-
-////////////////////////////////////////////////////////////
-//  Map deep get
-////////////////////////////////////////////////////////////
-
-@function map-deep-get($map, $keys...) {
-  @each $key in $keys {
-    $map: map-get($map, $key);
-  }
-
-  @return $map;
-}
