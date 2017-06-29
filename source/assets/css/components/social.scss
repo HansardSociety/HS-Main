@@ -2,19 +2,19 @@
   width: 2rem;
   height: 2rem;
 
-  border: 2px solid $brand_orange;
+  // border: 2px solid $brand_orange;
 
   @extend
-    %E-border-radius-small,
+    %E-border-radius-sm,
     %E-display-inline-block,
     %E-transition-base-all,
     %E-position-relative;
 
   &:hover {
-    @extend %E-bgc-brand-orange;
+    @extend %E-bgc-orange;
 
     svg {
-      fill: $brand_white;
+      // fill: $brand_white;
     }
   }
 
@@ -25,5 +25,5 @@
 }
 
 .social--group {
-  @extend %E-grid-flow__item--xsmall;
+  @extend %E-grid-flow__item--xs;
 }

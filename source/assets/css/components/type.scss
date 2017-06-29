@@ -18,18 +18,18 @@
 .title {
 
   @extend
-    %E-color-brand-green,
+    %E-col-green,
     %E-display-block,
     %E-font-avenir-400-normal;
 }
 
-.title--xsmall { @extend %E-font-size-xsmall; }
-.title--small  { @extend %E-font-size-small; }
-.title--medium { @extend %E-font-size-medium; }
-.title--large  { @extend %E-font-size-large; }
-.title--xlarge { @extend %E-font-size-xlarge; }
+.title--xs { @extend %E-font-size-xs; }
+.title--sm  { @extend %E-font-size-sm; }
+.title--md { @extend %E-font-size-md; }
+.title--lg  { @extend %E-font-size-lg; }
+.title--xl { @extend %E-font-size-xl; }
 
-.title--white  { @extend %E-color-brand-white; }
+.title--white  { @extend %E-col-white; }
 
 // ** Alt title **
 // ****************************
@@ -38,7 +38,7 @@
   text-transform: uppercase;
 
   @extend
-    %E-color-brand-black-2,
+    %E-col-dark-grey,
     %E-display-block,
     %E-font-avenir-300-normal;
 }
@@ -57,18 +57,18 @@
   @extend %E-font-size-byline;
 
   &:not(:first-child) {
-    @extend %E-margin-top-small;
+    @extend %E-margin-top-sm;
   }
 }
 
 .link {
-  border-bottom: 2px solid rgba($brand_green, .15);
+  // border-bottom: 2px solid rgba($brand_green, .15);
 
   @extend
-    %E-color-brand-green,
+    %E-col-green,
     %E-transition-base-all;
 
   &:hover {
-    border-bottom: 2px solid $brand_green;
+    // border-bottom: 2px solid $brand_green;
   }
 }

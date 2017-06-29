@@ -1,12 +1,56 @@
-// Core 1
-@import "./functions/_export";
-@import "./theme/_export";
+///////////////////////////////////////////////////////////
+//  =Functions
+////////////////////////////////////////////////////////////
 
-// Core 2
+@import './functions/colors';
+@import './functions/mapping';
+@import './functions/media-queries';
+@import './functions/string-replace';
+
+///////////////////////////////////////////////////////////
+//  =Config
+////////////////////////////////////////////////////////////
+
+@import "./config/colors";
+@import "./config/fonts";
+@import "./config/media-queries";
+@import "./config/properties";
+@import "./config/shadow";
+
+///////////////////////////////////////////////////////////
+//  =Extensions
+////////////////////////////////////////////////////////////
+
+// Components (core - maintain order)
+@import './extensions/silent/display';
+@import './extensions/silent/positioning';
+@import './extensions/silent/width-height';
+@import './extensions/silent/overflow';
+
+// Components (dependent/ non-dependent)
+@import './extensions/silent/animations';
+@import './extensions/silent/box-model';
+@import './extensions/silent/colors';
+@import './extensions/silent/container';
+@import './extensions/silent/cursor';
+@import './extensions/silent/hidden';
+@import './extensions/silent/opacity';
+@import './extensions/silent/overlay';
+@import './extensions/silent/pseudo-elem';
+@import './extensions/silent/shadow';
+@import './extensions/silent/transitions';
+@import './extensions/silent/type';
+@import './extensions/silent/z-index';
+@import './extensions/silent/grid-flow';
+
+// Active
+@import './extensions/active/box-model';
+
+///////////////////////////////////////////////////////////
+//  =Components
+////////////////////////////////////////////////////////////
+
 @import "./components/fonts";
-@import "./extensions/_export";
-
-// Components
 @import "./components/core";
 @import "./components/states";
 

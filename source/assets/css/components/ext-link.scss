@@ -17,9 +17,9 @@
   height: 2rem;
 
   @extend
-    %E-bgc-brand-white-1,
+    %E-bgc-light-grey,
     %E-display-inline-flex,
-    %E-padding-xsmall;
+    %E-pad-xs;
 }
 
 .ext-link__text {

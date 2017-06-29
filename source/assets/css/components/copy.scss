@@ -12,9 +12,9 @@
     @extend .title;
   }
 
-  > h2 { @extend .title--large; }
-  > h3 { @extend .title--medium; }
-  > h4 { @extend .title--small; }
+  > h2 { @extend .title--lg; }
+  > h3 { @extend .title--md; }
+  > h4 { @extend .title--sm; }
 
   > p > a {
     @extend .link;
@@ -33,12 +33,12 @@
   img {
     max-width: 100%;
 
-    @extend %E-border-radius-small;
+    @extend %E-border-radius-sm;
   }
 }
 
 .copy--white {
   > h1, > h2, > h3, > h4, > p {
-    @extend %E-color-brand-white;
+    @extend %E-col-white;
   }
 }

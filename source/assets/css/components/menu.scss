@@ -5,8 +5,8 @@
   padding-top: 3.5rem;
 
   @extend
-    %E-bgc-brand-black,
-    %E-padding-small,
+    %E-bgc-black,
+    %E-pad-sm,
     %E-height-full,
     %E-position-fixed,
     %E-transition-base-transform,
@@ -23,8 +23,8 @@
     %E-overflow-y-auto,
     %E-width-full;
 
-  @include above('medium') {
-    @extend %E-display-none__medium;
+  @include above('md') {
+    @extend %E-display-none__md;
   }
 }
 
@@ -37,8 +37,8 @@
     %E-transition-base-all,
     %E-width-full-vw;
 
-  @include above('medium') {
-    @extend %E-display-block__medium;
+  @include above('md') {
+    @extend %E-display-block__md;
   }
 }
 
@@ -52,21 +52,21 @@
 }
 
 .menu__category {
-  @extend %E-margin-top-medium;
+  @extend %E-margin-top-md;
 }
 
 .menu__category--outer {
   &:nth-of-type(1n + 2) {
     padding-top: 2rem;
 
-    border-top: 1px solid $brand_black_2;
+    // border-top: 1px solid $brand_black_2;
   }
 }
 
 .menu__column {
   flex: 0 30%;
 
-  @extend %E-margin-top-medium;
+  @extend %E-margin-top-md;
 
   &:nth-child(1n + 2) {
     margin-left: 2rem;
@@ -75,39 +75,39 @@
 
 // Accents
 .menu__column--research,
-.menu__category--research     { // @extend %E-accent-medium-brand-green-top;
+.menu__category--research     { // @extend %E-accent-md-green-top;
 }
 .menu__column--about,
-.menu__category--about        { // @extend %E-accent-medium-brand-green-top;
+.menu__category--about        { // @extend %E-accent-md-green-top;
 }
 .menu__column--resources,
-.menu__category--resources    { // @extend %E-accent-medium-brand-light-green-top;
+.menu__category--resources    { // @extend %E-accent-md-light-green-top;
 }
 .menu__column--publications,
-.menu__category--publications    { // @extend %E-accent-medium-brand-light-green-top;
+.menu__category--publications    { // @extend %E-accent-md-light-green-top;
 }
 .menu__column--intelligence,
-.menu__category--intelligence { // @extend %E-accent-medium-brand-light-blue-top;
+.menu__category--intelligence { // @extend %E-accent-md-light-blue-top;
 }
 
 .menu__title {
   @extend
     %E-margin-0,
-    %E-color-brand-white;
+    %E-col-white;
 }
 
 .menu__link {
   padding: .5rem;
 
-  background-color: $brand_black_1;
+  // background-color: $brand_black_1;
 
   @extend
-    %E-border-radius-small,
+    %E-border-radius-sm,
     %E-display-block,
-    %E-margin-top-xsmall;
+    %E-margin-top-xs;
 
   &:hover {
-    background-color: $brand_black_2;
+    // background-color: $brand_black_2;
   }
 }
 

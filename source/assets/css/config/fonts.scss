@@ -24,10 +24,10 @@ $fonts: (
 $font_base: map-deep-get($fonts, 'main', 'Avenir', '300', 'normal' );
 
 $font_sizes: (
-  xsmall:   .875rem,
-  small:    1rem,
+  xs:   .875rem,
+  sm:    1rem,
   byline:   1.25rem,
-  medium:   1.5rem,
-  large:    1.75rem,
-  xlarge:   2.25rem
+  md:   1.5rem,
+  lg:    1.75rem,
+  xlg:   2.25rem
 );

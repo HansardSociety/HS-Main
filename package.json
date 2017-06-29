@@ -10,7 +10,7 @@
     "build": "npm run epipe:pre && bundle exec middleman build",
     "build:clean": "rm -rf data/ .tmp/ build/ && bundle exec middleman contentful && bundle exec middleman build",
     "build:prod": "npm run epipe:pre && bundle exec middleman contentful && bundle exec middleman build",
-    "dev": "npm run epipe:pre && bundle exec middleman server",
+    "dev": "bundle exec middleman server",
     "dev:clean": "rm -rf data/ .tmp/ build/ && bundle exec middleman contentful && bundle exec middleman server",
     "dev:poll": "bundle exec middleman server --watcher-force-polling",
     "data": "bundle exec middleman contentful"

@@ -1,5 +1,5 @@
 .content {
-  @extend %E-padding-small;
+  @extend %E-pad-sm;
 }
 
 .content--paper {
@@ -8,14 +8,14 @@
 
   box-shadow: map-get($box_shadow, prime_black_light);
 
-  @extend %E-bgc-brand-white;
+  @extend %E-bgc-white;
 }
 
 .content__inner {
   @extend %E-margin-center-x;
 
   &:nth-child(1n + 2) {
-    @extend %E-margin-top-medium;
+    @extend %E-margin-top-md;
   }
 }
 
@@ -32,7 +32,7 @@
 }
 
 .content__inner--flow {
-  border-bottom: 2px solid $brand_white_2;
+  // border-bottom: 2px solid $brand_white_2;
 
   padding-bottom: 2rem;
 }

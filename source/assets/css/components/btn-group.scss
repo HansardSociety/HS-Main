@@ -4,9 +4,9 @@
 
   @extend
     %E-display-inline-flex,
-    %E-grid-flow--xsmall;
+    %E-grid-flow--xs;
 }
 
 .btn-group__btn {
-  @extend %E-grid-flow__item--xsmall;
+  @extend %E-grid-flow__item--xs;
 }

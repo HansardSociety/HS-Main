@@ -1,0 +1,16 @@
+////////////////////////////////////////////////////////////
+//  Media Queries - Config
+////////////////////////////////////////////////////////////
+
+$breakpoints: (
+  'xs': 480px,
+  'sm':  600px,
+  'md': 960px,
+  'lg':  1280px,
+  'xlg': 1920px
+);
+
+$orientations: (
+  'portrait':  portrait,
+  'landscape': landscape
+);

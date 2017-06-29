@@ -3,9 +3,9 @@
 ////////////////////////////////////////////////////////////
 
 %E-animate-fadein {
-  animation: FadeIn $transition_base;
+  animation: FadeIn ease .2s;
 }
 
 %E-animate-slide-up-in-center {
-  animation: SlideUpInCenter $transition_base;
+  animation: SlideUpInCenter ease .2s;
 }

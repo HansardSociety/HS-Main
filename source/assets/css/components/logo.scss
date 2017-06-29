@@ -9,15 +9,15 @@
 .logo__image--mobile {
   vertical-align: middle;
 
-  @include above('medium') {
-    @extend %E-display-none__medium;
+  @include above('md') {
+    @extend %E-display-none__md;
   }
 }
 
 .logo__image--desktop {
   @extend %E-display-none;
-  @include above('medium') {
-    @extend %E-display-block__medium;
-    @extend %E-transition-base-transform__medium;
+  @include above('md') {
+    @extend %E-display-block__md;
+    @extend %E-transition-base-transform__md;
   }
 }

@@ -15,7 +15,7 @@
 .banner__inner {
   @extend
     %E-absolute-center-xy,
-    %E-padding-small,
+    %E-pad-sm,
     %E-container-wide;
 }
 
@@ -29,7 +29,7 @@
 .banner__content {
 
   @extend
-    %E-color-brand-white,
+    // %E-col-white,
     %E-container-narrow,
     %E-position-relative;
 }
@@ -41,7 +41,7 @@
 }
 
 .banner__actions {
-  @extend %E-margin-top-medium;
+  @extend %E-margin-top-md;
 }
 
 .banner__image {

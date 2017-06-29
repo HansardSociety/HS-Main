@@ -2,13 +2,13 @@
 //  =Transitions
 ////////////////////////////////////////////////////////////
 
-%E-transition-base-all       { transition: all $transition_base; }
-%E-transition-base-transform { transition: transform $transition_base; }
+%E-transition-base-all       { transition: all ease .2s; }
+%E-transition-base-transform { transition: transform ease .2s; }
 
 @each $screen in map-keys($breakpoints) {
   @include above('#{ $screen }') {
 
-    %E-transition-base-all__#{ $screen }       { transition: all $transition_base; }
-    %E-transition-base-transform__#{ $screen } { transition: transform $transition_base; }
+    %E-transition-base-all__#{ $screen }       { transition: all ease .2s; }
+    %E-transition-base-transform__#{ $screen } { transition: transform ease .2s; }
   }
 }

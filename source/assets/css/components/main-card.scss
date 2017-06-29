@@ -8,15 +8,15 @@
   box-shadow: map-get($box_shadow, prime_black_light);
 
   @extend
-    %E-bgc-brand-white-1,
-    %E-border-radius-small;
+    %E-bgc-light-grey,
+    %E-border-radius-sm;
 }
 
-.main-card--events       { @extend %E-accent-medium-brand-blue-top; }
-.main-card--blog         { @extend %E-accent-medium-brand-brown-top; }
-.main-card--innovation   { @extend %E-accent-medium-brand-light-blue-top; }
-.main-card--resources    { @extend %E-accent-medium-brand-light-green-top; }
-.main-card--research     { @extend %E-accent-medium-brand-green-top; }
+.main-card--events       { @extend %E-accent-md-blue-top; }
+.main-card--blog         { @extend %E-accent-md-brown-top; }
+.main-card--innovation   { @extend %E-accent-md-light-blue-top; }
+.main-card--resources    { @extend %E-accent-md-light-green-top; }
+.main-card--research     { @extend %E-accent-md-green-top; }
 
 .main-card__header {
   position: relative;
@@ -44,7 +44,7 @@
   bottom: 0;
   left: 0;
 
-  @extend %E-padding-small;
+  @extend %E-pad-sm;
 }
 
 .main-card__introduction {
@@ -62,7 +62,7 @@
   flex-flow: row nowrap;
   align-items: flex-end;
 
-  border-bottom: 2px solid $brand_white_3;
+  // border-bottom: 2px solid $brand_white_3;
 }
 
 .main-card__side-image {

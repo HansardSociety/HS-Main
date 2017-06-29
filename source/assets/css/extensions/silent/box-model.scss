@@ -8,9 +8,9 @@
 // Base
 
 %E-margin-0          { margin: 0 }
-%E-margin-top-xsmall { margin-top: .5rem; }
-%E-margin-top-small  { margin-top: 1rem; }
-%E-margin-top-medium { margin-top: 2rem; }
+%E-margin-top-xs { margin-top: .5rem; }
+%E-margin-top-sm  { margin-top: 1rem; }
+%E-margin-top-md { margin-top: 2rem; }
 
 // Center
 
@@ -36,48 +36,43 @@
 
 // All
 
-%E-padding-xsmall { padding: .5rem; }
-%E-padding-small  { padding: 1rem; }
-%E-padding-medium { padding: 2rem; }
-%E-padding-large  { padding: 3rem; }
+%E-pad-xs { padding: .5rem; }
+%E-pad-sm  { padding: 1rem; }
+%E-pad-md { padding: 2rem; }
+%E-pad-lg  { padding: 3rem; }
 
 // Vertical (Y)
 
-%E-padding-y-xsmall { padding: .5rem 0; }
-%E-padding-y-small  { padding: 1rem 0; }
-%E-padding-y-medium { padding: 2rem 0; }
-%E-padding-y-large  { padding: 3rem 0; }
+%E-pad-y-xs { padding: .5rem 0; }
+%E-pad-y-sm  { padding: 1rem 0; }
+%E-pad-y-md { padding: 2rem 0; }
+%E-pad-y-lg  { padding: 3rem 0; }
 
 // Horizontal (X)
 
-%E-padding-x-xsmall { padding: 0 .5rem; }
-%E-padding-x-small  { padding: 0 1rem; }
-%E-padding-x-medium { padding: 0 2rem; }
-%E-padding-x-large  { padding: 0 3rem; }
+%E-pad-x-xs { padding: 0 .5rem; }
+%E-pad-x-sm  { padding: 0 1rem; }
+%E-pad-x-md { padding: 0 2rem; }
+%E-pad-x-lg  { padding: 0 3rem; }
 
 // Sides
 
-%E-padding-top-small  { padding-top: 1rem; }
-%E-padding-top-medium { padding-top: 2rem; }
+%E-pad-top-sm  { padding-top: 1rem; }
+%E-pad-top-md { padding-top: 2rem; }
 
 //  =Borders
 //////////////////////////////
 
 // Accents
 
-@each $name, $color in map-get($colors, brand) {
-
+@each $name, $color in map-get($colors, primary) {
   @each $side in map-get($properties, origins) {
 
-    %E-accent-small-brand-#{ $name }-#{ $side } {
-      border-#{ $side }: 2px solid map-get($colors, $name);
-    }
-
-    %E-accent-medium-brand-#{ $name }-#{ $side } {
+    %E-accent-md-#{ $name }-#{ $side } {
       border-#{ $side }: 4px solid map-get($colors, $name);
     }
 
-    %E-accent-large-brand-#{ $name }-#{ $side } {
+    %E-accent-lg-#{ $name }-#{ $side } {
       border-#{ $side }: 6px solid map-get($colors, $name);
     }
   }
@@ -85,4 +80,4 @@
 
 // Border radius
 
-%E-border-radius-small { border-radius: 2px; }
+%E-border-radius-sm { border-radius: 2px; }

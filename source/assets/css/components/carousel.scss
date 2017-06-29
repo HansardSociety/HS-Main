@@ -4,18 +4,18 @@
 }
 
 .carousel {
-  @extend %E-margin-top-medium;
+  @extend %E-margin-top-md;
 }
 
 .carousel__item {
   max-width: 100%;
   height: auto;
 
-  @include above('small') {
+  @include above('sm') {
     width: calc((100% / 2) - .5rem);
   }
 
-  @include above('medium') {
+  @include above('md') {
     width: calc((100% / 3) - .6666rem);
   }
 
@@ -32,7 +32,7 @@
   @extend
     %E-flex-row,
     %E-margin-center-x,
-    %E-margin-top-small,
+    %E-margin-top-sm,
     %E-position-relative;
 
   &::before {
@@ -42,7 +42,7 @@
 
     content: '';
 
-    border-left: 2px solid $brand_white_2;
+    // border-left: 2px solid $brand_white_2;
 
     @extend %E-absolute-center-xy;
   }

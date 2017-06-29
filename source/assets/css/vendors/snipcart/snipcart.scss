@@ -1,5 +1,5 @@
 ﻿// HS theme
-@import '../../theme/_export';
+@import '../../main';
 // End HS theme
 
 /**
@@ -36,7 +36,7 @@ $padding-small: 1em;
     LOCAL VARIABLES
 \*------------------------------------*/
 
-$_base-padding: 1.5em 0;
+$_basE-pad: 1.5em 0;
 
 $_base-z-index: 1040;
 
@@ -97,6 +97,6 @@ body.snip-open {
     // Responsive
     @media #{$mq-large} {
         font-size: fontsize(reset, large);
-        padding: $_base-padding;
+        padding: $_basE-pad;
     }
 }

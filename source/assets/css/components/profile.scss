@@ -1,11 +1,11 @@
 .profile {
   &:nth-child(1n + 2) {
-    @extend %E-margin-top-xsmall;
+    @extend %E-margin-top-xs;
   }
 
   @extend
     %E-flex-row-center,
-    %E-border-radius-small;
+    %E-border-radius-sm;
 }
 
 .profile__image {
@@ -21,8 +21,8 @@
 
 .profile--side {
   @extend
-    %E-bgc-brand-white-1,
-    %E-padding-small;
+    %E-bgc-light-grey,
+    %E-pad-sm;
 }
 
 .profile__main {
@@ -32,6 +32,6 @@
 
 .profile__actions {
   @extend
-    %E-margin-top-small,
+    %E-margin-top-sm,
     %E-width-full;
 }

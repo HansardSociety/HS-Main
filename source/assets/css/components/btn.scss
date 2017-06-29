@@ -4,7 +4,7 @@
 
 .btn {
   @extend
-    %E-border-radius-small,
+    %E-border-radius-sm,
     %E-cursor-pointer,
     %E-flex-inline-row-center,
     %E-overflow-hidden,
@@ -14,20 +14,20 @@
 }
 
 .btn--group {
-  @extend %E-grid-flow__item--xsmall;
+  @extend %E-grid-flow__item--xs;
 }
 
-.btn--xsmall {
+.btn--xs {
   height: 1.5rem;
   min-width: 1.5rem;
 }
 
-.btn--small {
+.btn--sm {
   height: 2rem;
   min-width: 2rem;
 }
 
-.btn--medium {
+.btn--md {
   height: 3rem;
   min-width: 3rem;
 }
@@ -38,35 +38,35 @@
 
 .btn--primary {
   @extend
-    %E-bgc-brand-orange,
-    %E-color-brand-white;
+    %E-bgc-orange,
+    %E-col-white;
 
   &:active {
-    @extend %E-bgc-brand-orange-1;
+    // @extend %E-bgc-orange-1;
   }
 
-  @include above('large') {
+  @include above('lg') {
     &:hover {
-      background-color: $brand_orange_1;
+      // background-color: $brand_orange_1;
     }
   }
 }
 
 .btn--secondary {
-  border: 2px solid $brand_orange;
+  // border: 2px solid $brand_orange;
 
-  @extend %E-color-brand-orange;
+  @extend %E-col-orange;
 
   &:active {
     @extend
-      %E-bgc-brand-orange,
-      %E-color-brand-white;
+      %E-bgc-orange,
+      %E-col-white;
   }
 
-  @include above('large') {
+  @include above('lg') {
     &:hover {
-      color: $brand_white;
-      background-color: $brand_orange;
+      // color: $brand_white;
+      // background-color: $brand_orange;
     }
   }
 }
@@ -87,18 +87,18 @@
     %E-font-avenir-700-normal;
 }
 
-.btn__text--small {
+.btn__text--sm {
   min-width: 7rem;
   padding: 0 .5rem;
 
-  @extend %E-font-size-xsmall;
+  @extend %E-font-size-xs;
 }
 
-.btn__text--medium {
+.btn__text--md {
   min-width: 12rem;
   padding: 0 1rem;
 
-  @extend %E-font-size-small;
+  @extend %E-font-size-sm;
 }
 
 .btn__text--change {
@@ -149,10 +149,10 @@
   width: 1.5rem;
   height: 2px;
 
-  transition: $transition_all;
+  transition: all ease .2s;
 
   @extend
-    %E-bgc-brand-white,
+    %E-bgc-white,
     %E-position-absolute;
 }
 

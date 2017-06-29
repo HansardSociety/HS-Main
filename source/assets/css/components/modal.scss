@@ -4,7 +4,7 @@
   top: 0;
 
   @extend
-    %E-border-radius-small,
+    %E-border-radius-sm,
     %E-height-full-vh,
     %E-position-fixed,
     %E-width-full-vw;
@@ -13,7 +13,7 @@
     opacity: 0;
 
     @extend
-      %E-bgc-brand-white,
+      %E-bgc-white,
       %E-pseudo-elem,
       %E-width-full,
       %E-height-full;
@@ -27,15 +27,15 @@
 
   @extend
     %E-absolute-center-xy,
-    %E-bgc-brand-white,
-    %E-border-radius-small,
+    %E-bgc-white,
+    %E-border-radius-sm,
     %E-flex-row,
     %E-height-full-vh,
     %E-max-width-full,
     %E-overflow-y-hidden,
     %E-shadow-prime-black;
 
-  @include above('small') {
+  @include above('sm') {
     // height: 100%;
     height: auto;
     min-height: 5rem;
@@ -63,7 +63,7 @@
 
   @extend
     %E-overflow-y-auto,
-    %E-padding-small;
+    %E-pad-sm;
 }
 
 ////////////////////////////////////////////////////////////
