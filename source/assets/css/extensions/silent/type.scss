@@ -7,33 +7,22 @@
 %E-vertical-rhythm-md  { margin-top: 1.5em; }
 
 // Font families
+// @each $font_name, $font in map-get($fonts, main) {
+//   @each $weight_name, $weight in $font {
+//     @each $style_name, $style in $weight {
 
-@each $font_name, $font in map-get($fonts, main) {
-  @each $weight_name, $weight in $font {
-    @each $style_name, $style in $weight {
-
-      %E-font-#{ to-lower-case($font_name) }-#{ $weight_name }-#{ $style_name } {
-        font-family: '#{ $font_name } #{ $weight_name } #{ $style_name }';
-      }
-    }
-  }
-}
+//       %E-font-#{ to-lower-case($font_name) }-#{ $weight_name }-#{ $style_name } {
+//         font-family: '#{ $font_name } #{ $weight_name } #{ $style_name }';
+//       }
+//     }
+//   }
+// }
 
 // Font sizes
+// @each $size_name, $size in $font_sizes {
 
-@each $size_name, $size in $font_sizes {
-
-  %E-font-size-#{ $size_name } { font-size: #{ $size }; }
-
-  @each $screen in map-keys($breakpoints) {
-    @include above('#{ $screen }') {
-
-      %E-font-size-#{ $size_name }__#{ $screen } {
-        font-size: #{ $size };
-      }
-    }
-  }
-}
+//   %E-font-size-#{ $size_name } { font-size: #{ $size }; }
+// }
 
 %E-uppercase { text-transform: uppercase; }
 %E-lowercase { text-transform: lowercase; }

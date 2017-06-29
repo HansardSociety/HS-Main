@@ -12,9 +12,9 @@
     @extend .title;
   }
 
-  > h2 { @extend .title--lg; }
-  > h3 { @extend .title--md; }
-  > h4 { @extend .title--sm; }
+  // > h2 { @extend .title--lg; }
+  // > h3 { @extend .title--md; }
+  // > h4 { @extend .title--sm; }
 
   > p > a {
     @extend .link;

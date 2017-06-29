@@ -3,31 +3,44 @@
 ////////////////////////////////////////////////////////////
 
 $fonts: (
-  main: (
-    Avenir: (
-      300: (
-        normal: 'AvenirLTStd-Light.otf',
-        italic: 'AvenirLTStd-LightOblique.otf'
-      ),
-      400: (
-        normal: 'AvenirLTStd-Book.otf',
-        italic: 'AvenirLTStd-BookOblique.otf'
-      ),
-      700: (
-        normal: 'AvenirLTStd-Heavy.otf',
-        italic: 'AvenirLTStd-HeavyOblique.otf'
-      )
+  sizes: (
+    'xs': .875rem,
+    'sm': 1rem,
+    'by': 1.25rem,
+    'md': 1.5rem,
+    'lg': 1.75rem,
+    'xl': 2.25rem
+  ),
+  primary: (
+    'light': (
+      name:   'Avenir Light',
+      weight: 300,
+      file:   'AvenirLTStd-Light.otf'
+    ),
+    'light-italic': (
+      name:   'Avenir Light Italic',
+      weight: 300,
+      file:   'AvenirLTStd-LightOblique.otf'
+    ),
+    'normal': (
+      name:   'Avenir Normal',
+      weight: 400,
+      file:   'AvenirLTStd-Book.otf'
+    ),
+    'normal-italic': (
+      name:   'Avenir Normal Italic',
+      weight: 400,
+      file:   'AvenirLTStd-BookOblique.otf'
+    ),
+    'bold': (
+      name:   'Avenir Bold',
+      weight: 700,
+      file:   'AvenirLTStd-Heavy.otf'
+    ),
+    'bold-italic': (
+      name:   'Avenir Bold Italic',
+      weight: 700,
+      file:   'AvenirLTStd-HeavyOblique.otf'
     )
   )
-);
-
-$font_base: map-deep-get($fonts, 'main', 'Avenir', '300', 'normal' );
-
-$font_sizes: (
-  xs:   .875rem,
-  sm:    1rem,
-  byline:   1.25rem,
-  md:   1.5rem,
-  lg:    1.75rem,
-  xlg:   2.25rem
 );

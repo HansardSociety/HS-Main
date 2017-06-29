@@ -19,15 +19,14 @@
 
   @extend
     %E-col-green,
-    %E-display-block,
-    %E-font-avenir-400-normal;
+    %E-display-block;
 }
 
-.title--xs { @extend %E-font-size-xs; }
-.title--sm  { @extend %E-font-size-sm; }
-.title--md { @extend %E-font-size-md; }
-.title--lg  { @extend %E-font-size-lg; }
-.title--xl { @extend %E-font-size-xl; }
+// .title--xs { @extend %E-font-size-xs; }
+// .title--sm  { @extend %E-font-size-sm; }
+// .title--md { @extend %E-font-size-md; }
+// .title--lg  { @extend %E-font-size-lg; }
+// .title--xl { @extend %E-font-size-xl; }
 
 .title--white  { @extend %E-col-white; }
 
@@ -39,8 +38,7 @@
 
   @extend
     %E-col-dark-grey,
-    %E-display-block,
-    %E-font-avenir-300-normal;
+    %E-display-block;
 }
 
 .alt-title--xs { font-size: .625rem; }
@@ -54,7 +52,7 @@
 ////////////////////////////////////////////////////////////
 
 .byline {
-  @extend %E-font-size-byline;
+  // @extend %E-font-size-byline;
 
   &:not(:first-child) {
     @extend %E-margin-top-sm;

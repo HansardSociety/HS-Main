@@ -2,6 +2,10 @@
 //  Main
 ////////////////////////////////////////////////////////////
 
+// TODO:
+// - Fonts
+// - Font sizes
+
 .btn {
   @extend
     %E-border-radius-sm,
@@ -83,22 +87,21 @@
   font-size: .625rem;
 
   @extend
-    %E-display-block,
-    %E-font-avenir-700-normal;
+    %E-display-block;
 }
 
 .btn__text--sm {
   min-width: 7rem;
   padding: 0 .5rem;
 
-  @extend %E-font-size-xs;
+  // @extend %E-font-size-xs;
 }
 
 .btn__text--md {
   min-width: 12rem;
   padding: 0 1rem;
 
-  @extend %E-font-size-sm;
+  // @extend %E-font-size-sm;
 }
 
 .btn__text--change {

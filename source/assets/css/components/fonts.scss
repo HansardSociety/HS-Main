@@ -1,11 +1,14 @@
-@each $font_name, $font in map-get($fonts, main) {
-  @each $weight_name, $weight in $font {
-    @each $style_name, $style in $weight {
-      @font-face {
-        font-family: '#{ $font_name } #{ $weight_name } #{ $style_name }';
-        font-weight: #{ $weight_name };
-        src: url('./#{ $style }') format("opentype");
-      }
+///////////////////////////////////////////////////////////
+//  =Fonts - Components
+////////////////////////////////////////////////////////////
+
+@each $typeKey, $typeVal in map-get($fonts, primary) {
+  @each $propsKey, $propsVal in $typeVal {
+
+    @font-face {
+      // font-family: '#{ $propsVal }';
+      // font-weight: #{ map-get($propsVal, weight) };
+      // src: url('./#{ $propsKey }') format("opentype");
     }
   }
 }
