@@ -3,13 +3,15 @@
 ////////////////////////////////////////////////////////////
 
 html {
-  font: normal normal normal 18px/1.5 'Avenir 400 normal', Helvetica, sans-serif;
+  line-height: Get($type, line-height);
+
+  @extend %E-ff-prim-book;
 }
 
 body {
-  @extend %E-width-full-vw;
-
   overflow-x: hidden;
+
+  @extend %E-width-full-vw;
 }
 
 *, *::before, *::after {
@@ -30,12 +32,14 @@ li {
 
 a {
   text-decoration: none;
+
   color: inherit;
 }
 
 button {
-  border: 0;
   padding: 0;
+
+  border: 0;
   outline: none;
   background-color: transparent;
 }

@@ -5,7 +5,7 @@
   // border: 2px solid $brand_orange;
 
   @extend
-    %E-border-radius-sm,
+    %E-rad-slight,
     %E-display-inline-block,
     %E-transition-base-all,
     %E-position-relative;

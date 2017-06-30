@@ -9,19 +9,19 @@
     %E-bgc-light-grey,
     %E-overflow-hidden,
     %E-transition-base-all,
-    %E-border-radius-sm;
+    %E-rad-slight;
 
   &:nth-child(1n + 2) {
-    @extend %E-margin-top-xs;
+    @extend %E-mgn-t-xs;
   }
 }
 
-.side-card--events        { @extend %E-accent-md-blue-left; }
-.side-card--blog          { @extend %E-accent-md-brown-left; }
-.side-card--innovation    { @extend %E-accent-md-light-blue-left; }
+.side-card--events        { @extend %E-acc-md-blue-left; }
+.side-card--blog          { @extend %E-acc-md-brown-left; }
+.side-card--innovation    { @extend %E-acc-md-light-blue-left; }
 .side-card--resources,
-.side-card--publications  { @extend %E-accent-md-light-green-left; }
-.side-card--research      { @extend %E-accent-md-green-left; }
+.side-card--publications  { @extend %E-acc-md-light-green-left; }
+.side-card--research      { @extend %E-acc-md-green-left; }
 
 .side-card__inner {
   @extend %E-flex-row-start;

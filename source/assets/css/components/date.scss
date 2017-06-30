@@ -1,8 +1,7 @@
 .date {
-  @extend
-    %E-pad-sm,
-    %E-text-align-center,
-    %E-width-full;
+  @extend %E-pad-sm;
+  @extend %E-text-align-center;
+  @extend %E-width-full;
 }
 
 .date__day,

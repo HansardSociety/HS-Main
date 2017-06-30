@@ -26,8 +26,8 @@ section.accordian{
     .accordian__control
       = partial 'partials/btn',
         locals: { local_data: \
-          { type: 'state', size: 'small',
-            icon: 'chevron-down', icon_size: 'xsmall', icon_color: 'green',
+          { type: 'state', size: 'sm',
+            icon: 'chevron-down', icon_size: 'xs', icon_color: 'green',
             animation: 'rotate',
             aria_id: "activate-#{ @cta_id }", aria_target_id: "#{ @cta_id }" }}
 
@@ -45,5 +45,5 @@ section.accordian{
             - if cta.action == 'download'
               = partial 'partials/btn',
                 locals: { local_data: \
-                  { type: 'link', size: 'small', fill: true, style: 'primary', group: true,
-                    text: cta.button_text, text_size: 'small', url: cta.file.url }}
+                  { type: 'link', size: 'sm', fill: true, style: 'primary', group: true,
+                    text: cta.button_text, text_size: 'sm', url: cta.file.url }}

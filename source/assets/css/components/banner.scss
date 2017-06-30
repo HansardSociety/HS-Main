@@ -1,22 +1,20 @@
 .banner {
-  @extend
-    %E-position-relative,
-    %E-width-full;
+  @extend %E-position-relative;
+  @extend %E-width-full;
 }
 
 .banner--full {
-  height: 100vh;
+  @extend %E-height-full-vh;
 }
 
-.banner--square {
+.banner--semi {
   height: 66.6666vh;
 }
 
 .banner__inner {
-  @extend
-    %E-absolute-center-xy,
-    %E-pad-sm,
-    %E-container-wide;
+  @extend %E-absolute-center-xy;
+  @extend %E-pad-sm;
+  @extend %E-container-wide;
 }
 
 .banner__inner--overlap {
@@ -28,35 +26,31 @@
 
 .banner__content {
 
-  @extend
-    // %E-col-white,
-    %E-container-narrow,
-    %E-position-relative;
+  @extend %E-col-white;
+  @extend %E-container-narrow;
+  @extend %E-position-relative;
 }
 
 .banner__content--center {
   text-align: center;
 
-  @extend %E-margin-center-x;
+  @extend %E-mgn-auto-x;
 }
 
 .banner__actions {
-  @extend %E-margin-top-md;
+  @extend %E-mgn-t-md;
 }
 
 .banner__image {
-  @extend
-    %E-height-full-vh,
-    %E-overflow-hidden,
-    %E-overlay-medium,
-    %E-position-absolute-0,
-    %E-zidx-neg;
+  @extend %E-height-full-vh;
+  @extend %E-overflow-hidden;
+  @extend %E-overlay-medium;
+  @extend %E-position-absolute-0;
+  @extend %E-zidx-neg;
 }
 
 .banner__image img {
   min-height: 100%;
-
-  filter: contrast(.75);
 }
 
 .banner__scroll {

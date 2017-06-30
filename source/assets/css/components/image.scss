@@ -1,10 +1,6 @@
 .image {
-  align-items: flex-start;
-
-  @extend
-    %E-flex-row,
-    %E-overflow-hidden;
-
+  @extend %E-flex-row-start;
+  @extend %E-overflow-hidden;
   @include above('xs') {
     width: 100%;
 
@@ -13,24 +9,19 @@
 }
 
 .image--feature {
-  box-shadow: map-get($box_shadow, prime_black);
-
-  padding: .5rem;
-
   @extend %E-bgc-white;
+  @extend %E-pad-xs;
+  @extend %E-shadow-raised;
 }
 
 .image__img {
   order: 2;
-
   @extend %E-width-full;
 }
 
 .image__caption {
   width: calc(100% + 2rem);
   margin: 0 -1rem 1rem;
-
-  // border-bottom: 2px solid $brand_white_2;
 
   order: 1;
   @extend %E-pad-xs;

@@ -2,7 +2,6 @@
 //  =Functions
 ////////////////////////////////////////////////////////////
 
-@import './functions/colors';
 @import './functions/mapping';
 @import './functions/media-queries';
 @import './functions/string-replace';
@@ -11,49 +10,50 @@
 //  =Config
 ////////////////////////////////////////////////////////////
 
+@import "./config/box-model";
+@import "./config/btn";
 @import "./config/colors";
-@import "./config/fonts";
 @import "./config/media-queries";
+@import "./config/motion";
 @import "./config/properties";
 @import "./config/shadow";
+@import "./config/type";
 
 ///////////////////////////////////////////////////////////
 //  =Extensions
 ////////////////////////////////////////////////////////////
 
 // Components (core - maintain order)
-@import './extensions/silent/display';
-@import './extensions/silent/positioning';
-@import './extensions/silent/width-height';
-@import './extensions/silent/overflow';
+@import './extensions/display';
+@import './extensions/positioning';
+@import './extensions/width-height';
+@import './extensions/overflow';
 
 // Components (dependent/ non-dependent)
-@import './extensions/silent/animations';
-@import './extensions/silent/box-model';
-@import './extensions/silent/colors';
-@import './extensions/silent/container';
-@import './extensions/silent/cursor';
-@import './extensions/silent/hidden';
-@import './extensions/silent/opacity';
-@import './extensions/silent/overlay';
-@import './extensions/silent/pseudo-elem';
-@import './extensions/silent/shadow';
-@import './extensions/silent/transitions';
-@import './extensions/silent/type';
-@import './extensions/silent/z-index';
-@import './extensions/silent/grid-flow';
-
-// Active
-@import './extensions/active/box-model';
+@import './extensions/box-model';
+@import './extensions/colors';
+@import './extensions/container';
+@import './extensions/cursor';
+@import './extensions/hidden';
+@import './extensions/motion';
+@import './extensions/opacity';
+@import './extensions/overlay';
+@import './extensions/pseudo-elem';
+@import './extensions/shadow';
+@import './extensions/type';
+@import './extensions/z-index';
+@import './extensions/grid-flow';
 
 ///////////////////////////////////////////////////////////
 //  =Components
 ////////////////////////////////////////////////////////////
 
-@import "./components/fonts";
+// Primary
+@import "./components/type";
 @import "./components/core";
 @import "./components/states";
 
+// Secondary
 @import "./components/accordian";
 @import "./components/animations";
 @import "./components/banner";
@@ -67,7 +67,6 @@
 @import "./components/ext-link";
 @import "./components/footer";
 @import "./components/grid";
-@import "./components/hidden";
 @import "./components/icon";
 @import "./components/image";
 @import "./components/logo";
@@ -84,4 +83,3 @@
 @import "./components/snipcart";
 @import "./components/social";
 @import "./components/toc";
-@import "./components/type";

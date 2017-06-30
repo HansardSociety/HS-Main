@@ -1,11 +1,8 @@
 .accordian {
-  box-shadow: map-get($box_shadow, prime_black_light);
 
-  overflow: hidden;
-}
-
-.accordian--ctas {
-  // max-width: 13rem
+  @extend %E-bgc-light-grey;
+  @extend %E-overflow-hidden;
+  @extend %E-rad-slight;
 }
 
 .accordian__expand {
@@ -21,17 +18,13 @@
 }
 
 .accordian__header {
-  position: relative;
+  @extend %E-position-relative;
 }
 
 .accordian__control {
   right: .5rem;
 
   @extend %E-absolute-center-y;
-}
-
-.accordian__content {
-  // border-top: 2px solid $brand_white_1;
 }
 
 ////////////////////////////////////////////////////////////

@@ -5,18 +5,18 @@
 
   overflow: hidden;
 
-  box-shadow: map-get($box_shadow, prime_black_light);
+  // box-shadow: map-get($box_shadow, prime_black_light);
 
   @extend
     %E-bgc-light-grey,
-    %E-border-radius-sm;
+    %E-rad-slight;
 }
 
-.main-card--events       { @extend %E-accent-md-blue-top; }
-.main-card--blog         { @extend %E-accent-md-brown-top; }
-.main-card--innovation   { @extend %E-accent-md-light-blue-top; }
-.main-card--resources    { @extend %E-accent-md-light-green-top; }
-.main-card--research     { @extend %E-accent-md-green-top; }
+.main-card--events       { @extend %E-acc-md-blue-top; }
+.main-card--blog         { @extend %E-acc-md-brown-top; }
+.main-card--innovation   { @extend %E-acc-md-light-blue-top; }
+.main-card--resources    { @extend %E-acc-md-light-green-top; }
+.main-card--research     { @extend %E-acc-md-green-top; }
 
 .main-card__header {
   position: relative;

@@ -2,14 +2,18 @@
 //  =Colors
 ////////////////////////////////////////////////////////////
 
-@each $name, $color in map-merge(map-get($colors, primary), map-get($colors, greyscale)) {
+@each $name, $color in Merge(map-get($colors, primary),
+                             map-get($colors, secondary),
+                             map-get($colors, greyscale)) {
 
   // Colors
+  .E-col-#{ $name },
   %E-col-#{ $name } {
     color: $color;
   }
 
   // Background colors
+  .E-bgc-#{ $name },
   %E-bgc-#{ $name } {
     background-color: $color;
   }

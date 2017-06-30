@@ -4,7 +4,7 @@
   top: 0;
 
   @extend
-    %E-border-radius-sm,
+    %E-rad-slight,
     %E-height-full-vh,
     %E-position-fixed,
     %E-width-full-vw;
@@ -28,12 +28,11 @@
   @extend
     %E-absolute-center-xy,
     %E-bgc-white,
-    %E-border-radius-sm,
+    %E-rad-slight,
     %E-flex-row,
     %E-height-full-vh,
     %E-max-width-full,
-    %E-overflow-y-hidden,
-    %E-shadow-prime-black;
+    %E-overflow-y-hidden;
 
   @include above('sm') {
     // height: 100%;

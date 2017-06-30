@@ -2,8 +2,8 @@
 //  =Shadow
 ////////////////////////////////////////////////////////////
 
-@each $name, $shadow in $box_shadow {
-  %E-shadow-#{ str-replace($name, '_', '-') } {
-    box-shadow: $shadow;
+@each $shadowKey, $shadowVal in $shadow {
+  %E-shadow-#{ $shadowKey } {
+    box-shadow: $shadowVal;
   }
 }

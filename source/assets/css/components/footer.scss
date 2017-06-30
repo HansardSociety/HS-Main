@@ -1,11 +1,8 @@
 .footer {
-  padding: 2rem 1rem;
-
-  // color: $brand_white;
-  // background-color: $brand_black;
-
-  font-size: .75rem;
-
+  @extend %E-col-white;
+  @extend %E-bgc-black;
+  @extend %E-fz-xs;
+  @extend %E-pad-sm;
 }
 
 .footer__inner {

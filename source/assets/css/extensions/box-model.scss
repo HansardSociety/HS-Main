@@ -1,0 +1,93 @@
+///////////////////////////////////////////////////////////
+//  =Box model
+////////////////////////////////////////////////////////////
+
+@each $sizeKey, $sizeVal in $spacing {
+
+  $axes: (
+    x: (top, bottom),
+    y: (left, right)
+  );
+
+  $sides: (
+    t: top,
+    b: bottom,
+    l: left,
+    r: right
+  );
+
+  %E-mgn-#{ $sizeKey } {
+    margin: $sizeVal;
+  }
+
+  %E-pad-#{ $sizeKey } {
+    padding: $sizeVal;
+  }
+
+  @each $axisKey, $axisVal in $axes {
+    %E-mgn-#{ $axisKey }-#{ $sizeKey } {
+      @each $side in $axisVal {
+        margin-#{ $side }: $sizeVal;
+      }
+    }
+    %E-pad-#{ $axisKey }-#{ $sizeKey } {
+      @each $side in $axisVal {
+        padding-#{ $side }: $sizeVal;
+      }
+    }
+  }
+
+  @each $sideKey, $sideVal in $sides {
+
+    %E-mgn-#{ $sideKey }-#{ $sizeKey } {
+      margin-#{ $sideVal }: $sizeVal;
+    }
+
+    %E-pad-#{ $sideKey }-#{ $sizeKey } {
+      padding-#{ $sideVal }: $sizeVal;
+    }
+  }
+}
+
+%E-mgn-auto-x {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@each $screen in map-keys($breakpoints) {
+  @include above($screen) {
+
+    %E-mgn-auto-x__#{ $screen } {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+//  =Borders
+//////////////////////////////
+
+// Accents
+
+@each $name, $color in map-get($colors, primary) {
+  @each $side in map-get($properties, origins) {
+
+    %E-acc-md-#{ $name }-#{ $side } {
+      border-#{ $side }: 4px solid map-get($colors, $name);
+    }
+
+    %E-acc-lg-#{ $name }-#{ $side } {
+      border-#{ $side }: 6px solid map-get($colors, $name);
+    }
+  }
+}
+
+//  =Radii
+//////////////////////////////
+
+@each $radKey, $radVal in $radii {
+
+  %E-rad-#{ $radKey } {
+    border-radius: $radVal;
+  }
+}

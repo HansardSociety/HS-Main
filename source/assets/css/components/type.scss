@@ -1,72 +1,46 @@
-////////////////////////////////////////////////////////////
-//  Shared
+///////////////////////////////////////////////////////////
+//  =Type - Components
 ////////////////////////////////////////////////////////////
 
-.title--center,
-.byline--center {
-  text-align: center;
+//  =Font face
+//////////////////////////////
+
+@each $typeKey, $typeVal in map-get($type, primary) {
+
+  @font-face {
+    font-family: map-get($typeVal, name);
+    font-weight: map-get($typeVal, weight);
+    font-style: map-get($typeVal, style);
+    src: url('./' + map-get($typeVal, file)) format("opentype");
+  }
 }
 
+//  =Titles
+//////////////////////////////
 
-////////////////////////////////////////////////////////////
-//  Titles
-////////////////////////////////////////////////////////////
+@each $sizeKey, $sizeVal in map-get($type, sizes) {
 
-// ** Title **
-// ****************************
+  .title-#{ $sizeKey } {
+    @extend %E-col-current;
+    @extend %E-ff-prim-heavy;
+    @extend %E-fz-#{ $sizeKey };
+  }
 
-.title {
-
-  @extend
-    %E-col-green,
-    %E-display-block;
-}
-
-// .title--xs { @extend %E-font-size-xs; }
-// .title--sm  { @extend %E-font-size-sm; }
-// .title--md { @extend %E-font-size-md; }
-// .title--lg  { @extend %E-font-size-lg; }
-// .title--xl { @extend %E-font-size-xl; }
-
-.title--white  { @extend %E-col-white; }
-
-// ** Alt title **
-// ****************************
-
-.alt-title {
-  text-transform: uppercase;
-
-  @extend
-    %E-col-dark-grey,
-    %E-display-block;
-}
-
-.alt-title--xs { font-size: .625rem; }
-.alt-title--sm { font-size: 1rem; }
-.alt-title--md { font-size: 1.125rem; }
-.alt-title--lg { font-size: .625rem; }
-.alt-title--xl { font-size: .625rem; }
-
-////////////////////////////////////////////////////////////
-//  Paragraphs
-////////////////////////////////////////////////////////////
-
-.byline {
-  // @extend %E-font-size-byline;
-
-  &:not(:first-child) {
-    @extend %E-margin-top-sm;
+  .subtitle-#{ $sizeKey } {
+    @extend %E-col-current;
+    @extend %E-ff-prim-book;
+    @extend %E-fz-#{ $sizeKey };
+    @extend %E-upper;
   }
 }
 
 .link {
-  // border-bottom: 2px solid rgba($brand_green, .15);
+  border-bottom: 2px solid rgba(Get($colors, primary, green), .15);
 
-  @extend
-    %E-col-green,
-    %E-transition-base-all;
+  @extend %E-col-green;
+  @extend %E-transition-base-all;
 
   &:hover {
-    // border-bottom: 2px solid $brand_green;
+    border-bottom: 2px solid Get($colors, primary, green);
   }
 }

@@ -48,11 +48,11 @@
   @extend
     %E-container-wide,
     %E-display-flex,
-    %E-margin-center-x;
+    %E-mgn-auto-x;
 }
 
 .menu__category {
-  @extend %E-margin-top-md;
+  @extend %E-mgn-t-md;
 }
 
 .menu__category--outer {
@@ -66,7 +66,7 @@
 .menu__column {
   flex: 0 30%;
 
-  @extend %E-margin-top-md;
+  @extend %E-mgn-t-md;
 
   &:nth-child(1n + 2) {
     margin-left: 2rem;
@@ -75,24 +75,24 @@
 
 // Accents
 .menu__column--research,
-.menu__category--research     { // @extend %E-accent-md-green-top;
+.menu__category--research     { // @extend %E-acc-md-green-top;
 }
 .menu__column--about,
-.menu__category--about        { // @extend %E-accent-md-green-top;
+.menu__category--about        { // @extend %E-acc-md-green-top;
 }
 .menu__column--resources,
-.menu__category--resources    { // @extend %E-accent-md-light-green-top;
+.menu__category--resources    { // @extend %E-acc-md-light-green-top;
 }
 .menu__column--publications,
-.menu__category--publications    { // @extend %E-accent-md-light-green-top;
+.menu__category--publications    { // @extend %E-acc-md-light-green-top;
 }
 .menu__column--intelligence,
-.menu__category--intelligence { // @extend %E-accent-md-light-blue-top;
+.menu__category--intelligence { // @extend %E-acc-md-light-blue-top;
 }
 
 .menu__title {
   @extend
-    %E-margin-0,
+    %E-mgn-0,
     %E-col-white;
 }
 
@@ -102,9 +102,9 @@
   // background-color: $brand_black_1;
 
   @extend
-    %E-border-radius-sm,
+    %E-rad-slight,
     %E-display-block,
-    %E-margin-top-xs;
+    %E-mgn-t-xs;
 
   &:hover {
     // background-color: $brand_black_2;

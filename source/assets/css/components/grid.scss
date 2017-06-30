@@ -1,5 +1,4 @@
 .grid {
-  // margin-top: -1rem;
   margin-left: -2rem;
 
   @extend %E-flex-row;
@@ -16,10 +15,10 @@
 }
 
 .grid__cell {
-  margin-top: 1rem;
-  margin-left: 2rem;
-
   order: 1;
+
+  @extend %E-mgn-t-sm;
+  @extend %E-mgn-l-md;
 }
 
 .grid__cell--first {

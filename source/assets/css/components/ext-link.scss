@@ -3,23 +3,18 @@
 }
 
 .ext-link__inner {
-  align-items: flex-start;
-
-  @extend %E-flex-row-nowrap;
+  @extend %E-flex-row-nowrap-start;
 }
 
 .ext-link__icon {
-  margin-right: .5rem;
-
-  border-radius: 50%;
-
   width: 2rem;
   height: 2rem;
 
-  @extend
-    %E-bgc-light-grey,
-    %E-display-inline-flex,
-    %E-pad-xs;
+  @extend %E-bgc-light-grey;
+  @extend %E-display-inline-flex;
+  @extend %E-mgn-r-xs;
+  @extend %E-pad-xs;
+  @extend %E-rad-circ;
 }
 
 .ext-link__text {

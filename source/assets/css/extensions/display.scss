@@ -2,26 +2,45 @@
 //  =Display
 ////////////////////////////////////////////////////////////
 
-@each $property in map-get($properties, display) {
+$display: none, inline, block, inline-block, flex, inline-flex;
+
+
+//  =Display
+//////////////////////////////
+
+@each $property in $display {
 
   // Display base
-  %E-display-#{ $property } { display: #{ $property } }
+  %E-display-#{ $property } {
+    display: $property;
+  }
 
   // Display breakpoints
   @each $screen in map-keys($breakpoints) {
-    @include above('#{ $screen }') {
+    @include above($screen) {
 
       %E-display-#{ $property }__#{ $screen } {
-        display: #{ $property }
+        display: $property;
       }
     }
   }
 }
 
-// Flex base
+//  =Flex
+//////////////////////////////
+
+// Options:
+// E-flex-row
+// E-flex-row-start
+// E-flex-row-center
+// E-flex-row-nowrap
+// E-flex-row-nowrap-start
+// E-flex-inline-row
+// E-flex-inline-row-center
 
 %E-flex-row,
-%E-flex-row-nowrap {
+%E-flex-row-nowrap,
+%E-flex-row-nowrap-start {
   @extend %E-display-flex;
 }
 
@@ -29,14 +48,15 @@
   @extend %E-display-inline-flex;
 }
 
-// Flex direction
-
 %E-flex-row,
 %E-flex-inline-row {
   flex-flow: row wrap;
 }
 
-// Flex alignment
+%E-flex-row-nowrap,
+%E-flex-row-nowrap-start {
+  flex-flow: row nowrap;
+}
 
 %E-flex-row-start,
 %E-flex-row-center {
@@ -47,17 +67,12 @@
   @extend %E-flex-inline-row;
 }
 
-%E-flex-row-start {
+%E-flex-row-start,
+%E-flex-row-nowrap-start {
   align-items: flex-start;
 }
 
 %E-flex-row-center,
 %E-flex-inline-row-center {
   align-items: center;
-}
-
-// Flex wrap
-
-%E-flex-row-nowrap {
-  flex-flow: row nowrap;
 }

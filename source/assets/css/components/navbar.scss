@@ -31,7 +31,7 @@
   @extend
     %E-container-wide,
     %E-height-full,
-    %E-margin-center-x,
+    %E-mgn-auto-x,
     %E-pad-sm;
 
   @include above('lg') {
