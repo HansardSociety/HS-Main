@@ -24,10 +24,6 @@
   @extend %E-transition-base-all;
 }
 
-.btn--group {
-  @extend %E-grid-flow__item--xs;
-}
-
 @each $sizeKey, $sizeVal in map-get($btn, size) {
   .btn--#{ $sizeKey } {
     height: $sizeVal;

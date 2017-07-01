@@ -4,12 +4,9 @@
 
 @each $sizeKey, $sizeVal in $spacing {
 
-  $axes: (
-    x: (top, bottom),
-    y: (left, right)
-  );
-
   $sides: (
+    x: (top, bottom),
+    y: (left, right),
     t: top,
     b: bottom,
     l: left,
@@ -24,27 +21,27 @@
     padding: $sizeVal;
   }
 
-  @each $axisKey, $axisVal in $axes {
-    %E-mgn-#{ $axisKey }-#{ $sizeKey } {
-      @each $side in $axisVal {
+  @each $sideKey, $sideVal in $sides {
+
+    // Margin
+    %E-mgn-#{ $sideKey }-#{ $sizeKey } {
+      @each $side in $sideVal {
         margin-#{ $side }: $sizeVal;
       }
     }
-    %E-pad-#{ $axisKey }-#{ $sizeKey } {
-      @each $side in $axisVal {
-        padding-#{ $side }: $sizeVal;
+
+    // Negative margin
+    %E-mgn-neg-#{ $sideKey }-#{ $sizeKey } {
+      @each $side in $sideVal {
+        margin-#{ $side }: -$sizeVal;
       }
     }
-  }
 
-  @each $sideKey, $sideVal in $sides {
-
-    %E-mgn-#{ $sideKey }-#{ $sizeKey } {
-      margin-#{ $sideVal }: $sizeVal;
-    }
-
+    // Padding
     %E-pad-#{ $sideKey }-#{ $sizeKey } {
-      padding-#{ $sideVal }: $sizeVal;
+      @each $side in $sideVal {
+        padding-#{ $side }: $sizeVal;
+      }
     }
   }
 }
@@ -68,7 +65,6 @@
 //////////////////////////////
 
 // Accents
-
 @each $name, $color in map-get($colors, primary) {
   @each $side in map-get($properties, origins) {
 

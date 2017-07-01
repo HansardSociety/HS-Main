@@ -2,6 +2,19 @@
 //  =Grid flow
 ////////////////////////////////////////////////////////////
 
+@each $gutterKey, $gutterVal in $spacing {
+
+  .E-flow-#{ $gutterKey } {
+    @extend %E-mgn-neg-l-#{ $gutterKey };
+
+    & > * {
+      @extend %E-mgn-l-#{ $gutterKey };
+    }
+  }
+}
+
+//////////////////////////////////////////////////
+
 %E-grid-flow--xs {
   margin-top: -.4rem;
   margin-left: -.4rem;
@@ -11,3 +24,4 @@
   margin-top: .4rem;
   margin-left: .4rem;
 }
+

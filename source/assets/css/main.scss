@@ -24,16 +24,17 @@
 ////////////////////////////////////////////////////////////
 
 // Components (core - maintain order)
+@import './extensions/box-model';
 @import './extensions/display';
 @import './extensions/positioning';
 @import './extensions/width-height';
 @import './extensions/overflow';
 
 // Components (dependent/ non-dependent)
-@import './extensions/box-model';
 @import './extensions/colors';
 @import './extensions/container';
 @import './extensions/cursor';
+@import './extensions/flow';
 @import './extensions/hidden';
 @import './extensions/motion';
 @import './extensions/opacity';
@@ -42,7 +43,6 @@
 @import './extensions/shadow';
 @import './extensions/type';
 @import './extensions/z-index';
-@import './extensions/grid-flow';
 
 ///////////////////////////////////////////////////////////
 //  =Components
@@ -57,7 +57,6 @@
 @import "./components/accordian";
 @import "./components/animations";
 @import "./components/banner";
-@import "./components/btn-group";
 @import "./components/btn";
 @import "./components/carousel";
 @import "./components/content";

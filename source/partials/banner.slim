@@ -29,30 +29,31 @@ header.banner{
 
       / Actions
       - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
-        .btn-group.u-ptop-md
+        .grid.grid--xs
           - entry[:calls_to_action].each do |cta|
+            .grid__cell
 
-            / Download
-            - if cta[:action] == 'download'
-              = partial 'partials/btn',
-                locals: { local_data: \
-                  { type: 'link', size: 'md', style: 'primary', group: true,
-                    text: cta.button_text, text_size: 'md', url: cta.file.url }}
+              / Download
+              - if cta[:action] == 'download'
+                = partial 'partials/btn',
+                  locals: { local_data: \
+                    { type: 'link', size: 'md', style: 'primary', group: true,
+                      text: cta.button_text, text_size: 'md', url: cta.file.url }}
 
-            / Modal
-            - if cta[:action] == 'modal'
+              / Modal
+              - if cta[:action] == 'modal'
 
-              / Modal button
-              = partial 'partials/btn',
-                locals: { local_data: \
-                  { type: 'state',
-                    size: 'md',
-                    style: 'secondary', group: true,
-                    text_on: cta[:button_text], text_off: 'Close',
-                    text_size: 'md',
-                    page: 'no-scroll', exclusive: true,
-                    aria_id: "activate-#{  cta.modal[:cta_id] }",
-                    aria_target_id: cta.modal[:cta_id] }}
+                / Modal button
+                = partial 'partials/btn',
+                  locals: { local_data: \
+                    { type: 'state',
+                      size: 'md',
+                      style: 'secondary', group: true,
+                      text_on: cta[:button_text], text_off: 'Close',
+                      text_size: 'md',
+                      page: 'no-scroll', exclusive: true,
+                      aria_id: "activate-#{  cta.modal[:cta_id] }",
+                      aria_target_id: cta.modal[:cta_id] }}
 
   / Modal content (here to avoid banner__inner transform cascade)
   - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
