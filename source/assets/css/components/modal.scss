@@ -3,20 +3,18 @@
   left: -9999px;
   top: 0;
 
-  @extend
-    %E-rad-slight,
-    %E-height-full-vh,
-    %E-position-fixed,
-    %E-width-full-vw;
+  @extend %E-rad-slight;
+  @extend %E-height-full-vh;
+  @extend %E-position-fixed;
+  @extend %E-width-full-vw;
 
   &::before {
     opacity: 0;
 
-    @extend
-      %E-bgc-white,
-      %E-pseudo-elem,
-      %E-width-full,
-      %E-height-full;
+    @extend %E-bgc-white;
+    @extend %E-pseudo-elem;
+    @extend %E-width-full;
+    @extend %E-height-full;
   }
 }
 
@@ -25,17 +23,16 @@
 
   will-change: transform;
 
-  @extend
-    %E-absolute-center-xy,
-    %E-bgc-white,
-    %E-rad-slight,
-    %E-flex-row,
-    %E-height-full-vh,
-    %E-max-width-full,
-    %E-overflow-y-hidden;
+  @extend %E-absolute-center-xy;
+  @extend %E-bgc-white;
+  @extend %E-rad-slight;
+  @extend %E-flex-row;
+  @extend %E-height-full-vh;
+  @extend %E-max-width-full;
+  @extend %E-overflow-y-hidden;
 
   @include above('sm') {
-    // height: 100%;
+    // height: 10@extend %;
     height: auto;
     min-height: 5rem;
     max-height: 90vh;
@@ -47,22 +44,20 @@
   left: 0;
   height: 1.75rem;
 
-  @extend
-    %E-position-absolute,
-    %E-width-full;
+  @extend %E-position-absolute;
+  @extend %E-width-full;
 }
 
 .modal__close {
-  margin-left: calc(100% - 1.5rem);
+  margin-left: calc(10% - 1.5rem);
 }
 
 .modal__content {
   margin-top: 1.75rem;
   max-height: calc(90vh - 1.75rem); // must use units for Edge scroll
 
-  @extend
-    %E-overflow-y-auto,
-    %E-pad-sm;
+  @extend %E-overflow-y-auto;
+  @extend %E-pad-sm;
 }
 
 ////////////////////////////////////////////////////////////

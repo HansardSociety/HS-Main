@@ -1,23 +1,10 @@
-///////////////////////////////////////////////////////////
-//  =Functions
-////////////////////////////////////////////////////////////
+// Config
+@import "./config";
 
+// Functions
 @import './functions/mapping';
 @import './functions/media-queries';
 @import './functions/string-replace';
-
-///////////////////////////////////////////////////////////
-//  =Config
-////////////////////////////////////////////////////////////
-
-@import "./config/box-model";
-@import "./config/btn";
-@import "./config/colors";
-@import "./config/media-queries";
-@import "./config/motion";
-@import "./config/properties";
-@import "./config/shadow";
-@import "./config/type";
 
 ///////////////////////////////////////////////////////////
 //  =Extensions

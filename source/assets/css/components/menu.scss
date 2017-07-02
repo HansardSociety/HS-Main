@@ -75,38 +75,29 @@
 
 // Accents
 .menu__column--research,
-.menu__category--research     { // @extend %E-acc-md-green-top;
-}
+.menu__category--research     { @extend %E-acc-md-green-top; }
 .menu__column--about,
-.menu__category--about        { // @extend %E-acc-md-green-top;
-}
+.menu__category--about        { @extend %E-acc-md-green-top; }
 .menu__column--resources,
-.menu__category--resources    { // @extend %E-acc-md-light-green-top;
-}
+.menu__category--resources    { @extend %E-acc-md-light-green-top; }
 .menu__column--publications,
-.menu__category--publications    { // @extend %E-acc-md-light-green-top;
-}
+.menu__category--publications { @extend %E-acc-md-light-green-top; }
 .menu__column--intelligence,
-.menu__category--intelligence { // @extend %E-acc-md-light-blue-top;
-}
+.menu__category--intelligence { @extend %E-acc-md-light-blue-top; }
 
 .menu__title {
-  @extend
-    %E-col-white;
+  @extend %E-col-white;
 }
 
 .menu__link {
-  padding: .5rem;
-
-  // background-color: $brand_black_1;
-
-  @extend
-    %E-rad-slight,
-    %E-display-block,
-    %E-mgn-t-xs;
+  @extend %E-col-mid-grey;
+  @extend %E-display-block;
+  @extend %E-pad-xs;
+  @extend %E-rad-slight;
+  @extend %E-mgn-t-xs;
 
   &:hover {
-    // background-color: $brand_black_2;
+    @extend %E-col-dark-grey;
   }
 }
 
