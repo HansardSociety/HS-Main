@@ -1,10 +1,10 @@
 .social {
-  width: 2rem;
-  height: 2rem;
+  width: Get($btn, size, sm);
+  height: Get($btn, size, sm);
 
   border: 2px solid Get($colors, primary, orange);
 
-  @extend %E-col-white;
+  @extend %E-col-orange;
   @extend %E-display-inline-block;
   @extend %E-position-relative;
   @extend %E-rad-slight;
@@ -12,6 +12,8 @@
 
   &:hover {
     @extend %E-bgc-orange;
+    @extend %E-col-white;
+
 
     svg {
       fill: currentColor;

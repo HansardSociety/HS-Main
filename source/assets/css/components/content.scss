@@ -8,6 +8,7 @@
   border-top-right-radius: map-get($radii, slight);
 
   @extend %E-bgc-white;
+  @extend %E-shadow-raised;
 }
 
 .content__inner {
@@ -38,5 +39,5 @@
   // justify-content: space-around;
 
   @extend %E-flex-row-center;
-  @extend %E-text-align-center;
+  @extend %E-align-cen;
 }

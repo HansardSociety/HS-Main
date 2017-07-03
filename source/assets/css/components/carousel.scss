@@ -4,7 +4,7 @@
 }
 
 .carousel {
-  @extend %E-mgn-t-md;
+  @extend %E-mgn-t-sm;
 }
 
 .carousel__item {
@@ -20,7 +20,7 @@
   }
 
   &:nth-last-child(1n + 2) {
-    margin-right: 1rem;
+    // margin-right: 1rem;
   }
 }
 
@@ -37,7 +37,11 @@
   &::before {
     left: calc(50% - 1px);
 
+    border-left: 1px solid Get($colors, greyscale, light-grey);
+
     height: 1rem;
+
+    margin-top: -1px;
 
     content: '';
 
@@ -50,6 +54,10 @@
 
   @extend %E-cursor-pointer;
   @extend %E-flex-row-center;
+
+  &.swiper-button-disabled {
+    opacity: .5;
+  }
 }
 
 .carousel__prev > span { margin-left: .25rem; }

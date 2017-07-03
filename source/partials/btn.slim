@@ -109,4 +109,6 @@
       }
 
     - if @type == 'link' && @text
-      span.btn__text= @text
+      span.btn__text{
+        class="#{ 'btn__text--' + @text_size }"
+      }= @text

@@ -21,8 +21,7 @@
 @each $sizeKey, $sizeVal in map-get($type, sizes) {
 
   .title-#{ $sizeKey } {
-    @extend %E-col-current;
-    @extend %E-ff-prim-heavy;
+    @extend %E-ff-prim-#{ if($sizeKey == 'by', book, heavy) };
     @extend %E-fz-#{ $sizeKey };
   }
 
@@ -32,6 +31,10 @@
     @extend %E-fz-#{ $sizeKey };
     @extend %E-upper;
   }
+}
+.title-block {
+  @extend %E-acc-current-top;
+  // @extend %E-pad-t-xs;
 }
 
 .link {

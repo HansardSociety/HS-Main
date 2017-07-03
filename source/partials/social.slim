@@ -17,7 +17,7 @@
 
   a.social{
     class="#{
-      'social--group' if @group == true
+      'grid__cell' if @urls.length > 0
     }"
     href="#{ url }"
     target="_blank"
@@ -26,4 +26,4 @@
       = partial 'partials/icon',
         locals: { icon: "#{ url =~ /@/ ? 'email' : 'social-' + @domain.sld }",
                   color: 'orange',
-                  size: 'xsmall' }
+                  size: 'xs' }

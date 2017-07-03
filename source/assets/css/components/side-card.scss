@@ -15,12 +15,12 @@
   }
 }
 
-.side-card--events        { @extend %E-acc-md-blue-left; }
-.side-card--blog          { @extend %E-acc-md-brown-left; }
-.side-card--innovation    { @extend %E-acc-md-light-blue-left; }
+.side-card--events        { @extend %E-acc-blue-left; }
+.side-card--blog          { @extend %E-acc-brown-left; }
+.side-card--innovation    { @extend %E-acc-light-blue-left; }
 .side-card--resources,
-.side-card--publications  { @extend %E-acc-md-light-green-left; }
-.side-card--research      { @extend %E-acc-md-green-left; }
+.side-card--publications  { @extend %E-acc-light-green-left; }
+.side-card--research      { @extend %E-acc-green-left; }
 
 .side-card__inner {
   @extend %E-flex-row-start;

@@ -173,7 +173,7 @@ const truncate = (container, content) => {
   });
 
   var text            = container.querySelector(content);
-  var textLines       = Math.round((text.offsetHeight / 1.5) / 18) + 2; // Add 2 lines for top/ bottom padding
+  var textLines       = Math.round((text.offsetHeight / 1.5) / 18) + 2.5; // Add 2 lines for top/ bottom padding
   var textLength      = text.innerText.length;
 
   var containerLines  = Math.round(((container.offsetHeight - nonTextHeight) / 1.5) / 18);
@@ -219,6 +219,14 @@ smoothScroll.init({ offset: 64 });
 //  http://idangero.us/swiper/
 ////////////////////////////////////////////////////////////
 
+var screen = {
+  xs: 480,
+  sm: 600,
+  md: 960,
+  lg: 1280,
+  xl: 1920
+}
+
 var someSwiper = new Swiper ('.swiper-container', {
 
   nextButton: '.carousel__next',
@@ -226,6 +234,22 @@ var someSwiper = new Swiper ('.swiper-container', {
 
   direction: 'horizontal',
   loop: false,
-  slidesPerView: 'auto',
-  keyboardControl: true
+  keyboardControl: true,
+  preloadImages: false,
+
+  slidesPerView: 3,
+  spaceBetween: 9,
+
+  // Lazy-loading
+  lazyLoading: true,
+  lazyLoadingInPrevNext: true,
+
+  breakpoints: {
+    959: {
+      slidesPerView: 1
+    },
+    1279: {
+      slidesPerView: 2
+    }
+  }
 });

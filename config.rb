@@ -58,7 +58,7 @@ configure :build do
 
   activate :external_pipeline,
     name: :gulp,
-    command: 'npm run epipe:build',
+    command: 'yarn run epipe:build',
     source: '.tmp',
     latency: 1
 end
@@ -84,7 +84,7 @@ configure :server do
   activate :directory_indexes
   activate :external_pipeline,
     name: :gulp,
-    command: 'npm run epipe:dev',
+    command: 'yarn run epipe:dev',
     source: '.tmp'
 end
 

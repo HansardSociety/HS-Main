@@ -19,9 +19,7 @@
 //  Profile
 ////////////////////////////////////////////////////////////
 
-.profile{
-  class="#{ 'profile--side' if local_data[:side] }"
-}
+.profile
   .profile__image
     img{
       src="#{ @photo.url }?fit=fill&w=324&h=324"
@@ -29,34 +27,34 @@
     }
 
   .profile__main
-    h1.title.title--small= @full_name
-    p.alt-title.alt-title--xs.u-bold= @role
-    p.alt-title.alt-title--xs= @organisation
+    h1.title-sm.E-col-grey= @full_name
+    p.subtitle-xs= @role
+    p.subtitle-xs= @organisation
 
   - if (@biog || @twitter || @linkedin) && @actions != false
     .profile__actions
-      .btn-group
+      .grid.grid--xs
 
         / Biog
         - if @biog
+          .grid__cell
 
-          / Button
-          = partial 'partials/btn',
-            locals: { local_data: \
-              { type: 'state', size: 'small', style: 'secondary', group: true,
-                text_on: 'Show biog', text_off: 'Close biog', text_size: 'small',
-                page: 'no-scroll', exclusive: true,
-                aria_id: "activate-#{ @biog[:id] }",
-                aria_target_id: @biog[:id] }}
+            / Button
+            = partial 'partials/btn',
+              locals: { local_data: \
+                { type: 'state', size: 'sm', style: 'secondary',
+                  text_on: 'Show biog', text_off: 'Close biog', text_size: 'sm',
+                  page: 'no-scroll', exclusive: true,
+                  aria_id: "activate-#{ @biog[:id] }",
+                  aria_target_id: @biog[:id] }}
 
-          / Modal
-          = partial 'partials/modal',
-            locals: \
-            { id: @biog[:id],
-              content: @biog[:content] }
+            / Modal
+            = partial 'partials/modal',
+              locals: \
+              { id: @biog[:id],
+                content: @biog[:content] }
 
         / Social
         = partial 'partials/social',
           locals: { local_data: \
-            { icons: [ @email, @twitter, @linkedin ],
-              group: true }}
+            { icons: [ @email, @twitter, @linkedin ] }}

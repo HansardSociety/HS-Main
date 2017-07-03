@@ -2,20 +2,23 @@
   @extend %E-position-relative;
 
   > p, > h1, > h2, > h3, > h4, > h5, > h6, > img, > iframe, ul {
-    &:not(::only-child) {
-      margin-bottom: 1rem;
+    &:not(:only-child) {
+      @extend %E-mgn-b-sm;
     }
   }
 
   > p, > h1, > h2, > h3, > h4, > h5, > h6 {
-    margin-top: 1em;
+
+    &:not(:only-child) {
+      margin-top: 1em;
+    }
   }
 
   > h1 { @extend .title-xl; }
   > h2 { @extend .title-lg; }
   > h3 { @extend .title-md; }
-  > h4 { @extend .title-xl; }
-  > h5 { @extend .title-xl; }
+  > h4 { @extend .title-sm; }
+  > h5 { @extend .title-xs; }
 
   > p > a {
     @extend .link;
@@ -30,8 +33,7 @@
   }
 
   img {
-    max-width: 100%;
-
+    @extend %E-max-width-full;
     @extend %E-rad-slight;
   }
 }

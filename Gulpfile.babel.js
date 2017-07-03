@@ -59,6 +59,8 @@ var
     'chevron-down|' +
     'chevron-right|' +
     'chevron-left|' +
+    'ion-arrow-graph-up-right|' +
+    'ion-calendar|' +
     'social-twitter|' +
     'social-facebook|' +
     'social-linkedin|' +

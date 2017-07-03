@@ -13,32 +13,37 @@
     r: right
   );
 
-  %E-mgn-#{ $sizeKey } {
+  %E-mgn-#{ $sizeKey },
+  .E-mgn-#{ $sizeKey } {
     margin: $sizeVal;
   }
 
-  %E-pad-#{ $sizeKey } {
+  %E-pad-#{ $sizeKey },
+  .E-pad-#{ $sizeKey } {
     padding: $sizeVal;
   }
 
   @each $sideKey, $sideVal in $sides {
 
     // Margin
-    %E-mgn-#{ $sideKey }-#{ $sizeKey } {
+    %E-mgn-#{ $sideKey }-#{ $sizeKey },
+    .E-mgn-#{ $sideKey }-#{ $sizeKey } {
       @each $side in $sideVal {
         margin-#{ $side }: $sizeVal;
       }
     }
 
     // Negative margin
-    %E-mgn-neg-#{ $sideKey }-#{ $sizeKey } {
+    %E-mgn-neg-#{ $sideKey }-#{ $sizeKey },
+    .E-mgn-neg-#{ $sideKey }-#{ $sizeKey } {
       @each $side in $sideVal {
         margin-#{ $side }: -$sizeVal;
       }
     }
 
     // Padding
-    %E-pad-#{ $sideKey }-#{ $sizeKey } {
+    %E-pad-#{ $sideKey }-#{ $sizeKey },
+    .E-pad-#{ $sideKey }-#{ $sizeKey } {
       @each $side in $sideVal {
         padding-#{ $side }: $sizeVal;
       }
@@ -46,7 +51,8 @@
   }
 }
 
-%E-mgn-auto-x {
+%E-mgn-auto-x,
+.E-mgn-auto-x {
   margin-left: auto;
   margin-right: auto;
 }
@@ -54,7 +60,8 @@
 @each $screen in map-keys($breakpoints) {
   @include above($screen) {
 
-    %E-mgn-auto-x__#{ $screen } {
+    %E-mgn-auto-x__#{ $screen },
+    .E-mgn-auto-x__#{ $screen } {
       margin-left: auto;
       margin-right: auto;
     }
@@ -65,15 +72,12 @@
 //////////////////////////////
 
 // Accents
-@each $name, $color in map-get($colors, primary) {
+@each $name, $color in map-merge(map-get($colors, primary), map-get($colors, secondary)) {
   @each $side in map-get($properties, origins) {
 
-    %E-acc-md-#{ $name }-#{ $side } {
-      border-#{ $side }: 4px solid map-get($colors, $name);
-    }
-
-    %E-acc-lg-#{ $name }-#{ $side } {
-      border-#{ $side }: 6px solid map-get($colors, $name);
+    %E-acc-#{ $name }-#{ $side },
+    .E-acc-#{ $name }-#{ $side } {
+      border-#{ $side }: 4px solid Get($colors, primary, $name);
     }
   }
 }

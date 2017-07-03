@@ -1,28 +1,4 @@
 .panel {
-  @extend %E-pad-y-md;
+  // @extend %E-pad-x-md;
   @extend %E-position-relative;
-}
-
-.panel--white {
-  // background-color: $brand_white;
-}
-
-.panel--block {
-  &::before {
-    top: -2px;
-    left: 50%;
-
-    // border-top: 2px  solid $brand_white_2;
-
-    width: 10rem;
-
-    @extend %E-absolute-center-x;
-    @extend %E-pseudo-elem;
-  }
-}
-
-.panel--flow {
-  &:nth-of-type(2n + 0) {
-    // background-color: $brand_white_1;
-  }
 }

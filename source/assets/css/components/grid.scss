@@ -13,7 +13,7 @@
 .grid__cell {
   max-width: 40rem;
 
-  @extend %E-width-full;
+  // @extend %E-width-full;
 }
 
 // Allow item marked 'order-0' (below) to jump to start
@@ -63,7 +63,7 @@
         @include above($breakpoint) {
 
           // Cell
-          & > .grid__cell--above-#{ $breakpoint }-up-#{ $n } {
+          & > .grid__cell--above-#{ $breakpoint }-#{ $n } {
             flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $val });
           }
 

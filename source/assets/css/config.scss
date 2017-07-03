@@ -6,7 +6,7 @@ $type: (
   line-height: 1.5,
   sizes: (
     base: 18px,
-    xs:   .875rem,
+    xs:   .675rem,
     sm:   1rem,
     by:   1.25rem,
     md:   1.5rem,
@@ -72,7 +72,7 @@ $colors: (
     dark-orange:   #dc6700
   ),
   greyscale: (
-    white:         #f1f1f1,
+    white:         #fefefe,
     light-grey:    #e8e9ea,
     mid-grey:      #a4a7ab,
     grey:          #60666c,
@@ -115,6 +115,11 @@ $btn: (
     md: 2.25rem,
     lg: 3rem,
     xl: 4rem
+  ),
+  text-width: (
+    sm: 6rem,
+    md: 8rem,
+    lg: 10rem
   )
 );
 
@@ -123,16 +128,16 @@ $btn: (
 ////////////////////////////////////////////////////////////
 
 $breakpoints: (
-  'xs': 480px,
-  'sm':  600px,
-  'md': 960px,
-  'lg':  1280px,
-  'xl': 1920px
+  xs: 480px,
+  sm: 600px,
+  md: 960px,
+  lg: 1280px,
+  xl: 1920px
 );
 
 $orientations: (
-  'portrait':  portrait,
-  'landscape': landscape
+  portrait:  portrait,
+  landscape: landscape
 );
 
 ///////////////////////////////////////////////////////////

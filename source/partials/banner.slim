@@ -12,24 +12,24 @@ header.banner{
 
     / Content
     .banner__content {
-      class="#{ 'banner__content--center' if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) }"
+      class="#{ 'E-align-cen E-mgn-auto-x__sm' if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) }"
     }
 
       / Date (blog only)
       - if entry.TYPE == 'child_page' && entry[:category] == 'blog'
-        span.alt-title.alt-title--xs.u-col-white= entry[:date_time].date
+        span.subtitle-sm= entry[:date_time].date
 
       / Title
-      h1.title.u-col-white{
+      h1.title-xl{
         class="#{ ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) ? 'title--xlarge' : 'title--large' }"
       }= entry.title
 
       - if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE)
-        p.byline.u-col-white.u-mtop-md.u-bold= entry.subtitle
+        p.title-by= entry[:subtitle]
 
       / Actions
       - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
-        .grid.grid--xs
+        .grid.grid--xs.grid--center.E-mgn-t-sm
           - entry[:calls_to_action].each do |cta|
             .grid__cell
 
@@ -37,8 +37,8 @@ header.banner{
               - if cta[:action] == 'download'
                 = partial 'partials/btn',
                   locals: { local_data: \
-                    { type: 'link', size: 'md', style: 'primary', group: true,
-                      text: cta.button_text, text_size: 'md', url: cta.file.url }}
+                    { type: 'link', size: 'md', style: 'primary',
+                      text: cta.button_text, text_size: 'lg', url: cta[:file].url }}
 
               / Modal
               - if cta[:action] == 'modal'
@@ -47,23 +47,22 @@ header.banner{
                 = partial 'partials/btn',
                   locals: { local_data: \
                     { type: 'state',
-                      size: 'md',
-                      style: 'secondary', group: true,
+                      size: 'lg',
+                      style: 'secondary',
                       text_on: cta[:button_text], text_off: 'Close',
-                      text_size: 'md',
+                      text_size: 'lg',
                       page: 'no-scroll', exclusive: true,
                       aria_id: "activate-#{  cta.modal[:cta_id] }",
                       aria_target_id: cta.modal[:cta_id] }}
 
   / Modal content (here to avoid banner__inner transform cascade)
   - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
-    .banner__modal-content
-      - entry[:calls_to_action].each do |cta|
-        - if cta[:action] == 'modal'
-          = partial 'partials/modal',
-            locals: \
-            { id: cta.modal[:cta_id],
-              content: cta.modal[:content] }
+    - entry[:calls_to_action].each do |cta|
+      - if cta[:action] == 'modal'
+        = partial 'partials/modal',
+          locals: \
+          { id: cta.modal[:cta_id],
+            content: cta.modal[:content] }
 
   / Scroll down
   - if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE)
@@ -73,7 +72,7 @@ header.banner{
     }
       = partial 'partials/icon',
         locals: \
-        { icon: 'arrow-down',
+        { icon: 'chevron-down',
           color: 'orange',
           size: 'md' }
 

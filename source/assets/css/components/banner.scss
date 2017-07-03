@@ -31,12 +31,6 @@
   @extend %E-position-relative;
 }
 
-.banner__content--center {
-  text-align: center;
-
-  @extend %E-mgn-auto-x;
-}
-
 .banner__actions {
   @extend %E-mgn-t-md;
 }

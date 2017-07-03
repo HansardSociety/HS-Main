@@ -20,11 +20,12 @@
   @extend %E-overflow-hidden;
   @extend %E-position-relative;
   @extend %E-rad-slight;
-  @extend %E-text-align-center;
-  @extend  %E-trans-core;
+  @extend %E-align-cen;
+  @extend %E-trans-core;
 }
 
 @each $sizeKey, $sizeVal in map-get($btn, size) {
+
   .btn--#{ $sizeKey } {
     height: $sizeVal;
     min-width: $sizeVal;
@@ -46,7 +47,7 @@
 }
 
 .btn--secondary {
-  border: 2px solid currentColor;
+  border: 2px solid Get($colors, primary, orange);
 
   @extend %E-col-orange;
 
@@ -66,6 +67,13 @@
   font-size: .625rem;
 
   @extend %E-upper;
+}
+
+@each $widthKey, $widthVal in map-get($btn, text-width) {
+
+  .btn__text--#{ $widthKey } {
+    width: $widthVal;
+  }
 }
 
 .btn__text--change {

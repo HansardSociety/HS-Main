@@ -27,15 +27,15 @@ article
   .content.content--wide.content--paper
 
     / Page intro/ featured item
-    .grid.grid--center
-      section.grid__cell.grid__cell--medium-7.copy{
-        class="#{ 'grid__cell--order-2 grid__cell--order-1-medium' if [ 'blog', 'events' ].include? @entry[:category]  }"
+    .grid.grid--md.grid--center
+      section.grid__cell.grid__cell--above-md-7.copy{
+        class="#{ 'grid__cell--order-2 grid__cell--above-md-order-1' if [ 'blog', 'events' ].include? @entry[:category]  }"
       }
-        = Kramdown::Document.new(@introduction + "\n{: .byline }").to_html
+        = Kramdown::Document.new(@introduction + "\n{: .title-by }").to_html
 
       / Featured side content
-      aside.grid__cell.grid__cell--medium-5{
-        class="#{ 'grid__cell--order-1 grid__cell--order-2-medium' if [ 'blog', 'events' ].include? @entry[:category]  }"
+      aside.grid__cell.grid__cell--above-md-5{
+        class="#{ 'grid__cell--order-1 grid__cell--above-md-order-2' if [ 'blog', 'events' ].include? @entry[:category]  }"
       }
 
         / Need to perform check for older posts without featured content.
@@ -47,8 +47,7 @@ article
               - if featured[:author]
                 = partial 'partials/profile',
                   locals: { local_data: \
-                  { profile_data: featured[:author],
-                    side: true }}
+                  { profile_data: featured[:author] }}
 
           / Research
           - if @entry[:category] == 'research'
@@ -106,15 +105,15 @@ article
             content_source: 'profiles' }}
 
     - else
-      .grid.grid--center
+      .grid.grid--md.grid--center
 
         / Copy
-        .grid__cell.grid__cell--medium-7.copy
+        .grid__cell.grid__cell--above-md-7.copy
 
           = Kramdown::Document.new(@copy).to_html
 
         / Side content
-        aside.grid__cell.grid__cell--medium-5
+        aside.grid__cell.grid__cell--above-md-5
 
           / External links
           - if @entry[:external_links]

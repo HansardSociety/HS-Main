@@ -38,10 +38,17 @@ article
   //  'Latest' (related)
   ////////////////////////////
 
-  .panel.panel--block#banner-scroll-target
+  .panel#banner-scroll-target
     .content
       .content__inner.content__inner--wide.content__inner--center
-        h2.title.title--large Latest
+        h2.title-lg.E-col-green
+
+          = partial 'partials/icon',
+            locals: { icon:  'chevron-down',
+                      size:  'sm' }
+
+          | Latest
+
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @main_pages,
@@ -50,10 +57,10 @@ article
   //  Research
   ////////////////////////////
 
-  .panel.panel--block
+  .panel
     .content
       .content__inner.content__inner--wide.content__inner--center
-        h2.title.title--large Our work
+        h2.title-block.title-lg.E-col-green Our work
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @our_work,
@@ -62,10 +69,10 @@ article
   //  Events
   ////////////////////////////
 
-  .panel.panel--block
+  .panel
     .content
       .content__inner.content__inner--wide.content__inner--center
-        h2.title.title--large Events
+        h2.title-block.title-lg.E-col-blue Events
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @events,
@@ -74,10 +81,10 @@ article
   //  Events
   ////////////////////////////
 
-  .panel.panel--block
+  .panel
     .content
       .content__inner.content__inner--wide.content__inner--center
-        h2.title.title--large Blog
+        h2.title-block.title-lg.E-col-brown Blog
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @blog,

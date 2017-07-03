@@ -1,5 +1,7 @@
 .profile {
+  @extend %E-bgc-light-grey;
   @extend %E-flex-row-center;
+  @extend %E-pad-sm;
   @extend %E-rad-slight;
   &:nth-child(1n + 2) {
     @extend %E-mgn-t-xs;
@@ -9,18 +11,12 @@
 .profile__image {
   height: 4rem;
 
-  border-radius: 50%;
-
   @extend %E-overflow-hidden;
+  @extend %E-rad-circ;
 
   & > img {
     @extend %E-height-full;
   }
-}
-
-.profile--side {
-  @extend %E-bgc-light-grey;
-  @extend %E-pad-sm;
 }
 
 .profile__main {

@@ -46,18 +46,18 @@
 
   / Actions
   .carousel__actions
-    .carousel__prev.alt-title.alt-title--xs
+    .carousel__prev.subtitle-xs
       = partial 'partials/icon',
         locals: { icon:  'chevron-left',
-                  size:  'xsmall',
+                  size:  'xs',
                   color: 'green' }
       span Prev
 
-    .carousel__next.alt-title.alt-title--xs
+    .carousel__next.subtitle-xs
       span Next
       = partial 'partials/icon',
         locals: { icon:  'chevron-right',
-                  size:  'xsmall',
+                  size:  'xs',
                   color: 'green' }
 
 - if @content_source == 'profiles'

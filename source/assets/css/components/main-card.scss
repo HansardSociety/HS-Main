@@ -1,26 +1,24 @@
 .main-card {
-  width: 100%;
-
   text-align: left;
 
-  @extend %E-bgc-light-grey;
+  @extend %E-bgc-white;
   @extend %E-overflow-hidden;
   @extend %E-rad-slight;
   @extend %E-shadow-raised;
+  @extend %E-width-full;
 }
 
-.main-card--events       { @extend %E-acc-md-blue-top; }
-.main-card--blog         { @extend %E-acc-md-brown-top; }
-.main-card--innovation   { @extend %E-acc-md-light-blue-top; }
-.main-card--resources    { @extend %E-acc-md-light-green-top; }
-.main-card--research     { @extend %E-acc-md-green-top; }
+.main-card--events       { @extend %E-acc-blue-top; }
+.main-card--blog         { @extend %E-acc-brown-top; }
+.main-card--innovation   { @extend %E-acc-light-blue-top; }
+.main-card--resources    { @extend %E-acc-light-green-top; }
+.main-card--research     { @extend %E-acc-green-top; }
 
 .main-card__header {
   @extend %E-position-relative;
 }
 
 .main-card__image {
-
   @extend %E-overlay-dark;
 
   & > img {
