@@ -34,10 +34,3 @@
 .content--wide {
   @extend %E-container-wide;
 }
-
-.content--center {
-  // justify-content: space-around;
-
-  @extend %E-flex-row-center;
-  @extend %E-align-cen;
-}

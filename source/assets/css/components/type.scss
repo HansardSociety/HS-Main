@@ -32,10 +32,6 @@
     @extend %E-upper;
   }
 }
-.title-block {
-  @extend %E-acc-current-top;
-  // @extend %E-pad-t-xs;
-}
 
 .link {
   border-bottom: 2px solid rgba(Get($colors, primary, green), .15);

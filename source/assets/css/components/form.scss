@@ -1,0 +1,28 @@
+.form {
+
+}
+
+.form__text {
+  height: 2.5rem;
+  padding: 0 .5rem;
+
+  border: 2px solid grey;
+  background: transparent;
+
+  @extend %E-col-white;
+  @extend %E-rad-slight;
+  @extend %E-width-full;
+
+  &::placeholder {
+    @extend %E-col-dark-grey;
+  }
+}
+
+
+///////////////////////////////////////////////////////////
+//  =ActiveCampaign style
+////////////////////////////////////////////////////////////
+
+.pika-single {
+  z-index: 10000001 !important;
+}

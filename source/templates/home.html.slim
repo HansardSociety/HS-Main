@@ -40,15 +40,8 @@ article
 
   .panel#banner-scroll-target
     .content
-      .content__inner.content__inner--wide.content__inner--center
-        h2.title-lg.E-col-green
-
-          = partial 'partials/icon',
-            locals: { icon:  'chevron-down',
-                      size:  'sm' }
-
-          | Latest
-
+      .content__inner.content__inner--wide
+        h2.title-lg.E-align-cen.E-col-green Latest
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @main_pages,
@@ -57,34 +50,44 @@ article
   //  Research
   ////////////////////////////
 
-  .panel
+  .panel.E-bgc-light-grey
     .content
-      .content__inner.content__inner--wide.content__inner--center
-        h2.title-block.title-lg.E-col-green Our work
+      .content__inner.content__inner--wide
+        h2.title-lg.E-align-cen.E-col-green Our work
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @our_work,
               content_source: 'category-latest' }}
 
+  //  Newsletter
+  ////////////////////////////
+
+  .panel.E-bgc-black.E-col-white
+    .content.content--narrow
+      .grid.grid--center
+        .grid__cell
+          h2.title-lg Join our newsletter :)
+          =partial 'partials/ac-form'
+
   //  Events
   ////////////////////////////
 
-  .panel
+  .panel.E-bgc-light-grey
     .content
-      .content__inner.content__inner--wide.content__inner--center
-        h2.title-block.title-lg.E-col-blue Events
+      .content__inner.content__inner--wide
+        h2.title-lg.E-align-cen.E-col-green Events
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @events,
               content_source: 'category-latest' }}
 
-  //  Events
+  //  Blog
   ////////////////////////////
 
   .panel
     .content
-      .content__inner.content__inner--wide.content__inner--center
-        h2.title-block.title-lg.E-col-brown Blog
+      .content__inner.content__inner--wide
+        h2.title-lg.E-align-cen.E-col-green Blog
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @blog,

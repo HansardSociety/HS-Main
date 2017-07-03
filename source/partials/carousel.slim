@@ -5,7 +5,6 @@
 - @entry_data        = local_data[:entry_data]
 
 - @content_source    = local_data[:content_source]
-
 - @carousel_data     = local_data[:carousel_data]
 
 ////////////////////////////////////////////////////////////
@@ -65,5 +64,5 @@
     - if profile[:biog]
       = partial 'partials/modal',
         locals: \
-        { id: "modal-#{profile[:ID]}",
+        { id: "modal-#{ profile[:ID] }",
           content: profile[:biog] }
