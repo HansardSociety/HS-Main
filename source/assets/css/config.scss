@@ -54,29 +54,30 @@ $type: (
 );
 
 ////////////////////////////////////////////////////////////
-//	Colors
+//	=Colors
 ////////////////////////////////////////////////////////////
 
 $colors: (
   primary: (
-    black:         #1d252d,
     blue:          #236192,
     brown:         #8f3237,
     green:         #00685e,
     light-blue:    #6ba4b8,
     light-brown:   #ae8a79,
     light-green:   #80967a,
-    orange:        #f57300
+    orange:        #f57300,
   ),
   secondary: (
     current:       currentColor,
     dark-orange:   #dc6700
   ),
   greyscale: (
-    white:         #fefefe,
-    light-grey:    #f1f1f1,
-    mid-grey:      #45586b,
-    dark-grey:     #2a3641
+    white:         #f1f1f1,
+    light-grey:    #e8e9ea,
+    mid-grey:      #a4a7ab,
+    grey:          #60666c,
+    dark-grey:     #333a42,
+    black:         #1d252d
   )
 );
 
@@ -138,9 +139,36 @@ $orientations: (
 //  =Motion
 ////////////////////////////////////////////////////////////
 
+$easing: (
+  core: (ease-out .25s)
+);
+
 // Transitions
 $transition: (
-  core: 'all ease-out .25s'
+  core:       (all map-get($easing, core)),
+  transform:  (transform map-get($easing, core))
+);
+
+// Animations
+$animate: (
+  fade-in-opaque: (
+    prop:   opacity,
+    start:  0,
+    end:    .85,
+    easing: map-get($easing, core)
+  ),
+  slide-up-in: (
+    prop:   transform,
+    start:  translateY(100vh),
+    end:    translateY(0),
+    easing: map-get($easing, core)
+  ),
+  slide-up-in-center: (
+    prop:   transform,
+    start:  translate3d(-50%, 100vh, 0),
+    end:    translate3d(-50%, -50%, 0),
+    easing: map-get($easing, core)
+  )
 );
 
 ///////////////////////////////////////////////////////////

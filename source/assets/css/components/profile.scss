@@ -1,15 +1,14 @@
 .profile {
+  @extend %E-flex-row-center;
+  @extend %E-rad-slight;
   &:nth-child(1n + 2) {
     @extend %E-mgn-t-xs;
   }
-
-  @extend
-    %E-flex-row-center,
-    %E-rad-slight;
 }
 
 .profile__image {
   height: 4rem;
+
   border-radius: 50%;
 
   @extend %E-overflow-hidden;
@@ -20,18 +19,16 @@
 }
 
 .profile--side {
-  @extend
-    %E-bgc-light-grey,
-    %E-pad-sm;
+  @extend %E-bgc-light-grey;
+  @extend %E-pad-sm;
 }
 
 .profile__main {
   flex: 1;
-  padding-left: 1rem;
+  @extend %E-pad-l-sm;
 }
 
 .profile__actions {
-  @extend
-    %E-mgn-t-sm,
-    %E-width-full;
+  @extend %E-mgn-t-sm;
+  @extend %E-width-full;
 }

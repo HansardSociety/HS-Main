@@ -1,5 +1,4 @@
 .site-container {
-  @extend
-    %E-overflow-x-hidden,
-    %E-position-relative;
+  @extend %E-overflow-x-hidden;
+  @extend %E-position-relative;
 }

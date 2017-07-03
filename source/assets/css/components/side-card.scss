@@ -5,11 +5,10 @@
 }
 
 .side-card {
-  @extend
-    %E-bgc-light-grey,
-    %E-overflow-hidden,
-    %E-transition-base-all,
-    %E-rad-slight;
+  @extend %E-bgc-light-grey;
+  @extend %E-overflow-hidden;
+  @extend %E-trans-core;
+  @extend %E-rad-slight;
 
   &:nth-child(1n + 2) {
     @extend %E-mgn-t-xs;
@@ -30,14 +29,12 @@
 .side-card__image {
   width: 114.5px;
 
-  @extend
-    %E-flex-row-center,
-    %E-position-relative;
+  @extend %E-flex-row-center;
+  @extend %E-position-relative;
 
   > img {
-    @extend
-      %E-display-block,
-      %E-height-full;
+    @extend %E-display-block;
+    @extend %E-height-full;
   }
 }
 
@@ -46,9 +43,8 @@
 }
 
 .side-card__image--events {
-  @extend
-    %E-bgc-blue,
-    %E-col-white;
+  @extend %E-bgc-blue;
+  @extend %E-col-white;
 }
 
 .side-card__content {

@@ -18,6 +18,6 @@
   @extend %E-display-none;
   @include above('md') {
     @extend %E-display-block__md;
-    @extend %E-transition-base-transform__md;
+    @extend  %E-trans-transform__md;
   }
 }

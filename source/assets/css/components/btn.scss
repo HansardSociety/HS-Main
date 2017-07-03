@@ -21,7 +21,7 @@
   @extend %E-position-relative;
   @extend %E-rad-slight;
   @extend %E-text-align-center;
-  @extend %E-transition-base-all;
+  @extend  %E-trans-core;
 }
 
 @each $sizeKey, $sizeVal in map-get($btn, size) {
@@ -76,7 +76,7 @@
 
     @extend %E-display-block;
     @extend %E-position-relative;
-    @extend %E-transition-base-transform;
+    @extend  %E-trans-transform;
     @extend %E-width-full;
   }
 

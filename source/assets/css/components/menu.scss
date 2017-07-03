@@ -9,7 +9,7 @@
     %E-pad-sm,
     %E-height-full,
     %E-position-fixed,
-    %E-transition-base-transform,
+     %E-trans-transform,
     %E-zidx-neg;
 }
 
@@ -34,7 +34,7 @@
   @extend
     %E-display-none,
     %E-overflow-y-auto,
-    %E-transition-base-all,
+     %E-trans-core,
     %E-width-full-vw;
 
   @include above('md') {
@@ -59,7 +59,7 @@
   &:nth-of-type(1n + 2) {
     padding-top: 2rem;
 
-    // border-top: 1px solid $brand_black_2;
+    border-top: 1px solid Get($colors, secondary, dark-grey);
   }
 }
 
@@ -69,7 +69,7 @@
   @extend %E-mgn-t-md;
 
   &:nth-child(1n + 2) {
-    margin-left: 2rem;
+    @extend %E-mgn-l-md;
   }
 }
 
@@ -85,19 +85,15 @@
 .menu__column--intelligence,
 .menu__category--intelligence { @extend %E-acc-md-light-blue-top; }
 
-.menu__title {
-  @extend %E-col-white;
-}
-
 .menu__link {
-  @extend %E-col-mid-grey;
+  @extend %E-col-white;
   @extend %E-display-block;
-  @extend %E-pad-xs;
+  @extend %E-pad-t-xs;
+  @extend %E-pad-b-xs;
   @extend %E-rad-slight;
-  @extend %E-mgn-t-xs;
 
   &:hover {
-    @extend %E-col-dark-grey;
+    @extend %E-col-mid-grey;
   }
 }
 
@@ -108,5 +104,5 @@
 .menu.JS-active {
   transform: translateX(0);
 
-  // @extend %E-transition-base-transform;
+  // @extend  %E-trans-transform;
 }

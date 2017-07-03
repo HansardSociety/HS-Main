@@ -1,7 +1,6 @@
 .panel {
-  @extend
-    %E-pad-y-md,
-    %E-position-relative;
+  @extend %E-pad-y-md;
+  @extend %E-position-relative;
 }
 
 .panel--white {
@@ -17,9 +16,8 @@
 
     width: 10rem;
 
-    @extend
-      %E-absolute-center-x,
-      %E-pseudo-elem;
+    @extend %E-absolute-center-x;
+    @extend %E-pseudo-elem;
   }
 }
 

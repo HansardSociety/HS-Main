@@ -2,39 +2,45 @@
 //  =Motion - Config
 ////////////////////////////////////////////////////////////
 
-%E-trans-core {
-  transition: map-get($transition, core);
-}
-
-
-
-
-
-
-///////////////////////////////////////////////////////////
 //  =Transitions
-////////////////////////////////////////////////////////////
+//////////////////////////////
 
-%E-transition-base-all       { transition: all ease .2s; }
-%E-transition-base-transform { transition: transform ease .2s; }
+@each $transKey, $transVal in $transition {
 
-@each $screen in map-keys($breakpoints) {
-  @include above('#{ $screen }') {
+  %E-trans-#{ $transKey } {
+    transition: $transVal;
+  }
 
-    %E-transition-base-all__#{ $screen }       { transition: all ease .2s; }
-    %E-transition-base-transform__#{ $screen } { transition: transform ease .2s; }
+  @each $screen in map-keys($breakpoints) {
+
+    @include above($screen) {
+      %E-trans-#{ $transKey }__#{ $screen } {
+        transition: $transVal;
+      }
+    }
   }
 }
 
-
-///////////////////////////////////////////////////////////
-//  =Animations
-////////////////////////////////////////////////////////////
-
-%E-animate-fadein {
-  animation: FadeIn ease .2s;
+%E-fix-webkit-blur {
+  backface-visibility: hidden;
+  -webkit-filter: blur(0);
 }
 
-%E-animate-slide-up-in-center {
-  animation: SlideUpInCenter ease .2s;
+//  =Animations
+//////////////////////////////
+
+@each $animationKey, $animationVal in $animate {
+
+  @keyframes #{ $animationKey } {
+    0% {
+      #{ map-get($animationVal, prop) }: map-get($animationVal, start);
+    }
+    100% {
+      #{ map-get($animationVal, prop) }: map-get($animationVal, end);
+    }
+  }
+
+  %E-animate-#{ $animationKey } {
+    animation: $animationKey map-get($animationVal, easing)
+  }
 }

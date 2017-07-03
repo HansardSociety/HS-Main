@@ -1,7 +1,7 @@
 .modal {
   z-index: 300;
-  left: -9999px;
   top: 0;
+  left: -9999px;
 
   @extend %E-rad-slight;
   @extend %E-height-full-vh;
@@ -21,8 +21,12 @@
 .modal__inner {
   width: 40rem;
 
-  will-change: transform;
+  // Fix chrome blur
+  height: 99.9999vh;
+  min-height: 99.9999vh;
+  max-height: 99.9999vh;
 
+  will-change: transform;
   @extend %E-absolute-center-xy;
   @extend %E-bgc-white;
   @extend %E-rad-slight;
@@ -30,9 +34,8 @@
   @extend %E-height-full-vh;
   @extend %E-max-width-full;
   @extend %E-overflow-y-hidden;
-
   @include above('sm') {
-    // height: 10@extend %;
+    height: 100%;
     height: auto;
     min-height: 5rem;
     max-height: 90vh;
@@ -42,6 +45,7 @@
 .modal__header {
   top: 0;
   left: 0;
+
   height: 1.75rem;
 
   @extend %E-position-absolute;
@@ -49,12 +53,12 @@
 }
 
 .modal__close {
-  margin-left: calc(10% - 1.5rem);
+  margin-left: calc(100% - 1.5rem);
 }
 
 .modal__content {
+  max-height: 100vh; // must use units for Edge scroll
   margin-top: 1.75rem;
-  max-height: calc(90vh - 1.75rem); // must use units for Edge scroll
 
   @extend %E-overflow-y-auto;
   @extend %E-pad-sm;
@@ -69,12 +73,13 @@
   left: 0;
 
   &::before {
-    animation: FadeInSkin 300ms linear;
     animation-delay: 400ms;
+
+    @extend %E-animate-fade-in-opaque;
   }
 
   .modal__inner {
-    animation: SlideUpInCenter 300ms ease-out;
+    @extend %E-animate-slide-up-in-center;
   }
 }
 

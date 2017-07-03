@@ -2,28 +2,23 @@
   width: 2rem;
   height: 2rem;
 
-  // border: 2px solid $brand_orange;
+  border: 2px solid Get($colors, primary, orange);
 
-  @extend
-    %E-rad-slight,
-    %E-display-inline-block,
-    %E-transition-base-all,
-    %E-position-relative;
+  @extend %E-col-white;
+  @extend %E-display-inline-block;
+  @extend %E-position-relative;
+  @extend %E-rad-slight;
+  @extend %E-trans-core;
 
   &:hover {
     @extend %E-bgc-orange;
 
     svg {
-      // fill: $brand_white;
+      fill: currentColor;
     }
   }
 
   & > span {
-    margin-top: -1px;
     @extend %E-absolute-center-xy;
   }
-}
-
-.social--group {
-  @extend %E-grid-flow__item--xs;
 }

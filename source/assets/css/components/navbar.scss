@@ -1,25 +1,16 @@
 .navbar {
-  width: 100vw;
-  max-width: 100vw;
-
-  @include above('md') {
-    .navbar__center {
-      transform: translateY(1rem);
-    }
-  }
+  @extend %E-max-width-full-vw;
+  @extend %E-width-full;
 }
 
 .navbar {
   z-index: 200; // Override body overlay z-index
+  top: 0; left: 0;
 
   height: 3.5rem;
 
-  top: 0; left: 0;
-
-  @extend
-    %E-position-fixed,
-    %E-transition-base-all;
-
+  @extend %E-position-fixed;
+  @extend %E-trans-core;
   @include above('md') {
     height: 8rem;
   };
@@ -27,13 +18,10 @@
 
 .navbar__inner {
   justify-content: space-between;
-
-  @extend
-    %E-container-wide,
-    %E-height-full,
-    %E-mgn-auto-x,
-    %E-pad-sm;
-
+  @extend %E-container-wide;
+  @extend %E-height-full;
+  @extend %E-mgn-auto-x;
+  @extend %E-pad-sm;
   @include above('lg') {
     padding: 0;
   }
@@ -57,7 +45,6 @@
 .navbar__list,
 .navbar__item {
   @extend %E-display-none;
-
   @include above('md') {
     @extend %E-display-inline-block__md;
   }
@@ -65,7 +52,7 @@
 
 .navbar__list,
 .navbar__item {
-  padding-right: 1rem;
+  @extend %E-pad-r-sm;
 }
 
 ////////////////////////////////////////////////////////////
@@ -78,21 +65,8 @@
 .navbar.JS-active {
   z-index: 200;
 
-  // box-shadow: 0 0 6px 2px darken(rgba($brand_green, .9), 15%);
-
-  &::after {
-    top: 100%;
-
-    // border-top: 1px solid $brand_black_2;
-
-    @extend
-      %E-pseudo-elem,
-      %E-width-full;
-  }
-
-  @extend
-    %E-bgc-green;
-
+  @extend %E-bgc-green;
+  @extend %E-shadow-raised;
   @include above('md') {
     height: 3.5rem;
 
@@ -106,5 +80,14 @@
     .logo__image--desktop {
       transform: translateY(-90px);
     }
+  }
+
+  &::after {
+    top: 100%;
+
+    border-top: 1px solid Get($colors, secondary, dark-grey);
+
+    @extend %E-pseudo-elem;
+    @extend %E-width-full;
   }
 }

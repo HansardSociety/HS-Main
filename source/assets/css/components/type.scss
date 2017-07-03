@@ -38,7 +38,7 @@
   border-bottom: 2px solid rgba(Get($colors, primary, green), .15);
 
   @extend %E-col-green;
-  @extend %E-transition-base-all;
+  @extend %E-trans-core;
 
   &:hover {
     border-bottom: 2px solid Get($colors, primary, green);
