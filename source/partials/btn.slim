@@ -22,7 +22,6 @@
 
 - @icon             = local_data[:icon]
 - @icon_size        = local_data[:icon_size]
-- @icon_color       = local_data[:icon_color]
 - @animation        = local_data[:animation]
 
 //  State
@@ -97,8 +96,7 @@
       }
         = partial 'partials/icon',
           locals: { icon:  @icon,
-                    size:  @icon_size,
-                    color: @icon_color }
+                    size:  @icon_size }
 
     - if @text_on
       span.btn__text.btn__text--change{

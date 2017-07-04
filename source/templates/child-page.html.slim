@@ -31,7 +31,7 @@ article
       section.grid__cell.grid__cell--above-md-7.copy{
         class="#{ 'grid__cell--order-2 grid__cell--above-md-order-1' if [ 'blog', 'events' ].include? @entry[:category]  }"
       }
-        = Kramdown::Document.new(@introduction + "\n{: .title-by }").to_html
+        = Kramdown::Document.new(@introduction.gsub('\n', ' ') + "\n{: .E-fz-by }").to_html
 
       / Featured side content
       aside.grid__cell.grid__cell--above-md-5{

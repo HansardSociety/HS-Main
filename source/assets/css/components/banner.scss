@@ -43,28 +43,21 @@
 }
 
 .banner__image {
+  @extend %E-height-full-vh; // fallback for JS
   @extend %E-overflow-hidden;
   @extend %E-overlay-medium;
   @extend %E-position-absolute-0;
   @extend %E-zidx-neg;
-  @include orientation('portrait') {
-    height: calc(100vw * (16/9));
-  }
-  @include orientation('landscape') {
-    height: calc(100vw * (9/16));
-
-    @include aspectRatio('4/3') {
-      height: calc(100vw * (3/4));
-    }
-  }
 }
 
 .banner__image img {
   min-height: 100%;
+
+  @extend %E-display-block;
 }
 
 .banner__scroll {
-  bottom: 2rem;
+  bottom: 1rem;
 
   @extend %E-absolute-center-x;
 }

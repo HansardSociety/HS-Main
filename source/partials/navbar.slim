@@ -23,14 +23,14 @@ nav#navbar.navbar.JS-inactive
         locals: { local_data: \
           { id: 'menu-mobile',
             screen: 'mobile',
-            nav_items: data.hs.navigation }}
+            nav_items: data[:hs].navigation }}
 
       / Menu button (mobile)
       = partial 'partials/btn',
         locals: { local_data: \
           { type: 'state', size: 'sm',
             page: 'no-scroll',
-            icon: 'menu', icon_size: 'md', icon_color: 'white',
+            icon: 'menu', icon_size: 'md',
             aria_id: 'activate-menu-mobile', aria_target_id: 'menu-mobile' }}
 
     / Logo
@@ -41,45 +41,45 @@ nav#navbar.navbar.JS-inactive
 
       ul.navbar__list
 
-        - @sort_nav.each do |id, navigation|
+        - @sort_nav.each do |id, nav|
 
           / Base ID for menu and menu button (drop-down)
-          - @menu_desktop_id_base = 'menu-desktop' + navigation.title.parameterize
+          - @menu_desktop_id_base = 'menu-desktop' + nav[:title].parameterize
 
           li.navbar__item
-            h2.title.title--small.title--white{
+            h2.title-sm.E-col-white{
               class="#{
-                'dropdown__title dropdown__title--inline' if navigation.pages && navigation.pages.length > 1
+                'dropdown__title dropdown__title--inline' if nav[:pages] && nav[:pages].length > 1
               }"
             }
 
               / If navigation item contains one or no pages
-              - if navigation.pages && navigation.pages.length <= 1
-                - navigation.pages.each do |page|
+              - if nav[:pages] && nav[:pages].length <= 1
+                - nav[:pages].each do |page|
                   a{
                     href="#{ config[:SITE_URL] + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '') }"
-                    title="#{ navigation.title + ' - ' + config[:SITE_TITLE] }"
-                  }= navigation.title
+                    title="#{ nav[:title] + ' - ' + config[:SITE_TITLE] }"
+                  }= nav[:title]
 
               / If navigation item = external URL
-              - if navigation[:external_url]
+              - if nav[:external_url]
                 a{
-                  href="#{ navigation[:external_url] }"
-                  title="#{ navigation[:title] }"
+                  href="#{ nav[:external_url] }"
+                  title="#{ nav[:title] }"
                   target="_blank"
-                }= navigation[:title]
+                }= nav[:title]
 
               / If navigation item contains more than one page
-              - if navigation.pages && navigation.pages.length > 1
-                = navigation.title
+              - if nav[:pages] && nav[:pages].length > 1
+                = nav[:title]
 
                 / Dropdown
                 .dropdown__control
                   = partial 'partials/btn',
                     locals: { local_data: \
-                      { type: 'state', size: 'xsmall',
+                      { type: 'state', size: 'xs',
                         page: 'no-scroll', exclusive: true, secondary_target: 'navbar',
-                        icon: 'chevron-down', icon_size: 'xsmall', icon_color: 'white',
+                        icon: 'chevron-down', icon_size: 'xs',
                         animation: 'rotate',
                         aria_id: "activate-#{ @menu_desktop_id_base }",
                         aria_target_id: @menu_desktop_id_base }}
@@ -89,13 +89,14 @@ nav#navbar.navbar.JS-inactive
               locals: { local_data: \
                         { id: @menu_desktop_id_base,
                           screen: 'desktop',
-                          nav_items: navigation }}
+                          nav_items: nav }}
 
       / Search
-      = partial 'partials/btn',
-        locals: { local_data: \
-          { type: 'state', size: 'small',
-            page: 'no-scroll', exclusive: true,
-            icon: 'android-search', icon_size: 'small', icon_color: 'white',
-            aria_id: "activate-search",
-            aria_target_id: "search" }}
+      .E-col-white
+        = partial 'partials/btn',
+          locals: { local_data: \
+            { type: 'state', size: 'sm',
+              page: 'no-scroll', exclusive: true,
+              icon: 'android-search', icon_size: 'sm',
+              aria_id: "activate-search",
+              aria_target_id: "search" }}

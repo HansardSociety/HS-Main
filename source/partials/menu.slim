@@ -24,54 +24,52 @@
     ////////////////////////////////////////////////////////
 
     - if @screen == 'mobile'
-      - @nav_items.each do |id, navigation|
-        - @nav_pages = navigation[:pages]
-
+      - @nav_items.each do |id, nav|
         li.menu__category.menu__category--outer{
-          class="#{ 'dropdown' if @nav_pages && @nav_pages.length > 1 }"
+          class="#{ 'dropdown' if nav[:pages] && nav[:pages].length > 1 }"
         }
 
-          h2.title.title-md{
-            class="#{ 'dropdown__title' if @nav_pages && @nav_pages.length > 1 }"
+          h2.title-md{
+            class="#{ 'dropdown__title' if nav[:pages] && nav[:pages].length > 1 }"
           }
 
             / If navigation item contains one or no pages
-            - if @nav_pages && @nav_pages.length <= 1
-              - @nav_pages.each do |page|
+            - if nav[:pages] && nav[:pages].length <= 1
+              - nav[:pages].each do |page|
                 a{
                   href="#{ config[:SITE_URL] }/#{ page.slug + (config[:ENV] == 'development' ? '.html' : '') }"
-                  title="#{ navigation.title } - #{ config[:SITE_TITLE] }"
-                }= navigation.title
+                  title="#{ nav[:title] } - #{ config[:SITE_TITLE] }"
+                }= nav[:title]
 
             / If navigation item contains more than one page
-            - if @nav_pages && @nav_pages.length > 1
-              = navigation.title
+            - if nav[:pages] && nav[:pages].length > 1
+              = nav[:title]
 
               .dropdown__control
 
                 / dropdown control
                 = partial 'partials/btn',
                   locals: { local_data: \
-                    { type: 'state', size: 'small',
-                      icon: 'chevron-down', icon_size: 'medium', icon_color: 'white',
+                    { type: 'state', size: 'sm',
+                      icon: 'chevron-down', icon_size: 'sm',
                       animation: 'rotate',
-                      aria_id: "activate-menu-dropdown-#{ navigation.title.parameterize }",
-                      aria_target_id: "menu-dropdown-#{ navigation.title.parameterize }" }}
+                      aria_id: "activate-menu-dropdown-#{ nav[:title].parameterize }",
+                      aria_target_id: "menu-dropdown-#{ nav[:title].parameterize }" }}
 
           ul{
-            class="#{ 'dropdown__content JS-inactive' if @nav_pages }"
-            id="menu-dropdown-#{ navigation.title.parameterize }"
+            class="#{ 'dropdown__content JS-inactive' if nav[:pages] }"
+            id="menu-dropdown-#{ nav[:title].parameterize }"
           }
 
             / Group pages by category
-            - if @nav_pages
-              - @nav_pages.group_by(&:category).each do |category, pages|
+            - if nav[:pages]
+              - nav[:pages].group_by(&:category).each do |category, pages|
                 li.menu__category{
                   class="menu__category--#{ category.downcase }"
                 }
-                  h3.alt-title.alt-title--xs.u-mtop-xs= category if navigation.title != category
-                  ul
+                  h3.subtitle-xs.E-col-mid-grey= category if nav[:title] != category
 
+                  ul
                     - pages.each do |page|
                       li
                         h4.title.title--small.title--white
@@ -88,10 +86,10 @@
         li.menu__column{
           class="menu__column--#{ category.parameterize }"
         }
-          h3.alt-title.alt-title--xs.u-mtop-xs= category
+          h3.subtitle-xs.E-col-mid-grey.E-mgn-t-xs= category
 
           - pages.each do |page|
-            h4.title.title--small.title--white
+            h4.title-sm.E-mgn-t-xs
               a.menu__link{
                 href="#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
               }= page.title

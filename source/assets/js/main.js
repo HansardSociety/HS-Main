@@ -209,6 +209,13 @@ window.onresize = function() {
 };
 
 ////////////////////////////////////////////////////////////
+//  Hero image
+////////////////////////////////////////////////////////////
+
+var screenHeight = window.outerHeight;
+document.querySelector('.banner__image').style.height = `${ screenHeight }px`
+
+////////////////////////////////////////////////////////////
 //  Smooth scroll
 //  https://github.com/cferdinandi/smooth-scroll
 ////////////////////////////////////////////////////////////
@@ -228,7 +235,7 @@ var screen = {
   xl: 1920
 }
 
-var someSwiper = new Swiper ('.swiper-container', {
+var carousel = new Swiper ('.swiper-container', {
 
   nextButton: '.carousel__next',
   prevButton: '.carousel__prev',

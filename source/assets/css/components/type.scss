@@ -21,7 +21,7 @@
 @each $sizeKey, $sizeVal in map-get($type, sizes) {
 
   .title-#{ $sizeKey } {
-    @extend %E-ff-prim-#{ if($sizeKey == 'by', book, heavy) };
+    @extend %E-ff-prim-heavy;
     @extend %E-fz-#{ $sizeKey };
   }
 

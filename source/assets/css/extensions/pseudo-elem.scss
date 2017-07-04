@@ -5,7 +5,6 @@
 %E-pseudo-elem {
   content: '';
 
-  @extend
-    %E-display-block,
-    %E-position-absolute-0;
+  @extend %E-display-block;
+  @extend %E-position-absolute-0;
 }

@@ -1,6 +1,5 @@
 .navbar {
-  @extend %E-max-width-full-vw;
-  @extend %E-width-full;
+  @extend %E-width-full-vw;
 }
 
 .navbar {
@@ -50,7 +49,6 @@
   }
 }
 
-.navbar__list,
 .navbar__item {
   @extend %E-pad-r-sm;
 }

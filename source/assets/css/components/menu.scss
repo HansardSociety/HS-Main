@@ -87,10 +87,7 @@
 
 .menu__link {
   @extend %E-col-white;
-  @extend %E-display-block;
-  @extend %E-pad-t-xs;
-  @extend %E-pad-b-xs;
-  @extend %E-rad-slight;
+  @extend %E-trans-core;
 
   &:hover {
     @extend %E-col-mid-grey;
