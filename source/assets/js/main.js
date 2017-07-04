@@ -167,13 +167,14 @@ const truncate = (container, content) => {
   // Get height of non-content container children
   var nonTextHeight   = 0;
   forEach(container.childNodes, (index, elem) => {
+
     if (!elem.classList.contains('side-card__title')) {
-      nonTextHeight = elem.offsetHeight;
+      nonTextHeight += elem.offsetHeight;
     }
   });
 
   var text            = container.querySelector(content);
-  var textLines       = Math.round((text.offsetHeight / 1.5) / 18) + 2.5; // Add 2 lines for top/ bottom padding
+  var textLines       = Math.round((text.offsetHeight / 1.5) / 18) + 2; // Add 2 lines for top/ bottom padding
   var textLength      = text.innerText.length;
 
   var containerLines  = Math.round(((container.offsetHeight - nonTextHeight) / 1.5) / 18);

@@ -22,8 +22,7 @@
 }
 
 %E-fix-webkit-blur {
-  backface-visibility: hidden;
-  -webkit-filter: blur(0);
+  -webkit-backface-visibility: hidden;
 }
 
 //  =Animations

@@ -25,24 +25,26 @@
 
     - if @screen == 'mobile'
       - @nav_items.each do |id, navigation|
+        - @nav_pages = navigation[:pages]
+
         li.menu__category.menu__category--outer{
-          class="#{ 'dropdown' if navigation.pages && navigation.pages.length > 1 }"
+          class="#{ 'dropdown' if @nav_pages && @nav_pages.length > 1 }"
         }
 
-          h2.title.title--medium.title--white{
-            class="#{ 'dropdown__title' if navigation.pages && navigation.pages.length > 1 }"
+          h2.title.title-md{
+            class="#{ 'dropdown__title' if @nav_pages && @nav_pages.length > 1 }"
           }
 
             / If navigation item contains one or no pages
-            - if navigation.pages && navigation.pages.length <= 1
-              - navigation.pages.each do |page|
+            - if @nav_pages && @nav_pages.length <= 1
+              - @nav_pages.each do |page|
                 a{
                   href="#{ config[:SITE_URL] }/#{ page.slug + (config[:ENV] == 'development' ? '.html' : '') }"
                   title="#{ navigation.title } - #{ config[:SITE_TITLE] }"
                 }= navigation.title
 
             / If navigation item contains more than one page
-            - if navigation.pages && navigation.pages.length > 1
+            - if @nav_pages && @nav_pages.length > 1
               = navigation.title
 
               .dropdown__control
@@ -57,13 +59,13 @@
                       aria_target_id: "menu-dropdown-#{ navigation.title.parameterize }" }}
 
           ul{
-            class="#{ 'dropdown__content JS-inactive' if navigation.pages }"
+            class="#{ 'dropdown__content JS-inactive' if @nav_pages }"
             id="menu-dropdown-#{ navigation.title.parameterize }"
           }
 
             / Group pages by category
-            - if navigation.pages
-              - navigation.pages.group_by(&:category).each do |category, pages|
+            - if @nav_pages
+              - @nav_pages.group_by(&:category).each do |category, pages|
                 li.menu__category{
                   class="menu__category--#{ category.downcase }"
                 }

@@ -39,13 +39,11 @@ article.side-card{
     .side-card__content
       .side-card__meta
 
-        - if ([ 'research', 'resources', 'blog' ].include? @side_card_data[:category]) || (@is_product || @is_registration)
-          span.subtitle-xs.E-col-grey= @side_card_data[:category] + (@side_card_data[:date_time] ? ' / ' + @side_card_data[:date_time][:date] : '')
+        - if ([ 'research', 'resources' ].include? @side_card_data[:category]) || (@is_product || @is_registration)
+          span.subtitle-xs.E-col-mid-grey= @side_card_data[:category]
 
-        - if @side_card_data[:category] == 'events'
-          span.subtitle-xs.E-col-grey= @side_card_data[:registration] != nil ? \
-            (@side_card_data[:category] + ' / ' + @side_card_data[:registration].date_time.date) : \
-            @side_card_data[:category] + ' / ' + @side_card_data[:date_time][:date]
+        - if [ 'blog' ].include? @side_card_data[:category]
+          span.subtitle-xs.E-col-mid-grey= @side_card_data[:category ]+ ' / ' + @side_card_data[:date_time][:date]
 
       .side-card__title.E-mgn-t-xs
 

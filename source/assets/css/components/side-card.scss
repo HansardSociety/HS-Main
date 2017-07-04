@@ -48,10 +48,12 @@
 }
 
 .side-card__content {
-  flex: 1;
   padding: 1rem 1rem 1rem .5rem;
+
+  flex: 1;
 }
 
 .side-card__meta {
   height: 1rem;
+  line-height: 1;
 }

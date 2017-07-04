@@ -4,10 +4,12 @@
 
 .grid {
   @extend %E-flex-row;
+  // @extend %E-width-full;
+
 }
 
 .grid--center {
-  justify-content: center;
+  // justify-content: center;
 }
 
 @each $breakpoint in map-keys($breakpoints) {
@@ -21,9 +23,8 @@
 
 
 .grid__cell {
-  max-width: 40rem;
+    // @extend %E-max-width-full;
 
-  // @extend %E-width-full;
 }
 
 // Allow item marked 'order-0' (below) to jump to start

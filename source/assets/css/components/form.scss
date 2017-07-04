@@ -1,9 +1,9 @@
 .form {
-  width: 25rem;
+  width: 100%;
+  max-width: 25rem;
 
-  @extend %E-max-width-full;
+  @extend %E-mgn-auto-x;
   @extend %E-rad-slight;
-
 }
 
 .form--light {

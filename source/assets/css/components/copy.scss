@@ -40,4 +40,8 @@
     @extend %E-max-width-full;
     @extend %E-rad-slight;
   }
+
+  > iframe {
+    @extend %E-width-full;
+  }
 }
