@@ -8,7 +8,7 @@
   @extend %E-bgc-white;
   @extend %E-overflow-hidden;
   @extend %E-rad-slight;
-  @extend %E-shadow-raised;
+  @extend %E-box-shad-raised;
 
   &:hover {
     img {
@@ -29,7 +29,7 @@
 }
 
 .main-card__image {
-  @extend %E-overlay-dark;
+  @extend %E-overlay-medium;
 
   & > img {
     @extend %E-display-block;
@@ -44,7 +44,7 @@
 }
 
 .main-card__meta {
-  top: 1rem;
+  top: .5rem;
   left: 1rem;
 }
 

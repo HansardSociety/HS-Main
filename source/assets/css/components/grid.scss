@@ -10,6 +10,16 @@
   justify-content: center;
 }
 
+@each $breakpoint in map-keys($breakpoints) {
+  @include above($breakpoint) {
+
+    .grid--above-#{ $breakpoint }-center {
+      justify-content: center;
+    }
+  }
+}
+
+
 .grid__cell {
   max-width: 40rem;
 

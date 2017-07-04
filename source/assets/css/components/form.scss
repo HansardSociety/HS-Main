@@ -1,23 +1,45 @@
 .form {
+  width: 25rem;
 
+  @extend %E-max-width-full;
+  @extend %E-rad-slight;
+
+}
+
+.form--light {
+  @extend %E-bgc-light-grey;
+
+  .form__text::placeholder {
+    @extend %E-col-mid-grey;
+  }
+}
+
+.form--dark {
+  @extend %E-bgc-black;
+  @extend %E-col-white;
+
+  .form__text::placeholder {
+    @extend %E-col-grey;
+  }
+}
+
+.form--side {
+  @extend %E-mgn-t-xs;
+  @extend %E-pad-sm;
 }
 
 .form__text {
   height: 2.5rem;
   padding: 0 .5rem;
 
-  border: 2px solid grey;
+  border: 2px solid Get($colors, greyscale, mid-grey);
   background: transparent;
 
   @extend %E-col-white;
+  @extend %E-ff-prim-book;
   @extend %E-rad-slight;
   @extend %E-width-full;
-
-  &::placeholder {
-    @extend %E-col-dark-grey;
-  }
 }
-
 
 ///////////////////////////////////////////////////////////
 //  =ActiveCampaign style

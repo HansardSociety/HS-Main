@@ -29,7 +29,8 @@
 
     content: '';
 
-    border-left: 1px solid Get($colors, greyscale, light-grey);
+    opacity: .5;
+    border-left: 1px solid Get($colors, primary, green);
 
     @extend %E-absolute-center-xy;
   }

@@ -12,7 +12,7 @@ header.banner{
 
     / Content
     .banner__content {
-      class="#{ 'E-align-cen E-mgn-auto-x__sm' if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) }"
+      class="#{ 'E-mgn-auto-x__sm' if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) }"
     }
 
       / Date (blog only)
@@ -20,16 +20,18 @@ header.banner{
         span.subtitle-sm= entry[:date_time].date
 
       / Title
-      h1.title-xl{
-        class="#{ ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) ? 'title--xlarge' : 'title--large' }"
+      h1.E-txt-shad-slight{
+        class="#{ ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) \
+                    ? 'title-xl E-align-cen' \
+                    : 'title-lg' }"
       }= entry.title
 
-      - if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE)
-        p.title-by= entry[:subtitle]
+      - if [ 'landing_page', 'root_page', 'home' ].include? entry.TYPE
+        p.banner__byline.title-by= entry[:subtitle]
 
       / Actions
       - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
-        .grid.grid--xs.grid--center.E-mgn-t-sm
+        .grid.grid--xs.grid--above-sm-center.E-mgn-t-sm
           - entry[:calls_to_action].each do |cta|
             .grid__cell
 
@@ -65,15 +67,14 @@ header.banner{
             content: cta.modal[:content] }
 
   / Scroll down
-  - if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE)
-    a.banner__scroll{
+  - if [ 'landing_page', 'root_page', 'home' ].include? entry.TYPE
+    a.banner__scroll.E-col-orange{
       href="#banner-scroll-target"
       data-scroll
     }
       = partial 'partials/icon',
         locals: \
         { icon: 'chevron-down',
-          color: 'orange',
           size: 'md' }
 
   / Image

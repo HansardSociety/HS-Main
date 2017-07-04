@@ -122,7 +122,7 @@ article
                 locals: { local_data: \
                   { ext_link_data: link }}
 
-          / Tagging
+          / Side cards
           - if [ 'blog', 'events', 'intelligence', 'research', 'resources' ].include? @entry[:category]
 
             / If blog, add all non-author featured content to sidebar
@@ -147,6 +147,12 @@ article
               locals: { local_data: \
                 { entry_data: @entry,
                   context: 'related' }}
+
+            / Newsletter signup
+            = partial 'partials/ac-form',
+              locals: { local_data: \
+                { style: 'dark',
+                  sidebar: true }}
 
             / Latest items for about pages
             - if @category == 'about'

@@ -9,9 +9,13 @@
 
   > p, > h1, > h2, > h3, > h4, > h5, > h6 {
 
-    &:not(:only-child) {
+    &:not(:only-child, :first-child) {
       margin-top: 1em;
     }
+  }
+
+  > h1, > h2, > h3, > h4, > h5, > h6 {
+    @extend %E-col-green;
   }
 
   > h1 { @extend .title-xl; }

@@ -31,3 +31,7 @@
 
 %E-align-cen,
 .E-align-cen { text-align: center; }
+
+.E-txt-shad-slight {
+  text-shadow: Get($shadow, text, raised);
+}

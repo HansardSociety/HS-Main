@@ -67,7 +67,7 @@
 
   @extend %E-col-white;
   @extend %E-bgc-green;
-  @extend %E-shadow-raised;
+  @extend %E-box-shad-raised;
   @include above('md') {
     height: 3.5rem;
 

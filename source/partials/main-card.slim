@@ -25,7 +25,7 @@
     *@main_card_inner_elem
 
       / Header
-      .main-card__header
+      .main-card__header.E-col-white
         .main-card__image
           img.swiper-lazy{
             src="https://images.contentful.com/xkbace0jm9pp/1AnTWs7kOg8c86eQGcC2mg/4f0a19a1cb58b11aa96e583e69e685d7/card__holding-image-hansard-society-logo.png"
@@ -34,9 +34,9 @@
           }
 
         .main-card__meta
-          span.subtitle-xs.E-col-white= @main_card[:category]
+          span.subtitle-xs= ([ 'blog', 'events' ].include? @main_card[:category]) ? @main_card[:category] + ' / ' +  @main_card[:date_time].date : @main_card[:category]
 
-        h1.main-card__title.title-sm.E-col-white= @main_card[:title]
+        h1.main-card__title.title-sm.E-txt-shad-slight= @main_card[:title]
 
       / Introduction
       .main-card__introduction

@@ -34,7 +34,7 @@
   @extend %E-height-full-vh;
   @extend %E-max-width-full;
   @extend %E-overflow-y-hidden;
-  @extend %E-shadow-raised;
+  @extend %E-box-shad-raised;
   @include above('sm') {
     height: 100%;
     height: auto;
@@ -51,6 +51,7 @@
 
   border-bottom: 2px solid Get($colors, greyscale, light-grey);
 
+  @extend %E-bgc-white;
   @extend %E-position-absolute;
   @extend %E-width-full;
 }
@@ -61,8 +62,8 @@
 
 .modal__content {
   max-height: 100vh; // must use units for Edge scroll
+  margin-top: 1.75rem;
 
-  @extend %E-mgn-t-sm;
   @extend %E-overflow-y-auto;
   @extend %E-pad-sm;
 }

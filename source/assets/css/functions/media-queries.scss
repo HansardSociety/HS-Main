@@ -47,7 +47,7 @@
 }
 
 // Aspect ratios
-@mixin aspect_ratio($value) {
+@mixin aspectRatio($value) {
   // $value: map-get($aspect_ratios, $aspect_ratio);
 
   @media (min-aspect-ratio: $value) {

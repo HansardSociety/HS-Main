@@ -91,3 +91,13 @@
     border-radius: $radVal;
   }
 }
+
+
+//  =Shadow
+//////////////////////////////
+
+@each $shadowKey, $shadowVal in map-get($shadow, box) {
+  %E-box-shad-#{ $shadowKey } {
+    box-shadow: $shadowVal;
+  }
+}

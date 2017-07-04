@@ -5,6 +5,7 @@
 
 .banner--full {
   @extend %E-height-full-vh;
+  @extend %E-overflow-hidden;
 }
 
 .banner--semi {
@@ -18,29 +19,44 @@
 }
 
 .banner__inner--overlap {
-
   // Ensure overlap content remains above .content
   top: 100%;
+
   transform: translate(-50%, -100%);
 }
 
 .banner__content {
-
   @extend %E-col-white;
   @extend %E-container-narrow;
   @extend %E-position-relative;
 }
 
-.banner__actions {
-  @extend %E-mgn-t-md;
+.banner__byline {
+  width: 30rem;
+
+  @extend %E-max-width-full;
+  @include above(sm) {
+    text-align: center;
+
+    @extend %E-mgn-auto-x__sm;
+  }
 }
 
 .banner__image {
-  @extend %E-height-full-vh;
   @extend %E-overflow-hidden;
   @extend %E-overlay-medium;
   @extend %E-position-absolute-0;
   @extend %E-zidx-neg;
+  @include orientation('portrait') {
+    height: calc(100vw * (16/9));
+  }
+  @include orientation('landscape') {
+    height: calc(100vw * (9/16));
+
+    @include aspectRatio('4/3') {
+      height: calc(100vw * (3/4));
+    }
+  }
 }
 
 .banner__image img {

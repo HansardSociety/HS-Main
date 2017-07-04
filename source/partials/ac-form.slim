@@ -1,4 +1,8 @@
 form.form#_form_1_._form._form_1._inline-form._dark{
+  class="#{ ('form--dark' if local_data[:style] == 'dark') }"
+  class="#{ ('form--light' if local_data[:style] == 'light') }"
+  class="#{ ('form--side' if local_data[:sidebar]) }"
+
   method="POST"
   action="https://hansardsociety.activehosted.com/proc.php"
   novalidate
@@ -13,8 +17,12 @@ form.form#_form_1_._form._form_1._inline-form._dark{
 
   ._form-content
     ._form_element._x96563199._full_width
-      label.subtitle-xs._form-label Email
-      ._field-wrapper
+      h2{
+        class="#{ local_data[:panel] == true ? 'title-lg' : 'title-md' }"
+        class="#{ 'E-col-green' if local_data[:style] == 'light' }"
+      } Join our newsletter
+      label.E-hidden.E-col-grey._form-label Email
+      ._field-wrapper.E-mgn-t-sm
         input.form__text{
           type="text"
           name="email"
