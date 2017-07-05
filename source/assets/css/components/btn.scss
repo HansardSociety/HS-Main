@@ -15,8 +15,6 @@
 //////////////////////////////
 
 .btn {
-  color: inherit;
-
   @extend %E-cursor-pointer;
   @extend %E-flex-inline-row-center;
   @extend %E-overflow-hidden;

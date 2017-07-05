@@ -3,7 +3,7 @@ head
   meta{ charset="utf-8" }
 
   / No index
-  - if @no_index === true
+  - if config[:ENV] == 'test'
     meta{ name="robots" content="noindex" }
 
   / Responsive

@@ -29,13 +29,10 @@ page '/*.txt', layout: false
 ##  Envs
 ############################################################
 
-##  Build
+##  Shared
 ##############################
 
-configure :build do
-
-  # Env variable
-  set :ENV, 'production'
+def sharedBuildEnv
 
   # Cache-busting assets
   manifest = File.read('source/assets/rev-manifest.json')
@@ -63,6 +60,49 @@ configure :build do
     latency: 1
 end
 
+##  Contentful
+##############################
+
+activate :contentful do |f|
+  f.space         = { hs: 'xkbace0jm9pp' }
+  f.access_token  = 'd1270ddb68c436e381efa9ae456472610081a17d7e9e3fbb3d8309b702a852e2'
+  f.cda_query     = { include: 6 }
+  f.all_entries   = true
+  f.content_types = {
+    child_page:   { mapper: ChildPageMap,   id: 'child_page' },
+    homepage:     { mapper: HomeMap,        id: 'home' },
+    landing_page: { mapper: LandingPageMap, id: 'landing_page' },
+    root_page:    { mapper: RootPageMap,    id: 'root_page' },
+    navigation:   { mapper: NavigationMap,  id: 'navigation' },
+    universal:    { mapper: UniversalMap,   id: 'universal' },
+    people:       { mapper: PeopleMap,      id: 'people' }
+  }
+end
+
+##  Build
+##############################
+
+configure :prod do
+  sharedBuildEnv()
+  set :build_dir, 'build/prod'
+  set :ENV, 'production'
+  after_build do
+    File.rename 'build/prod/redirects', 'build/prod/_redirects'
+  end
+end
+
+##  Test site
+##############################
+
+configure :test do
+  sharedBuildEnv()
+  set :build_dir, 'build/test-site'
+  set :ENV, 'test'
+  after_build do
+    File.rename 'build/test-site/redirects', 'build/test-site/_redirects'
+  end
+end
+
 ##  Server
 ##############################
 
@@ -86,27 +126,6 @@ configure :server do
     name: :gulp,
     command: 'yarn run epipe:dev',
     source: '.tmp'
-end
-
-############################################################
-##  Contentful
-############################################################
-
-# Contentful options
-activate :contentful do |f|
-  f.space         = { hs: 'xkbace0jm9pp' }
-  f.access_token  = 'd1270ddb68c436e381efa9ae456472610081a17d7e9e3fbb3d8309b702a852e2'
-  f.cda_query     = { include: 6 }
-  f.all_entries   = true
-  f.content_types = {
-    child_page:   { mapper: ChildPageMap,   id: 'child_page' },
-    homepage:     { mapper: HomeMap,        id: 'home' },
-    landing_page: { mapper: LandingPageMap, id: 'landing_page' },
-    root_page:    { mapper: RootPageMap,    id: 'root_page' },
-    navigation:   { mapper: NavigationMap,  id: 'navigation' },
-    universal:    { mapper: UniversalMap,   id: 'universal' },
-    people:       { mapper: PeopleMap,      id: 'people' }
-  }
 end
 
 ############################################################
@@ -147,12 +166,4 @@ if Dir.exist?(config.data_dir)
           ignore: true,
           locals: { root_page: root_page }
   end
-end
-
-############################################################
-##  Misc
-############################################################
-
-after_build do
-  File.rename 'build/redirects', 'build/_redirects'
 end
