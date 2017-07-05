@@ -9,26 +9,27 @@
 //  Panel promoted
 ////////////////////////////////////////////////////////////
 
-.panel.panel--block{
+.panel{
   id="panel-#{ @index }"
 }
-  .content.content--narrow.content--center
+  .content.content--narrow
 
-    / Label
-    - if @panel_data[:label]
-      span.alt-title.alt-title--sm= @panel_data[:label]
+    .panel__header
+      / Label
+      - if @panel_data[:label]
+        span.subtitle-sm.E-col-mid-grey= @panel_data[:label]
 
-    / Title
-    h2.title.title--large= @panel_data[:title]
+      / Title
+      h2.title-lg.E-col-green= @panel_data[:title]
 
-    / Copy
-    - if @panel_data.copy
-      = Kramdown::Document.new(@panel_data[:copy] + "\n{: .byline }").to_html
+      / Copy
+      - if @panel_data.copy
+        = Kramdown::Document.new(@panel_data[:copy] + "\n{: .E-fz-by .E-mgn-t-sm }").to_html
 
-  .content.content--wide
-    .grid
+  .content.content--narrow
+    .grid.grid--sm
       - @panel_data[:accordians].each do |accordian|
-        .grid__cell.grid__cell--3
+        .grid__cell.grid__cell--above-sm-6
           = partial 'partials/accordian',
             locals: { local_data: \
               { accordian_data: accordian }}

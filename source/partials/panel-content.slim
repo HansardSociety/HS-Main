@@ -9,18 +9,18 @@
 //  Panel promoted
 ////////////////////////////////////////////////////////////
 
-.panel.panel--flow{
+.panel{
   id="panel-#{ @index }"
 }
   .content.content--wide
-    .grid
+    .grid.grid--md
 
       / Panel title
-      .grid__cell.grid__cell--small-8.grid__cell--small-offset-4
-        h3.title.title--medium= @panel_data[:title]
+      .grid__cell.grid__cell--above-sm-8.grid__cell--above-sm-offset-4
+        h3.title-md.E-col-green= @panel_data[:title]
 
       / Image
-      .grid__cell.grid__cell--small-4
+      .grid__cell.grid__cell--above-sm-4
         - if @panel_data[:images]
           - @panel_data[:images].each do |image|
             = partial 'partials/image',
@@ -28,7 +28,7 @@
                 { image_data: image,
                   feature: true }}
 
-      .grid__cell.grid__cell--small-8.copy
+      .grid__cell.grid__cell--above-sm-8.copy
 
         / Copy
         = Kramdown::Document.new(@panel_data[:copy]).to_html
@@ -47,12 +47,12 @@
             = partial 'partials/btn',
               locals: { local_data: \
                 { type: 'state',
-                  size: 'small',
-                  style: 'secondary', group: true,
+                  size: 'sm',
+                  style: 'secondary',
                   text_on: 'Show more', text_off: 'Close',
-                  text_size: 'small',
+                  text_size: 'sm',
                   page: 'no-scroll', exclusive: true,
-                  aria_id: "activate-#{  @panel_data[:show_more].cta_id }",
+                  aria_id: "activate-#{ @panel_data[:show_more].cta_id }",
                   aria_target_id:  @panel_data[:show_more].cta_id }}
 
           - if @panel_data[:calls_to_action]
@@ -71,10 +71,10 @@
                 = partial 'partials/btn',
                   locals: { local_data: \
                     { type: 'state',
-                      size: 'small',
-                      style: 'secondary', group: true,
+                      size: 'sm',
+                      style: 'secondary',
                       text_on: cta[:button_text], text_off: 'Close',
-                      text_size: 'small',
+                      text_size: 'sm',
                       page: 'no-scroll', exclusive: true,
                       aria_id: "activate-#{  cta.modal[:cta_id] }",
                       aria_target_id: cta.modal[:cta_id] }}

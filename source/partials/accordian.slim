@@ -21,13 +21,13 @@ section.accordian{
 }
 
   .accordian__header
-    h3.title.title--small= @title
+    h3.title-sm.E-col-green= @title
 
-    .accordian__control
+    .accordian__control.E-col-green
       = partial 'partials/btn',
         locals: { local_data: \
           { type: 'state', size: 'sm',
-            icon: 'chevron-down', icon_size: 'xs', icon_color: 'green',
+            icon: 'chevron-down', icon_size: 'xs',
             animation: 'rotate',
             aria_id: "activate-#{ @cta_id }", aria_target_id: "#{ @cta_id }" }}
 
@@ -38,12 +38,11 @@ section.accordian{
 
       / Calls to action
       - if @calls_to_action
-        .btn-group
           - @calls_to_action.each do |cta|
 
             / Download
             - if cta.action == 'download'
               = partial 'partials/btn',
                 locals: { local_data: \
-                  { type: 'link', size: 'sm', fill: true, style: 'primary', group: true,
+                  { type: 'link', size: 'sm', fill: true, style: 'primary',
                     text: cta.button_text, text_size: 'sm', url: cta.file.url }}

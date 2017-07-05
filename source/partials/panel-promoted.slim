@@ -9,63 +9,65 @@
 //  Panel promoted
 ////////////////////////////////////////////////////////////
 
-.panel.panel--block{
+.panel{
   id="panel-#{ @index }"
 }
   .content{
     class="#{
       @panel_data.image ?
         'content--wide' :
-        'content--narrow content--center'
+        'content--narrow'
     }"
   }
 
-    / Label
-    - if @panel_data[:label]
-      span.alt-title.alt-title--sm= @panel_data[:label]
+    .panel__header
+      / Label
+      - if @panel_data[:label]
+        span.cross-head-sm= @panel_data[:label]
 
-    / Title
-    h2.title.title--large= @panel_data[:title]
+      / Title
+      h2.title-lg.E-col-green= @panel_data[:title]
 
-    / Copy
-    - if @panel_data.copy
-      = Kramdown::Document.new(@panel_data[:copy] + "\n{: .byline }").to_html
+      / Copy
+      - if @panel_data.copy
+        = Kramdown::Document.new(@panel_data[:copy] + "\n{: .E-fz-by }").to_html
 
 
     / Calls to action
     - if @panel_data[:calls_to_action]
 
-      .btn-group.u-mtop-md
+      .grid.grid--xs.grid--center.E-mgn-t-sm
         - @panel_data[:calls_to_action].each do |cta|
+          .grid__cell
 
-          / Download
-          - if cta.action == 'download'
-            = partial 'partials/btn',
-              locals: { local_data: \
-                { type: 'link',
-                  size: 'medium',
-                  style: 'primary', group: true,
-                  text: cta[:button_text],
-                  text_size: 'medium',
-                  url: cta[:file].url }}
+            / Download
+            - if cta.action == 'download'
+              = partial 'partials/btn',
+                locals: { local_data: \
+                  { type: 'link',
+                    size: 'md',
+                    style: 'primary',
+                    text: cta[:button_text],
+                    text_size: 'md',
+                    url: cta[:file].url }}
 
-          / Modal
-          - if cta.action == 'modal'
+            / Modal
+            - if cta.action == 'modal'
 
-            / Modal window
-            = partial 'partials/modal',
-              locals: \
-              { id: cta[:modal].id,
-                content: cta[:modal].content }
+              / Modal window
+              = partial 'partials/modal',
+                locals: \
+                { id: cta[:modal].id,
+                  content: cta[:modal].content }
 
-            / Modal button
-            = partial 'partials/btn',
-              locals: { local_data: \
-                { type: 'state',
-                  size: 'medium',
-                  style: 'secondary', group: true,
-                  text_on: cta[:button_text], text_off: 'Close',
-                  text_size: 'medium',
-                  page: 'no-scroll', exclusive: true,
-                  aria_id: "activate-#{ cta[:modal].id }",
-                  aria_target_id: cta[:modal].id }}
+              / Modal button
+              = partial 'partials/btn',
+                locals: { local_data: \
+                  { type: 'state',
+                    size: 'md',
+                    style: 'secondary',
+                    text_on: cta[:button_text], text_off: 'Close',
+                    text_size: 'md',
+                    page: 'no-scroll', exclusive: true,
+                    aria_id: "activate-#{ cta[:modal].id }",
+                    aria_target_id: cta[:modal].id }}

@@ -9,7 +9,7 @@
 }
 
 .grid--center {
-  // justify-content: center;
+  justify-content: center;
 }
 
 @each $breakpoint in map-keys($breakpoints) {

@@ -3,7 +3,6 @@
 ////////////////////////////////////////////////////////////
 
 - @entry = landing_page
-
 - @page_url  = "#{ config[:SITE_URL] }/#{ @entry[:category] }/#{ @entry[:slug] }"
 
 ////////////////////////////////////////////////////////////
@@ -23,17 +22,16 @@ article
   ////////////////////////////
 
   .panel#banner-scroll-target
-    .content.content--narrow.content--center
-      .byline
-        = Kramdown::Document.new(@entry[:introduction]).to_html
+    .content.content--narrow.E-align-cen
+      = Kramdown::Document.new(@entry[:introduction].gsub('\n', ' ') + "\n{: .E-fz-by }").to_html
 
   //  'Latest' (related)
   ////////////////////////////
 
   - if @entry[:latest_carousel] == true
-    .panel.panel--block
-      .content.content--wide.content--center
-        h2.title.title--large Latest
+    .panel.E-bgc-light-grey
+      .content.content--wide
+        h2.title-lg.E-col-green.E-align-cen Latest
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @entry,
@@ -45,21 +43,21 @@ article
   - @entry[:panels].each_with_index do |panel, index|
 
     / Promoted panel
-    - if panel.TYPE == 'panel_promoted'
+    - if panel[:TYPE] == 'panel_promoted'
       = partial 'partials/panel-promoted',
         locals: { local_data: \
           { entry_data: panel,
             index: index }}
 
     / Content panel
-    - if panel.TYPE == 'panel_content'
+    - if panel[:TYPE] == 'panel_content'
       = partial 'partials/panel-content',
         locals: { local_data: \
           { entry_data: panel,
             index: index }}
 
     / Accordian panel
-    - if panel.TYPE == 'panel_accordians'
+    - if panel[:TYPE] == 'panel_accordians'
       = partial 'partials/panel-accordians',
         locals: { local_data: \
           { entry_data: panel,

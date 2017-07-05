@@ -2,3 +2,7 @@
   @extend %E-pad-x-sm;
   @extend %E-position-relative;
 }
+
+.panel__header {
+  @extend %E-align-cen;
+}

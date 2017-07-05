@@ -31,7 +31,17 @@
     @extend %E-fz-#{ $sizeKey };
     @extend %E-upper;
   }
+
+  .cross-head-#{ $sizeKey } {
+    border-top: 2px solid currentColor;
+
+    @extend %E-col-mid-grey;
+    @extend %E-pad-t-xs;
+    @extend .subtitle-#{ $sizeKey };
+  }
 }
+
+
 
 .link {
   border-bottom: 2px solid rgba(Get($colors, primary, green), .15);
