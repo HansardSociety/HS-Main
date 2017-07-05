@@ -34,57 +34,58 @@
         = Kramdown::Document.new(@panel_data[:copy]).to_html
 
         / Calls to action
-        .btn-group
+        .grid.grid--xs
           - if @panel_data[:show_more]
+            .grid__cell
+              / Modal window
+              = partial 'partials/modal',
+                locals: \
+                { id: @panel_data[:show_more].cta_id,
+                  content: @panel_data[:show_more].content }
 
-            / Modal window
-            = partial 'partials/modal',
-              locals: \
-              { id: @panel_data[:show_more].cta_id,
-                content: @panel_data[:show_more].content }
-
-            / Modal button
-            = partial 'partials/btn',
-              locals: { local_data: \
-                { type: 'state',
-                  size: 'sm',
-                  style: 'secondary',
-                  text_on: 'Show more', text_off: 'Close',
-                  text_size: 'sm',
-                  page: 'no-scroll', exclusive: true,
-                  aria_id: "activate-#{ @panel_data[:show_more].cta_id }",
-                  aria_target_id:  @panel_data[:show_more].cta_id }}
+              / Modal button
+              = partial 'partials/btn',
+                locals: { local_data: \
+                  { type: 'state',
+                    size: 'sm',
+                    style: 'secondary',
+                    text_on: 'Show more', text_off: 'Close',
+                    text_size: 'sm',
+                    page: 'no-scroll', exclusive: true,
+                    aria_id: "activate-#{ @panel_data[:show_more].cta_id }",
+                    aria_target_id:  @panel_data[:show_more].cta_id }}
 
           - if @panel_data[:calls_to_action]
             - @panel_data[:calls_to_action].each do |cta|
+              .grid__cell
 
-              / Modal
-              - if cta[:action] == 'modal'
+                / Modal
+                - if cta[:action] == 'modal'
 
-                / Modal window
-                = partial 'partials/modal',
-                  locals: \
-                  { id: cta.modal[:cta_id],
-                    content: cta.modal[:content] }
+                  / Modal window
+                  = partial 'partials/modal',
+                    locals: \
+                    { id: cta.modal[:cta_id],
+                      content: cta.modal[:content] }
 
-                / Modal button
-                = partial 'partials/btn',
-                  locals: { local_data: \
-                    { type: 'state',
-                      size: 'sm',
-                      style: 'secondary',
-                      text_on: cta[:button_text], text_off: 'Close',
-                      text_size: 'sm',
-                      page: 'no-scroll', exclusive: true,
-                      aria_id: "activate-#{  cta.modal[:cta_id] }",
-                      aria_target_id: cta.modal[:cta_id] }}
+                  / Modal button
+                  = partial 'partials/btn',
+                    locals: { local_data: \
+                      { type: 'state',
+                        size: 'sm',
+                        style: 'secondary',
+                        text_on: cta[:button_text], text_off: 'Close',
+                        text_size: 'sm',
+                        page: 'no-scroll', exclusive: true,
+                        aria_id: "activate-#{  cta.modal[:cta_id] }",
+                        aria_target_id: cta.modal[:cta_id] }}
 
-              / - if cta[:action] == 'download'
-              /   = partial 'partials/btn',
-              /     locals: { local_data: \
-              /       { type: 'link',
-              /         size: 'medium',
-              /         style: 'primary', group: true,
-              /         text: cta[:button_text],
-              /         text_size: 'medium',
-              /         url: cta[:file].url }}
+                / - if cta[:action] == 'download'
+                /   = partial 'partials/btn',
+                /     locals: { local_data: \
+                /       { type: 'link',
+                /         size: 'medium',
+                /         style: 'primary', group: true,
+                /         text: cta[:button_text],
+                /         text_size: 'medium',
+                /         url: cta[:file].url }}

@@ -15,12 +15,13 @@
   .content.content--narrow
 
     .panel__header
+
       / Label
       - if @panel_data[:label]
-        span.subtitle-sm.E-col-mid-grey= @panel_data[:label]
+        span.cross-head-sm.E-col-mid-grey= @panel_data[:label]
 
       / Title
-      h2.title-lg.E-col-green= @panel_data[:title]
+      h2.title-xl.E-col-green= @panel_data[:title]
 
       / Copy
       - if @panel_data.copy

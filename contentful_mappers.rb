@@ -191,7 +191,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         }.reject{ |key, value| value.nil? } end : nil),
 
         # Panel promoted
-        label:      (panel.label if panel.content_type.id == 'panel_promoted'),
+        label:      (panel.label if ['panel_promoted', 'panel_accordians'].include? panel.content_type.id),
         image: ({
           url:      panel.image.url,
           alt:      panel.image.description

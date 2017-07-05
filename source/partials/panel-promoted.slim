@@ -14,24 +14,24 @@
 }
   .content{
     class="#{
-      @panel_data.image ?
+      @panel_data[:image] ?
         'content--wide' :
         'content--narrow'
     }"
   }
 
     .panel__header
+
       / Label
       - if @panel_data[:label]
         span.cross-head-sm= @panel_data[:label]
 
       / Title
-      h2.title-lg.E-col-green= @panel_data[:title]
+      h2.title-xl.E-col-green= @panel_data[:title]
 
       / Copy
       - if @panel_data.copy
         = Kramdown::Document.new(@panel_data[:copy] + "\n{: .E-fz-by }").to_html
-
 
     / Calls to action
     - if @panel_data[:calls_to_action]

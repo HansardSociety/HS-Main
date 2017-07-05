@@ -4,11 +4,11 @@
   .modal__inner
 
     .modal__header
-      .modal__close
+      .modal__close.E-col-green
         = partial 'partials/btn',
           locals: { local_data: \
             { size: 'xs', CLOSEALL: true,
-              icon: 'close-round', icon_size: 'xs', icon_color: 'green' }}
+              icon: 'close-round', icon_size: 'xs' }}
 
     .modal__content.copy
       = Kramdown::Document.new(content).to_html

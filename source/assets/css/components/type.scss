@@ -33,7 +33,7 @@
   }
 
   .cross-head-#{ $sizeKey } {
-    border-top: 2px solid currentColor;
+    border-top: 2px solid Get($colors, greyscale, light-grey);
 
     @extend %E-col-mid-grey;
     @extend %E-pad-t-xs;
