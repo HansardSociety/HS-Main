@@ -76,8 +76,8 @@ article.side-card{
             - if @side_card_data[:price] > 0
               = partial 'partials/btn',
                 locals: { local_data: \
-                  { type: 'link', size: 'small', style: 'primary', product: @side_card_data,
-                    text: "Buy (£#{ @side_card_data[:price] })", text_size: 'small' }}
+                  { type: 'link', size: 'sm', style: 'primary', product: @side_card_data,
+                    text: "Buy (£#{ @side_card_data[:price] })", text_size: 'sm' }}
 
           / Registration
           - if @is_registration

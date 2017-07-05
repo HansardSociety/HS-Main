@@ -4,7 +4,7 @@
     We don't want to load many fonts on your site so we stay classic.
     You can add your custom fonts here and/or define your own fonts family variables.
 */
-$font-base: Helvetica; // $font_base;
+$font-base: "#{ Get($type, primary, book, name) }"; // $font_base;
 
 
 /**
@@ -27,7 +27,7 @@ $font-base: Helvetica; // $font_base;
     - add your font-family. Ex: font-family: 'myFont-bold';
 */
 @mixin font-bold {
-    font-weight: 700;
+    font-weight: 400;
 }
 
 
@@ -52,7 +52,7 @@ $fontsize: (
     ),
     form: (
         small: 12px,
-        base: 14px
+        base: 18px
     ),
     header: (
         small: 14px,

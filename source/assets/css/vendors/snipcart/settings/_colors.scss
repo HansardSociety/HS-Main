@@ -12,10 +12,10 @@ $palettes: (
         link: #999
     ),
     button: (
-        background: #222,
-        background--highlight: orange,
-        background--hover: darken(#555, 10%),
-        background--highlight-hover: darken(#efe778, 10%),
+        background: Get($colors, primary, orange),
+        background--highlight: Get($colors, primary, dark-orange),
+        background--hover: Get($colors, primary, dark-orange),
+        background--highlight-hover: Get($colors, primary, dark-orange),
         color: #fff,
         color--highlight: white
     ),
@@ -47,8 +47,8 @@ $palettes: (
         label-color: #999
     ),
     header: (
-        background: green,
-        background--highlight: #111,
+        background: Get($colors, primary, green),
+        background--highlight: Get($colors, greyscale, black),
         color: #fff,
         label-color: #999
     ),
@@ -72,11 +72,11 @@ $palettes: (
         color--highlight: #333
     ),
     quantity-trigger: (
-        background: #ccc,
-        background--hover: #efe778,
-        background--disabled: #eee,
-        color: #111,
-        color--disabled: #bbb
+        background: transparent,
+        background--hover: transparent,
+        background--disabled: transparent,
+        color: Get($colors, greyscale, black),
+        color--disabled: Get($colors, greyscale, light-grey)
     ),
     static: (
         background--highlight: #f8f8f8,

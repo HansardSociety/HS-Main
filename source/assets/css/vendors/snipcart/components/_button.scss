@@ -20,7 +20,7 @@ $_btn-size: 36px;
 
 // [1]
 .snip-btn {
-    @include font-bold;
+    font-family: $font-base;
     background-color: palette(button, background);
     border-radius: 3px;
     border: 0;

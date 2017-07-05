@@ -98,6 +98,7 @@ $_header-total-height: 38px;
 }
 
 .snip-header__total {
+    font-family: $font-base;
     background: palette(header, background--highlight);
     border-radius: 5px;
     display: inline-block;
