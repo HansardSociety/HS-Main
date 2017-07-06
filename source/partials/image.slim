@@ -8,6 +8,7 @@
 
 - @url                = @image_data[:url]
 - @alt                = @image_data[:alt]
+- @focus              = @image_data[:focus]
 - @caption            = @image_data[:caption]
 
 ////////////////////////////////////////////////////////////
@@ -19,9 +20,9 @@ figure.image{
 }
 
   img.image__img{
-    src="#{ @url }"
+    src="#{ @url + (@focus ? '?fit=fill&w=563&h=317&f=' + @focus : '') }"
     alt="#{ @alt }"
   }
 
   - if @caption == true
-    figcaption.image__caption.alt-title.alt-title--xs= @alt
+    figcaption.image__caption.subtitle-xs= @alt

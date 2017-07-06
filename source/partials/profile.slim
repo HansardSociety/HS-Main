@@ -4,6 +4,7 @@
 
 - @profile_data  = local_data[:profile_data]
 - @actions       = local_data[:actions]
+- @side          = local_data[:side]
 
 - @photo         = @profile_data[:photo]
 - @full_name     = @profile_data[:full_name]
@@ -19,7 +20,9 @@
 //  Profile
 ////////////////////////////////////////////////////////////
 
-.profile
+.profile{
+  class="#{ 'profile--side' if @side }"
+}
   .profile__image
     img{
       src="#{ @photo.url }?fit=fill&w=324&h=324"
@@ -28,7 +31,7 @@
 
   .profile__main
     h1.title-sm.E-col-grey= @full_name
-    p.subtitle-xs= @role
+    p.subtitle-xs= @role + (@organisation ? ',' : '')
     p.subtitle-xs= @organisation
 
   - if (@biog || @twitter || @linkedin) && @actions != false

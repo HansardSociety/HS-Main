@@ -9,7 +9,7 @@
 //  Panel promoted
 ////////////////////////////////////////////////////////////
 
-.panel{
+.panel.E-pad-t-md{
   id="panel-#{ @index }"
 }
   .content.content--narrow
@@ -25,7 +25,7 @@
 
       / Copy
       - if @panel_data.copy
-        = Kramdown::Document.new(@panel_data[:copy] + "\n{: .E-fz-by .E-mgn-t-sm }").to_html
+        = markdown(@panel_data[:copy], 'byline')
 
   .content.content--narrow
     .grid.grid--sm

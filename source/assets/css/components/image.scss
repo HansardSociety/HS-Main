@@ -1,11 +1,7 @@
 .image {
   @extend %E-flex-row-start;
   @extend %E-overflow-hidden;
-  @include above('xs') {
-    width: 100%;
-
-    border-radius: 2px;
-  }
+  @extend %E-width-full;
 }
 
 .image--feature {

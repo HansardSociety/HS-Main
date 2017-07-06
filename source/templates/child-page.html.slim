@@ -31,7 +31,7 @@ article
       section.grid__cell.grid__cell--above-md-7.copy{
         class="#{ 'grid__cell--order-2 grid__cell--above-md-order-1' if [ 'blog', 'events' ].include? @entry[:category]  }"
       }
-        = Kramdown::Document.new(@introduction.gsub('\n', ' ') + "\n{: .E-fz-by }").to_html
+        = markdown(@introduction, 'byline')
 
       / Featured side content
       aside.grid__cell.grid__cell--above-md-5{
@@ -47,7 +47,8 @@ article
               - if featured[:author]
                 = partial 'partials/profile',
                   locals: { local_data: \
-                  { profile_data: featured[:author] }}
+                  { profile_data: featured[:author],
+                    side: true }}
 
           / Research
           - if @entry[:category] == 'research'
@@ -109,8 +110,7 @@ article
 
         / Copy
         .grid__cell.grid__cell--above-md-7.copy
-
-          = Kramdown::Document.new(@copy).to_html
+          = markdown(@copy)
 
         / Side content
         aside.grid__cell.grid__cell--above-md-5

@@ -21,15 +21,15 @@ article
   //  Introduction
   ////////////////////////////
 
-  .panel#banner-scroll-target
+  .panel.E-pad-x-sm#banner-scroll-target
     .content.content--narrow.E-align-cen
-      = Kramdown::Document.new(@entry[:introduction].gsub('\n', ' ') + "\n{: .E-fz-by }").to_html
+      = markdown(@entry[:introduction], 'byline')
 
   //  'Latest' (related)
   ////////////////////////////
 
   - if @entry[:latest_carousel] == true
-    .panel.E-bgc-light-grey
+    .panel.E-pad-x-sm.E-bgc-light-grey
       .content.content--wide
         h2.title-lg.E-col-green.E-align-cen Latest
         = partial 'partials/carousel',

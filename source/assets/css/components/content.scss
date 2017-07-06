@@ -3,6 +3,14 @@
   @extend %E-pad-sm;
 }
 
+.content--narrow {
+  @extend %E-container-narrow;
+}
+
+.content--wide {
+  @extend %E-container-wide;
+}
+
 .content--paper {
   border-top-left-radius: map-get($radii, slight);
   border-top-right-radius: map-get($radii, slight);
@@ -24,13 +32,5 @@
 }
 
 .content__inner--wide {
-  @extend %E-container-wide;
-}
-
-.content--narrow {
-  @extend %E-container-narrow;
-}
-
-.content--wide {
   @extend %E-container-wide;
 }

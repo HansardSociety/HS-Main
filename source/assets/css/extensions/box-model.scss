@@ -77,7 +77,7 @@
 
     %E-acc-#{ $name }-#{ $side },
     .E-acc-#{ $name }-#{ $side } {
-      border-#{ $side }: 4px solid Get($colors, primary, $name);
+      border-#{ $side }: 4px solid $color;
     }
   }
 }

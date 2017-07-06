@@ -38,6 +38,9 @@
 @import "./components/core";
 @import "./components/states";
 
+// Depended on
+@import "./components/grid";
+
 // Secondary
 @import "./components/accordian";
 @import "./components/banner";
@@ -50,7 +53,7 @@
 @import "./components/ext-link";
 @import './components/form';
 @import "./components/footer";
-@import "./components/grid";
+@import "./components/feed-item";
 @import "./components/icon";
 @import "./components/image";
 @import "./components/logo";

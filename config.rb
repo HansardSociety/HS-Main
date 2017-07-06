@@ -30,6 +30,17 @@ page '/*.json', layout: false
 page '/*.txt', layout: false
 
 ############################################################
+##  Helpers
+############################################################
+
+helpers do
+  def markdown(data, type='paragraph')
+    Kramdown::Document.new(type == 'byline' ? data.gsub(/(\n|\n\n)/, ' ') + "\n{: .E-fz-by }" : data).to_html
+  end
+end
+
+
+############################################################
 ##  Envs
 ############################################################
 

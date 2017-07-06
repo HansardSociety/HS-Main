@@ -7,40 +7,40 @@
 //  Feed item
 ////////////////////////////////////////////////////////////
 
-.content__inner.content__inner--wide
-  .grid
-    .grid__cell.grid__cell--small-7
+.feed-item
+  .feed-item__inner
+    .feed-item__text
 
       - if @feed_data[:category] == 'blog'
-        span.alt-title.alt-title--xs= @feed_data[:date_time].date
+        span.subtitle-xs.E-col-mid-grey= @feed_data[:date_time].date
 
       - if @feed_data[:category] == 'events'
         - @feed_data[:featured].map do |featured|
           - if featured[:registration]
-            span.alt-title.alt-title--xs= @feed_data[:category] + ' / ' + featured[:registration][:date_time][:date]
+            span.subtitle-xs.E-col-mid-grey= @feed_data[:category] + ' / ' + featured[:registration][:date_time][:date]
 
-      h1.title.title--medium{
+      h1.title-md.E-col-green.E-mgn-b-sm{
         class="#{ 'u-mtop-xs' if @feed_data[:category] == 'blog' }"
       }
         a.link{
-          href="#{ config[:SITE_URL] + '/' + @feed_data[:category] + '/' + @feed_data[:slug] }"
+          href="#{ config[:SITE_URL] + '/' + @feed_data[:category] + '/' + @feed_data[:slug] + (config[:ENV] == 'development' ? '.html' : '') }"
         }= @feed_data[:title]
 
       - if @feed_data[:category] == 'blog'
-        .u-mtop-sm
-          - @feed_data[:featured].each do |featured|
-            = partial 'partials/profile',
-              locals: { local_data: \
-              { profile_data: featured[:author],
-                actions: false }}
+        - @feed_data[:featured].each do |featured|
+          = partial 'partials/profile',
+            locals: { local_data: \
+            { profile_data: featured[:author],
+              actions: false }}
 
       - if @feed_data[:category] == 'events'
-        .u-mtop-sm
-          = Kramdown::Document.new(@feed_data[:introduction][0..195].chomp('.') + '…').to_html
+        = markdown(@feed_data[:introduction][0..195].chomp('.') + '…')
 
-    .grid__cell.grid__cell--small-5.grid__cell--first
+    .feed-item__image{
+      class="#{ 'feed-item__image--' + @feed_data[:category] }"
+    }
       a{
-        href="#{ config[:SITE_URL] + '/' + @feed_data[:category] + '/' + @feed_data[:slug] }"
+        href="#{ config[:SITE_URL] + '/' + @feed_data[:category] + '/' + @feed_data[:slug] + (config[:ENV] == 'development' ? '.html' : '') }"
       }
         = partial 'partials/image',
           locals: { local_data: \

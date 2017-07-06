@@ -1,11 +1,14 @@
 .profile {
-  @extend %E-bgc-light-grey;
   @extend %E-flex-row-center;
-  @extend %E-pad-sm;
   @extend %E-rad-slight;
   &:nth-child(1n + 2) {
     @extend %E-mgn-t-xs;
   }
+}
+
+.profile--side {
+  @extend %E-bgc-light-grey;
+  @extend %E-pad-sm;
 }
 
 .profile__image {

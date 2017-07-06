@@ -2,10 +2,8 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @entry    = root_page
-
-- @child_pages  = data.hs.child_page
-
+- @entry         = root_page
+- @child_pages   = data.hs.child_page
 - @pages_by_date = @child_pages.sort_by{ |key, value| - value.date_time.integer }
 
 ////////////////////////////////////////////////////////////
@@ -25,7 +23,7 @@ article
   ////////////////////////////
 
   .panel#banner-scroll-target
-    .content
+    .content.content--wide
       - @pages_by_date.each do |id, page|
 
         / Blog
