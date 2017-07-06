@@ -33,20 +33,6 @@ page '/*.txt', layout: false
 ##  Envs
 ############################################################
 
-##  Vars
-##############################
-
-# KEYS = JSON.parse(File.read('./.keys.json'))
-
-# # Snipcart
-# snipcart_live_tkn = KEYS['snipcart']['live']
-# snipcart_test_tkn = KEYS['snipcart']['test']
-
-# # Contentful
-# contentful_live_tkn    = KEYS['contentful']['token']['live']
-# contentful_preview_tkn = KEYS['contentful']['token']['preview']
-# contentful_space_id    = KEYS['contentful']['space-id']
-
 ##  Contentful
 ##############################
 
