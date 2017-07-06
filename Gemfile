@@ -9,6 +9,7 @@ source 'https://rubygems.org'
 # gem 'tzinfo-data', platforms: [:mswin, :mingw, :jruby]
 
 # Gems
+gem 'dotenv'
 gem 'middleman'
 gem 'slim'
 gem 'contentful_middleman', :git => 'https://github.com/contentful/contentful_middleman.git', :branch => 'v4-1.x-stable'

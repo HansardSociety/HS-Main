@@ -1,8 +1,12 @@
+require 'contentful_mappers'
+require 'dotenv'
+require 'json'
+require 'securerandom'
 require 'slim'
 require 'public_suffix'
-require 'contentful_mappers'
-require 'securerandom'
-require 'json'
+
+# DOTENV
+Dotenv.load
 
 ############################################################
 ##  Variables
@@ -29,6 +33,51 @@ page '/*.txt', layout: false
 ##  Envs
 ############################################################
 
+##  Vars
+##############################
+
+# KEYS = JSON.parse(File.read('./.keys.json'))
+
+# # Snipcart
+# snipcart_live_tkn = KEYS['snipcart']['live']
+# snipcart_test_tkn = KEYS['snipcart']['test']
+
+# # Contentful
+# contentful_live_tkn    = KEYS['contentful']['token']['live']
+# contentful_preview_tkn = KEYS['contentful']['token']['preview']
+# contentful_space_id    = KEYS['contentful']['space-id']
+
+##  Contentful
+##############################
+
+contentful_tkn     = nil
+contentful_preview = false
+
+case ENV['CONTENTFUL_ENV']
+when 'live'
+  contentful_tkn     = ENV['CONTENTFUL_LIVE_TKN']
+when 'preview'
+  contentful_tkn     = ENV['CONTENTFUL_PREVIEW_TKN']
+  contentful_preview = true
+end
+
+activate :contentful do |f|
+  f.use_preview_api = contentful_preview
+  f.space           = { hs: ENV['CONTENTFUL_SPACE_ID'] }
+  f.access_token    = contentful_tkn
+  f.cda_query       = { include: 6 }
+  f.all_entries     = true
+  f.content_types   = {
+    child_page:   { mapper: ChildPageMap,   id: 'child_page' },
+    homepage:     { mapper: HomeMap,        id: 'home' },
+    landing_page: { mapper: LandingPageMap, id: 'landing_page' },
+    root_page:    { mapper: RootPageMap,    id: 'root_page' },
+    navigation:   { mapper: NavigationMap,  id: 'navigation' },
+    universal:    { mapper: UniversalMap,   id: 'universal' },
+    people:       { mapper: PeopleMap,      id: 'people' }
+  }
+end
+
 ##  Shared
 ##############################
 
@@ -42,9 +91,6 @@ def sharedBuildEnv
   set :CSS_VENDOR,   '/' + manifest_hash['vendor.css']
   set :JS_MAIN,      '/' + manifest_hash['main.js']
   set :JS_VENDOR,    '/' + manifest_hash['vendor.js']
-
-  # Snipcart
-  set :SNIPCART_API, 'ZTgyODg2YTctZWRmMy00NjY1LTkyOGUtOTZjZDg4NGIxNWNhNjM2MDAwMjg2MjA3NjcyNDEw'
 
   ignore 'assets/**'
   ignore 'layouts/**'
@@ -60,30 +106,12 @@ def sharedBuildEnv
     latency: 1
 end
 
-##  Contentful
-##############################
-
-activate :contentful do |f|
-  f.space         = { hs: 'xkbace0jm9pp' }
-  f.access_token  = 'd1270ddb68c436e381efa9ae456472610081a17d7e9e3fbb3d8309b702a852e2'
-  f.cda_query     = { include: 6 }
-  f.all_entries   = true
-  f.content_types = {
-    child_page:   { mapper: ChildPageMap,   id: 'child_page' },
-    homepage:     { mapper: HomeMap,        id: 'home' },
-    landing_page: { mapper: LandingPageMap, id: 'landing_page' },
-    root_page:    { mapper: RootPageMap,    id: 'root_page' },
-    navigation:   { mapper: NavigationMap,  id: 'navigation' },
-    universal:    { mapper: UniversalMap,   id: 'universal' },
-    people:       { mapper: PeopleMap,      id: 'people' }
-  }
-end
-
 ##  Build
 ##############################
 
 configure :prod do
   sharedBuildEnv()
+  set :SNIPCART_API, ENV['SNIPCART_LIVE_TKN']
   set :build_dir, 'build/prod'
   set :ENV, 'production'
   after_build do
@@ -96,6 +124,7 @@ end
 
 configure :test do
   sharedBuildEnv()
+  set :SNIPCART_API, ENV['SNIPCART_PREVIEW_TKN']
   set :build_dir, 'build/test-site'
   set :ENV, 'test'
   after_build do
@@ -103,7 +132,7 @@ configure :test do
   end
 end
 
-##  Server
+##  Development
 ##############################
 
 configure :server do
@@ -119,7 +148,7 @@ configure :server do
   set :JS_VENDOR,    '/vendor.js'
 
   # Snipcart
-  set :SNIPCART_API, 'ZDExODZhOTktNzZkYy00NmRkLTg1OWQtYmU0YTQ3MGE0M2Q0NjM2MDAwMjg2MjA3NjcyNDEw'
+  set :SNIPCART_API, ENV['SNIPCART_PREVIEW_TKN']
 
   activate :directory_indexes
   activate :external_pipeline,

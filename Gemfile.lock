@@ -130,6 +130,7 @@ PLATFORMS
 
 DEPENDENCIES
   contentful_middleman!
+  dotenv
   middleman
   public_suffix
   slim
