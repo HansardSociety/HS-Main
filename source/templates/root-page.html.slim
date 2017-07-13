@@ -22,18 +22,21 @@ article
   //  Feed
   ////////////////////////////
 
-  .panel#banner-scroll-target
+  .panel.E-bgc-light-grey#banner-scroll-target
     .content.content--wide
-      - @pages_by_date.each do |id, page|
+      .grid.grid--sm
+        - @pages_by_date.each do |id, page|
 
-        / Blog
-        - if @entry[:category] == 'blog' && page[:category] == 'blog'
-          = partial 'partials/feed-item',
-            locals: { local_data: \
-              { feed_data: page }}
+          / Blog
+          - if @entry[:category] == 'blog' && page[:category] == 'blog'
+            .grid__cell.grid__cell--above-sm-6.grid__cell--above-md-4
+              = partial 'partials/main-card',
+                locals: { local_data: \
+                  { entry_data: page }}
 
-        / Events
-        - if @entry[:category] == 'events' && page[:category] == 'events'
-          = partial 'partials/feed-item',
-            locals: { local_data: \
-              { feed_data: page }}
+          / Events
+          - if @entry[:category] == 'events' && page[:category] == 'events'
+            .grid__cell.grid__cell--above-sm-6.grid__cell--above-md-4
+              = partial 'partials/main-card',
+                locals: { local_data: \
+                  { entry_data: page }}

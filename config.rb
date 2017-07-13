@@ -4,6 +4,7 @@ require 'json'
 require 'securerandom'
 require 'slim'
 require 'public_suffix'
+require 'unicode/display_width/string_ext'
 
 # DOTENV
 Dotenv.load

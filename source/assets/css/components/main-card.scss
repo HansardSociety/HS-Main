@@ -13,7 +13,6 @@
   &:hover {
     img {
       transform: scale(1.1);
-      @extend %E-fix-webkit-blur;
     }
   }
 }
@@ -25,15 +24,15 @@
 .main-card--research     { @extend %E-acc-green-top; }
 
 .main-card__header {
-  @extend %E-overflow-hidden;
   @extend %E-position-relative;
 }
 
 .main-card__image {
-  @extend %E-overlay-medium;
+  @extend %E-overflow-hidden;
 
   & > img {
     @extend %E-display-block;
+    @extend %E-fix-webkit-blur;
     @extend %E-trans-transform;
     @extend %E-max-width-full;
   }
@@ -41,17 +40,21 @@
 
 .main-card__meta,
 .main-card__title {
+  @extend %E-bgc-overlay-black;
   @extend %E-position-absolute;
 }
 
 .main-card__meta {
-  top: .5rem;
-  left: 1rem;
+  top: 0;
+  left: .5rem;
+
+  padding: 0 .5rem;
 }
 
 .main-card__title,
 .main-card__introduction {
-  @extend %E-pad-sm;
+  @extend %E-pad-x-xs;
+  @extend %E-pad-y-sm;
 }
 
 .main-card__title {

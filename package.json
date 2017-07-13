@@ -18,7 +18,7 @@
     "test:clean": "yarn run clean && yarn run epipe:pre && yarn run data:test && bundle exec middleman build -e test",
     "test:deploy": "yarn run epipe:pre && yarn run data:test && bundle exec middleman build -e test",
     "dev": "bundle exec middleman server",
-    "dev:clean": "yarn run clean && yarn run data:live && bundle exec middleman server",
+    "dev:clean": "yarn run clean && yarn run data:test && bundle exec middleman server",
     "dev:poll": "bundle exec middleman server --watcher-force-polling"
   },
   "keywords": [],

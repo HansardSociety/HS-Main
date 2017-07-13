@@ -13,16 +13,38 @@
     r: right
   );
 
+  // Margin
   %E-mgn-#{ $sizeKey },
   .E-mgn-#{ $sizeKey } {
     margin: $sizeVal;
   }
 
+  // Padding
   %E-pad-#{ $sizeKey },
   .E-pad-#{ $sizeKey } {
     padding: $sizeVal;
   }
 
+  // Screens
+  @each $screen in map-keys($breakpoints) {
+    @include above($screen) {
+
+      // Margin
+      %E-mgn-#{ $sizeKey }__#{ $screen },
+      .E-mgn-#{ $sizeKey }__#{ $screen } {
+        margin: $sizeVal;
+      }
+
+      // Padding
+      %E-pad-#{ $sizeKey }__#{ $screen },
+      .E-pad-#{ $sizeKey }__#{ $screen } {
+        padding: $sizeVal;
+      }
+    }
+  }
+
+
+  // Sides
   @each $sideKey, $sideVal in $sides {
 
     // Margin
@@ -46,6 +68,36 @@
     .E-pad-#{ $sideKey }-#{ $sizeKey } {
       @each $side in $sideVal {
         padding-#{ $side }: $sizeVal;
+      }
+    }
+
+    // Screens
+    @each $screen in map-keys($breakpoints) {
+      @include above($screen) {
+
+        // Margin
+        %E-mgn-#{ $sideKey }-#{ $sizeKey }__#{ $screen },
+        .E-mgn-#{ $sideKey }-#{ $sizeKey }__#{ $screen } {
+          @each $side in $sideVal {
+            margin-#{ $side }: $sizeVal;
+          }
+        }
+
+        // Negative margin
+        %E-mgn-neg-#{ $sideKey }-#{ $sizeKey }__#{ $screen },
+        .E-mgn-neg-#{ $sideKey }-#{ $sizeKey }__#{ $screen } {
+          @each $side in $sideVal {
+            margin-#{ $side }: -$sizeVal;
+          }
+        }
+
+        // Padding
+        %E-pad-#{ $sideKey }-#{ $sizeKey }__#{ $screen },
+        .E-pad-#{ $sideKey }-#{ $sizeKey }__#{ $screen } {
+          @each $side in $sideVal {
+            padding-#{ $side }: $sizeVal;
+          }
+        }
       }
     }
   }

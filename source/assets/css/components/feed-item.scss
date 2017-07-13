@@ -9,14 +9,27 @@
 
 .feed-item__image,
 .feed-item__text {
-  @extend .grid__cell, .grid__cell--above-sm-6;
+  @extend .grid__cell;
+  @extend .grid__cell--above-md-6;
 }
 
 .feed-item__image {
   @extend .grid__cell--order-0;
-
+  @extend .grid__cell--above-sm-4;
   @extend %E-overflow-hidden;
   @extend %E-rad-slight;
+}
+
+.feed-item__text {
+  @extend .grid__cell--above-sm-8;
+}
+
+.feed-item__author {
+  display: none;
+
+  @include above(lg) {
+    @extend %E-display-block__lg;
+  }
 }
 
 .feed-item__image--events { @extend %E-acc-blue-top; }

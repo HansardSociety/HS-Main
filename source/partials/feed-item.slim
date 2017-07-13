@@ -27,11 +27,12 @@
         }= @feed_data[:title]
 
       - if @feed_data[:category] == 'blog'
-        - @feed_data[:featured].each do |featured|
-          = partial 'partials/profile',
-            locals: { local_data: \
-            { profile_data: featured[:author],
-              actions: false }}
+        .feed-item__author
+          - @feed_data[:featured].each do |featured|
+            = partial 'partials/profile',
+              locals: { local_data: \
+              { profile_data: featured[:author],
+                actions: false }}
 
       - if @feed_data[:category] == 'events'
         = markdown(@feed_data[:introduction][0..195].chomp('.') + '…')

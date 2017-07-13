@@ -6,6 +6,9 @@
 .banner--full {
   @extend %E-height-full-vh;
   @extend %E-overflow-hidden;
+  @include above(sm) {
+    text-align: center;
+  }
 }
 
 .banner--semi {
@@ -36,8 +39,6 @@
 
   @extend %E-max-width-full;
   @include above(sm) {
-    text-align: center;
-
     @extend %E-mgn-auto-x__sm;
   }
 }
@@ -46,9 +47,21 @@
   @extend %E-height-full-vh; // fallback for JS
   @extend %E-overflow-hidden;
   @extend %E-overlay-medium;
-  @extend %E-position-absolute-0;
+  @extend %E-position-absolute;
   @extend %E-trans-core;
   @extend %E-zidx-neg;
+}
+
+.banner__image--left {
+  left: 0;
+}
+
+.banner__image--center {
+  @extend %E-absolute-center-x;
+}
+
+.banner__image--right {
+  right: 0;
 }
 
 .banner__image img {
@@ -59,6 +72,8 @@
 
 .banner__scroll {
   bottom: 1rem;
+  display: none;
 
   @extend %E-absolute-center-x;
+  @extend %E-display-block__sm;
 }

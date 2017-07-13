@@ -20,9 +20,9 @@ header.banner{
         span.subtitle-xs= entry[:date_time].date
 
       / Title
-      h1.E-txt-shad-slight{
+      h1{
         class="#{ ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) \
-                    ? 'title-xl E-align-cen' \
+                    ? 'title-xl' \
                     : 'title-lg' }"
       }= entry.title
 
@@ -78,7 +78,9 @@ header.banner{
           size: 'md' }
 
   / Image
-  .banner__image
+  .banner__image{
+    class="#{ 'banner__image--' + entry[:banner_image].focus }"
+  }
     picture
 
       / Landscape
@@ -114,6 +116,6 @@ header.banner{
 
       / Fallback
       img{
-        srcset="#{ entry[:banner_image].url }"
+        srcset="#{ entry[:banner_image].url }?f=#{ entry[:banner_image].focus }"
         alt="#{ entry[:banner_image].alt }"
       }

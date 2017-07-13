@@ -1,6 +1,10 @@
 .content {
   @extend %E-mgn-auto-x;
-  @extend %E-pad-sm;
+  @extend %E-pad-xs;
+
+  @include above(xs) {
+    @extend %E-pad-sm__xs;
+  }
 }
 
 .content--narrow {

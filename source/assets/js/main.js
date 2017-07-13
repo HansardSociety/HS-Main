@@ -253,10 +253,10 @@ var carousel = new Swiper ('.swiper-container', {
   lazyLoadingInPrevNext: true,
 
   breakpoints: {
-    959: {
+    599: {
       slidesPerView: 1
     },
-    1279: {
+    959: {
       slidesPerView: 2
     }
   }

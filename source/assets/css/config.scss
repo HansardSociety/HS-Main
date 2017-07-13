@@ -38,6 +38,18 @@ $type: (
       style:  oblique,
       file:   'AvenirLTStd-BookOblique.otf'
     ),
+    medium: (
+      name:   'Avenir Medium',
+      weight: 500,
+      style:  normal,
+      file:   'AvenirLTStd-Medium.otf'
+    ),
+    medium-italic: (
+      name:   'Avenir Medium Oblique',
+      weight: 500,
+      style:  oblique,
+      file:   'AvenirLTStd-MediumOblique.otf'
+    ),
     heavy: (
       name:   'Avenir Heavy',
       weight: 800,
@@ -69,7 +81,8 @@ $colors: (
   ),
   secondary: (
     current:       currentColor,
-    dark-orange:   #dc6700
+    dark-orange:   #dc6700,
+    overlay-black: rgba(0, 0, 0, .6),
   ),
   greyscale: (
     white:         #fefefe,

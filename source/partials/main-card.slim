@@ -27,23 +27,39 @@
       / Header
       .main-card__header.E-col-white
         .main-card__image
-          img.swiper-lazy{
-            src="https://images.contentful.com/xkbace0jm9pp/1AnTWs7kOg8c86eQGcC2mg/4f0a19a1cb58b11aa96e583e69e685d7/card__holding-image-hansard-society-logo.png"
-            data-src="#{ @main_card[:banner_image].url }?fit=fill&w=563&h=317&f=#{ @main_card[:banner_image].focus }"
-            alt="#{ @main_card[:banner_image].alt }"
-          }
+
+          - if local_data[:carousel]
+            img.swiper-lazy{
+              src="https://images.contentful.com/xkbace0jm9pp/1AnTWs7kOg8c86eQGcC2mg/4f0a19a1cb58b11aa96e583e69e685d7/card__holding-image-hansard-society-logo.png"
+              data-src="#{ @main_card[:banner_image].url }?fit=fill&w=563&h=317&f=#{ @main_card[:banner_image].focus }"
+              alt="#{ @main_card[:banner_image].alt }"
+            }
+          - else
+            img.swiper-lazy{
+              src="#{ @main_card[:banner_image].url }?fit=fill&w=563&h=317&f=#{ @main_card[:banner_image].focus }"
+              alt="#{ @main_card[:banner_image].alt }"
+            }
 
         .main-card__meta
-          span.subtitle-xs= ([ 'blog', 'events' ].include? @main_card[:category]) ? @main_card[:category] + ' / ' +  @main_card[:date_time].date : @main_card[:category]
+          span.subtitle-xs= ([ 'blog', 'events' ].include? @main_card[:category]) \
+                            ? @main_card[:category] + ' / ' +  @main_card[:date_time].date \
+                            : @main_card[:category]
 
-        h1.main-card__title.title-sm.E-txt-shad-slight= @main_card[:title]
+        h1.main-card__title.title-by= @main_card[:title]
 
       / Introduction
       .main-card__introduction
 
         / Strip HTML from markdown, trucate text and replace all
         / non-alphanumeric final characters with an elipsis.
-        = Kramdown::Document.new(@main_card[:introduction]).to_html.gsub(/<\/?[^>]*>/, "")[0..190].gsub(/[^0-9a-zA-Z]+$/, '') + '…'
+
+        - @intro_text = markdown(@main_card[:introduction]).gsub(/<\/?[^>]*>/, "")
+
+        - if @intro_text.display_width >= 200
+          p= markdown(@main_card[:introduction]).gsub(/<\/?[^>]*>/, "")[0..165].gsub(/[^0-9a-zA-Z]+$/, '') + '…'
+
+        - else
+          p= @intro_text[0..180].gsub(/[^0-9a-zA-Z]+$/, '') + '…'
 
 ////////////////////////////////////////////////////////////
 //  Profile

@@ -2,9 +2,10 @@
 //  =Colors
 ////////////////////////////////////////////////////////////
 
-@each $name, $color in Merge(map-get($colors, primary),
-                             map-get($colors, secondary),
-                             map-get($colors, greyscale)) {
+@each $name, $color in Merge(
+  map-get($colors, primary),
+  map-get($colors, secondary),
+  map-get($colors, greyscale)) {
 
   // Colors
   .E-col-#{ $name },
