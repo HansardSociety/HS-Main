@@ -54,6 +54,7 @@
 }
 
 .side-card__meta {
-  height: 1rem;
-  line-height: 1;
+  line-height: 0;
+
+  @extend %E-pad-b-xs;
 }

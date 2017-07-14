@@ -56,6 +56,7 @@ var
   // Icons (Ionicons)
   iconsList =
     'android-search|' +
+    'ios-arrow-thin-down|' +
     'chevron-down|' +
     'chevron-right|' +
     'chevron-left|' +

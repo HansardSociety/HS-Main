@@ -16,11 +16,12 @@
 }
 
 .content--paper {
-  border-top-left-radius: map-get($radii, slight);
-  border-top-right-radius: map-get($radii, slight);
-
   @extend %E-bgc-white;
   @extend %E-box-shad-raised;
+  @include above(sm) {
+    border-top-left-radius: map-get($radii, slight);
+    border-top-right-radius: map-get($radii, slight);
+  }
 }
 
 .content__inner {

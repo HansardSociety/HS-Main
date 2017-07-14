@@ -57,6 +57,17 @@ header.banner{
                       aria_id: "activate-#{  cta.modal[:cta_id] }",
                       aria_target_id: cta.modal[:cta_id] }}
 
+    / Scroll down
+    - if [ 'landing_page', 'root_page', 'home' ].include? entry.TYPE
+      a.banner__scroll.E-col-orange{
+        href="#banner-scroll-target"
+        data-scroll
+      }
+        = partial 'partials/icon',
+          locals: \
+          { icon: 'ios-arrow-thin-down',
+            size: 'lg' }
+
   / Modal content (here to avoid banner__inner transform cascade)
   - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
     - entry[:calls_to_action].each do |cta|
@@ -65,17 +76,6 @@ header.banner{
           locals: \
           { id: cta.modal[:cta_id],
             content: cta.modal[:content] }
-
-  / Scroll down
-  - if [ 'landing_page', 'root_page', 'home' ].include? entry.TYPE
-    a.banner__scroll.E-col-orange{
-      href="#banner-scroll-target"
-      data-scroll
-    }
-      = partial 'partials/icon',
-        locals: \
-        { icon: 'chevron-down',
-          size: 'md' }
 
   / Image
   .banner__image{

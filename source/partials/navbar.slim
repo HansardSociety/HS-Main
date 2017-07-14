@@ -29,7 +29,7 @@ nav#navbar.navbar.JS-inactive
       = partial 'partials/btn',
         locals: { local_data: \
           { type: 'state', size: 'sm',
-            page: 'no-scroll',
+            page: 'no-scroll', secondary_target: 'navbar',
             icon: 'menu', icon_size: 'md',
             aria_id: 'activate-menu-mobile', aria_target_id: 'menu-mobile' }}
 
@@ -46,7 +46,9 @@ nav#navbar.navbar.JS-inactive
           / Base ID for menu and menu button (drop-down)
           - @menu_desktop_id_base = 'menu-desktop' + nav[:title].parameterize
 
-          li.navbar__item
+          li.navbar__item{
+            class="#{ 'navbar__item--solo' if (nav[:pages] && nav[:pages].length <= 1) || (nav[:external_url]) }"
+          }
             h2.title-sm.E-col-white{
               class="#{
                 'dropdown__title dropdown__title--inline' if nav[:pages] && nav[:pages].length > 1

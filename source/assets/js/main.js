@@ -174,7 +174,7 @@ const truncate = (container, content) => {
   });
 
   var text            = container.querySelector(content);
-  var textLines       = Math.round((text.offsetHeight / 1.5) / 18) + 2; // Add 2 lines for top/ bottom padding
+  var textLines       = Math.round((text.offsetHeight / 1.5) / 18) + 2.5; // Add 2.5 lines for padding
   var textLength      = text.innerText.length;
 
   var containerLines  = Math.round(((container.offsetHeight - nonTextHeight) / 1.5) / 18);
@@ -212,7 +212,7 @@ window.onresize = function() {
 //  Hero image
 ////////////////////////////////////////////////////////////
 
-var screenHeight = window.outerHeight;
+var screenHeight = window.innerHeight;
 document.querySelector('.banner__image').style.height = `${ screenHeight }px`
 
 ////////////////////////////////////////////////////////////

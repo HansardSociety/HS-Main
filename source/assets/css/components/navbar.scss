@@ -1,5 +1,6 @@
-.navbar {
-  @extend %E-width-full-vw;
+.navbar,
+.navbar__inner {
+  @extend %E-trans-core;
 }
 
 .navbar {
@@ -9,26 +10,46 @@
   height: 3.5rem;
 
   @extend %E-position-fixed;
-  @extend %E-trans-core;
+  @extend %E-width-full-vw;
   @include above('md') {
     height: 8rem;
-  };
+  }
 }
 
 .navbar__inner {
+  z-index: 1;
   justify-content: space-between;
   @extend %E-container-wide;
+  @extend %E-flex-row-center;
   @extend %E-height-full;
   @extend %E-mgn-auto-x;
   @extend %E-pad-sm;
   @include above('lg') {
     padding: 0;
   }
+
+  &::before {
+    top: 0;
+
+    height: 0;
+
+    background-color: rgba(Get($colors, primary, green), 0);
+
+    @extend %E-pseudo-elem;
+    @extend %E-width-full-vw;
+    @extend %E-trans-core;
+  }
 }
 
-.navbar__inner,
+.navbar__left,
+.navbar__center,
 .navbar__right {
-  @extend %E-flex-row-center;
+  @extend %E-display-flex;
+}
+
+.navbar__center,
+.navbar__item--solo {
+  z-index: 1;
 }
 
 .navbar__left {
@@ -44,13 +65,20 @@
 .navbar__list,
 .navbar__item {
   @extend %E-display-none;
+}
+
+.navbar__list {
   @include above('md') {
-    @extend %E-display-inline-block__md;
+    align-items: center;
+    @extend %E-display-flex__md;
   }
 }
 
 .navbar__item {
   @extend %E-pad-r-sm;
+  @include above('md') {
+    @extend %E-display-inline-block__md;
+  }
 }
 
 ////////////////////////////////////////////////////////////
@@ -61,11 +89,7 @@
 // ****************************
 
 .navbar.JS-active {
-  z-index: 200;
-
   @extend %E-col-white;
-  @extend %E-bgc-green;
-  @extend %E-box-shad-raised;
   @include above('md') {
     height: 3.5rem;
 
@@ -81,10 +105,13 @@
     }
   }
 
-  &::after {
-    top: 100%;
+  // Need pesudo elem for bgc when menu active
+  .navbar__inner {
+    &::before {
+      height: 3.5rem;
 
-    @extend %E-pseudo-elem;
-    @extend %E-width-full;
+      @extend %E-bgc-green;
+      @extend %E-box-shad-raised;
+    }
   }
 }

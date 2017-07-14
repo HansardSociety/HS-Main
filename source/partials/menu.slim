@@ -10,11 +10,11 @@
 //  Menu
 ////////////////////////////////////////////////////////////
 
-.menu.JS-inactive{
+.menu.E-col-white.JS-inactive{
   class="menu--#{ @screen } "
   id= @id
 }
-
+  .menu__nav-bg
   ul.menu__container{
     class="#{ 'menu__container--columns' if @screen == 'desktop' }"
   }
@@ -29,7 +29,7 @@
           class="#{ 'dropdown' if nav[:pages] && nav[:pages].length > 1 }"
         }
 
-          h2.title-md{
+          h2.title-by{
             class="#{ 'dropdown__title' if nav[:pages] && nav[:pages].length > 1 }"
           }
 
@@ -51,7 +51,7 @@
                 = partial 'partials/btn',
                   locals: { local_data: \
                     { type: 'state', size: 'sm',
-                      icon: 'chevron-down', icon_size: 'sm',
+                      icon: 'chevron-down', icon_size: 'xs',
                       animation: 'rotate',
                       aria_id: "activate-menu-dropdown-#{ nav[:title].parameterize }",
                       aria_target_id: "menu-dropdown-#{ nav[:title].parameterize }" }}
@@ -67,12 +67,12 @@
                 li.menu__category{
                   class="menu__category--#{ category.downcase }"
                 }
-                  h3.subtitle-xs.E-col-mid-grey= category if nav[:title] != category
+                  h3.subtitle-xs.E-col-mid-grey.E-mgn-t-xs= category if nav[:title] != category
 
                   ul
                     - pages.each do |page|
                       li
-                        h4.title.title--small.title--white
+                        h4.title-sm.E-mgn-t-xs
                           a.menu__link{
                             href= "#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
                           }= page.title
