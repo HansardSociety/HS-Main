@@ -77,11 +77,16 @@
                             href= "#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
                           }= page.title
 
+      / Newsletter
+      = partial 'partials/ac-form',
+        locals: { local_data: \
+          { style: 'dark' }}
+
     ////////////////////////////////////////////////////////
     // Desktop
     ////////////////////////////////////////////////////////
 
-    - if @screen == 'desktop' && @nav_items.pages
+    - if @screen == 'desktop' && @nav_items[:pages]
       - @nav_items.pages.group_by(&:category).each do |category, pages|
         li.menu__column{
           class="menu__column--#{ category.parameterize }"

@@ -71,13 +71,13 @@ article.side-card{
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'sm', style: 'primary',
-                    text: 'Download', text_size: 'sm', url: @side_card_data[:download] }}
+                    label: 'Download', label_size: 'sm', url: @side_card_data[:download] }}
 
             - if @side_card_data[:price] > 0
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'sm', style: 'primary', product: @side_card_data,
-                    text: "Buy (£#{ @side_card_data[:price] })", text_size: 'sm' }}
+                    label: "Buy (£#{ @side_card_data[:price] })", label_size: 'sm' }}
 
           / Registration
           - if @is_registration
@@ -100,8 +100,8 @@ article.side-card{
                   { type: 'state',
                     size: 'sm',
                     style: 'primary',
-                    text_on: 'Register', text_off: 'Close',
-                    text_size: 'sm',
+                    label_on: 'Register', label_off: 'Close',
+                    label_size: 'sm',
                     page: 'no-scroll', exclusive: true,
                     aria_id: "activate-#{ @side_card_data[:modal].cta_id }",
                     aria_target_id: @side_card_data[:modal].cta_id }}

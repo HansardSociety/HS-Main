@@ -39,21 +39,22 @@
   $key: nth($keys, $i);
   $val: map-get($spacing, $key);
 
-  // $prev: $i - 1;
+  $prev: $i - 1;
 
   // Core
   .grid--#{ $key } {
     @extend %E-mgn-neg-l-#{ $key };
 
     & > .grid__cell {
-      @extend %E-mgn-l-#{ $key };
       @extend %E-mgn-t-#{ $key };
+      @extend %E-mgn-l-#{ $key };
 
       // @if $prev > 0 {
-      //   @extend %E-mgn-t-#{ nth($keys, $prev) };
 
+      //   @extend %E-mgn-l-#{ nth($keys, $prev) };
       // } @else {
-      //   margin-top: $val / 2;
+
+      //   margin-left: $val / 2;
       // }
     }
 

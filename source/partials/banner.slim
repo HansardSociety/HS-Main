@@ -40,7 +40,7 @@ header.banner{
                 = partial 'partials/btn',
                   locals: { local_data: \
                     { type: 'link', size: 'md', style: 'primary',
-                      text: cta.button_text, text_size: 'lg', url: cta[:file].url }}
+                      label: cta.button_text, label_size: 'lg', url: cta[:file].url }}
 
               / Modal
               - if cta[:action] == 'modal'
@@ -51,22 +51,11 @@ header.banner{
                     { type: 'state',
                       size: 'lg',
                       style: 'secondary',
-                      text_on: cta[:button_text], text_off: 'Close',
-                      text_size: 'lg',
+                      label_on: cta[:button_text], label_off: 'Close',
+                      label_size: 'lg',
                       page: 'no-scroll', exclusive: true,
                       aria_id: "activate-#{  cta.modal[:cta_id] }",
                       aria_target_id: cta.modal[:cta_id] }}
-
-    / Scroll down
-    - if [ 'landing_page', 'root_page', 'home' ].include? entry.TYPE
-      a.banner__scroll.E-col-orange{
-        href="#banner-scroll-target"
-        data-scroll
-      }
-        = partial 'partials/icon',
-          locals: \
-          { icon: 'ios-arrow-thin-down',
-            size: 'lg' }
 
   / Modal content (here to avoid banner__inner transform cascade)
   - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
@@ -119,3 +108,14 @@ header.banner{
         srcset="#{ entry[:banner_image].url }?f=#{ entry[:banner_image].focus }"
         alt="#{ entry[:banner_image].alt }"
       }
+
+  / Scroll down
+  - if [ 'landing_page', 'root_page', 'home' ].include? entry.TYPE
+    a.banner__scroll.E-col-orange{
+      href="#banner-scroll-target"
+      data-scroll
+    }
+      = partial 'partials/icon',
+        locals: \
+        { icon: 'ios-arrow-thin-down',
+          size: 'lg' }

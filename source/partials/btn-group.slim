@@ -23,7 +23,7 @@
       / = partial 'partials/btn',
       /   locals: { local_data: \
       /     { type: 'state', size: 'small', style: 'secondary', group: true,
-      /       text_on: cta.button_text, text_off: 'Close', text_size: 'small',
+      /       label_on: cta.button_text, label_off: 'Close', label_size: 'small',
       /       page: 'no-scroll', exclusive: true,
       /       aria_id: "activate-#{ @modal_id_base }",
       /       aria_target_id: @modal_id_base }}
@@ -33,4 +33,4 @@
       = partial 'partials/btn',
         locals: { local_data: \
           { type: 'link', size: 'medium', style: 'primary', group: true,
-            text: cta.button_text, text_size: 'medium', url: cta.file.url }}
+            label: cta.button_text, label_size: 'medium', url: cta.file.url }}

@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////
 
 - @order_nav  = [ 'Our work', 'About', 'Blog', 'Events', 'Scholars' ]
-- @sort_nav   = data.hs.navigation.sort_by{ |k, v| @order_nav.index(v[:title]) }
+- @sort_nav   = data[:hs].navigation.sort_by{ |k, v| @order_nav.index(v[:title]) }
 
 ////////////////////////////////////////////////////////////
 //  Navbar
@@ -23,7 +23,7 @@ nav#navbar.navbar.JS-inactive
         locals: { local_data: \
           { id: 'menu-mobile',
             screen: 'mobile',
-            nav_items: data[:hs].navigation }}
+            nav_items: @sort_nav }}
 
       / Menu button (mobile)
       = partial 'partials/btn',
@@ -49,11 +49,7 @@ nav#navbar.navbar.JS-inactive
           li.navbar__item{
             class="#{ 'navbar__item--solo' if (nav[:pages] && nav[:pages].length <= 1) || (nav[:external_url]) }"
           }
-            h2.title-sm.E-col-white{
-              class="#{
-                'dropdown__title dropdown__title--inline' if nav[:pages] && nav[:pages].length > 1
-              }"
-            }
+            h2.title-sm.E-col-white
 
               / If navigation item contains one or no pages
               - if nav[:pages] && nav[:pages].length <= 1
@@ -73,18 +69,17 @@ nav#navbar.navbar.JS-inactive
 
               / If navigation item contains more than one page
               - if nav[:pages] && nav[:pages].length > 1
-                = nav[:title]
 
                 / Dropdown
-                .dropdown__control
-                  = partial 'partials/btn',
-                    locals: { local_data: \
-                      { type: 'state', size: 'xs',
-                        page: 'no-scroll', exclusive: true, secondary_target: 'navbar',
-                        icon: 'chevron-down', icon_size: 'xs',
-                        animation: 'rotate',
-                        aria_id: "activate-#{ @menu_desktop_id_base }",
-                        aria_target_id: @menu_desktop_id_base }}
+                = partial 'partials/btn',
+                  locals: { local_data: \
+                    { type: 'state',
+                      page: 'no-scroll', exclusive: true, secondary_target: 'navbar',
+                      icon: 'chevron-down', icon_size: 'xs',
+                      text: nav[:title], text_size: 'sm',
+                      animation: 'rotate',
+                      aria_id: "activate-#{ @menu_desktop_id_base }",
+                      aria_target_id: @menu_desktop_id_base }}
 
             / Menu (desktop)
             = partial 'partials/menu',

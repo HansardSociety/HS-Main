@@ -5,9 +5,8 @@
 //  =Shared
 //////////////////////////////
 
-.btn__content,
 .btn__icon,
-.btn__text {
+.btn__label {
   @extend %E-display-block;
 }
 
@@ -17,6 +16,7 @@
 .btn {
   @extend %E-cursor-pointer;
   @extend %E-flex-inline-row-center;
+  @extend %E-ff-prim-medium;
   @extend %E-overflow-hidden;
   @extend %E-position-relative;
   @extend %E-rad-slight;
@@ -59,11 +59,20 @@
 }
 
 .btn__content {
-  @extend %E-mgn-auto-x;
+  @extend %E-flex-row-center;
+  @extend %E-height-full;
   @extend %E-width-full;
 }
 
 .btn__text {
+  @extend %E-mgn-r-xs;
+}
+
+.btn__icon {
+  @extend %E-mgn-auto-x;
+}
+
+.btn__label {
   font-size: .625rem;
 
   @extend %E-mgn-auto-x;
@@ -72,12 +81,12 @@
 
 @each $widthKey, $widthVal in map-get($btn, text-width) {
 
-  .btn__text--#{ $widthKey } {
+  .btn__label--#{ $widthKey } {
     width: $widthVal;
   }
 }
 
-.btn__text--change {
+.btn__label--change {
 
   &::before,
   &::after {
@@ -112,7 +121,7 @@
 .btn__menu::after {
   left: 0;
 
-  width: 1.75rem;
+  width: 1.5rem;
   height: 2px;
 
   @extend %E-bgc-white;

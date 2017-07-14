@@ -1,12 +1,11 @@
 .social {
-  width: Get($btn, size, sm);
+  width: Get($btn, size, md);
   height: Get($btn, size, sm);
 
   border: 2px solid Get($colors, primary, orange);
 
   @extend %E-col-orange;
-  @extend %E-display-inline-block;
-  @extend %E-position-relative;
+  @extend %E-flex-row-center;
   @extend %E-rad-slight;
   @extend %E-trans-core;
 
@@ -20,7 +19,7 @@
     }
   }
 
-  & > span {
-    @extend %E-absolute-center-xy;
+  & > svg {
+    @extend %E-mgn-auto-x;
   }
 }

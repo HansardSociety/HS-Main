@@ -47,8 +47,8 @@
                   { type: 'link',
                     size: 'md',
                     style: 'primary',
-                    text: cta[:button_text],
-                    text_size: 'md',
+                    label: cta[:button_text],
+                    label_size: 'md',
                     url: cta[:file].url }}
 
             / Modal
@@ -66,8 +66,8 @@
                   { type: 'state',
                     size: 'md',
                     style: 'secondary',
-                    text_on: cta[:button_text], text_off: 'Close',
-                    text_size: 'md',
+                    label_on: cta[:button_text], label_off: 'Close',
+                    label_size: 'md',
                     page: 'no-scroll', exclusive: true,
                     aria_id: "activate-#{ cta[:modal].id }",
                     aria_target_id: cta[:modal].id }}

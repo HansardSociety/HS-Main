@@ -49,8 +49,8 @@
                   { type: 'state',
                     size: 'sm',
                     style: 'secondary',
-                    text_on: 'Show more', text_off: 'Close',
-                    text_size: 'sm',
+                    label_on: 'Show more', label_off: 'Close',
+                    label_size: 'sm',
                     page: 'no-scroll', exclusive: true,
                     aria_id: "activate-#{ @panel_data[:show_more].cta_id }",
                     aria_target_id:  @panel_data[:show_more].cta_id }}
@@ -74,8 +74,8 @@
                       { type: 'state',
                         size: 'sm',
                         style: 'secondary',
-                        text_on: cta[:button_text], text_off: 'Close',
-                        text_size: 'sm',
+                        label_on: cta[:button_text], label_off: 'Close',
+                        label_size: 'sm',
                         page: 'no-scroll', exclusive: true,
                         aria_id: "activate-#{  cta.modal[:cta_id] }",
                         aria_target_id: cta.modal[:cta_id] }}
@@ -86,6 +86,6 @@
                 /       { type: 'link',
                 /         size: 'medium',
                 /         style: 'primary', group: true,
-                /         text: cta[:button_text],
-                /         text_size: 'medium',
+                /         label: cta[:button_text],
+                /         label_size: 'medium',
                 /         url: cta[:file].url }}

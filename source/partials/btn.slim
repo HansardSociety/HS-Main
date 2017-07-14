@@ -11,11 +11,12 @@
 //  Text
 ////////////////////////////
 
-- @text_on          = local_data[:text_on]
-- @text_off         = local_data[:text_off]
-- @text             = local_data[:text] # Links only
-- @text_size        = local_data[:text_size]
-- @url              = local_data[:url]
+- @text              = local_data[:text] # Links only
+- @label_on          = local_data[:label_on]
+- @label_off         = local_data[:label_off]
+- @label             = local_data[:label] # Links only
+- @label_size        = local_data[:label_size]
+- @url               = local_data[:url]
 
 //  Icon
 ////////////////////////////
@@ -53,7 +54,7 @@
 / .btn classes
 - @class = [\
   ('btn'),
-  ('btn--' + @size),
+  ('btn--' + @size if @size),
   ('btn--' + @style if @style),
   ('btn--fill' if @fill),
   ('E-col-current' if @icon),
@@ -72,12 +73,13 @@
   'data-secondary-target': (@secondary_target if @secondary_target)}.reject{ |key, value| value.nil? }
 
 / Button splat
-- @btn = { tag: (@type == 'state' ? 'button' : 'a'),
-           class: @class,
-           'data-item-id': (@product[:product_id] if @product),
-           'data-item-name': (@product[:title] if @product),
-           'data-item-price': (@product[:price] if @product),
-           'data-item-url': ("https://www.hansardsociety.org.uk/#{ @entry[:category] }/#{ @entry[:slug] }" if @product)}.merge(@attrs)
+- @btn = { \
+  tag: (@type == 'state' ? 'button' : 'a'),
+  class: @class,
+  'data-item-id': (@product[:product_id] if @product),
+  'data-item-name': (@product[:title] if @product),
+  'data-item-price': (@product[:price] if @product),
+  'data-item-url': ("https://www.hansardsociety.org.uk/#{ @entry[:category] }/#{ @entry[:slug] }" if @product)}.merge(@attrs)
 
 ////////////////////////////////////////////////////////////
 //  Button
@@ -91,6 +93,9 @@
     aria-hidden="true"
   }
 
+    - if @text
+      span.btn__text= @text
+
     - if @icon && @icon != 'menu'
       span.btn__icon{
         class="#{ 'btn__icon--' + @animation if @animation }"
@@ -99,15 +104,15 @@
           locals: { icon:  @icon,
                     size:  @icon_size }
 
-    - if @text_on
-      span.btn__text.btn__text--change{
-        class="#{ 'btn__text--' + @text_size }"
+    - if @label_on
+      span.btn__label.btn__label--change{
+        class="#{ 'btn__label--' + @label_size }"
 
-        data-on-text="#{ @text_on }"
-        data-off-text="#{ @text_off }"
+        data-on-text="#{ @label_on }"
+        data-off-text="#{ @label_off }"
       }
 
-    - if @type == 'link' && @text
-      span.btn__text{
-        class="#{ 'btn__text--' + @text_size }"
-      }= @text
+    - if @type == 'link' && @label
+      span.btn__label{
+        class="#{ 'btn__label--' + @label_size }"
+      }= @label

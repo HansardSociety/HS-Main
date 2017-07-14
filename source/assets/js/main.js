@@ -60,11 +60,13 @@ const changeState = function(trigger) {
   });
 
   // Activate no-scroll
-  if (triggerNoScroll && !checkNoScroll) {
-    toggleClass(stateGlobal, noScroll);
+  if (triggerNoScroll) {
+    if (!checkNoScroll) {
+      toggleClass(stateGlobal, noScroll);
 
-  } else {
-    stateGlobal.classList.remove(noScroll);
+    } else {
+      stateGlobal.classList.remove(noScroll);
+    }
   }
 
   // Secondary target

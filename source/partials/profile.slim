@@ -36,7 +36,7 @@
 
   - if (@biog || @twitter || @linkedin) && @actions != false
     .profile__actions
-      .grid.grid--xs
+      .grid.grid--xxs
 
         / Biog
         - if @biog
@@ -46,7 +46,7 @@
             = partial 'partials/btn',
               locals: { local_data: \
                 { type: 'state', size: 'sm', style: 'secondary',
-                  text_on: 'Show biog', text_off: 'Close biog', text_size: 'sm',
+                  label_on: 'Show biog', label_off: 'Close biog', label_size: 'sm',
                   page: 'no-scroll', exclusive: true,
                   aria_id: "activate-#{ @biog[:id] }",
                   aria_target_id: @biog[:id] }}

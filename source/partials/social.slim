@@ -3,7 +3,6 @@
 ////////////////////////////////////////////////////////////
 
 - @urls   = local_data[:icons].reject(&:nil?)
-- @group  = local_data[:group]
 
 ////////////////////////////////////////////////////////////
 //  Social
@@ -22,8 +21,7 @@
     href="#{ url }"
     target="_blank"
   }
-    span
-      = partial 'partials/icon',
-        locals: { icon: "#{ url =~ /@/ ? 'email' : 'social-' + @domain.sld }",
-                  color: 'orange',
-                  size: 'xs' }
+    = partial 'partials/icon',
+      locals: { icon: "#{ url =~ /@/ ? 'email' : 'social-' + @domain.sld }",
+                color: 'orange',
+                size: 'xs' }
