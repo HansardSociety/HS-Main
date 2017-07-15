@@ -49,6 +49,11 @@
 //  =ActiveCampaign style
 ////////////////////////////////////////////////////////////
 
+._error * {
+  @extend %E-col-brown;
+  @extend %E-fz-xs;
+}
+
 .pika-single {
   z-index: 10000001 !important;
 }

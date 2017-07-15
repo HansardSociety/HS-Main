@@ -20,13 +20,10 @@
 
 .modal__inner {
   width: 40rem;
-
-  // Fix chrome blur
   height: 99.9999vh;
   min-height: 99.9999vh;
   max-height: 99.9999vh;
 
-  will-change: transform;
   @extend %E-absolute-center-xy;
   @extend %E-bgc-white;
   @extend %E-rad-slight;
@@ -66,6 +63,7 @@
 
   @extend %E-overflow-y-auto;
   @extend %E-pad-sm;
+  @extend %E-width-full;
 }
 
 ////////////////////////////////////////////////////////////
@@ -76,19 +74,17 @@
 .modal.JS-active {
   left: 0;
 
+  @extend %E-animate-slide-up-in;
+
   &::before {
     animation-delay: 400ms;
 
     @extend %E-animate-fade-in-opaque;
   }
-
-  .modal__inner {
-    @extend %E-animate-slide-up-in-center;
-  }
 }
 
 // Must declare after
-.modal.JS-active::before,
-.modal.JS-active .modal__inner {
+.modal.JS-active,
+.modal.JS-active::before {
   animation-fill-mode: forwards;
 }

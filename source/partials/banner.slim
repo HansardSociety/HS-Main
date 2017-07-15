@@ -62,9 +62,9 @@ header.banner{
     - entry[:calls_to_action].each do |cta|
       - if cta[:action] == 'modal'
         = partial 'partials/modal',
-          locals: \
+          locals: { local_data: \
           { id: cta.modal[:cta_id],
-            content: cta.modal[:content] }
+            content: cta.modal[:content] }}
 
   / Image
   .banner__image{

@@ -90,9 +90,9 @@ article.side-card{
 
               / Modal window
               = partial 'partials/modal',
-                locals: \
-                { id: @side_card_data[:modal].cta_id,
-                  content: @side_card_data[:modal].content }
+                locals: { local_data: \
+                  { id: @side_card_data[:modal].cta_id,
+                    content: @side_card_data[:modal].content }}
 
               / Modal button
               = partial 'partials/btn',

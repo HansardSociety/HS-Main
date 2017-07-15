@@ -39,9 +39,9 @@
             .grid__cell
               / Modal window
               = partial 'partials/modal',
-                locals: \
+                locals: { local_data: \
                 { id: @panel_data[:show_more].cta_id,
-                  content: @panel_data[:show_more].content }
+                  content: @panel_data[:show_more].content }}
 
               / Modal button
               = partial 'partials/btn',
@@ -64,9 +64,9 @@
 
                   / Modal window
                   = partial 'partials/modal',
-                    locals: \
-                    { id: cta.modal[:cta_id],
-                      content: cta.modal[:content] }
+                    locals: { local_data: \
+                      { id: cta.modal[:cta_id],
+                        content: cta.modal[:content] }}
 
                   / Modal button
                   = partial 'partials/btn',

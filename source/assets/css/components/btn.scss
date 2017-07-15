@@ -107,7 +107,7 @@
     left: 0;
 
     content: attr(data-off-text);
-    transform: translateY(150%);
+    transform: translateY(200%);
 
     @extend %E-position-absolute;
   }

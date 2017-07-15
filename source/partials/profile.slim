@@ -53,9 +53,9 @@
 
             / Modal
             = partial 'partials/modal',
-              locals: \
-              { id: @biog[:id],
-                content: @biog[:content] }
+              locals: { local_data: \
+                { id: @biog[:id],
+                  content: @biog[:content] }}
 
         / Social
         = partial 'partials/social',

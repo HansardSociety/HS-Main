@@ -77,11 +77,6 @@
                             href= "#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
                           }= page.title
 
-      / Newsletter
-      / = partial 'partials/ac-form',
-      /   locals: { local_data: \
-      /     { style: 'dark' }}
-
     ////////////////////////////////////////////////////////
     // Desktop
     ////////////////////////////////////////////////////////

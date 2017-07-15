@@ -1,14 +1,32 @@
+- @content = local_data[:content]
+- @id      = local_data[:id]
+- @yield   = local_data[:yield]
+
 .modal.JS-inactive{
-  id= id
+  id= @id
 }
   .modal__inner
 
+    / Header
     .modal__header
       .modal__close.E-col-green
-        = partial 'partials/btn',
-          locals: { local_data: \
-            { size: 'xs', CLOSEALL: true,
-              icon: 'close-round', icon_size: 'xs' }}
+        / = partial 'partials/btn',
+        /   locals: { local_data: \
+        /     { type: 'state', reverse: true,
+        /       size: 'xs',
+        /       icon: 'close-round', icon_size: 'xs',
+        /       page: 'no-scroll', exclusive: true,
+        /       aria_id: 'activate-modal-monthly-newsletter-subscription',
+        /       aria_target_id: 'modal-monthly-newsletter-subscription' }}
 
-    .modal__content.copy
-      = markdown(content)
+
+    / Content
+    .modal__content{
+      class="#{ 'copy' if @content }"
+    }
+
+      - if @yield
+        = yield
+
+      - else
+        = markdown(@content)

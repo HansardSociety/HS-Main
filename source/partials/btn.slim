@@ -59,7 +59,8 @@
   ('btn--fill' if @fill),
   ('E-col-current' if @icon),
   ('btn--CLOSEALL' if @CLOSEALL),
-  ('JS-off' if @type == 'state'),
+  ('JS-off' if @type == 'state' && !@reverse),
+  ('JS-on' if @type == 'state' && @reverse),
   ('JS-no-scroll' if @page == 'no-scroll'),
   ('JS-exclusive' if @exclusive),
   ('snipcart-add-item' if @product) ].reject{ |value| value.nil? }
@@ -67,7 +68,7 @@
 / .btn attributes
 - @attrs = {\
   'aria-controls':         (@aria_target_id if @aria_target_id),
-  'id':                    (@aria_id if @aria_id),
+  #'id':                    (@aria_id if @aria_id),
   'role':                  ('button' if @aria_id),
   'href':                  (@url if @url),
   'data-secondary-target': (@secondary_target if @secondary_target)}.reject{ |key, value| value.nil? }

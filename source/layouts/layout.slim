@@ -16,6 +16,16 @@ html
       main
         = yield
 
+        / Newsletter modal
+        = partial 'partials/modal',
+          locals: { local_data: \
+            { id: 'modal-monthly-newsletter-subscription',
+              yield: true }}
+          = partial 'partials/ac-form',
+            locals: { local_data: \
+              { style: 'plain' }}
+
+      / Footer
       = partial 'partials/footer'
 
   / Scripts

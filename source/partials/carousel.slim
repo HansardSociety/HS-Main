@@ -63,6 +63,6 @@
   - @entry_data.each do |id, profile|
     - if profile[:biog]
       = partial 'partials/modal',
-        locals: \
+        locals: { local_data: \
         { id: "modal-#{ profile[:ID] }",
-          content: profile[:biog] }
+          content: profile[:biog] }}

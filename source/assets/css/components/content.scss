@@ -23,19 +23,3 @@
     border-top-right-radius: map-get($radii, slight);
   }
 }
-
-.content__inner {
-  @extend %E-mgn-auto-x;
-
-  &:nth-child(1n + 2) {
-    @extend %E-mgn-t-md;
-  }
-}
-
-.content__inner--narrow {
-  @extend %E-container-narrow;
-}
-
-.content__inner--wide {
-  @extend %E-container-wide;
-}

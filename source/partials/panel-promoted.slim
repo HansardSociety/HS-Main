@@ -56,9 +56,9 @@
 
               / Modal window
               = partial 'partials/modal',
-                locals: \
+                locals: { local_data: \
                 { id: cta[:modal].id,
-                  content: cta[:modal].content }
+                  content: cta[:modal].content }}
 
               / Modal button
               = partial 'partials/btn',

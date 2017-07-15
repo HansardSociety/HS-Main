@@ -92,11 +92,12 @@
       //  Calls to action
       ////////////////////////////
 
-      - if @calls_to_action
-        = partial 'partials/btn-group',
-          locals: { local_data: \
-            { entry_data: @calls_to_action,
-              modal_id_base: @title }}
+      ///TODO: Button groups///
+      / - if @calls_to_action
+      /   = partial 'partials/btn-group',
+      /     locals: { local_data: \
+      /       { entry_data: @calls_to_action,
+      /         modal_id_base: @title }}
 
     //  Side content
     ////////////////////////////
