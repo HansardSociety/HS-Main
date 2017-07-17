@@ -10,7 +10,7 @@ const toggleState = () => {
   // ** Variables **
   // ****************************
 
-  var stateGlobal   = document.querySelector('.JS-state-global'),
+  var globalState   = document.querySelector('.JS-state-global'),
       btnsGlobal    = document.querySelectorAll('.btn.JS-target-global'),
       btns          = document.querySelectorAll('.btn.JS-off, .btn.JS-on'),
       nav           = document.querySelector('.navbar');
@@ -25,6 +25,12 @@ const toggleState = () => {
 
         triggerStates     = [ 'JS-on', 'JS-off' ],
         targetElemStates  = [ 'JS-active', 'JS-inactive' ],
+        targetTriggers    = document.querySelectorAll(`[aria-controls="${ target }"]`),
+
+        triggerReverse    = trigger.classList.contains('JS-reverse'),
+        triggerExclusive  = trigger.classList.contains('JS-exclusive'),
+
+        exclusiveTriggers = document.querySelectorAll('.JS-exclusive'),
 
         targetSec         = trigger.getAttribute('data-secondary-target'),
         targetSecElem     = document.querySelector('#' + targetSec),
@@ -32,7 +38,7 @@ const toggleState = () => {
 
         noScroll          = 'JS-no-scroll',
         triggerNoScroll   = trigger.classList.contains(noScroll),
-        checkNoScroll     = stateGlobal.classList.contains(noScroll);
+        checkNoScroll     = globalState.classList.contains(noScroll);
 
     // Toggle trigger
     forEach(triggerStates, function(index, state) {
@@ -41,39 +47,47 @@ const toggleState = () => {
 
     // Toggle target
     forEach(targetElemStates, function(index, state) {
-      toggleClass(targetElem, trigger.classList.contains('JS-reverse') ? ++index : state);
+      toggleClass(targetElem, state);
     });
 
-    if (triggerNoScroll && !checkNoScroll) {
-      toggleClass(stateGlobal, noScroll)
-
-    } else {
-      stateGlobal.classList.toggle(noScroll)
+    // Toggle JS-no-scroll
+    if (triggerNoScroll) {
+      trigger.classList.contains('JS-on')
+        ? globalState.classList.add('JS-no-scroll')
+        : globalState.classList.remove('JS-no-scroll')
     }
 
     // Secondary target
     if (targetSecInactive) { toggleClass(targetSecElem, 'JS-active'); }
-  }
 
-  // ** Exclusive state **
-  // ****************************
+    // Reverse sibling trigger
+    if (triggerReverse) {
+      forEach(targetTriggers, function(index, elem) {
+        if (elem != trigger) {
+          forEach(triggerStates, function(index, state) {
+            toggleClass(elem, state);
+          });
+        }
+      });
+    }
 
-  const exclState = function(trigger) {
-    var exclusiveTriggers = document.querySelectorAll('.JS-exclusive');
-
-    // If an exclusive event...
-    if (trigger.classList.contains('JS-exclusive')) {
-
-      // Loop through all exclusive triggers
+    // Exclusive state
+    if (triggerExclusive) {
       forEach(exclusiveTriggers, function(index, elem) {
+        if (elem != trigger) {
 
-        // If (this) trigger element != other exclusive triggers...
-        if ((elem != trigger)
-            && (elem.classList.contains('JS-on')
-            && (!elem.classList.contains('JS-reverse', 'JS-on')))) {
+          var targetID    = elem.getAttribute('aria-controls');
+          var targetElems = document.querySelectorAll('#' + targetID);
 
-          // Toggle global or local state depending on elem...
-          changeState(elem);
+          if (elem.classList.contains('JS-on')) {
+            toggleClass(elem, 'JS-on');
+            toggleClass(elem, 'JS-off');
+
+            forEach(targetElems, function(index, elem) {
+              toggleClass(elem, 'JS-active');
+              toggleClass(elem, 'JS-inactive');
+            });
+          }
         }
       });
     }
@@ -86,7 +100,7 @@ const toggleState = () => {
 
     btn.onclick = function() {
       changeState(this);
-      exclState(this);
+      // exclState(this);
     }
   });
 }
@@ -97,7 +111,7 @@ export default toggleState();
 
 
 
-
+///////////////////////////////////////////////////////////////////////////////
 
 
   // // ** Close all HACK **
