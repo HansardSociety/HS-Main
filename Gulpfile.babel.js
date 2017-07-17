@@ -109,6 +109,7 @@ var
       snipcart: __dirname + '/source/assets/css/vendors/snipcart/snipcart.scss'
     },
     js: {
+      all: __dirname + '/source/assets/js/**/*.js',
       main: __dirname + '/source/assets/js/main.js',
       vendor: __dirname + '/source/assets/js/vendor.js'
     },
@@ -160,7 +161,7 @@ gulp.task('watch',
 
       // Inject CSS/ JS
       gulp.watch(PATH.css.all, [ 'css:main', 'css:snipcart' ]);
-      gulp.watch(PATH.js.main, [ 'js:bundle' ]);
+      gulp.watch(PATH.js.all, [ 'js:bundle' ]);
 
       // Reload browserSync after html changes
       gulp.watch(path.join(PATH.source, '**/*.slim'))

@@ -44,7 +44,7 @@ nav#navbar.navbar.JS-inactive
         - @sort_nav.each do |id, nav|
 
           / Base ID for menu and menu button (drop-down)
-          - @menu_desktop_id_base = 'menu-desktop' + nav[:title].parameterize
+          - @menu_desktop_id_base = 'menu-desktop-' + nav[:title].parameterize
 
           li.navbar__item{
             class="#{ 'navbar__item--solo' if (nav[:pages] && nav[:pages].length <= 1) || (nav[:external_url]) }"

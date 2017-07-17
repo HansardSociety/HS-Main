@@ -10,15 +10,13 @@
     / Header
     .modal__header
       .modal__close.E-col-green
-        / = partial 'partials/btn',
-        /   locals: { local_data: \
-        /     { type: 'state', reverse: true,
-        /       size: 'xs',
-        /       icon: 'close-round', icon_size: 'xs',
-        /       page: 'no-scroll', exclusive: true,
-        /       aria_id: 'activate-modal-monthly-newsletter-subscription',
-        /       aria_target_id: 'modal-monthly-newsletter-subscription' }}
-
+        = partial 'partials/btn',
+          locals: { local_data: \
+            { type: 'state', reverse: true,
+              size: 'xs',
+              icon: 'close-round', icon_size: 'xs',
+              page: 'no-scroll', exclusive: true,
+              aria_target_id: @id }}
 
     / Content
     .modal__content{
