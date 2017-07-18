@@ -12,10 +12,10 @@
       .modal__close.E-col-green
         = partial 'partials/btn',
           locals: { local_data: \
-            { type: 'state', reverse: true,
+            { type: 'state', switch: true,
               size: 'xs',
               icon: 'close-round', icon_size: 'xs',
-              page: 'no-scroll', exclusive: true,
+              page: 'no-scroll',
               aria_target_id: @id }}
 
     / Content

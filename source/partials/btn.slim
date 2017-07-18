@@ -6,7 +6,7 @@
 - @style            = local_data[:style]
 - @size             = local_data[:size]
 - @fill             = local_data[:fill]
-- @reverse          = local_data[:reverse] # Starts from on state (eg. close btn)
+- @switch          = local_data[:switch] # Starts from on state (eg. close btn)
 
 //  Text
 ////////////////////////////
@@ -59,8 +59,8 @@
   ('btn--fill' if @fill),
   ('E-col-current' if @icon),
   ('btn--CLOSEALL' if @CLOSEALL),
-  ('JS-off' if @type == 'state' && !@reverse),
-  ('JS-reverse JS-on' if @type == 'state' && @reverse),
+  ('JS-off' if @type == 'state'),
+  ('JS-switch' if @type == 'state' && @switch),
   ('JS-no-scroll' if @page == 'no-scroll'),
   ('JS-exclusive' if @exclusive),
   ('snipcart-add-item' if @product) ].reject{ |value| value.nil? }
