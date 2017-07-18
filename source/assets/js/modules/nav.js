@@ -6,21 +6,29 @@ import { forEach, toggleClass } from './core';
 //  Nav
 ////////////////////////////////////////////////////////////
 
-const navbar = document.querySelector('.navbar');
 
 const shrinkNav = (() => {
-  var navStates = [ 'JS-active', 'JS-active-hold', 'JS-inactive' ]
+
+  var navbar       = document.querySelector('.navbar');
+  var navStates  = [ 'JS-active', 'JS-active-hold', 'JS-inactive' ];
+  // var navOffStates = 'JS-inactive';
 
   function addNavStates() {
-    forEach(navStates, function(index, state) {
-      navbar.classList.add(state)
-    })
+    if (navbar.classList.contains('JS-inactive')) {
+
+      forEach(navStates, function(index, state) {
+        toggleClass(navbar, state);
+      })
+    }
   }
 
   function removeNavStates() {
-    forEach(navStates, function(index, state) {
-      navbar.classList.remove(state)
-    })
+    if (navbar.classList.contains('JS-active')) {
+
+      forEach(navStates, function(index, state) {
+        toggleClass(navbar, state);
+      })
+    }
   }
 
   window.addEventListener('scroll', _.throttle(function() {
