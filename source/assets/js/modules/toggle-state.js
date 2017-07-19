@@ -10,32 +10,35 @@ const toggleState = () => {
   // ** Variables **
   // ****************************
 
-  var globalState   = document.querySelector('.JS-state-global');
-  var btnsGlobal    = document.querySelectorAll('.btn.JS-target-global');
-  var btns          = document.querySelectorAll('.btn.JS-off, .btn.JS-on');
-  var nav           = document.querySelector('.navbar');
+  var globalState = document.querySelector('.JS-state-global');
+  var baseElem    = document.querySelector('.site-container');
+
+  var btnsGlobal  = baseElem.querySelectorAll('.btn.JS-target-global');
+  var btns        = baseElem.querySelectorAll('.btn.JS-off, .btn.JS-on');
+  var nav         = baseElem.querySelector('.navbar');
 
   // Change state
   function changeState(trigger) {
 
-    var target            = trigger.getAttribute('aria-controls');
-    var targetElem        = document.querySelector(`#${ target }`);
+    var noScroll             = 'JS-no-scroll';
+    var checkNoScroll        = globalState.classList.contains(noScroll);
 
-    var triggerStates     = [ 'JS-on', 'JS-off' ];
-    var targetElemStates  = [ 'JS-active', 'JS-inactive' ];
+    // Trigger
+    var trigger              = trigger;
+    var triggerTargetID      = trigger.getAttribute('aria-controls');
+    var triggerSwitch        = trigger.classList.contains('JS-switch');
+    var triggerNoScroll      = trigger.classList.contains(noScroll);
+    var triggerExclusive     = trigger.classList.contains('JS-exclusive');
+    var triggerExclusiveAll  = baseElem.querySelectorAll('.JS-exclusive');
+    var triggerSecTargetAttr = 'data-secondary-target';
+    var triggerSecTargetID   = trigger.getAttribute(triggerSecTargetAttr);
+    var triggerSecTargetAll  = baseElem.querySelectorAll(`button[${ triggerSecTargetAttr }]`);
+    var triggerStates        = [ 'JS-on', 'JS-off' ];
 
-    var triggerSwitch     = trigger.classList.contains('JS-switch');
-    var triggerExclusive  = trigger.classList.contains('JS-exclusive');
-
-    var exclusiveTriggers = document.querySelectorAll('.JS-exclusive');
-
-    var targetSecAttr     = 'data-secondary-target';
-    var targetSec         = trigger.getAttribute(targetSecAttr);
-    var targetSecElem     = document.querySelector(`#${ targetSec }`);
-
-    var noScroll          = 'JS-no-scroll';
-    var triggerNoScroll   = trigger.classList.contains(noScroll);
-    var checkNoScroll     = globalState.classList.contains(noScroll);
+    // Target
+    var target               = baseElem.querySelector(`#${ triggerTargetID }`);
+    var targetSec            = baseElem.querySelector(`#${ triggerSecTargetID }`);
+    var targetStates         = [ 'JS-active', 'JS-inactive' ];
 
     // Toggle trigger
     function toggleEachState(states, triggerElem) {
@@ -44,71 +47,93 @@ const toggleState = () => {
       });
     }
 
+    var mapTriggersWithSecTargets = new Map();
+
+    function triggersWithSecTargetMap() {
+      forEach(triggerSecTargetAll, function(index, elem) {
+
+        mapTriggersWithSecTargets.set(index, {
+          'trigger':   elem == trigger,
+          'targetID':  elem.getAttribute(triggerSecTargetAttr),
+          'on':        elem.classList.contains('JS-on'),
+          'elem': elem
+        })
+      });
+    }
+
+    function validateMap() {
+      for (let [key, val] of mapTriggersWithSecTargets) {
+        // console.log(val.trigger, val.elem)
+
+        if (val.trigger) {
+          console.log('Broken here: ', val.elem)
+          break;
+
+        } else {
+          console.log('Unbroken here: ', val.elem)
+          // return true;
+        }
+      }
+    }
+
     // Core states...
     toggleEachState(triggerStates, trigger);
-    toggleEachState(targetElemStates, targetElem);
+    toggleEachState(targetStates, target);
 
-    if (targetSec) {
+    // If trigger has secondary target...
+    if (triggerSecTargetID) {
 
-      toggleEachState(targetElemStates, targetSecElem);
+      triggersWithSecTargetMap();
+      validateMap();
+
+      // console.log(validateMap())
+
+      // if (verifyMap() == false) console.log('This == that trigger')
+
     }
 
-    // Exclusive events
-    if (triggerExclusive) {
+    // // Exclusive events
+    // if (triggerExclusive) {
+    //   forEach(triggerExclusiveAll, function(index, elem) {
 
-      function turnAllOff() {
-        forEach(exclusiveTriggers, function(index, elem) {
+    //     var target        = elem.getAttribute('aria-controls');
+    //     var targetElem    = baseElem.querySelector(`#${ target }`);
+    //     var targetSec     = elem.getAttribute(targetSecAttr);
+    //     var targetSecElem = baseElem.querySelector(`#${ targetSec }`);
 
-          var target        = elem.getAttribute('aria-controls');
-          var targetElem    = document.querySelector(`#${ target }`);
-          var targetSec     = elem.getAttribute(targetSecAttr);
-          var targetSecElem = document.querySelector(`#${ targetSec }`);
+    //     // Only elems != this
+    //     if (elem != trigger) {
 
-          // Only elems != this
-          if (elem != trigger) {
+    //       // Check if on...
+    //       if (elem.classList.contains('JS-on')) {
 
-            // Check if on...
-            if (elem.classList.contains('JS-on')) {
+    //         // Core states...
+    //         toggleEachState(triggerStates, elem);
+    //         toggleEachState(targetElemStates, targetElem);
 
-              // Core states...
-              toggleEachState(triggerStates, elem);
-              toggleEachState(targetElemStates, targetElem);
+    //         if (targetSec) {
+    //           if (targetSec != trigger.getAttribute(targetSecAttr)
+    //           && targetSecElem.classList.contains('JS-active')) {
 
-              if (targetSec) {
-                if (targetSec != trigger.getAttribute(targetSecAttr)
-                && targetSecElem.classList.contains('JS-active')) {
+    //             toggleEachState(targetElemStates, targetSecElem);
+    //           }
+    //         }
+    //       }
+    //     }
+    //   });
+    // }
 
-                  toggleEachState(targetElemStates, targetSecElem);
-                }
-                // else if (targetSecElem.classList.contains('JS-inactive')
-                //   &&      !targetSecElem.classList.contains('JS-active-hold')) {
+    // // Switches
+    // if (triggerSwitch) {
 
-                //   console.log('Two')
-                //   toggleEachState(targetElemStates, targetSecElem);
-                // }
-              }
-            }
-          }
-        });
-      }
+    //   var triggerControllers = baseElem.querySelectorAll(`[aria-controls="${ target }"]`);
 
-      turnAllOff();
-    }
-
-    // Switches
-    if (triggerSwitch) {
-
-      var triggerControllers = document.querySelectorAll(`[aria-controls="${ target }"]`);
-
-      forEach(triggerControllers, function(index, elem) {
-        if (elem != trigger) {
-          toggleEachState(triggerStates, elem);
-        }
-      })
-    }
-
-
-
+    //   forEach(triggerControllers, function(index, elem) {
+    //     if (elem != trigger) {
+    //       toggleEachState(triggerStates, elem);
+    //     }
+    //   })
+    // }
   }
 
   // Invoke
