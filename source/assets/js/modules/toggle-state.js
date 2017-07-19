@@ -53,25 +53,30 @@ const toggleState = () => {
       forEach(triggerSecTargetAll, function(index, elem) {
 
         mapTriggersWithSecTargets.set(index, {
+          'elem':      elem,
           'trigger':   elem == trigger,
           'targetID':  elem.getAttribute(triggerSecTargetAttr),
           'on':        elem.classList.contains('JS-on'),
-          'elem': elem
         })
       });
     }
 
     function validateMap() {
       for (let [key, val] of mapTriggersWithSecTargets) {
-        // console.log(val.trigger, val.elem)
 
-        if (val.trigger) {
-          console.log('Broken here: ', val.elem)
+        if (triggerSecTargetID != val.targetID) {
+          // return val.elem;
+          console.log('Trigger sec target != any other secondary target')
+          toggleEachState(targetStates, targetSec);
           break;
 
-        } else {
-          console.log('Unbroken here: ', val.elem)
-          // return true;
+        } else if (triggerSecTargetID == val.targetID && trigger != val.elem) {
+
+          if (!val.on) {
+            // console.log(val.elem)
+            toggleEachState(targetStates, targetSec);
+            break;
+          }
         }
       }
     }
@@ -84,12 +89,14 @@ const toggleState = () => {
     if (triggerSecTargetID) {
 
       triggersWithSecTargetMap();
-      validateMap();
+      // validateMap();
 
-      // console.log(validateMap())
+      var arr = Array.from(triggerSecTargetAll)
 
-      // if (verifyMap() == false) console.log('This == that trigger')
-
+      function isOn(elem) {
+        return elem.classList.contains('JS-on')
+      }
+      console.log(arr.some(isOn))
     }
 
     // // Exclusive events
