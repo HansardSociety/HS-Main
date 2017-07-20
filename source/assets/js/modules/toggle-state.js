@@ -20,11 +20,19 @@ const toggleState = () => {
   // Change state
   function changeState(trigger) {
 
+    var on                   = 'JS-on';
+    var off                  = 'JS-off';
+    var active               = 'JS-active';
+    var activeHold           = 'JS-active-hold';
+    var inactive             = 'JS-inactive';
+
     var noScroll             = 'JS-no-scroll';
     var checkNoScroll        = globalState.classList.contains(noScroll);
 
     // Trigger
     var trigger              = trigger;
+    var triggerOn            = trigger.classList.contains('JS-on');
+    var triggerOff           = trigger.classList.contains('JS-off');
     var triggerTargetID      = trigger.getAttribute('aria-controls');
     var triggerSwitch        = trigger.classList.contains('JS-switch');
     var triggerNoScroll      = trigger.classList.contains(noScroll);
@@ -32,71 +40,63 @@ const toggleState = () => {
     var triggerExclusiveAll  = baseElem.querySelectorAll('.JS-exclusive');
     var triggerSecTargetAttr = 'data-secondary-target';
     var triggerSecTargetID   = trigger.getAttribute(triggerSecTargetAttr);
-    var triggerSecTargetAll  = baseElem.querySelectorAll(`button[${ triggerSecTargetAttr }]`);
+    var triggerSecTargetAll  = Array.from(baseElem.querySelectorAll(`button[${ triggerSecTargetAttr }]`));
     var triggerStates        = [ 'JS-on', 'JS-off' ];
 
     // Target
     var target               = baseElem.querySelector(`#${ triggerTargetID }`);
     var targetSec            = baseElem.querySelector(`#${ triggerSecTargetID }`);
+    var targetSecHold        = baseElem.classList.contains(activeHold);
     var targetStates         = [ 'JS-active', 'JS-inactive' ];
 
-    // Toggle trigger
     function toggleEachState(states, triggerElem) {
       forEach(states, function(index, state) {
         toggleClass(triggerElem, state);
       });
     }
 
-    var mapTriggersWithSecTargets = new Map();
-
-    function triggersWithSecTargetMap() {
-      forEach(triggerSecTargetAll, function(index, elem) {
-
-        mapTriggersWithSecTargets.set(index, {
-          'elem':      elem,
-          'trigger':   elem == trigger,
-          'targetID':  elem.getAttribute(triggerSecTargetAttr),
-          'on':        elem.classList.contains('JS-on'),
-        })
-      });
-    }
-
-    function validateMap() {
-      for (let [key, val] of mapTriggersWithSecTargets) {
-
-        if (triggerSecTargetID != val.targetID) {
-          // return val.elem;
-          console.log('Trigger sec target != any other secondary target')
-          toggleEachState(targetStates, targetSec);
-          break;
-
-        } else if (triggerSecTargetID == val.targetID && trigger != val.elem) {
-
-          if (!val.on) {
-            // console.log(val.elem)
-            toggleEachState(targetStates, targetSec);
-            break;
-          }
-        }
-      }
-    }
-
     // Core states...
     toggleEachState(triggerStates, trigger);
     toggleEachState(targetStates, target);
 
+    // Conditions for all triggers with secondary targets
+    function triggersWithSecTargets() {
+
+      var arrRemoveActiveTrigger = triggerSecTargetAll.filter(function(elem) {
+        return elem != trigger;
+      })
+
+      function noSameSecTargets(elem) {
+        if (triggerSecTargetID != elem.getAttribute(triggerSecTargetAttr)) return elem.getAttribute(triggerSecTargetAttr)
+      }
+
+      function activeTriggerOnOthersOff(elem) {
+        if (trigger.classList.contains(on)) return elem.classList.contains(off)
+      }
+
+      function allTriggersOff(elem) {
+        if (trigger.classList.contains(off)) return elem.classList.contains(off)
+      }
+
+      // If trigger secondary target doesn't match ANY other scondary target...
+
+      if (arrRemoveActiveTrigger.every(noSameSecTargets)) {
+        console.log('No shared secondary target!!')
+        toggleEachState(targetStates, targetSec)
+
+      } else if (arrRemoveActiveTrigger.every(activeTriggerOnOthersOff)) {
+        console.log('All other triggers off!!')
+        toggleEachState(targetStates, targetSec)
+
+      } else if (arrRemoveActiveTrigger.every(allTriggersOff)) {
+        console.log('Everything off!!')
+        toggleEachState(targetStates, targetSec)
+      }
+    }
+
     // If trigger has secondary target...
     if (triggerSecTargetID) {
-
-      triggersWithSecTargetMap();
-      // validateMap();
-
-      var arr = Array.from(triggerSecTargetAll)
-
-      function isOn(elem) {
-        return elem.classList.contains('JS-on')
-      }
-      console.log(arr.some(isOn))
+      triggersWithSecTargets()
     }
 
     // // Exclusive events
