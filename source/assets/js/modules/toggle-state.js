@@ -7,47 +7,44 @@ import { toggleClass } from './core';
 
 const toggleState = () => {
 
-  // ** Variables **
-  // ****************************
+  const globalState = document.querySelector('.JS-state-global');
+  const baseElem    = document.querySelector('.site-container');
 
-  var globalState = document.querySelector('.JS-state-global');
-  var baseElem    = document.querySelector('.site-container');
-
-  var btnsGlobal  = baseElem.querySelectorAll('.btn.JS-target-global');
-  var btns        = baseElem.querySelectorAll('.btn.JS-off, .btn.JS-on');
-  var nav         = baseElem.querySelector('.navbar');
+  const btnsGlobal  = baseElem.querySelectorAll('.btn.JS-target-global');
+  const btns        = baseElem.querySelectorAll('.btn.JS-off, .btn.JS-on');
+  // const nav         = baseElem.querySelector('.navbar');
 
   // Change state
-  function changeState(trigger) {
+  function changeState(activeTrigger) {
 
-    var on                   = 'JS-on';
-    var off                  = 'JS-off';
-    var active               = 'JS-active';
-    var activeHold           = 'JS-active-hold';
-    var inactive             = 'JS-inactive';
+    // Core
+    const on                   = 'JS-on';
+    const off                  = 'JS-off';
+    const active               = 'JS-active';
+    const activeHold           = 'JS-active-hold';
+    const inactive             = 'JS-inactive';
 
-    var noScroll             = 'JS-no-scroll';
-    var checkNoScroll        = globalState.classList.contains(noScroll);
+    // Global
+    const noScroll             = 'JS-no-scroll';
+    const checkNoScroll        = globalState.classList.contains(noScroll);
 
     // Trigger
-    var trigger              = trigger;
-    var triggerOn            = trigger.classList.contains('JS-on');
-    var triggerOff           = trigger.classList.contains('JS-off');
-    var triggerTargetID      = trigger.getAttribute('aria-controls');
-    var triggerSwitch        = trigger.classList.contains('JS-switch');
-    var triggerNoScroll      = trigger.classList.contains(noScroll);
-    var triggerExclusive     = trigger.classList.contains('JS-exclusive');
-    var triggerExclusiveAll  = baseElem.querySelectorAll('.JS-exclusive');
-    var triggerSecTargetAttr = 'data-secondary-target';
-    var triggerSecTargetID   = trigger.getAttribute(triggerSecTargetAttr);
-    var triggerSecTargetAll  = Array.from(baseElem.querySelectorAll(`button[${ triggerSecTargetAttr }]`));
-    var triggerStates        = [ 'JS-on', 'JS-off' ];
+    const triggerStates        = [ 'JS-on', 'JS-off' ];
+    const trigger              = activeTrigger;
+    const triggerTargetID      = trigger.getAttribute('aria-controls');
+    const triggerSwitch        = trigger.classList.contains('JS-switch');
+    const triggerNoScroll      = trigger.classList.contains(noScroll);
+    const triggerExclusive     = trigger.classList.contains('JS-exclusive');
+    const triggerSecTargetAttr = 'data-secondary-target';
+    const triggerSecTargetID   = trigger.getAttribute(triggerSecTargetAttr);
+    const triggerSecTargetAll  = Array.from(baseElem.querySelectorAll(`button[${ triggerSecTargetAttr }]`));
 
     // Target
-    var target               = baseElem.querySelector(`#${ triggerTargetID }`);
-    var targetSec            = baseElem.querySelector(`#${ triggerSecTargetID }`);
-    var targetSecHold        = baseElem.classList.contains(activeHold);
-    var targetStates         = [ 'JS-active', 'JS-inactive' ];
+    const targetStates         = [ 'JS-active', 'JS-inactive' ];
+    const target               = baseElem.querySelector(`#${ triggerTargetID }`);
+    const targetHold           = target.classList.contains(activeHold);
+    const targetSec            = triggerSecTargetID && baseElem.querySelector(`#${ triggerSecTargetID }`);
+    const targetSecHold        = triggerSecTargetID && targetSec.classList.contains(activeHold);
 
     function toggleEachState(states, triggerElem) {
       forEach(states, function(index, state) {
@@ -59,76 +56,73 @@ const toggleState = () => {
     toggleEachState(triggerStates, trigger);
     toggleEachState(targetStates, target);
 
+    // Determine trigger on/off classes states after state change...
+    const triggerOn  = trigger.classList.contains(on);
+    const triggerOff = trigger.classList.contains(off);
+
     // Conditions for all triggers with secondary targets
     function triggersWithSecTargets() {
 
-      var arrRemoveActiveTrigger = triggerSecTargetAll.filter(function(elem) {
+      // Remove active trigger from array of secondary triggers...
+      const arrRemoveActiveTrigger = triggerSecTargetAll.filter(function(elem) {
         return elem != trigger;
       })
 
-      function noSameSecTargets(elem) {
-        if (triggerSecTargetID != elem.getAttribute(triggerSecTargetAttr)) return elem.getAttribute(triggerSecTargetAttr)
+      function checkUniqueSecTarget(elem) {
+        if (triggerSecTargetID != elem.getAttribute(triggerSecTargetAttr))
+          return elem.getAttribute(triggerSecTargetAttr)
       }
 
-      function activeTriggerOnOthersOff(elem) {
-        if (trigger.classList.contains(on)) return elem.classList.contains(off)
-      }
-
-      function allTriggersOff(elem) {
-        if (trigger.classList.contains(off)) return elem.classList.contains(off)
+      function checkTriggerOff(elem) {
+        return elem.classList.contains(off)
       }
 
       // If trigger secondary target doesn't match ANY other scondary target...
-
-      if (arrRemoveActiveTrigger.every(noSameSecTargets)) {
-        console.log('No shared secondary target!!')
+      if (arrRemoveActiveTrigger.every(checkUniqueSecTarget)) {
         toggleEachState(targetStates, targetSec)
 
-      } else if (arrRemoveActiveTrigger.every(activeTriggerOnOthersOff)) {
-        console.log('All other triggers off!!')
+      } else if (triggerOn && !targetSecHold && arrRemoveActiveTrigger.every(checkTriggerOff)) {
         toggleEachState(targetStates, targetSec)
 
-      } else if (arrRemoveActiveTrigger.every(allTriggersOff)) {
-        console.log('Everything off!!')
+      } else if (triggerOff && !targetSecHold && arrRemoveActiveTrigger.every(checkTriggerOff)) {
         toggleEachState(targetStates, targetSec)
       }
     }
 
-    // If trigger has secondary target...
-    if (triggerSecTargetID) {
-      triggersWithSecTargets()
+    // Exclusive triggers
+    function triggersWithExclusiveStates() {
+
+      // All triggers
+      const allTriggersOn = Array.from(baseElem.querySelectorAll('button.btn.JS-on'));
+
+      // Remove active trigger from array of secondary triggers...
+      const arrRemoveActiveTrigger = allTriggersOn.filter(function(elem) {
+        return elem != trigger;
+      })
+
+      for (let elem of arrRemoveActiveTrigger) {
+        const altTargetID     = elem.getAttribute('aria-controls');
+        const altTarget       = baseElem.querySelector(`#${ altTargetID }`);
+        const altTargetSecID  = elem.getAttribute(triggerSecTargetAttr);
+        const altTargetSec    = baseElem.querySelector(`#${ altTargetSecID }`);
+
+        toggleEachState(triggerStates, elem);
+        toggleEachState(targetStates, altTarget);
+
+        if (altTargetSecID
+        &&  altTargetSec != targetSec ) toggleEachState(targetStates, altTargetSec);
+      }
     }
 
-    // // Exclusive events
-    // if (triggerExclusive) {
-    //   forEach(triggerExclusiveAll, function(index, elem) {
+    // [1]
+    // Must activate triggers' secondary targets before
+    // exclusive triggers shut everything down...
+    // If trigger has secondary target...
+    if (triggerSecTargetID) triggersWithSecTargets()
 
-    //     var target        = elem.getAttribute('aria-controls');
-    //     var targetElem    = baseElem.querySelector(`#${ target }`);
-    //     var targetSec     = elem.getAttribute(targetSecAttr);
-    //     var targetSecElem = baseElem.querySelector(`#${ targetSec }`);
-
-    //     // Only elems != this
-    //     if (elem != trigger) {
-
-    //       // Check if on...
-    //       if (elem.classList.contains('JS-on')) {
-
-    //         // Core states...
-    //         toggleEachState(triggerStates, elem);
-    //         toggleEachState(targetElemStates, targetElem);
-
-    //         if (targetSec) {
-    //           if (targetSec != trigger.getAttribute(targetSecAttr)
-    //           && targetSecElem.classList.contains('JS-active')) {
-
-    //             toggleEachState(targetElemStates, targetSecElem);
-    //           }
-    //         }
-    //       }
-    //     }
-    //   });
-    // }
+    // [2]
+    // If trigger is exclusive...
+    if (triggerExclusive && triggerOn) triggersWithExclusiveStates()
 
     // // Switches
     // if (triggerSwitch) {
