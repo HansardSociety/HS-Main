@@ -35,7 +35,7 @@ var
   reporter     = require('postcss-reporter'),
   scss         = require('postcss-scss'),
   stylelint    = require('stylelint'),
-  uncss        = require('uncss').postcssPlugin,
+  uncss        = require('postcss-uncss'),
 
 ////////////////////////////////////////////////////////////
 //  Postcss
@@ -52,9 +52,16 @@ var
     cssnano: {
       preset: 'default'
     },
-    uncss: [
-
-    ]
+    uncss: {
+      html: [
+        'build/prod/about/*.html',
+        'build/prod/blog/*.html',
+        'build/prod/events/*.html',
+        'build/prod/research/*.html',
+        'build/prod/resources/*.html',
+        'build/prod/*.html'
+      ]
+    }
   },
 
 ////////////////////////////////////////////////////////////
@@ -213,6 +220,7 @@ gulp.task('css:main', function() {
     .pipe(postcss([
       autoprefixer(postcssOpts.autoprefixer),
       mqpacker(postcssOpts.mqpacker),
+      // uncss(postcssOpts.uncss),
       cssnano(postcssOpts.cssnano)
     ]))
     .pipe(cacheHash())

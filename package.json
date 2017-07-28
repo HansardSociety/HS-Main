@@ -49,6 +49,7 @@
     "node-sass": "^4.5.0",
     "postcss-reporter": "^3.0.0",
     "postcss-scss": "^0.4.0",
+    "postcss-uncss": "^0.15.0",
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
     "stylelint": "^7.8.0",
