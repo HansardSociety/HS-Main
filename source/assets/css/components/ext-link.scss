@@ -1,7 +1,5 @@
 .ext-link {
-
-  @extend %E-mgn-t-sm; // margins between collapse
-  @extend %E-mgn-b-sm; // margins between collapse
+  @extend %E-mgn-b-sm;
   @extend %E-position-relative;
 }
 

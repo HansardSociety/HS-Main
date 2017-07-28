@@ -6,3 +6,10 @@
 .panel__header {
   @extend %E-align-cen;
 }
+
+@each $sizeKey, $sizeVal in $spacing {
+
+  .section-#{ $sizeKey } {
+    @extend %E-mgn-x-#{ $sizeKey }
+  }
+}

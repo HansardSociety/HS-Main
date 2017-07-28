@@ -38,7 +38,7 @@ article
         class="#{ 'grid__cell--order-1 grid__cell--above-md-order-2' if [ 'blog', 'events' ].include? @entry[:category]  }"
       }
 
-        / Need to perform check for older posts without featured content.
+        / Entry has featured content...
         - if @entry[:featured]
 
           / Blog (authors)
@@ -74,7 +74,7 @@ article
                     { side_card_data: featured[:page] }}
 
 
-            / Registration
+          / Registration
           - if @entry[:category] == 'events'
             - @entry[:featured].first(1).map do |featured|
               - if featured[:registration]
@@ -143,10 +143,11 @@ article
 
             / External links
             - if @entry[:external_links]
-              - @entry[:external_links].map do |link|
-                = partial 'partials/ext-link',
-                  locals: { local_data: \
-                    { ext_link_data: link }}
+              .section-lg
+                - @entry[:external_links].map do |link|
+                  = partial 'partials/ext-link',
+                    locals: { local_data: \
+                      { ext_link_data: link }}
 
 
             / Newsletter signup

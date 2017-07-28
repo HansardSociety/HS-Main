@@ -15,8 +15,9 @@ const bannerHeight = (() => {
 //  https://github.com/cferdinandi/smooth-scroll
 ////////////////////////////////////////////////////////////
 
-const bannerScroll = (() => {
-  smoothScroll.init({ offset: 64 });
-})()
+const bannerScroll = new smoothScroll('.banner__scroll', {
+  offset: 64,
+  speed: 600
+});
 
 export { bannerHeight, bannerScroll }

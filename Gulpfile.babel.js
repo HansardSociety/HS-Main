@@ -30,10 +30,12 @@ var
   // PostCSS
   postcss      = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
+  cssnano      = require('cssnano'),
   mqpacker     = require('css-mqpacker'),
   reporter     = require('postcss-reporter'),
   scss         = require('postcss-scss'),
   stylelint    = require('stylelint'),
+  uncss        = require('uncss').postcssPlugin,
 
 ////////////////////////////////////////////////////////////
 //  Postcss
@@ -46,7 +48,13 @@ var
     },
     mqpacker: {
       sort: true
-    }
+    },
+    cssnano: {
+      preset: 'default'
+    },
+    uncss: [
+
+    ]
   },
 
 ////////////////////////////////////////////////////////////
@@ -204,7 +212,8 @@ gulp.task('css:main', function() {
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([
       autoprefixer(postcssOpts.autoprefixer),
-      mqpacker(postcssOpts.mqpacker)
+      mqpacker(postcssOpts.mqpacker),
+      cssnano(postcssOpts.cssnano)
     ]))
     .pipe(cacheHash())
     .pipe(gulp.dest(PATH.tmp.dir))
@@ -216,6 +225,9 @@ gulp.task('css:main', function() {
 gulp.task('css:vendor', function() {
   return gulp.src(PATH.css.vendor)
     .pipe(concat('vendor.css'))
+    .pipe(postcss([
+      cssnano(postcssOpts.cssnano)
+    ]))
     .pipe(cacheHash())
     .pipe(gulp.dest(PATH.tmp.dir))
     .pipe(cacheManifest())
@@ -228,7 +240,23 @@ gulp.task('css:snipcart', function() {
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([
       autoprefixer(postcssOpts.autoprefixer),
-      mqpacker(postcssOpts.mqpacker)
+      mqpacker(postcssOpts.mqpacker),
+      cssnano(postcssOpts.cssnano)
+    ]))
+    .pipe(cacheHash())
+    .pipe(gulp.dest(PATH.tmp.dir))
+    .pipe(cacheManifest())
+    .pipe(cacheManifestDest());
+});
+
+// Post-process
+gulp.task('css:post', function() {
+  return gulp.src(PATH.css.snipcart)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([
+      autoprefixer(postcssOpts.autoprefixer),
+      mqpacker(postcssOpts.mqpacker),
+      cssnano(postcssOpts.cssnano)
     ]))
     .pipe(cacheHash())
     .pipe(gulp.dest(PATH.tmp.dir))

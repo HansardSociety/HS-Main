@@ -11,7 +11,8 @@ const shrinkNav = (() => {
 
   var navbar       = document.querySelector('.navbar');
   var navStates  = [ 'JS-active', 'JS-active-hold', 'JS-inactive' ];
-  // var navOffStates = 'JS-inactive';
+
+
 
   function addNavStates() {
     if (navbar.classList.contains('JS-inactive')) {
@@ -31,13 +32,15 @@ const shrinkNav = (() => {
     }
   }
 
+  const windowPosition = () => {
+    return window.pageYOffset >= 1
+    ? addNavStates()
+    : removeNavStates();
+  };
+
   window.addEventListener('scroll', _.throttle(function() {
 
-    if (window.pageYOffset >= 1) {
-      addNavStates();
-    } else {
-      removeNavStates();
-    }
+    windowPosition();
   }, 200));
 })();
 
