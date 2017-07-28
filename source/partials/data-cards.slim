@@ -12,12 +12,12 @@
 / Core
 - @child_pages              = data.hs.child_page
 - @landing_pages            = data.hs.landing_page
-- @merged_pages             = @landing_pages.merge(@child_pages)
+- @merged_pages             = @landing_pages.merge(@child_pages).reject{ |id, page| [ 'about', 'legal' ].include? page[:category] }
 - @pages_by_date            = @merged_pages.sort_by{ |id, page| - page.date_time.integer }
 
 / Organise categories
 - @group_pages_by_category = @merged_pages.group_by{ |key, value| value[:category] }
-- @order_categories        = [ 'events', 'intelligence', 'blog', 'research', 'resources', 'about' ]
+- @order_categories        = [ 'events', 'intelligence', 'blog', 'research', 'resources' ]
 - @sort_categories         = @group_pages_by_category.sort_by{ |k, v| @order_categories.index(k) }
 
 ////////////////////////////////////////////////////////////
