@@ -1,9 +1,12 @@
 .ext-link {
-  margin-bottom: 1.5rem;
+
+  @extend %E-mgn-t-sm; // margins between collapse
+  @extend %E-mgn-b-sm; // margins between collapse
+  @extend %E-position-relative;
 }
 
 .ext-link__inner {
-  @extend %E-flex-row-nowrap-start;
+  @extend %E-flex-row;
 }
 
 .ext-link__icon {
@@ -11,12 +14,19 @@
   height: 2rem;
 
   @extend %E-bgc-light-grey;
-  @extend %E-display-inline-flex;
+  @extend %E-col-green;
+  @extend %E-display-block;
   @extend %E-mgn-r-xs;
   @extend %E-pad-xs;
+  @extend %E-position-absolute;
   @extend %E-rad-circ;
+
+  & > svg {
+    @extend %E-absolute-center-xy;
+  }
 }
 
 .ext-link__text {
-  @extend %E-display-inline;
+  @extend %E-pad-l-lg;
+  @extend %E-width-full;
 }

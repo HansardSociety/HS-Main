@@ -115,13 +115,6 @@ article
         / Side content
         aside.grid__cell.grid__cell--above-md-5
 
-          / External links
-          - if @entry[:external_links]
-            - @entry[:external_links].map do |link|
-              = partial 'partials/ext-link',
-                locals: { local_data: \
-                  { ext_link_data: link }}
-
           / Side cards
           - if [ 'blog', 'events', 'intelligence', 'research', 'resources' ].include? @entry[:category]
 
@@ -147,6 +140,14 @@ article
               locals: { local_data: \
                 { entry_data: @entry,
                   context: 'related' }}
+
+            / External links
+            - if @entry[:external_links]
+              - @entry[:external_links].map do |link|
+                = partial 'partials/ext-link',
+                  locals: { local_data: \
+                    { ext_link_data: link }}
+
 
             / Newsletter signup
             = partial 'partials/ac-form',
