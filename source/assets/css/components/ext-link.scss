@@ -16,7 +16,6 @@
   @extend %E-bgc-light-grey;
   @extend %E-col-green;
   @extend %E-display-block;
-  @extend %E-mgn-r-xs;
   @extend %E-pad-xs;
   @extend %E-position-absolute;
   @extend %E-rad-circ;
@@ -27,6 +26,6 @@
 }
 
 .ext-link__text {
-  @extend %E-pad-l-lg;
+  @extend %E-mgn-l-lg;
   @extend %E-width-full;
 }
