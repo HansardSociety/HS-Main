@@ -220,7 +220,6 @@ gulp.task('css:main', function() {
     .pipe(postcss([
       autoprefixer(postcssOpts.autoprefixer),
       mqpacker(postcssOpts.mqpacker),
-      // uncss(postcssOpts.uncss),
       cssnano(postcssOpts.cssnano)
     ]))
     .pipe(cacheHash())
@@ -259,17 +258,23 @@ gulp.task('css:snipcart', function() {
 
 // Post-process
 gulp.task('css:post', function() {
-  return gulp.src(PATH.css.snipcart)
-    .pipe(sass().on('error', sass.logError))
+  return gulp.src('./build/prod/main-*.css')
     .pipe(postcss([
-      autoprefixer(postcssOpts.autoprefixer),
-      mqpacker(postcssOpts.mqpacker),
-      cssnano(postcssOpts.cssnano)
+      uncss(
+        {
+          htmlroot: './build/prod/',
+          html: [
+            'build/prod/about/*.html',
+            'build/prod/blog/*.html',
+            'build/prod/events/*.html',
+            'build/prod/research/*.html',
+            'build/prod/resources/*.html',
+            'build/prod/*.html'
+          ]
+        }
+      )
     ]))
-    .pipe(cacheHash())
-    .pipe(gulp.dest(PATH.tmp.dir))
-    .pipe(cacheManifest())
-    .pipe(cacheManifestDest());
+    .pipe(gulp.dest('./build/prod'))
 });
 
 // Lint
