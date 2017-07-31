@@ -264,12 +264,7 @@ gulp.task('css:post', function() {
         {
           htmlroot: './build/prod/',
           html: [
-            'build/prod/about/*.html',
-            'build/prod/blog/*.html',
-            'build/prod/events/*.html',
-            'build/prod/research/*.html',
-            'build/prod/resources/*.html',
-            'build/prod/*.html'
+            'https://spy-seal-67430.netlify.com/'
           ]
         }
       )
