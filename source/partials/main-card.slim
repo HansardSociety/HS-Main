@@ -2,7 +2,7 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @main_card          = local_data[:entry_data]
+- @main_card = local_data[:entry_data]
 
 - @main_card_inner_elem  = { \
   tag: (@main_card[:category] \
@@ -35,8 +35,8 @@
               alt="#{ @main_card[:banner_image].alt }"
             }
           - else
-            img.swiper-lazy{
-              src="#{ @main_card[:banner_image].url }?fit=fill&w=563&h=317&f=#{ @main_card[:banner_image].focus }"
+            img{
+              src="#{ @main_card[:banner_image].url }?fit=fill&w=563&h=317&f=#{ @main_card[:banner_image].focus }&q=66&fl=progressive"
               alt="#{ @main_card[:banner_image].alt }"
             }
 
@@ -60,45 +60,3 @@
 
         - else
           p= @intro_text[0..180].gsub(/[^0-9a-zA-Z]+$/, '') + '…'
-
-////////////////////////////////////////////////////////////
-//  Profile
-////////////////////////////////////////////////////////////
-
-- if @main_card[:TYPE] == 'people'
-
-  article.main-card.swiper-slide
-
-      / Header
-      .main-card__header.main-card__header--side
-
-        .main-card__side-image
-          img{
-            src="#{ @main_card[:photo].url }?fit=fill&w=229&h=324"
-            alt="#{ @main_card[:photo].alt }"
-          }
-
-        .main-card__content
-          h2.title.title--small= @main_card[:full_name]
-          p.alt-title.alt-title--xs= @main_card[:role]
-
-
-      .main-card__introduction
-        - if @main_card[:email]
-          a.alt-title.alt-title--xs{ href="mailto:#{ @main_card[:email] }" }= @main_card[:email]
-
-        .btn-group.u-mtop-xs
-
-          = partial 'partials/btn',
-            locals: { local_data: \
-              { type: 'state', size: 'small', style: 'secondary', group: true,
-                label_on: 'Show biog', label_off: 'Close biog', label_size: 'small',
-                page: 'no-scroll', exclusive: true,
-                aria_id: "activate-modal-#{ @main_card[:ID] }",
-                aria_target_id: "modal-#{@main_card[:ID]}" }}
-
-          / Social
-          = partial 'partials/social',
-            locals: { local_data: \
-              { icons: [ @main_card[:twitter], @main_card[:linkedin] ],
-                group: true }}

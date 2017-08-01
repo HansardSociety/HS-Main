@@ -84,7 +84,6 @@ article
 
           / End: Featured
 
-
     / If 'Our people' page
     - if @entry[:our_people] == true
 
@@ -100,7 +99,7 @@ article
           { entry_data: @staff_az,
             content_source: 'profiles' }}
 
-      h2.title.title--large.u-mtop-md Trustees
+      h2.title.title--large Trustees
       = partial 'partials/carousel',
         locals: { local_data: \
           { entry_data: @trustees_az,
@@ -150,7 +149,6 @@ article
                     = partial 'partials/ext-link',
                       locals: { local_data: \
                         { ext_link_data: link }}
-
 
               / Newsletter signup
               = partial 'partials/ac-form',

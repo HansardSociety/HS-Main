@@ -58,11 +58,3 @@
         locals: { icon:  'chevron-right',
                   size:  'xs',
                   color: 'green' }
-
-- if @content_source == 'profiles'
-  - @entry_data.each do |id, profile|
-    - if profile[:biog]
-      = partial 'partials/modal',
-        locals: { local_data: \
-        { id: "modal-#{ profile[:ID] }",
-          content: profile[:biog] }}

@@ -5,16 +5,19 @@
   padding-top: 3.5rem;
 
   @extend %E-bgc-black;
-  @extend %E-pad-sm;
+  @extend %E-pad-x-sm;
+  @extend %E-pad-y-xs;
   @extend %E-height-full-vh;
   @extend %E-position-fixed;
   @extend %E-trans-transform;
   @extend %E-zidx-neg;
+  @include above('xs') {
+    @extend %E-display-none__md;
+  }
 }
 
 .menu--mobile {
   max-width: 30rem;
-  padding: 3.5rem 1rem 5rem;
 
   transform: translateX(-100%);
 

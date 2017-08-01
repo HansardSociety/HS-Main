@@ -10,6 +10,6 @@
 @each $sizeKey, $sizeVal in $spacing {
 
   .section-#{ $sizeKey } {
-    @extend %E-mgn-x-#{ $sizeKey }
+    @extend %E-pad-x-#{ $sizeKey }
   }
 }

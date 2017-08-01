@@ -94,8 +94,6 @@ const toggleState = () => {
 
       // All triggers
       const allTriggersOn = Array.from(baseElem.querySelectorAll('button.btn.JS-on'));
-
-      // Remove active trigger from array of secondary triggers...
       const arrRemoveActiveTrigger = allTriggersOn.filter(function(elem) {
         return elem != trigger;
       })
@@ -135,7 +133,8 @@ const toggleState = () => {
     // If trigger is exclusive...
     if (triggerExclusive && triggerOn) triggersWithExclusiveStates()
 
-    // Switches
+    // [3]
+    // If triggers part of 'switch' with other triggers...
     if (triggerSwitch) triggersWithSwitch()
   }
 

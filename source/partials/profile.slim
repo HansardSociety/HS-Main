@@ -45,8 +45,10 @@
             / Button
             = partial 'partials/btn',
               locals: { local_data: \
-                { type: 'state', size: 'sm', style: 'secondary',
-                  label_on: 'Show biog', label_off: 'Close biog', label_size: 'sm',
+                { type: 'state', switch: true,
+                  size: 'sm',
+                  style: 'secondary',
+                  label_on: 'Show biog', label_off: 'Close', label_size: 'sm',
                   page: 'no-scroll', exclusive: true,
                   aria_id: "activate-#{ @biog[:id] }",
                   aria_target_id: @biog[:id] }}
