@@ -7,6 +7,7 @@
 const path         = require('path');
 
 const gulp         = require('gulp');
+const gulpif       = require('gulp-if');
 const babel        = require('gulp-babel');
 const browserSync  = require('browser-sync').create();
 const browserify   = require('browserify');
@@ -54,9 +55,9 @@ const postcssPlugins = [
 ////////////////////////////////////////////////////////////
 
 const manifestOpts = {
-    merge: true,
-    base: 'source/assets',
-    path: 'source/assets/rev-manifest.json'
+  merge: true,
+  base: 'source/assets',
+  path: 'source/assets/rev-manifest.json'
 };
 
 ////////////////////////////////////////////////////////////
@@ -182,27 +183,33 @@ gulp.task('watch',
 });
 
 ////////////////////////////////////////////////////////////
-//  CSS
+//  CSS/ JS
 ////////////////////////////////////////////////////////////
 
 const postcssStream = lazypipe()
   .pipe(postcss, postcssPlugins);
 
 const assetCachingStream = lazypipe()
-  .pipe(rev)
+  .pipe(function() {
+    return gulpif(isProd, rev())
+  })
   .pipe(gulp.dest, PATH.tmp.dir)
-  .pipe(rev.manifest, manifestOpts)
-  .pipe(gulp.dest, PATH.assets);
+  .pipe(function() {
+    return gulpif(isProd, rev.manifest(manifestOpts))
+  })
+  .pipe(function() {
+    return gulpif(isProd, gulp.dest(PATH.assets))
+  });
 
-// Main
+// Main CSS
 gulp.task('css:main', function() {
   return gulp.src(PATH.css.main)
     .pipe(sass().on('error', sass.logError))
     .pipe(postcssStream())
-    .pipe(isProd ? assetCachingStream() : gutil.noop());
+    .pipe(assetCachingStream());
 });
 
-// Vendor
+// Vendor CSS
 gulp.task('css:vendor', function() {
   return gulp.src(PATH.css.vendor)
     .pipe(concat('vendor.css'))
@@ -211,18 +218,18 @@ gulp.task('css:vendor', function() {
         preset: 'default'
       })
     ]))
-    .pipe(isProd ? assetCachingStream() : gutil.noop());
+    .pipe(assetCachingStream());
 });
 
-// Snipcart
+// Snipcart CSS
 gulp.task('css:snipcart', function() {
   return gulp.src(PATH.css.snipcart)
     .pipe(sass().on('error', sass.logError))
     .pipe(postcssStream())
-    .pipe(isProd ? assetCachingStream() : gutil.noop());
+    .pipe(assetCachingStream());
 });
 
-// Lint
+// Lint CSS
 gulp.task('css:lint', function() {
   return gulp.src(path.join(PATH.css, '**.scss'))
     .pipe(postcss(
@@ -235,10 +242,7 @@ gulp.task('css:lint', function() {
     ));
 });
 
-////////////////////////////////////////////////////////////
-//  Scripts
-////////////////////////////////////////////////////////////
-
+// JS
 gulp.task('js:bundle', function() {
 
   var files = [ PATH.js.main, PATH.js.vendor ];
@@ -252,7 +256,7 @@ gulp.task('js:bundle', function() {
       })
       .pipe(source(entry.split('/').pop()))
       .pipe(streamify(
-        isProd ? assetCachingStream() : gutil.noop()
+        assetCachingStream()
       ));
   });
 
