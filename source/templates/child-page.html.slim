@@ -82,83 +82,60 @@ article
                     locals: { local_data: \
                       { side_card_data: featured[:registration] }}
 
-          / End: Featured
+    / Main content
+    .section-md
+      .grid.grid--md.grid--center
 
-    / If 'Our people' page
-    - if @entry[:our_people] == true
+        / Copy
+        .grid__cell.grid__cell--md.grid__cell--above-md-7-md.copy
+          = markdown(@copy)
 
-      - @staff = data.hs.people.select{ |id, staff| [ 'staff' ].include? staff[:employment] }
-      - @staff_az = @staff.sort_by{ |a,b| b[:surname]}
+        / Side content
+        aside.grid__cell.grid__cell--md.grid__cell--above-md-5-md
 
-      - @trustees = data.hs.people.select{ |id, staff| [ 'trustee' ].include? staff[:employment] }
-      - @trustees_az = @trustees.sort_by{ |a,b| b[:surname]}
+          / Side cards
+          - if [ 'blog', 'events', 'intelligence', 'research', 'resources' ].include? @entry[:category]
 
-      h2.title.title--large Staff
-      = partial 'partials/carousel',
-        locals: { local_data: \
-          { entry_data: @staff_az,
-            content_source: 'profiles' }}
-
-      h2.title.title--large Trustees
-      = partial 'partials/carousel',
-        locals: { local_data: \
-          { entry_data: @trustees_az,
-            content_source: 'profiles' }}
-
-    - else
-      .section-md
-        .grid.grid--md.grid--center
-
-          / Copy
-          .grid__cell.grid__cell--md.grid__cell--above-md-7-md.copy
-            = markdown(@copy)
-
-          / Side content
-          aside.grid__cell.grid__cell--md.grid__cell--above-md-5-md
-
-            / Side cards
-            - if [ 'blog', 'events', 'intelligence', 'research', 'resources' ].include? @entry[:category]
-
-              / If blog, add all non-author featured content to sidebar
-              - if @entry[:category] == 'blog'
-                - @entry[:featured].map do |featured|
-                  - if !featured[:author]
-                    = partial 'partials/side-card',
-                      locals: { local_data: \
-                        { side_card_data: featured[:page] }}
-
-              / If not blog, add all featured items to the sidebar except
-              / the first, which is featured alongside the intro text.
-              / TODO: Exclude content types (ie. registration, author and product)
-              - if @entry[:category] != 'blog' && @entry[:featured] && @entry[:featured].length > 1
-                - @entry[:featured].drop(1).map do |featured|
+            / If blog, add all non-author featured content to sidebar
+            - if @entry[:category] == 'blog'
+              - @entry[:featured].map do |featured|
+                - if !featured[:author]
                   = partial 'partials/side-card',
                     locals: { local_data: \
                       { side_card_data: featured[:page] }}
 
-              / All tagged/ related content
+            / If not blog, add all featured items to the sidebar except
+            / the first, which is featured alongside the intro text.
+            / TODO: Exclude content types (ie. registration, author and product)
+            - if @entry[:category] != 'blog' && @entry[:featured] && @entry[:featured].length > 1
+              - @entry[:featured].drop(1).map do |featured|
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured[:page] }}
+
+            / All tagged/ related content
+            = partial 'partials/data-cards',
+              locals: { local_data: \
+                { entry_data: @entry,
+                  context: 'related' }}
+
+            / External links
+            - if @entry[:external_links]
+              .section-lg
+                - @entry[:external_links].map do |link|
+                  = partial 'partials/ext-link',
+                    locals: { local_data: \
+                      { ext_link_data: link }}
+
+            / Newsletter signup
+            = partial 'partials/ac-form',
+              locals: { local_data: \
+                { style: 'dark',
+                  sidebar: true }}
+
+            / Latest items for about pages
+            - if @category == 'about'
               = partial 'partials/data-cards',
                 locals: { local_data: \
                   { entry_data: @entry,
-                    context: 'related' }}
-
-              / External links
-              - if @entry[:external_links]
-                .section-lg
-                  - @entry[:external_links].map do |link|
-                    = partial 'partials/ext-link',
-                      locals: { local_data: \
-                        { ext_link_data: link }}
-
-              / Newsletter signup
-              = partial 'partials/ac-form',
-                locals: { local_data: \
-                  { style: 'dark',
-                    sidebar: true }}
-
-              / Latest items for about pages
-              - if @category == 'about'
-                = partial 'partials/data-cards',
-                  locals: { local_data: \
-                    { entry_data: @entry,
-                      context: 'latest' }}
+                    context: 'latest' }}

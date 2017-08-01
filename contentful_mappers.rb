@@ -35,28 +35,28 @@ end
 ##  People
 ############################################################
 
-class PeopleMap < ContentfulMiddleman::Mapper::Base
-  def map(context, entry)
-    context.ID           = entry.sys[:id]
-    context.TYPE         = entry.content_type.id
-    context.full_name    = entry.full_name
-    context.title        = entry.title
-    context.first_name   = entry.first_name
-    context.surname      = entry.surname
-    context.role         = entry.role
-    context.organisation = entry.organisation
-    context.biog         = entry.biog
-    context.email        = entry.email
-    context.tel          = entry.tel
-    context.twitter      = entry.twitter
-    context.linkedin     = entry.linkedin
-    context.employment   = (entry.employment.parameterize if entry.employment)
-    context.photo = {
-      url:   entry.photo.url,
-      alt:   entry.photo.description
-    }
-  end
-end
+# class PeopleMap < ContentfulMiddleman::Mapper::Base
+#   def map(context, entry)
+    # context.ID           = entry.sys[:id]
+    # context.TYPE         = entry.content_type.id
+    # context.full_name    = entry.full_name
+    # context.title        = entry.title
+    # context.first_name   = entry.first_name
+    # context.surname      = entry.surname
+    # context.role         = entry.role
+    # context.organisation = entry.organisation
+    # context.biog         = entry.biog
+    # context.email        = entry.email
+    # context.tel          = entry.tel
+    # context.twitter      = entry.twitter
+    # context.linkedin     = entry.linkedin
+    # context.employment   = (entry.employment.parameterize if entry.employment)
+    # context.photo = {
+    #   url:   entry.photo.url,
+    #   alt:   entry.photo.description
+    # }
+#   end
+# end
 
 ############################################################
 ##  Homepage
@@ -172,7 +172,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         ID:              panel.sys[:id],
         TYPE:            panel.content_type.id,
         title:           panel.title,
-        copy:            (panel.copy if panel.copy), # optional
+        copy:            (panel.copy if ['panel_content', 'panel_promoted', 'panel_accordians'].include? panel.content_type.id), # optional
 
         # Calls to action
         calls_to_action: (defined?(panel.calls_to_action) && panel.calls_to_action != nil ? panel.calls_to_action.map do |cta| {
@@ -206,6 +206,24 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         images: (panel.content_type.id == 'panel_content' && panel.images ? panel.images.map do |image| {
           url:      image.url,
           alt:      image.description
+        }.reject{ |key, value| value.nil? } end : nil),
+
+        # Panel carousel cards
+        carousel_cards: (panel.content_type.id == 'panel_carousel_cards' ? panel.cards.map do |card| {
+          ID:           card.sys[:id],
+          TYPE:         card.content_type.id,
+          full_name:    card.full_name,
+          role:         card.role,
+          organisation: card.organisation,
+          biog:         card.biog,
+          email:        card.email,
+          tel:          card.tel,
+          twitter:      card.twitter,
+          linkedin:     card.linkedin,
+          photo: {
+            url:   card.photo.url,
+            alt:   card.photo.description
+          }
         }.reject{ |key, value| value.nil? } end : nil),
 
         # Panel accordian

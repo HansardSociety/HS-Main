@@ -71,8 +71,8 @@ activate :contentful do |f|
     landing_page: { mapper: LandingPageMap, id: 'landing_page' },
     root_page:    { mapper: RootPageMap,    id: 'root_page' },
     navigation:   { mapper: NavigationMap,  id: 'navigation' },
-    universal:    { mapper: UniversalMap,   id: 'universal' },
-    people:       { mapper: PeopleMap,      id: 'people' }
+    universal:    { mapper: UniversalMap,   id: 'universal' }
+    # people:       { mapper: PeopleMap,      id: 'people' }
   }
 end
 
