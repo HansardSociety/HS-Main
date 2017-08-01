@@ -31,34 +31,8 @@ const reporter     = require('postcss-reporter');
 const scss         = require('postcss-scss');
 const stylelint    = require('stylelint');
 
-const ENV          = process.env.NODE_ENV;
-const isProd       = gutil.env.GULP_ENV === 'production';
-
-////////////////////////////////////////////////////////////
-//  Postcss
-////////////////////////////////////////////////////////////
-
-const postcssPlugins = [
-  autoprefixer({
-    browsers: [ 'last 2 versions' ]
-  }),
-  mqpacker({
-    sort: true
-  }),
-  cssnano({
-    preset: 'default'
-  })
-];
-
-////////////////////////////////////////////////////////////
-//  Caching
-////////////////////////////////////////////////////////////
-
-const manifestOpts = {
-  merge: true,
-  base: 'source/assets',
-  path: 'source/assets/rev-manifest.json'
-};
+const ENV          = gutil.env.GULP_ENV;
+const isProd       = ENV == 'production';
 
 ////////////////////////////////////////////////////////////
 //  Sprite
@@ -186,9 +160,33 @@ gulp.task('watch',
 //  CSS/ JS
 ////////////////////////////////////////////////////////////
 
-const postcssStream = lazypipe()
-  .pipe(postcss, postcssPlugins);
+// Postcss (default)
+const postcssDefaultPlugins = [
+  autoprefixer({ browsers: [ 'last 2 versions' ] }),
+  mqpacker({ sort: true })
+];
 
+// Postcss (production)
+const postcssProdPlugins = [
+  cssnano({ preset: 'default' })
+];
+
+// Postcss
+const postcssStream = lazypipe()
+  .pipe(function() {
+     return gulpif(isProd,
+      postcss(postcssDefaultPlugins.concat(postcssProdPlugins)),
+      postcss(postcssDefaultPlugins))
+  });
+
+// Asset caching manifest options
+const manifestOpts = {
+  merge: true,
+  base: 'source/assets',
+  path: 'source/assets/rev-manifest.json'
+};
+
+// Asset caching
 const assetCachingStream = lazypipe()
   .pipe(function() {
     return gulpif(isProd, rev())
@@ -242,7 +240,7 @@ gulp.task('css:lint', function() {
     ));
 });
 
-// JS
+// Scripts
 gulp.task('js:bundle', function() {
 
   var files = [ PATH.js.main, PATH.js.vendor ];
