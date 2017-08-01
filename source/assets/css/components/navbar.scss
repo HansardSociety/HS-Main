@@ -18,12 +18,16 @@
 
 .navbar__inner {
   z-index: 1;
+
   justify-content: space-between;
   @extend %E-container-wide;
   @extend %E-flex-row-center;
   @extend %E-height-full;
   @extend %E-mgn-auto-x;
-  @extend %E-pad-sm;
+  @extend %E-pad-y-xs;
+  @include above('xs') {
+    padding: 0 1rem;
+  }
   @include above('lg') {
     padding: 0;
   }

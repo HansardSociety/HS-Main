@@ -17,18 +17,30 @@ form.form.E-pad-x-sm#_form_1_._form._form_1._inline-form._dark{
 
   ._form-content
     ._form_element._x96563199._full_width
+
       h2{
         class="#{ local_data[:panel] == true ? 'title-lg' : 'title-md' }"
         class="#{ 'E-col-green' if local_data[:style] == 'light' }"
       } Join our newsletter
+
+      label.E-hidden.E-col-grey._form-label Full name
+      ._field-wrapper.E-mgn-t-sm
+        input.E-col-grey.form__text{
+          type="text"
+          name="fullname"
+          placeholder="first name / surname..."
+          required
+        }
+
       label.E-hidden.E-col-grey._form-label Email
       ._field-wrapper.E-mgn-t-sm
-        input.form__text{
+        input.E-col-grey.form__text{
           type="text"
           name="email"
           placeholder="email address..."
           required
         }
+
     ._button-wrapper._full_width
       button.btn.btn--primary.btn--md.E-mgn-t-xs#_form_1_submit._submit type="submit"
         span.btn__content

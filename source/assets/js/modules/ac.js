@@ -7,7 +7,6 @@
 
 const ActiveCampaign = () => {
   window.cfields = [];
-
   window._show_thank_you = function(id, message, trackcmp_url) {
     var form = document.getElementById('_form_' + id + '_'), thank_you = form.querySelector('._form-thank-you');
     form.querySelector('._form-content').style.display = 'none';
@@ -19,7 +18,6 @@ const ActiveCampaign = () => {
     }
     if (typeof window._form_callback !== 'undefined') window._form_callback(id);
   };
-
   window._show_error = function(id, message, html) {
     var form = document.getElementById('_form_' + id + '_'), err = document.createElement('div'), button = form.querySelector('button'), old_error = form.querySelector('._form_error');
     if (old_error) old_error.parentNode.removeChild(old_error);
@@ -37,7 +35,6 @@ const ActiveCampaign = () => {
       err.appendChild(div);
     }
   };
-
   window._load_script = function(url, callback) {
       var head = document.querySelector('head'), script = document.createElement('script'), r = false;
       script.type = 'text/javascript';
@@ -53,7 +50,6 @@ const ActiveCampaign = () => {
       }
       head.appendChild(script);
   };
-
   (function() {
     if (window.location.search.search("excludeform") !== -1) return false;
     var getCookie = function(name) {
@@ -115,7 +111,6 @@ const ActiveCampaign = () => {
       }
         tooltips = [];
     };
-
     var remove_tooltip = function(elem) {
       for (var i = 0; i < tooltips.length; i++) {
         if (tooltips[i].elem === elem) {
@@ -125,7 +120,6 @@ const ActiveCampaign = () => {
         }
       }
     };
-
     var create_tooltip = function(elem, text) {
       var tooltip = document.createElement('div'), arrow = document.createElement('div'), inner = document.createElement('div'), new_tooltip = {};
       if (elem.type != 'radio' && elem.type != 'checkbox') {
@@ -147,7 +141,6 @@ const ActiveCampaign = () => {
       tooltips.push(new_tooltip);
       return new_tooltip;
     };
-
     var resize_tooltip = function(tooltip) {
       var rect = tooltip.elem.getBoundingClientRect();
       var doc = document.documentElement, scrollPosition = rect.top - ((window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0));
@@ -157,14 +150,12 @@ const ActiveCampaign = () => {
         tooltip.tip.className = tooltip.tip.className.replace(/ ?(_above|_below) ?/g, '') + ' _above';
       }
     };
-
     var resize_tooltips = function() {
       if (_removed) return;
       for (var i = 0; i < tooltips.length; i++) {
         if (!tooltips[i].no_arrow) resize_tooltip(tooltips[i]);
       }
     };
-
     var validate_field = function(elem, remove) {
       var tooltip = null, value = elem.value, no_error = true;
       remove ? remove_tooltip(elem) : false;
@@ -219,6 +210,7 @@ const ActiveCampaign = () => {
             }
           }
           if (!selected) {
+            elem.className = elem.className + ' _has_error';
             no_error = false;
             tooltip = create_tooltip(elem, "Please select an option.");
           }
@@ -245,11 +237,9 @@ const ActiveCampaign = () => {
       tooltip ? resize_tooltip(tooltip) : false;
       return no_error;
     };
-
     var needs_validate = function(el) {
       return el.name == 'email' || el.getAttribute('required') !== null;
     };
-
     var validate_form = function(e) {
       var err = form_to_submit.querySelector('._form_error'), no_error = true;
       if (!submitted) {
@@ -276,7 +266,7 @@ const ActiveCampaign = () => {
               })(input);
             } else if (input.tagName == 'SELECT') {
               addEvent(input, 'change', function() {
-                validate_field(input, true);
+                validate_field(this, true);
               });
             }
           }
@@ -298,17 +288,14 @@ const ActiveCampaign = () => {
       resize_tooltips();
       return no_error;
     };
-
     addEvent(window, 'resize', resize_tooltips);
     addEvent(window, 'scroll', resize_tooltips);
     window._old_serialize = null;
-
     if (typeof serialize !== 'undefined') window._old_serialize = window.serialize;
     _load_script("//d3rxaij56vjege.cloudfront.net/form-serialize/0.3/serialize.min.js", function() {
       window._form_serialize = window.serialize;
       if (window._old_serialize) window.serialize = window._old_serialize;
     });
-
     var form_submit = function(e) {
       e.preventDefault();
       if (validate_form()) {
@@ -321,7 +308,6 @@ const ActiveCampaign = () => {
       }
       return false;
     };
-
     addEvent(form_to_submit, 'submit', form_submit);
   })();
 }

@@ -114,6 +114,17 @@ const toggleState = () => {
       }
     }
 
+    function triggersWithSwitch() {
+      const connectedSwitches = Array.from(baseElem.querySelectorAll(`[aria-controls="${ triggerTargetID }"]`));
+      const arrRemoveActiveTrigger = connectedSwitches.filter(function(elem) {
+        return elem != trigger;
+      })
+
+      for (let elem of arrRemoveActiveTrigger) {
+        toggleEachState(triggerStates, elem);
+      }
+    }
+
     // [1]
     // Must activate triggers' secondary targets before
     // exclusive triggers shut everything down...
@@ -124,17 +135,8 @@ const toggleState = () => {
     // If trigger is exclusive...
     if (triggerExclusive && triggerOn) triggersWithExclusiveStates()
 
-    // // Switches
-    // if (triggerSwitch) {
-
-    //   var triggerControllers = baseElem.querySelectorAll(`[aria-controls="${ target }"]`);
-
-    //   forEach(triggerControllers, function(index, elem) {
-    //     if (elem != trigger) {
-    //       toggleEachState(triggerStates, elem);
-    //     }
-    //   })
-    // }
+    // Switches
+    if (triggerSwitch) triggersWithSwitch()
   }
 
   // Invoke
