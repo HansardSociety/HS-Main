@@ -28,13 +28,13 @@ article
 
     / Page intro/ featured item
     .grid.grid--md.grid--center
-      section.grid__cell.grid__cell--above-md-7.copy{
+      section.grid__cell.grid__cell--md.grid__cell--above-md-7.copy{
         class="#{ 'grid__cell--order-2 grid__cell--above-md-order-1' if [ 'blog', 'events' ].include? @entry[:category]  }"
       }
         = markdown(@introduction, 'byline')
 
       / Featured side content
-      aside.grid__cell.grid__cell--above-md-5{
+      aside.grid__cell.grid__cell--md.grid__cell--above-md-5{
         class="#{ 'grid__cell--order-1 grid__cell--above-md-order-2' if [ 'blog', 'events' ].include? @entry[:category]  }"
       }
 

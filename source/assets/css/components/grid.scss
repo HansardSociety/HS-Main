@@ -4,8 +4,6 @@
 
 .grid {
   @extend %E-flex-row;
-  // @extend %E-width-full;
-
 }
 
 .grid--center {
@@ -21,12 +19,6 @@
   }
 }
 
-
-.grid__cell {
-    // @extend %E-max-width-full;
-
-}
-
 // Allow item marked 'order-0' (below) to jump to start
 .grid__cell {
   order: 1;
@@ -39,52 +31,42 @@
   $key: nth($keys, $i);
   $val: map-get($spacing, $key);
 
-  $prev: $i - 1;
-
   // Core
   .grid--#{ $key } {
     @extend %E-mgn-neg-l-#{ $key };
+  }
 
-    & > .grid__cell {
-      @extend %E-mgn-t-#{ $key };
-      @extend %E-mgn-l-#{ $key };
+  .grid__cell--#{ $key } {
+    @extend %E-mgn-t-#{ $key };
+    @extend %E-mgn-l-#{ $key };
+  }
 
-      // @if $prev > 0 {
+  // Columns:
+  // Cell 1 through 12 (100 / 12 == 8.3333)
+  @for $n from 1 through 12 {
 
-      //   @extend %E-mgn-l-#{ nth($keys, $prev) };
-      // } @else {
-
-      //   margin-left: $val / 2;
-      // }
+    // Cell
+    .grid__cell--#{ $n } {
+      flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $val / 2 });
     }
 
-    // Columns:
-    // Cell 1 through 12 (100 / 12 == 8.3333)
-    @for $n from 1 through 12 {
+    // Offset
+    .grid__cell--offset-#{ $n } {
+      margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
+    }
 
-      // Cell
-      & > .grid__cell--#{ $n } {
-        flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $val });
-      }
+    // Breakpoints
+    @each $breakpoint in map-keys($breakpoints) {
+      @include above($breakpoint) {
 
-      // Offset
-      & > .grid__cell--offset-#{ $n } {
-        margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
-      }
+        // Cell
+        .grid__cell--above-#{ $breakpoint }-#{ $n } {
+          flex: 0 calc((#{ 8.3333 * $n + '%'}) - #{ $val / 2 });
+        }
 
-      // Breakpoints
-      @each $breakpoint in map-keys($breakpoints) {
-        @include above($breakpoint) {
-
-          // Cell
-          & > .grid__cell--above-#{ $breakpoint }-#{ $n } {
-            flex: 0 calc((#{ 8.3333 * $n + '%'}) - #{ $val });
-          }
-
-          // Offset
-          & > .grid__cell--above-#{ $breakpoint }-offset-#{ $n } {
-            margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
-          }
+        // Offset
+        .grid__cell--above-#{ $breakpoint }-offset-#{ $n } {
+          margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
         }
       }
     }
@@ -103,6 +85,50 @@
 
       .grid__cell--above-#{ $breakpoint }-order-#{ $n } {
         order: #{ $n };
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+////////////////////////////// NEW
+
+@for $n from 1 through 12 {
+
+  @for $i from 1 through length(map-keys($spacing)) {
+
+  $keys: map-keys($spacing);
+  $key: nth($keys, $i);
+  $val: map-get($spacing, $key);
+
+    // Cell
+    .grid__cell--#{ $n } {
+      flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $val });
+    }
+
+    // Offset
+    .grid__cell--offset-#{ $n } {
+      margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
+    }
+
+    // Breakpoints
+    @each $breakpoint in map-keys($breakpoints) {
+      @include above($breakpoint) {
+
+        // Cell
+        .grid__cell--above-#{ $breakpoint }-#{ $n } {
+          flex: 0 calc((#{ 8.3333 * $n + '%'}) - #{ $val });
+        }
+
+        // Offset
+        .grid__cell--above-#{ $breakpoint }-offset-#{ $n } {
+          margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
+        }
       }
     }
   }

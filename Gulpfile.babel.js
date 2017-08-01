@@ -35,7 +35,6 @@ var
   reporter     = require('postcss-reporter'),
   scss         = require('postcss-scss'),
   stylelint    = require('stylelint'),
-  uncss        = require('postcss-uncss'),
 
 ////////////////////////////////////////////////////////////
 //  Postcss
@@ -51,16 +50,6 @@ var
     },
     cssnano: {
       preset: 'default'
-    },
-    uncss: {
-      html: [
-        'build/prod/about/*.html',
-        'build/prod/blog/*.html',
-        'build/prod/events/*.html',
-        'build/prod/research/*.html',
-        'build/prod/resources/*.html',
-        'build/prod/*.html'
-      ]
     }
   },
 
@@ -254,22 +243,6 @@ gulp.task('css:snipcart', function() {
     .pipe(gulp.dest(PATH.tmp.dir))
     .pipe(cacheManifest())
     .pipe(cacheManifestDest());
-});
-
-// Post-process
-gulp.task('css:post', function() {
-  return gulp.src('./build/prod/main-*.css')
-    .pipe(postcss([
-      uncss(
-        {
-          htmlroot: './build/prod/',
-          html: [
-            'https://spy-seal-67430.netlify.com/'
-          ]
-        }
-      )
-    ]))
-    .pipe(gulp.dest('./build/prod'))
 });
 
 // Lint
