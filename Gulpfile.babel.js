@@ -22,6 +22,7 @@ const source       = require('vinyl-source-stream');
 const streamify    = require('gulp-streamify');
 const svgSprite    = require('gulp-svg-sprite');
 const touch        = require('gulp-touch');
+const uglify       = require('gulp-uglify');
 
 const postcss      = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
@@ -199,6 +200,8 @@ const assetCachingStream = lazypipe()
     return gulpif(isProd, gulp.dest(PATH.assets))
   });
 
+const uglifyStream = lazypipe().pipe(uglify);
+
 // Main CSS
 gulp.task('css:main', function() {
   return gulp.src(PATH.css.main)
@@ -253,9 +256,8 @@ gulp.task('js:bundle', function() {
         gutil.log(e);
       })
       .pipe(source(entry.split('/').pop()))
-      .pipe(streamify(
-        assetCachingStream()
-      ));
+      .pipe(streamify(uglify()))
+      .pipe(streamify(assetCachingStream()));
   });
 
   return es.merge(tasks);

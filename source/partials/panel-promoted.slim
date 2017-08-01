@@ -9,7 +9,7 @@
 //  Panel promoted
 ////////////////////////////////////////////////////////////
 
-.panel.E-pad-t-md{
+.panel.section-md.E-pad-t-md{
   id="panel-#{ @index }"
 }
   .content{
@@ -38,7 +38,7 @@
 
       .grid.grid--xs.grid--center.E-mgn-t-sm
         - @panel_data[:calls_to_action].each do |cta|
-          .grid__cell
+          .grid__cell.grid__cell--xs
 
             / Download
             - if cta.action == 'download'

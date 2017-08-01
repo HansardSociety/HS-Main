@@ -28,9 +28,9 @@
         = markdown(@panel_data[:copy], 'byline')
 
   .content.content--narrow
-    .grid.grid--sm
+    .grid.grid--xs
       - @panel_data[:accordians].each do |accordian|
-        .grid__cell.grid__cell--above-sm-6
+        .grid__cell.grid__cell--xs.grid__cell--above-sm-6-xs
           = partial 'partials/accordian',
             locals: { local_data: \
               { accordian_data: accordian }}

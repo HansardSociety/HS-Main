@@ -22,23 +22,21 @@
 // Allow item marked 'order-0' (below) to jump to start
 .grid__cell {
   order: 1;
+  // width: 100%;
 }
 
-// Grid cells and columns
-@for $i from 1 through length(map-keys($spacing)) {
-
-  $keys: map-keys($spacing);
-  $key: nth($keys, $i);
-  $val: map-get($spacing, $key);
+// Sizes
+@each $sizeKey, $sizeVal in $spacing {
 
   // Core
-  .grid--#{ $key } {
-    @extend %E-mgn-neg-l-#{ $key };
+  .grid--#{ $sizeKey } {
+    @extend %E-mgn-neg-l-#{ $sizeKey };
+    @extend %E-mgn-neg-t-#{ $sizeKey };
   }
 
-  .grid__cell--#{ $key } {
-    @extend %E-mgn-t-#{ $key };
-    @extend %E-mgn-l-#{ $key };
+  .grid__cell--#{ $sizeKey } {
+    @extend %E-mgn-t-#{ $sizeKey };
+    @extend %E-mgn-l-#{ $sizeKey };
   }
 
   // Columns:
@@ -46,13 +44,13 @@
   @for $n from 1 through 12 {
 
     // Cell
-    .grid__cell--#{ $n } {
-      flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $val / 2 });
+    .grid__cell--#{ $n }-#{ $sizeKey } {
+      flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal });
     }
 
     // Offset
     .grid__cell--offset-#{ $n } {
-      margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
+      margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal });
     }
 
     // Breakpoints
@@ -60,13 +58,13 @@
       @include above($breakpoint) {
 
         // Cell
-        .grid__cell--above-#{ $breakpoint }-#{ $n } {
-          flex: 0 calc((#{ 8.3333 * $n + '%'}) - #{ $val / 2 });
+        .grid__cell--above-#{ $breakpoint }-#{ $n }-#{ $sizeKey } {
+          flex: 0 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal });
         }
 
         // Offset
-        .grid__cell--above-#{ $breakpoint }-offset-#{ $n } {
-          margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
+        .grid__cell--above-#{ $breakpoint }-offset-#{ $n }-#{ $sizeKey } {
+          margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal });
         }
       }
     }
@@ -88,56 +86,4 @@
       }
     }
   }
-}
-
-
-
-
-
-
-
-////////////////////////////// NEW
-
-@each $sizeKey, $sizeVal in $spacing {
-
-  // Core
-  .grid--#{ $sizeKey } {
-    @extend %E-mgn-neg-l-#{ $sizeKey };
-  }
-
-  .grid__cell--#{ $sizeKey } {
-    @extend %E-mgn-t-#{ $sizeKey };
-    @extend %E-mgn-l-#{ $sizeKey };
-  }
-
-  // Columns:
-  // Cell 1 through 12 (100 / 12 == 8.3333)
-  // @for $n from 1 through 12 {
-
-  //   // Cell
-  //   .grid__cell--#{ $n } {
-  //     flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $val / 2 });
-  //   }
-
-  //   // Offset
-  //   .grid__cell--offset-#{ $n } {
-  //     margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
-  //   }
-
-  //   // Breakpoints
-  //   @each $breakpoint in map-keys($breakpoints) {
-  //     @include above($breakpoint) {
-
-  //       // Cell
-  //       .grid__cell--above-#{ $breakpoint }-#{ $n } {
-  //         flex: 0 calc((#{ 8.3333 * $n + '%'}) - #{ $val / 2 });
-  //       }
-
-  //       // Offset
-  //       .grid__cell--above-#{ $breakpoint }-offset-#{ $n } {
-  //         margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $val });
-  //       }
-  //     }
-  //   }
-  // }
 }

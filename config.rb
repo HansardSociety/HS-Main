@@ -102,6 +102,11 @@ def sharedBuildEnv
     command: 'yarn run epipe:build',
     source: '.tmp',
     latency: 1
+
+  after_build do
+    File.rename 'build/prod/redirects', 'build/prod/_redirects'
+    # system 'node ./purify.js'
+  end
 end
 
 ##  Build
@@ -112,9 +117,6 @@ configure :prod do
   set :SNIPCART_API, ENV['SNIPCART_LIVE_TKN']
   set :build_dir, 'build/prod'
   set :ENV, 'production'
-  after_build do
-    File.rename 'build/prod/redirects', 'build/prod/_redirects'
-  end
 end
 
 ##  Test site
@@ -125,9 +127,6 @@ configure :test do
   set :SNIPCART_API, ENV['SNIPCART_PREVIEW_TKN']
   set :build_dir, 'build/test-site'
   set :ENV, 'test'
-  after_build do
-    File.rename 'build/test-site/redirects', 'build/test-site/_redirects'
-  end
 end
 
 ##  Development
@@ -153,6 +152,10 @@ configure :server do
     name: :gulp,
     command: 'yarn run epipe:dev',
     source: '.tmp'
+
+  after_build do
+    system 'node ./purify.js'
+  end
 end
 
 ############################################################

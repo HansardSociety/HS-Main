@@ -9,18 +9,18 @@
 //  Panel promoted
 ////////////////////////////////////////////////////////////
 
-.panel{
+.panel.section-md{
   id="panel-#{ @index }"
 }
   .content.content--wide
     .grid.grid--md
 
       / Panel title
-      .grid__cell.grid__cell--above-sm-8.grid__cell--above-sm-offset-4
+      .grid__cell.grid__cell--md.grid__cell--above-sm-8-md.grid__cell--above-sm-offset-4-md
         h3.title-md.E-col-green= @panel_data[:title]
 
       / Image
-      .grid__cell.grid__cell--above-sm-4
+      .grid__cell.grid__cell--md.grid__cell--above-sm-4-md
         - if @panel_data[:images]
           - @panel_data[:images].each do |image|
             = partial 'partials/image',
@@ -28,7 +28,7 @@
                 { image_data: image,
                   feature: true }}
 
-      .grid__cell.grid__cell--above-sm-8.copy
+      .grid__cell.grid__cell--md.grid__cell--above-sm-8-md.copy
 
         / Copy
         = Kramdown::Document.new(@panel_data[:copy]).to_html
@@ -36,7 +36,7 @@
         / Calls to action
         .grid.grid--xs
           - if @panel_data[:show_more]
-            .grid__cell
+            .grid__cell.grid__cell--xs
               / Modal window
               = partial 'partials/modal',
                 locals: { local_data: \
@@ -57,7 +57,7 @@
 
           - if @panel_data[:calls_to_action]
             - @panel_data[:calls_to_action].each do |cta|
-              .grid__cell
+              .grid__cell.grid__cell--xs
 
                 / Modal
                 - if cta[:action] == 'modal'

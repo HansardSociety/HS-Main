@@ -29,14 +29,14 @@ article
 
           / Blog
           - if @entry[:category] == 'blog' && page[:category] == 'blog'
-            .grid__cell.grid__cell--above-sm-6.grid__cell--above-md-4
+            .grid__cell.grid__cell--sm.grid__cell--above-sm-6-sm.grid__cell--above-md-4-sm
               = partial 'partials/main-card',
                 locals: { local_data: \
                   { entry_data: page }}
 
           / Events
           - if @entry[:category] == 'events' && page[:category] == 'events'
-            .grid__cell.grid__cell--above-sm-6.grid__cell--above-md-4
+            .grid__cell.grid__cell--sm.grid__cell--above-sm-6-sm.grid__cell--above-md-4-sm
               = partial 'partials/main-card',
                 locals: { local_data: \
                   { entry_data: page }}
