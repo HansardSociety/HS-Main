@@ -44,4 +44,8 @@
   > iframe {
     @extend %E-width-full;
   }
+
+  picture {
+    width: 100%;
+  }
 }

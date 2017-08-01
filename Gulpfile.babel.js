@@ -1,139 +1,144 @@
 // Inspiration from https://github.com/NathanBowers/mm-template/
 
-var
 ////////////////////////////////////////////////////////////
 //  Plugins
 ////////////////////////////////////////////////////////////
 
-  // Environments
-  ENV          = process.env.NODE_ENV,
+const path         = require('path');
 
-  // Native
-  path         = require('path'),
+const gulp         = require('gulp');
+const babel        = require('gulp-babel');
+const browserSync  = require('browser-sync').create();
+const browserify   = require('browserify');
+const concat       = require('gulp-concat');
+const es           = require('event-stream');
+const gutil        = require('gulp-util');
+const lazypipe     = require('lazypipe');
+const rev          = require('gulp-rev');
+const runSequence  = require('run-sequence');
+const sass         = require('gulp-sass');
+const source       = require('vinyl-source-stream');
+const streamify    = require('gulp-streamify');
+const svgSprite    = require('gulp-svg-sprite');
+const touch        = require('gulp-touch');
 
-  // Plugins
-  gulp         = require('gulp'),
-  babel        = require('gulp-babel'),
-  browserSync  = require('browser-sync').create(),
-  browserify   = require('browserify'),
-  concat       = require('gulp-concat'),
-  es           = require('event-stream'),
-  gutil        = require('gulp-util'),
-  rev          = require('gulp-rev'),
-  runSequence  = require('run-sequence'),
-  sass         = require('gulp-sass'),
-  source       = require('vinyl-source-stream'),
-  streamify    = require('gulp-streamify'),
-  svgSprite    = require('gulp-svg-sprite'),
-  touch        = require('gulp-touch'),
+const postcss      = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const cssnano      = require('cssnano');
+const mqpacker     = require('css-mqpacker');
+const reporter     = require('postcss-reporter');
+const scss         = require('postcss-scss');
+const stylelint    = require('stylelint');
 
-  // PostCSS
-  postcss      = require('gulp-postcss'),
-  autoprefixer = require('autoprefixer'),
-  cssnano      = require('cssnano'),
-  mqpacker     = require('css-mqpacker'),
-  reporter     = require('postcss-reporter'),
-  scss         = require('postcss-scss'),
-  stylelint    = require('stylelint'),
+const ENV          = process.env.NODE_ENV;
+const isProd       = gutil.env.GULP_ENV === 'production';
 
 ////////////////////////////////////////////////////////////
 //  Postcss
 ////////////////////////////////////////////////////////////
 
-  // PostCss options
-  postcssOpts = {
-    autoprefixer: {
-      browsers: [ 'last 2 versions' ]
-    },
-    mqpacker: {
-      sort: true
-    },
-    cssnano: {
-      preset: 'default'
-    }
-  },
+const postcssPlugins = [
+  autoprefixer({
+    browsers: [ 'last 2 versions' ]
+  }),
+  mqpacker({
+    sort: true
+  }),
+  cssnano({
+    preset: 'default'
+  })
+];
+
+////////////////////////////////////////////////////////////
+//  Caching
+////////////////////////////////////////////////////////////
+
+const manifestOpts = {
+    merge: true,
+    base: 'source/assets',
+    path: 'source/assets/rev-manifest.json'
+};
 
 ////////////////////////////////////////////////////////////
 //  Sprite
 ////////////////////////////////////////////////////////////
 
   // Icons (Ionicons)
-  iconsList =
-    'android-search|' +
-    'ios-arrow-thin-down|' +
-    'chevron-down|' +
-    'chevron-right|' +
-    'chevron-left|' +
-    'arrow-graph-up-right|' +
-    'bookmark|' +
-    'calendar|' +
-    'cube|' +
-    'map|' +
-    'social-twitter|' +
-    'social-facebook|' +
-    'social-linkedin|' +
-    'email|' +
-    'headphone|' +
-    'ios-videocam|' +
-    'book|' +
-    'android-download|' +
-    'close-round|' +
-    'ios-paper|',
+const iconsList =
+  'android-search|' +
+  'ios-arrow-thin-down|' +
+  'chevron-down|' +
+  'chevron-right|' +
+  'chevron-left|' +
+  'arrow-graph-up-right|' +
+  'bookmark|' +
+  'calendar|' +
+  'cube|' +
+  'map|' +
+  'social-twitter|' +
+  'social-facebook|' +
+  'social-linkedin|' +
+  'email|' +
+  'headphone|' +
+  'ios-videocam|' +
+  'book|' +
+  'android-download|' +
+  'close-round|' +
+  'ios-paper|';
 
-  // Sprite config
-  svgSpriteConfig = {
-    mode: {
-      symbol: {
-        dest: '.'
-      }
-    },
-    svg: {
-      doctypeDeclaration: false,
-      xmlDeclaration: false,
-      rootAttributes: {
-        style: 'display:none;'
-      }
+// Sprite config
+const svgSpriteConfig = {
+  mode: {
+    symbol: {
+      dest: '.'
     }
   },
+  svg: {
+    doctypeDeclaration: false,
+    xmlDeclaration: false,
+    rootAttributes: {
+      style: 'display:none;'
+    }
+  }
+};
 
 ////////////////////////////////////////////////////////////
 //  Paths
 ////////////////////////////////////////////////////////////
 
-  PATH = {
-    source: __dirname + '/source',
-    assets: __dirname + '/source/assets',
-    css: {
-      all: __dirname + '/source/assets/css/**/*.scss',
-      main: __dirname + '/source/assets/css/main.scss',
-      vendor: [
-        __dirname + '/node_modules/normalize.css/normalize.css',
-        __dirname + '/node_modules/swiper/dist/css/swiper.css'
-      ],
-      snipcart: __dirname + '/source/assets/css/vendors/snipcart/snipcart.scss'
-    },
-    js: {
-      all: __dirname + '/source/assets/js/**/*.js',
-      main: __dirname + '/source/assets/js/main.js',
-      vendor: __dirname + '/source/assets/js/vendor.js'
-    },
-    fonts: __dirname + '/source/assets/fonts/**.*',
-    images: {
-      icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
-    },
-    redirects: __dirname + '/redirects',
-    tmp: {
-      dir: __dirname + '/.tmp',
-      assets: __dirname + '/.tmp/assets',
-      css: __dirname + '/.tmp/main.css',
-      js: __dirname + '/.tmp/main.js',
-    },
-    build: {
-      dir: __dirname + '/build',
-      assets: __dirname + '/build/assets'
-    }
+const PATH = {
+  source: __dirname + '/source',
+  assets: __dirname + '/source/assets',
+  css: {
+    all: __dirname + '/source/assets/css/**/*.scss',
+    main: __dirname + '/source/assets/css/main.scss',
+    vendor: [
+      __dirname + '/node_modules/normalize.css/normalize.css',
+      __dirname + '/node_modules/swiper/dist/css/swiper.css'
+    ],
+    snipcart: __dirname + '/source/assets/css/vendors/snipcart/snipcart.scss'
+  },
+  js: {
+    all: __dirname + '/source/assets/js/**/*.js',
+    main: __dirname + '/source/assets/js/main.js',
+    vendor: __dirname + '/source/assets/js/vendor.js'
+  },
+  fonts: __dirname + '/source/assets/fonts/**.*',
+  images: {
+    icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
+  },
+  redirects: __dirname + '/redirects',
+  tmp: {
+    dir: __dirname + '/.tmp',
+    assets: __dirname + '/.tmp/assets',
+    css: __dirname + '/.tmp/main.css',
+    js: __dirname + '/.tmp/main.js',
+  },
+  build: {
+    dir: __dirname + '/build',
+    assets: __dirname + '/build/assets'
   }
-; // END vars
+};
 
 ////////////////////////////////////////////////////////////
 //  Server
@@ -180,41 +185,21 @@ gulp.task('watch',
 //  CSS
 ////////////////////////////////////////////////////////////
 
-function cacheHash() {
-  return gutil.env.GULP_ENV === 'production'
-    ? rev()
-    : gutil.noop();
-}
+const postcssStream = lazypipe()
+  .pipe(postcss, postcssPlugins);
 
-function cacheManifest() {
-  return gutil.env.GULP_ENV === 'production'
-    ? rev.manifest({
-      merge: true,
-      base: 'source/assets',
-      path: 'source/assets/rev-manifest.json'
-    })
-    : gutil.noop();
-}
-
-function cacheManifestDest() {
-  return gutil.env.GULP_ENV === 'production'
-    ? gulp.dest(PATH.assets)
-    : gutil.noop();
-}
+const assetCachingStream = lazypipe()
+  .pipe(rev)
+  .pipe(gulp.dest, PATH.tmp.dir)
+  .pipe(rev.manifest, manifestOpts)
+  .pipe(gulp.dest, PATH.assets);
 
 // Main
 gulp.task('css:main', function() {
   return gulp.src(PATH.css.main)
     .pipe(sass().on('error', sass.logError))
-    .pipe(postcss([
-      autoprefixer(postcssOpts.autoprefixer),
-      mqpacker(postcssOpts.mqpacker),
-      cssnano(postcssOpts.cssnano)
-    ]))
-    .pipe(cacheHash())
-    .pipe(gulp.dest(PATH.tmp.dir))
-    .pipe(cacheManifest())
-    .pipe(cacheManifestDest());
+    .pipe(postcssStream())
+    .pipe(isProd ? assetCachingStream() : gutil.noop());
 });
 
 // Vendor
@@ -222,27 +207,19 @@ gulp.task('css:vendor', function() {
   return gulp.src(PATH.css.vendor)
     .pipe(concat('vendor.css'))
     .pipe(postcss([
-      cssnano(postcssOpts.cssnano)
+      cssnano({
+        preset: 'default'
+      })
     ]))
-    .pipe(cacheHash())
-    .pipe(gulp.dest(PATH.tmp.dir))
-    .pipe(cacheManifest())
-    .pipe(cacheManifestDest());
+    .pipe(isProd ? assetCachingStream() : gutil.noop());
 });
 
 // Snipcart
 gulp.task('css:snipcart', function() {
   return gulp.src(PATH.css.snipcart)
     .pipe(sass().on('error', sass.logError))
-    .pipe(postcss([
-      autoprefixer(postcssOpts.autoprefixer),
-      mqpacker(postcssOpts.mqpacker),
-      cssnano(postcssOpts.cssnano)
-    ]))
-    .pipe(cacheHash())
-    .pipe(gulp.dest(PATH.tmp.dir))
-    .pipe(cacheManifest())
-    .pipe(cacheManifestDest());
+    .pipe(postcssStream())
+    .pipe(isProd ? assetCachingStream() : gutil.noop());
 });
 
 // Lint
@@ -274,10 +251,9 @@ gulp.task('js:bundle', function() {
         gutil.log(e);
       })
       .pipe(source(entry.split('/').pop()))
-      .pipe(streamify(cacheHash()))
-      .pipe(gulp.dest(PATH.tmp.dir))
-      .pipe(streamify(cacheManifest()))
-      .pipe(streamify(cacheManifestDest()));
+      .pipe(streamify(
+        isProd ? assetCachingStream() : gutil.noop()
+      ));
   });
 
   return es.merge(tasks);
