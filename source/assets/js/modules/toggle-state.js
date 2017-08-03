@@ -12,7 +12,6 @@ const toggleState = () => {
 
   const btnsGlobal  = baseElem.querySelectorAll('.btn.JS-target-global');
   const btns        = baseElem.querySelectorAll('.btn.JS-off, .btn.JS-on');
-  // const nav         = baseElem.querySelector('.navbar');
 
   // Change state
   function changeState(activeTrigger) {
