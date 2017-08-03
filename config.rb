@@ -72,7 +72,6 @@ activate :contentful do |f|
     root_page:    { mapper: RootPageMap,    id: 'root_page' },
     navigation:   { mapper: NavigationMap,  id: 'navigation' },
     universal:    { mapper: UniversalMap,   id: 'universal' }
-    # people:       { mapper: PeopleMap,      id: 'people' }
   }
 end
 
@@ -105,7 +104,7 @@ def sharedBuildEnv
 
   after_build do
     File.rename 'build/prod/redirects', 'build/prod/_redirects'
-    # system 'node ./purify.js'
+    system 'node ./purify.js'
   end
 end
 
@@ -114,9 +113,10 @@ end
 
 configure :prod do
   sharedBuildEnv()
-  set :SNIPCART_API, ENV['SNIPCART_LIVE_TKN']
-  set :build_dir, 'build/prod'
+
   set :ENV, 'production'
+  set :SNIPCART_TKN, ENV['SNIPCART_LIVE_TKN']
+  set :build_dir, 'build/prod'
 end
 
 ##  Test site
@@ -124,9 +124,10 @@ end
 
 configure :test do
   sharedBuildEnv()
-  set :SNIPCART_API, ENV['SNIPCART_PREVIEW_TKN']
-  set :build_dir, 'build/test-site'
+
   set :ENV, 'test'
+  set :SNIPCART_TKN, ENV['SNIPCART_PREVIEW_TKN']
+  set :build_dir, 'build/test-site'
 end
 
 ##  Development
@@ -145,17 +146,13 @@ configure :server do
   set :JS_VENDOR,    '/vendor.js'
 
   # Snipcart
-  set :SNIPCART_API, ENV['SNIPCART_PREVIEW_TKN']
+  set :SNIPCART_TKN, ENV['SNIPCART_PREVIEW_TKN']
 
   activate :directory_indexes
   activate :external_pipeline,
     name: :gulp,
     command: 'yarn run epipe:dev',
     source: '.tmp'
-
-  after_build do
-    system 'node ./purify.js'
-  end
 end
 
 ############################################################

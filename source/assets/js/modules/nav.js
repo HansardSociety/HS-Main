@@ -12,8 +12,6 @@ const shrinkNav = (() => {
   var navbar       = document.querySelector('.navbar');
   var navStates  = [ 'JS-active', 'JS-active-hold', 'JS-inactive' ];
 
-
-
   function addNavStates() {
     if (navbar.classList.contains('JS-inactive')) {
 

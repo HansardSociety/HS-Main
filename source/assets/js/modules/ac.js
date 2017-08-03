@@ -53,6 +53,7 @@ const ActiveCampaign = () => {
       }
       head.appendChild(script);
   };
+
   (function() {
     if (window.location.search.search("excludeform") !== -1) return false;
     var getCookie = function(name) {

@@ -1,12 +1,19 @@
-const purifycss = require("purify-css")
-const hash = require('./source/assets/rev-manifest')
+const purifycss = require('purify-css')
+const assetHashes = require('./source/assets/rev-manifest.json')
 
-let content = [
-  "build/prod/blog/**.html"
+let htmlFiles = [
+  "./build/prod/*.html",
+  "./build/prod/events/*.html"
 ]
-let css = [ "./build/prod/main-*.css" ]
+
+let cssFiles = [ "./build/prod/main-*.css" ]
+
 let options = {
-  output: `./build/prod/${ hash["main.css"] }`,
-  rejected: true
+  output: `./build/prod/${ assetHashes["main.css"] }`,
+  minify: true,
+  whitelist: [
+    'JS-*', 'swiper', 'carousel*'
+  ]
 }
-purifycss(content, css, options)
+
+purifycss(htmlFiles, cssFiles, options)

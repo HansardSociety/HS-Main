@@ -1,5 +1,4 @@
-import { forEach } from './core';
-import { toggleClass } from './core';
+import { forEach, toggleClass } from './core';
 
 ////////////////////////////////////////////////////////////
 //  Toggle state

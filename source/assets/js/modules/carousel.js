@@ -1,5 +1,3 @@
-import swiper from 'swiper';
-
 ////////////////////////////////////////////////////////////
 //  Swiper
 //  http://idangero.us/swiper/
@@ -13,7 +11,7 @@ const breakpoints = {
   xl: 1920
 }
 
-const panelSwiper = (() => {
+const carousel = (() => {
   new Swiper ('.swiper-container', {
 
     nextButton: '.carousel__next',
@@ -42,4 +40,4 @@ const panelSwiper = (() => {
   });
 })()
 
-export { panelSwiper };
+export { carousel };

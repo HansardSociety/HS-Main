@@ -34,6 +34,7 @@ const stylelint    = require('stylelint');
 
 const ENV          = gutil.env.GULP_ENV;
 const isProd       = ENV == 'production';
+const isDev        = ENV == 'development';
 
 ////////////////////////////////////////////////////////////
 //  Sprite
@@ -167,18 +168,16 @@ const postcssDefaultPlugins = [
   mqpacker({ sort: true })
 ];
 
-// Postcss (production)
 const postcssProdPlugins = [
-  cssnano({ preset: 'default' })
+  autoprefixer({ browsers: [ 'last 2 versions' ] }),
+  mqpacker({ sort: true })
 ];
 
-// Postcss
-const postcssStream = lazypipe()
-  .pipe(function() {
-     return gulpif(isProd,
-      postcss(postcssDefaultPlugins.concat(postcssProdPlugins)),
-      postcss(postcssDefaultPlugins))
-  });
+const postcssStream = lazypipe().pipe(function() {
+  return gulpif(isProd,
+    postcss(postcssDefaultPlugins.concat(postcssProdPlugins)),
+    postcss(postcssDefaultPlugins))
+});
 
 // Asset caching manifest options
 const manifestOpts = {
@@ -200,11 +199,18 @@ const assetCachingStream = lazypipe()
     return gulpif(isProd, gulp.dest(PATH.assets))
   });
 
-const uglifyStream = lazypipe().pipe(uglify);
 
 // Main CSS
 gulp.task('css:main', function() {
   return gulp.src(PATH.css.main)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(postcssStream())
+    .pipe(assetCachingStream());
+});
+
+// Snipcart CSS
+gulp.task('css:snipcart', function() {
+  return gulp.src(PATH.css.snipcart)
     .pipe(sass().on('error', sass.logError))
     .pipe(postcssStream())
     .pipe(assetCachingStream());
@@ -215,18 +221,8 @@ gulp.task('css:vendor', function() {
   return gulp.src(PATH.css.vendor)
     .pipe(concat('vendor.css'))
     .pipe(postcss([
-      cssnano({
-        preset: 'default'
-      })
+      cssnano({ preset: 'default' })
     ]))
-    .pipe(assetCachingStream());
-});
-
-// Snipcart CSS
-gulp.task('css:snipcart', function() {
-  return gulp.src(PATH.css.snipcart)
-    .pipe(sass().on('error', sass.logError))
-    .pipe(postcssStream())
     .pipe(assetCachingStream());
 });
 
@@ -244,6 +240,7 @@ gulp.task('css:lint', function() {
 });
 
 // Scripts
+const uglifyStream = lazypipe().pipe(uglify);
 gulp.task('js:bundle', function() {
 
   var files = [ PATH.js.main, PATH.js.vendor ];
@@ -252,11 +249,11 @@ gulp.task('js:bundle', function() {
     return browserify({ entries: entry })
       .transform('babelify')
       .bundle()
-      .on('error', function(e) {
-        gutil.log(e);
-      })
+      .on('error', function(e) { gutil.log(e); })
       .pipe(source(entry.split('/').pop()))
-      .pipe(streamify(uglify()))
+      .pipe(streamify(function() {
+        return gulpif(isProd, uglify())
+      }))
       .pipe(streamify(assetCachingStream()));
   });
 
