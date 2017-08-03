@@ -1,11 +1,14 @@
 - @content = local_data[:content]
 - @id      = local_data[:id]
 - @yield   = local_data[:yield]
+- @size    = local_data[:size]
 
 .modal.JS-inactive{
   id= @id
 }
-  .modal__inner
+  .modal__inner{
+    class="#{ 'modal__inner--' + @size if @size }"
+  }
 
     / Header
     .modal__header

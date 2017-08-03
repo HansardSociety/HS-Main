@@ -6,13 +6,10 @@
 
 .side-card {
   @extend %E-bgc-light-grey;
+  @extend %E-mgn-b-xs;
   @extend %E-overflow-hidden;
   @extend %E-trans-core;
   @extend %E-rad-slight;
-
-  &:nth-child(1n + 2) {
-    @extend %E-mgn-t-xs;
-  }
 }
 
 .side-card--events        { @extend %E-acc-blue-left; }

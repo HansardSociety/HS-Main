@@ -1,0 +1,31 @@
+// Panels
+.panel {
+  @extend %E-position-relative;
+}
+
+.panel__header {
+  @extend %E-align-cen;
+}
+
+// Sections
+@each $sizeKey, $sizeVal in $spacing {
+  .section-#{ $sizeKey } {
+    @extend %E-pad-x-#{ $sizeKey }
+  }
+};
+
+// Boxes
+.box {
+  @extend %E-pad-sm;
+  @extend %E-rad-slight;
+}
+
+@each $name, $color in Merge(
+  map-get($colors, primary),
+  map-get($colors, secondary),
+  map-get($colors, greyscale)) {
+
+  .box--#{ $name } {
+    @extend %E-bgc-#{ $name };
+  }
+}

@@ -128,10 +128,7 @@ article
                       { ext_link_data: link }}
 
             / Newsletter signup
-            = partial 'partials/ac-form',
-              locals: { local_data: \
-                { style: 'dark',
-                  sidebar: true }}
+            = partial 'partials/signup-box'
 
             / Latest items for about pages
             - if @category == 'about'

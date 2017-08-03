@@ -1,4 +1,4 @@
-form.form.E-pad-x-sm#_form_1_._form._form_1._inline-form._dark{
+form.form#_form_1_._form._form_1._inline-form._dark{
   class="#{ ('form--dark' if local_data[:style] == 'dark') }"
   class="#{ ('form--light' if local_data[:style] == 'light') }"
   class="#{ ('form--side' if local_data[:sidebar]) }"
@@ -18,10 +18,10 @@ form.form.E-pad-x-sm#_form_1_._form._form_1._inline-form._dark{
   ._form-content
     ._form_element._x96563199._full_width
 
-      h2{
-        class="#{ local_data[:panel] == true ? 'title-lg' : 'title-md' }"
-        class="#{ 'E-col-green' if local_data[:style] == 'light' }"
-      } Join our newsletter
+      / h2{
+      /   class="#{ local_data[:panel] == true ? 'title-lg' : 'title-md' }"
+      /   class="#{ 'E-col-green' if local_data[:style] == 'light' }"
+      / } Join our newsletter
 
       label.E-hidden.E-col-grey._form-label Full name
       ._field-wrapper.E-mgn-t-sm
@@ -33,7 +33,7 @@ form.form.E-pad-x-sm#_form_1_._form._form_1._inline-form._dark{
         }
 
       label.E-hidden.E-col-grey._form-label Email
-      ._field-wrapper.E-mgn-t-sm
+      ._field-wrapper.E-mgn-t-xs
         input.E-col-grey.form__text{
           type="text"
           name="email"
@@ -44,6 +44,6 @@ form.form.E-pad-x-sm#_form_1_._form._form_1._inline-form._dark{
     ._button-wrapper._full_width
       button.btn.btn--primary.btn--md.E-mgn-t-xs#_form_1_submit._submit type="submit"
         span.btn__content
-          span.btn__label.btn__label--md Submit
+          span.btn__label.btn__label--md Subscribe
     ._clear-element
   .form__ty._form-thank-you style="display:none;"

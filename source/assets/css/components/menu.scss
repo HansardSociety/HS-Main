@@ -42,6 +42,10 @@
   }
 }
 
+.menu__container {
+  @extend %E-mgn-b-md;
+}
+
 .menu__container--columns {
   flex-flow: row nowrap;
 

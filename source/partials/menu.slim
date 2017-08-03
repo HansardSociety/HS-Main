@@ -93,3 +93,10 @@
               a.menu__link{
                 href="#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
               }= page.title
+
+        - if category == 'about'
+          li.menu__column
+            = partial 'partials/signup-box'
+
+  - if @screen == 'mobile'
+    = partial 'partials/signup-box'
