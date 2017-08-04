@@ -62,16 +62,7 @@ article
 
   .panel.E-pad-x-sm.E-bgc-black
     .content.content--narrow.E-align-cen.E-col-white
-      h2.title-lg.E-mgn-b-xs Join our newsletter
-      / p.E-fz-by.E-mgn-b-sm
-      = partial 'partials/btn',
-        locals: { local_data: \
-          { type: 'state', switch: true,
-            size: 'lg', style: 'secondary',
-            label_on: 'Subscribe now', label_off: 'Close', label_size: 'lg',
-            page: 'no-scroll', exclusive: true,
-            aria_id: 'activate-modal-monthly-newsletter-subscription',
-            aria_target_id: 'modal-monthly-newsletter-subscription' }}
+      = partial 'partials/signup-box'
 
   //  Blog
   ////////////////////////////

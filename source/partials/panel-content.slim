@@ -11,6 +11,7 @@
 
 .panel.section-md{
   id="panel-#{ @index }"
+  class="#{ 'E-bgc-light-grey' if @index.even? }"
 }
   .content.content--wide
     .grid.grid--md
@@ -51,7 +52,7 @@
                     style: 'secondary',
                     label_on: 'Show more', label_off: 'Close',
                     label_size: 'sm',
-                    page: 'no-scroll', exclusive: true,
+                    page: 'no-scroll', switch: true,
                     aria_id: "activate-#{ @panel_data[:show_more].cta_id }",
                     aria_target_id:  @panel_data[:show_more].cta_id }}
 
@@ -76,7 +77,7 @@
                         style: 'secondary',
                         label_on: cta[:button_text], label_off: 'Close',
                         label_size: 'sm',
-                        page: 'no-scroll', exclusive: true,
+                        page: 'no-scroll', switch: true,
                         aria_id: "activate-#{  cta.modal[:cta_id] }",
                         aria_target_id: cta.modal[:cta_id] }}
 

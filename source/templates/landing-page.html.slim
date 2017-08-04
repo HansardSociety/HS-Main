@@ -21,9 +21,10 @@ article
   //  Introduction
   ////////////////////////////
 
-  .panel.E-pad-x-sm#banner-scroll-target
-    .content.content--narrow.E-align-cen
-      = markdown(@entry[:introduction], 'byline')
+  - if @entry[:introduction]
+    .panel.E-pad-x-sm#banner-scroll-target
+      .content.content--narrow.E-align-cen
+        = markdown(@entry[:introduction], 'byline')
 
   //  'Latest' (related)
   ////////////////////////////

@@ -20,16 +20,16 @@
 
 .modal__inner {
   width: 40rem;
-  height: 99.9999vh;
-  min-height: 99.9999vh;
-  max-height: 99.9999vh;
+  max-width: calc(100% - .5rem);
+  height: calc(99.9999vh - .5rem);
+  min-height: calc(99.9999vh - .5rem);
+  max-height: calc(99.9999vh - .5rem);
 
   @extend %E-absolute-center-xy;
   @extend %E-bgc-white;
   @extend %E-rad-slight;
   @extend %E-flex-row;
   @extend %E-height-full-vh;
-  @extend %E-max-width-full;
   @extend %E-overflow-y-hidden;
   @extend %E-box-shad-raised;
   @include above('sm') {

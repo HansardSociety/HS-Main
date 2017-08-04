@@ -95,8 +95,15 @@
               }= page.title
 
         - if category == 'about'
-          li.menu__column
-            = partial 'partials/signup-box'
+          li.menu__column.E-acc-orange-top
+            .section-sm
+              = partial 'partials/signup-box'
 
+
+  ////////////////////////////////////////////////////////
+  // Custom content
+  ////////////////////////////////////////////////////////
+
+  / mobile
   - if @screen == 'mobile'
     = partial 'partials/signup-box'

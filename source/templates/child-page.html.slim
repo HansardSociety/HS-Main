@@ -127,12 +127,13 @@ article
                     locals: { local_data: \
                       { ext_link_data: link }}
 
-            / Newsletter signup
-            = partial 'partials/signup-box'
+          / Latest items for about pages
+          - if @category == 'about'
+            = partial 'partials/data-cards',
+              locals: { local_data: \
+                { entry_data: @entry,
+                  context: 'latest' }}
 
-            / Latest items for about pages
-            - if @category == 'about'
-              = partial 'partials/data-cards',
-                locals: { local_data: \
-                  { entry_data: @entry,
-                    context: 'latest' }}
+          / Newsletter signup
+          .box.E-bgc-black.E-col-white.E-mgn-b-xs
+            = partial 'partials/signup-box'

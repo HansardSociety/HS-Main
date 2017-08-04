@@ -19,13 +19,3 @@
   @extend %E-pad-sm;
   @extend %E-rad-slight;
 }
-
-@each $name, $color in Merge(
-  map-get($colors, primary),
-  map-get($colors, secondary),
-  map-get($colors, greyscale)) {
-
-  .box--#{ $name } {
-    @extend %E-bgc-#{ $name };
-  }
-}

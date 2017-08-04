@@ -14,34 +14,34 @@
 .carousel.swiper-container
   .carousel__inner.swiper-wrapper
 
-      / Latest content (related)
-      - if @content_source == 'related'
-        = partial 'partials/data-cards',
-          locals: { local_data: \
-            { entry_data: @entry_data,
-              conlabel: 'related',
-              card_wrapper_class: 'carousel__item swiper-slide' }}
+    / Latest content (related)
+    - if @content_source == 'related'
+      = partial 'partials/data-cards',
+        locals: { local_data: \
+          { entry_data: @entry_data,
+            context: 'related',
+            card_wrapper_class: 'carousel__item swiper-slide' }}
 
-      - if @content_source == 'latest'
-        - @entry_data[0..5].each do |id, page|
-          .carousel__item.swiper-slide
-            = partial 'partials/main-card',
-              locals: { local_data: \
-                { entry_data: page }}
+    - if @content_source == 'latest'
+      - @entry_data[0..5].each do |id, page|
+        .carousel__item.swiper-slide
+          = partial 'partials/main-card',
+            locals: { local_data: \
+              { entry_data: page }}
 
-      - if @content_source == 'category-latest'
-        - @entry_data[0..9].each do |id, page|
-          .carousel__item.swiper-slide
-            = partial 'partials/main-card',
-              locals: { local_data: \
-                { entry_data: page }}
+    - if @content_source == 'category-latest'
+      - @entry_data[0..9].each do |id, page|
+        .carousel__item.swiper-slide
+          = partial 'partials/main-card',
+            locals: { local_data: \
+              { entry_data: page }}
 
-      - if @content_source == 'profiles'
-        - @entry_data.each do |id, profile|
-          .carousel__item.swiper-slide
-            = partial 'partials/main-card',
-              locals: { local_data: \
-                { entry_data: profile }}
+    - if @content_source == 'profiles'
+      - @entry_data.each do |id, profile|
+        .carousel__item.swiper-slide
+          = partial 'partials/main-card',
+            locals: { local_data: \
+              { entry_data: profile }}
 
   / Actions
   .carousel__actions

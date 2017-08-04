@@ -1,10 +1,10 @@
-.box.box--black.E-align-cen.E-acc-orange-top
-  h2.title-lg.E-col-white.E-mgn-b-xs Join our newsletter
-  = partial 'partials/btn',
-    locals: { local_data: \
-      { type: 'state', switch: true,
-        size: 'lg', style: 'secondary',
-        label_on: 'Subscribe now', label_off: 'Close', label_size: 'lg',
-        page: 'no-scroll',
-        aria_id: 'activate-modal-monthly-newsletter-subscription',
-        aria_target_id: 'modal-monthly-newsletter-subscription' }}
+h2.title-lg Join our newsletter
+p.E-mgn-b-sm Get the latest updates on our research, services and events, together with expert comment and analysis, delivered to your inbox each month.
+= partial 'partials/btn',
+  locals: { local_data: \
+    { type: 'state', switch: true,
+      size: 'lg', style: 'secondary',
+      label_on: 'Subscribe now', label_off: 'Close', label_size: 'lg',
+      page: 'no-scroll',
+      aria_id: 'activate-modal-monthly-newsletter-subscription',
+      aria_target_id: 'modal-monthly-newsletter-subscription' }}

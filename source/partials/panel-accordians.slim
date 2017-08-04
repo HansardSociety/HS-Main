@@ -9,7 +9,7 @@
 //  Panel promoted
 ////////////////////////////////////////////////////////////
 
-.panel.E-pad-t-md{
+.panel.section-md.E-bgc-dark-grey.E-col-white{
   id="panel-#{ @index }"
 }
   .content.content--narrow
@@ -18,10 +18,10 @@
 
       / Label
       - if @panel_data[:label]
-        span.cross-head-sm.E-col-mid-grey= @panel_data[:label]
+        span.cross-head-sm= @panel_data[:label]
 
       / Title
-      h2.title-xl.E-col-green= @panel_data[:title]
+      h2.title-xl= @panel_data[:title]
 
       / Copy
       - if @panel_data.copy
