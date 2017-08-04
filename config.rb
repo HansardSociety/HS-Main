@@ -105,7 +105,6 @@ def sharedBuildEnv
 
   after_build do
     File.rename 'build/prod/redirects', 'build/prod/_redirects'
-    system 'node ./purify.js'
   end
 end
 
