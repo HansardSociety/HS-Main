@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 # Gems
 gem 'dotenv'
+gem 'bundler'
 gem 'middleman'
 gem 'slim'
 gem 'contentful_middleman', git: 'https://github.com/contentful/contentful_middleman.git', branch: 'v4-1.x-stable'

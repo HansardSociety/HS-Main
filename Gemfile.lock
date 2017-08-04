@@ -130,6 +130,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
   contentful_middleman!
   dotenv
   middleman
