@@ -9,6 +9,10 @@
 
 .carousel__item {
   height: auto;
+
+  & > * {
+    @extend %E-height-full;
+  }
 }
 
 .carousel__actions {

@@ -5,10 +5,6 @@
 - @entry_data               = local_data[:entry_data]
 - @cards_context            = local_data[:context]
 
-/ Custom elements
-- @card_wrapper_class       = local_data[:card_wrapper_class]
-- @card_wrapper_elem        = { tag: 'div', class: @card_wrapper_class }
-
 / Core
 - @child_pages              = data.hs.child_page
 - @landing_pages            = data.hs.landing_page
@@ -34,7 +30,7 @@
     / Loop through categorised pages
     - @sort_categories.each do |categories, pages|
 
-      /  Order by date (descending)
+      / Order by date (descending)
       - @pages_by_date = pages.sort_by{ |key, value| - value.date_time[:integer] }
 
       / Filter by tag, remove empty objects, remove this page
@@ -84,7 +80,7 @@
     }.delete_if{ |page| page.nil? }
 
     - @pages_tagged[0..2].each do |id, page|
-      *@card_wrapper_elem
+      .carousel__item.swiper-slide
         = partial 'partials/main-card',
           locals: { local_data: \
             { entry_data: page }}

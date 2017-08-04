@@ -1,14 +1,14 @@
 .main-card {
-  // Allow vertical box shadow
-  width: calc(100% - 3px);
-  margin: 0 auto;
+  width: calc(100% - 3px); // allow vertical box shadow
 
   text-align: left;
 
   @extend %E-bgc-white;
+  @extend %E-box-shad-raised;
+  @extend %E-height-full;
+  @extend %E-mgn-auto-x;
   @extend %E-overflow-hidden;
   @extend %E-rad-slight;
-  @extend %E-box-shad-raised;
 
   &:hover {
     img {

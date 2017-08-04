@@ -45,10 +45,19 @@
 .link {
   border-bottom: 2px solid rgba(Get($colors, primary, green), .15);
 
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+
   @extend %E-col-green;
   @extend %E-trans-core;
 
   &:hover {
     border-bottom: 2px solid Get($colors, primary, green);
   }
+}
+
+strong {
+  @extend %E-ff-prim-medium;
 }

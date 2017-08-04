@@ -19,8 +19,7 @@
       = partial 'partials/data-cards',
         locals: { local_data: \
           { entry_data: @entry_data,
-            context: 'related',
-            card_wrapper_class: 'carousel__item swiper-slide' }}
+            context: 'related' }}
 
     - if @content_source == 'latest'
       - @entry_data[0..5].each do |id, page|
@@ -36,12 +35,15 @@
             locals: { local_data: \
               { entry_data: page }}
 
-    - if @content_source == 'profiles'
-      - @entry_data.each do |id, profile|
+    - if @content_source == 'custom'
+      - @entry_data.each do |card|
         .carousel__item.swiper-slide
-          = partial 'partials/main-card',
-            locals: { local_data: \
-              { entry_data: profile }}
+
+          / Staff
+          - if card[:TYPE] == 'people'
+            = partial 'partials/staff-card',
+              locals: { local_data: \
+                { entry_data: card }}
 
   / Actions
   .carousel__actions

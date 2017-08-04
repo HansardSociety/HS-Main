@@ -1,0 +1,56 @@
+- @entry_data = local_data[:entry_data]
+- @twitter    = @entry_data[:twitter]
+- @linkedin   = @entry_data[:linkedin]
+- @social     = [ @twitter, @linkedin ].compact
+
+- @cta_id     = @entry_data[:cta_id]
+- @biog       = @entry_data[:biog]
+
+section.staff-card
+  figure.staff-card__header
+    img{
+      src="#{ @entry_data.photo.url + '?w=150' }"
+      alt="#{ @entry_data.photo.alt }"
+    }
+    figcaption
+      h2
+        span.staff-card__name= @entry_data[:full_name]
+        span.staff-card__role= @entry_data[:role]
+
+  .staff-card__content
+
+    - if @entry_data[:tel]
+      p.E-fz-xs
+        strong.E-col-grey
+          | T.&nbsp;
+        a.staff-card__link{
+          href="tel:#{ @entry_data[:tel] }"
+        }= @entry_data[:tel]
+
+    - if @entry_data[:email]
+      p.E-mgn-b-sm.E-fz-xs
+        strong.E-col-grey
+          | E.&nbsp;
+        a.staff-card__link{
+          href="mailto:#{ @entry_data[:email] }"
+        }= @entry_data[:email]
+
+
+    .staff-card__actions
+      .grid.grid--xxs.grid--center
+
+        / Biog button
+        .grid__cell.grid__cell--xxs
+          = partial 'partials/btn',
+            locals: { local_data: \
+              { type: 'state', switch: true,
+                size: 'sm', style: 'secondary',
+                label_on: 'Show biog', label_off: 'Close', label_size: 'sm',
+                page: 'no-scroll',
+                aria_id: "activate-#{ @cta_id }",
+                aria_target_id: @cta_id }}
+
+        / Social icons
+        = partial 'partials/social',
+          locals: { local_data: \
+            { icons: @social }}

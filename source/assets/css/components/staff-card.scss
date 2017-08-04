@@ -1,0 +1,50 @@
+.staff-card__header,
+.staff-card__content {
+  @extend %E-align-cen;
+}
+
+.staff-card {
+  width: calc(100% - 3px); // allow vertical box shadow
+
+  @extend %E-bgc-white;
+  @extend %E-box-shad-raised;
+  @extend %E-acc-green-top;
+  @extend %E-mgn-auto-x;
+  @extend %E-overflow-hidden;
+  @extend %E-rad-slight;
+}
+
+.staff-card__header {
+  border-bottom: 1px solid Get($colors, greyscale, light-grey);
+
+  @extend %E-pad-sm;
+
+  & > img {
+    width: 6rem;
+
+    @extend %E-rad-circ;
+  }
+}
+
+.staff-card__content {
+  padding: 1rem;
+}
+
+.staff-card__name,
+.staff-card__role {
+  @extend %E-display-block;
+}
+
+.staff-card__name {
+  @extend %E-col-green;
+  @extend %E-fz-md;
+}
+
+.staff-card__role {
+  @extend %E-col-grey;
+  @extend %E-fz-sm;
+}
+
+.staff-card__link {
+  @extend .link;
+}
