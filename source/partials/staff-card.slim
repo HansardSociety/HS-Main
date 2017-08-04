@@ -50,6 +50,11 @@ section.staff-card
                 aria_id: "activate-#{ @cta_id }",
                 aria_target_id: @cta_id }}
 
+          = partial 'partials/modal',
+            locals: { local_data: \
+              { id: @cta_id,
+                content: @biog }}
+
         / Social icons
         = partial 'partials/social',
           locals: { local_data: \

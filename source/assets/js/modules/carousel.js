@@ -29,6 +29,7 @@ const carousel = (() => {
     lazyLoading: true,
     lazyLoadingInPrevNext: true,
 
+
     breakpoints: {
       599: {
         slidesPerView: 1

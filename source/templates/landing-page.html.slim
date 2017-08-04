@@ -59,13 +59,13 @@ article
               { entry_data: panel[:carousel_cards],
                 content_source: 'custom' }}
 
-    - if panel[:TYPE] == 'panel_carousel_cards'
-      - data.hs.people.each do |k, v|
-        - if v.employment
-          = partial 'partials/modal',
-            locals: { local_data: \
-              { id: v.cta_id,
-                content: v.biog }}
+    / - if panel[:TYPE] == 'panel_carousel_cards'
+    /   - data.hs.people.each do |k, v|
+    /     - if v.employment
+    /       = partial 'partials/modal',
+    /         locals: { local_data: \
+    /           { id: v.cta_id,
+    /             content: v.biog }}
 
 
     / Content panel
