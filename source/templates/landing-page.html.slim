@@ -54,10 +54,16 @@ article
       .panel.E-pad-x-sm.E-bgc-light-grey
         .content.content--wide
           h2.title-xl.E-col-green.E-align-cen= panel[:title]
-          = partial 'partials/carousel',
-            locals: { local_data: \
-              { entry_data: panel[:carousel_cards],
-                content_source: 'custom' }}
+          .grid.grid--md
+            = partial 'partials/staff-card',
+              locals: { local_data: \
+                { entry_data: panel[:carousel_cards] }}
+
+
+          / = partial 'partials/carousel',
+          /   locals: { local_data: \
+          /     { entry_data: panel[:carousel_cards],
+          /       content_source: 'custom' }}
 
     / - if panel[:TYPE] == 'panel_carousel_cards'
     /   - data.hs.people.each do |k, v|

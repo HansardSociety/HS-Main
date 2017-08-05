@@ -37,8 +37,6 @@
 
     - if @content_source == 'custom'
       - @entry_data.each do |card|
-        .carousel__item.swiper-slide
-
           / Staff
           - if card[:TYPE] == 'people'
             = partial 'partials/staff-card',

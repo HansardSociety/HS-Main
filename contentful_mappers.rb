@@ -32,31 +32,6 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
 end
 
 ############################################################
-##  People
-############################################################
-
-class PeopleMap < ContentfulMiddleman::Mapper::Base
-  def map(context, entry)
-    context.ID           = entry.sys[:id]
-    context.TYPE         = entry.content_type.id
-    context.cta_id       = ((entry.full_name + '-' + entry.sys[:id]).parameterize if entry.full_name) # only if 'people'
-    context.full_name    = entry.full_name
-    context.role         = entry.role
-    context.organisation = entry.organisation
-    context.biog         = entry.biog
-    context.email        = entry.email
-    context.tel          = entry.tel
-    context.twitter      = entry.twitter
-    context.linkedin     = entry.linkedin
-    context.employment   = entry.employment
-    context.photo = ({
-      url:   entry.photo.url,
-      alt:   entry.photo.description
-    } if entry.photo)
-  end
-end
-
-############################################################
 ##  Homepage
 ############################################################
 
@@ -207,22 +182,26 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         }.reject{ |key, value| value.nil? } end : nil),
 
         # Panel carousel cards
-        carousel_cards: (panel.content_type.id == 'panel_carousel_cards' ? panel.cards.map do |card| {
-          ID:           card.sys[:id],
-          TYPE:         card.content_type.id,
-          cta_id:       ((card.full_name + '-' + card.sys[:id]).parameterize if card.full_name), # only if 'people'
-          full_name:    card.full_name,
-          role:         card.role,
-          organisation: card.organisation,
-          biog:         card.biog,
-          email:        card.email,
-          tel:          card.tel,
-          twitter:      card.twitter,
-          linkedin:     card.linkedin,
-          photo: ({
-            url:   card.photo.url,
-            alt:   card.photo.description
-          } if card.photo)
+        grid: (panel.content_type.id == 'panel_grid' ? panel.cells.map do |cell| {
+          ID:           cell.sys[:id],
+          TYPE:         cell.content_type.id,
+
+          # Profile
+          profile: ({
+            cta_id:       ((cell.full_name + '-' + cell.sys[:id]).parameterize if cell.full_name), # only if 'people'
+            full_name:    cell.full_name,
+            role:         cell.role,
+            organisation: cell.organisation,
+            biog:         cell.biog,
+            email:        cell.email,
+            tel:          cell.tel,
+            twitter:      cell.twitter,
+            linkedin:     cell.linkedin,
+            photo: ({
+              url:   cell.photo.url,
+              alt:   cell.photo.description
+            } if cell.photo)
+          }.reject{ |key, value| value.nil? } if cell.content_type.id == 'people')
         }.reject{ |key, value| value.nil? } end : nil),
 
         # Panel accordian
