@@ -27,45 +27,11 @@
 
   - if @entry_data.TYPE == 'child_page'
 
-    / Loop through categorised pages
-    - @sort_categories.each do |categories, pages|
+    - relatedContent(@entry_data) do |page|
+      = partial 'partials/side-card',
+        locals: { local_data: \
+          { side_card_data: page }}
 
-      / Order by date (descending)
-      - @pages_by_date = pages.sort_by{ |key, value| - value.date_time[:integer] }
-
-      / Filter by tag, remove empty objects, remove this page
-      / and don't include tagged page if used as a featuerd page.
-      - @pages_tagged = @pages_by_date.map { |id, page| \
-        [ id, page ] if page[:tags] \
-        && page[:tags].any?{ |tags| @entry_data[:tags].include?(tags) } \
-        && page[:ID] != @entry_data[:ID] \
-        && (!@entry_data[:featured].any?{ |featured| \
-            page[:ID].include?(featured.page[:ID]) \
-            if ![ 'blog', 'events', 'resources' ].include? @entry_data[:category] \
-        } if @entry_data[:featured]) \
-      }.delete_if{ |page| page.nil? }
-
-      / Events and/ or innovation - latest 1
-      - @pages_tagged.select{ |id, page| \
-        ([ 'events', 'intelligence' ].include? page[:category]) \
-        && page.date_time[:integer] >= Time.now.strftime('%s').to_i  \
-        }[0..1].map do |id, page|
-
-        = partial 'partials/side-card',
-          locals: { local_data: \
-            { side_card_data: page }}
-
-      / Blog - latest 5
-      - @pages_tagged.select{ |id, page| page[:category] == 'blog' }[0..3].map do |id, page|
-        = partial 'partials/side-card',
-          locals: { local_data: \
-            { side_card_data: page }}
-
-      / Research - latest 3
-      - @pages_tagged.select{ |id, page| page[:category] == 'research' }[0..2].map do |id, page|
-        = partial 'partials/side-card',
-          locals: { local_data: \
-            { side_card_data: page }}
 
   //  Landing page
   ////////////////////////////

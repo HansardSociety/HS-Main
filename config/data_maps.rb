@@ -4,29 +4,27 @@
 
 class UniversalMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    context.ID       = entry.sys[:id]
-    context.TYPE     = entry.content_type.id
-    context.title    = entry.title
+    context.ID         = entry.sys[:id]
+    context.TYPE       = entry.content_type.id
+    context.title      = entry.title
+    context.site_title = entry.site_title
+    context.site_url   = entry.site_url
 
-    ##  Logo
-    ##############################
-
+    # Logo
     context.logo = {
       mobile: {
-        url:           entry.logo_mobile.url,
-        alt:           entry.logo_mobile.description
+        url:      entry.logo_mobile.url,
+        alt:      entry.logo_mobile.description
       },
       desktop: {
-        url:           entry.logo_desktop.url,
-        alt:           entry.logo_desktop.description
+        url:      entry.logo_desktop.url,
+        alt:      entry.logo_desktop.description
       }
     }
 
-    ##  Meta content
-    ##############################
-
+    # Meta
     context.meta = {
-      analytics:       entry.meta_analytics
+      analytics:  entry.meta_analytics
     }
   end
 end
@@ -110,7 +108,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           cta_id:   (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id] + 'banner'), # split '::' for contentful name-spacing
           content:  cta.modal
         } if cta.action == 'Modal'),
-      }.reject{ |key, value| value.nil? }
+      }.compact
       end
     end
 
@@ -161,7 +159,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
             cta_id:      (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
             content:     cta.modal
           } if cta.action == 'Modal')
-        }.reject{ |key, value| value.nil? } end : nil),
+        }.compact end : nil),
 
         # Panel promoted
         label:      (panel.label if ['panel_promoted', 'panel_accordians'].include? panel.content_type.id),
@@ -179,7 +177,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         images: (panel.content_type.id == 'panel_content' && panel.images ? panel.images.map do |image| {
           url:      image.url,
           alt:      image.description
-        }.reject{ |key, value| value.nil? } end : nil),
+        }.compact end : nil),
 
         # Panel carousel cards
         grid: (panel.content_type.id == 'panel_grid' ? panel.cells.map do |cell| {
@@ -201,8 +199,8 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
               url:   cell.photo.url,
               alt:   cell.photo.description
             } if cell.photo)
-          }.reject{ |key, value| value.nil? } if cell.content_type.id == 'people')
-        }.reject{ |key, value| value.nil? } end : nil),
+          }.compact if cell.content_type.id == 'people')
+        }.compact end : nil),
 
         # Panel accordian
         accordians: (panel.content_type.id == 'panel_accordians' ? panel.accordians.map do |accordian| {
@@ -223,9 +221,9 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
               id:           (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
               content:      cta.modal
             } if cta.action == 'modal')
-          }.reject{ |key, value| value.nil? } end : nil)
-        }.reject{ |key, value| value.nil? } end : nil)
-      }.reject{ |key, value| value.nil? }
+          }.compact end : nil)
+        }.compact end : nil)
+      }.compact
       end
     end
 
@@ -276,6 +274,8 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
 
     if entry.featured
       context.featured = entry.featured.map do |featured| {
+        ID:     featured.sys[:id],
+        TYPE:   featured.content_type.id,
 
         ##  Featured (people)
         ##############################
@@ -295,7 +295,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
             url:        featured.photo.url,
             alt:        featured.photo.description
           }
-        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'people'),
+        }.compact if featured.content_type.id == 'people'),
 
         ##  Featured (registration)
         ##############################
@@ -317,7 +317,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
             cta_id:     (featured.meta_title.split('::')[0].parameterize + '-' + featured.sys[:id]), # split '::' for contentful name-spacing
             content:    featured.embed_code
           }
-        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'registration'),
+        }.compact if featured.content_type.id == 'registration'),
 
         ##  Featured (product)
         ##############################
@@ -332,7 +332,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
             alt:        featured.image.description
           },
           download:     (featured.media.url if featured.media)
-        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'product'),
+        }.compact if featured.content_type.id == 'product'),
 
         ##  Featured (page)
         ##############################
@@ -356,9 +356,9 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           date_time: ({
             integer: featured.date_time.strftime('%s').to_i,
             date:    featured.date_time.strftime('%d %b, %y')
-          }.reject{ |key, value| value.nil? } if featured.date_time),
-        }.reject{ |key, value| value.nil? } if featured.content_type.id == 'child_page')
-      }.reject{ |key, value| value.nil? }
+          }.compact if featured.date_time),
+        }.compact if featured.content_type.id == 'child_page')
+      }.compact
       end # End: Featured map
     end # End: All featured
 

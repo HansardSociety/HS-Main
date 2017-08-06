@@ -1,26 +1,33 @@
-require 'contentful_mappers'
+# Config
+require './config/data_maps'
+require './config/helpers'
+
 require 'dotenv'
 require 'json'
-require 'securerandom'
-require 'slim'
 require 'public_suffix'
+require 'slim'
 require 'unicode/display_width/string_ext'
+require 'yaml'
 
-# DOTENV
+############################################################
+##  Core
+############################################################
+
 Dotenv.load
+helpers CustomHelpers
+set :markdown_engine, :kramdown
 
 ############################################################
 ##  Variables
 ############################################################
 
+if Dir.exist?(config.data_dir)
+  # @myData = Hash[data.hs.universal(0).map{|k,v| v.deep_symbolize_keys }]
+  # set :SITE_DATA, @myData
+end
+
 set :SITE_TITLE,    'Hansard Society'
 set :SITE_URL,      ''
-
-############################################################
-##  Markdown
-############################################################
-
-set :markdown_engine, :kramdown
 
 ############################################################
 ##  Page options
@@ -31,25 +38,14 @@ page '/*.json', layout: false
 page '/*.txt', layout: false
 
 ############################################################
-##  Helpers
-############################################################
-
-helpers do
-  def markdown(data, type='paragraph')
-    Kramdown::Document.new(type == 'byline' ? data.gsub(/(\n|\n\n)/, ' ') + "\n{: .E-fz-by }" : data).to_html
-  end
-end
-
-
-############################################################
 ##  Envs
 ############################################################
 
 ##  Contentful
 ##############################
 
-contentful_tkn     = nil
-contentful_preview = false
+contentful_tkn       = nil
+contentful_preview   = false
 
 case ENV['CONTENTFUL_ENV']
 when 'live'
@@ -75,7 +71,7 @@ activate :contentful do |f|
   }
 end
 
-##  Shared
+##  Shared build config
 ##############################
 
 def sharedBuildEnv

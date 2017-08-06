@@ -12,13 +12,11 @@ head
     name="viewport"
   }
 
-  / Title
-  title= config[:SITE_TITILE]
+  title= globalVar[:site_title]
 
-  / Assets
+  / CSS
   link{ rel="stylesheet" href="#{ config[:CSS_VENDOR] }" }
   link{ rel="stylesheet" href="#{ config[:CSS_MAIN] }" }
-
 
   / Snipcart
   - if @entry[:featured]
@@ -31,5 +29,5 @@ head
       }
       link{ rel="stylesheet" href="#{ config[:CSS_SNIPCART] }" }
 
-  - data.hs.universal(0).each do |id, site|
-    = site.meta.analytics
+  / Google Analytics
+  = globalVar[:meta][:analytics]
