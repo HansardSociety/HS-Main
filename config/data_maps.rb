@@ -26,6 +26,11 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.meta = {
       analytics:  entry.meta_analytics
     }
+
+    context.placeholder_image = {
+      url:      entry.placeholder_image.url,
+      alt:      entry.placeholder_image.description
+    }
   end
 end
 
@@ -74,7 +79,7 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
 end
 
 ############################################################
-##  Landing page
+##  =Landing page
 ############################################################
 
 class LandingPageMap < ContentfulMiddleman::Mapper::Base
@@ -132,6 +137,38 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         date:    entry.date_time.strftime('%d %b, %y')
       }
     end
+
+    ##  Featured
+    ##############################
+
+    if entry.featured
+      context.featured = entry.featured.map do |featured| {
+        ID:     featured.sys[:id],
+        TYPE:   featured.content_type.id,
+
+        page: ({
+          title:        featured.title,
+          slug:         featured.slug.parameterize,
+          category:     featured.category.parameterize,
+          introduction: featured.introduction,
+          banner_image: {
+            url:      featured.banner_image.url,
+            alt:      featured.banner_image.description,
+            focus:    featured.image_focus.parameterize
+          },
+          date_time: ({
+            integer: featured.date_time.strftime('%s').to_i,
+            date:    featured.date_time.strftime('%d %b, %y')
+          }.compact if !featured.featured || featured.featured[0].content_type.id != 'registration'),
+          reg_date_time: ({
+            integer: featured.featured[0].date_time.strftime('%s').to_i,
+            date:    featured.featured[0].date_time.strftime('%d %b, %y')
+          }.compact if featured.featured && featured.featured[0].content_type.id == 'registration')
+        }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
+      }.compact
+      end # End: Featured map
+    end # End: All featured
+
 
     ##  Panels
     ##############################
@@ -227,20 +264,21 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       end
     end
 
-    ##  Tags
+    ##  Tagging
     ##############################
 
+    if entry.blog_count
+      context.blog_count = entry.blog_count
+    end
+
     if entry.tags
-      context.tags = entry.tags.map do |tag| {
-        tag: tag.gsub("'", '').parameterize
-      }
-      end
+      context.tags = entry.tags.map{ |tag| tag.gsub("'", '').parameterize }
     end
   end
 end
 
 ############################################################
-##  Child page
+##  =Child page
 ############################################################
 
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
@@ -256,7 +294,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     context.slug         = entry.slug.parameterize
     context.introduction = entry.introduction
     context.copy         = entry.copy
-    context.our_people   = entry.our_people
 
     ##  Banner image
     ##############################
@@ -306,7 +343,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           venue:        featured.venue,
           date_time: {
             integer:    featured.date_time.strftime('%s').to_i,
-            date:       featured.date_time.strftime('%I:%M %p, %d %b, %y'),
+            date:       featured.date_time.strftime('%d %b, %y'),
             time:       featured.date_time.strftime('%I:%M %p'),
             day:        featured.date_time.strftime('%d'),
             month:      featured.date_time.strftime('%b'),
@@ -338,9 +375,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         ##############################
 
         page: ({
-
-          # Core
-          ID:         featured.sys[:id],
           title:      featured.title,
           slug:       featured.slug.parameterize,
           category:   featured.category.parameterize,
@@ -356,8 +390,8 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           date_time: ({
             integer: featured.date_time.strftime('%s').to_i,
             date:    featured.date_time.strftime('%d %b, %y')
-          }.compact if featured.date_time),
-        }.compact if featured.content_type.id == 'child_page')
+          }.compact if featured.date_time)
+        }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
       }.compact
       end # End: Featured map
     end # End: All featured
@@ -385,14 +419,15 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       }
     end
 
-    ##  Tags
+    ##  Tagging
     ##############################
 
+    if entry.blog_count
+      context.blog_count = entry.blog_count
+    end
+
     if entry.tags
-      context.tags = entry.tags.map do |tag| {
-        tag: tag.gsub("'", '').parameterize
-      }
-      end
+      context.tags = entry.tags.map{ |tag| tag.gsub("'", '').parameterize }
     end
   end
 end

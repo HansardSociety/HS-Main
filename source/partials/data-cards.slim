@@ -17,41 +17,6 @@
 - @sort_categories         = @group_pages_by_category.sort_by{ |k, v| @order_categories.index(k) }
 
 ////////////////////////////////////////////////////////////
-//  Related
-////////////////////////////////////////////////////////////
-
-- if @cards_context == 'related'
-
-  //  Child page
-  ////////////////////////////
-
-  - if @entry_data.TYPE == 'child_page'
-
-    - relatedContent(@entry_data) do |page|
-      = partial 'partials/side-card',
-        locals: { local_data: \
-          { side_card_data: page }}
-
-
-  //  Landing page
-  ////////////////////////////
-
-  - if @entry_data.TYPE == 'landing_page'
-
-    / Filter by tag, remove empty objects and remove this page
-    - @pages_tagged = @pages_by_date.map { |id, page| \
-      [ id, page ] if page[:tags] \
-      && page[:tags].any?{ |tags| @entry_data[:tags].include?(tags) } \
-      && page.ID != @entry_data.ID \
-    }.delete_if{ |page| page.nil? }
-
-    - @pages_tagged[0..2].each do |id, page|
-      .carousel__item.swiper-slide
-        = partial 'partials/main-card',
-          locals: { local_data: \
-            { entry_data: page }}
-
-////////////////////////////////////////////////////////////
 //  Latest
 ////////////////////////////////////////////////////////////
 

@@ -2,10 +2,9 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @entry_data        = local_data[:entry_data]
+- @entry_data     = local_data[:entry_data]
 
-- @content_source    = local_data[:content_source]
-- @carousel_data     = local_data[:carousel_data]
+- @context        = local_data[:context]
 
 ////////////////////////////////////////////////////////////
 //  Carousel
@@ -15,33 +14,48 @@
   .carousel__inner.swiper-wrapper
 
     / Latest content (related)
-    - if @content_source == 'related'
-      = partial 'partials/data-cards',
-        locals: { local_data: \
-          { entry_data: @entry_data,
-            context: 'related' }}
+    - if @context == 'related'
 
-    - if @content_source == 'latest'
+      / If page contains featured content...
+      - if @entry_data[:featured]
+        - @entry_data[:featured].map do |page|
+          .carousel__item.swiper-slide
+            = partial 'partials/main-card',
+              locals: { local_data: \
+                { entry_data: page[:page],
+                  featured: true,
+                  carousel: true }}
+
+      / Related (tagging)
+      - relatedContent(@entry_data, ({ blogCount: @entry_data[:blog_count] } if @entry_data[:blog_count])) do |page|
+        .carousel__item.swiper-slide
+          = partial 'partials/main-card',
+            locals: { local_data: \
+              { entry_data: page,
+                carousel: true }}
+
+    - if @context == 'latest'
       - @entry_data[0..5].each do |id, page|
         .carousel__item.swiper-slide
           = partial 'partials/main-card',
             locals: { local_data: \
               { entry_data: page }}
 
-    - if @content_source == 'category-latest'
+    - if @context == 'category-latest'
       - @entry_data[0..9].each do |id, page|
         .carousel__item.swiper-slide
           = partial 'partials/main-card',
             locals: { local_data: \
               { entry_data: page }}
 
-    - if @content_source == 'custom'
+    - if @context == 'custom'
       - @entry_data.each do |card|
-          / Staff
-          - if card[:TYPE] == 'people'
-            = partial 'partials/staff-card',
-              locals: { local_data: \
-                { entry_data: card }}
+
+        / Staff
+        - if card[:TYPE] == 'people'
+          = partial 'partials/staff-card',
+            locals: { local_data: \
+              { entry_data: card }}
 
   / Actions
   .carousel__actions

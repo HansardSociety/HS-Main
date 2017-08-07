@@ -12,7 +12,7 @@ head
     name="viewport"
   }
 
-  title= globalVar[:site_title]
+  title= siteData(:site_title)
 
   / CSS
   link{ rel="stylesheet" href="#{ config[:CSS_VENDOR] }" }
@@ -30,4 +30,5 @@ head
       link{ rel="stylesheet" href="#{ config[:CSS_SNIPCART] }" }
 
   / Google Analytics
-  = globalVar[:meta][:analytics]
+  - if config[:ENV] == 'production'
+    = siteData(:meta)[:analytics]

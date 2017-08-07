@@ -3,7 +3,6 @@
 ////////////////////////////////////////////////////////////
 
 - @entry = landing_page
-- @page_url  = "#{ config[:SITE_URL] }/#{ @entry[:category] }/#{ @entry[:slug] }"
 
 ////////////////////////////////////////////////////////////
 //  Landing page
@@ -26,7 +25,7 @@ article
       .content.content--narrow.E-align-cen
         = markdown(@entry[:introduction], 'byline')
 
-  //  'Latest' (related)
+  //  Latest (related)
   ////////////////////////////
 
   - if @entry[:latest_carousel] == true
@@ -36,12 +35,13 @@ article
         = partial 'partials/carousel',
           locals: { local_data: \
             { entry_data: @entry,
-              content_source: 'related' }}
+              context: 'related' }}
 
   //  Curated panels
   ////////////////////////////
 
   - @entry[:panels].each_with_index do |panel, index|
+
     / Promoted panel
     - if panel[:TYPE] == 'panel_promoted'
       = partial 'partials/panel-promoted',

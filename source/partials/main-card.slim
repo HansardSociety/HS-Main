@@ -4,13 +4,9 @@
 
 - @main_card = local_data[:entry_data]
 
-- @main_card_inner_elem  = { \
-  tag: (@main_card[:category] \
-        ? 'a' \
-        : 'div'),
-  href: (@main_card[:category] \
-         ? config[:SITE_URL] + '/' + @main_card[:category] + '/' + @main_card[:slug] + (config[:ENV] == 'development' ? '.html' : '') \
-         : nil) }
+- @main_card_inner_elem = { \
+  tag: (@main_card[:category] ? 'a' : 'div'),
+  href: @main_card[:category] ? internalURL(@main_card[:category], @main_card[:slug]) : nil }
 
 ////////////////////////////////////////////////////////////
 //  Main card
@@ -30,20 +26,25 @@
 
           - if local_data[:carousel]
             img.swiper-lazy{
-              src="https://images.contentful.com/xkbace0jm9pp/1AnTWs7kOg8c86eQGcC2mg/4f0a19a1cb58b11aa96e583e69e685d7/card__holding-image-hansard-society-logo.png"
-              data-src="#{ @main_card[:banner_image].url }?fit=fill&w=563&h=317&f=#{ @main_card[:banner_image].focus }&q=66&fl=progressive"
-              alt="#{ @main_card[:banner_image].alt }"
+              src="#{ siteData(:placeholder_image)[:url] }"
+              data-src="#{ @main_card[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ @main_card[:banner_image][:focus] }&q=66&fl=progressive"
+              alt="#{ @main_card[:banner_image][:alt] }"
             }
           - else
             img{
-              src="#{ @main_card[:banner_image].url }?fit=fill&w=563&h=317&f=#{ @main_card[:banner_image].focus }&q=66&fl=progressive"
-              alt="#{ @main_card[:banner_image].alt }"
+              src="#{ @main_card[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ @main_card[:banner_image][:focus] }&q=66&fl=progressive"
+              alt="#{ @main_card[:banner_image][:alt] }"
             }
 
         .main-card__meta
-          span.subtitle-xs= ([ 'blog', 'events' ].include? @main_card[:category]) \
-                            ? @main_card[:category] + ' / ' +  @main_card[:date_time].date \
-                            : @main_card[:category]
+          - if @main_card[:category] == 'blog'
+            span.subtitle-xs #{ @main_card[:category] } / #{ @main_card[:date_time][:date] }
+          - elsif @main_card[:featured] && @main_card[:featured][0][:TYPE] == 'registration'
+            span.subtitle-xs #{ @main_card[:category] } / #{ @main_card[:featured][0][:registration][:date_time][:date] }
+          - elsif @main_card[:reg_date_time]
+            span.subtitle-xs #{ @main_card[:category] } / #{ @main_card[:reg_date_time][:date] }
+          - else
+            span.subtitle-xs #{ @main_card[:category] }
 
         h1.main-card__title.title-by= @main_card[:title]
 

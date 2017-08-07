@@ -114,10 +114,10 @@ article
                     { side_card_data: featured[:page] }}
 
             / All tagged/ related content
-            = partial 'partials/data-cards',
-              locals: { local_data: \
-                { entry_data: @entry,
-                  context: 'related' }}
+            - relatedContent(@entry) do |page|
+              = partial 'partials/side-card',
+                locals: { local_data: \
+                  { side_card_data: page }}
 
             / External links
             - if @entry[:external_links]

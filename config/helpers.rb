@@ -1,7 +1,7 @@
 module CustomHelpers
 
   # Symbolize keys
-  def symbolizeKeys(data)
+  def convertToRegularHash(data)
     JSON.parse(JSON(data), symbolize_names: true)
   end
 
@@ -11,21 +11,28 @@ module CustomHelpers
   end
 
   # Global variables
-  def globalVar
-    Hash[*data.hs.universal(0).map{ |k, v| v.deep_symbolize_keys }]
+  def siteData(var)
+    convertToRegularHash(data.hs.universal).values[0][var]
+  end
+
+  # Internal URLs (for envs)
+  def internalURL(cat, slug)
+    "#{ siteData(:siteURL) }/#{ cat }/#{ slug }#{ config[:ENV] == 'development' ? '.html' : '' }"
   end
 
   # Related content/ tagging by category
   def relatedContent(entryData, opts = {})
 
     defaults = {
-      context: "uncategorised"
+      blogCount: 5
     }
 
     opts = defaults.merge(opts)
 
+    @blogCount = opts[:blogCount] - 1
+
     # Symbolize entry data to convert to regular hash
-    @entryData = symbolizeKeys(entryData)
+    @entryData = convertToRegularHash(entryData)
 
     # Core pages-data
     @childPages = data.hs.child_page
@@ -37,34 +44,19 @@ module CustomHelpers
     }
 
     # Recursively symbolize keys
-    @allPagesSymKeys = symbolizeKeys(@allPages)
+    @allPagesSymKeys = convertToRegularHash(@allPages).values
 
     # Group and sort pages
-    @groupPagesByCategory = @allPagesSymKeys.group_by{ |id, val| val[:category] }
+    @sortPagesByDate = @allPagesSymKeys.sort_by{ |page| - page[:date_time][:integer] }
+    @groupPagesByCategory = @sortPagesByDate.group_by{ |val| val[:category] }
     @orderCategories = [ 'events', 'intelligence', 'blog', 'research', 'resources' ]
-    @sortPagesByCategory = @groupPagesByCategory.sort_by{ |key, val| @orderCategories.index(key) }
-
-    @some1 = @allPagesSymKeys.values.sort_by{ |page| - page[:date_time][:integer] }
-    @some2 = @some1.group_by{ |val| val[:category] }
-    @some3 = @some2.sort_by{ |val| @orderCategories.index(val) }
-    # @some3 = Hash[@some2.sort]
-    # puts @some3[0].each{|x,y| y[:title]}
-
-    @some3.map do |category, pages|
-
-      pages.map do |page|
-        puts page[:category] + ' :: ' + page[:date_time][:date]
-      end
-    end
+    @sortPagesByCategory = @groupPagesByCategory.sort_by{ |val| @orderCategories.index(val) }
 
     # Map organised pages
     @sortPagesByCategory.map do |category, pages|
 
-      # Order pages by date
-      @pagesByDate = pages.sort_by{ |id, page| - page[:date_time][:integer] }
-
-      # Tagged pages
-      @pagesTagged = @pagesByDate.map{ |id, page|
+      # Filter tagged pages
+      @pagesTagged = pages.select{ |page|
 
         # Get pages with at least one corresponding tag
         @hasSameTags = page[:tags].any?{ |tags| @entryData[:tags].include?(tags) }
@@ -84,10 +76,10 @@ module CustomHelpers
         @isInPast = page[:date_time][:integer] >= Time.now.strftime('%s').to_i
 
         @pageTypes && @isInPast
-      }[0..1]
+      }[0..2]
 
       # Blog pages
-      @blogPages = @pagesTagged.select{ |page| page[:category] == 'blog' }[0..4]
+      @blogPages = @pagesTagged.select{ |page| page[:category] == 'blog' }[0..@blogCount]
 
       # Research pages
       @researchPages = @pagesTagged.select{ |page| page[:category] == 'research' }[0..2]
