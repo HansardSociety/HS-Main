@@ -20,25 +20,6 @@ module CustomHelpers
     "#{ siteData(:siteURL) }/#{ cat + '/' if cat }#{ slug }#{ config[:ENV] == 'development' ? '.html' : '' }"
   end
 
-  # Pages by date
-  def pagesByDate
-
-    # # Core pages-data
-    # @childPages = data.hs.child_page
-    # @landingPages = data.hs.landing_page
-
-    # # All pages - remove about and legal pages
-    # @allMainPages = @childPages.merge(@landingPages).select{ |id, page|
-    #   siteData(:main_categories).include? page[:category]
-    # }
-
-    # # Recursively symbolize keys
-    # @allPagesRegHash = convertToRegularHash(@allMainPages).values
-
-    # # Sort pages by date (descending)
-    # @sortPagesByDate = @allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
-  end
-
   # Latest content
   def latestContent(opts = {})
     @childPages = data.hs.child_page
@@ -65,7 +46,7 @@ module CustomHelpers
         yield page
       end
     else
-      @pages.map{ |page| page}
+      @pages.map{ |page| page }
     end
   end
 
