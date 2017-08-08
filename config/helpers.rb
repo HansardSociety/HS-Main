@@ -1,6 +1,6 @@
 module CustomHelpers
 
-  # Symbolize keys
+  # Convert MM data to regular hash
   def convertToRegularHash(data)
     JSON.parse(JSON(data), symbolize_names: true)
   end
