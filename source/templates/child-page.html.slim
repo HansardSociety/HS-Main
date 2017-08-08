@@ -129,10 +129,10 @@ article
 
           / Latest items for about pages
           - if @category == 'about'
-            = partial 'partials/data-cards',
-              locals: { local_data: \
-                { entry_data: @entry,
-                  context: 'latest' }}
+            - latestContent(yield: true, num: 4) do |page|
+              = partial 'partials/side-card',
+                locals: { local_data: \
+                  { side_card_data: page }}
 
           / Newsletter signup
           .box.E-bgc-black.E-col-white.E-mgn-b-xs

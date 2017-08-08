@@ -4,11 +4,12 @@
 
 class UniversalMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    context.ID         = entry.sys[:id]
-    context.TYPE       = entry.content_type.id
-    context.title      = entry.title
+    context.ID = entry.sys[:id]
+    context.TYPE = entry.content_type.id
+    context.title = entry.title
     context.site_title = entry.site_title
-    context.site_url   = entry.site_url
+    context.site_url = entry.site_url
+    context.main_categories = entry.main_categories.map{ |cat| cat.parameterize.gsub("'", "") }
 
     # Logo
     context.logo = {

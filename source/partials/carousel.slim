@@ -1,22 +1,18 @@
 ////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
-
-- @entry_data     = local_data[:entry_data]
-
-- @context        = local_data[:context]
-
-////////////////////////////////////////////////////////////
 //  Carousel
 ////////////////////////////////////////////////////////////
+
+- @entry_data = local_data[:entry_data]
+- @context    = local_data[:context]
+- @categories = local_data[:categories]
 
 .carousel.swiper-container
   .carousel__inner.swiper-wrapper
 
-    / Latest content (related)
+    / Related content
     - if @context == 'related'
 
-      / If page contains featured content...
+      / If page contains featured content
       - if @entry_data[:featured]
         - @entry_data[:featured].map do |page|
           .carousel__item.swiper-slide
@@ -34,41 +30,30 @@
               { entry_data: page,
                 carousel: true }}
 
+    / Latest content (all)
     - if @context == 'latest'
-      - @entry_data[0..5].each do |id, page|
+      - latestContent(yield: true, num: 8) do |page|
         .carousel__item.swiper-slide
           = partial 'partials/main-card',
             locals: { local_data: \
               { entry_data: page }}
 
+    / Latest content (category)
     - if @context == 'category-latest'
-      - @entry_data[0..9].each do |id, page|
+      - latestContent(yield: true, num: 8, pageCategories: @categories) do |page|
         .carousel__item.swiper-slide
           = partial 'partials/main-card',
             locals: { local_data: \
               { entry_data: page }}
-
-    - if @context == 'custom'
-      - @entry_data.each do |card|
-
-        / Staff
-        - if card[:TYPE] == 'people'
-          = partial 'partials/staff-card',
-            locals: { local_data: \
-              { entry_data: card }}
 
   / Actions
   .carousel__actions
     .carousel__prev.subtitle-xs
       = partial 'partials/icon',
-        locals: { icon:  'chevron-left',
-                  size:  'xs',
-                  color: 'green' }
+        locals: { icon: 'chevron-left', size: 'xs', color: 'green' }
       span Prev
 
     .carousel__next.subtitle-xs
       span Next
       = partial 'partials/icon',
-        locals: { icon:  'chevron-right',
-                  size:  'xs',
-                  color: 'green' }
+        locals: { icon: 'chevron-right', size: 'xs', color: 'green' }

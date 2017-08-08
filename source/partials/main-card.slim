@@ -6,7 +6,7 @@
 
 - @main_card_inner_elem = { \
   tag: (@main_card[:category] ? 'a' : 'div'),
-  href: @main_card[:category] ? internalURL(@main_card[:category], @main_card[:slug]) : nil }
+  href: @main_card[:category] ? internalURL(@main_card[:slug], @main_card[:category]) : nil }
 
 ////////////////////////////////////////////////////////////
 //  Main card

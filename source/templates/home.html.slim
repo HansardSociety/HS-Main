@@ -1,88 +1,51 @@
 ////////////////////////////////////////////////////////////
-//  Variables
+//  Homepage
 ////////////////////////////////////////////////////////////
 
 - @entry = home
 
-- @child_pages       = data.hs.child_page
-- @landing_pages     = data.hs.landing_page
-- @merged_pages      = @landing_pages.merge(@child_pages)
-- @pages_by_date     = @merged_pages.sort_by{ |key, page| - page.date_time.integer }
-
-- @main_pages = @pages_by_date.map{ |id, page| [ id, page ] \
-                if ([ 'resources', 'blog', 'events' ].include? \
-                page[:category])}.delete_if{ |page| page.nil? }
-
-- @our_work   = @pages_by_date.map{ |id, page| [ id, page ] \
-                if ([ 'research', 'publications' ].include? \
-                page[:category])}.delete_if{ |page| page.nil? }
-
-- @events     = @pages_by_date.map{ |id, page| [ id, page ] \
-                if page[:category] == 'events' }.delete_if{ |page| page.nil? }
-
-- @blog       = @pages_by_date.map{ |id, page| [ id, page ] \
-                if page[:category] == 'blog' }.delete_if{ |page| page.nil? }
-
-////////////////////////////////////////////////////////////
-//  Homepage
-////////////////////////////////////////////////////////////
-
 article
 
-  //  Banner
-  ////////////////////////////
-
+  / Banner
   = partial 'partials/banner',
     locals: { entry: @entry }
 
-  //  'Latest' (related)
-  ////////////////////////////
-
+  / Latest
   .panel.E-pad-x-sm#banner-scroll-target
     .content.content--wide
       h2.title-xl.E-align-cen.E-col-green Latest
       = partial 'partials/carousel',
         locals: { local_data: \
-          { entry_data: @main_pages,
-            content_source: 'latest' }}
+          { context: 'latest' }}
 
-  //  Research
-  ////////////////////////////
-
+  / Research
   .panel.E-pad-x-sm.E-bgc-light-grey
     .content.content--wide
       h2.title-xl.E-align-cen.E-col-green Our work
       = partial 'partials/carousel',
         locals: { local_data: \
-          { entry_data: @our_work,
-            content_source: 'category-latest' }}
+          { context: 'category-latest',
+            categories: [ 'research' ] }}
 
-  //  Newsletter
-  ////////////////////////////
-
+  / Newsletter
   .panel.E-pad-x-sm.E-bgc-black
     .content.content--narrow.E-align-cen.E-col-white
       = partial 'partials/signup-box'
 
-  //  Blog
-  ////////////////////////////
-
+  / Blog
   .panel.E-pad-x-sm
     .content.content--wide
       h2.title-xl.E-align-cen.E-col-green Blog
       = partial 'partials/carousel',
         locals: { local_data: \
-          { entry_data: @blog,
-            content_source: 'category-latest' }}
+          { context: 'category-latest',
+            categories: [ 'blog' ] }}
 
-  //  Events
-  ////////////////////////////
-
+  / Events
   .panel.E-pad-x-sm.E-bgc-light-grey
     .content.content--wide
       h2.title-xl.E-align-cen.E-col-green Events
       = partial 'partials/carousel',
         locals: { local_data: \
-          { entry_data: @events,
-            content_source: 'category-latest' }}
-
+          { context: 'category-latest',
+            categories: [ 'events' ] }}

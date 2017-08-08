@@ -16,39 +16,73 @@ module CustomHelpers
   end
 
   # Internal URLs (for envs)
-  def internalURL(cat, slug)
-    "#{ siteData(:siteURL) }/#{ cat }/#{ slug }#{ config[:ENV] == 'development' ? '.html' : '' }"
+  def internalURL(slug, cat)
+    "#{ siteData(:siteURL) }/#{ cat + '/' if cat }#{ slug }#{ config[:ENV] == 'development' ? '.html' : '' }"
+  end
+
+  # Pages by date
+  def pagesByDate
+
+    # # Core pages-data
+    # @childPages = data.hs.child_page
+    # @landingPages = data.hs.landing_page
+
+    # # All pages - remove about and legal pages
+    # @allMainPages = @childPages.merge(@landingPages).select{ |id, page|
+    #   siteData(:main_categories).include? page[:category]
+    # }
+
+    # # Recursively symbolize keys
+    # @allPagesRegHash = convertToRegularHash(@allMainPages).values
+
+    # # Sort pages by date (descending)
+    # @sortPagesByDate = @allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
+  end
+
+  # Latest content
+  def latestContent(opts = {})
+    @childPages = data.hs.child_page
+    @landingPages = data.hs.landing_page
+    @allPages = @childPages.merge(@landingPages)
+
+    defaults = {
+      yield: false,
+      num: @allPages.length,
+      pageCategories: siteData(:main_categories)
+    }
+    opts = defaults.merge(opts)
+
+    @allMainPages = @allPages.select{ |id, page|
+      opts[:pageCategories].include? page[:category]
+    }
+
+    @allPagesRegHash = convertToRegularHash(@allMainPages).values
+    @sortPagesByDate = @allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
+    @pages = @sortPagesByDate[0..opts[:num]]
+
+    if opts[:yield] == true
+      @pages.map do |page|
+        yield page
+      end
+    else
+      @pages.map{ |page| page}
+    end
   end
 
   # Related content/ tagging by category
   def relatedContent(entryData, opts = {})
-
-    defaults = {
-      blogCount: 5
-    }
-
+    defaults = { blogCount: 5 }
     opts = defaults.merge(opts)
 
+    # Control number of blog posts
+    # Subtract 1 as data pulled from Contentful (starts at 1)
     @blogCount = opts[:blogCount] - 1
 
     # Symbolize entry data to convert to regular hash
     @entryData = convertToRegularHash(entryData)
 
-    # Core pages-data
-    @childPages = data.hs.child_page
-    @landingPages = data.hs.landing_page
-
-    # All pages - remove about and legal pages
-    @allPages = @childPages.merge(@landingPages).reject{ |id, page|
-      [ 'about', 'legal' ].include? page[:category]
-    }
-
-    # Recursively symbolize keys
-    @allPagesSymKeys = convertToRegularHash(@allPages).values
-
     # Group and sort pages
-    @sortPagesByDate = @allPagesSymKeys.sort_by{ |page| - page[:date_time][:integer] }
-    @groupPagesByCategory = @sortPagesByDate.group_by{ |val| val[:category] }
+    @groupPagesByCategory = latestContent.group_by{ |val| val[:category] }
     @orderCategories = [ 'events', 'intelligence', 'blog', 'research', 'resources' ]
     @sortPagesByCategory = @groupPagesByCategory.sort_by{ |val| @orderCategories.index(val) }
 
@@ -59,7 +93,7 @@ module CustomHelpers
       @pagesTagged = pages.select{ |page|
 
         # Get pages with at least one corresponding tag
-        @hasSameTags = page[:tags].any?{ |tags| @entryData[:tags].include?(tags) }
+        @hasSameTags = page[:tags].any?{ |tags| @entryData[:tags].include? tags }
 
         # Filter the entry page and pages that are included as featured items
         @notThisPage = page[:ID] != @entryData[:ID]
@@ -78,17 +112,13 @@ module CustomHelpers
         @pageTypes && @isInPast
       }[0..2]
 
-      # Blog pages
+      # Select pages by category and concatenate
       @blogPages = @pagesTagged.select{ |page| page[:category] == 'blog' }[0..@blogCount]
-
-      # Research pages
       @researchPages = @pagesTagged.select{ |page| page[:category] == 'research' }[0..2]
-
-      # Concatenate tagged page-types
+      @resourcesPages = @pagesTagged.select{ |page| page[:category] == 'resources' }[0..2]
       @relatedContent = [ @registrationPages, @blogPages, @researchPages ].reduce([], :concat)
 
       @relatedContent.map do |page|
-
         yield page
       end
     end
