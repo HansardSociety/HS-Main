@@ -80,6 +80,30 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
 end
 
 ############################################################
+##  =People
+############################################################
+
+class PeopleMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+    context.ID           = entry.sys[:id]
+    context.TYPE         = entry.content_type.id
+    context.full_name    = entry.full_name
+    context.role         = entry.role
+    context.organisation = entry.organisation
+    context.biog         = entry.biog
+    context.email        = entry.email
+    context.tel          = entry.tel
+    context.twitter      = entry.twitter
+    context.linkedin     = entry.linkedin
+    context.employment   = (entry.employment.parameterize if entry.employment)
+    context.photo = {
+      url:   entry.photo.url,
+      alt:   entry.photo.description
+    }
+  end
+end
+
+############################################################
 ##  =Landing page
 ############################################################
 
@@ -218,26 +242,26 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         }.compact end : nil),
 
         # Panel carousel cards
-        grid: (panel.content_type.id == 'panel_grid' ? panel.cells.map do |cell| {
-          ID:           cell.sys[:id],
-          TYPE:         cell.content_type.id,
+        carousel: (panel.content_type.id == 'panel_carousel' ? panel.items.map do |item| {
+          ID:           item.sys[:id],
+          TYPE:         item.content_type.id,
 
           # Profile
           profile: ({
-            cta_id:       ((cell.full_name + '-' + cell.sys[:id]).parameterize if cell.full_name), # only if 'people'
-            full_name:    cell.full_name,
-            role:         cell.role,
-            organisation: cell.organisation,
-            biog:         cell.biog,
-            email:        cell.email,
-            tel:          cell.tel,
-            twitter:      cell.twitter,
-            linkedin:     cell.linkedin,
+            cta_id:       ((item.full_name + '-' + item.sys[:id]).parameterize if item.full_name), # only if 'people'
+            full_name:    item.full_name,
+            role:         item.role,
+            organisation: item.organisation,
+            biog:         item.biog,
+            email:        item.email,
+            tel:          item.tel,
+            twitter:      item.twitter,
+            linkedin:     item.linkedin,
             photo: ({
-              url:   cell.photo.url,
-              alt:   cell.photo.description
-            } if cell.photo)
-          }.compact if cell.content_type.id == 'people')
+              url:   item.photo.url,
+              alt:   item.photo.description
+            } if item.photo)
+          }.compact if item.content_type.id == 'people')
         }.compact end : nil),
 
         # Panel accordian

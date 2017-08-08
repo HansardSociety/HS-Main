@@ -46,6 +46,16 @@
             locals: { local_data: \
               { entry_data: page }}
 
+    / Custom content
+    - if @context == 'custom'
+      - @entry_data.map do |item|
+
+        / Profile cards
+        - if item[:TYPE] == 'people'
+          = partial 'partials/staff-card',
+            locals: { local_data: \
+              { entry_data: item[:profile] }}
+
   / Actions
   .carousel__actions
     .carousel__prev.subtitle-xs

@@ -10,24 +10,18 @@
 
 article
 
-  //  Banner
-  ////////////////////////////
-
+  / Banner
   - if @entry[:banner_image]
     = partial 'partials/banner',
       locals: { entry: @entry }
 
-  //  Introduction
-  ////////////////////////////
-
+  / Introduction
   - if @entry[:introduction]
     .panel.E-pad-x-sm#banner-scroll-target
       .content.content--narrow.E-align-cen
         = markdown(@entry[:introduction], 'byline')
 
-  //  Latest (related)
-  ////////////////////////////
-
+  / Latest (related)
   - if @entry[:latest_carousel] == true
     .panel.E-pad-x-sm.E-bgc-light-grey
       .content.content--wide
@@ -37,9 +31,7 @@ article
             { entry_data: @entry,
               context: 'related' }}
 
-  //  Curated panels
-  ////////////////////////////
-
+  / Curated panels
   - @entry[:panels].each_with_index do |panel, index|
 
     / Promoted panel
@@ -50,29 +42,14 @@ article
             index: index }}
 
     / Carousel panel
-    - if panel[:TYPE] == 'panel_carousel_cards'
+    - if panel[:TYPE] == 'panel_carousel'
       .panel.E-pad-x-sm.E-bgc-light-grey
         .content.content--wide
           h2.title-xl.E-col-green.E-align-cen= panel[:title]
-          .grid.grid--md
-            = partial 'partials/staff-card',
-              locals: { local_data: \
-                { entry_data: panel[:carousel_cards] }}
-
-
-          / = partial 'partials/carousel',
-          /   locals: { local_data: \
-          /     { entry_data: panel[:carousel_cards],
-          /       content_source: 'custom' }}
-
-    / - if panel[:TYPE] == 'panel_carousel_cards'
-    /   - data.hs.people.each do |k, v|
-    /     - if v.employment
-    /       = partial 'partials/modal',
-    /         locals: { local_data: \
-    /           { id: v.cta_id,
-    /             content: v.biog }}
-
+          = partial 'partials/carousel',
+            locals: { local_data: \
+              { entry_data: panel[:carousel],
+                context: 'custom' }}
 
     / Content panel
     - if panel[:TYPE] == 'panel_content'
@@ -87,3 +64,14 @@ article
         locals: { local_data: \
           { entry_data: panel,
             index: index }}
+
+  / TODO: Biog modals (temp)
+  - if @entry[:title] == 'Our people'
+    - data.hs.people.each do |k, v|
+      - if v.employment
+        - @ctaID = (v[:full_name] + '-' + v[:ID]).parameterize
+        = partial 'partials/modal',
+          locals: { local_data: \
+            { id: @ctaID,
+              content: v.biog }}
+

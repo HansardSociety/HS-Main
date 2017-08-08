@@ -9,8 +9,8 @@
   section.staff-card
     figure.staff-card__header
       img{
-        src="#{ @entry_data.photo.url + '?w=150' }"
-        alt="#{ @entry_data.photo.alt }"
+        src="#{ @entry_data[:photo][:url] + '?w=150' }"
+        alt="#{ @entry_data[:photo][:alt] }"
       }
       figcaption
         h2
@@ -50,10 +50,10 @@
                   aria_id: "activate-#{ @cta_id }",
                   aria_target_id: @cta_id }}
 
-            = partial 'partials/modal',
-              locals: { local_data: \
-                { id: @cta_id,
-                  content: @biog }}
+            / = partial 'partials/modal',
+            /   locals: { local_data: \
+            /     { id: @cta_id,
+            /       content: @biog }}
 
           / Social icons
           = partial 'partials/social',
