@@ -11,6 +11,10 @@
   @extend %E-container-narrow;
 }
 
+.content--mid {
+  @extend %E-container-mid;
+}
+
 .content--wide {
   @extend %E-container-wide;
 }
