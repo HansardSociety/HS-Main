@@ -1,6 +1,10 @@
 .carousel,
 .carousel__inner {
   @extend %E-width-full;
+
+  // Seems to fix Swiper glitch (white lines across carousel)
+  -webkit-backface-visibility: none !important;
+  backface-visibility: hidden !important;
 }
 
 .carousel {
