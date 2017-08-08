@@ -115,18 +115,18 @@ configure :prod do
   end
 end
 
-##  Test site
+##  Preview site
 ##############################
 
-configure :test do
+configure :preview do
   sharedBuildEnv()
 
-  set :ENV, 'test'
+  set :ENV, 'preview'
   set :SNIPCART_TKN, ENV['SNIPCART_PREVIEW_TKN']
-  set :build_dir, 'build/test-site'
+  set :build_dir, 'build/preview'
 
   after_build do
-    File.rename 'build/test-site/redirects', 'build/test-site/_redirects'
+    File.rename 'build/preview/redirects', 'build/preview/_redirects'
   end
 end
 
