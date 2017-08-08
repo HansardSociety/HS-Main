@@ -41,13 +41,8 @@ module CustomHelpers
     @sortPagesByDate = @allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
     @pages = @sortPagesByDate[0..opts[:num]]
 
-    if opts[:yield] == true
-      @pages.map do |page|
-        yield page
-      end
-    else
-      @pages.map{ |page| page }
-    end
+    # Output
+    @pages.map{ |page| opts[:yield] == true ? yield(page) : page }
   end
 
   # Related content/ tagging by category
@@ -99,9 +94,8 @@ module CustomHelpers
       @resourcesPages = @pagesTagged.select{ |page| page[:category] == 'resources' }[0..2]
       @relatedContent = [ @registrationPages, @blogPages, @researchPages ].reduce([], :concat)
 
-      @relatedContent.map do |page|
-        yield page
-      end
+      # Output
+      @relatedContent.map{ |page| yield page }
     end
   end
 end
