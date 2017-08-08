@@ -98,10 +98,6 @@ def sharedBuildEnv
     command: 'yarn run epipe:build',
     source: '.tmp',
     latency: 1
-
-  after_build do
-    File.rename 'build/prod/redirects', 'build/prod/_redirects'
-  end
 end
 
 ##  Build
@@ -113,6 +109,10 @@ configure :prod do
   set :ENV, 'production'
   set :SNIPCART_TKN, ENV['SNIPCART_LIVE_TKN']
   set :build_dir, 'build/prod'
+
+  after_build do
+    File.rename 'build/prod/redirects', 'build/prod/_redirects'
+  end
 end
 
 ##  Test site
@@ -124,6 +124,10 @@ configure :test do
   set :ENV, 'test'
   set :SNIPCART_TKN, ENV['SNIPCART_PREVIEW_TKN']
   set :build_dir, 'build/test-site'
+
+  after_build do
+    File.rename 'build/test-site/redirects', 'build/test-site/_redirects'
+  end
 end
 
 ##  Development
