@@ -10,4 +10,4 @@ const bannerScroll = new smoothScroll('.banner__scroll', {
   speed: 600
 });
 
-export { bannerHeight, bannerScroll }
+export { bannerScroll }
