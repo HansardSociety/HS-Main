@@ -21,10 +21,10 @@ const toggleState = () => {
     const active               = 'JS-active';
     const activeHold           = 'JS-active-hold';
     const inactive             = 'JS-inactive';
+    const noScroll             = 'JS-no-scroll';
 
     // Global
-    const noScroll             = 'JS-no-scroll';
-    const checkNoScroll        = globalState.classList.contains(noScroll);
+    const globalNoScroll       = globalState.classList.contains(noScroll);
 
     // Trigger
     const triggerStates        = [ 'JS-on', 'JS-off' ];
@@ -110,6 +110,12 @@ const toggleState = () => {
       }
     }
 
+    function changeGlobalState(elem) {
+
+      if (triggerOn && !globalNoScroll) toggleClass(globalState, noScroll)
+      else if (triggerOff) globalState.classList.remove(noScroll)
+    }
+
     function triggersWithSwitch() {
       const connectedSwitches = Array.from(baseElem.querySelectorAll(`[aria-controls="${ triggerTargetID }"]`));
       const arrRemoveActiveTrigger = connectedSwitches.filter(function(elem) {
@@ -132,6 +138,10 @@ const toggleState = () => {
     if (triggerExclusive && triggerOn) triggersWithExclusiveStates()
 
     // [3]
+    // If trigger affects global state...
+    if (triggerNoScroll) changeGlobalState(trigger)
+
+    // [4]
     // If triggers part of 'switch' with other triggers...
     if (triggerSwitch) triggersWithSwitch()
   }
