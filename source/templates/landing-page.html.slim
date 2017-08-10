@@ -15,9 +15,11 @@ article
     = partial 'partials/banner',
       locals: { entry: @entry }
 
+  #banner-scroll-target{ aria-hidden="true" }
+
   / Introduction
   - if @entry[:introduction]
-    .panel.E-pad-x-md#banner-scroll-target
+    .panel.E-pad-x-md
       .content.content--mid.E-align-cen
         = markdown(@entry[:introduction], 'byline')
 
