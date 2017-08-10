@@ -73,9 +73,9 @@ module CustomHelpers
 
         # Filter the entry page and pages that are included as featured items
         @notThisPage = page[:ID] != @entryData[:ID]
-        @notFeaturedPage = @entryData[:featured].any?{ |featPage|
+        @notFeaturedPage = @entryData[:featured] ? @entryData[:featured].any?{ |featPage|
           page[:ID] != featPage[:ID]
-        }
+        } : true
 
         page if @hasSameTags && @notThisPage && @notFeaturedPage
       }.compact
