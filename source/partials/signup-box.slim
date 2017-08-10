@@ -1,5 +1,5 @@
 h2.title-lg Join our newsletter
-p.E-mgn-b-sm Get the latest updates on our research, services and events, together with expert comment and analysis, delivered to your inbox each month.
+p.E-mgn-b-sm= siteData(:newsletter_text)
 = partial 'partials/btn',
   locals: { local_data: \
     { type: 'state', switch: true,
