@@ -19,13 +19,13 @@ article
 
   / Introduction
   - if @entry[:introduction]
-    .panel.E-pad-x-md
+    .panel
       .content.content--mid.E-align-cen
         = markdown(@entry[:introduction], 'byline')
 
   / Latest (related)
   - if @entry[:latest_carousel] == true
-    .panel.E-pad-x-sm.E-bgc-light-grey
+    .panel.E-bgc-light-grey
       .content.content--wide
         h2.title-lg.E-col-green.E-align-cen Latest
         = partial 'partials/carousel',
@@ -46,7 +46,7 @@ article
 
       / Carousel panel
       - if panel[:TYPE] == 'panel_carousel'
-        .panel.E-pad-x-sm.E-bgc-light-grey
+        .panel.E-bgc-light-grey
           .content.content--wide
             h2.title-xl.E-col-green.E-align-cen= panel[:title]
             = partial 'partials/carousel',

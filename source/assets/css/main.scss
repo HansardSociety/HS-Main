@@ -1,3 +1,5 @@
+// Order important...
+
 // Config
 @import "./config";
 
@@ -5,6 +7,10 @@
 @import './functions/mapping';
 @import './functions/media-queries';
 @import './functions/string-replace';
+
+// Core
+@import './extensions/type';
+@import "./components/core";
 
 ///////////////////////////////////////////////////////////
 //  =Extensions
@@ -26,7 +32,6 @@
 @import './extensions/opacity';
 @import './extensions/overlay';
 @import './extensions/pseudo-elem';
-@import './extensions/type';
 @import './extensions/z-index';
 
 ///////////////////////////////////////////////////////////
@@ -35,7 +40,6 @@
 
 // Primary
 @import "./components/type";
-@import "./components/core";
 @import "./components/states";
 
 // Depended on

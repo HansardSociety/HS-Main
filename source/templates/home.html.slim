@@ -11,7 +11,7 @@ article
     locals: { entry: @entry }
 
   / Latest
-  .panel.E-pad-x-sm#banner-scroll-target
+  .panel#banner-scroll-target
     .content.content--wide
       h2.title-xl.E-align-cen.E-col-green Latest
       = partial 'partials/carousel',
@@ -19,7 +19,7 @@ article
           { context: 'latest' }}
 
   / Research
-  .panel.E-pad-x-sm.E-bgc-light-grey
+  .panel.E-bgc-light-grey
     .content.content--wide
       h2.title-xl.E-align-cen.E-col-green Our work
       = partial 'partials/carousel',
@@ -28,12 +28,12 @@ article
             categories: [ 'research' ] }}
 
   / Newsletter
-  .panel.E-pad-x-sm.E-bgc-black
+  .panel.E-bgc-black
     .content.content--narrow.E-align-cen.E-col-white
       = partial 'partials/signup-box'
 
   / Blog
-  .panel.E-pad-x-sm
+  .panel
     .content.content--wide
       h2.title-xl.E-align-cen.E-col-green Blog
       = partial 'partials/carousel',
@@ -42,7 +42,7 @@ article
             categories: [ 'blog' ] }}
 
   / Events
-  .panel.E-pad-x-sm.E-bgc-light-grey
+  .panel.E-bgc-light-grey
     .content.content--wide
       h2.title-xl.E-align-cen.E-col-green Events
       = partial 'partials/carousel',

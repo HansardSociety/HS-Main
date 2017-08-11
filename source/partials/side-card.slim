@@ -40,10 +40,10 @@ article.side-card{
       .side-card__meta
 
         - if ([ 'research', 'resources' ].include? @side_card_data[:category]) || (@is_product || @is_registration)
-          span.subtitle-xs.E-col-mid-grey= @side_card_data[:category]
+          span.label-xs.E-col-mid-grey= @side_card_data[:category]
 
         - if [ 'blog' ].include? @side_card_data[:category]
-          span.subtitle-xs.E-col-mid-grey= @side_card_data[:category ]+ ' / ' + @side_card_data[:date_time][:date]
+          span.label-xs.E-col-mid-grey= @side_card_data[:category ]+ ' / ' + @side_card_data[:date_time][:date]
 
       .side-card__title.E-mgn-t-xs
 

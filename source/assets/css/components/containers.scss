@@ -1,5 +1,6 @@
 // Panels
 .panel {
+  @extend %E-pad-x-lg;
   @extend %E-position-relative;
 }
 

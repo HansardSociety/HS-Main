@@ -22,8 +22,7 @@
 }
 
 .banner__inner--overlap {
-  // Ensure overlap content remains above .content
-  top: 100%;
+  top: 100%; // ensure overlap content remains above .content
 
   transform: translate(-50%, -100%);
 }
@@ -34,10 +33,12 @@
   @extend %E-position-relative;
 }
 
-.banner__byline {
+.banner__strap {
   width: 30rem;
 
+  @extend .strap-md;
   @extend %E-max-width-full;
+  @extend %E-mgn-t-sm;
   @include above(sm) {
     @extend %E-mgn-auto-x__sm;
   }

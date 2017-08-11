@@ -1,36 +1,36 @@
 header.banner{
   class="banner--#{
-    ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) ?
+    ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) ?
     'full' : 'semi'
   }"
 }
 
   / Content wrapper
   .banner__inner{
-    class="#{ 'banner__inner--overlap' if entry.TYPE == 'child_page' }"
+    class="#{ 'banner__inner--overlap' if entry[:TYPE] == 'child_page' }"
   }
 
     / Content
     .banner__content {
-      class="#{ 'E-mgn-auto-x__sm' if ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) }"
+      class="#{ 'E-mgn-auto-x__sm' if ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) }"
     }
 
       / Date (blog only)
-      - if entry.TYPE == 'child_page' && entry[:category] == 'blog'
-        span.subtitle-xs= entry[:date_time].date
+      - if entry[:TYPE] == 'child_page' && entry[:category] == 'blog'
+        span.label-xs= entry[:date_time].date
 
       / Title
       h1{
-        class="#{ ([ 'landing_page', 'root_page', 'home' ].include? entry.TYPE) \
-                    ? 'title-xl' \
-                    : 'title-lg' }"
-      }= entry.title
+        class="#{ ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) \
+                    ? 'title-xxl' \
+                    : 'title-xl' }"
+      }= entry[:title]
 
-      - if [ 'landing_page', 'root_page', 'home' ].include? entry.TYPE
-        p.banner__byline.title-by= entry[:subtitle]
+      - if [ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]
+        p.banner__strap= entry[:subtitle]
 
       / Actions
-      - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
+      - if entry[:TYPE] == 'landing_page' && entry[:calls_to_action] != nil
         .section-sm
           .grid.grid--xs.grid--above-sm-center
             - entry[:calls_to_action].each do |cta|
@@ -41,7 +41,7 @@ header.banner{
                   = partial 'partials/btn',
                     locals: { local_data: \
                       { type: 'link', size: 'lg', style: 'primary',
-                        label: cta.button_text, label_size: 'lg', url: cta[:file].url }}
+                        label: cta.button_text, label_size: 'lg', url: cta[:file][:url] }}
 
                 / Modal
                 - if cta[:action] == 'modal'
@@ -59,7 +59,7 @@ header.banner{
                         aria_target_id: cta.modal[:cta_id] }}
 
   / Modal content (here to avoid banner__inner transform cascade)
-  - if entry.TYPE == 'landing_page' && entry[:calls_to_action] != nil
+  - if entry[:TYPE] == 'landing_page' && entry[:calls_to_action] != nil
     - entry[:calls_to_action].each do |cta|
       - if cta[:action] == 'modal'
         = partial 'partials/modal',
@@ -69,7 +69,7 @@ header.banner{
 
   / Image
   .banner__image{
-    class="#{ 'banner__image--' + entry[:banner_image].focus }"
+    class="#{ 'banner__image--' + entry[:banner_image][:focus] }"
   }
     picture
 
@@ -77,41 +77,41 @@ header.banner{
       source{
         media="(orientation: landscape)"
         sizes="100vw"
-        srcset="#{ entry[:banner_image].url }?w=640&q=66&fl=progressive 640w,
-                #{ entry[:banner_image].url }?w=854&q=66&fl=progressive 854w,
-                #{ entry[:banner_image].url }?w=1280&q=66&fl=progressive 1280w,
-                #{ entry[:banner_image].url }?w=1920&q=66&fl=progressive 1920w"
+        srcset="#{ entry[:banner_image][:url] }?w=640&q=66&fl=progressive 640w,
+                #{ entry[:banner_image][:url] }?w=854&q=66&fl=progressive 854w,
+                #{ entry[:banner_image][:url] }?w=1280&q=66&fl=progressive 1280w,
+                #{ entry[:banner_image][:url] }?w=1920&q=66&fl=progressive 1920w"
       }
 
       / Portrait
       source{
         media="(orientation: portrait)"
         sizes="100vw"
-        srcset="#{ entry[:banner_image].url }?#{
+        srcset="#{ entry[:banner_image][:url] }?#{
                    entry == 'landing_page' ?
                    'fit=fill&w=360&h=640&q=66&fl=progressive' :
                    'fit=fill&w=360&h=360&q=66&fl=progressive'
-                }&f=#{ entry[:banner_image].focus } 360w,
-                #{ entry[:banner_image].url }?#{
+                }&f=#{ entry[:banner_image][:focus] } 360w,
+                #{ entry[:banner_image][:url] }?#{
                    entry == 'landing_page' ?
                    'fit=fill&w=720&h=1280&q=66&fl=progressive' :
                    'fit=fill&w=720&h=720&q=66&fl=progressive'
-                }&f=#{ entry[:banner_image].focus } 720w,
-                #{ entry[:banner_image].url }?#{
+                }&f=#{ entry[:banner_image][:focus] } 720w,
+                #{ entry[:banner_image][:url] }?#{
                    entry == 'landing_page' ?
                    'fit=fill&w=1080&h=1440&q=66&fl=progressive' :
                    'fit=fill&w=1080&h=1080&q=66&fl=progressive'
-                }&f=#{ entry[:banner_image].focus } 1080w"
+                }&f=#{ entry[:banner_image][:focus] } 1080w"
       }
 
       / Fallback
       img{
-        srcset="#{ entry[:banner_image].url }?f=#{ entry[:banner_image].focus }"
+        srcset="#{ entry[:banner_image][:url] }?f=#{ entry[:banner_image][:focus] }"
         alt="#{ entry[:banner_image].alt }"
       }
 
   / Scroll down
-  - if [ 'landing_page', 'root_page', 'home' ].include? entry.TYPE
+  - if [ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]
     a.banner__scroll.E-col-orange{
       href="#banner-scroll-target"
       data-scroll

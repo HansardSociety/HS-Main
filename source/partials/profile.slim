@@ -31,8 +31,8 @@
 
   .profile__main
     h1.title-sm.E-col-grey= @full_name
-    p.subtitle-xs= @role + (@organisation ? ',' : '')
-    p.subtitle-xs= @organisation
+    p.label-xs= @role + (@organisation ? ',' : '')
+    p.label-xs= @organisation
 
   - if (@biog || @twitter || @linkedin) && @actions != false
     .profile__actions

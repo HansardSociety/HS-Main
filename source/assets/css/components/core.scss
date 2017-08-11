@@ -11,8 +11,7 @@ html {
 
 body {
   overflow-x: hidden;
-
-  @extend %E-width-full-vw;
+  width: 100vw;
 }
 
 *, *::before, *::after {

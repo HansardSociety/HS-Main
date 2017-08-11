@@ -20,23 +20,34 @@
 
 @each $sizeKey, $sizeVal in map-get($type, sizes) {
 
-  .title-#{ $sizeKey } {
-    @extend %E-ff-prim-medium;
+  .title-#{ $sizeKey },
+  .strap-#{ $sizeKey },
+  .label-#{ $sizeKey } {
     @extend %E-fz-#{ $sizeKey };
   }
 
-  .subtitle-#{ $sizeKey } {
+  .title-#{ $sizeKey } {
+    @extend %E-ff-prim-heavy;
+  }
+
+  .strap-#{ $sizeKey },
+  .label-#{ $sizeKey },
+  .cross-head-#{ $sizeKey } {
+    @extend %E-ff-prim-medium;
+  }
+
+  .strap-#{ $sizeKey },
+  .label-#{ $sizeKey } {
     @extend %E-col-current;
-    @extend %E-ff-prim-book;
-    @extend %E-fz-#{ $sizeKey };
+  }
+
+  .label-#{ $sizeKey } {
     @extend %E-upper;
   }
 
   .cross-head-#{ $sizeKey } {
-
     @extend %E-col-mid-grey;
-    @extend %E-ff-prim-medium;
-    @extend .subtitle-#{ $sizeKey };
+    @extend .label-#{ $sizeKey };
   }
 }
 

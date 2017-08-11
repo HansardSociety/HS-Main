@@ -29,7 +29,7 @@
           class="#{ 'dropdown' if nav[:pages] && nav[:pages].length > 1 }"
         }
 
-          h2.title-by{
+          h2.title-md{
             class="#{ 'dropdown__title' if nav[:pages] && nav[:pages].length > 1 }"
           }
 
@@ -67,7 +67,7 @@
                 li.menu__category{
                   class="menu__category--#{ category.downcase }"
                 }
-                  h3.subtitle-xs.E-col-mid-grey.E-mgn-t-xs= category if nav[:title] != category
+                  h3.label-xs.E-col-mid-grey.E-mgn-t-xs= category if nav[:title] != category
 
                   ul
                     - pages.each do |page|
@@ -86,7 +86,7 @@
         li.menu__column{
           class="menu__column--#{ category.parameterize }"
         }
-          h3.subtitle-xs.E-col-mid-grey.E-mgn-t-xs= category
+          h3.label-xs.E-col-mid-grey.E-mgn-t-xs= category
 
           - pages.each do |page|
             h4.title-sm.E-mgn-t-xs
