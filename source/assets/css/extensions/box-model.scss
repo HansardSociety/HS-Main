@@ -123,8 +123,10 @@
 //  =Borders
 //////////////////////////////
 
+$allColorMaps: Merge(map-get($colors, primary), map-get($colors, secondary), map-get($colors, greyscale));
+
 // Accents
-@each $name, $color in map-merge(map-get($colors, primary), map-get($colors, secondary)) {
+@each $name, $color in $allColorMaps {
   @each $side in map-get($properties, origins) {
 
     %E-acc-#{ $name }-#{ $side },

@@ -36,9 +36,9 @@
     / Calls to action
     - if @panel_data[:calls_to_action]
 
-      .grid.grid--xs.grid--center.E-mgn-t-sm
+      .grid.grid--xs.grid--center
         - @panel_data[:calls_to_action].each do |cta|
-          .grid__cell.grid__cell--xs
+          .grid__cell
 
             / Download
             - if cta.action == 'download'

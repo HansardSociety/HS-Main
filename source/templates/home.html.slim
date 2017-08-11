@@ -30,7 +30,8 @@ article
   / Newsletter
   .panel.E-bgc-black
     .content.content--mid.E-align-cen.E-col-white
-      = partial 'partials/signup-box'
+      = partial 'partials/signup-box',
+        locals: { local_data: { copy_size: 'md'}}
 
   / Blog
   .panel

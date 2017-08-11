@@ -1,13 +1,5 @@
-////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
-
 - @panel_data         = local_data[:entry_data]
 - @index              = local_data[:index]
-
-////////////////////////////////////////////////////////////
-//  Panel promoted
-////////////////////////////////////////////////////////////
 
 .panel.section-md.E-bgc-dark-grey.E-col-white{
   id="panel-#{ @index }"
@@ -30,7 +22,7 @@
   .content.content--narrow
     .grid.grid--xs
       - @panel_data[:accordians].each do |accordian|
-        .grid__cell.grid__cell--xs.grid__cell--above-sm-6-xs
+        .grid__cell.grid__cell--above-sm-6
           = partial 'partials/accordian',
             locals: { local_data: \
               { accordian_data: accordian }}

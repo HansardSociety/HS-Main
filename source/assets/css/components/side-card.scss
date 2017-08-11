@@ -19,6 +19,10 @@
 .side-card--publications  { @extend %E-acc-light-green-left; }
 .side-card--research      { @extend %E-acc-green-left; }
 
+.side-card--featured {
+  @extend %E-bgc-black;
+}
+
 .side-card__inner {
   @extend %E-flex-row-start;
 }
@@ -43,13 +47,15 @@
 }
 
 .side-card__content {
-  padding: 1rem 1rem 1rem .5rem;
+  padding: 1.5rem 1rem 1rem .5rem;
 
   flex: 1;
+
+  @extend %E-position-relative;
 }
 
 .side-card__meta {
-  line-height: 0;
-
-  @extend %E-pad-b-xs;
+  top: .25rem;
+  left: .5rem;
+  @extend %E-position-absolute;
 }

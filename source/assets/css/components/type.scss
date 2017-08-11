@@ -2,9 +2,7 @@
 //  =Type - Components
 ////////////////////////////////////////////////////////////
 
-//  =Font face
-//////////////////////////////
-
+// Fonts
 @each $typeKey, $typeVal in map-get($type, primary) {
 
   @font-face {
@@ -15,9 +13,7 @@
   }
 }
 
-//  =Titles
-//////////////////////////////
-
+// Titles
 @each $sizeKey, $sizeVal in map-get($type, sizes) {
 
   .title-#{ $sizeKey },
@@ -51,24 +47,45 @@
   }
 }
 
+// Side title
+.side-title {
+  @extend .title-sm;
+  @extend %E-col-green;
+  @extend %E-mgn-b-xs;
 
+  &:not(:first-child) {
+    @extend %E-mgn-t-sm;
+  }
+}
 
-.link {
-  border-bottom: 2px solid rgba(Get($colors, primary, green), .15);
-
+// Links
+.link,
+.link-white {
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
 
-  @extend %E-col-green;
   @extend %E-trans-core;
 
   &:hover {
-    border-bottom: 2px solid Get($colors, primary, green);
+    border-bottom: 2px solid Get($colors, secondary, current);
   }
 }
 
+.link {
+  border-bottom: 2px solid rgba(Get($colors, primary, green), .15);
+
+  @extend %E-col-green;
+}
+
+.link-white {
+  border-bottom: 2px solid rgba(Get($colors, greyscale, white), .15);
+
+  @extend %E-col-white;
+}
+
+// Misc
 strong {
   @extend %E-ff-prim-medium;
 }

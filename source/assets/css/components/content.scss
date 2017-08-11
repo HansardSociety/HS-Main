@@ -22,8 +22,29 @@
 .content--paper {
   @extend %E-bgc-white;
   @extend %E-box-shad-raised;
+  @extend %E-overflow-hidden;
   @include above(sm) {
     border-top-left-radius: map-get($radii, slight);
     border-top-right-radius: map-get($radii, slight);
+  }
+}
+
+.content__header,
+.content__section {
+  @extend %E-pad-x-md;
+}
+
+.content__header {
+  @extend %E-position-relative;
+
+  &::before {
+    left: -1rem;
+    top: -1rem;
+    width: calc(100% + 2rem);
+    height: calc(100% + 1rem);
+    z-index: -1;
+
+    @extend %E-bgc-light-grey;
+    @extend %E-pseudo-elem;
   }
 }

@@ -97,7 +97,8 @@
         - if category == 'about'
           li.menu__column.E-acc-orange-top
             .section-sm
-              = partial 'partials/signup-box'
+              = partial 'partials/signup-box',
+                locals: { local_data: { copy_size: 'sm'}}
 
 
   ////////////////////////////////////////////////////////
@@ -106,4 +107,5 @@
 
   / mobile
   - if @screen == 'mobile'
-    = partial 'partials/signup-box'
+    = partial 'partials/signup-box',
+      locals: { local_data: { copy_size: 'sm'}}

@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////
 
 - @side_card_data   = local_data[:side_card_data]
+- @featured         = local_data[:featured]
 - @is_product       = @side_card_data.key? 'price'
 - @is_registration  = @side_card_data.key? 'embed_code'
 
@@ -12,6 +13,7 @@
 
 article.side-card{
   class="side-card--#{ @side_card_data[:category] }"
+  class="#{ 'side-card--featured' if @featured }"
 }
   .side-card__inner
     .side-card__image{
@@ -52,13 +54,16 @@ article.side-card{
           h1{
             class="#{ @is_product ? 'title-xs' : 'title-sm' }"
           }
-            a.link.JS-truncate{
+            a.JS-truncate{
               href="#{ config[:SITE_URL] + '/' + @side_card_data[:category] + '/' + @side_card_data[:slug] + (config[:ENV] == 'development' ? '.html' : '') }"
+              class="#{ @featured ? 'link-white' : 'link' }"
             }= @side_card_data[:title]
 
         / Is product
         - if @is_product || @is_registration
-          h1.title-sm.E-col-green.JS-truncate= @is_product ? @side_card_data[:title] : @side_card_data[:venue]
+          h1.title-sm.JS-truncate{
+            class="#{ @featured ? 'E-col-white' : 'E-col-green'}"
+          }= @is_product ? @side_card_data[:title] : @side_card_data[:venue]
 
       / Is product or registration
       - if @is_product || @is_registration

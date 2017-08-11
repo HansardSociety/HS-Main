@@ -22,7 +22,8 @@
 // Allow item marked 'order-0' (below) to jump to start
 .grid__cell {
   order: 1;
-  // width: 100%;
+
+  @extend %E-position-relative;
 }
 
 // Sizes
@@ -32,11 +33,11 @@
   .grid--#{ $sizeKey } {
     @extend %E-mgn-neg-l-#{ $sizeKey };
     @extend %E-mgn-neg-t-#{ $sizeKey };
-  }
 
-  .grid__cell--#{ $sizeKey } {
-    @extend %E-mgn-t-#{ $sizeKey };
-    @extend %E-mgn-l-#{ $sizeKey };
+    & > .grid__cell {
+      @extend %E-mgn-t-#{ $sizeKey };
+      @extend %E-mgn-l-#{ $sizeKey };
+    }
   }
 
   // Columns:
@@ -44,13 +45,13 @@
   @for $n from 1 through 12 {
 
     // Cell
-    .grid__cell--#{ $n }-#{ $sizeKey } {
+    .grid__cell--#{ $n } {
       flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal });
     }
 
     // Offset
     .grid__cell--offset-#{ $n } {
-      margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal });
+      margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal / 2 }) !important; // need to override margin from descendant selector
     }
 
     // Breakpoints
@@ -58,13 +59,13 @@
       @include above($breakpoint) {
 
         // Cell
-        .grid__cell--above-#{ $breakpoint }-#{ $n }-#{ $sizeKey } {
-          flex: 0 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal });
+        .grid__cell--above-#{ $breakpoint }-#{ $n } {
+          flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal });
         }
 
         // Offset
-        .grid__cell--above-#{ $breakpoint }-offset-#{ $n }-#{ $sizeKey } {
-          margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal });
+        .grid__cell--above-#{ $breakpoint }-offset-#{ $n } {
+          margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal / 2 }) !important; // see above
         }
       }
     }
@@ -85,5 +86,55 @@
         order: #{ $n };
       }
     }
+  }
+}
+
+// Expand
+
+.grid__expand-btn {
+  display: none;
+}
+
+@include below(lg) {
+
+  .grid__cell--expand {
+    position: relative;
+
+    overflow: hidden;
+
+    &.JS-active {
+      & > .grid__expand-btn {
+        display: none;
+      }
+    }
+
+    &.JS-inactive {
+      height: 20rem;
+
+      &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: block;
+
+        width: 100%;
+        height: 20rem;
+
+        content: "";
+
+        background-image: linear-gradient(to top, rgba(255, 255, 255, 1) 7.5%, rgba(255, 255, 255, 0) 50%);
+      }
+    }
+  }
+
+  .grid__expand-btn {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+
+    display: block;
+
+    width: 100%;
   }
 }

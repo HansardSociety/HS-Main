@@ -1,7 +1,3 @@
-////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
-
 - @profile_data  = local_data[:profile_data]
 - @actions       = local_data[:actions]
 - @side          = local_data[:side]
@@ -16,13 +12,7 @@
 - @twitter       = @profile_data[:twitter]
 - @linkedin      = @profile_data[:linkedin]
 
-////////////////////////////////////////////////////////////
-//  Profile
-////////////////////////////////////////////////////////////
-
-.profile{
-  class="#{ 'profile--side' if @side }"
-}
+.profile
   .profile__image
     img{
       src="#{ @photo.url }?fit=fill&w=324&h=324"
@@ -30,9 +20,9 @@
     }
 
   .profile__main
-    h1.title-sm.E-col-grey= @full_name
-    p.label-xs= @role + (@organisation ? ',' : '')
-    p.label-xs= @organisation
+    h1.title-sm.E-col-white= @full_name
+    p.strap-xs.E-col-white= @role + (@organisation ? ',' : '')
+    p.strap-xs.E-col-white= @organisation
 
   - if (@biog || @twitter || @linkedin) && @actions != false
     .profile__actions
