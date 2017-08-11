@@ -5,8 +5,8 @@
   padding-top: 3.5rem;
 
   @extend %e-bgc-black;
-  @extend %e-pad-x-sm;
-  @extend %e-pad-y-xs;
+  @extend %e-container;
+  @extend %e-container--wide;
   @extend %e-height-full-vh;
   @extend %e-position-fixed;
   @extend %e-trans-transform;
@@ -43,14 +43,12 @@
 }
 
 .menu__container {
-  @extend %e-container;
   @extend %e-mgn-b-xs;
 }
 
 .menu__container--columns {
   flex-flow: row nowrap;
 
-  @extend %e-container--wide;
   @extend %e-display-flex;
   @extend %e-mgn-auto-x;
 }

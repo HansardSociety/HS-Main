@@ -47,7 +47,7 @@ article.side-card{
         - if [ 'blog' ].include? @side_card_data[:category]
           span.label-xs.e-col-mid-grey= @side_card_data[:category ]+ ' / ' + @side_card_data[:date_time][:date]
 
-      .side-card__title.e-mgn-t-xs
+      .side-card__title
 
         / Not product
         - if !@is_product && !@is_registration
@@ -67,7 +67,7 @@ article.side-card{
 
       / Is product or registration
       - if @is_product || @is_registration
-        .side-card__actions.e-mgn-t-xs
+        .side-card__actions.e-pad-t-xs
 
           / Product
           - if @is_product
