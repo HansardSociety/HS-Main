@@ -4,8 +4,24 @@
   @extend %E-position-relative;
 }
 
+.panel--dark {
+  @extend %E-bgc-dark-grey;
+  @extend %E-col-white;
+}
+
+.panel__header--narrow,
+.panel__content--narrow {
+  @extend %E-container-narrow;
+}
+
 .panel__header {
   @extend %E-align-cen;
+}
+
+.panel__intro,
+.panel__actions,
+.panel__content {
+  @extend %E-mgn-t-sm;
 }
 
 // Sections

@@ -1,25 +1,22 @@
 - @panel_data         = local_data[:entry_data]
 - @index              = local_data[:index]
 
-.panel.section-md.E-bgc-dark-grey.E-col-white{
+.panel.panel--dark{
   id="panel-#{ @index }"
 }
-  .content.content--narrow
+  .panel__header.panel__header--narrow
 
+    / Header
     .panel__header
-
-      / Label
-      - if @panel_data[:label]
-        span.cross-head-sm= @panel_data[:label]
-
-      / Title
-      h2.title-xl= @panel_data[:title]
-
-      / Copy
+      .panel__title
+        - if @panel_data[:label]
+          span.cross-head-sm= @panel_data[:label]
+        h2.title-xl= @panel_data[:title]
+    .panel__intro
       - if @panel_data.copy
         = markdown(@panel_data[:copy], 'byline')
 
-  .content.content--narrow
+  .panel__content.panel__content--narrow
     .grid.grid--xs
       - @panel_data[:accordians].each do |accordian|
         .grid__cell.grid__cell--above-sm-6
