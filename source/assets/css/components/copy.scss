@@ -1,9 +1,9 @@
 .copy {
-  @extend %E-position-relative;
+  @extend %e-position-relative;
 
   > p, > h1, > h2, > h3, > h4, > h5, > h6, > img, > iframe, ul {
     &:not(:only-child) {
-      @extend %E-mgn-b-sm;
+      @extend %e-mgn-b-sm;
     }
   }
 
@@ -15,14 +15,12 @@
   }
 
   > h1, > h2, > h3, > h4, > h5, > h6 {
-    @extend %E-col-green;
+    @extend %e-col-green;
   }
 
-  > h1 { @extend .title-xl; }
-  > h2 { @extend .title-lg; }
-  > h3 { @extend .title-md; }
-  > h4 { @extend .title-sm; }
-  > h5 { @extend .title-xs; }
+  > h2 { @extend .title-md; }
+  > h3 { @extend .title-sm; }
+  > h4 { @extend .label-sm; }
 
   > p > a {
     @extend .link;
@@ -37,12 +35,12 @@
   }
 
   img {
-    @extend %E-max-width-full;
-    @extend %E-rad-slight;
+    @extend %e-max-width-full;
+    @extend %e-rad-slight;
   }
 
   > iframe {
-    @extend %E-width-full;
+    @extend %e-width-full;
   }
 
   picture {

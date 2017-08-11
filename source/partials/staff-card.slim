@@ -20,16 +20,16 @@
     .staff-card__content
 
       - if @entry_data[:tel]
-        p.E-fz-xs
-          strong.E-col-grey
+        p.e-fz-xs
+          strong.e-col-grey
             | T.&nbsp;
           a.staff-card__link{
             href="tel:#{ @entry_data[:tel] }"
           }= @entry_data[:tel]
 
       - if @entry_data[:email]
-        p.E-mgn-b-sm.E-fz-xs
-          strong.E-col-grey
+        p.e-mgn-b-sm.e-fz-xs
+          strong.e-col-grey
             | E.&nbsp;
           a.staff-card__link{
             href="mailto:#{ @entry_data[:email] }"

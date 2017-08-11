@@ -2,17 +2,17 @@
 //  =Overlay
 ////////////////////////////////////////////////////////////
 
-%E-overlay-light,
-%E-overlay-medium,
-%E-overlay-dark {
+%e-overlay-light,
+%e-overlay-medium,
+%e-overlay-dark {
   &::after {
     @extend
-      %E-height-full,
-      %E-pseudo-elem,
-      %E-width-full;
+      %e-height-full,
+      %e-pseudo-elem,
+      %e-width-full;
   }
 }
 
-%E-overlay-medium::after { background-color: rgba(#000, .3333); }
-%E-overlay-dark::after   { background-color: rgba(#000, .5); }
+%e-overlay-medium::after { background-color: rgba(#000, .3333); }
+%e-overlay-dark::after   { background-color: rgba(#000, .5); }
 

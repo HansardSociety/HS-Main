@@ -3,18 +3,18 @@
   top: 0;
   left: -9999px;
 
-  @extend %E-rad-slight;
-  @extend %E-height-full-vh;
-  @extend %E-position-fixed;
-  @extend %E-width-full-vw;
+  @extend %e-rad-slight;
+  @extend %e-height-full-vh;
+  @extend %e-position-fixed;
+  @extend %e-width-full-vw;
 
   &::before {
     opacity: 0;
 
-    @extend %E-bgc-black;
-    @extend %E-pseudo-elem;
-    @extend %E-width-full;
-    @extend %E-height-full;
+    @extend %e-bgc-black;
+    @extend %e-pseudo-elem;
+    @extend %e-width-full;
+    @extend %e-height-full;
   }
 }
 
@@ -25,13 +25,13 @@
   min-height: calc(99.9999vh - .5rem);
   max-height: calc(99.9999vh - .5rem);
 
-  @extend %E-absolute-center-xy;
-  @extend %E-bgc-white;
-  @extend %E-rad-slight;
-  @extend %E-flex-row;
-  @extend %E-height-full-vh;
-  @extend %E-overflow-y-hidden;
-  @extend %E-box-shad-raised;
+  @extend %e-absolute-center-xy;
+  @extend %e-bgc-white;
+  @extend %e-rad-slight;
+  @extend %e-flex-row;
+  @extend %e-height-full-vh;
+  @extend %e-overflow-y-hidden;
+  @extend %e-box-shad-raised;
   @include above('sm') {
     height: 100%;
     height: auto;
@@ -52,9 +52,9 @@
 
   border-bottom: 2px solid Get($colors, greyscale, light-grey);
 
-  @extend %E-bgc-white;
-  @extend %E-position-absolute;
-  @extend %E-width-full;
+  @extend %e-bgc-white;
+  @extend %e-position-absolute;
+  @extend %e-width-full;
 }
 
 .modal__close {
@@ -65,9 +65,9 @@
   max-height: 100vh; // must use units for Edge scroll
   margin-top: 1.75rem;
 
-  @extend %E-overflow-y-auto;
-  @extend %E-pad-sm;
-  @extend %E-width-full;
+  @extend %e-overflow-y-auto;
+  @extend %e-pad-sm;
+  @extend %e-width-full;
 }
 
 ////////////////////////////////////////////////////////////
@@ -78,12 +78,12 @@
 .modal.JS-active {
   left: 0;
 
-  @extend %E-animate-slide-up-in;
+  @extend %e-animate-slide-up-in;
 
   &::before {
     animation-delay: 400ms;
 
-    @extend %E-animate-fade-in-opaque;
+    @extend %e-animate-fade-in-opaque;
   }
 }
 

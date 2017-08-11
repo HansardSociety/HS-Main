@@ -22,21 +22,21 @@ article
   //  Feed
   ////////////////////////////
 
-  .section-md.E-bgc-light-grey#banner-scroll-target
+  .section-md.e-bgc-light-grey#banner-scroll-target
     .content.content--wide
       .grid.grid--sm
         - @pages_by_date.each do |id, page|
 
           / Blog
           - if @entry[:category] == 'blog' && page[:category] == 'blog'
-            .grid__cell.grid__cell--sm.grid__cell--above-sm-6-sm.grid__cell--above-md-4-sm
+            .grid__cell.grid__cell--above-sm-6.grid__cell--above-md-4
               = partial 'partials/main-card',
                 locals: { local_data: \
                   { entry_data: page }}
 
           / Events
           - if @entry[:category] == 'events' && page[:category] == 'events'
-            .grid__cell.grid__cell--sm.grid__cell--above-sm-6-sm.grid__cell--above-md-4-sm
+            .grid__cell.grid__cell--above-sm-6.grid__cell--above-md-4
               = partial 'partials/main-card',
                 locals: { local_data: \
                   { entry_data: page }}

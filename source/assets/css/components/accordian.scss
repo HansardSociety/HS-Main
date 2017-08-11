@@ -1,8 +1,8 @@
 .accordian {
 
-  @extend %E-bgc-light-grey;
-  @extend %E-overflow-hidden;
-  @extend %E-rad-slight;
+  @extend %e-bgc-light-grey;
+  @extend %e-overflow-hidden;
+  @extend %e-rad-slight;
 }
 
 .accordian__expand {
@@ -18,13 +18,13 @@
 }
 
 .accordian__header {
-  @extend %E-position-relative;
+  @extend %e-position-relative;
 }
 
 .accordian__control {
   right: .5rem;
 
-  @extend %E-absolute-center-y;
+  @extend %e-absolute-center-y;
 }
 
 ////////////////////////////////////////////////////////////

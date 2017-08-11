@@ -12,7 +12,7 @@ header.banner{
 
     / Content
     .banner__content {
-      class="#{ 'E-mgn-auto-x__sm' if ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) }"
+      class="#{ 'e-mgn-auto-x__sm' if ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) }"
     }
 
       / Date (blog only)
@@ -112,7 +112,7 @@ header.banner{
 
   / Scroll down
   - if [ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]
-    a.banner__scroll.E-col-orange{
+    a.banner__scroll.e-col-orange{
       href="#banner-scroll-target"
       data-scroll
     }

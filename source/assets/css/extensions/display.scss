@@ -11,7 +11,7 @@ $display: none, inline, block, inline-block, flex, inline-flex;
 @each $property in $display {
 
   // Display base
-  %E-display-#{ $property } {
+  %e-display-#{ $property } {
     display: $property;
   }
 
@@ -19,7 +19,7 @@ $display: none, inline, block, inline-block, flex, inline-flex;
   @each $screen in map-keys($breakpoints) {
     @include above($screen) {
 
-      %E-display-#{ $property }__#{ $screen } {
+      %e-display-#{ $property }__#{ $screen } {
         display: $property;
       }
     }
@@ -30,49 +30,49 @@ $display: none, inline, block, inline-block, flex, inline-flex;
 //////////////////////////////
 
 // Options:
-// E-flex-row
-// E-flex-row-start
-// E-flex-row-center
-// E-flex-row-nowrap
-// E-flex-row-nowrap-start
-// E-flex-inline-row
-// E-flex-inline-row-center
+// e-flex-row
+// e-flex-row-start
+// e-flex-row-center
+// e-flex-row-nowrap
+// e-flex-row-nowrap-start
+// e-flex-inline-row
+// e-flex-inline-row-center
 
-%E-flex-row,
-%E-flex-row-nowrap,
-%E-flex-row-nowrap-start {
-  @extend %E-display-flex;
+%e-flex-row,
+%e-flex-row-nowrap,
+%e-flex-row-nowrap-start {
+  @extend %e-display-flex;
 }
 
-%E-flex-inline-row {
-  @extend %E-display-inline-flex;
+%e-flex-inline-row {
+  @extend %e-display-inline-flex;
 }
 
-%E-flex-row,
-%E-flex-inline-row {
+%e-flex-row,
+%e-flex-inline-row {
   flex-flow: row wrap;
 }
 
-%E-flex-row-nowrap,
-%E-flex-row-nowrap-start {
+%e-flex-row-nowrap,
+%e-flex-row-nowrap-start {
   flex-flow: row nowrap;
 }
 
-%E-flex-row-start,
-%E-flex-row-center {
-  @extend %E-flex-row;
+%e-flex-row-start,
+%e-flex-row-center {
+  @extend %e-flex-row;
 }
 
-%E-flex-inline-row-center {
-  @extend %E-flex-inline-row;
+%e-flex-inline-row-center {
+  @extend %e-flex-inline-row;
 }
 
-%E-flex-row-start,
-%E-flex-row-nowrap-start {
+%e-flex-row-start,
+%e-flex-row-nowrap-start {
   align-items: flex-start;
 }
 
-%E-flex-row-center,
-%E-flex-inline-row-center {
+%e-flex-row-center,
+%e-flex-inline-row-center {
   align-items: center;
 }

@@ -4,14 +4,14 @@
 
   border: 2px solid Get($colors, primary, orange);
 
-  @extend %E-col-orange;
-  @extend %E-flex-row-center;
-  @extend %E-rad-slight;
-  @extend %E-trans-core;
+  @extend %e-col-orange;
+  @extend %e-flex-row-center;
+  @extend %e-rad-slight;
+  @extend %e-trans-core;
 
   &:hover {
-    @extend %E-bgc-orange;
-    @extend %E-col-white;
+    @extend %e-bgc-orange;
+    @extend %e-col-white;
 
 
     svg {
@@ -20,6 +20,6 @@
   }
 
   & > svg {
-    @extend %E-mgn-auto-x;
+    @extend %e-mgn-auto-x;
   }
 }

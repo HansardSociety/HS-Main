@@ -14,7 +14,7 @@ nav#navbar.navbar.JS-inactive
   .navbar__inner
 
     / Hidden site title
-    h1.E-hidden= config[:SITE_TITLE]
+    h1.e-hidden= config[:SITE_TITLE]
 
     .navbar__left
 
@@ -49,7 +49,7 @@ nav#navbar.navbar.JS-inactive
           li.navbar__item{
             class="#{ 'navbar__item--solo' if (nav[:pages] && nav[:pages].length <= 1) || (nav[:external_url]) }"
           }
-            h2.title-sm.E-col-white
+            h2.title-sm.e-col-white
 
               / If navigation item contains one or no pages
               - if nav[:pages] && nav[:pages].length <= 1
@@ -89,7 +89,7 @@ nav#navbar.navbar.JS-inactive
                           nav_items: nav }}
 
       / Search
-      .E-col-white
+      .e-col-white
         = partial 'partials/btn',
           locals: { local_data: \
             { type: 'state', size: 'sm',

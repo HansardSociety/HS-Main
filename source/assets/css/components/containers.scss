@@ -1,38 +1,47 @@
 // Panels
 .panel {
-  @extend %E-pad-x-lg;
-  @extend %E-position-relative;
+  @extend %e-container;
+  @extend %e-pad-x-lg;
+  @extend %e-position-relative;
 }
 
 .panel--dark {
-  @extend %E-bgc-dark-grey;
-  @extend %E-col-white;
+  @extend %e-bgc-dark-grey;
+  @extend %e-col-white;
+}
+
+.panel__header,
+.panel__content {
+  @extend %e-mgn-auto-x;
 }
 
 .panel__header--narrow,
 .panel__content--narrow {
-  @extend %E-container-narrow;
+  @extend %e-container--narrow;
 }
 
 .panel__header {
-  @extend %E-align-cen;
+  @extend %e-align-cen;
 }
 
 .panel__intro,
-.panel__actions,
+.panel__actions {
+  @extend %e-mgn-t-sm;
+}
+
 .panel__content {
-  @extend %E-mgn-t-sm;
+  @extend %e-mgn-t-md;
 }
 
 // Sections
 @each $sizeKey, $sizeVal in $spacing {
   .section-#{ $sizeKey } {
-    @extend %E-pad-x-#{ $sizeKey }
+    @extend %e-pad-x-#{ $sizeKey }
   }
 };
 
 // Boxes
 .box {
-  @extend %E-pad-sm;
-  @extend %E-rad-slight;
+  @extend %e-pad-sm;
+  @extend %e-rad-slight;
 }

@@ -8,14 +8,14 @@
   map-get($colors, greyscale)) {
 
   // Colors
-  .E-col-#{ $name },
-  %E-col-#{ $name } {
+  .e-col-#{ $name },
+  %e-col-#{ $name } {
     color: $color;
   }
 
   // Background colors
-  .E-bgc-#{ $name },
-  %E-bgc-#{ $name } {
+  .e-bgc-#{ $name },
+  %e-bgc-#{ $name } {
     background-color: $color;
   }
 }

@@ -10,14 +10,14 @@
   vertical-align: middle;
 
   @include above('md') {
-    @extend %E-display-none__md;
+    @extend %e-display-none__md;
   }
 }
 
 .logo__image--desktop {
-  @extend %E-display-none;
+  @extend %e-display-none;
   @include above('md') {
-    @extend %E-display-block__md;
-    @extend  %E-trans-transform__md;
+    @extend %e-display-block__md;
+    @extend  %e-trans-transform__md;
   }
 }

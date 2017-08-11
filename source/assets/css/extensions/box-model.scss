@@ -14,14 +14,14 @@
   );
 
   // Margin
-  %E-mgn-#{ $sizeKey },
-  .E-mgn-#{ $sizeKey } {
+  %e-mgn-#{ $sizeKey },
+  .e-mgn-#{ $sizeKey } {
     margin: $sizeVal;
   }
 
   // Padding
-  %E-pad-#{ $sizeKey },
-  .E-pad-#{ $sizeKey } {
+  %e-pad-#{ $sizeKey },
+  .e-pad-#{ $sizeKey } {
     padding: $sizeVal;
   }
 
@@ -30,14 +30,14 @@
     @include above($screen) {
 
       // Margin
-      %E-mgn-#{ $sizeKey }__#{ $screen },
-      .E-mgn-#{ $sizeKey }__#{ $screen } {
+      %e-mgn-#{ $sizeKey }__#{ $screen },
+      .e-mgn-#{ $sizeKey }__#{ $screen } {
         margin: $sizeVal;
       }
 
       // Padding
-      %E-pad-#{ $sizeKey }__#{ $screen },
-      .E-pad-#{ $sizeKey }__#{ $screen } {
+      %e-pad-#{ $sizeKey }__#{ $screen },
+      .e-pad-#{ $sizeKey }__#{ $screen } {
         padding: $sizeVal;
       }
     }
@@ -48,24 +48,24 @@
   @each $sideKey, $sideVal in $sides {
 
     // Margin
-    %E-mgn-#{ $sideKey }-#{ $sizeKey },
-    .E-mgn-#{ $sideKey }-#{ $sizeKey } {
+    %e-mgn-#{ $sideKey }-#{ $sizeKey },
+    .e-mgn-#{ $sideKey }-#{ $sizeKey } {
       @each $side in $sideVal {
         margin-#{ $side }: $sizeVal;
       }
     }
 
     // Negative margin
-    %E-mgn-neg-#{ $sideKey }-#{ $sizeKey },
-    .E-mgn-neg-#{ $sideKey }-#{ $sizeKey } {
+    %e-mgn-neg-#{ $sideKey }-#{ $sizeKey },
+    .e-mgn-neg-#{ $sideKey }-#{ $sizeKey } {
       @each $side in $sideVal {
         margin-#{ $side }: -$sizeVal;
       }
     }
 
     // Padding
-    %E-pad-#{ $sideKey }-#{ $sizeKey },
-    .E-pad-#{ $sideKey }-#{ $sizeKey } {
+    %e-pad-#{ $sideKey }-#{ $sizeKey },
+    .e-pad-#{ $sideKey }-#{ $sizeKey } {
       @each $side in $sideVal {
         padding-#{ $side }: $sizeVal;
       }
@@ -76,24 +76,24 @@
       @include above($screen) {
 
         // Margin
-        %E-mgn-#{ $sideKey }-#{ $sizeKey }__#{ $screen },
-        .E-mgn-#{ $sideKey }-#{ $sizeKey }__#{ $screen } {
+        %e-mgn-#{ $sideKey }-#{ $sizeKey }__#{ $screen },
+        .e-mgn-#{ $sideKey }-#{ $sizeKey }__#{ $screen } {
           @each $side in $sideVal {
             margin-#{ $side }: $sizeVal;
           }
         }
 
         // Negative margin
-        %E-mgn-neg-#{ $sideKey }-#{ $sizeKey }__#{ $screen },
-        .E-mgn-neg-#{ $sideKey }-#{ $sizeKey }__#{ $screen } {
+        %e-mgn-neg-#{ $sideKey }-#{ $sizeKey }__#{ $screen },
+        .e-mgn-neg-#{ $sideKey }-#{ $sizeKey }__#{ $screen } {
           @each $side in $sideVal {
             margin-#{ $side }: -$sizeVal;
           }
         }
 
         // Padding
-        %E-pad-#{ $sideKey }-#{ $sizeKey }__#{ $screen },
-        .E-pad-#{ $sideKey }-#{ $sizeKey }__#{ $screen } {
+        %e-pad-#{ $sideKey }-#{ $sizeKey }__#{ $screen },
+        .e-pad-#{ $sideKey }-#{ $sizeKey }__#{ $screen } {
           @each $side in $sideVal {
             padding-#{ $side }: $sizeVal;
           }
@@ -103,8 +103,8 @@
   }
 }
 
-%E-mgn-auto-x,
-.E-mgn-auto-x {
+%e-mgn-auto-x,
+.e-mgn-auto-x {
   margin-left: auto;
   margin-right: auto;
 }
@@ -112,8 +112,8 @@
 @each $screen in map-keys($breakpoints) {
   @include above($screen) {
 
-    %E-mgn-auto-x__#{ $screen },
-    .E-mgn-auto-x__#{ $screen } {
+    %e-mgn-auto-x__#{ $screen },
+    .e-mgn-auto-x__#{ $screen } {
       margin-left: auto;
       margin-right: auto;
     }
@@ -129,8 +129,8 @@ $allColorMaps: Merge(map-get($colors, primary), map-get($colors, secondary), map
 @each $name, $color in $allColorMaps {
   @each $side in map-get($properties, origins) {
 
-    %E-acc-#{ $name }-#{ $side },
-    .E-acc-#{ $name }-#{ $side } {
+    %e-acc-#{ $name }-#{ $side },
+    .e-acc-#{ $name }-#{ $side } {
       border-#{ $side }: .3333rem solid $color;
     }
   }
@@ -141,7 +141,7 @@ $allColorMaps: Merge(map-get($colors, primary), map-get($colors, secondary), map
 
 @each $radKey, $radVal in $radii {
 
-  %E-rad-#{ $radKey } {
+  %e-rad-#{ $radKey } {
     border-radius: $radVal;
   }
 }
@@ -150,7 +150,7 @@ $allColorMaps: Merge(map-get($colors, primary), map-get($colors, secondary), map
 //////////////////////////////
 
 @each $shadowKey, $shadowVal in map-get($shadow, box) {
-  %E-box-shad-#{ $shadowKey } {
+  %e-box-shad-#{ $shadowKey } {
     box-shadow: $shadowVal;
   }
 }

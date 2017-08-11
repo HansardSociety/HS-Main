@@ -8,12 +8,12 @@
 
   // Base positioning
 
-  %E-position-#{ $position } { position: #{ $position } }
+  %e-position-#{ $position } { position: #{ $position } }
 
   @each $screen in map-keys($breakpoints) {
     @include above('#{ $screen }') {
 
-      %E-position-#{ $position }__#{ $screen } {
+      %e-position-#{ $position }__#{ $screen } {
         position: #{ $position }
       }
     }
@@ -25,9 +25,9 @@
 
     @each $axis in map-get($properties, axies) {
 
-      %E-position-#{ $position }-#{ $origin }-#{ $axis } {
+      %e-position-#{ $position }-#{ $origin }-#{ $axis } {
         #{ $origin }: #{ $axis + '%' };
-        @extend %E-position-#{ $position };
+        @extend %e-position-#{ $position };
       }
     }
 
@@ -35,9 +35,9 @@
       @include above('#{ $screen }') {
         @each $axis in map-get($properties, axies) {
 
-          %E-position-#{ $position }-#{ $origin }-#{ $axis }__#{ $screen } {
+          %e-position-#{ $position }-#{ $origin }-#{ $axis }__#{ $screen } {
             #{ $origin }: #{ $axis + '%' };
-            @extend %E-position-#{ $position }__#{ $screen };
+            @extend %e-position-#{ $position }__#{ $screen };
           }
         }
       }
@@ -49,17 +49,17 @@
 
 @each $axis in map-get($properties, axies) {
 
-  %E-position-absolute-#{ $axis } {
+  %e-position-absolute-#{ $axis } {
     top: #{ $axis + '%' }; left: #{ $axis + '%' };
-    @extend %E-position-absolute;
+    @extend %e-position-absolute;
   }
 
   @each $screen in map-keys($breakpoints) {
     @include above('#{ $screen }') {
 
-      %E-position-absolute-#{ $axis }__#{ $screen } {
+      %e-position-absolute-#{ $axis }__#{ $screen } {
         top: #{ $axis + '%' }; left: #{ $axis + '%' };
-        @extend %E-position-absolute__#{ $screen };
+        @extend %e-position-absolute__#{ $screen };
       }
     }
   }
@@ -67,37 +67,37 @@
 
 // Position absolute center
 
-%E-absolute-center-x,
-%E-absolute-center-xy {
-  @extend %E-position-absolute-left-50;
+%e-absolute-center-x,
+%e-absolute-center-xy {
+  @extend %e-position-absolute-left-50;
 }
 
-%E-absolute-center-y,
-%E-absolute-center-xy {
-  @extend %E-position-absolute-top-50;
+%e-absolute-center-y,
+%e-absolute-center-xy {
+  @extend %e-position-absolute-top-50;
 }
 
-%E-absolute-center-x  { transform: translateX(-50%); }
-%E-absolute-center-y  { transform: translateY(-50%); }
-%E-absolute-center-xy { transform: translate(-50%, -50%); }
+%e-absolute-center-x  { transform: translateX(-50%); }
+%e-absolute-center-y  { transform: translateY(-50%); }
+%e-absolute-center-xy { transform: translate(-50%, -50%); }
 
 // Position absolute center breakpoints
 
 @each $screen in map-keys($breakpoints) {
   @include above('#{ $screen }') {
 
-    %E-absolute-center-x__#{ $screen },
-    %E-absolute-center-xy__#{ $screen } {
-      @extend %E-position-absolute-left-50__#{ $screen };
+    %e-absolute-center-x__#{ $screen },
+    %e-absolute-center-xy__#{ $screen } {
+      @extend %e-position-absolute-left-50__#{ $screen };
     }
 
-    %E-absolute-center-y__#{ $screen },
-    %E-absolute-center-xy__#{ $screen } {
-      @extend %E-position-absolute-top-50__#{ $screen };
+    %e-absolute-center-y__#{ $screen },
+    %e-absolute-center-xy__#{ $screen } {
+      @extend %e-position-absolute-top-50__#{ $screen };
     }
 
-    %E-absolute-center-x__#{ $screen }  { transform: translateX(-50%); }
-    %E-absolute-center-y__#{ $screen }  { transform: translateY(-50%); }
-    %E-absolute-center-xy__#{ $screen } { transform: translate(-50%, -50%); }
+    %e-absolute-center-x__#{ $screen }  { transform: translateX(-50%); }
+    %e-absolute-center-y__#{ $screen }  { transform: translateY(-50%); }
+    %e-absolute-center-xy__#{ $screen } { transform: translate(-50%, -50%); }
   }
 }

@@ -1,11 +1,11 @@
 .banner {
-  @extend %E-position-relative;
-  @extend %E-width-full;
+  @extend %e-position-relative;
+  @extend %e-width-full;
 }
 
 .banner--full {
-  @extend %E-height-full-vh;
-  @extend %E-overflow-hidden;
+  @extend %e-height-full-vh;
+  @extend %e-overflow-hidden;
   @include above(sm) {
     text-align: center;
   }
@@ -16,9 +16,10 @@
 }
 
 .banner__inner {
-  @extend %E-absolute-center-xy;
-  @extend %E-pad-sm;
-  @extend %E-container-wide;
+  @extend %e-absolute-center-xy;
+  @extend %e-pad-sm;
+  @extend %e-container;
+  @extend %e-container--wide;
 }
 
 .banner__inner--overlap {
@@ -28,29 +29,29 @@
 }
 
 .banner__content {
-  @extend %E-col-white;
-  @extend %E-container-narrow;
-  @extend %E-position-relative;
+  @extend %e-col-white;
+  @extend %e-container--narrow;
+  @extend %e-position-relative;
 }
 
 .banner__strap {
   width: 30rem;
 
   @extend .strap-md;
-  @extend %E-max-width-full;
-  @extend %E-mgn-t-sm;
+  @extend %e-max-width-full;
+  @extend %e-mgn-t-sm;
   @include above(sm) {
-    @extend %E-mgn-auto-x__sm;
+    @extend %e-mgn-auto-x__sm;
   }
 }
 
 .banner__image {
-  @extend %E-height-full-vh; // fallback for JS
-  @extend %E-overflow-hidden;
-  @extend %E-overlay-medium;
-  @extend %E-position-absolute;
-  @extend %E-trans-core;
-  @extend %E-zidx-neg;
+  @extend %e-height-full-vh; // fallback for JS
+  @extend %e-overflow-hidden;
+  @extend %e-overlay-medium;
+  @extend %e-position-absolute;
+  @extend %e-trans-core;
+  @extend %e-zidx-neg;
 }
 
 .banner__image--left {
@@ -58,7 +59,7 @@
 }
 
 .banner__image--center {
-  @extend %E-absolute-center-x;
+  @extend %e-absolute-center-x;
 }
 
 .banner__image--right {
@@ -68,13 +69,13 @@
 .banner__image img {
   min-height: 100%;
 
-  @extend %E-display-block;
+  @extend %e-display-block;
 }
 
 .banner__scroll {
   bottom: 1rem;
   display: none;
 
-  @extend %E-absolute-center-x;
-  @extend %E-display-block__sm;
+  @extend %e-absolute-center-x;
+  @extend %e-display-block__sm;
 }

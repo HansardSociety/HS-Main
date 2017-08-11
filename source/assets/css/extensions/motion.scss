@@ -7,21 +7,21 @@
 
 @each $transKey, $transVal in $transition {
 
-  %E-trans-#{ $transKey } {
+  %e-trans-#{ $transKey } {
     transition: $transVal;
   }
 
   @each $screen in map-keys($breakpoints) {
 
     @include above($screen) {
-      %E-trans-#{ $transKey }__#{ $screen } {
+      %e-trans-#{ $transKey }__#{ $screen } {
         transition: $transVal;
       }
     }
   }
 }
 
-%E-fix-webkit-blur {
+%e-fix-webkit-blur {
   -webkit-backface-visibility: hidden;
 }
 
@@ -39,7 +39,7 @@
     }
   }
 
-  %E-animate-#{ $animationKey } {
+  %e-animate-#{ $animationKey } {
     animation: $animationKey map-get($animationVal, easing)
   }
 }

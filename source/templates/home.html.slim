@@ -13,39 +13,39 @@ article
   / Latest
   .panel#banner-scroll-target
     .content.content--wide
-      h2.title-xl.E-align-cen.E-col-green Latest
+      h2.title-xl.e-align-cen.e-col-green Latest
       = partial 'partials/carousel',
         locals: { local_data: \
           { context: 'latest' }}
 
   / Research
-  .panel.E-bgc-light-grey
+  .panel.e-bgc-light-grey
     .content.content--wide
-      h2.title-xl.E-align-cen.E-col-green Our work
+      h2.title-xl.e-align-cen.e-col-green Our work
       = partial 'partials/carousel',
         locals: { local_data: \
           { context: 'category-latest',
             categories: [ 'research' ] }}
 
   / Newsletter
-  .panel.E-bgc-black
-    .content.content--mid.E-align-cen.E-col-white
+  .panel.e-bgc-black
+    .content.content--mid.e-align-cen.e-col-white
       = partial 'partials/signup-box',
         locals: { local_data: { copy_size: 'md'}}
 
   / Blog
   .panel
     .content.content--wide
-      h2.title-xl.E-align-cen.E-col-green Blog
+      h2.title-xl.e-align-cen.e-col-green Blog
       = partial 'partials/carousel',
         locals: { local_data: \
           { context: 'category-latest',
             categories: [ 'blog' ] }}
 
   / Events
-  .panel.E-bgc-light-grey
+  .panel.e-bgc-light-grey
     .content.content--wide
-      h2.title-xl.E-align-cen.E-col-green Events
+      h2.title-xl.e-align-cen.e-col-green Events
       = partial 'partials/carousel',
         locals: { local_data: \
           { context: 'category-latest',

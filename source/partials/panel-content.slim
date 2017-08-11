@@ -9,16 +9,16 @@
 //  Panel promoted
 ////////////////////////////////////////////////////////////
 
-.panel.section-md{
+.panel{
   id="panel-#{ @index }"
-  class="#{ 'E-bgc-light-grey' if @index.even? }"
+  class="#{ 'e-bgc-light-grey' if @index.even? }"
 }
   .content.content--wide
     .grid.grid--md
 
       / Panel title
       .grid__cell.grid__cell--above-sm-8.grid__cell--above-sm-offset-4
-        h3.title-md.E-col-green= @panel_data[:title]
+        h3.title-md.e-col-green= @panel_data[:title]
 
       / Image
       .grid__cell.grid__cell--above-sm-4

@@ -2,15 +2,15 @@
 //  =Opacity
 ////////////////////////////////////////////////////////////
 
-%E-opacity-0 { opacity: 0; }
-%E-opacity-1 { opacity: 1; }
+%e-opacity-0 { opacity: 0; }
+%e-opacity-1 { opacity: 1; }
 
 // Opacity breakpoints loop
 @each $screen in map-keys($breakpoints) {
   @include above('#{ $screen }') {
     @each $opacity in map-get($properties, opacity) {
 
-      %E-opacity-#{ $opacity }__#{ $screen } {
+      %e-opacity-#{ $opacity }__#{ $screen } {
         opacity: #{ $opacity };
       }
     }

@@ -1,23 +1,24 @@
 .content {
-  @extend %E-mgn-auto-x;
+  @extend %e-mgn-auto-x;
+  @extend %e-container;
 }
 
 .content--narrow {
-  @extend %E-container-narrow;
+  @extend %e-container--narrow;
 }
 
 .content--mid {
-  @extend %E-container-mid;
+  @extend %e-container--mid;
 }
 
 .content--wide {
-  @extend %E-container-wide;
+  @extend %e-container--wide;
 }
 
 .content--paper {
-  @extend %E-bgc-white;
-  @extend %E-box-shad-raised;
-  @extend %E-overflow-hidden;
+  @extend %e-bgc-white;
+  @extend %e-box-shad-raised;
+  @extend %e-overflow-hidden;
   @include above(sm) {
     border-top-left-radius: map-get($radii, slight);
     border-top-right-radius: map-get($radii, slight);
@@ -26,11 +27,11 @@
 
 .content__header,
 .content__section {
-  @extend %E-pad-x-md;
+  @extend %e-pad-x-md;
 }
 
 .content__header {
-  @extend %E-position-relative;
+  @extend %e-position-relative;
 
   &::before {
     left: -1rem;
@@ -38,7 +39,7 @@
     width: calc(100% + 2rem);
     height: calc(100% + 1rem);
 
-    @extend %E-bgc-light-grey;
-    @extend %E-pseudo-elem;
+    @extend %e-bgc-light-grey;
+    @extend %e-pseudo-elem;
   }
 }

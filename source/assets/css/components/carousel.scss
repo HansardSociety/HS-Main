@@ -1,17 +1,17 @@
 .carousel,
 .carousel__inner {
-  @extend %E-width-full;
+  @extend %e-width-full;
 }
 
 .carousel {
-  @extend %E-mgn-t-sm;
+  @extend %e-mgn-t-sm;
 }
 
 .carousel__item {
   height: auto;
 
   & > * {
-    @extend %E-height-full;
+    @extend %e-height-full;
   }
 }
 
@@ -19,11 +19,11 @@
   width: 6.75rem;
 
   justify-content: space-between;
-  @extend %E-col-green;
-  @extend %E-flex-row;
-  @extend %E-mgn-auto-x;
-  @extend %E-mgn-t-sm;
-  @extend %E-position-relative;
+  @extend %e-col-green;
+  @extend %e-flex-row;
+  @extend %e-mgn-auto-x;
+  @extend %e-mgn-t-sm;
+  @extend %e-position-relative;
 
   &::before {
     left: calc(50% - 1px);
@@ -36,16 +36,16 @@
     opacity: .5;
     border-left: 1px solid Get($colors, primary, green);
 
-    @extend %E-absolute-center-xy;
+    @extend %e-absolute-center-xy;
   }
 }
 
 .carousel__prev,
 .carousel__next {
-  @extend %E-cursor-pointer;
-  @extend %E-flex-row-center;
-  @extend %E-fz-xs;
-  @extend %E-upper;
+  @extend %e-cursor-pointer;
+  @extend %e-flex-row-center;
+  @extend %e-fz-xs;
+  @extend %e-upper;
 
   &.swiper-button-disabled {
     opacity: .5;
@@ -53,9 +53,9 @@
 }
 
 .carousel__prev > span {
-  @extend %E-mgn-r-xs;
+  @extend %e-mgn-r-xs;
 }
 
 .carousel__next > span {
-  @extend %E-mgn-l-xs;
+  @extend %e-mgn-l-xs;
 }

@@ -42,12 +42,12 @@ article.side-card{
       .side-card__meta
 
         - if ([ 'research', 'resources' ].include? @side_card_data[:category]) || (@is_product || @is_registration)
-          span.label-xs.E-col-mid-grey= @side_card_data[:category]
+          span.label-xs.e-col-mid-grey= @side_card_data[:category]
 
         - if [ 'blog' ].include? @side_card_data[:category]
-          span.label-xs.E-col-mid-grey= @side_card_data[:category ]+ ' / ' + @side_card_data[:date_time][:date]
+          span.label-xs.e-col-mid-grey= @side_card_data[:category ]+ ' / ' + @side_card_data[:date_time][:date]
 
-      .side-card__title.E-mgn-t-xs
+      .side-card__title.e-mgn-t-xs
 
         / Not product
         - if !@is_product && !@is_registration
@@ -62,12 +62,12 @@ article.side-card{
         / Is product
         - if @is_product || @is_registration
           h1.title-sm.JS-truncate{
-            class="#{ @featured ? 'E-col-white' : 'E-col-green'}"
+            class="#{ @featured ? 'e-col-white' : 'e-col-green'}"
           }= @is_product ? @side_card_data[:title] : @side_card_data[:venue]
 
       / Is product or registration
       - if @is_product || @is_registration
-        .side-card__actions.E-mgn-t-xs
+        .side-card__actions.e-mgn-t-xs
 
           / Product
           - if @is_product

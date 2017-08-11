@@ -6,7 +6,7 @@
 //////////////////////////////
 
 @each $fontKey, $fontVal in map-get($type, primary) {
-  %E-ff-prim-#{ $fontKey } {
+  %e-ff-prim-#{ $fontKey } {
     font-family: map-get($fontVal, name);
     font-weight: map-get($fontVal, weight);
     font-style: map-get($fontVal, style)
@@ -17,8 +17,8 @@
 //////////////////////////////
 
 @each $sizeKey, $sizeVal in map-get($type, sizes) {
-  %E-fz-#{ $sizeKey },
-  .E-fz-#{ $sizeKey } {
+  %e-fz-#{ $sizeKey },
+  .e-fz-#{ $sizeKey } {
     font-size: $sizeVal;
   }
 }
@@ -26,12 +26,12 @@
 //  =Misc
 //////////////////////////////
 
-%E-upper { text-transform: uppercase; }
-%E-lower { text-transform: lowercase; }
+%e-upper { text-transform: uppercase; }
+%e-lower { text-transform: lowercase; }
 
-%E-align-cen,
-.E-align-cen { text-align: center; }
+%e-align-cen,
+.e-align-cen { text-align: center; }
 
-.E-txt-shad-slight {
+.e-txt-shad-slight {
   text-shadow: Get($shadow, text, raised);
 }

@@ -1,28 +1,28 @@
 .staff-card__header,
 .staff-card__content {
-  @extend %E-align-cen;
+  @extend %e-align-cen;
 }
 
 .staff-card {
   width: calc(100% - 3px); // allow vertical box shadow
 
-  @extend %E-bgc-white;
-  @extend %E-box-shad-raised;
-  @extend %E-acc-green-top;
-  @extend %E-mgn-auto-x;
-  @extend %E-overflow-hidden;
-  @extend %E-rad-slight;
+  @extend %e-bgc-white;
+  @extend %e-box-shad-raised;
+  @extend %e-acc-green-top;
+  @extend %e-mgn-auto-x;
+  @extend %e-overflow-hidden;
+  @extend %e-rad-slight;
 }
 
 .staff-card__header {
   border-bottom: 1px solid Get($colors, greyscale, light-grey);
 
-  @extend %E-pad-sm;
+  @extend %e-pad-sm;
 
   & > img {
     width: 6rem;
 
-    @extend %E-rad-circ;
+    @extend %e-rad-circ;
   }
 }
 
@@ -32,17 +32,17 @@
 
 .staff-card__name,
 .staff-card__role {
-  @extend %E-display-block;
+  @extend %e-display-block;
 }
 
 .staff-card__name {
-  @extend %E-col-green;
-  @extend %E-fz-md;
+  @extend %e-col-green;
+  @extend %e-fz-md;
 }
 
 .staff-card__role {
-  @extend %E-col-grey;
-  @extend %E-fz-sm;
+  @extend %e-col-grey;
+  @extend %e-fz-sm;
 }
 
 .staff-card__link {

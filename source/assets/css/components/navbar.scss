@@ -1,6 +1,6 @@
 .navbar,
 .navbar__inner {
-  @extend %E-trans-core;
+  @extend %e-trans-core;
 }
 
 .navbar {
@@ -9,8 +9,8 @@
 
   height: 3.5rem;
 
-  @extend %E-position-fixed;
-  @extend %E-width-full-vw;
+  @extend %e-position-fixed;
+  @extend %e-width-full-vw;
   @include above('md') {
     height: 8rem;
   }
@@ -20,11 +20,12 @@
   z-index: 1;
 
   justify-content: space-between;
-  @extend %E-container-wide;
-  @extend %E-flex-row-center;
-  @extend %E-height-full;
-  @extend %E-mgn-auto-x;
-  @extend %E-pad-y-xs;
+  @extend %e-container;
+  @extend %e-container--wide;
+  @extend %e-flex-row-center;
+  @extend %e-height-full;
+  @extend %e-mgn-auto-x;
+  @extend %e-pad-y-xs;
   @include above('xs') {
     padding: 0 1rem;
   }
@@ -39,16 +40,16 @@
 
     background-color: rgba(Get($colors, primary, green), 0);
 
-    @extend %E-pseudo-elem;
-    @extend %E-width-full-vw;
-    @extend %E-trans-core;
+    @extend %e-pseudo-elem;
+    @extend %e-width-full-vw;
+    @extend %e-trans-core;
   }
 }
 
 .navbar__left,
 .navbar__center,
 .navbar__right {
-  @extend %E-display-flex;
+  @extend %e-display-flex;
 }
 
 .navbar__center,
@@ -58,30 +59,30 @@
 
 .navbar__left {
   @include above('md') {
-    @extend %E-display-none__md;
+    @extend %e-display-none__md;
   }
 }
 
 .navbar__center {
-  @extend %E-overflow-hidden;
+  @extend %e-overflow-hidden;
 }
 
 .navbar__list,
 .navbar__item {
-  @extend %E-display-none;
+  @extend %e-display-none;
 }
 
 .navbar__list {
   @include above('md') {
     align-items: center;
-    @extend %E-display-flex__md;
+    @extend %e-display-flex__md;
   }
 }
 
 .navbar__item {
-  @extend %E-pad-r-sm;
+  @extend %e-pad-r-sm;
   @include above('md') {
-    @extend %E-display-inline-block__md;
+    @extend %e-display-inline-block__md;
   }
 }
 
@@ -93,7 +94,7 @@
 // ****************************
 
 .navbar.JS-active {
-  @extend %E-col-white;
+  @extend %e-col-white;
   @include above('md') {
     height: 3.5rem;
 
@@ -114,8 +115,8 @@
     &::before {
       height: 3.5rem;
 
-      @extend %E-bgc-green;
-      @extend %E-box-shad-raised;
+      @extend %e-bgc-green;
+      @extend %e-box-shad-raised;
     }
   }
 }

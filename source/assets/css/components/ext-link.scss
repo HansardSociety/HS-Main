@@ -1,29 +1,29 @@
 .ext-link {
-  @extend %E-mgn-b-sm;
-  @extend %E-position-relative;
+  @extend %e-mgn-b-sm;
+  @extend %e-position-relative;
 }
 
 .ext-link__inner {
-  @extend %E-flex-row;
+  @extend %e-flex-row;
 }
 
 .ext-link__icon {
   width: 2rem;
   height: 2rem;
 
-  @extend %E-bgc-light-grey;
-  @extend %E-col-green;
-  @extend %E-display-block;
-  @extend %E-pad-xs;
-  @extend %E-position-absolute;
-  @extend %E-rad-circ;
+  @extend %e-bgc-light-grey;
+  @extend %e-col-green;
+  @extend %e-display-block;
+  @extend %e-pad-xs;
+  @extend %e-position-absolute;
+  @extend %e-rad-circ;
 
   & > svg {
-    @extend %E-absolute-center-xy;
+    @extend %e-absolute-center-xy;
   }
 }
 
 .ext-link__text {
-  @extend %E-mgn-l-lg;
-  @extend %E-width-full;
+  @extend %e-mgn-l-lg;
+  @extend %e-width-full;
 }

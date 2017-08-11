@@ -19,30 +19,30 @@
   .title-#{ $sizeKey },
   .strap-#{ $sizeKey },
   .label-#{ $sizeKey } {
-    @extend %E-fz-#{ $sizeKey };
+    @extend %e-fz-#{ $sizeKey };
   }
 
   .title-#{ $sizeKey } {
-    @extend %E-ff-prim-heavy;
+    @extend %e-ff-prim-heavy;
   }
 
   .strap-#{ $sizeKey },
   .label-#{ $sizeKey },
   .cross-head-#{ $sizeKey } {
-    @extend %E-ff-prim-medium;
+    @extend %e-ff-prim-medium;
   }
 
   .strap-#{ $sizeKey },
   .label-#{ $sizeKey } {
-    @extend %E-col-current;
+    @extend %e-col-current;
   }
 
   .label-#{ $sizeKey } {
-    @extend %E-upper;
+    @extend %e-upper;
   }
 
   .cross-head-#{ $sizeKey } {
-    @extend %E-col-mid-grey;
+    @extend %e-col-mid-grey;
     @extend .label-#{ $sizeKey };
   }
 }
@@ -50,11 +50,11 @@
 // Side title
 .side-title {
   @extend .title-sm;
-  @extend %E-col-green;
-  @extend %E-mgn-b-xs;
+  @extend %e-col-green;
+  @extend %e-mgn-b-xs;
 
   &:not(:first-child) {
-    @extend %E-mgn-t-sm;
+    @extend %e-mgn-t-sm;
   }
 }
 
@@ -66,7 +66,7 @@
   word-break: break-word;
   hyphens: auto;
 
-  @extend %E-trans-core;
+  @extend %e-trans-core;
 
   &:hover {
     border-bottom: 2px solid Get($colors, secondary, current);
@@ -76,16 +76,16 @@
 .link {
   border-bottom: 2px solid rgba(Get($colors, primary, green), .15);
 
-  @extend %E-col-green;
+  @extend %e-col-green;
 }
 
 .link-white {
   border-bottom: 2px solid rgba(Get($colors, greyscale, white), .15);
 
-  @extend %E-col-white;
+  @extend %e-col-white;
 }
 
 // Misc
 strong {
-  @extend %E-ff-prim-medium;
+  @extend %e-ff-prim-medium;
 }

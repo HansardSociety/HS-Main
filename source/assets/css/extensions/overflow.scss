@@ -4,7 +4,7 @@
 
 @each $overflow in map-get($properties, overflow) {
 
-  %E-overflow-#{ $overflow }   { overflow: $overflow };
-  %E-overflow-y-#{ $overflow } { overflow-y: $overflow };
-  %E-overflow-x-#{ $overflow } { overflow-x: $overflow };
+  %e-overflow-#{ $overflow }   { overflow: $overflow };
+  %e-overflow-y-#{ $overflow } { overflow-y: $overflow };
+  %e-overflow-x-#{ $overflow } { overflow-x: $overflow };
 }

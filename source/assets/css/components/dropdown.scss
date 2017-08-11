@@ -1,6 +1,6 @@
 .dropdown,
 .dropdown__title {
-  @extend %E-position-relative;
+  @extend %e-position-relative;
 }
 
 .dropdown__title--inline {
@@ -10,15 +10,15 @@
 .dropdown__control {
   right: 0;
 
-  @extend %E-cursor-pointer;
-  @extend %E-absolute-center-y;
+  @extend %e-cursor-pointer;
+  @extend %e-absolute-center-y;
 }
 
 .dropdown__content {
   height: 0;
   width: 0;
 
-  @extend %E-overflow-hidden;
+  @extend %e-overflow-hidden;
 }
 
 ////////////////////////////////////////////////////////////
@@ -30,5 +30,5 @@
   height: inherit;
   width: inherit;
 
-  @extend %E-overflow-auto;
+  @extend %e-overflow-auto;
 }

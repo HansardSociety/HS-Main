@@ -37,7 +37,7 @@ $padding-small: 1em;
     LOCAL VARIABLES
 \*------------------------------------*/
 
-$_basE-pad: 1.5em 0;
+$_base-pad: 1.5em 0;
 
 $_base-z-index: 1040;
 
@@ -98,6 +98,6 @@ body.snip-open {
     // Responsive
     @media #{$mq-large} {
         font-size: fontsize(reset, large);
-        padding: $_basE-pad;
+        padding: $_base-pad;
     }
 }

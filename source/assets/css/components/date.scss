@@ -1,12 +1,12 @@
 .date {
-  @extend %E-pad-sm;
-  @extend %E-align-cen;
-  @extend %E-width-full;
+  @extend %e-pad-sm;
+  @extend %e-align-cen;
+  @extend %e-width-full;
 }
 
 .date__day,
 .date__tmy {
-  @extend %E-display-block;
+  @extend %e-display-block;
 }
 
 .date__d {
@@ -17,5 +17,5 @@
 .date__tmy {
   font-size: .75rem;
 
-  @extend %E-upper;
+  @extend %e-upper;
 }

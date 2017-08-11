@@ -2,9 +2,9 @@
 //  =Pseudo element
 ////////////////////////////////////////////////////////////
 
-%E-pseudo-elem {
+%e-pseudo-elem {
   content: '';
 
-  @extend %E-display-block;
-  @extend %E-position-absolute-0;
+  @extend %e-display-block;
+  @extend %e-position-absolute-0;
 }

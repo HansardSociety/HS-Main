@@ -1,32 +1,32 @@
 .profile {
-  @extend %E-bgc-black;
-  @extend %E-flex-row-center;
-  @extend %E-pad-sm;
-  @extend %E-rad-slight;
+  @extend %e-bgc-black;
+  @extend %e-flex-row-center;
+  @extend %e-pad-sm;
+  @extend %e-rad-slight;
 
   &:nth-child(1n + 2) {
-    @extend %E-mgn-t-xs;
+    @extend %e-mgn-t-xs;
   }
 }
 
 .profile__image {
   height: 4rem;
 
-  @extend %E-overflow-hidden;
-  @extend %E-rad-circ;
+  @extend %e-overflow-hidden;
+  @extend %e-rad-circ;
 
   & > img {
-    @extend %E-height-full;
+    @extend %e-height-full;
   }
 }
 
 .profile__main {
   flex: 1;
 
-  @extend %E-pad-l-sm;
+  @extend %e-pad-l-sm;
 }
 
 .profile__actions {
-  @extend %E-mgn-t-sm;
-  @extend %E-width-full;
+  @extend %e-mgn-t-sm;
+  @extend %e-width-full;
 }

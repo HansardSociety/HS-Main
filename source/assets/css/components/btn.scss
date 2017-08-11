@@ -7,21 +7,21 @@
 
 .btn__icon,
 .btn__label {
-  @extend %E-display-block;
+  @extend %e-display-block;
 }
 
 //  =Main
 //////////////////////////////
 
 .btn {
-  @extend %E-cursor-pointer;
-  @extend %E-flex-inline-row-center;
-  @extend %E-ff-prim-medium;
-  @extend %E-overflow-hidden;
-  @extend %E-position-relative;
-  @extend %E-rad-slight;
-  @extend %E-align-cen;
-  @extend %E-trans-core;
+  @extend %e-cursor-pointer;
+  @extend %e-flex-inline-row-center;
+  @extend %e-ff-prim-medium;
+  @extend %e-overflow-hidden;
+  @extend %e-position-relative;
+  @extend %e-rad-slight;
+  @extend %e-align-cen;
+  @extend %e-trans-core;
 }
 
 @each $sizeKey, $sizeVal in map-get($btn, size) {
@@ -33,50 +33,50 @@
 }
 
 .btn--fill {
-  @extend %E-width-full;
+  @extend %e-width-full;
 }
 
 .btn--primary {
-  @extend %E-bgc-orange;
-  @extend %E-col-white;
+  @extend %e-bgc-orange;
+  @extend %e-col-white;
 
   &:active,
   &:hover {
-    @extend %E-bgc-dark-orange;
+    @extend %e-bgc-dark-orange;
   }
 }
 
 .btn--secondary {
   border: 2px solid Get($colors, primary, orange);
 
-  @extend %E-col-orange;
+  @extend %e-col-orange;
 
   &:active,
   &:hover {
-    @extend %E-bgc-orange;
-    @extend %E-col-white;
+    @extend %e-bgc-orange;
+    @extend %e-col-white;
   }
 }
 
 .btn__content {
-  @extend %E-flex-row-center;
-  @extend %E-height-full;
-  @extend %E-width-full;
+  @extend %e-flex-row-center;
+  @extend %e-height-full;
+  @extend %e-width-full;
 }
 
 .btn__text {
-  @extend %E-mgn-r-xs;
+  @extend %e-mgn-r-xs;
 }
 
 .btn__icon {
-  @extend %E-mgn-auto-x;
+  @extend %e-mgn-auto-x;
 }
 
 .btn__label {
   font-size: .625rem;
 
-  @extend %E-mgn-auto-x;
-  @extend %E-upper;
+  @extend %e-mgn-auto-x;
+  @extend %e-upper;
 }
 
 @each $widthKey, $widthVal in map-get($btn, text-width) {
@@ -92,10 +92,10 @@
   &::after {
     text-align: center;
 
-    @extend %E-display-block;
-    @extend %E-position-relative;
-    @extend  %E-trans-transform;
-    @extend %E-width-full;
+    @extend %e-display-block;
+    @extend %e-position-relative;
+    @extend  %e-trans-transform;
+    @extend %e-width-full;
   }
 
   &::before {
@@ -109,7 +109,7 @@
     content: attr(data-off-text);
     transform: translateY(200%);
 
-    @extend %E-position-absolute;
+    @extend %e-position-absolute;
   }
 }
 
@@ -124,9 +124,9 @@
   width: 1.5rem;
   height: 2px;
 
-  @extend %E-bgc-white;
-  @extend %E-position-absolute;
-  @extend %E-trans-core;
+  @extend %e-bgc-white;
+  @extend %e-position-absolute;
+  @extend %e-trans-core;
 }
 
 .btn__menu {

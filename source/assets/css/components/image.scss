@@ -1,16 +1,16 @@
 .image {
-  @extend %E-flex-row-start;
-  @extend %E-overflow-hidden;
-  @extend %E-width-full;
+  @extend %e-flex-row-start;
+  @extend %e-overflow-hidden;
+  @extend %e-width-full;
 }
 
 .image--feature {
-  @extend %E-box-shad-raised;
+  @extend %e-box-shad-raised;
 }
 
 .image__img {
   order: 2;
-  @extend %E-width-full;
+  @extend %e-width-full;
 }
 
 .image__caption {
@@ -18,5 +18,5 @@
   margin: 0 -1rem 1rem;
 
   order: 1;
-  @extend %E-pad-xs;
+  @extend %e-pad-xs;
 }

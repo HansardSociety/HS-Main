@@ -20,9 +20,9 @@
     }
 
   .profile__main
-    h1.title-sm.E-col-white= @full_name
-    p.strap-xs.E-col-white= @role + (@organisation ? ',' : '')
-    p.strap-xs.E-col-white= @organisation
+    h1.title-sm.e-col-white= @full_name
+    p.strap-xs.e-col-white= @role + (@organisation ? ',' : '')
+    p.strap-xs.e-col-white= @organisation
 
   - if (@biog || @twitter || @linkedin) && @actions != false
     .profile__actions

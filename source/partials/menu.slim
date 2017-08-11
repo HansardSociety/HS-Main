@@ -10,7 +10,7 @@
 //  Menu
 ////////////////////////////////////////////////////////////
 
-.menu.E-col-white.JS-inactive{
+.menu.e-col-white.JS-inactive{
   class="menu--#{ @screen } "
   id= @id
 }
@@ -67,12 +67,12 @@
                 li.menu__category{
                   class="menu__category--#{ category.downcase }"
                 }
-                  h3.label-xs.E-col-mid-grey.E-mgn-t-xs= category if nav[:title] != category
+                  h3.label-xs.e-col-mid-grey.e-mgn-t-xs= category if nav[:title] != category
 
                   ul
                     - pages.each do |page|
                       li
-                        h4.title-sm.E-mgn-t-xs
+                        h4.title-sm.e-mgn-t-xs
                           a.menu__link{
                             href= "#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
                           }= page.title
@@ -86,16 +86,16 @@
         li.menu__column{
           class="menu__column--#{ category.parameterize }"
         }
-          h3.label-xs.E-col-mid-grey.E-mgn-t-xs= category
+          h3.label-xs.e-col-mid-grey.e-mgn-t-xs= category
 
           - pages.each do |page|
-            h4.title-sm.E-mgn-t-xs
+            h4.title-sm.e-mgn-t-xs
               a.menu__link{
                 href="#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
               }= page.title
 
         - if category == 'about'
-          li.menu__column.E-acc-orange-top
+          li.menu__column.e-acc-orange-top
             .section-sm
               = partial 'partials/signup-box',
                 locals: { local_data: { copy_size: 'sm'}}

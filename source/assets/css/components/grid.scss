@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////
 
 .grid {
-  @extend %E-flex-row;
+  @extend %e-flex-row;
 }
 
 .grid--center {
@@ -23,7 +23,7 @@
 .grid__cell {
   order: 1;
 
-  @extend %E-position-relative;
+  @extend %e-position-relative;
 }
 
 // Sizes
@@ -31,12 +31,12 @@
 
   // Core
   .grid--#{ $sizeKey } {
-    @extend %E-mgn-neg-l-#{ $sizeKey };
-    @extend %E-mgn-neg-t-#{ $sizeKey };
+    @extend %e-mgn-neg-l-#{ $sizeKey };
+    @extend %e-mgn-neg-t-#{ $sizeKey };
 
     & > .grid__cell {
-      @extend %E-mgn-t-#{ $sizeKey };
-      @extend %E-mgn-l-#{ $sizeKey };
+      @extend %e-mgn-t-#{ $sizeKey };
+      @extend %e-mgn-l-#{ $sizeKey };
     }
   }
 

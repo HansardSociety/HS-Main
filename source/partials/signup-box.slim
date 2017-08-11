@@ -1,7 +1,7 @@
 - @copy_size = local_data[:copy_size]
 
-h2.title-lg.E-mgn-b-sm Join our newsletter
-p.E-mgn-b-sm{ class="strap-#{ @copy_size }" }= siteData(:newsletter_text)
+h2.title-lg.e-mgn-b-sm Join our newsletter
+p.e-mgn-b-sm{ class="strap-#{ @copy_size }" }= siteData(:newsletter_text)
 = partial 'partials/btn',
   locals: { local_data: \
     { type: 'state', switch: true,

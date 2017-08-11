@@ -5,8 +5,8 @@
 html {
   line-height: Get($type, line-height);
 
-  @extend %E-ff-prim-book;
-  @extend %E-fz-base;
+  @extend %e-ff-prim-book;
+  @extend %e-fz-base;
 }
 
 body {
