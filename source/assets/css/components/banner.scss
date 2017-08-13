@@ -17,9 +17,9 @@
 
 .banner__inner {
   @extend %e-absolute-center-xy;
-  @extend %e-pad-sm;
   @extend %e-container;
   @extend %e-container--wide;
+  @extend %e-pad-x-sm;
 }
 
 .banner__inner--overlap {
