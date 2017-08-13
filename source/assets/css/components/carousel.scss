@@ -16,7 +16,7 @@
 }
 
 .carousel__actions {
-  width: 6.75rem;
+  width: 6.95rem;
 
   justify-content: space-between;
   @extend %e-col-green;
@@ -43,6 +43,7 @@
 .carousel__prev,
 .carousel__next {
   @extend %e-cursor-pointer;
+  @extend %e-ff-prim-medium;
   @extend %e-flex-row-center;
   @extend %e-fz-xs;
   @extend %e-upper;
@@ -53,9 +54,13 @@
 }
 
 .carousel__prev > span {
+  padding-left: .25rem;
+
   @extend %e-mgn-r-xs;
 }
 
 .carousel__next > span {
+  padding-right: .25rem;
+
   @extend %e-mgn-l-xs;
 }

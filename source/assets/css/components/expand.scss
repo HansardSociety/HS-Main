@@ -1,0 +1,11 @@
+.expand {
+  min-height: 0;
+  max-height: 0;
+
+  @extend %e-overflow-hidden;
+  transition: max-height .4s ease-in-out;
+}
+
+.expand.JS-active {
+  max-height: 200rem;
+}

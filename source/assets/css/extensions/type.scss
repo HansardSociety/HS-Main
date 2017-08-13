@@ -32,6 +32,9 @@
 %e-align-cen,
 .e-align-cen { text-align: center; }
 
+%e-align-left,
+.e-align-left { text-align: left; }
+
 .e-txt-shad-slight {
   text-shadow: Get($shadow, text, raised);
 }

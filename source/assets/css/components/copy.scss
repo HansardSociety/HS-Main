@@ -2,9 +2,7 @@
   @extend %e-position-relative;
 
   > p, > h1, > h2, > h3, > h4, > h5, > h6, > img, > iframe, ul {
-    &:not(:only-child) {
-      @extend %e-mgn-b-sm;
-    }
+    @extend %e-mgn-b-sm;
   }
 
   > p, > h1, > h2, > h3, > h4, > h5, > h6 {

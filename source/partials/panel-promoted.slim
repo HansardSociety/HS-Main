@@ -22,13 +22,13 @@
 
     / Header
     .panel__header
-     .panel__title
+      .panel__title
         - if @panel_data[:label]
           span.cross-head-sm= @panel_data[:label]
         h2.title-xl= @panel_data[:title]
-     .panel__intro
-      - if @panel_data.copy
-        = markdown(@panel_data[:copy], 'byline')
+      .panel__intro
+        - if @panel_data.copy
+          = markdown(@panel_data[:copy], 'byline')
 
     / Calls to action
     - if @panel_data[:calls_to_action]

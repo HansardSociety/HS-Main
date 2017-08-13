@@ -50,11 +50,10 @@ header.banner{
                   = partial 'partials/btn',
                     locals: { local_data: \
                       { type: 'state',
-                        size: 'lg',
-                        style: 'secondary',
+                        size: 'lg', style: 'secondary',
                         label_on: cta[:button_text], label_off: 'Close',
                         label_size: 'lg',
-                        page: 'no-scroll', exclusive: true,
+                        page: 'no-scroll', exclusive: true, switch: true,
                         aria_id: "activate-#{  cta.modal[:cta_id] }",
                         aria_target_id: cta.modal[:cta_id] }}
 

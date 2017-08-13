@@ -9,7 +9,6 @@
   max-height: 0;
 
   transition: max-height 200ms ease;
-
 }
 
 .accordian__header,
@@ -25,6 +24,10 @@
   right: .5rem;
 
   @extend %e-absolute-center-y;
+}
+
+.accordian__cta {
+  margin-top: .25rem;
 }
 
 ////////////////////////////////////////////////////////////

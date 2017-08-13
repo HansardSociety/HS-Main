@@ -5,32 +5,29 @@
   @extend %e-position-relative;
 }
 
+.panel--light-grey {
+  @extend %e-bgc-light-grey;
+}
+
 .panel--dark {
   @extend %e-bgc-dark-grey;
   @extend %e-col-white;
 }
 
-.panel__header,
 .panel__content {
   @extend %e-mgn-auto-x;
+
+  &:nth-child(1n + 2) {
+    @extend %e-mgn-t-md;
+  }
 }
 
-.panel__header--narrow,
 .panel__content--narrow {
   @extend %e-container--narrow;
 }
 
-.panel__header {
-  @extend %e-align-cen;
-}
-
-.panel__intro,
-.panel__actions {
+.panel__section {
   @extend %e-mgn-t-sm;
-}
-
-.panel__content {
-  @extend %e-mgn-t-md;
 }
 
 // Sections

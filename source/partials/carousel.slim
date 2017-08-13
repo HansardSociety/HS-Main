@@ -23,7 +23,7 @@
                   carousel: true }}
 
       / Related (tagging)
-      - relatedContent(@entry_data, ({ blogCount: @entry_data[:blog_count] } if @entry_data[:blog_count])) do |page|
+      - relatedContent(@entry_data, ({ blogCount: (@entry_data[:blog_count] ? @entry_data[:blog_count] : 4) })) do |page|
         .carousel__item.swiper-slide
           = partial 'partials/main-card',
             locals: { local_data: \

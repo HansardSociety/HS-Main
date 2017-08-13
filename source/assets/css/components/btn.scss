@@ -60,7 +60,6 @@
 
 .btn__content {
   @extend %e-flex-row-center;
-  @extend %e-height-full;
   @extend %e-width-full;
 }
 
@@ -68,14 +67,14 @@
   @extend %e-mgn-r-xs;
 }
 
-.btn__icon {
+.btn__icon,
+.btn__label {
   @extend %e-mgn-auto-x;
 }
 
 .btn__label {
   font-size: .625rem;
 
-  @extend %e-mgn-auto-x;
   @extend %e-upper;
 }
 
@@ -94,7 +93,7 @@
 
     @extend %e-display-block;
     @extend %e-position-relative;
-    @extend  %e-trans-transform;
+    @extend %e-trans-transform;
     @extend %e-width-full;
   }
 
@@ -107,7 +106,7 @@
     left: 0;
 
     content: attr(data-off-text);
-    transform: translateY(200%);
+    transform: translateY(5rem);
 
     @extend %e-position-absolute;
   }
@@ -166,6 +165,18 @@
       transform: rotate(-45deg);
     }
   }
+
+  .btn__label--change {
+
+    &::before {
+      transform: translateY(-5rem);
+    }
+
+    &::after {
+      transform: translateY(-100%);
+    }
+  }
+
 
   .btn__icon--rotate {
     transform: rotate(180deg);

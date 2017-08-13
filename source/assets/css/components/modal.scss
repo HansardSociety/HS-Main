@@ -3,9 +3,9 @@
   top: 0;
   left: -9999px;
 
-  @extend %e-rad-slight;
   @extend %e-height-full-vh;
   @extend %e-position-fixed;
+  @extend %e-rad-slight;
   @extend %e-width-full-vw;
 
   &::before {
@@ -65,6 +65,7 @@
   max-height: 100vh; // must use units for Edge scroll
   margin-top: 1.75rem;
 
+  @extend %e-align-left;
   @extend %e-overflow-y-auto;
   @extend %e-pad-sm;
   @extend %e-width-full;

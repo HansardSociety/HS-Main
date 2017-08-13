@@ -4,15 +4,14 @@
 .panel.panel--dark{
   id="panel-#{ @index }"
 }
-  .panel__header.panel__header--narrow
+  .panel__content.panel__content--narrow.e-align-cen
 
     / Header
-    .panel__header
-      .panel__title
-        - if @panel_data[:label]
-          span.cross-head-sm= @panel_data[:label]
-        h2.title-xl= @panel_data[:title]
-    .panel__intro
+    .panel__section
+      - if @panel_data[:label]
+        span.cross-head-sm= @panel_data[:label]
+      h2.title-xl= @panel_data[:title]
+    .panel__section
       - if @panel_data.copy
         = markdown(@panel_data[:copy], 'byline')
 

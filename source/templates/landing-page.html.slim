@@ -37,9 +37,9 @@ article
   - if @entry[:panels]
     - @entry[:panels].each_with_index do |panel, index|
 
-      / Promoted panel
-      - if panel[:TYPE] == 'panel_promoted'
-        = partial 'partials/panel-promoted',
+      / Content panel
+      - if panel[:TYPE] == 'panel_content'
+        = partial 'partials/panel-content',
           locals: { local_data: \
             { entry_data: panel,
               index: index }}
@@ -53,13 +53,6 @@ article
               locals: { local_data: \
                 { entry_data: panel[:carousel],
                   context: 'custom' }}
-
-      / Content panel
-      - if panel[:TYPE] == 'panel_content'
-        = partial 'partials/panel-content',
-          locals: { local_data: \
-            { entry_data: panel,
-              index: index }}
 
       / Accordian panel
       - if panel[:TYPE] == 'panel_accordians'
