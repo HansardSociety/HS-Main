@@ -35,8 +35,6 @@
 }
 
 .banner__strap {
-  width: 30rem;
-
   @extend .strap-md;
   @extend %e-max-width-full;
   @extend %e-mgn-t-sm;
