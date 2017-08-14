@@ -31,10 +31,12 @@
     @extend %e-mgn-neg-t-#{ $sizeKey };
 
     & > .grid__cell {
-      flex: 0 0 calc(100% - #{ $sizeVal });
-
       @extend %e-mgn-t-#{ $sizeKey };
       @extend %e-mgn-l-#{ $sizeKey };
+    }
+
+    & > .grid__cell--fill {
+      flex: 0 0 calc(100% - #{ $sizeVal });
     }
   }
 
