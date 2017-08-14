@@ -1,8 +1,8 @@
 header.banner{
   class="banner--#{
-    ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) ?
-    'full' : 'semi'
+    ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) ? 'full' : 'semi'
   }"
+  style="height: #{ ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) ? '100vh' : '66.6666vh' };"
 }
 
   / Content wrapper

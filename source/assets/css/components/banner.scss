@@ -4,7 +4,7 @@
 }
 
 .banner--full {
-  @extend %e-height-full-vh;
+  // temp height CSS inline - set by JS
   @extend %e-overflow-hidden;
   @include above(sm) {
     text-align: center;
@@ -12,7 +12,8 @@
 }
 
 .banner--semi {
-  height: 66.6666vh;
+  // temp height CSS inline - set by JS
+  // height: 66.6666vh;
 }
 
 .banner__inner {
