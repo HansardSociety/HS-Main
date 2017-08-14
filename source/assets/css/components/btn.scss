@@ -40,7 +40,6 @@
   @extend %e-bgc-orange;
   @extend %e-col-white;
 
-  &:active,
   &:hover {
     @extend %e-bgc-dark-orange;
   }
@@ -51,7 +50,6 @@
 
   @extend %e-col-orange;
 
-  &:active,
   &:hover {
     @extend %e-bgc-orange;
     @extend %e-col-white;

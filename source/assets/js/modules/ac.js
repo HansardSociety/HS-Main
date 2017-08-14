@@ -7,7 +7,6 @@
 
 const ActiveCampaign = () => {
   window.cfields = [];
-
   window._show_thank_you = function(id, message, trackcmp_url) {
     var form = document.getElementById('_form_' + id + '_'), thank_you = form.querySelector('._form-thank-you');
     form.querySelector('._form-content').style.display = 'none';
@@ -19,7 +18,6 @@ const ActiveCampaign = () => {
     }
     if (typeof window._form_callback !== 'undefined') window._form_callback(id);
   };
-
   window._show_error = function(id, message, html) {
     var form = document.getElementById('_form_' + id + '_'), err = document.createElement('div'), button = form.querySelector('button'), old_error = form.querySelector('._form_error');
     if (old_error) old_error.parentNode.removeChild(old_error);
@@ -37,7 +35,6 @@ const ActiveCampaign = () => {
       err.appendChild(div);
     }
   };
-
   window._load_script = function(url, callback) {
       var head = document.querySelector('head'), script = document.createElement('script'), r = false;
       script.type = 'text/javascript';
@@ -53,7 +50,6 @@ const ActiveCampaign = () => {
       }
       head.appendChild(script);
   };
-
   (function() {
     if (window.location.search.search("excludeform") !== -1) return false;
     var getCookie = function(name) {
@@ -294,6 +290,21 @@ const ActiveCampaign = () => {
     };
     addEvent(window, 'resize', resize_tooltips);
     addEvent(window, 'scroll', resize_tooltips);
+    window['recaptcha_callback'] = function() {
+    // Get all recaptchas in the DOM (there may be more than one form on the page).
+    var recaptchas = document.getElementsByClassName("g-recaptcha");
+    for (var i in recaptchas) {
+      // Set the recaptcha element ID, so the recaptcha can be applied to each element.
+      var recaptcha_id = "recaptcha_" + i;
+      recaptchas[i].id = recaptcha_id;
+      var el = document.getElementById(recaptcha_id);
+      if (el != null) {
+        var sitekey = el.getAttribute("data-sitekey");
+        var stoken = el.getAttribute("data-stoken");
+        grecaptcha.render(recaptcha_id, {"sitekey":sitekey,"stoken":stoken});
+      }
+    }
+  };  _load_script("//www.google.com/recaptcha/api.js?onload=recaptcha_callback&render=explicit");
     window._old_serialize = null;
     if (typeof serialize !== 'undefined') window._old_serialize = window.serialize;
     _load_script("//d3rxaij56vjege.cloudfront.net/form-serialize/0.3/serialize.min.js", function() {
