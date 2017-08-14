@@ -18,7 +18,7 @@
   .panel__content.panel__content--narrow
     .grid.grid--xs
       - @panel_data[:accordians].each do |accordian|
-        .grid__cell.grid__cell--fill.grid__cell--above-md-6
+        .grid__cell.grid__cell--fill.grid__cell--above-sm-6
           = partial 'partials/accordian',
             locals: { local_data: \
               { accordian_data: accordian }}

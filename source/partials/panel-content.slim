@@ -34,7 +34,7 @@
 
         / Copy
         - if @copy
-          .panel__section.e-align-cen{
+          .panel__section.copy.e-align-cen{
             class="#{ 'e-fz-lg' if @copy_size == 'extra-large' }"
             class="#{ 'e-fz-md' if @copy_size == 'large' }"
           } = markdown(@copy)
@@ -59,23 +59,22 @@
                   / Modal
                   - if cta.action == 'modal'
 
-                    / Modal window
-                    = partial 'partials/modal',
-                      locals: { local_data: \
-                      { id: cta[:modal].id,
-                        content: cta[:modal].content }}
-
                     / Modal button
                     = partial 'partials/btn',
                       locals: { local_data: \
                         { type: 'state',
-                          size: 'md',
-                          style: 'secondary',
+                          size: 'md', style: 'secondary',
                           label_on: cta[:button_text], label_off: 'Close',
                           label_size: 'md',
-                          page: 'no-scroll', exclusive: true,
-                          aria_id: "activate-#{ cta[:modal].id }",
-                          aria_target_id: cta[:modal].id }}
+                          page: 'no-scroll', exclusive: true, switch: true,
+                          aria_id: "activate-#{ cta[:modal][:cta_id] }",
+                          aria_target_id: cta[:modal][:cta_id] }}
+
+                    / Modal window
+                    = partial 'partials/modal',
+                      locals: { local_data: \
+                      { id: cta[:modal][:cta_id],
+                        content: cta[:modal].content }}
 
       / If panel contains image...
       - else
