@@ -7,17 +7,15 @@ article
     = partial 'partials/banner',
       locals: { entry: @entry }
 
-  #banner-scroll-target{ aria-hidden="true" }
-
   / Introduction
   - if @entry[:introduction]
-    .panel
+    .panel#introduction
       .content.content--mid.e-align-cen
         = markdown(@entry[:introduction], 'byline')
 
   / Latest (related)
   - if @entry[:latest_carousel] == true
-    .panel.e-bgc-light-grey
+    .panel.e-bgc-light-grey#latest
       .content.content--wide
         h2.title-lg.e-col-green.e-align-cen Latest
         = partial 'partials/carousel',

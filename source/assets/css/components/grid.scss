@@ -1,7 +1,3 @@
-///////////////////////////////////////////////////////////
-//  =Grid - Component
-////////////////////////////////////////////////////////////
-
 .grid {
   @extend %e-flex-row;
 }
@@ -35,6 +31,8 @@
     @extend %e-mgn-neg-t-#{ $sizeKey };
 
     & > .grid__cell {
+      flex: 0 0 calc(100% - #{ $sizeVal });
+
       @extend %e-mgn-t-#{ $sizeKey };
       @extend %e-mgn-l-#{ $sizeKey };
     }
@@ -46,12 +44,12 @@
 
     // Cell
     .grid__cell--#{ $n } {
-      flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal });
+      flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal }) !important; // need to override flex from descendant selector
     }
 
     // Offset
     .grid__cell--offset-#{ $n } {
-      margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal / 2 }) !important; // need to override margin from descendant selector
+      margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal / 2 }) !important; // See above
     }
 
     // Breakpoints
@@ -60,7 +58,7 @@
 
         // Cell
         .grid__cell--above-#{ $breakpoint }-#{ $n } {
-          flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal });
+          flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal }) !important; // see above
         }
 
         // Offset

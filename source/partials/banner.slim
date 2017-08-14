@@ -1,8 +1,10 @@
+- @isSpecialPage = [ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]
+
 header.banner{
   class="banner--#{
-    ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) ? 'full' : 'semi'
+    (@isSpecialPage) ? 'full' : 'semi'
   }"
-  style="height: #{ ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) ? '100vh' : '66.6666vh' };"
+  style="height: #{ (@isSpecialPage) ? '100vh' : '66.6666vh' };"
 }
 
   / Content wrapper
@@ -12,7 +14,7 @@ header.banner{
 
     / Content
     .banner__content {
-      class="#{ 'e-mgn-auto-x__sm' if ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) }"
+      class="#{ 'e-mgn-auto-x__sm' if (@isSpecialPage) }"
     }
 
       / Date (blog only)
@@ -21,12 +23,10 @@ header.banner{
 
       / Title
       h1{
-        class="#{ ([ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]) \
-                    ? 'title-xxl' \
-                    : 'title-xl' }"
+        class="#{ (@isSpecialPage) ? 'title-xxl' : 'title-xl' }"
       }= entry[:title]
 
-      - if [ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]
+      - if @isSpecialPage
         p.banner__strap= entry[:subtitle]
 
       / Actions
@@ -110,10 +110,9 @@ header.banner{
       }
 
   / Scroll down
-  - if [ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]
+  - if @isSpecialPage
     a.banner__scroll.e-col-orange{
-      href="#banner-scroll-target"
-      data-scroll
+      href="#introduction"
     }
       = partial 'partials/icon',
         locals: \
