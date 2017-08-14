@@ -11,6 +11,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.site_url = entry.site_url
     context.main_categories = entry.main_categories.map{ |cat| cat.parameterize.gsub("'", "") }
     context.newsletter_text = entry.newsletter_text
+    context.newsletter_embed = entry.newsletter_embed
 
     # Logo
     context.logo = {
@@ -207,8 +208,9 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           } if cta.file != nil),
           modal: ({
             cta_id: (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
-            content: cta.modal
-          } if cta.action == 'Modal')
+            content: cta.modal,
+            width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
+          }.compact if cta.action == 'Modal')
         }.compact end : nil),
 
         # Panel content and accordians
@@ -228,6 +230,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           url: panel.image.url,
           alt: panel.image.description
         }.compact if panel.content_type.id == 'panel_content' && panel.image),
+        panel_width: ((panel.panel_width ? panel.panel_width.parameterize : 'wide') if panel.content_type.id == 'panel_content'),
         share_buttons: (panel.share_buttons if panel.content_type.id == 'panel_content'),
 
         # Panel carousel cards

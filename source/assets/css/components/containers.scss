@@ -26,6 +26,14 @@
   @extend %e-container--narrow;
 }
 
+.panel__content--mid {
+  @extend %e-container--mid;
+}
+
+.panel__content--wide {
+  @extend %e-container--wide;
+}
+
 .panel__section {
   @extend %e-mgn-t-sm;
 }

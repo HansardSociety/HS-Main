@@ -41,7 +41,7 @@
 }
 
 .modal__inner--narrow {
-  width: 25rem;
+  width: 30rem;
 }
 
 .modal__header {
@@ -50,9 +50,7 @@
 
   height: 1.75rem;
 
-  border-bottom: 2px solid Get($colors, greyscale, light-grey);
-
-  @extend %e-bgc-white;
+  @extend %e-bgc-light-grey;
   @extend %e-position-absolute;
   @extend %e-width-full;
 }

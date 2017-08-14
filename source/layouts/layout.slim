@@ -21,9 +21,7 @@ html
           locals: { local_data: \
             { id: 'modal-monthly-newsletter-subscription',
               yield: true, size: 'narrow' }}
-          = partial 'partials/ac-form',
-            locals: { local_data: \
-              { style: 'plain' }}
+          = siteData(:newsletter_embed)
 
       / Footer
       = partial 'partials/footer'
