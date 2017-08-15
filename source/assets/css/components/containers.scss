@@ -22,16 +22,20 @@
   }
 }
 
-.panel__content--narrow {
-  @extend %e-container--narrow;
+.panel__content--sm {
+  @extend %e-container--sm;
 }
 
-.panel__content--mid {
-  @extend %e-container--mid;
+.panel__content--md {
+  @extend %e-container--md;
 }
 
-.panel__content--wide {
-  @extend %e-container--wide;
+.panel__content--lg {
+  @extend %e-container--lg;
+}
+
+.panel__content--xl {
+  @extend %e-container--xl;
 }
 
 .panel__section {

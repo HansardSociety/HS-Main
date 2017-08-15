@@ -11,7 +11,12 @@
 - @section_header = @panel_data[:section_header]
 - @show_more = @panel_data[:show_more]
 - @calls_to_action = @panel_data[:calls_to_action]
-- @panel_width = @panel_data[:panel_width]
+
+- @width = @panel_data[:panel_width]
+- @panel_width = 'sm' if @width = 'narrow'
+- @panel_width = 'md' if @width = 'medium'
+- @panel_width = 'lg' if @width = 'wide'
+- @panel_width = 'xl' if @width = 'full'
 
 - @index = local_data[:index]
 
