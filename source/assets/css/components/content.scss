@@ -4,15 +4,15 @@
 }
 
 .content--narrow {
-  @extend %e-container--sm;
+  @extend %e-container--narrow;
 }
 
 .content--mid {
-  @extend %e-container--md;
+  @extend %e-container--medium;
 }
 
 .content--wide {
-  @extend %e-container--xl;
+  @extend %e-container--full;
 }
 
 .content--paper {

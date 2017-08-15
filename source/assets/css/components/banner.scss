@@ -19,7 +19,7 @@
 .banner__inner {
   @extend %e-absolute-center-xy;
   @extend %e-container;
-  @extend %e-container--xl;
+  @extend %e-container--full;
   @extend %e-pad-x-sm;
 }
 
@@ -31,7 +31,7 @@
 
 .banner__content {
   @extend %e-col-white;
-  @extend %e-container--sm;
+  @extend %e-container--narrow;
   @extend %e-position-relative;
 }
 

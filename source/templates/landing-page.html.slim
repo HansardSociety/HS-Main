@@ -15,7 +15,7 @@ article
 
   / Latest (related)
   - if @entry[:latest_carousel] == true
-    .panel.e-bgc-light-grey#latest
+    .panel.panel--light-grey#latest
       .content.content--wide
         h2.title-lg.e-col-green.e-align-cen Latest
         = partial 'partials/carousel',
@@ -37,8 +37,8 @@ article
 
       / Carousel panel
       - if panel[:TYPE] == 'panel_carousel'
-        .panel.e-bgc-light-grey
-          .content.content--wide
+        .panel.panel--light-grey
+          .panel__content.panel__content--full
             h2.title-xl.e-col-green.e-align-cen= panel[:title]
             = partial 'partials/carousel',
               locals: { local_data: \

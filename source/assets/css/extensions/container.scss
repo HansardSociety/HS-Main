@@ -1,8 +1,8 @@
 %e-container,
-%e-container--sm,
-%e-container--md,
-%e-container--lg,
-%e-container--xl {
+%e-container--narrow,
+%e-container--medium,
+%e-container--wide,
+%e-container--full {
   @extend %e-width-full;
 }
 
@@ -14,7 +14,7 @@
   }
 }
 
-%e-container--sm { max-width: 35rem; }
-%e-container--md { max-width: 45rem; }
-%e-container--lg { max-width: 52rem; }
-%e-container--xl { max-width: 65rem; }
+%e-container--narrow { max-width: 35rem; }
+%e-container--medium { max-width: 45rem; }
+%e-container--wide { max-width: 52rem; }
+%e-container--full { max-width: 65rem; }

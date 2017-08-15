@@ -62,7 +62,7 @@ module CustomHelpers
 
   # Related content/ tagging by category
   def relatedContent(entryData, opts = {})
-    defaults = { blogCount: 5 }
+    defaults = { blogCount: 3 }
     opts = defaults.merge(opts)
 
     # Control number of blog posts
