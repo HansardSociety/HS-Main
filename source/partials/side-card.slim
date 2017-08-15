@@ -5,7 +5,7 @@
 - @is_registration = @sideCardData.key? 'embed_code'
 
 - @category = @sideCardData[:category]
-- @date = @sideCardData[:date_time][:date]
+- @date = @sideCardData[:date_time][:date] if @sideCardData[:date_time]
 - @bannerImage = @sideCardData[:banner_image]
 - @bannerImageURL = @bannerImage[:url] if @bannerImage
 - @bannerImageAlt = @bannerImage[:alt] if @bannerImage
