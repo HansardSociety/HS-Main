@@ -44,4 +44,144 @@
   picture {
     width: 100%;
   }
+
+/* Lists
+  ========================================================================== */
+
+  /* Core */
+
+  > ul,
+  > ol {
+    display: table;
+    padding-left: 0;
+
+    > li {
+      display: table;
+
+      &::before {
+        display: table-cell;
+        padding-right: 1rem;
+        font-weight: bold;
+        color: brand;
+      }
+    }
+  }
+
+  li {
+    @extend %e-pad-t-xs;
+  }
+
+  /* Unordered */
+  > ul {
+    counter-reset: root-ul-counter;
+
+    > li {
+      &::before{
+        content: counter( root-ul-counter, disc );
+        counter-increment: root-ul-counter;
+      }
+
+      > ul {
+        counter-reset: level-one-ul-counter;
+
+        > li {
+          &::before {
+            content: counter( level-one-ul-counter, square );
+            counter-increment: level-one-ul-counter;
+          }
+
+          > ul {
+            counter-reset: level-two-ul-counter;
+
+            > li {
+              &::before {
+                content: counter( level-two-ul-counter, circle );
+                counter-increment: level-two-ul-counter;
+              }
+            }
+          }
+        }
+      }
+
+      > ol{
+        counter-reset: level-one-ol-counter;
+
+        > li {
+          &::before {
+            content: counter( level-one-ol-counter, decimal ) ".";
+            counter-increment: level-one-ol-counter;
+          }
+
+          > ol {
+            counter-reset: level-two-ol-counter;
+
+            > li {
+              &::before {
+                content: counter( level-two-ol-counter, lower-roman ) ".";
+                counter-increment: level-two-ol-counter;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Ordered */
+  > ol {
+    counter-reset: root-ul-counter;
+
+    > li {
+      &::before {
+        content: counter( root-ul-counter, decimal ) ".";
+        counter-increment: root-ul-counter;
+      }
+
+      > ol {
+        counter-reset: level-one-ul-counter;
+
+        > li {
+          &::before {
+            content: counter( level-one-ul-counter, lower-roman ) ".";
+            counter-increment: level-one-ul-counter;
+          }
+
+          > ol {
+            counter-reset: level-two-ul-counter;
+
+            > li {
+              &::before {
+                content: counter( level-two-ul-counter, lower-latin ) ".";
+                counter-increment: level-two-ul-counter;
+              }
+            }
+          }
+        }
+      }
+
+      > ol {
+        counter-reset: level-one-ol-counter;
+
+        > li {
+          &::before {
+            content: counter( level-one-ol-counter, decimal );
+            counter-increment: level-one-ol-counter;
+          }
+
+          > ol {
+            counter-reset: level-two-ol-counter;
+
+            > li {
+              &::before {
+                content: counter( level-two-ol-counter, lower-roman );
+                counter-increment: level-two-ol-counter;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
+
+

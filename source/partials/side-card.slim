@@ -15,8 +15,8 @@
 - @featuredData = @sideCardData[:featured]
 
 / Registration date - provide page date fallback in case registration not provided
-- @registrationDate = @featuredData && @featuredData[0][:registration] ? @featuredData[0][:registration][:date_time][:date] : @date
-- @registrationCategory = @featuredData && @featuredData[0][:registration] ? @featuredData[0][:registration][:category] : @sideCardData[:category]
+- @registrationDate = registrationData(@featuredData, { type: 'date' })
+- @registrationCategory = registrationData(@featuredData, { type: 'category' })
 
 article.side-card{
   class="side-card--#{ @category }"

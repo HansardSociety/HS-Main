@@ -21,8 +21,18 @@ module CustomHelpers
   end
 
   # Registration data and fallback
-  def registrationData(type)
+  def registrationData(data, opts = {})
+    defaults = {
+      type: "date",
+      dateType: "date"
+    }
+    opts = defaults.merge(opts)
 
+    if opts[:type] == 'date'
+      data && data[0][:registration] ? data[0][:registration][:date_time][:"#{ opts[:dateType] }"] : @date
+    elsif opts[:type] == 'category'
+      data && data[0][:registration] ? data[0][:registration][:category] : @sideCardData[:category]
+    end
   end
 
   # Latest content
@@ -88,15 +98,8 @@ module CustomHelpers
       # Registration pages
       @registrationPages = @pagesTagged.select{ |page|
         @pageTypes = [ 'events' ].include? page[:category]
-
-        # Check if event page has been provided a registration entry
-        @hasRegistration = page[:featured][0][:registration][:date_time][:integer] if page[:featured] && page[:featured][0][:registration]
-
-        # Provide page date as fallback in case above isn't met
-        @fallbackDate = page[:date_time][:integer]
-
         @timeNow = Time.now.strftime('%s').to_i
-        @isInPast = @hasRegistration ? @hasRegistration >= @timeNow : @fallbackDate >= @timeNow
+        @isInPast = registrationData(page[:featured], { type: 'date', dateType: 'integer' }).to_i >= @timeNow
 
         @pageTypes && @isInPast
       }[0..2]
