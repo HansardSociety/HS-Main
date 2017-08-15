@@ -16,7 +16,7 @@
 }
 
 .carousel__actions {
-  width: 6.95rem;
+  width: 7.25rem;
 
   justify-content: space-between;
   @extend %e-col-green;
@@ -46,7 +46,12 @@
   @extend %e-ff-prim-medium;
   @extend %e-flex-row-center;
   @extend %e-fz-xs;
+  @extend %e-trans-core;
   @extend %e-upper;
+
+  &:hover:not(.swiper-button-disabled) {
+    @extend %e-col-orange;
+  }
 
   &.swiper-button-disabled {
     opacity: .5;

@@ -1,51 +1,61 @@
-////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
+- @sideCardData = local_data[:side_card_data]
+- @featured = local_data[:featured]
 
-- @side_card_data   = local_data[:side_card_data]
-- @featured         = local_data[:featured]
-- @is_product       = @side_card_data.key? 'price'
-- @is_registration  = @side_card_data.key? 'embed_code'
+- @is_product = @sideCardData.key? 'price'
+- @is_registration = @sideCardData.key? 'embed_code'
 
-////////////////////////////////////////////////////////////
-//  Side card
-////////////////////////////////////////////////////////////
+- @category = @sideCardData[:category]
+- @date = @sideCardData[:date_time][:date]
+- @bannerImage = @sideCardData[:banner_image]
+- @bannerImageURL = @bannerImage[:url] if @bannerImage
+- @bannerImageAlt = @bannerImage[:alt] if @bannerImage
+- @bannerImageFocus = @bannerImage[:focus] if @bannerImage
+- @image = @sideCardData[:image]
+- @imageURL = @image[:url] if @image
+- @featuredData = @sideCardData[:featured]
+
+/ Registration date - provide page date fallback in case registration not provided
+- @registrationDate = @featuredData && @featuredData[0][:registration] ? @featuredData[0][:registration][:date_time][:date] : @date
+- @registrationCategory = @featuredData && @featuredData[0][:registration] ? @featuredData[0][:registration][:category] : @sideCardData[:category]
 
 article.side-card{
-  class="side-card--#{ @side_card_data[:category] }"
+  class="side-card--#{ @category }"
   class="#{ 'side-card--featured' if @featured }"
 }
   .side-card__inner
     .side-card__image{
-      class="#{ @side_card_data[:image] || @side_card_data[:banner_image] ? 'side-card__image--overlay' : 'side-card__image--' + @entry[:category] }"
+      class="#{ @image || @bannerImage ? 'side-card__image--overlay' : 'side-card__image--' + @entry[:category] }"
     }
 
       / If banner image
-      - if @side_card_data[:banner_image]
+      - if @bannerImage
         img{
-          src="#{ @side_card_data[:banner_image][:url] }?fit=fill&w=229&h=324&f=#{ @side_card_data[:banner_image][:focus] }"
-          alt="#{ @side_card_data[:banner_image][:alt] }"
+          src="#{ @bannerImageURL }?fit=fill&w=229&h=324&f=#{ @bannerImageFocus }"
+          alt="#{ @bannerImageAlt }"
         }
 
       / If standard image (eg. product)
-      - if @side_card_data[:image]
+      - if @image
         img{
-          src="#{ @side_card_data[:image][:url] }?fit=fill&w=229&h=324&f=center"
+          src="#{ @imageURL }?fit=fill&w=229&h=324&f=center"
         }
 
       - if @is_registration
         = partial 'partials/date',
           locals: { local_data: \
-            { date_data: @side_card_data[:date_time] }}
+            { date_data: @sideCardData[:date_time] }}
 
     .side-card__content
       .side-card__meta
 
-        - if ([ 'research', 'resources' ].include? @side_card_data[:category]) || (@is_product || @is_registration)
-          span.label-xs.e-col-mid-grey= @side_card_data[:category]
+        - if ([ 'research', 'resources' ].include? @category) || (@is_product || @is_registration)
+          span.label-xs.e-col-mid-grey= @category
 
-        - if [ 'blog' ].include? @side_card_data[:category]
-          span.label-xs.e-col-mid-grey= @side_card_data[:category ]+ ' / ' + @side_card_data[:date_time][:date]
+        - if @category == 'blog'
+          span.label-xs.e-col-mid-grey= @category + ' / ' + @date
+
+        - if @category == 'events'
+          span.label-xs.e-col-mid-grey= @registrationCategory + ' / ' + @registrationDate
 
       .side-card__title
 
@@ -55,39 +65,41 @@ article.side-card{
             class="#{ @is_product ? 'title-xs' : 'title-sm' }"
           }
             a.JS-truncate{
-              href="#{ config[:SITE_URL] + '/' + @side_card_data[:category] + '/' + @side_card_data[:slug] + (config[:ENV] == 'development' ? '.html' : '') }"
+              href="#{ internalURL(@sideCardData[:slug], @category) }"
               class="#{ @featured ? 'link-white' : 'link' }"
-            }= @side_card_data[:title]
+            }= @sideCardData[:title]
 
         / Is product
         - if @is_product || @is_registration
           h1.title-sm.JS-truncate{
             class="#{ @featured ? 'e-col-white' : 'e-col-green'}"
-          }= @is_product ? @side_card_data[:title] : @side_card_data[:venue]
+          }= @is_product ? @sideCardData[:title] : @sideCardData[:venue]
 
       / Is product or registration
       - if @is_product || @is_registration
-        .side-card__actions.e-pad-t-xs
+        .side-card__actions{
+          class="#{ @featured ? 'e-col-white' : 'e-col-green'}"
+        }
 
           / Product
           - if @is_product
 
-            - if @side_card_data[:price] == 0
+            - if @sideCardData[:price] == 0
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'sm', style: 'primary',
-                    label: 'Download', label_size: 'sm', url: @side_card_data[:download] }}
+                    label: 'Download', label_size: 'sm', url: @sideCardData[:download] }}
 
-            - if @side_card_data[:price] > 0
+            - if @sideCardData[:price] > 0
               = partial 'partials/btn',
                 locals: { local_data: \
-                  { type: 'link', size: 'sm', style: 'primary', product: @side_card_data,
-                    label: "Buy (£#{ @side_card_data[:price] })", label_size: 'sm' }}
+                  { type: 'link', size: 'sm', style: 'primary', product: @sideCardData,
+                    label: "Buy (£#{ @sideCardData[:price] })", label_size: 'sm' }}
 
           / Registration
           - if @is_registration
 
-            - if @side_card_data[:date_time][:integer] < Time.now.strftime('%s').to_i
+            - if @sideCardData[:date_time][:integer] < Time.now.strftime('%s').to_i
               p
                 strong CLOSED
 
@@ -96,17 +108,16 @@ article.side-card{
               / Modal window
               = partial 'partials/modal',
                 locals: { local_data: \
-                  { id: @side_card_data[:modal].cta_id,
-                    content: @side_card_data[:modal].content }}
+                  { id: @sideCardData[:modal].cta_id,
+                    content: @sideCardData[:modal].content }}
 
               / Modal button
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'state',
-                    size: 'sm',
-                    style: 'primary',
+                    size: 'sm', style: 'primary',
                     label_on: 'Register', label_off: 'Close',
                     label_size: 'sm',
-                    page: 'no-scroll', exclusive: true,
-                    aria_id: "activate-#{ @side_card_data[:modal].cta_id }",
-                    aria_target_id: @side_card_data[:modal].cta_id }}
+                    page: 'no-scroll', exclusive: true, switch: true,
+                    aria_id: "activate-#{ @sideCardData[:modal].cta_id }",
+                    aria_target_id: @sideCardData[:modal].cta_id }}

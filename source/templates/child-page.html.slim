@@ -83,7 +83,8 @@ article
                 - if featured[:registration]
                   = partial 'partials/side-card',
                     locals: { local_data: \
-                      { side_card_data: featured[:registration] }}
+                      { side_card_data: featured[:registration],
+                        featured: true }}
 
     / Main content
     .content__section
@@ -115,8 +116,11 @@ article
             / If blog, add all non-author featured content to sidebar
             - if @entry[:category] == 'blog'
               - @entry[:featured].reject{ |featured| featured[:author] }.each_with_index do |featured, index|
+
+                / Only add featured title once, before the first item
                 - if index == 0
                   h2.side-title Featured
+
                 = partial 'partials/side-card',
                   locals: { local_data: \
                     { side_card_data: featured[:page] }}

@@ -20,6 +20,11 @@ module CustomHelpers
     "#{ siteData(:siteURL) }/#{ cat + '/' if cat }#{ slug }#{ config[:ENV] == 'development' ? '.html' : '' }"
   end
 
+  # Registration data and fallback
+  def registrationData(type)
+
+  end
+
   # Latest content
   def latestContent(opts = {})
     @childPages = data.hs.child_page
@@ -82,8 +87,16 @@ module CustomHelpers
 
       # Registration pages
       @registrationPages = @pagesTagged.select{ |page|
-        @pageTypes = ([ 'events', 'intelligence' ].include? page[:category])
-        @isInPast = page[:date_time][:integer] >= Time.now.strftime('%s').to_i
+        @pageTypes = [ 'events' ].include? page[:category]
+
+        # Check if event page has been provided a registration entry
+        @hasRegistration = page[:featured][0][:registration][:date_time][:integer] if page[:featured] && page[:featured][0][:registration]
+
+        # Provide page date as fallback in case above isn't met
+        @fallbackDate = page[:date_time][:integer]
+
+        @timeNow = Time.now.strftime('%s').to_i
+        @isInPast = @hasRegistration ? @hasRegistration >= @timeNow : @fallbackDate >= @timeNow
 
         @pageTypes && @isInPast
       }[0..2]

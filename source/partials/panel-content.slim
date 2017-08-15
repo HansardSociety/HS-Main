@@ -24,6 +24,7 @@
     class="panel__content--#{ @panel_width }"
   }
 
+      / If panel doesn't contain an image
       - if !@image
 
         / Title
@@ -152,7 +153,7 @@
                           label_on: 'Show more', label_off: 'Show less',
                           label_size: (@section_header ? 'md' : 'sm'),
                           aria_id: "activate-#{ @show_more.cta_id }",
-                          aria_target_id:  @show_more.cta_id }}
+                          aria_target_id: @show_more.cta_id }}
 
                 - if @calls_to_action
                   - @calls_to_action.each do |cta|
@@ -188,39 +189,3 @@
                           { id: cta[:modal][:cta_id],
                             content: cta[:modal][:content],
                             size: cta[:modal][:width] }}
-
-
-        /     - if @calls_to_action
-        /       - @calls_to_action.each do |cta|
-        /         .grid__cell
-
-        /           / Modal
-        /           - if cta[:action] == 'modal'
-
-        /             / Modal window
-        /             = partial 'partials/modal',
-        /               locals: { local_data: \
-        /                 { id: cta.modal[:cta_id],
-        /                   content: cta.modal[:content] }}
-
-        /             / Modal button
-        /             = partial 'partials/btn',
-        /               locals: { local_data: \
-        /                 { type: 'state',
-        /                   size: (@section_header ? 'md' : 'sm'),
-        /                   style: 'secondary',
-        /                   label_on: cta[:button_text], label_off: 'Close',
-        /                   label_size: (@section_header ? 'md' : 'sm'),
-        /                   page: 'no-scroll', switch: true,
-        /                   aria_id: "activate-#{  cta.modal[:cta_id] }",
-        /                   aria_target_id: cta.modal[:cta_id] }}
-
-                  / - if cta[:action] == 'download'
-                  /   = partial 'partials/btn',
-                  /     locals: { local_data: \
-                  /       { type: 'link',
-                  /         size: 'medium',
-                  /         style: 'primary', group: true,
-                  /         label: cta[:button_text],
-                  /         label_size: 'medium',
-                  /         url: cta[:file].url }}

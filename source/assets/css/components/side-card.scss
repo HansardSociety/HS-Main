@@ -74,3 +74,7 @@
 
   @extend %e-position-absolute;
 }
+
+.side-card__actions {
+  @extend %e-pad-t-xs;
+}

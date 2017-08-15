@@ -95,7 +95,7 @@
   display: none;
 }
 
-@include below(lg) {
+@include below(md) {
 
   .grid__cell--expand {
     position: relative;

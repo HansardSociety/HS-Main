@@ -303,21 +303,21 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     ##  Core
     ##############################
 
-    context.ID           = entry.sys[:id]
-    context.TYPE         = entry.content_type.id
-    context.category     = entry.category.parameterize
-    context.title        = entry.title
-    context.slug         = entry.slug.parameterize
+    context.ID = entry.sys[:id]
+    context.TYPE = entry.content_type.id
+    context.category = entry.category.parameterize
+    context.title = entry.title
+    context.slug = entry.slug.parameterize
     context.introduction = entry.introduction
-    context.copy         = entry.copy
+    context.copy = entry.copy
 
     ##  Banner image
     ##############################
 
     if entry.banner_image
       context.banner_image = {
-        url:   entry.banner_image.url,
-        alt:   entry.banner_image.description,
+        url: entry.banner_image.url,
+        alt: entry.banner_image.description,
         focus: entry.image_focus.parameterize
       }
     end
@@ -327,26 +327,26 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
 
     if entry.featured
       context.featured = entry.featured.map do |featured| {
-        ID:     featured.sys[:id],
-        TYPE:   featured.content_type.id,
+        ID: featured.sys[:id],
+        TYPE: featured.content_type.id,
 
         ##  Featured (people)
         ##############################
 
         author: ({
-          full_name:    featured.full_name,
-          role:         featured.role,
+          full_name: featured.full_name,
+          role: featured.role,
           organisation: featured.organisation,
           biog: ({
-            id:         (featured.full_name.parameterize + '-' + featured.sys[:id]),
-            content:    featured.biog
+            id: (featured.full_name.parameterize + '-' + featured.sys[:id]),
+            content: featured.biog
           } if featured.biog),
-          email:        featured.email,
-          twitter:      featured.twitter,
-          linkedin:     featured.linkedin,
+          email: featured.email,
+          twitter: featured.twitter,
+          linkedin: featured.linkedin,
           photo: {
-            url:        featured.photo.url,
-            alt:        featured.photo.description
+            url: featured.photo.url,
+            alt: featured.photo.description
           }
         }.compact if featured.content_type.id == 'people'),
 
@@ -354,18 +354,18 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         ##############################
 
         registration: ({
-          meta_title:   featured.meta_title,
-          category:     featured.category,
-          venue:        featured.venue,
+          meta_title: featured.meta_title,
+          category: featured.category,
+          venue: featured.venue,
           date_time: {
-            integer:    featured.date_time.strftime('%s').to_i,
-            date:       featured.date_time.strftime('%d %b, %y'),
-            time:       featured.date_time.strftime('%I:%M %p'),
-            day:        featured.date_time.strftime('%d'),
-            month:      featured.date_time.strftime('%b'),
-            year:       featured.date_time.strftime('%Y')
+            integer: featured.date_time.strftime('%s').to_i,
+            date: featured.date_time.strftime('%d %b, %y'),
+            time: featured.date_time.strftime('%I:%M %p'),
+            day: featured.date_time.strftime('%d'),
+            month: featured.date_time.strftime('%b'),
+            year: featured.date_time.strftime('%Y')
           },
-          embed_code:   featured.embed_code,
+          embed_code: featured.embed_code,
           modal: {
             cta_id:     (featured.meta_title.split('::')[0].parameterize + '-' + featured.sys[:id]), # split '::' for contentful name-spacing
             content:    featured.embed_code
@@ -376,36 +376,36 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         ##############################
 
         product: ({
-          title:        featured.title,
-          category:     featured.category.parameterize,
-          product_id:   featured.product_id,
-          price:        featured.price,
+          title: featured.title,
+          category: featured.category.parameterize,
+          product_id: featured.product_id,
+          price: featured.price,
           image: {
-            url:        featured.image.url,
-            alt:        featured.image.description
+            url: featured.image.url,
+            alt: featured.image.description
           },
-          download:     (featured.media.url if featured.media)
+          download: (featured.media.url if featured.media)
         }.compact if featured.content_type.id == 'product'),
 
         ##  Featured (page)
         ##############################
 
         page: ({
-          title:      featured.title,
-          slug:       featured.slug.parameterize,
-          category:   featured.category.parameterize,
+          title: featured.title,
+          slug: featured.slug.parameterize,
+          category: featured.category.parameterize,
 
           # Banner image
           banner_image: {
-            url:      featured.banner_image.url,
-            alt:      featured.banner_image.description,
-            focus:    featured.image_focus.parameterize
+            url: featured.banner_image.url,
+            alt: featured.banner_image.description,
+            focus: featured.image_focus.parameterize
           },
 
           # Blog/ event
           date_time: ({
             integer: featured.date_time.strftime('%s').to_i,
-            date:    featured.date_time.strftime('%d %b, %y')
+            date: featured.date_time.strftime('%d %b, %y')
           }.compact if featured.date_time)
         }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
       }.compact
@@ -417,10 +417,10 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
 
     if entry.external_links
       context.external_links = entry.external_links.map do |link| {
-        title:    link.title,
+        title: link.title,
         category: link.category.parameterize,
-        outlet:   PublicSuffix.parse(URI.parse(link.url).host).domain,
-        url:      link.url
+        outlet: PublicSuffix.parse(URI.parse(link.url).host).domain,
+        url: link.url
       }
       end
     end
@@ -431,7 +431,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     if entry.date_time
       context.date_time = {
         integer: entry.date_time.strftime('%s').to_i,
-        date:    entry.date_time.strftime('%d %b, %y')
+        date: entry.date_time.strftime('%d %b, %y')
       }
     end
 
