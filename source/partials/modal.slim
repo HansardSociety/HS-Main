@@ -12,12 +12,12 @@
 
     / Header
     .modal__header
-      .modal__close.e-col-green
+      .modal__close
         = partial 'partials/btn',
           locals: { local_data: \
             { type: 'state', switch: true,
               size: 'xs',
-              icon: 'close-round', icon_size: 'xs',
+              icon: 'close-round', icon_size: 'xs', icon_color: 'green',
               page: 'no-scroll',
               aria_target_id: @id }}
 

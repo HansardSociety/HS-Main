@@ -1,55 +1,34 @@
-////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
+- @type = local_data[:type]
+- @style = local_data[:style]
+- @size = local_data[:size]
+- @fill = local_data[:fill]
+- @switch = local_data[:switch] # Starts from on state (eg. close btn)
 
-- @type             = local_data[:type]
-- @style            = local_data[:style]
-- @size             = local_data[:size]
-- @fill             = local_data[:fill]
-- @switch           = local_data[:switch] # Starts from on state (eg. close btn)
+/ Text
+- @text = local_data[:text] # Links only
+- @label_on = local_data[:label_on]
+- @label_off = local_data[:label_off]
+- @label = local_data[:label] # Links only
+- @label_size = local_data[:label_size]
+- @url = local_data[:url]
 
-//  Text
-////////////////////////////
+/ Icon
+- @icon = local_data[:icon]
+- @icon_size = local_data[:icon_size]
+- @icon_color = local_data[:icon_color]
+- @animation = local_data[:animation]
 
-- @text              = local_data[:text] # Links only
-- @label_on          = local_data[:label_on]
-- @label_off         = local_data[:label_off]
-- @label             = local_data[:label] # Links only
-- @label_size        = local_data[:label_size]
-- @url               = local_data[:url]
-
-//  Icon
-////////////////////////////
-
-- @icon             = local_data[:icon]
-- @icon_size        = local_data[:icon_size]
-- @animation        = local_data[:animation]
-
-//  State
-////////////////////////////
-
-- @exclusive        = local_data[:exclusive]
-- @page             = local_data[:page]
+/ State
+- @exclusive = local_data[:exclusive]
+- @page = local_data[:page]
 - @secondary_target = local_data[:secondary_target]
 
-//  ARIA
-////////////////////////////
+/ Aria
+- @aria_id = local_data[:aria_id]
+- @aria_target_id = local_data[:aria_target_id]
 
-- @aria_id          = local_data[:aria_id]
-- @aria_target_id   = local_data[:aria_target_id]
-
-//  Product
-////////////////////////////
-
-- @product          = local_data[:product]
-
-//  Hack
-////////////////////////////
-
-- @CLOSEALL         = local_data[:CLOSEALL]
-
-//  Attributes
-////////////////////////////
+/ Product
+- @product = local_data[:product]
 
 / .btn classes
 - @class = [\
@@ -58,19 +37,18 @@
   ('btn--' + @style if @style),
   ('btn--fill' if @fill),
   ('e-col-current' if @icon),
-  ('btn--CLOSEALL' if @CLOSEALL),
   ('JS-off' if @type == 'state'),
   ('JS-switch' if @type == 'state' && @switch),
   ('JS-no-scroll' if @page == 'no-scroll'),
   ('JS-exclusive' if @exclusive),
-  ('snipcart-add-item' if @product) ].reject{ |value| value.nil? }
+  ('snipcart-add-item' if @product) ].compact
 
 / .btn attributes
 - @attrs = {\
-  'aria-controls':         (@aria_target_id if @aria_target_id),
-  'role':                  ('button' if @aria_id),
-  'href':                  (@url if @url),
-  'data-secondary-target': (@secondary_target if @secondary_target)}.reject{ |key, value| value.nil? }
+  'aria-controls': (@aria_target_id if @aria_target_id),
+  'role': ('button' if @aria_id),
+  'href': (@url if @url),
+  'data-secondary-target': (@secondary_target if @secondary_target)}.compact
 
 / Button splat
 - @btn = { \
@@ -81,10 +59,7 @@
   'data-item-price': (@product[:price] if @product),
   'data-item-url': ("https://www.hansardsociety.org.uk/#{ @entry[:category] }/#{ @entry[:slug] }" if @product)}.merge(@attrs)
 
-////////////////////////////////////////////////////////////
-//  Button
-////////////////////////////////////////////////////////////
-
+/ Button splat
 *@btn
 
   / .btn__content
@@ -99,10 +74,11 @@
     - if @icon && @icon != 'menu'
       span.btn__icon{
         class="#{ 'btn__icon--' + @animation if @animation }"
+        class="#{ 'btn__icon--' + @icon_color if @icon_color }"
       }
         = partial 'partials/icon',
-          locals: { icon:  @icon,
-                    size:  @icon_size }
+          locals: { icon: @icon,
+                    size: @icon_size }
 
     - if @label_on
       span.btn__label.btn__label--change{

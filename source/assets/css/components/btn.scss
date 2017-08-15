@@ -70,6 +70,15 @@
   @extend %e-mgn-auto-x;
 }
 
+.btn__icon--green {
+  @extend %e-col-green;
+  @extend %e-trans-core;
+
+  &:hover {
+    @extend %e-col-orange;
+  }
+}
+
 .btn__label {
   font-size: .625rem;
 
