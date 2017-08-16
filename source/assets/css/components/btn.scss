@@ -14,6 +14,8 @@
 //////////////////////////////
 
 .btn {
+  vertical-align: middle;
+
   @extend %e-cursor-pointer;
   @extend %e-flex-inline-row-center;
   @extend %e-ff-prim-heavy;

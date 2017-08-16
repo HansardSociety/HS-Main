@@ -355,7 +355,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
 
         registration: ({
           meta_title: featured.meta_title,
-          category: featured.category,
+          category: featured.category.parameterize,
           venue: featured.venue,
           price: featured.price,
           date_time: {
@@ -368,8 +368,8 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           },
           embed_code: featured.embed_code,
           modal: {
-            cta_id:     (featured.meta_title.split('::')[0].parameterize + '-' + featured.sys[:id]), # split '::' for contentful name-spacing
-            content:    featured.embed_code
+            cta_id: (featured.meta_title.split('::')[0].parameterize + '-' + featured.sys[:id]), # split '::' for contentful name-spacing
+            content: featured.embed_code
           }
         }.compact if featured.content_type.id == 'registration'),
 
@@ -459,19 +459,19 @@ class RootPageMap < ContentfulMiddleman::Mapper::Base
     ##  Core
     ##############################
 
-    context.ID           = entry.sys[:id]
-    context.TYPE         = entry.content_type.id
-    context.category     = entry.category.parameterize
-    context.title        = entry.title
-    context.subtitle     = entry.subtitle
+    context.ID = entry.sys[:id]
+    context.TYPE = entry.content_type.id
+    context.category = entry.category.parameterize
+    context.title = entry.title
+    context.subtitle = entry.subtitle
 
     ##  Banner image
     ##############################
 
     if entry.banner_image
       context.banner_image = {
-        url:   entry.banner_image.url,
-        alt:   entry.banner_image.description,
+        url: entry.banner_image.url,
+        alt: entry.banner_image.description,
         focus: entry.image_focus.parameterize
       }
     end

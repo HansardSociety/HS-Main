@@ -36,6 +36,8 @@ const shrinkNav = (() => {
     : removeNavStates();
   };
 
+  window.onload = windowPosition();
+
   window.addEventListener('scroll', _.throttle(function() {
 
     windowPosition();

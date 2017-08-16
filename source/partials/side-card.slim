@@ -1,20 +1,26 @@
 - @sideCardData = local_data[:side_card_data]
 - @featured = local_data[:featured]
 
-/ - @is_product = @sideCardData.key? 'price'
-/ - @is_registration = @sideCardData.key? 'embed_code'
 - @is_product = @sideCardData.key? 'price'
 - @is_registration = @sideCardData.key? 'embed_code'
 
+- @isAuthor = @sideCardData[:author]
+- @isPage = @sideCardData[:page]
+- @isProduct = @sideCardData[:product]
+- @isRegistration = @sideCardData[:registration]
+
+- @sideCardDataMain = [ @isAuthor, @isPage, @isProduct, @isRegistration ].compact
+
 - @category = @sideCardData[:category]
 - @date = @sideCardData[:date_time][:date] if @sideCardData[:date_time]
+
 - @bannerImage = @sideCardData[:banner_image]
 - @bannerImageURL = @bannerImage[:url] if @bannerImage
 - @bannerImageAlt = @bannerImage[:alt] if @bannerImage
 - @bannerImageFocus = @bannerImage[:focus] if @bannerImage
+
 - @image = @sideCardData[:image]
 - @imageURL = @image[:url] if @image
-- @featuredData = @sideCardData[:featured]
 
 / Registration date - provide page date fallback in case registration not provided
 - @registrationDate = registrationData(@featuredData, { type: 'date' })
@@ -25,6 +31,8 @@ article.side-card{
   class="#{ 'side-card--featured' if @featured }"
 }
   .side-card__inner
+    p= optionalEntryData({ keys: [ "title" ] }, @sideCardDataMain)
+
     .side-card__image{
       class="#{ @image || @bannerImage ? 'side-card__image--overlay' : 'side-card__image--' + @entry[:category] }"
     }
@@ -43,13 +51,13 @@ article.side-card{
         }
 
       - if @is_registration
+        p= @sideCardData
         = partial 'partials/date',
           locals: { local_data: \
             { date_data: @sideCardData[:date_time] }}
 
     .side-card__content
       .side-card__meta
-        / p= @sideCardData[:registration]
         - if ([ 'research', 'resources' ].include? @category) || (@is_product || @is_registration)
           span.label-xs.e-col-mid-grey= @category
 
