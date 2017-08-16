@@ -357,6 +357,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           meta_title: featured.meta_title,
           category: featured.category,
           venue: featured.venue,
+          price: featured.price,
           date_time: {
             integer: featured.date_time.strftime('%s').to_i,
             date: featured.date_time.strftime('%d %b, %y'),

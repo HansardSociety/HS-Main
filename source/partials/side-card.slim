@@ -1,6 +1,8 @@
 - @sideCardData = local_data[:side_card_data]
 - @featured = local_data[:featured]
 
+/ - @is_product = @sideCardData.key? 'price'
+/ - @is_registration = @sideCardData.key? 'embed_code'
 - @is_product = @sideCardData.key? 'price'
 - @is_registration = @sideCardData.key? 'embed_code'
 
@@ -47,7 +49,7 @@ article.side-card{
 
     .side-card__content
       .side-card__meta
-
+        / p= @sideCardData[:registration]
         - if ([ 'research', 'resources' ].include? @category) || (@is_product || @is_registration)
           span.label-xs.e-col-mid-grey= @category
 
@@ -105,19 +107,20 @@ article.side-card{
 
             - else
 
+              - @price == @sideCardData[:price]
+
               / Modal window
               = partial 'partials/modal',
                 locals: { local_data: \
-                  { id: @sideCardData[:modal].cta_id,
-                    content: @sideCardData[:modal].content }}
+                  { id: @sideCardData[:modal][:cta_id],
+                    content: @sideCardData[:modal][:content] }}
 
               / Modal button
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'state',
                     size: 'sm', style: 'primary',
-                    label_on: 'Register', label_off: 'Close',
-                    label_size: 'sm',
-                    page: 'no-scroll', exclusive: true, switch: true,
-                    aria_id: "activate-#{ @sideCardData[:modal].cta_id }",
-                    aria_target_id: @sideCardData[:modal].cta_id }}
+                    label_on: @price, label_off: 'Close', label_size: 'sm',
+                    page: 'no-scroll', switch: true,
+                    aria_id: "activate-#{ @sideCardData[:modal][:cta_id] }",
+                    aria_target_id: @sideCardData[:modal][:cta_id] }}
