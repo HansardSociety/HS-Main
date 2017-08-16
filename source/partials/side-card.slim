@@ -9,7 +9,7 @@
 - @isProduct = @sideCardData[:product]
 - @isRegistration = @sideCardData[:registration]
 
-- @sideCardDataMain = [ @isAuthor, @isPage, @isProduct, @isRegistration ].compact
+- @sideCardDataMain = [ @isAuthor, @isPage, @isProduct, @isRegistration ]
 
 - @category = @sideCardData[:category]
 - @date = @sideCardData[:date_time][:date] if @sideCardData[:date_time]
@@ -31,7 +31,7 @@ article.side-card{
   class="#{ 'side-card--featured' if @featured }"
 }
   .side-card__inner
-    p= optionalEntryData({ keys: [ "title" ] }, @sideCardDataMain)
+
 
     .side-card__image{
       class="#{ @image || @bannerImage ? 'side-card__image--overlay' : 'side-card__image--' + @entry[:category] }"

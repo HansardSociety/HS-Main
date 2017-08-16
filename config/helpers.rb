@@ -35,20 +35,6 @@ module CustomHelpers
     end
   end
 
-  # Optional entry data
-  def optionalEntryData(opts = {}, *data)
-
-    defaults = {
-      keys: []
-    }
-    opts = defaults.merge(opts)
-
-    @hello = opts[:keys].map{ |l| l.to_sym }.join
-
-    @data = data.compact
-    puts @data.map{ |x, y| x(@hello) }
-  end
-
   # Latest content
   def latestContent(opts = {})
     @childPages = data.hs.child_page
