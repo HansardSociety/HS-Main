@@ -1,5 +1,42 @@
 ############################################################
-##  Global
+## =Shared
+############################################################
+
+def dateTime(data)
+  dateTimeData = {
+    integer: data.date_time.strftime('%s').to_i,
+    date: data.date_time.strftime('%d %b, %y'),
+    time: data.date_time.strftime('%I:%M %p'),
+    day: data.date_time.strftime('%d'),
+    month: data.date_time.strftime('%b'),
+    year: data.date_time.strftime('%Y')
+  }
+end
+
+def media(data, opts = {})
+  defaults = { focus: false }
+  opts = defaults.merge(opts)
+
+  mediaData = {
+    url: data.url,
+    alt: data.description,
+    focus: (opts[:focus].image_focus.parameterize if opts[:focus])
+  }.compact
+end
+
+def pageCore(ctx, data)
+  ctx.ID = data.sys[:id]
+  ctx.TYPE = data.content_type.id
+  ctx.category = data.category.parameterize
+  ctx.title = data.title
+  ctx.slug = data.slug.parameterize
+  ctx.introduction = data.introduction
+  ctx.banner_image = media(data.banner_image, focus: data)
+  ctx.date_time = dateTime(data)
+end
+
+############################################################
+## =Global
 ############################################################
 
 class UniversalMap < ContentfulMiddleman::Mapper::Base
@@ -47,11 +84,7 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
     context.TYPE = entry.content_type.id
     context.title = entry.title
     context.subtitle = entry.subtitle
-    context.banner_image = {
-      url: entry.banner_image.url,
-      alt: entry.banner_image.description,
-      focus: entry.image_focus.parameterize
-    }
+    context.banner_image = media(entry.banner_image, focus: entry)
   end
 end
 
@@ -98,10 +131,7 @@ class PeopleMap < ContentfulMiddleman::Mapper::Base
     context.twitter = entry.twitter
     context.linkedin = entry.linkedin
     context.employment = (entry.employment.parameterize if entry.employment)
-    context.photo = {
-      url:   entry.photo.url,
-      alt:   entry.photo.description
-    }
+    context.photo = media(entry.photo)
   end
 end
 
@@ -111,16 +141,9 @@ end
 
 class LandingPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-
-    # Core
-    context.ID = entry.sys[:id]
-    context.TYPE = entry.content_type.id
-    context.category = entry.category.parameterize
-    context.title = entry.title
-    context.slug = entry.slug.parameterize
-    context.subtitle = entry.subtitle
-    context.introduction = entry.introduction
-    context.latest_carousel = entry.latest_carousel
+    pageCore(context, entry) # core page data
+    context.subtitle = entry.subtitle # subtitle (in banner)
+    context.latest_carousel = entry.latest_carousel # latest related cards carousel
 
     # Call(s) to action
     if entry.actions
@@ -140,27 +163,6 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       end
     end
 
-    # Banner image
-    if entry.banner_image
-      context.banner_image = {
-        url: entry.banner_image.url,
-        alt: entry.banner_image.description,
-        focus: entry.image_focus.parameterize
-      }
-    end
-
-    # Date/ time
-    if entry.date_time
-      context.date_time = {
-        integer: entry.date_time.strftime('%s').to_i,
-        date: entry.date_time.strftime('%d %b, %y'),
-        time: entry.date_time.strftime('%I:%M %p'),
-        day: entry.date_time.strftime('%d'),
-        month: entry.date_time.strftime('%b'),
-        year: entry.date_time.strftime('%Y')
-      }
-    end
-
     # Featured
     if entry.featured
       context.featured = entry.featured.map do |featured| {
@@ -173,27 +175,9 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           category: featured.category.parameterize,
           category_alt: (featured.featured[0].category.parameterize if featured.featured && (['product', 'registration'].include? featured.featured[0].content_type.id)),
           introduction: featured.introduction,
-          banner_image: {
-            url: featured.banner_image.url,
-            alt: featured.banner_image.description,
-            focus: featured.image_focus.parameterize
-          },
-          date_time: ({
-            integer: featured.date_time.strftime('%s').to_i,
-            date: featured.date_time.strftime('%d %b, %y'),
-            time: featured.date_time.strftime('%I:%M %p'),
-            day: featured.date_time.strftime('%d'),
-            month: featured.date_time.strftime('%b'),
-            year: featured.date_time.strftime('%Y')
-          }.compact if !featured.featured || featured.featured[0].content_type.id != 'registration'),
-          reg_date_time: ({
-            integer: featured.featured[0].date_time.strftime('%s').to_i,
-            date: featured.featured[0].date_time.strftime('%d %b, %y'),
-            time: featured.featured[0].date_time.strftime('%I:%M %p'),
-            day: featured.featured[0].date_time.strftime('%d'),
-            month: featured.featured[0].date_time.strftime('%b'),
-            year: featured.featured[0].date_time.strftime('%Y')
-          }.compact if featured.featured && featured.featured[0].content_type.id == 'registration')
+          banner_image: media(featured.banner_image, focus: featured),
+          date_time: (dateTime(featured) if !featured.featured || featured.featured[0].content_type.id != 'registration'),
+          reg_date_time: (dateTime(featured.featured[0]) if featured.featured && featured.featured[0].content_type.id == 'registration')
         }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
       }.compact
       end # End: Featured map
@@ -312,28 +296,8 @@ end
 
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-
-    ##  Core
-    ##############################
-
-    context.ID = entry.sys[:id]
-    context.TYPE = entry.content_type.id
-    context.category = entry.category.parameterize
-    context.title = entry.title
-    context.slug = entry.slug.parameterize
-    context.introduction = entry.introduction
-    context.copy = entry.copy
-
-    ##  Banner image
-    ##############################
-
-    if entry.banner_image
-      context.banner_image = {
-        url: entry.banner_image.url,
-        alt: entry.banner_image.description,
-        focus: entry.image_focus.parameterize
-      }
-    end
+    pageCore(context, entry) # core page data
+    context.copy = entry.copy # main copy
 
     ##  Featured
     ##############################
@@ -371,14 +335,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           category: featured.category.parameterize,
           venue: featured.venue,
           price: featured.price,
-          date_time: {
-            integer: featured.date_time.strftime('%s').to_i,
-            date: featured.date_time.strftime('%d %b, %y'),
-            time: featured.date_time.strftime('%I:%M %p'),
-            day: featured.date_time.strftime('%d'),
-            month: featured.date_time.strftime('%b'),
-            year: featured.date_time.strftime('%Y')
-          },
+          date_time: dateTime(featured),
           embed_code: featured.embed_code,
           modal: {
             cta_id: (featured.meta_title.split('::')[0].parameterize + '-' + featured.sys[:id]), # split '::' for contentful name-spacing
@@ -411,29 +368,11 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           category_alt: (featured.featured[0].category.parameterize if featured.featured && (['product', 'registration'].include? featured.featured[0].content_type.id)),
 
           # Banner image
-          banner_image: {
-            url: featured.banner_image.url,
-            alt: featured.banner_image.description,
-            focus: featured.image_focus.parameterize
-          },
+          banner_image: media(featured.banner_image, focus: featured),
 
           # Blog/ event
-          date_time: ({
-            integer: featured.date_time.strftime('%s').to_i,
-            date: featured.date_time.strftime('%d %b, %y'),
-            time: featured.date_time.strftime('%I:%M %p'),
-            day: featured.date_time.strftime('%d'),
-            month: featured.date_time.strftime('%b'),
-            year: featured.date_time.strftime('%Y')
-          }.compact if featured.date_time),
-          reg_date_time: ({
-            integer: featured.featured[0].date_time.strftime('%s').to_i,
-            date: featured.featured[0].date_time.strftime('%d %b, %y'),
-            time: featured.featured[0].date_time.strftime('%I:%M %p'),
-            day: featured.featured[0].date_time.strftime('%d'),
-            month: featured.featured[0].date_time.strftime('%b'),
-            year: featured.featured[0].date_time.strftime('%Y')
-          }.compact if featured.featured && featured.featured[0].content_type.id == 'registration')
+          date_time: (dateTime(featured) if featured.date_time),
+          reg_date_time: (dateTime(featured.featured[0]) if featured.featured && featured.featured[0].content_type.id == 'registration')
         }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
       }.compact
       end # End: Featured map
@@ -450,20 +389,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         url: link.url
       }
       end
-    end
-
-    ##  Date/ time
-    ##############################
-
-    if entry.date_time
-      context.date_time = {
-        integer: entry.date_time.strftime('%s').to_i,
-        date: entry.date_time.strftime('%d %b, %y'),
-        time: entry.date_time.strftime('%I:%M %p'),
-        day: entry.date_time.strftime('%d'),
-        month: entry.date_time.strftime('%b'),
-        year: entry.date_time.strftime('%Y')
-      }
     end
 
     ##  Tagging
@@ -499,11 +424,7 @@ class RootPageMap < ContentfulMiddleman::Mapper::Base
     ##############################
 
     if entry.banner_image
-      context.banner_image = {
-        url: entry.banner_image.url,
-        alt: entry.banner_image.description,
-        focus: entry.image_focus.parameterize
-      }
+      context.banner_image = media(entry.banner_image, focus: entry)
     end
   end
 end

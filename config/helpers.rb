@@ -91,16 +91,20 @@ module CustomHelpers
       # Filter tagged pages
       @pagesTagged = pages.select{ |page|
 
-        # Get pages with at least one corresponding tag
-        @hasSameTags = page[:tags].any?{ |tags| @entryData[:tags].include? tags }
+        # Only include tagged pages
+        if page[:tags]
 
-        # Filter the entry page and pages that are included as featured items
-        @notThisPage = page[:ID] != @entryData[:ID]
-        @notFeaturedPage = @entryData[:featured] ? @entryData[:featured].any?{ |featPage|
-          page[:ID] != featPage[:ID]
-        } : true
+          # Get pages with at least one corresponding tag
+          @hasSameTags = page[:tags].any?{ |tags| @entryData[:tags].include? tags }
 
-        page if @hasSameTags && @notThisPage && @notFeaturedPage
+          # Filter the entry page and pages that are included as featured items
+          @notThisPage = page[:ID] != @entryData[:ID]
+          @notFeaturedPage = @entryData[:featured] ? @entryData[:featured].any?{ |featPage|
+            page[:ID] != featPage[:ID]
+          } : true
+
+          page if @hasSameTags && @notThisPage && @notFeaturedPage
+        end
       }.compact
 
       # Registration pages
