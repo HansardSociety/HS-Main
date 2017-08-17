@@ -2,6 +2,8 @@
 ## =Shared
 ############################################################
 
+# Core
+
 def dateTime(data)
   dateTimeData = {
     integer: data.date_time.strftime('%s').to_i,
@@ -24,15 +26,29 @@ def media(data, opts = {})
   }.compact
 end
 
-def pageCore(ctx, data)
+def pageBase(pageType, ctx, data)
+
+  # Shared
   ctx.ID = data.sys[:id]
   ctx.TYPE = data.content_type.id
-  ctx.category = data.category.parameterize
   ctx.title = data.title
-  ctx.slug = data.slug.parameterize
-  ctx.introduction = data.introduction
   ctx.banner_image = media(data.banner_image, focus: data)
-  ctx.date_time = dateTime(data)
+
+  # Landing/ root/ home page
+  if ["landingPage", "rootPage", "homePage"].include? pageType
+    ctx.subtitle = data.subtitle
+  end
+
+  if ["childPage", "landingPage", "rootPage"].include? pageType
+    ctx.category = data.category.parameterize
+  end
+
+  # Child/ landing page
+  if ["childPage", "landingPage"].include? pageType
+    ctx.slug = data.slug.parameterize
+    ctx.introduction = data.introduction
+    ctx.date_time = dateTime(data)
+  end
 end
 
 ############################################################
@@ -44,52 +60,38 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.ID = entry.sys[:id]
     context.TYPE = entry.content_type.id
     context.title = entry.title
+
     context.site_title = entry.site_title
     context.site_url = entry.site_url
     context.main_categories = entry.main_categories.map{ |cat| cat.parameterize.gsub("'", "") }
     context.newsletter_text = entry.newsletter_text
     context.newsletter_embed = entry.newsletter_embed
+    context.placeholder_image = media(entry.placeholder_image)
 
-    # Logo
     context.logo = {
-      mobile: {
-        url: entry.logo_mobile.url,
-        alt: entry.logo_mobile.description
-      },
-      desktop: {
-        url: entry.logo_desktop.url,
-        alt: entry.logo_desktop.description
-      }
+      mobile: media(entry.logo_mobile),
+      desktop: media(entry.logo_desktop)
     }
 
-    # Meta
     context.meta = {
       analytics: entry.meta_analytics
     }
 
-    context.placeholder_image = {
-      url: entry.placeholder_image.url,
-      alt: entry.placeholder_image.description
-    }
   end
 end
 
 ############################################################
-##  Homepage
+##  =Homepage
 ############################################################
 
 class HomeMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    context.ID = entry.sys[:id]
-    context.TYPE = entry.content_type.id
-    context.title = entry.title
-    context.subtitle = entry.subtitle
-    context.banner_image = media(entry.banner_image, focus: entry)
+    pageBase("homePage", context, entry)
   end
 end
 
 ############################################################
-##  Navigation
+##  =Navigation
 ############################################################
 
 class NavigationMap < ContentfulMiddleman::Mapper::Base
@@ -141,8 +143,7 @@ end
 
 class LandingPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    pageCore(context, entry) # core page data
-    context.subtitle = entry.subtitle # subtitle (in banner)
+    pageBase("landingPage", context, entry) # core page data
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
 
     # Call(s) to action
@@ -173,10 +174,10 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           title: featured.title,
           slug: featured.slug.parameterize,
           category: featured.category.parameterize,
-          category_alt: (featured.featured[0].category.parameterize if featured.featured && (['product', 'registration'].include? featured.featured[0].content_type.id)),
           introduction: featured.introduction,
           banner_image: media(featured.banner_image, focus: featured),
           date_time: (dateTime(featured) if !featured.featured || featured.featured[0].content_type.id != 'registration'),
+          category_alt: (featured.featured[0].category.parameterize if featured.featured && (['product', 'registration'].include? featured.featured[0].content_type.id)),
           reg_date_time: (dateTime(featured.featured[0]) if featured.featured && featured.featured[0].content_type.id == 'registration')
         }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
       }.compact
@@ -296,7 +297,7 @@ end
 
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    pageCore(context, entry) # core page data
+    pageBase("childPage", context, entry) # core page data
     context.copy = entry.copy # main copy
 
     ##  Featured
@@ -414,11 +415,8 @@ class RootPageMap < ContentfulMiddleman::Mapper::Base
     ##  Core
     ##############################
 
-    context.ID = entry.sys[:id]
-    context.TYPE = entry.content_type.id
+    pageBase("rootPage", context, entry)
     context.category = entry.category.parameterize
-    context.title = entry.title
-    context.subtitle = entry.subtitle
 
     ##  Banner image
     ##############################
