@@ -51,7 +51,7 @@
 - if isEventsCard || isResourcesCard
   - categoryAlt = featuredData \
     ? setData[:category_alt].gsub("-", " ") \
-    : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" }).gsub("-", " ")
+    : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" })
 
 - featuredRegistration || featuredProduct
 

@@ -36,8 +36,11 @@ article.main-card{
         - elsif @mainCardData[:category] == 'blog'
           span.label-xs #{ @mainCardData[:category] } / #{ @mainCardData[:date_time][:date] }
 
+        - elsif ['research', 'resources'].include? @mainCardData[:category]
+          span.label-xs #{ @mainCardData[:category] }
+
         - elsif @mainCardData[:category] == 'events'
-          span.label-xs #{ registrationData(@mainCardData[:featured], { type: "category" }) } / #{ registrationData(@mainCardData[:featured], { type: "date" }) }
+          span.label-xs #{ altData(@mainCardData, { type: "category", content_type: "registration" }) } / #{ altData(@mainCardData, { type: "date_time", content_type: "registration" })[:date] }
 
       h1.main-card__title.title-md= @mainCardData[:title]
 

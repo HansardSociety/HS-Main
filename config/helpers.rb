@@ -39,7 +39,7 @@ module CustomHelpers
       featuredData && featuredData[0][:"#{ opts[:content_type] }"] ? featuredData[0][:"#{ opts[:content_type] }"][:date_time] : data[:date_time]
 
     elsif opts[:type] == 'category'
-      featuredData && featuredData[0][:"#{ opts[:content_type] }"] ? featuredData[0][:"#{ opts[:content_type] }"][:category] : data[:category]
+      featuredData && featuredData[0][:"#{ opts[:content_type] }"] ? featuredData[0][:"#{ opts[:content_type] }"][:category].gsub("-", " ") : data[:category].gsub("-", " ")
     end
   end
 
