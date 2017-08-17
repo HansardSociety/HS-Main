@@ -20,7 +20,7 @@
   @extend %e-acc-brown-left;
 }
 
-.side-card--innovation {
+.side-card--intelligence {
   @extend %e-acc-light-blue-left;
 }
 
@@ -42,6 +42,8 @@
 }
 
 .side-card__image {
+  width: 6.36rem; // side card image ratio
+
   @extend %e-flex-row-center;
   @extend %e-position-relative;
 

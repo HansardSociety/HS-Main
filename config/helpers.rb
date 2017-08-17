@@ -20,18 +20,26 @@ module CustomHelpers
     "#{ siteData(:siteURL) }/#{ cat + '/' if cat }#{ slug }#{ config[:ENV] == 'development' ? '.html' : '' }"
   end
 
+  # Partial data
+  def hashify(data)
+    Hash[data.map{ |key, val| [key.to_sym, val] }]
+  end
+
   # Registration data and fallback
-  def registrationData(data, opts = {})
+  def altData(data, opts = {})
     defaults = {
-      type: "date",
-      dateType: "date"
+      type: "date_time",
+      content_type: ""
     }
     opts = defaults.merge(opts)
 
-    if opts[:type] == 'date'
-      data && data[0][:registration] ? data[0][:registration][:date_time][:"#{ opts[:dateType] }"] : @date
+    featuredData = data[:featured]
+
+    if opts[:type] == 'date_time'
+      featuredData && featuredData[0][:"#{ opts[:content_type] }"] ? featuredData[0][:"#{ opts[:content_type] }"][:date_time] : data[:date_time]
+
     elsif opts[:type] == 'category'
-      data && data[0][:registration] ? data[0][:registration][:category] : @sideCardData[:category]
+      featuredData && featuredData[0][:"#{ opts[:content_type] }"] ? featuredData[0][:"#{ opts[:content_type] }"][:category] : data[:category]
     end
   end
 
@@ -74,7 +82,7 @@ module CustomHelpers
 
     # Group and sort pages
     @groupPagesByCategory = latestContent.group_by{ |val| val[:category] }
-    @orderCategories = [ 'events', 'intelligence', 'blog', 'research', 'resources' ]
+    @orderCategories = [ "events", "intelligence", "blog", "research", "resources" ]
     @sortPagesByCategory = @groupPagesByCategory.sort_by{ |val| @orderCategories.index(val) }
 
     # Map organised pages
@@ -99,16 +107,17 @@ module CustomHelpers
       @registrationPages = @pagesTagged.select{ |page|
         @pageTypes = [ 'events' ].include? page[:category]
         @timeNow = Time.now.strftime('%s').to_i
-        @isInPast = registrationData(page[:featured], { type: 'date', dateType: 'integer' }).to_i >= @timeNow
+        @isInPast = altData(page, { type: "date_time", content_type: "registration" })[:integer].to_i >= @timeNow
 
         @pageTypes && @isInPast
       }[0..2]
 
       # Select pages by category and concatenate
       @blogPages = @pagesTagged.select{ |page| page[:category] == 'blog' }[0..@blogCount]
+      @intelligencePages = @pagesTagged.select{ |page| page[:category] == 'intelligence' }[0..2]
       @researchPages = @pagesTagged.select{ |page| page[:category] == 'research' }[0..2]
       @resourcesPages = @pagesTagged.select{ |page| page[:category] == 'resources' }[0..2]
-      @relatedContent = [ @registrationPages, @blogPages, @researchPages ].reduce([], :concat)
+      @relatedContent = [ @registrationPages, @intelligencePages, @blogPages, @researchPages, @resourcesPages ].reduce([], :concat)
 
       # Output
       @relatedContent.map{ |page| yield page }

@@ -51,14 +51,13 @@ article
             /         { profile_data: featured[:author],
             /           side: true }}
 
-            / Research
-            - if @entry[:category] == 'research'
+            / Research and resources
+            - if ['events', 'blog', 'research', 'resources'].include? @entry[:category]
               - @entry[:featured].first(1).map do |featured|
-                - if featured[:page]
-                  = partial 'partials/side-card',
-                    locals: { local_data: \
-                      { side_card_data: featured,
-                        featured: true }}
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured,
+                      featured: true }}
 
             / Resources
             / - if @entry[:category] == 'resources'
@@ -68,7 +67,7 @@ article
             /     - if featured[:product]
             /       = partial 'partials/side-card',
             /         locals: { local_data: \
-            /           { side_card_data: featured[:product],
+            /           { side_card_data: featured,
             /             featured: true }}
 
             /     - if featured[:page]
@@ -111,37 +110,37 @@ article
         aside.grid__cell.grid__cell--above-md-5
 
           / Side cards
-          / - if [ 'blog', 'events', 'intelligence', 'research', 'resources' ].include? @entry[:category]
+          - if [ 'blog', 'events', 'intelligence', 'research', 'resources' ].include? @entry[:category]
 
-          /   / If blog, add all non-author featured content to sidebar
-          /   - if @entry[:category] == 'blog'
-          /     - @entry[:featured].reject{ |featured| featured[:author] }.each_with_index do |featured, index|
+            / If blog, add all non-author featured content to sidebar
+            - if @entry[:category] == 'blog'
+            /   - @entry[:featured].reject{ |featured| featured[:author] }.each_with_index do |featured, index|
 
-          /       / Only add featured title once, before the first item
-          /       - if index == 0
-          /         h2.side-title Featured
+            /     / Only add featured title once, before the first item
+            /     - if index == 0
+            /       h2.side-title Featured
 
-          /       = partial 'partials/side-card',
-          /         locals: { local_data: \
-          /           { side_card_data: featured[:page] }}
+            /     = partial 'partials/side-card',
+            /       locals: { local_data: \
+            /         { side_card_data: featured }}
 
-          /   / If not blog, add all featured items to the sidebar except
-          /   / the first, which is featured alongside the intro text.
-          /   - elsif @entry[:featured] && @entry[:featured].length > 1
-          /     h2.side-title Featured
-          /     - @entry[:featured].drop(1).map do |featured|
-          /       - if ![ 'people', 'product', 'registration' ].include? featured[:TYPE]
-          /         = partial 'partials/side-card',
-          /           locals: { local_data: \
-          /             { side_card_data: featured[:page] }}
+            / If not blog, add all featured items to the sidebar except
+            / the first, which is featured alongside the intro text.
+            - elsif @entry[:featured] && @entry[:featured].length > 1
+              h2.side-title Featured
+              - @entry[:featured].drop(1).map do |featured|
+                - if ![ 'people', 'product', 'registration' ].include? featured[:TYPE]
+                  = partial 'partials/side-card',
+                    locals: { local_data: \
+                      { side_card_data: featured }}
 
-          /   / All tagged/ related content
-          /   - if @entry[:tags]
-          /     h2.side-title Related
-          /     - relatedContent(@entry) do |page|
-          /       = partial 'partials/side-card',
-          /         locals: { local_data: \
-          /           { side_card_data: page }}
+            / All tagged/ related content
+            - if @entry[:tags]
+              h2.side-title Related
+              - relatedContent(@entry) do |page|
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: page }}
 
           /   / External links
           /   - if @entry[:external_links]

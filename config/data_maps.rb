@@ -153,7 +153,11 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     if entry.date_time
       context.date_time = {
         integer: entry.date_time.strftime('%s').to_i,
-        date: entry.date_time.strftime('%d %b, %y')
+        date: entry.date_time.strftime('%d %b, %y'),
+        time: entry.date_time.strftime('%I:%M %p'),
+        day: entry.date_time.strftime('%d'),
+        month: entry.date_time.strftime('%b'),
+        year: entry.date_time.strftime('%Y')
       }
     end
 
@@ -167,6 +171,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           title: featured.title,
           slug: featured.slug.parameterize,
           category: featured.category.parameterize,
+          category_alt: (featured.featured[0].category.parameterize if featured.featured && (['product', 'registration'].include? featured.featured[0].content_type.id)),
           introduction: featured.introduction,
           banner_image: {
             url: featured.banner_image.url,
@@ -175,11 +180,19 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           },
           date_time: ({
             integer: featured.date_time.strftime('%s').to_i,
-            date: featured.date_time.strftime('%d %b, %y')
+            date: featured.date_time.strftime('%d %b, %y'),
+            time: featured.date_time.strftime('%I:%M %p'),
+            day: featured.date_time.strftime('%d'),
+            month: featured.date_time.strftime('%b'),
+            year: featured.date_time.strftime('%Y')
           }.compact if !featured.featured || featured.featured[0].content_type.id != 'registration'),
           reg_date_time: ({
             integer: featured.featured[0].date_time.strftime('%s').to_i,
-            date: featured.featured[0].date_time.strftime('%d %b, %y')
+            date: featured.featured[0].date_time.strftime('%d %b, %y'),
+            time: featured.featured[0].date_time.strftime('%I:%M %p'),
+            day: featured.featured[0].date_time.strftime('%d'),
+            month: featured.featured[0].date_time.strftime('%b'),
+            year: featured.featured[0].date_time.strftime('%Y')
           }.compact if featured.featured && featured.featured[0].content_type.id == 'registration')
         }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
       }.compact
@@ -395,6 +408,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           title: featured.title,
           slug: featured.slug.parameterize,
           category: featured.category.parameterize,
+          category_alt: (featured.featured[0].category.parameterize if featured.featured && (['product', 'registration'].include? featured.featured[0].content_type.id)),
 
           # Banner image
           banner_image: {
@@ -406,8 +420,20 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           # Blog/ event
           date_time: ({
             integer: featured.date_time.strftime('%s').to_i,
-            date: featured.date_time.strftime('%d %b, %y')
-          }.compact if featured.date_time)
+            date: featured.date_time.strftime('%d %b, %y'),
+            time: featured.date_time.strftime('%I:%M %p'),
+            day: featured.date_time.strftime('%d'),
+            month: featured.date_time.strftime('%b'),
+            year: featured.date_time.strftime('%Y')
+          }.compact if featured.date_time),
+          reg_date_time: ({
+            integer: featured.featured[0].date_time.strftime('%s').to_i,
+            date: featured.featured[0].date_time.strftime('%d %b, %y'),
+            time: featured.featured[0].date_time.strftime('%I:%M %p'),
+            day: featured.featured[0].date_time.strftime('%d'),
+            month: featured.featured[0].date_time.strftime('%b'),
+            year: featured.featured[0].date_time.strftime('%Y')
+          }.compact if featured.featured && featured.featured[0].content_type.id == 'registration')
         }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
       }.compact
       end # End: Featured map
@@ -432,7 +458,11 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     if entry.date_time
       context.date_time = {
         integer: entry.date_time.strftime('%s').to_i,
-        date: entry.date_time.strftime('%d %b, %y')
+        date: entry.date_time.strftime('%d %b, %y'),
+        time: entry.date_time.strftime('%I:%M %p'),
+        day: entry.date_time.strftime('%d'),
+        month: entry.date_time.strftime('%b'),
+        year: entry.date_time.strftime('%Y')
       }
     end
 

@@ -1,134 +1,157 @@
-- @sideCardData = local_data[:side_card_data]
-- @featured = local_data[:featured]
+/ Core
+/**************************************************
 
-- @is_product = @sideCardData.key? 'price'
-- @is_registration = @sideCardData.key? 'embed_code'
+/ Partial data
+- partialData = hashify(local_data[:side_card_data])
 
-- @isAuthor = @sideCardData[:author]
-- @isPage = @sideCardData[:page]
-- @isProduct = @sideCardData[:product]
-- @isRegistration = @sideCardData[:registration]
+/ Nested content types
+- featuredAuthor = partialData[:author]
+- featuredPage = partialData[:page]
+- featuredProduct = partialData[:product]
+- featuredRegistration = partialData[:registration]
+- featuredData = [ featuredAuthor, featuredPage, featuredProduct, featuredRegistration ].compact[0]
 
-- @sideCardDataMain = [ @isAuthor, @isPage, @isProduct, @isRegistration ]
+/ Set data source
+- setData = featuredData ? featuredData : partialData
 
-- @category = @sideCardData[:category]
-- @date = @sideCardData[:date_time][:date] if @sideCardData[:date_time]
+/ Content vars
+/**************************************************
 
-- @bannerImage = @sideCardData[:banner_image]
-- @bannerImageURL = @bannerImage[:url] if @bannerImage
-- @bannerImageAlt = @bannerImage[:alt] if @bannerImage
-- @bannerImageFocus = @bannerImage[:focus] if @bannerImage
+/ Category
+- category = setData[:category]
+- pageCategory = @entry[:category]
 
-- @image = @sideCardData[:image]
-- @imageURL = @image[:url] if @image
+/ Images
+- imageBanner = setData[:banner_image]
+- imageProduct = setData[:image]
+- if imageBanner || imageProduct
+  - image = imageBanner ? imageBanner : imageProduct
+  - imageURL = image[:url]
+  - imageAlt = image[:alt]
+  - imageFocus = image[:focus]
 
-/ Registration date - provide page date fallback in case registration not provided
-- @registrationDate = registrationData(@featuredData, { type: 'date' })
-- @registrationCategory = registrationData(@featuredData, { type: 'category' })
+/ locals
+- featuredItem = local_data[:featured]
+
+/ Types
+/**************************************************
+
+/ Card types
+- isBlogCard = (category == 'blog')
+- isEventsCard = (category == 'events')
+- isIntelligenceCard = (category == 'intelligence')
+- isResearchCard = (category == 'research')
+- isResourcesCard = (category == 'resources')
+
+/ Dates
+- dateTime = setData[:date_time]
+- dateTimeReg = featuredData ? setData[:reg_date_time] : altData(setData, { type: "date_time", content_type: "registration" })
+
+/ Alternative sub categories
+- if isEventsCard || isResourcesCard
+  - categoryAlt = featuredData \
+    ? setData[:category_alt].gsub("-", " ") \
+    : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" }).gsub("-", " ")
+
+- featuredRegistration || featuredProduct
+
+
+/ Side card elem
+/**************************************************
 
 article.side-card{
-  class="side-card--#{ @category }"
-  class="#{ 'side-card--featured' if @featured }"
+  class="side-card--#{ featuredRegistration ? pageCategory : category }"
+  class="#{ 'side-card--featured' if featuredItem }"
 }
   .side-card__inner
-
-
     .side-card__image{
-      class="#{ @image || @bannerImage ? 'side-card__image--overlay' : 'side-card__image--' + @entry[:category] }"
+      class="#{ image ? 'side-card__image--overlay' : 'side-card__image--' + pageCategory }"
     }
 
       / If banner image
-      - if @bannerImage
+      - if image
         img{
-          src="#{ @bannerImageURL }?fit=fill&w=229&h=324&f=#{ @bannerImageFocus }"
-          alt="#{ @bannerImageAlt }"
+          src="#{ imageURL }#{ ('?fit=fill&w=229&h=324&f=' + imageFocus) if imageBanner }"
+          alt="#{ imageAlt }"
         }
 
-      / If standard image (eg. product)
-      - if @image
-        img{
-          src="#{ @imageURL }?fit=fill&w=229&h=324&f=center"
-        }
-
-      - if @is_registration
-        p= @sideCardData
+      - if featuredRegistration
         = partial 'partials/date',
           locals: { local_data: \
-            { date_data: @sideCardData[:date_time] }}
+            { date_data: dateTime }}
 
     .side-card__content
       .side-card__meta
-        - if ([ 'research', 'resources' ].include? @category) || (@is_product || @is_registration)
-          span.label-xs.e-col-mid-grey= @category
 
-        - if @category == 'blog'
-          span.label-xs.e-col-mid-grey= @category + ' / ' + @date
+        - if isResearchCard || isIntelligenceCard || featuredRegistration || featuredProduct
+          span.label-xs.e-col-mid-grey= category
 
-        - if @category == 'events'
-          span.label-xs.e-col-mid-grey= @registrationCategory + ' / ' + @registrationDate
+        - if isResourcesCard
+          span.label-xs.e-col-mid-grey= categoryAlt
+
+        - if isBlogCard
+          span.label-xs.e-col-mid-grey #{ category } / #{ dateTime[:date] }
+
+        - if isEventsCard
+          span.label-xs.e-col-mid-grey #{ categoryAlt } / #{ dateTimeReg[:date] } @ #{ dateTimeReg[:time] }
 
       .side-card__title
 
-        / Not product
-        - if !@is_product && !@is_registration
-          h1{
-            class="#{ @is_product ? 'title-xs' : 'title-sm' }"
-          }
+        / Not registration or product
+        - if !featuredRegistration && !featuredProduct
+          h1.title-sm
             a.JS-truncate{
-              href="#{ internalURL(@sideCardData[:slug], @category) }"
-              class="#{ @featured ? 'link-white' : 'link' }"
-            }= @sideCardData[:title]
-
-        / Is product
-        - if @is_product || @is_registration
+              href="#{ internalURL(setData[:slug], category) }"
+              class="#{ featuredItem ? 'link-white' : 'link' }"
+            }= setData[:title]
+        - else
           h1.title-sm.JS-truncate{
-            class="#{ @featured ? 'e-col-white' : 'e-col-green'}"
-          }= @is_product ? @sideCardData[:title] : @sideCardData[:venue]
+            class="#{ featuredItem ? 'e-col-white' : 'e-col-green'}"
+          }= featuredProduct ? setData[:title] : setData[:venue]
 
       / Is product or registration
-      - if @is_product || @is_registration
+      - if featuredRegistration || featuredProduct
         .side-card__actions{
           class="#{ @featured ? 'e-col-white' : 'e-col-green'}"
         }
 
-          / Product
-          - if @is_product
+          - if featuredProduct
 
-            - if @sideCardData[:price] == 0
+            - if setData[:price] == 0
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'sm', style: 'primary',
-                    label: 'Download', label_size: 'sm', url: @sideCardData[:download] }}
+                    label: 'Download', label_size: 'sm', url: setData[:download] }}
 
-            - if @sideCardData[:price] > 0
+            - if setData[:price] > 0
               = partial 'partials/btn',
                 locals: { local_data: \
-                  { type: 'link', size: 'sm', style: 'primary', product: @sideCardData,
-                    label: "Buy (£#{ @sideCardData[:price] })", label_size: 'sm' }}
+                  { type: 'link', size: 'sm', style: 'primary', product: setData,
+                    label: "Buy (£#{ setData[:price] })", label_size: 'sm' }}
 
           / Registration
-          - if @is_registration
+          - if featuredRegistration
 
-            - if @sideCardData[:date_time][:integer] < Time.now.strftime('%s').to_i
+            - if setData[:date_time][:integer] < Time.now.strftime('%s').to_i
               p
                 strong CLOSED
 
             - else
 
-              - @price == @sideCardData[:price]
+              - @price == setData[:price]
 
               / Modal window
               = partial 'partials/modal',
                 locals: { local_data: \
-                  { id: @sideCardData[:modal][:cta_id],
-                    content: @sideCardData[:modal][:content] }}
+                  { id: setData[:modal][:cta_id],
+                    content: setData[:modal][:content] }}
 
               / Modal button
               = partial 'partials/btn',
                 locals: { local_data: \
                   { type: 'state',
                     size: 'sm', style: 'primary',
-                    label_on: @price, label_off: 'Close', label_size: 'sm',
+                    label_on: 'Register now', label_off: 'Close', label_size: 'sm',
                     page: 'no-scroll', switch: true,
-                    aria_id: "activate-#{ @sideCardData[:modal][:cta_id] }",
-                    aria_target_id: @sideCardData[:modal][:cta_id] }}
+                    aria_id: "activate-#{ setData[:modal][:cta_id] }",
+                    aria_target_id: setData[:modal][:cta_id] }}

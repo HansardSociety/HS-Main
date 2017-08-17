@@ -1,6 +1,6 @@
 .date {
-  @extend %e-pad-sm;
   @extend %e-align-cen;
+  @extend %e-pad-sm;
   @extend %e-width-full;
 }
 
@@ -12,10 +12,13 @@
 .date__d {
   line-height: 1;
   font-size: 3.25rem;
+
+  @extend %e-ff-prim-heavy;
 }
 
 .date__tmy {
   font-size: .75rem;
 
+  @extend %e-ff-prim-medium;
   @extend %e-upper;
 }
