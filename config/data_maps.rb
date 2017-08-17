@@ -51,6 +51,21 @@ def pageBase(pageType, ctx, data)
   end
 end
 
+# Nested data
+
+def featuredPage(data)
+  featuredPageData = ({
+    title: data.title,
+    slug: data.slug.parameterize,
+    category: data.category.parameterize,
+    introduction: data.introduction,
+    banner_image: media(data.banner_image, focus: data),
+    date_time: (dateTime(data) if !data.featured || data.featured[0].content_type.id != 'registration'),
+    category_alt: (data.featured[0].category.parameterize if data.featured && (['product', 'registration'].include? data.featured[0].content_type.id)),
+    reg_date_time: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
+  }.compact if [ 'child_page', 'landing_page'].include? data.content_type.id)
+end
+
 ############################################################
 ## =Global
 ############################################################
@@ -76,7 +91,6 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.meta = {
       analytics: entry.meta_analytics
     }
-
   end
 end
 
@@ -170,20 +184,10 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
 
-        page: ({
-          title: featured.title,
-          slug: featured.slug.parameterize,
-          category: featured.category.parameterize,
-          introduction: featured.introduction,
-          banner_image: media(featured.banner_image, focus: featured),
-          date_time: (dateTime(featured) if !featured.featured || featured.featured[0].content_type.id != 'registration'),
-          category_alt: (featured.featured[0].category.parameterize if featured.featured && (['product', 'registration'].include? featured.featured[0].content_type.id)),
-          reg_date_time: (dateTime(featured.featured[0]) if featured.featured && featured.featured[0].content_type.id == 'registration')
-        }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
+        page: featuredPage(featured)
       }.compact
       end # End: Featured map
     end # End: All featured
-
 
     # Panels
     if entry.panels
@@ -328,9 +332,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           }
         }.compact if featured.content_type.id == 'people'),
 
-        ##  Featured (registration)
-        ##############################
-
+        # Featured registration
         registration: ({
           meta_title: featured.meta_title,
           category: featured.category.parameterize,
@@ -344,9 +346,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           }
         }.compact if featured.content_type.id == 'registration'),
 
-        ##  Featured (product)
-        ##############################
-
+        # Featured product
         product: ({
           title: featured.title,
           category: featured.category.parameterize,
@@ -359,22 +359,8 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
           download: (featured.media.url if featured.media)
         }.compact if featured.content_type.id == 'product'),
 
-        ##  Featured (page)
-        ##############################
-
-        page: ({
-          title: featured.title,
-          slug: featured.slug.parameterize,
-          category: featured.category.parameterize,
-          category_alt: (featured.featured[0].category.parameterize if featured.featured && (['product', 'registration'].include? featured.featured[0].content_type.id)),
-
-          # Banner image
-          banner_image: media(featured.banner_image, focus: featured),
-
-          # Blog/ event
-          date_time: (dateTime(featured) if featured.date_time),
-          reg_date_time: (dateTime(featured.featured[0]) if featured.featured && featured.featured[0].content_type.id == 'registration')
-        }.compact if [ 'child_page', 'landing_page'].include? featured.content_type.id)
+        # Featured page
+        page: featuredPage(featured)
       }.compact
       end # End: Featured map
     end # End: All featured
