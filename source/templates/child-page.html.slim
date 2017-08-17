@@ -43,47 +43,21 @@ article
           - if @entry[:featured]
 
             / Blog (authors)
-            / - if @entry[:category] == 'blog'
-            /   - @entry[:featured].map do |featured|
-            /     - if featured[:author]
-            /       = partial 'partials/profile',
-            /         locals: { local_data: \
-            /         { profile_data: featured[:author],
-            /           side: true }}
+            - if @entry[:category] == 'blog'
+              - @entry[:featured].map do |featured|
+                - if featured[:author]
+                  = partial 'partials/profile',
+                    locals: { local_data: \
+                    { profile_data: featured[:author],
+                      side: true }}
 
             / Research and resources
-            - if ['events', 'blog', 'research', 'resources'].include? @entry[:category]
+            - if ['events', 'research', 'resources'].include? @entry[:category]
               - @entry[:featured].first(1).map do |featured|
                 = partial 'partials/side-card',
                   locals: { local_data: \
                     { side_card_data: featured,
                       featured: true }}
-
-            / Resources
-            / - if @entry[:category] == 'resources'
-            /   - @entry[:featured].first(1).map do |featured|
-
-            /     / Product
-            /     - if featured[:product]
-            /       = partial 'partials/side-card',
-            /         locals: { local_data: \
-            /           { side_card_data: featured,
-            /             featured: true }}
-
-            /     - if featured[:page]
-            /       = partial 'partials/side-card',
-            /         locals: { local_data: \
-            /           { side_card_data: featured[:page],
-            /             featured: true }}
-
-            / Registration
-            / - if @entry[:category] == 'events'
-            /   - @entry[:featured].first(1).map do |featured|
-            /     - if featured[:registration]
-            /       = partial 'partials/side-card',
-            /         locals: { local_data: \
-            /           { side_card_data: featured[:registration],
-            /             featured: true }}
 
     / Main content
     .content__section
@@ -114,15 +88,15 @@ article
 
             / If blog, add all non-author featured content to sidebar
             - if @entry[:category] == 'blog'
-            /   - @entry[:featured].reject{ |featured| featured[:author] }.each_with_index do |featured, index|
+              - @entry[:featured].reject{ |featured| featured[:author] }.each_with_index do |featured, index|
 
-            /     / Only add featured title once, before the first item
-            /     - if index == 0
-            /       h2.side-title Featured
+                / Only add featured title once, before the first item
+                - if index == 0
+                  h2.side-title Featured
 
-            /     = partial 'partials/side-card',
-            /       locals: { local_data: \
-            /         { side_card_data: featured }}
+                = partial 'partials/side-card',
+                  locals: { local_data: \
+                    { side_card_data: featured }}
 
             / If not blog, add all featured items to the sidebar except
             / the first, which is featured alongside the intro text.
@@ -142,21 +116,21 @@ article
                   locals: { local_data: \
                     { side_card_data: page }}
 
-          /   / External links
-          /   - if @entry[:external_links]
-          /     .section-lg
-          /       - @entry[:external_links].map do |link|
-          /         = partial 'partials/ext-link',
-          /           locals: { local_data: \
-          /             { ext_link_data: link }}
+            / External links
+            - if @entry[:external_links]
+              .section-lg
+                - @entry[:external_links].map do |link|
+                  = partial 'partials/ext-link',
+                    locals: { local_data: \
+                      { ext_link_data: link }}
 
-          / / Latest items for about pages
-          / - if @category == 'about'
-          /   h2.side-title Latest
-          /   - latestContent(yield: true, num: 4) do |page|
-          /     = partial 'partials/side-card',
-          /       locals: { local_data: \
-          /         { side_card_data: page }}
+          / Latest items for about pages
+          - if @category == 'about'
+            h2.side-title Latest
+            - latestContent(yield: true, num: 4) do |page|
+              = partial 'partials/side-card',
+                locals: { local_data: \
+                  { side_card_data: page }}
 
           / Newsletter signup
           .box.e-bgc-dark-grey.e-col-white.e-mgn-b-xs
