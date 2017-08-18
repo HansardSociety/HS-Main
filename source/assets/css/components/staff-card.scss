@@ -5,6 +5,7 @@
 
 .staff-card {
   width: calc(100% - 3px); // allow vertical box shadow
+  max-width: 25rem;
 
   @extend %e-bgc-white;
   @extend %e-box-shad-raised;

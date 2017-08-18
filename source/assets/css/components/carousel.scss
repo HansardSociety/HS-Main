@@ -7,12 +7,11 @@
   @extend %e-mgn-t-sm;
 }
 
+.carousel__inner,
 .carousel__item {
-  height: auto;
-
-  & > * {
-    @extend %e-height-full;
-  }
+  height: inherit; // inherit Swiper's height to define height and strech chidlren (iOS full height fix)
+} .carousel__item > * {
+  @extend %e-height-full;
 }
 
 .carousel__actions {

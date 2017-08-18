@@ -49,11 +49,5 @@ article.main-card{
 
       / Strip HTML from markdown, trucate text and replace all
       / non-alphanumeric final characters with an elipsis.
-
       - @intro_text = markdown(@mainCardData[:introduction]).gsub(/<\/?[^>]*>/, "")
-
-      - if @intro_text.display_width >= 200
-        p= markdown(@mainCardData[:introduction]).gsub(/<\/?[^>]*>/, "")[0..165].gsub(/[^0-9a-zA-Z]+$/, '') + '…'
-
-      - else
-        p= @intro_text[0..180].gsub(/[^0-9a-zA-Z]+$/, '') + '…'
+      p= markdown(@mainCardData[:introduction]).gsub(/<\/?[^>]*>/, "")[0..165].gsub(/[^0-9a-zA-Z]+$/, '') + '…'

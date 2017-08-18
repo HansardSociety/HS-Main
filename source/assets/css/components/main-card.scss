@@ -1,5 +1,6 @@
 .main-card {
   width: calc(100% - 3px); // allow vertical box shadow
+  max-width: 25rem;
 
   text-align: left;
 
@@ -70,11 +71,10 @@
 
 .main-card__header--side {
   display: flex;
+  align-items: flex-end;
+  flex-flow: row nowrap;
 
   height: 162px;
-
-  flex-flow: row nowrap;
-  align-items: flex-end;
 
   // border-bottom: 2px solid $brand_white_3;
 }
