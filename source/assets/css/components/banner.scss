@@ -1,6 +1,8 @@
 .banner {
+  @extend %e-bgc-black;
   @extend %e-position-relative;
   @extend %e-width-full;
+  @extend %e-zidx-neg;
 }
 
 .banner--full {
@@ -45,12 +47,12 @@
 }
 
 .banner__image {
+  @extend %e-animate-fade-in-load;
   @extend %e-height-full-vh; // fallback for JS
   @extend %e-overflow-hidden;
   @extend %e-overlay-medium;
   @extend %e-position-absolute;
   @extend %e-trans-core;
-  @extend %e-zidx-neg;
 }
 
 .banner__image--left {

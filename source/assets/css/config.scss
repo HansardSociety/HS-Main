@@ -170,22 +170,28 @@ $transition: (
 
 // Animations
 $animate: (
+  fade-in-load: (
+    prop: opacity,
+    start: 0,
+    end: 1,
+    easing: ease-out 1s
+  ),
   fade-in-opaque: (
-    prop:   opacity,
-    start:  0,
-    end:    .85,
+    prop: opacity,
+    start: 0,
+    end: .85,
     easing: map-get($easing, core)
   ),
   slide-up-in: (
-    prop:   transform,
-    start:  translateY(100vh),
-    end:    translateY(0),
+    prop: transform,
+    start: translateY(100vh),
+    end: translateY(0),
     easing: map-get($easing, core)
   ),
   slide-up-in-center: (
-    prop:   transform,
-    start:  translate3d(-50%, 100vh, 0),
-    end:    translate3d(-50%, -50%, 0),
+    prop: transform,
+    start: translate3d(-50%, 100vh, 0),
+    end: translate3d(-50%, -50%, 0),
     easing: map-get($easing, core)
   )
 );

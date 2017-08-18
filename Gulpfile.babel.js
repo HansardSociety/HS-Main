@@ -104,7 +104,8 @@ const PATH = {
   images: {
     icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
   },
-  redirects: __dirname + '/redirects',
+  headers: __dirname + '/netlify/.headers',
+  redirects: __dirname + '/netlify/.redirects',
   tmp: {
     dir: __dirname + '/.tmp',
     assets: __dirname + '/.tmp/assets',
@@ -276,7 +277,7 @@ gulp.task('svg', function() {
 
 gulp.task('copy', function() {
 
-  return gulp.src([ PATH.fonts, PATH.redirects ])
+  return gulp.src([ PATH.fonts, PATH.headers, PATH.redirects ])
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 

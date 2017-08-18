@@ -4,6 +4,7 @@
 }
 
 .carousel {
+  @extend %e-animate-fade-in-load;
   @extend %e-mgn-t-sm;
 }
 

@@ -111,7 +111,8 @@ configure :prod do
   set :build_dir, 'build/prod'
 
   after_build do
-    File.rename 'build/prod/redirects', 'build/prod/_redirects'
+    File.rename 'build/prod/.redirects', 'build/prod/_redirects'
+    File.rename 'build/prod/.headers', 'build/prod/_headers'
   end
 end
 
@@ -124,10 +125,6 @@ configure :preview do
   set :ENV, 'preview'
   set :SNIPCART_TKN, ENV['SNIPCART_PREVIEW_TKN']
   set :build_dir, 'build/preview'
-
-  after_build do
-    File.rename 'build/preview/redirects', 'build/preview/_redirects'
-  end
 end
 
 ##  Development
