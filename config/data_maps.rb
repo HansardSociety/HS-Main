@@ -56,6 +56,8 @@ def pageBase(pageType, ctx, data)
     ctx.slug = data.slug.parameterize
     ctx.introduction = data.introduction
     ctx.date_time = dateTime(data)
+    ctx.blog_count = data.blog_count if data.blog_count
+    ctx.tags = data.tags.map{ |tag| tag.gsub("'", '').parameterize } if data.tags
   end
 end
 
@@ -265,11 +267,6 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       end
     end
 
-    # Blog count
-    if entry.blog_count
-      context.blog_count = entry.blog_count
-    end
-
     # Tagging
     if entry.tags
       context.tags = entry.tags.map{ |tag| tag.gsub("'", '').parameterize }
@@ -286,17 +283,13 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     pageBase("childPage", context, entry) # core page data
     context.copy = entry.copy # main copy
 
-    ##  Featured
-    ##############################
-
+    # Featured
     if entry.featured
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
 
-        ##  Featured (people)
-        ##############################
-
+        # Featured (people)
         author: ({
           full_name: featured.full_name,
           role: featured.role,
@@ -347,9 +340,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       end # End: Featured map
     end # End: All featured
 
-    ##  External links
-    ##############################
-
+    # External links
     if entry.external_links
       context.external_links = entry.external_links.map do |link| {
         title: link.title,
@@ -360,13 +351,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       end
     end
 
-    ##  Tagging
-    ##############################
-
-    if entry.blog_count
-      context.blog_count = entry.blog_count
-    end
-
+    # Tags
     if entry.tags
       context.tags = entry.tags.map{ |tag| tag.gsub("'", '').parameterize }
     end

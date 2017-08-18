@@ -1,22 +1,15 @@
-////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
-
 / Page data
-- @entry            = child_page
+- @entry = child_page
 
 / Page variables
-- @author           = @entry[:author]
-- @category         = @entry[:category]
-- @copy             = @entry[:copy]
-- @introduction     = @entry[:introduction]
-- @promoted_page    = @entry[:promoted_page]
-- @registration     = @entry[:registration]
-- @product          = @entry[:product]
-
-////////////////////////////////////////////////////////////
-//  Child page
-////////////////////////////////////////////////////////////
+- @author = @entry[:author]
+- @blogCount = @entry[:blog_count]
+- @category = @entry[:category]
+- @copy = @entry[:copy]
+- @introduction = @entry[:introduction]
+- @promoted_page = @entry[:promoted_page]
+- @registration = @entry[:registration]
+- @product = @entry[:product]
 
 article
 
@@ -52,7 +45,7 @@ article
                       side: true }}
 
             / Research and resources
-            - if ['events', 'research', 'resources'].include? @entry[:category]
+            - if ['events', 'intelligence', 'research', 'resources'].include? @entry[:category]
               - @entry[:featured].first(1).map do |featured|
                 = partial 'partials/side-card',
                   locals: { local_data: \
@@ -69,16 +62,13 @@ article
           / Copy
           = markdown(@copy)
 
-          / Un-truncate button
+          / Expand button
           .grid__expand-btn
             = partial 'partials/btn',
               locals: { local_data: \
-                { type: 'state',
-                  size: 'md', style: 'secondary', fill: true,
-                  label_on: 'Show more', label_off: 'Show less',
-                  label_size: 'lg',
-                  aria_id: "activate-expand",
-                  aria_target_id: 'expand' }}
+                { type: 'state', size: 'md', style: 'secondary', fill: true,
+                  label_on: 'Show more', label_off: 'Show less', label_size: 'lg',
+                  aria_id: "activate-expand", aria_target_id: 'expand' }}
 
         / Side content
         aside.grid__cell.grid__cell--above-md-5
@@ -111,7 +101,7 @@ article
             / All tagged/ related content
             - if @entry[:tags]
               h2.side-title Related
-              - relatedContent(@entry) do |page|
+              - relatedContent(@entry, @blogCount) do |page|
                 = partial 'partials/side-card',
                   locals: { local_data: \
                     { side_card_data: page }}

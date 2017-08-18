@@ -69,13 +69,11 @@ module CustomHelpers
   end
 
   # Related content/ tagging by category
-  def relatedContent(entryData, opts = {})
-    defaults = { blogCount: 3 }
-    opts = defaults.merge(opts)
+  def relatedContent(entryData, blogCount)
 
     # Control number of blog posts
     # Subtract 1 as data pulled from Contentful (starts at 1)
-    @blogCount = opts[:blogCount] - 1
+    @blogCount = blogCount ? blogCount - 1 : 2
 
     # Symbolize entry data to convert to regular hash
     @entryData = convertToRegularHash(entryData)

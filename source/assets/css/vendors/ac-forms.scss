@@ -1,4 +1,6 @@
-._form_1 {
+
+
+._form_7 {
   width: 100% !important;
   margin-top: -1px !important;
   padding: 0 !important;
@@ -7,14 +9,24 @@
 ._form-thank-you {
   text-align: left !important;
 }
-._form_1 textarea,
-._form_1 input,
+
+._form_element,
+._form_7 textarea,
+._form_7 input,
 ._submit {
-  border-radius: 2px !important;
+  margin: 0 !important;
 }
 
-._form_1 textarea,
-._form_1 input {
+._form_7 textarea,
+._form_7 input,
+._submit,
+.g-recaptcha {
+  border-radius: 2px !important;
+  margin-bottom: 9px !important;
+}
+
+._form_7 textarea,
+._form_7 input {
   width: 100% !important;
   height: 45px !important;
   padding: 9px !important;
@@ -26,16 +38,16 @@
   font-size: 18px !important;
 }
 
-._form_1 textarea {
+._form_7 textarea {
   min-height: 108px !important;
 }
 
-._form_1 textarea::placeholder,
-._form_1 input::placeholder {
+._form_7 textarea::placeholder,
+._form_7 input::placeholder {
   color: #a4a7ab !important;
 }
 
-._form_1 label {
+._form_7 label {
   position: absolute !important;
 
   overflow: hidden !important;
@@ -51,11 +63,11 @@
   width: 8rem;
 
   transition: all ease-out .25s !important;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
 
   background-color: #f57300 !important;
 
-  font-size: 13px;
+  font-size: 13px !important;
 }
 
 ._submit:hover {
