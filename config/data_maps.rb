@@ -1,9 +1,11 @@
 ############################################################
-## =Shared
+##  =Shared
 ############################################################
 
-# Core
+#   Core
+# ***********************************************************
 
+# Date/ time formatting
 def dateTime(data)
   dateTimeData = {
     integer: data.date_time.strftime('%s').to_i,
@@ -15,17 +17,23 @@ def dateTime(data)
   }
 end
 
+# Media data (ie. images/ files)
 def media(data, opts = {})
-  defaults = { focus: false }
+  defaults = {
+    focus: false,
+    title: false
+  }
   opts = defaults.merge(opts)
 
   mediaData = {
     url: data.url,
     alt: data.description,
+    title: (data.title if opts[:title]),
     focus: (opts[:focus].image_focus.parameterize if opts[:focus])
   }.compact
 end
 
+# Core page data
 def pageBase(pageType, ctx, data)
 
   # Shared
@@ -51,8 +59,10 @@ def pageBase(pageType, ctx, data)
   end
 end
 
-# Nested data
+#   Nested data
+# ***********************************************************
 
+# Featured page
 def featuredPage(data)
   featuredPageData = ({
     title: data.title,
@@ -64,6 +74,22 @@ def featuredPage(data)
     category_alt: (data.featured[0].category.parameterize if data.featured && (['product', 'registration'].include? data.featured[0].content_type.id)),
     reg_date_time: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
   }.compact if [ 'child_page', 'landing_page'].include? data.content_type.id)
+end
+
+# Calls to action
+def callsToAction(data)
+  ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta| {
+    ID: cta.sys[:id],
+    title: cta.title.split('::')[0], # split '::' for contentful name-spacing
+    action: cta.action.parameterize, # eg. modal, download etc
+    button_text: cta.button_text,
+    file: (media(cta.file, title: true) if cta.file),
+    modal: ({
+      cta_id: (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
+      content: cta.modal,
+      width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
+    }.compact if cta.action == 'Modal')
+  }.compact end : nil)
 end
 
 ############################################################
@@ -161,21 +187,8 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
 
     # Call(s) to action
-    if entry.actions
-      context.calls_to_action = entry.actions.map do |cta| {
-        title: cta.title.split('::')[0], # split '::' for contentful name-spacing
-        action: cta.action.parameterize,
-        button_text: cta.button_text,
-        file: ({
-          title: cta.file.title,
-          url: cta.file.url
-        } if cta.action == 'Download'),
-        modal: ({
-          cta_id: (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id] + 'banner'), # split '::' for contentful name-spacing
-          content: cta.modal
-        } if cta.action == 'Modal'),
-      }.compact
-      end
+    if entry.calls_to_action
+      context.calls_to_action = callsToAction(entry)
     end
 
     # Featured
@@ -199,21 +212,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         title: panel.title,
 
         # Calls to action
-        calls_to_action: (defined?(panel.calls_to_action) && panel.calls_to_action != nil ? panel.calls_to_action.map do |cta| {
-          ID: cta.sys[:id],
-          title: cta.title.split('::')[0], # split '::' for contentful name-spacing
-          action: cta.action.parameterize, # eg. modal, download etc
-          button_text: cta.button_text,
-          file: ({
-            title: cta.file.title,
-            url: cta.file.url
-          } if cta.file != nil),
-          modal: ({
-            cta_id: (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
-            content: cta.modal,
-            width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
-          }.compact if cta.action == 'Modal')
-        }.compact end : nil),
+        calls_to_action: callsToAction(panel),
 
         # Panel content and accordians
         label: (panel.label if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
@@ -228,10 +227,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           cta_id: (panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]), # split '::' for contentful name-spacing
           content: panel.show_more
         }.compact if panel.content_type.id == 'panel_content' && panel.show_more),
-        image: ({
-          url: panel.image.url,
-          alt: panel.image.description
-        }.compact if panel.content_type.id == 'panel_content' && panel.image),
+        image: (media(panel.image) if panel.content_type.id == 'panel_content' && panel.image),
         panel_width: ((panel.panel_width ? panel.panel_width.parameterize : 'wide') if panel.content_type.id == 'panel_content'),
         share_buttons: (panel.share_buttons if panel.content_type.id == 'panel_content'),
 
@@ -264,20 +260,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           cta_id: ('accordian-' + accordian.title.split('::')[0].parameterize + '-' + accordian.sys[:id]), # split '::' for contentful name-spacing
           title: accordian.title,
           copy: accordian.copy,
-          calls_to_action:  (accordian.calls_to_action ? accordian.calls_to_action.map do |cta| {
-            ID: cta.sys[:id],
-            title: cta.title.split('::')[0], # split '::' for contentful name-spacing
-            action: cta.action.parameterize, # eg. modal, download etc
-            button_text: cta.button_text,
-            file: ({
-              title: cta.file.title,
-              url: cta.file.url
-            } if cta.file != nil),
-            modal: ({
-              id: (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
-              content: cta.modal
-            } if cta.action == 'modal')
-          }.compact end : nil)
+          calls_to_action:  callsToAction(accordian)
         }.compact end : nil)
       }.compact
       end
