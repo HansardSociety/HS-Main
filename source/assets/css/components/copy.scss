@@ -20,8 +20,11 @@
   > h3 { @extend .title-sm; }
   > h4 { @extend .label-sm; }
 
-  > p > a {
+  > p > a,
+  > p > strong > a,
+  > p > em > a {
     @extend .link;
+    @extend %e-ff-prim-medium;
   }
 
   ul {
