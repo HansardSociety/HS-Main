@@ -15,8 +15,8 @@ head
   title= siteData(:site_title)
 
   / CSS
-  link{ rel="stylesheet" href="#{ config[:CSS_VENDOR] }" }
-  link{ rel="stylesheet" href="#{ config[:CSS_MAIN] }" }
+  link{ rel="preload" as="style" href="#{ config[:CSS_VENDOR] }" }
+  link{ rel="preload" as="style" href="#{ config[:CSS_MAIN] }" }
 
   / Snipcart
   - if @entry[:featured]
