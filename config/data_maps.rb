@@ -196,7 +196,6 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
-
         page: featuredPage(featured)
       }.compact
       end # End: Featured map
