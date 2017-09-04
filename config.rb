@@ -16,6 +16,7 @@ require 'yaml'
 Dotenv.load
 helpers CustomHelpers
 set :markdown_engine, :kramdown
+Slim::Engine.set_options sort_attrs: false
 
 ############################################################
 ##  Variables
