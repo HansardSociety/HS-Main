@@ -27,5 +27,5 @@ html
       = partial 'partials/footer'
 
   / Scripts
-  script{ src="#{ config[:JS_VENDOR] }" }
+  script{ async src="#{ config[:JS_VENDOR] }" }
   script{ async src="#{ config[:JS_MAIN] }" }
