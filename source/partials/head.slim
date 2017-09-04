@@ -2,28 +2,12 @@ head
   meta{ content="IE=edge" http-equiv="X-UA-Compatible" }
   meta{ charset="utf-8" }
 
-
   / Twitter card
-  meta{
-    name="twitter:card"
-    content="summary_large_image"
-  }
-  meta{
-    name="twitter:site"
-    content="@HansardSociety"
-  }
-  meta{
-    name="twitter:title"
-    content="#{ @entry[:title] }"
-  }
-  meta{
-    name="twitter:description"
-    content="#{ @entry[:introduction] }"
-  }
-  meta{
-    name="twitter:image"
-    content="https:#{ @entry[:banner_image].url }"
-  }
+  meta name="twitter:card" content="summary_large_image"
+  meta name="twitter:site" content="@HansardSociety"
+  meta name="twitter:title" content="#{ @entry[:title] }"
+  meta name="twitter:description" content="#{ @entry[:introduction] }"
+  meta name="twitter:image" content="https:#{ @entry[:banner_image].url }"
 
   / No index
   - if config[:ENV] == 'preview'
