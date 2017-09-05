@@ -80,7 +80,6 @@ module CustomHelpers
 
     # Group and sort pages
     @groupPagesByCategory = latestContent.group_by{ |val| val[:category] }
-
     @orderCategories = ["events", "intelligence", "blog", "resources", "research"]
     @sortPagesByCategory = @groupPagesByCategory.sort_by{ |category, pages| @orderCategories.index(category) }
 
