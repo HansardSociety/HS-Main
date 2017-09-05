@@ -1,12 +1,4 @@
-////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
-
 - @urls   = local_data[:icons].reject(&:nil?)
-
-////////////////////////////////////////////////////////////
-//  Social
-////////////////////////////////////////////////////////////
 
 - @urls.each do |url|
 
@@ -15,13 +7,12 @@
     - @domain = PublicSuffix.parse(@url)
 
   a.social{
-    class="#{
-      'grid__cell grid__cell--xxs' if @urls.length > 0
-    }"
-    href="#{ url }"
+    class="#{ 'grid__cell grid__cell--xxs' if @urls.length > 0 }"
+    href="#{ url =~ /@/ ? 'mailto:' + url : url }"
     target="_blank"
   }
     = partial 'partials/icon',
-      locals: { icon: "#{ url =~ /@/ ? 'email' : 'social-' + @domain.sld }",
-                color: 'orange',
-                size: 'xs' }
+      locals: { \
+        icon: "#{ url =~ /@/ ? 'email' : 'social-' + @domain.sld }",
+        color: 'orange',
+        size: 'xs' }

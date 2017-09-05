@@ -28,7 +28,7 @@ article
           = markdown(@introduction, 'byline')
 
         / Featured side content
-        aside.grid__cell.grid__cell--above-md-5{
+        aside.grid__cell.grid__cell--above-md-5.grid__cell--fill{
           class="#{ 'grid__cell--order-1 grid__cell--above-md-order-2' if [ 'blog', 'events' ].include? @entry[:category]  }"
         }
 

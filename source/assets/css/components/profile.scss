@@ -3,6 +3,7 @@
   @extend %e-flex-row-center;
   @extend %e-pad-sm;
   @extend %e-rad-slight;
+  @extend %e-width-full;
 
   &:nth-child(1n + 2) {
     @extend %e-mgn-t-xs;
