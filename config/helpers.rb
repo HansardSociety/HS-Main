@@ -58,7 +58,7 @@ module CustomHelpers
 
     @allMainPages = @allPages.select{ |id, page|
       opts[:pageCategories].include? page[:category]
-    }
+    }.compact
 
     @allPagesRegHash = convertToRegularHash(@allMainPages).values
     @sortPagesByDate = @allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
@@ -80,8 +80,9 @@ module CustomHelpers
 
     # Group and sort pages
     @groupPagesByCategory = latestContent.group_by{ |val| val[:category] }
-    @orderCategories = [ "events", "intelligence", "blog", "research", "resources" ]
-    @sortPagesByCategory = @groupPagesByCategory.sort_by{ |val| @orderCategories.index(val) }
+
+    @orderCategories = ["events", "intelligence", "blog", "resources", "research"]
+    @sortPagesByCategory = @groupPagesByCategory.sort_by{ |category, pages| @orderCategories.index(category) }
 
     # Map organised pages
     @sortPagesByCategory.map do |category, pages|
@@ -97,9 +98,9 @@ module CustomHelpers
 
           # Filter the entry page and pages that are included as featured items
           @notThisPage = page[:ID] != @entryData[:ID]
-          @notFeaturedPage = @entryData[:featured] ? @entryData[:featured].any?{ |featPage|
-            page[:ID] != featPage[:ID]
-          } : true
+          @notFeaturedPage = !@entryData[:featured].any?{ |featPage|
+             page[:ID].include? featPage[:ID]
+          } if @entryData[:featured]
 
           page if @hasSameTags && @notThisPage && @notFeaturedPage
         end
@@ -107,7 +108,7 @@ module CustomHelpers
 
       # Registration pages
       @registrationPages = @pagesTagged.select{ |page|
-        @pageTypes = [ 'events' ].include? page[:category]
+        @pageTypes = ['events'].include? page[:category]
         @timeNow = Time.now.strftime('%s').to_i
         @isInPast = altData(page, { type: "date_time", content_type: "registration" })[:integer].to_i >= @timeNow
 
@@ -116,13 +117,13 @@ module CustomHelpers
 
       # Select pages by category and concatenate
       @blogPages = @pagesTagged.select{ |page| page[:category] == 'blog' }[0..@blogCount]
-      @intelligencePages = @pagesTagged.select{ |page| page[:category] == 'intelligence' }[0..2]
-      @researchPages = @pagesTagged.select{ |page| page[:category] == 'research' }[0..2]
-      @resourcesPages = @pagesTagged.select{ |page| page[:category] == 'resources' }[0..2]
-      @relatedContent = [ @registrationPages, @intelligencePages, @blogPages, @researchPages, @resourcesPages ].reduce([], :concat)
+      @otherPages = @pagesTagged.select{ |page|
+        ["intelligence", "research", "resources"].include? page[:category]
+      }[0..2]
+      @concatPages = [@registrationPages, @blogPages, @otherPages].reduce([], :concat)
 
       # Output
-      @relatedContent.map{ |page| yield page }
+      @concatPages.map{ |page| yield page }
     end
   end
 end

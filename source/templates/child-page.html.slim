@@ -23,20 +23,20 @@ article
     .content__header
       .grid.grid--md.grid--center
         section.grid__cell.grid__cell--above-md-7.copy{
-          class="#{ 'grid__cell--order-2 grid__cell--above-md-order-1' if [ 'blog', 'events' ].include? @entry[:category]  }"
+          class="#{ 'grid__cell--order-2 grid__cell--above-md-order-1' if ["blog", "events" ].include? @entry[:category]  }"
         }
           = markdown(@introduction, 'byline')
 
         / Featured side content
         aside.grid__cell.grid__cell--above-md-5.grid__cell--fill{
-          class="#{ 'grid__cell--order-1 grid__cell--above-md-order-2' if [ 'blog', 'events' ].include? @entry[:category]  }"
+          class="#{ 'grid__cell--order-1 grid__cell--above-md-order-2' if ["blog", "events" ].include? @entry[:category]  }"
         }
 
           / Entry has featured content...
           - if @entry[:featured]
 
             / Blog (authors)
-            - if @entry[:category] == 'blog'
+            - if @entry[:category] == "blog"
               - @entry[:featured].map do |featured|
                 - if featured[:author]
                   = partial 'partials/profile',
@@ -45,7 +45,7 @@ article
                       side: true }}
 
             / Research and resources
-            - if ['events', 'intelligence', 'research', 'resources'].include? @entry[:category]
+            - if ["events", "intelligence", "research", "resources"].include? @entry[:category]
               - @entry[:featured].first(1).map do |featured|
                 = partial 'partials/side-card',
                   locals: { local_data: \
@@ -74,10 +74,10 @@ article
         aside.grid__cell.grid__cell--above-md-5
 
           / Side cards
-          - if [ 'blog', 'events', 'intelligence', 'research', 'resources' ].include? @entry[:category]
+          - if [ "blog", "events", "intelligence", "research", "resources" ].include? @entry[:category]
 
             / If blog, add all non-author featured content to sidebar
-            - if @entry[:category] == 'blog'
+            - if @entry[:category] == "blog"
               - @entry[:featured].reject{ |featured| featured[:author] }.each_with_index do |featured, index|
 
                 / Only add featured title once, before the first item
@@ -93,7 +93,7 @@ article
             - elsif @entry[:featured] && @entry[:featured].length > 1
               h2.side-title Featured
               - @entry[:featured].drop(1).map do |featured|
-                - if ![ 'people', 'product', 'registration' ].include? featured[:TYPE]
+                - if !["people", "product", "registration"].include? featured[:TYPE]
                   = partial 'partials/side-card',
                     locals: { local_data: \
                       { side_card_data: featured }}
