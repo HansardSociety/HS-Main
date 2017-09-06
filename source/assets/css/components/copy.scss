@@ -22,17 +22,11 @@
 
   > p > a,
   > p > strong > a,
-  > p > em > a {
+  > p > em > a,
+  > ul > li > a,
+  > ol > li > a {
     @extend .link;
     @extend %e-ff-prim-medium;
-  }
-
-  ul {
-    padding-left: 1rem;
-  }
-
-  li {
-    list-style: circle;
   }
 
   img {
