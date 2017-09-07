@@ -20,10 +20,10 @@
 
 .modal__inner {
   width: 40rem;
-  max-width: calc(100% - .5rem);
-  height: calc(99.9999vh - .5rem);
-  min-height: calc(99.9999vh - .5rem);
-  max-height: calc(99.9999vh - .5rem);
+  max-width: calc(100% - 1rem);
+  height: calc(99.9999vh - 1rem);
+  min-height: calc(99.9999vh - 1rem);
+  max-height: calc(99.9999vh - 1rem);
 
   @extend %e-absolute-center-xy;
   @extend %e-bgc-white;
@@ -62,10 +62,11 @@
 .modal__content {
   max-height: 100vh; // must use units for Edge scroll
   margin-top: 1.75rem;
+  padding-top: 1rem;
 
   @extend %e-align-left;
+  @extend %e-container;
   @extend %e-overflow-y-auto;
-  @extend %e-pad-sm;
   @extend %e-width-full;
 }
 

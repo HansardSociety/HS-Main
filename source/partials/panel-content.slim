@@ -128,14 +128,14 @@
 
         / Copy
         .grid__cell.grid__cell--above-sm-8
-          .copy{
+          .copy.e-mgn-b-sm{
             class="#{ 'e-fz-lg' if @copy_size == 'extra-large' }"
             class="#{ 'e-fz-md' if @copy_size == 'large' }"
           }
             = markdown(@copy) if @copy
 
           - if @show_more
-            .copy
+            .copy.e-mgn-b-sm
               = partial 'partials/expand',
                 locals: { local_data: \
                 { id: @show_more.cta_id,
@@ -143,7 +143,7 @@
 
           / Calls to action
           - if @show_more || @calls_to_action
-            .grid.grid--xs.e-mgn-t-xs
+            .grid.grid--xs
 
               / Show more
               - if @show_more
