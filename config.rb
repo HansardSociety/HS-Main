@@ -1,22 +1,28 @@
 # Config
-require './config/data_maps'
-require './config/helpers'
+require "./config/data_maps"
+require "./config/helpers"
+require "./config/netlify"
 
-require 'dotenv'
-require 'json'
-require 'public_suffix'
-require 'slim'
-require 'unicode/display_width/string_ext'
-require 'yaml'
+require "dotenv"
+require "json"
+require "public_suffix"
+require "slim"
+require "unicode/display_width/string_ext"
+require "yaml"
 
 ############################################################
 ##  Core
 ############################################################
 
 Dotenv.load
+
 helpers CustomHelpers
+
 set :markdown_engine, :kramdown
+
 Slim::Engine.set_options sort_attrs: false
+
+include Netlify
 
 ############################################################
 ##  Variables
@@ -27,16 +33,16 @@ if Dir.exist?(config.data_dir)
   # set :SITE_DATA, @myData
 end
 
-set :SITE_TITLE,    'Hansard Society'
-set :SITE_URL,      ''
+set :SITE_TITLE,    "Hansard Society"
+set :SITE_URL,      ""
 
 ############################################################
 ##  Page options
 ############################################################
 
-page '/*.xml', layout: false
-page '/*.json', layout: false
-page '/*.txt', layout: false
+page "/*.xml", layout: false
+page "/*.json", layout: false
+page "/*.txt", layout: false
 
 ############################################################
 ##  Envs
@@ -48,28 +54,28 @@ page '/*.txt', layout: false
 contentful_tkn       = nil
 contentful_preview   = false
 
-case ENV['CONTENTFUL_ENV']
-when 'live'
-  contentful_tkn     = ENV['CONTENTFUL_LIVE_TKN']
-when 'preview'
-  contentful_tkn     = ENV['CONTENTFUL_PREVIEW_TKN']
+case ENV["CONTENTFUL_ENV"]
+when "live"
+  contentful_tkn     = ENV["CONTENTFUL_LIVE_TKN"]
+when "preview"
+  contentful_tkn     = ENV["CONTENTFUL_PREVIEW_TKN"]
   contentful_preview = true
 end
 
 activate :contentful do |f|
   f.use_preview_api = contentful_preview
-  f.space           = { hs: ENV['CONTENTFUL_SPACE_ID'] }
+  f.space           = { hs: ENV["CONTENTFUL_SPACE_ID"] }
   f.access_token    = contentful_tkn
   f.cda_query       = { include: 6 }
   f.all_entries     = true
   f.content_types   = {
-    child_page:   { mapper: ChildPageMap,   id: 'child_page' },
-    homepage:     { mapper: HomeMap,        id: 'home' },
-    landing_page: { mapper: LandingPageMap, id: 'landing_page' },
-    root_page:    { mapper: RootPageMap,    id: 'root_page' },
-    navigation:   { mapper: NavigationMap,  id: 'navigation' },
-    universal:    { mapper: UniversalMap,   id: 'universal' },
-    people:       { mapper: PeopleMap,      id: 'people' }
+    child_page:   { mapper: ChildPageMap,   id: "child_page" },
+    homepage:     { mapper: HomeMap,        id: "home" },
+    landing_page: { mapper: LandingPageMap, id: "landing_page" },
+    root_page:    { mapper: RootPageMap,    id: "root_page" },
+    navigation:   { mapper: NavigationMap,  id: "navigation" },
+    universal:    { mapper: UniversalMap,   id: "universal" },
+    people:       { mapper: PeopleMap,      id: "people" }
   }
 end
 
@@ -77,27 +83,30 @@ end
 ##############################
 
 def sharedBuildEnv
+  ignore "assets/**"
+  ignore "layouts/**"
+  ignore "partials/**"
+  ignore "templates/**"
 
   # Cache-busting assets
-  manifest = File.read('source/assets/rev-manifest.json')
+  manifest = File.read("source/assets/rev-manifest.json")
   manifest_hash = JSON.parse(manifest)
-  set :CSS_MAIN,     '/' + manifest_hash['main.css']
-  set :CSS_SNIPCART, '/' + manifest_hash['snipcart.css']
-  set :CSS_VENDOR,   '/' + manifest_hash['vendor.css']
-  set :JS_MAIN,      '/' + manifest_hash['main.js']
-  set :JS_VENDOR,    '/' + manifest_hash['vendor.js']
+  set :CSS_MAIN,     "/" + manifest_hash["main.css"]
+  set :CSS_SNIPCART, "/" + manifest_hash["snipcart.css"]
+  set :CSS_VENDOR,   "/" + manifest_hash["vendor.css"]
+  set :JS_MAIN,      "/" + manifest_hash["main.js"]
+  set :JS_VENDOR,    "/" + manifest_hash["vendor.js"]
 
-  ignore 'assets/**'
-  ignore 'layouts/**'
-  ignore 'partials/**'
-  ignore 'templates/**'
+  # Netlify
+  redirects()
+  headers()
 
   activate :directory_indexes
 
   activate :external_pipeline,
     name: :gulp,
-    command: 'yarn run epipe:build',
-    source: '.tmp',
+    command: "yarn run epipe:build",
+    source: ".tmp",
     latency: 1
 end
 
@@ -107,13 +116,13 @@ end
 configure :prod do
   sharedBuildEnv()
 
-  set :ENV, 'production'
-  set :SNIPCART_TKN, ENV['SNIPCART_LIVE_TKN']
-  set :build_dir, 'build/prod'
+  set :ENV, "production"
+  set :SNIPCART_TKN, ENV["SNIPCART_LIVE_TKN"]
+  set :build_dir, "build/prod"
 
   after_build do
-    File.rename 'build/prod/.redirects', 'build/prod/_redirects'
-    File.rename 'build/prod/.headers', 'build/prod/_headers'
+    File.rename "build/prod/.redirects", "build/prod/_redirects"
+    File.rename "build/prod/.headers", "build/prod/_headers"
   end
 end
 
@@ -123,9 +132,9 @@ end
 configure :preview do
   sharedBuildEnv()
 
-  set :ENV, 'preview'
-  set :SNIPCART_TKN, ENV['SNIPCART_PREVIEW_TKN']
-  set :build_dir, 'build/preview'
+  set :ENV, "preview"
+  set :SNIPCART_TKN, ENV["SNIPCART_PREVIEW_TKN"]
+  set :build_dir, "build/preview"
 end
 
 ##  Development
@@ -134,23 +143,23 @@ end
 configure :server do
 
   # Env variable
-  set :ENV, 'development'
+  set :ENV, "development"
 
   # Assets
-  set :CSS_MAIN,     '/main.css'
-  set :CSS_SNIPCART, '/snipcart.css'
-  set :CSS_VENDOR,   '/vendor.css'
-  set :JS_MAIN,      '/main.js'
-  set :JS_VENDOR,    '/vendor.js'
+  set :CSS_MAIN,     "/main.css"
+  set :CSS_SNIPCART, "/snipcart.css"
+  set :CSS_VENDOR,   "/vendor.css"
+  set :JS_MAIN,      "/main.js"
+  set :JS_VENDOR,    "/vendor.js"
 
   # Snipcart
-  set :SNIPCART_TKN, ENV['SNIPCART_PREVIEW_TKN']
+  set :SNIPCART_TKN, ENV["SNIPCART_PREVIEW_TKN"]
 
   activate :directory_indexes
   activate :external_pipeline,
     name: :gulp,
-    command: 'yarn run epipe:dev',
-    source: '.tmp'
+    command: "yarn run epipe:dev",
+    source: ".tmp"
 end
 
 ############################################################
@@ -170,7 +179,7 @@ if Dir.exist?(config.data_dir)
 
   # Child pages
   data.hs.child_page.each do |id, child_page|
-    proxy "#{ child_page.category.parameterize + '/' + child_page.slug }.html",
+    proxy "#{ child_page.category.parameterize + "/" + child_page.slug }.html",
           "/templates/child-page.html",
           ignore: true,
           locals: { child_page: child_page }
@@ -178,7 +187,7 @@ if Dir.exist?(config.data_dir)
 
   # Landing pages
   data.hs.landing_page.each do |id, landing_page|
-    proxy "#{ landing_page.category.parameterize + '/' + landing_page.slug }.html",
+    proxy "#{ landing_page.category.parameterize + "/" + landing_page.slug }.html",
           "/templates/landing-page.html",
           ignore: true,
           locals: { landing_page: landing_page }
