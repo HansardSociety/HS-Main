@@ -56,16 +56,17 @@
 }
 
 .modal__close {
+  height: inherit;
   margin-left: calc(100% - 1.5rem);
 }
 
 .modal__content {
   max-height: 100vh; // must use units for Edge scroll
   margin-top: 1.75rem;
-  padding-top: 1rem;
 
   @extend %e-align-left;
   @extend %e-container;
+  @extend %e-pad-x-sm;
   @extend %e-overflow-y-auto;
   @extend %e-width-full;
 }
