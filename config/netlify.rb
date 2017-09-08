@@ -3,9 +3,9 @@ module Netlify
   # Redirects
   def redirects()
     File.open("./netlify/.redirects", "w+") do |file|
-      file << "/home              /\n"
-      file << "/audit              /research/audit-of-political-engagement\n"
-      file << "/newsletter              https://hansardsociety.activehosted.com/f/9\n"
+      file << "/home /\n"
+      file << "/audit /research/audit-of-political-engagement\n"
+      file << "/newsletter https://hansardsociety.activehosted.com/f/9\n"
     end
   end
 
