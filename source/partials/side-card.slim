@@ -84,16 +84,16 @@ article.side-card{
       .side-card__meta
 
         - if isResearchCard || isIntelligenceCard || featuredRegistration || featuredProduct
-          span.label-xs.e-col-mid-grey= category
+          span.label-xs.e-col-mid-grey= category.gsub("-", " ")
 
         - if isResourcesCard
-          span.label-xs.e-col-mid-grey= categoryAlt
+          span.label-xs.e-col-mid-grey= categoryAlt.gsub("-", " ")
 
         - if isBlogCard
-          span.label-xs.e-col-mid-grey #{ category } / #{ dateTime[:date] }
+          span.label-xs.e-col-mid-grey #{ category.gsub("-", " ") } / #{ dateTime[:date] }
 
         - if isEventsCard
-          span.label-xs.e-col-mid-grey #{ categoryAlt } / #{ dateTimeReg[:date] } @ #{ dateTimeReg[:time] }
+          span.label-xs.e-col-mid-grey #{ categoryAlt.gsub("-", " ") } / #{ dateTimeReg[:date] } @ #{ dateTimeReg[:time] }
 
       .side-card__title
 
@@ -112,7 +112,7 @@ article.side-card{
       / Is product or registration
       - if featuredRegistration || featuredProduct
         .side-card__actions{
-          class="#{ @featured ? 'e-col-white' : 'e-col-green'}"
+          class="#{ featuredItem ? 'e-col-white' : 'e-col-green'}"
         }
 
           - if featuredProduct
