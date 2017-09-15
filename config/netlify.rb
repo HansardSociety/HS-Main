@@ -12,7 +12,7 @@ module Netlify
   # headers
   def headers(cssMainHash, cssVendorHash, jsMainHash, jsVendorHash)
     File.open("./netlify/.headers", "w+") do |file|
-      file << "/server-push-path\n"
+      file << "/*\n"
       file << "  Link: </#{ cssMainHash }>; rel=preload; as=style\n"
       file << "  Link: </#{ cssVendorHash }>; rel=preload; as=style\n"
       file << "  Link: </#{ jsMainHash }>; rel=preload; as=script\n"
