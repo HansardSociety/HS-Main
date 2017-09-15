@@ -9,15 +9,15 @@
     / Related content
     - if @context == 'related'
 
-      / If page contains featured content
-      - if @entryData[:featured]
-        - @entryData[:featured].map do |page|
-          .carousel__item.swiper-slide
-            = partial 'partials/main-card',
-              locals: { local_data: \
-                { entry_data: page[:page],
-                  featured: true,
-                  carousel: true }}
+      / / If page contains featured content
+      / - if @entryData[:featured]
+      /   - @entryData[:featured].map do |page|
+      /     .carousel__item.swiper-slide
+      /       = partial 'partials/main-card',
+      /         locals: { local_data: \
+      /           { entry_data: page[:page],
+      /             featured: true,
+      /             carousel: true }}
 
       / Related (tagging)
       - relatedContent(@entryData, @blogCount) do |page|
@@ -26,6 +26,8 @@
             locals: { local_data: \
               { entry_data: page,
                 carousel: true }}
+
+      p= @entryData[:featured]
 
     / Latest content (all)
     - if @context == 'latest'

@@ -95,13 +95,20 @@ module CustomHelpers
           # Get pages with at least one corresponding tag
           @hasSameTags = page[:tags].any?{ |tags| @entryData[:tags].include? tags }
 
+          @hasFeatured = @entryData[:featured]
+
           # Filter the entry page and pages that are included as featured items
           @notThisPage = page[:ID] != @entryData[:ID]
           @notFeaturedPage = !@entryData[:featured].any?{ |featPage|
              page[:ID].include? featPage[:ID]
-          } if @entryData[:featured]
+          } if @hasFeatured
 
-          page if @hasSameTags && @notThisPage && @notFeaturedPage
+          # Check if pages has featured items...
+          if @hasFeatured
+            page if @hasSameTags && @notThisPage && @notFeaturedPage
+          else
+            page if @hasSameTags && @notThisPage
+          end
         end
       }.compact
 
