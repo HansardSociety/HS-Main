@@ -171,7 +171,8 @@ const postcssDefaultPlugins = [
 
 const postcssProdPlugins = [
   autoprefixer({ browsers: [ 'last 2 versions' ] }),
-  mqpacker({ sort: true })
+  mqpacker({ sort: true }),
+  cssnano({ preset: 'default' })
 ];
 
 const postcssStream = lazypipe().pipe(function() {
