@@ -89,17 +89,25 @@ def sharedBuildEnv
   ignore "templates/**"
 
   # Cache-busting assets
+
   manifest = File.read("source/assets/rev-manifest.json")
   manifest_hash = JSON.parse(manifest)
-  set :CSS_MAIN,     "/" + manifest_hash["main.css"]
-  set :CSS_SNIPCART, "/" + manifest_hash["snipcart.css"]
-  set :CSS_VENDOR,   "/" + manifest_hash["vendor.css"]
-  set :JS_MAIN,      "/" + manifest_hash["main.js"]
-  set :JS_VENDOR,    "/" + manifest_hash["vendor.js"]
+
+  cssMainHash = manifest_hash["main.css"]
+  cssSnipcartHash = manifest_hash["snipcart.css"]
+  cssVendorHash = manifest_hash["vendor.css"]
+  jsMainHash = manifest_hash["main.js"]
+  jsVendorHash = manifest_hash["vendor.js"]
+
+  set :CSS_MAIN,     "/" + cssMainHash
+  set :CSS_SNIPCART, "/" + cssSnipcartHash
+  set :CSS_VENDOR,   "/" + cssVendorHash
+  set :JS_MAIN,      "/" + jsMainHash
+  set :JS_VENDOR,    "/" + jsVendorHash
 
   # Netlify
   redirects()
-  headers()
+  headers(cssMainHash, cssVendorHash, jsMainHash, jsVendorHash)
 
   activate :directory_indexes
 

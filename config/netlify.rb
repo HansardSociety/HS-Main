@@ -10,13 +10,13 @@ module Netlify
   end
 
   # headers
-  def headers()
+  def headers(cssMainHash, cssVendorHash, jsMainHash, jsVendorHash)
     File.open("./netlify/.headers", "w+") do |file|
       file << "/server-push-path\n"
-      file << "  Link: </main-.css>; rel=preload; as=style\n"
-      file << "  Link: </vendor-.css>; rel=preload; as=style\n"
-      file << "  Link: </main-.js>; rel=preload; as=script\n"
-      file << "  Link: </main-.css>; rel=preload; as=style\n"
+      file << "  Link: </#{ cssMainHash }>; rel=preload; as=style\n"
+      file << "  Link: </#{ cssVendorHash }>; rel=preload; as=style\n"
+      file << "  Link: </#{ jsMainHash }>; rel=preload; as=script\n"
+      file << "  Link: </#{ jsVendorHash }>; rel=preload; as=script\n"
     end
   end
 end

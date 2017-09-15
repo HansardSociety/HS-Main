@@ -1,5 +1,5 @@
 /server-push-path
-  Link: </main-.css>; rel=preload; as=style
-  Link: </vendor-.css>; rel=preload; as=style
-  Link: </main-.js>; rel=preload; as=script
-  Link: </main-.css>; rel=preload; as=style
+  Link: </main-91169cb637.css>; rel=preload; as=style
+  Link: </vendor-7411578951.css>; rel=preload; as=style
+  Link: </main-6a233b1811.js>; rel=preload; as=script
+  Link: </vendor-98c99b8b2f.js>; rel=preload; as=script
