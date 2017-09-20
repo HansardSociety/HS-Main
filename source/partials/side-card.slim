@@ -45,12 +45,12 @@
 
 / Dates
 - dateTime = setData[:date_time]
-- dateTimeReg = featuredData ? setData[:reg_date_time] : altData(setData, { type: "date_time", content_type: "registration" })
+- dateTimeReg = featuredData ? setData[:alt_date_time] : altData(setData, { type: "date_time", content_type: "registration" })
 
 / Alternative sub categories
 - if isEventsCard || isResourcesCard
   - categoryAlt = featuredData \
-    ? setData[:category_alt].gsub("-", " ") \
+    ? setData[:alt_category].gsub("-", " ") \
     : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" })
 
 - featuredRegistration || featuredProduct

@@ -2,9 +2,6 @@
 ##  =Shared
 ############################################################
 
-#   Core
-# **********************************************************
-
 # Date/ time formatting
 def dateTime(data)
   dateTimeData = {
@@ -61,9 +58,6 @@ def pageBase(pageType, ctx, data)
   end
 end
 
-#   Nested data
-# **********************************************************
-
 # Featured page
 def featuredPage(data)
   featuredPageData = ({
@@ -73,8 +67,8 @@ def featuredPage(data)
     introduction: data.introduction,
     banner_image: media(data.banner_image, focus: data),
     date_time: (dateTime(data) if !data.featured || data.featured[0].content_type.id != 'registration'),
-    category_alt: (data.featured[0].category.parameterize if data.featured && (['product', 'registration'].include? data.featured[0].content_type.id)),
-    reg_date_time: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
+    alt_category: (data.featured[0].category.parameterize if data.featured && (['product', 'registration'].include? data.featured[0].content_type.id)),
+    alt_date_time: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
   }.compact if [ 'child_page', 'landing_page'].include? data.content_type.id)
 end
 
@@ -92,6 +86,24 @@ def callsToAction(data)
       width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
     }.compact if cta.action == 'Modal')
   }.compact end : nil)
+end
+
+def profile(data)
+  profileData = {
+    cta_id: ((data.full_name + '-' + data.sys[:id]).parameterize if data.full_name), # only if 'people'
+    full_name: data.full_name,
+    role: data.role,
+    organisation: data.organisation,
+    biog: data.biog,
+    email: data.email,
+    tel: data.tel,
+    twitter: data.twitter,
+    linkedin: data.linkedin,
+    photo: ({
+      url: data.photo.url,
+      alt: data.photo.description
+    } if data.photo)
+  }.compact
 end
 
 ############################################################
@@ -238,21 +250,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           TYPE: item.content_type.id,
 
           # Profile
-          profile: ({
-            cta_id: ((item.full_name + '-' + item.sys[:id]).parameterize if item.full_name), # only if 'people'
-            full_name: item.full_name,
-            role: item.role,
-            organisation: item.organisation,
-            biog: item.biog,
-            email: item.email,
-            tel: item.tel,
-            twitter: item.twitter,
-            linkedin: item.linkedin,
-            photo: ({
-              url: item.photo.url,
-              alt: item.photo.description
-            } if item.photo)
-          }.compact if item.content_type.id == 'people')
+          profile: (profile(item) if item.content_type.id == 'people')
         }.compact end : nil),
 
         # Panel accordian
@@ -290,22 +288,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         TYPE: featured.content_type.id,
 
         # Featured (people)
-        author: ({
-          full_name: featured.full_name,
-          role: featured.role,
-          organisation: featured.organisation,
-          biog: ({
-            id: (featured.full_name.parameterize + '-' + featured.sys[:id]),
-            content: featured.biog
-          } if featured.biog),
-          email: featured.email,
-          twitter: featured.twitter,
-          linkedin: featured.linkedin,
-          photo: {
-            url: featured.photo.url,
-            alt: featured.photo.description
-          }
-        }.compact if featured.content_type.id == 'people'),
+        author: (profile(featured) if featured.content_type.id == 'people'),
 
         # Featured registration
         registration: ({

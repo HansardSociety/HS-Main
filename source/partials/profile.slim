@@ -1,20 +1,22 @@
 - @profile_data = local_data[:profile_data]
 - @actions = local_data[:actions]
-- @photo = @profile_data[:photo]
-- @full_name = @profile_data[:full_name]
-- @role = @profile_data[:role]
-- @organisation = @profile_data[:organisation]
+
+- @cta_id = @profile_data[:cta_id]
 - @biog = @profile_data[:biog]
 - @email = @profile_data[:email]
+- @full_name = @profile_data[:full_name]
+- @linkedin = @profile_data[:linkedin]
+- @organisation = @profile_data[:organisation]
+- @photo = @profile_data[:photo]
+- @role = @profile_data[:role]
 - @tel = @profile_data[:tel]
 - @twitter = @profile_data[:twitter]
-- @linkedin = @profile_data[:linkedin]
 
 .profile
   .profile__image
     img{
-      src="#{ @photo.url }?fit=fill&w=324&h=324"
-      alt="#{ @photo.alt }"
+      src="#{ @photo[:url] }?fit=fill&w=324&h=324"
+      alt="#{ @photo[:alt] }"
     }
 
   .profile__main
@@ -38,14 +40,14 @@
                   style: 'secondary',
                   label_on: 'Show biog', label_off: 'Close', label_size: 'sm',
                   page: 'no-scroll', exclusive: true,
-                  aria_id: "activate-#{ @biog[:id] }",
-                  aria_target_id: @biog[:id] }}
+                  aria_id: "activate-#{ @cta_id }",
+                  aria_target_id: @cta_id }}
 
             / Modal
             = partial 'partials/modal',
               locals: { local_data: \
-                { id: @biog[:id],
-                  content: @biog[:content] }}
+                { id: @cta_id,
+                  content: @biog }}
 
         / Social
         = partial 'partials/social',
