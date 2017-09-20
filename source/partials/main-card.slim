@@ -1,4 +1,5 @@
 - @mainCardData = local_data[:entry_data]
+- @featuredCard = local_data[:featured]
 
 - @mainCardInnerElem = {\
   tag: (@mainCardData[:category] ? 'a' : 'div'),
@@ -40,7 +41,12 @@ article.main-card{
           span.label-xs #{ @mainCardData[:category] }
 
         - elsif @mainCardData[:category] == 'events'
-          span.label-xs #{ altData(@mainCardData, { type: "category", content_type: "registration" }) } / #{ altData(@mainCardData, { type: "date_time", content_type: "registration" })[:date] }
+          span.label-xs
+            - if @featuredCard
+              | #{ @mainCardData[:alt_category].gsub("-", " ") } / #{ @mainCardData[:alt_date_time][:date] }
+            - else
+              | #{ altData(@mainCardData, { type: "category", content_type: "registration" }) }&nbsp;
+              | / #{ altData(@mainCardData, { type: "date_time", content_type: "registration" })[:date] }
 
       h1.main-card__title.title-md= @mainCardData[:title]
 

@@ -6,8 +6,8 @@ module CustomHelpers
   end
 
   # Markdown
-  def markdown(data, type='paragraph')
-    Kramdown::Document.new(type == 'byline' ? data.gsub(/(\n|\n\n)/, ' ') + "\n{: .strap-md }" : data).to_html
+  def markdown(data, type="paragraph")
+    Kramdown::Document.new(type == "byline" ? data.gsub(/(\n|\n\n)/, " ") + "\n{: .strap-md }" : data).to_html
   end
 
   # Global variables
@@ -17,7 +17,7 @@ module CustomHelpers
 
   # Internal URLs (for envs)
   def internalURL(slug, cat)
-    "#{ siteData(:siteURL) }/#{ cat + '/' if cat }#{ slug }#{ config[:ENV] == 'development' ? '.html' : '' }"
+    "#{ siteData(:siteURL) }/#{ cat + "/" if cat }#{ slug }#{ config[:ENV] == "development" ? ".html" : "" }"
   end
 
   # Partial data
@@ -35,11 +35,15 @@ module CustomHelpers
 
     featuredData = data[:featured]
 
-    if opts[:type] == 'date_time'
-      featuredData && featuredData[0][:"#{ opts[:content_type] }"] ? featuredData[0][:"#{ opts[:content_type] }"][:date_time] : data[:date_time]
+    if opts[:type] == "date_time"
+      featuredData && featuredData[0][:"#{ opts[:content_type] }"] \
+        ? featuredData[0][:"#{ opts[:content_type] }"][:date_time] \
+        : data[:date_time]
 
-    elsif opts[:type] == 'category'
-      featuredData && featuredData[0][:"#{ opts[:content_type] }"] ? featuredData[0][:"#{ opts[:content_type] }"][:category].gsub("-", " ") : data[:category].gsub("-", " ")
+    elsif opts[:type] == "category"
+      featuredData && featuredData[0][:"#{ opts[:content_type] }"] \
+        ? featuredData[0][:"#{ opts[:content_type] }"][:category].gsub("-", " ") \
+        : data[:category].gsub("-", " ")
     end
   end
 
@@ -114,15 +118,15 @@ module CustomHelpers
 
       # Registration pages
       @registrationPages = @pagesTagged.select{ |page|
-        @pageTypes = ['events'].include? page[:category]
-        @timeNow = Time.now.strftime('%s').to_i
+        @pageTypes = ["events"].include? page[:category]
+        @timeNow = Time.now.strftime("%s").to_i
         @isInPast = altData(page, { type: "date_time", content_type: "registration" })[:integer].to_i >= @timeNow
 
         @pageTypes && @isInPast
       }[0..2]
 
       # Select pages by category and concatenate
-      @blogPages = @pagesTagged.select{ |page| page[:category] == 'blog' }[0..@blogCount]
+      @blogPages = @pagesTagged.select{ |page| page[:category] == "blog" }[0..@blogCount]
       @otherPages = @pagesTagged.select{ |page|
         ["intelligence", "research", "resources"].include? page[:category]
       }[0..2]

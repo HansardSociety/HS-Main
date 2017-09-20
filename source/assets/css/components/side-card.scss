@@ -43,6 +43,7 @@
 
 .side-card__image {
   width: 6.36rem; // side card image ratio
+  margin-left: -.16665rem;
 
   @extend %e-flex-row-center;
   @extend %e-position-relative;

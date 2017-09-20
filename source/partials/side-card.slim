@@ -18,8 +18,8 @@
 /**************************************************
 
 / Category
-- category = setData[:category]
-- pageCategory = @entry[:category]
+- category = setData[:category].gsub("-", " ")
+- pageCategory = @entry[:category].gsub("-", " ")
 
 / Images
 - imageBanner = setData[:banner_image]
@@ -43,6 +43,8 @@
 - isResearchCard = (category == 'research')
 - isResourcesCard = (category == 'resources')
 
+- hasRegistration = (category == 'research')
+
 / Dates
 - dateTime = setData[:date_time]
 - dateTimeReg = featuredData ? setData[:alt_date_time] : altData(setData, { type: "date_time", content_type: "registration" })
@@ -51,7 +53,7 @@
 - if isEventsCard || isResourcesCard
   - categoryAlt = featuredData \
     ? setData[:alt_category].gsub("-", " ") \
-    : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" })
+    : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" }).gsub("-", " ")
 
 - featuredRegistration || featuredProduct
 
@@ -84,16 +86,16 @@ article.side-card{
       .side-card__meta
 
         - if isResearchCard || isIntelligenceCard || featuredRegistration || featuredProduct
-          span.label-xs.e-col-mid-grey= category.gsub("-", " ")
+          span.label-xs.e-col-mid-grey= category
 
         - if isResourcesCard
-          span.label-xs.e-col-mid-grey= categoryAlt.gsub("-", " ")
+          span.label-xs.e-col-mid-grey= categoryAlt
 
         - if isBlogCard
-          span.label-xs.e-col-mid-grey #{ category.gsub("-", " ") } / #{ dateTime[:date] }
+          span.label-xs.e-col-mid-grey #{ category } / #{ dateTime[:date] }
 
         - if isEventsCard
-          span.label-xs.e-col-mid-grey #{ categoryAlt.gsub("-", " ") } / #{ dateTimeReg[:date] } @ #{ dateTimeReg[:time] }
+          span.label-xs.e-col-mid-grey #{ categoryAlt } / #{ dateTimeReg[:date] }
 
       .side-card__title
 

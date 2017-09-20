@@ -18,6 +18,12 @@ article
         locals: { local_data: \
           { context: 'latest' }}
 
+  / Newsletter
+  .panel.e-bgc-dark-grey
+    .content.content--mid.e-align-cen.e-col-white
+      = partial 'partials/signup-box',
+        locals: { local_data: { copy_size: 'md'}}
+
   / Research
   .panel.e-bgc-light-grey
     .panel__content.panel__content--full
@@ -26,12 +32,6 @@ article
         locals: { local_data: \
           { context: 'category-latest',
             categories: [ 'research' ] }}
-
-  / Newsletter
-  .panel.e-bgc-dark-grey
-    .content.content--mid.e-align-cen.e-col-white
-      = partial 'partials/signup-box',
-        locals: { local_data: { copy_size: 'md'}}
 
   / Blog
   .panel
