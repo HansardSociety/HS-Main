@@ -1,15 +1,15 @@
 const purifycss = require('purify-css')
 const assetHashes = require('./source/assets/rev-manifest.json')
 
-let htmlFiles = [
-  "./build/prod/*.html",
-  "./build/prod/events/*.html"
+var htmlFiles = [
+  "build/prod/blog.html"
 ]
 
-let cssFiles = [ "./build/prod/main-*.css" ]
+var cssFiles = [ "build/prod/main-*.css" ]
 
-let options = {
-  output: `./build/prod/${ assetHashes["main.css"] }`,
+var options = {
+  // output: `./build/prod/${ assetHashes["main.css"] }`,
+  output: `some.css`,
   minify: true,
   whitelist: [
     'JS-*', 'swiper', 'carousel*'

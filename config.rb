@@ -14,24 +14,29 @@ require "yaml"
 ##  Core
 ############################################################
 
+# Dotenv
 Dotenv.load
 
+# Import custom helpers
 helpers CustomHelpers
 
+# Kramdown opts
 set :markdown_engine, :kramdown
 
+# Slim opts
 Slim::Engine.set_options sort_attrs: false
 
+# Import Netlify opts
 include Netlify
 
 ############################################################
 ##  Variables
 ############################################################
 
-if Dir.exist?(config.data_dir)
+# if Dir.exist?(config.data_dir)
   # @myData = Hash[data.hs.universal(0).map{|k,v| v.deep_symbolize_keys }]
   # set :SITE_DATA, @myData
-end
+# end
 
 set :SITE_TITLE,    "Hansard Society"
 set :SITE_URL,      ""
@@ -109,7 +114,11 @@ def sharedBuildEnv
   redirects()
   headers(cssMainHash, cssVendorHash, jsMainHash, jsVendorHash)
 
+  # Pretty html filenames
   activate :directory_indexes
+
+  # Enable gzip
+  activate :gzip
 
   activate :external_pipeline,
     name: :gulp,

@@ -19,7 +19,8 @@
     "preview:deploy": "yarn run epipe:pre && yarn run data:preview && bundle exec middleman build -e preview",
     "dev": "bundle exec middleman server",
     "dev:clean": "yarn run clean && yarn run data:preview && bundle exec middleman server",
-    "dev:poll": "bundle exec middleman server --watcher-force-polling"
+    "dev:poll": "bundle exec middleman server --watcher-force-polling",
+    "purifycss": "purifycss 'build/prod/main-d7fedcea3d.css' 'build/prod/**/*.html' --info --out 'some2.css'"
   },
   "keywords": [],
   "author": "@LukeBoga",
