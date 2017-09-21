@@ -1,7 +1,6 @@
-////////////////////////////////////////////////////////////
-//  Swiper
-//  http://idangero.us/swiper/
-////////////////////////////////////////////////////////////
+import Blazy from 'blazy';
+
+const blazyLoad = new Blazy();
 
 const breakpoints = {
   xs: 480,
@@ -29,13 +28,23 @@ const carousel = (() => {
     // lazyLoading: true,
     // lazyLoadingInPrevNext: true,
 
-
     breakpoints: {
       599: {
         slidesPerView: 1
       },
       959: {
         slidesPerView: 2
+      }
+    },
+
+    onSlideChangeStart: function(elem) {
+      var activeSlide = document.querySelector('.swiper-slide-active img');
+      console.log(elem)
+
+      if (activeSlide.classList.contains('b-loaded')) {
+        //do nothing
+      } else {
+        blazyLoad.load( activeSlide );
       }
     }
   });
