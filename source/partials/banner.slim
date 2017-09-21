@@ -17,10 +17,10 @@ header.banner{
       source{
         media="(orientation: landscape)"
         sizes="100vw"
-        srcset="#{ entry[:banner_image][:url] }?w=640&q=66&fl=progressive 640w,
-                #{ entry[:banner_image][:url] }?w=854&q=66&fl=progressive 854w,
-                #{ entry[:banner_image][:url] }?w=1280&q=66&fl=progressive 1280w,
-                #{ entry[:banner_image][:url] }?w=1920&q=66&fl=progressive 1920w"
+        srcset="#{ entry[:banner_image][:url] }?w=640&q=50&fl=progressive 640w,
+                #{ entry[:banner_image][:url] }?w=854&q=50&fl=progressive 854w,
+                #{ entry[:banner_image][:url] }?w=1280&q=50&fl=progressive 1280w,
+                #{ entry[:banner_image][:url] }?w=1920&q=50&fl=progressive 1920w"
       }
 
       / Portrait
@@ -29,18 +29,18 @@ header.banner{
         sizes="100vw"
         srcset="#{ entry[:banner_image][:url] }?#{
                    entry == 'landing_page' ?
-                   'fit=fill&w=360&h=640&q=66&fl=progressive' :
-                   'fit=fill&w=360&h=360&q=66&fl=progressive'
+                   'fit=fill&w=360&h=640&q=50&fl=progressive' :
+                   'fit=fill&w=360&h=360&q=50&fl=progressive'
                 }&f=#{ entry[:banner_image][:focus] } 360w,
                 #{ entry[:banner_image][:url] }?#{
                    entry == 'landing_page' ?
-                   'fit=fill&w=720&h=1280&q=66&fl=progressive' :
-                   'fit=fill&w=720&h=720&q=66&fl=progressive'
+                   'fit=fill&w=720&h=1280&q=50&fl=progressive' :
+                   'fit=fill&w=720&h=720&q=50&fl=progressive'
                 }&f=#{ entry[:banner_image][:focus] } 720w,
                 #{ entry[:banner_image][:url] }?#{
                    entry == 'landing_page' ?
-                   'fit=fill&w=1080&h=1440&q=66&fl=progressive' :
-                   'fit=fill&w=1080&h=1080&q=66&fl=progressive'
+                   'fit=fill&w=1080&h=1440&q=50&fl=progressive' :
+                   'fit=fill&w=1080&h=1080&q=50&fl=progressive'
                 }&f=#{ entry[:banner_image][:focus] } 1080w"
       }
 
