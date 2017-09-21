@@ -33,7 +33,8 @@
         .carousel__item.swiper-slide
           = partial 'partials/main-card',
             locals: { local_data: \
-              { entry_data: page }}
+              { entry_data: page,
+                carousel: true }}
 
     / Latest content (category)
     - if @context == 'category-latest'
@@ -41,7 +42,8 @@
         .carousel__item.swiper-slide
           = partial 'partials/main-card',
             locals: { local_data: \
-              { entry_data: page }}
+              { entry_data: page,
+                carousel: true }}
 
     / Custom content
     - if @context == 'custom'

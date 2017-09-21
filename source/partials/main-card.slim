@@ -1,6 +1,8 @@
 - @mainCardData = local_data[:entry_data]
 - @featuredCard = local_data[:featured]
 
+- @isCarousel = local_data[:carousel]
+
 - @mainCardInnerElem = {\
   tag: (@mainCardData[:category] ? 'a' : 'div'),
   href: @mainCardData[:category] ? internalURL(@mainCardData[:slug], @mainCardData[:category]) : nil }
@@ -17,7 +19,7 @@ article.main-card{
     .main-card__header.e-col-white
       .main-card__image
 
-        - if local_data[:carousel]
+        - if @isCarousel
           img.swiper-lazy{
             src="#{ siteData(:placeholder_image)[:url] }"
             data-src="#{ @mainCardData[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ @mainCardData[:banner_image][:focus] }&q=66&fl=progressive"
