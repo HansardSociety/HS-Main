@@ -26,8 +26,8 @@ const carousel = (() => {
     spaceBetween: 9,
 
     // Lazy-loading
-    lazyLoading: true,
-    lazyLoadingInPrevNext: true,
+    // lazyLoading: true,
+    // lazyLoadingInPrevNext: true,
 
 
     breakpoints: {

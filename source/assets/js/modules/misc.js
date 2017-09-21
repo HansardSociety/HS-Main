@@ -1,4 +1,5 @@
 import smoothScroll from 'smooth-scroll';
+import Blazy from 'blazy';
 
 // Banner height
 const bannerHeight = (() => {
@@ -18,4 +19,8 @@ const smoothScrolling = new smoothScroll('a[href^="#"]', {
   speed: 600
 });
 
-export { smoothScrolling, bannerHeight }
+// bLazy
+// https://github.com/dinbror/blazy
+const blazyLoad = new Blazy();
+
+export { smoothScrolling, bannerHeight, blazyLoad }

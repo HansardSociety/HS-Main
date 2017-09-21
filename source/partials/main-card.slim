@@ -20,14 +20,14 @@ article.main-card{
       .main-card__image
 
         - if @isCarousel
-          img.swiper-lazy{
+          img.b-lazy{
             src="#{ siteData(:placeholder_image)[:url] }"
-            data-src="#{ @mainCardData[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ @mainCardData[:banner_image][:focus] }&q=66&fl=progressive"
+            data-src="#{ @mainCardData[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ @mainCardData[:banner_image][:focus] }&q=50&fl=progressive"
             alt="#{ @mainCardData[:banner_image][:alt] }"
           }
         - else
           img{
-            src="#{ @mainCardData[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ @mainCardData[:banner_image][:focus] }&q=66&fl=progressive"
+            src="#{ @mainCardData[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ @mainCardData[:banner_image][:focus] }&q=50&fl=progressive"
             alt="#{ @mainCardData[:banner_image][:alt] }"
           }
 
