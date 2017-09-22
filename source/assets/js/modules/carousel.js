@@ -12,10 +12,6 @@ const carousel = (() => {
     slidesPerView: 3,
     spaceBetween: 9,
 
-    // Lazy-loading
-    // lazyLoading: true,
-    // lazyLoadingInPrevNext: true,
-
     breakpoints: {
       599: {
         slidesPerView: 1
