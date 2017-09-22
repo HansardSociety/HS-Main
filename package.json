@@ -68,7 +68,9 @@
     "lodash": "^4.17.4",
     "normalize.css": "^5.0.0",
     "picturefill": "^3.0.2",
+    "promise-polyfill": "^6.0.2",
     "smooth-scroll": "cferdinandi/smooth-scroll",
-    "swiper": "^3.4.2"
+    "swiper": "^3.4.2",
+    "whatwg-fetch": "^2.0.3"
   }
 }

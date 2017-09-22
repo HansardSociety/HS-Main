@@ -218,3 +218,6 @@ if Dir.exist?(config.data_dir)
           locals: { root_page: root_page }
   end
 end
+
+# AJAX elements
+proxy "/ajax.html", "/templates/ajax.html", :layout => false
