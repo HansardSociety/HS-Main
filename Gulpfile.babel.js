@@ -14,6 +14,7 @@ const browserify   = require('browserify');
 const concat       = require('gulp-concat');
 const es           = require('event-stream');
 const gutil        = require('gulp-util');
+const gzip         = require('gulp-gzip');
 const lazypipe     = require('lazypipe');
 const rev          = require('gulp-rev');
 const runSequence  = require('run-sequence');
@@ -272,6 +273,15 @@ gulp.task('svg', function() {
     .pipe(gulp.dest('./source/assets/images'));
 });
 
+/*		Fonts
+  ========================================================================== */
+
+gulp.task('gzip', function() {
+  return gulp.src([PATH.fonts])
+    .pipe(gzip())
+    .pipe(gulp.dest(PATH.tmp.dir));
+})
+
 ////////////////////////////////////////////////////////////
 //  Copy
 ////////////////////////////////////////////////////////////
@@ -295,7 +305,7 @@ gulp.task('assets', function(cb) {
 });
 
 gulp.task('build', function(cb) {
-  runSequence('assets', 'copy', cb);
+  runSequence('assets', 'gzip', 'copy', cb);
 });
 
 gulp.task('lint', function(cb) {
