@@ -101,7 +101,8 @@ const PATH = {
     main: __dirname + '/source/assets/js/main.js',
     vendor: __dirname + '/source/assets/js/vendor.js'
   },
-  fonts: __dirname + '/source/assets/fonts/**.*',
+  fonts: __dirname + '/source/assets/fonts/*.*',
+  fontsGzip: __dirname + '/source/assets/fonts/*.{otf,ttf,svg}',
   images: {
     icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
   },
@@ -277,7 +278,7 @@ gulp.task('svg', function() {
   ========================================================================== */
 
 gulp.task('gzip', function() {
-  return gulp.src([PATH.fonts])
+  return gulp.src([PATH.fontsGzip])
     .pipe(gzip())
     .pipe(gulp.dest(PATH.tmp.dir));
 })
