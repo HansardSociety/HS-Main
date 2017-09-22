@@ -1,15 +1,3 @@
-import Blazy from 'blazy';
-
-const blazyLoad = new Blazy();
-
-const breakpoints = {
-  xs: 480,
-  sm: 600,
-  md: 960,
-  lg: 1280,
-  xl: 1920
-}
-
 const carousel = (() => {
   new Swiper ('.swiper-container', {
 
@@ -34,17 +22,6 @@ const carousel = (() => {
       },
       959: {
         slidesPerView: 2
-      }
-    },
-
-    onSlideChangeStart: function(elem) {
-      var activeSlide = document.querySelector('.swiper-slide-active img');
-      console.log(elem)
-
-      if (activeSlide.classList.contains('b-loaded')) {
-        //do nothing
-      } else {
-        blazyLoad.load( activeSlide );
       }
     }
   });
