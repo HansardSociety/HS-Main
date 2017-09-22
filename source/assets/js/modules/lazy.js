@@ -29,5 +29,28 @@ const blazyCarousel = (() => {
   });
 })();
 
+// Lazy load AC main registration script
+const blazyNewsletterForm = (() => {
+  const baseElem = document.querySelector(".site-container");
+  const form = baseElem.querySelector("#newsletter-script");
+  const formTriggers = baseElem.querySelectorAll('button[aria-controls="modal-monthly-newsletter-subscription"]');
+
+  forEach(formTriggers, function(index, trigger) {
+
+    trigger.addEventListener("click", function() {
+
+      // console.log("Hello")
+      if (form.classList.contains("b-loaded")) {
+        // do nothing
+      } else {
+        blazy.load(form);
+
+        console.log("Hellos")
+      }
+    });
+  });
+})();
+
+
 // Export
-export { blazy, blazyCarousel }
+export { blazy, blazyCarousel, blazyNewsletterForm }

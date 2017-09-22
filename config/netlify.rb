@@ -13,10 +13,10 @@ module Netlify
   def headers(cssMainHash, cssVendorHash, jsMainHash, jsVendorHash)
     File.open("./netlify/.headers", "w+") do |file|
       file << "/*\n"
-      # file << "  Link: </#{ cssMainHash }.gz>; rel=preload; as=style\n"
-      # file << "  Link: </#{ cssVendorHash }.gz>; rel=preload; as=style\n"
-      # file << "  Link: </#{ jsMainHash }.gz>; rel=preload; as=script\n"
-      # file << "  Link: </#{ jsVendorHash }.gz>; rel=preload; as=script\n"
+      file << "  Link: </#{ cssMainHash }>; rel=preload; as=style\n"
+      file << "  Link: </#{ cssVendorHash }>; rel=preload; as=style\n"
+      file << "  Link: </#{ jsMainHash }>; rel=preload; as=script\n"
+      file << "  Link: </#{ jsVendorHash }>; rel=preload; as=script\n"
       # file << "  Link: </AvenirLTStd-Book.otf>; rel=preload; as=font\n"
       # file << "  Link: </AvenirLTStd-BookOblique.otf>; rel=preload; as=font\n"
       # file << "  Link: </AvenirLTStd-Heavy.otf>; rel=preload; as=font\n"

@@ -1,3 +1,5 @@
+import Swiper from "swiper";
+
 const carousel = (() => {
   new Swiper ('.swiper-container', {
 

@@ -51,6 +51,8 @@
   @extend %e-position-relative;
 
   > img {
+    min-height: 1px; // Fix Safari height issues on lazy images
+
     @extend %e-display-block;
     @extend %e-height-full;
   }

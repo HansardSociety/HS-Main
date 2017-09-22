@@ -121,7 +121,6 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.main_categories = entry.main_categories.map{ |cat| cat.parameterize.gsub("'", "") }
     context.newsletter_text = entry.newsletter_text
     context.newsletter_embed = entry.newsletter_embed
-    context.placeholder_image = media(entry.placeholder_image)
 
     context.logo = {
       mobile: media(entry.logo_mobile),
