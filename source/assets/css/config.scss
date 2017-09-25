@@ -13,54 +13,57 @@ $type: (
     xl:   1.75rem,
     xxl:  2.25rem
   ),
+  file-type: (
+
+  )
   primary: (
     light: (
-      name:   'Avenir Light',
+      name:   "Avenir Light",
       weight: 200,
       style:  normal,
-      file:   'AvenirLTStd-Light.otf'
+      file:   "AvenirLTStd-Light.otf"
     ),
     light-italic: (
-      name:   'Avenir Light Oblique',
+      name:   "Avenir Light Oblique",
       weight: 200,
       style:  oblique,
-      file:   'AvenirLTStd-LightOblique.otf'
+      file:   "AvenirLTStd-LightOblique.otf"
     ),
     book: (
-      name:   'Avenir Book',
+      name:   "Avenir Book",
       weight: 300,
       style:  normal,
-      file:   'AvenirLTStd-Book.otf'
+      file:   "AvenirLTStd-Book.otf"
     ),
     book-italic: (
-      name:   'Avenir Book Oblique',
+      name:   "Avenir Book Oblique",
       weight: 300,
       style:  oblique,
-      file:   'AvenirLTStd-BookOblique.otf'
+      file:   "AvenirLTStd-BookOblique.otf"
     ),
     medium: (
-      name:   'Avenir Medium',
+      name:   "Avenir Medium",
       weight: 500,
       style:  normal,
-      file:   'AvenirLTStd-Medium.otf'
+      file:   "AvenirLTStd-Medium.otf"
     ),
     medium-italic: (
-      name:   'Avenir Medium Oblique',
+      name:   "Avenir Medium Oblique",
       weight: 500,
       style:  oblique,
-      file:   'AvenirLTStd-MediumOblique.otf'
+      file:   "AvenirLTStd-MediumOblique.otf"
     ),
     heavy: (
-      name:   'Avenir Heavy',
+      name:   "Avenir Heavy",
       weight: 800,
       style:  normal,
-      file:   'AvenirLTStd-Heavy.otf'
+      file:   "AvenirLTStd-Heavy.otf"
     ),
     heavy-italic: (
-      name:   'Avenir Heavy Oblique',
+      name:   "Avenir Heavy Oblique",
       weight: 800,
       style:  oblique,
-      file:   'AvenirLTStd-HeavyOblique.otf'
+      file:   "AvenirLTStd-HeavyOblique.otf"
     )
   )
 );
