@@ -1,19 +1,30 @@
-///////////////////////////////////////////////////////////
-//  =Type - Components
-////////////////////////////////////////////////////////////
+/*		=Font face
+  ========================================================================== */
 
 // Fonts
-@each $typeKey, $typeVal in map-get($type, primary) {
+@each $typeKey, $typeVal in map-get($type, font-primary) {
+  $assetPath: map-get($path, assets);
+  $fontFamily: map-get($typeVal, family);
 
   @font-face {
-    font-family: map-get($typeVal, name);
-    font-weight: map-get($typeVal, weight);
-    font-style: map-get($typeVal, style);
-    src: url('./' + map-get($typeVal, file)) format("opentype");
+    font-family: "#{ map-get($typeVal, family) }";
+
+    src: url("/#{ $fontFamily }.eot");
+    src: url("/#{ $fontFamily }.woff2") format("woff2"),
+         url("/#{ $fontFamily }.woff") format("woff"),
+         url("/#{ $fontFamily }.ttf") format("truetype"),
+
+         url("/#{ $fontFamily }.svg##{ $fontFamily }") format("svg"),
+         url("/#{ $fontFamily }.eot?#iefix") format("embedded-opentype");
+
+    font-weight: normal;
+    font-style: normal;
   }
 }
 
-// Titles
+/*		=Titles
+  ========================================================================== */
+
 @each $sizeKey, $sizeVal in map-get($type, sizes) {
 
   .title-#{ $sizeKey },
@@ -58,7 +69,9 @@
   }
 }
 
-// Links
+/*		=Links
+  ========================================================================== */
+
 .link,
 .link-white {
   overflow-wrap: break-word;
@@ -85,7 +98,9 @@
   @extend %e-col-white;
 }
 
-// Misc
+/*		=Misc
+  ========================================================================== */
+
 strong {
   @extend %e-ff-prim-medium;
 }

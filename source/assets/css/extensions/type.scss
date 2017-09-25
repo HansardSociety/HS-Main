@@ -1,20 +1,16 @@
-///////////////////////////////////////////////////////////
-//  =Type
-////////////////////////////////////////////////////////////
+/*		=Font family
+  ========================================================================== */
 
-//  =Font family
-//////////////////////////////
-
-@each $fontKey, $fontVal in map-get($type, primary) {
+@each $fontKey, $fontVal in map-get($type, font-primary) {
   %e-ff-prim-#{ $fontKey } {
-    font-family: map-get($fontVal, name);
+    font-family: map-get($fontVal, family), Arial, Helvetica, sans-serif;
     font-weight: map-get($fontVal, weight);
     font-style: map-get($fontVal, style)
   }
 }
 
-//  =Font size
-//////////////////////////////
+/*		=Font size
+  ========================================================================== */
 
 @each $sizeKey, $sizeVal in map-get($type, sizes) {
   %e-fz-#{ $sizeKey },
@@ -23,8 +19,8 @@
   }
 }
 
-//  =Misc
-//////////////////////////////
+/*		=Misc
+  ========================================================================== */
 
 %e-upper { text-transform: uppercase; }
 %e-lower { text-transform: lowercase; }

@@ -17,14 +17,6 @@ module Netlify
       # file << "  Link: </#{ cssVendorHash }>; rel=preload; as=style\n"
       # file << "  Link: </#{ jsMainHash }>; rel=preload; as=script\n"
       # file << "  Link: </#{ jsVendorHash }>; rel=preload; as=script\n"
-      # file << "  Link: </AvenirLTStd-Book.otf>; rel=preload; as=font\n"
-      # file << "  Link: </AvenirLTStd-BookOblique.otf>; rel=preload; as=font\n"
-      # file << "  Link: </AvenirLTStd-Heavy.otf>; rel=preload; as=font\n"
-      # file << "  Link: </AvenirLTStd-HeavyOblique.otf>; rel=preload; as=font\n"
-      # file << "  Link: </AvenirLTStd-Light.otf>; rel=preload; as=font\n"
-      # file << "  Link: </AvenirLTStd-LightOblique.otf>; rel=preload; as=font\n"
-      # file << "  Link: </AvenirLTStd-Medium.otf>; rel=preload; as=font\n"
-      # file << "  Link: </AvenirLTStd-MediumOblique.otf>; rel=preload; as=font\n"
     end
   end
 end

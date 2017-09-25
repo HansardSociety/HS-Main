@@ -1,7 +1,7 @@
 # Config
-require "./config/data_maps"
-require "./config/helpers"
-require "./config/netlify"
+require "./lib/data_maps"
+require "./lib/helpers"
+require "./lib/netlify"
 
 require "dotenv"
 require "json"
@@ -10,9 +10,9 @@ require "slim"
 require "unicode/display_width/string_ext"
 require "yaml"
 
-############################################################
-##  Core
-############################################################
+###########################################################################
+##		=Core
+###########################################################################
 
 # Dotenv
 Dotenv.load
@@ -29,29 +29,24 @@ Slim::Engine.set_options sort_attrs: false
 # Import Netlify opts
 include Netlify
 
-############################################################
-##  Variables
-############################################################
+###########################################################################
+##		=Variables
+###########################################################################
 
-# if Dir.exist?(config.data_dir)
-  # @myData = Hash[data.hs.universal(0).map{|k,v| v.deep_symbolize_keys }]
-  # set :SITE_DATA, @myData
-# end
+set :SITE_TITLE, "Hansard Society"
+set :SITE_URL, ""
 
-set :SITE_TITLE,    "Hansard Society"
-set :SITE_URL,      ""
-
-############################################################
-##  Page options
-############################################################
+###########################################################################
+##		=Page options
+###########################################################################
 
 page "/*.xml", layout: false
 page "/*.json", layout: false
 page "/*.txt", layout: false
 
-############################################################
-##  Envs
-############################################################
+###########################################################################
+##		=Environments
+###########################################################################
 
 ##  Contentful
 ##############################
@@ -123,7 +118,7 @@ def sharedBuildEnv
   activate :external_pipeline,
     name: :gulp,
     command: "yarn run epipe:build",
-    source: ".tmp",
+    source: ".tmp/assets",
     latency: 1
 end
 
@@ -176,12 +171,12 @@ configure :server do
   activate :external_pipeline,
     name: :gulp,
     command: "yarn run epipe:dev",
-    source: ".tmp"
+    source: ".tmp/assets"
 end
 
-############################################################
-##  Page proxies
-############################################################
+###########################################################################
+##		=Page proxies
+###########################################################################
 
 # Only run if data dir exists
 if Dir.exist?(config.data_dir)

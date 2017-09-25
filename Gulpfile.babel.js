@@ -1,136 +1,129 @@
 // Inspiration from https://github.com/NathanBowers/mm-template/
 
-////////////////////////////////////////////////////////////
-//  Plugins
-////////////////////////////////////////////////////////////
+const path         = require("path");
 
-const path         = require('path');
+const gulp         = require("gulp");
+const gulpif       = require("gulp-if");
+const babel        = require("gulp-babel");
+const browserSync  = require("browser-sync").create();
+const browserify   = require("browserify");
+const concat       = require("gulp-concat");
+const es           = require("event-stream");
+const gutil        = require("gulp-util");
+const gzip         = require("gulp-gzip");
+const lazypipe     = require("lazypipe");
+const rev          = require("gulp-rev");
+const runSequence  = require("run-sequence");
+const sass         = require("gulp-sass");
+const source       = require("vinyl-source-stream");
+const streamify    = require("gulp-streamify");
+const svgSprite    = require("gulp-svg-sprite");
+const touch        = require("gulp-touch");
+const uglify       = require("gulp-uglify");
 
-const gulp         = require('gulp');
-const gulpif       = require('gulp-if');
-const babel        = require('gulp-babel');
-const browserSync  = require('browser-sync').create();
-const browserify   = require('browserify');
-const concat       = require('gulp-concat');
-const es           = require('event-stream');
-const gutil        = require('gulp-util');
-const gzip         = require('gulp-gzip');
-const lazypipe     = require('lazypipe');
-const rev          = require('gulp-rev');
-const runSequence  = require('run-sequence');
-const sass         = require('gulp-sass');
-const source       = require('vinyl-source-stream');
-const streamify    = require('gulp-streamify');
-const svgSprite    = require('gulp-svg-sprite');
-const touch        = require('gulp-touch');
-const uglify       = require('gulp-uglify');
-
-const postcss      = require('gulp-postcss');
-const autoprefixer = require('autoprefixer');
-const cssnano      = require('cssnano');
-const mqpacker     = require('css-mqpacker');
-const reporter     = require('postcss-reporter');
-const scss         = require('postcss-scss');
-const stylelint    = require('stylelint');
+const postcss      = require("gulp-postcss");
+const autoprefixer = require("autoprefixer");
+const cssnano      = require("cssnano");
+const mqpacker     = require("css-mqpacker");
+const reporter     = require("postcss-reporter");
+const scss         = require("postcss-scss");
+const stylelint    = require("stylelint");
 
 const ENV          = gutil.env.GULP_ENV;
-const isProd       = ENV == 'production';
-const isDev        = ENV == 'development';
+const isProd       = ENV == "production";
+const isDev        = ENV == "development";
 
-////////////////////////////////////////////////////////////
-//  Sprite
-////////////////////////////////////////////////////////////
+/*		=SVG sprite
+  ========================================================================== */
 
-  // Icons (Ionicons)
+// Icons (Ionicons)
 const iconsList =
-  'android-search|' +
-  'ios-arrow-thin-down|' +
-  'chevron-down|' +
-  'chevron-right|' +
-  'chevron-left|' +
-  'arrow-graph-up-right|' +
-  'bookmark|' +
-  'calendar|' +
-  'cube|' +
-  'map|' +
-  'social-twitter|' +
-  'social-facebook|' +
-  'social-linkedin|' +
-  'email|' +
-  'headphone|' +
-  'ios-videocam|' +
-  'book|' +
-  'android-download|' +
-  'close-round|' +
-  'ios-paper|';
+  "android-search|" +
+  "ios-arrow-thin-down|" +
+  "chevron-down|" +
+  "chevron-right|" +
+  "chevron-left|" +
+  "arrow-graph-up-right|" +
+  "bookmark|" +
+  "calendar|" +
+  "cube|" +
+  "map|" +
+  "social-twitter|" +
+  "social-facebook|" +
+  "social-linkedin|" +
+  "email|" +
+  "headphone|" +
+  "ios-videocam|" +
+  "book|" +
+  "android-download|" +
+  "close-round|" +
+  "ios-paper|";
 
 // Sprite config
 const svgSpriteConfig = {
   mode: {
     symbol: {
-      dest: '.'
+      dest: "."
     }
   },
   svg: {
     doctypeDeclaration: false,
     xmlDeclaration: false,
     rootAttributes: {
-      style: 'display:none;'
+      style: "display:none;"
     }
   }
 };
 
-////////////////////////////////////////////////////////////
-//  Paths
-////////////////////////////////////////////////////////////
+/*		=Paths
+  ========================================================================== */
 
 const PATH = {
-  source: __dirname + '/source',
-  assets: __dirname + '/source/assets',
+  source: __dirname + "/source",
+  assets: __dirname + "/source/assets",
   css: {
-    all: __dirname + '/source/assets/css/**/*.scss',
-    main: __dirname + '/source/assets/css/main.scss',
+    all: __dirname + "/source/assets/css/**/*.scss",
+    main: __dirname + "/source/assets/css/main.scss",
     vendor: [
-      __dirname + '/node_modules/normalize.css/normalize.css',
-      __dirname + '/node_modules/swiper/dist/css/swiper.css'
+      __dirname + "/node_modules/normalize.css/normalize.css",
+      __dirname + "/node_modules/swiper/dist/css/swiper.css"
     ],
-    snipcart: __dirname + '/source/assets/css/vendors/snipcart/snipcart.scss'
+    snipcart: __dirname + "/source/assets/css/vendors/snipcart/snipcart.scss"
   },
   js: {
-    all: __dirname + '/source/assets/js/**/*.js',
-    main: __dirname + '/source/assets/js/main.js',
-    vendor: __dirname + '/source/assets/js/vendor.js'
+    all: __dirname + "/source/assets/js/**/*.js",
+    main: __dirname + "/source/assets/js/main.js",
+    vendor: __dirname + "/source/assets/js/vendor.js"
   },
-  fonts: __dirname + '/source/assets/fonts/*.*',
-  fontsGzip: __dirname + '/source/assets/fonts/*.{otf,ttf,svg}',
+  fonts: __dirname + "/source/assets/fonts/*.*",
+  fontsGzip: __dirname + "/source/assets/fonts/*.{otf,ttf,svg}",
   images: {
     icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
   },
-  headers: __dirname + '/netlify/.headers',
-  redirects: __dirname + '/netlify/.redirects',
+  headers: __dirname + "/netlify/.headers",
+  redirects: __dirname + "/netlify/.redirects",
   tmp: {
-    dir: __dirname + '/.tmp',
-    assets: __dirname + '/.tmp/assets',
-    css: __dirname + '/.tmp/main.css',
-    js: __dirname + '/.tmp/main.js',
+    dir: __dirname + "/.tmp/assets",
+    assets: __dirname + "/.tmp/assets",
+    css: __dirname + "/.tmp/assets/main.css",
+    js: __dirname + "/.tmp/assets/main.js",
   },
   build: {
-    dir: __dirname + '/build',
-    assets: __dirname + '/build/assets'
+    dir: __dirname + "/build",
+    assets: __dirname + "/build/assets"
   }
 };
 
-////////////////////////////////////////////////////////////
-//  Server
-////////////////////////////////////////////////////////////
+/*		=Dev server
+  ========================================================================== */
 
-gulp.task('watch',
-  [ 'css:main', 'css:snipcart', 'css:vendor', 'js:bundle', 'copy' ],
+gulp.task("watch",
+  [ "css:main", "css:snipcart", "css:vendor", "js:bundle", "cp:assets", "cp:netlify" ],
 
   function(gulpCallback) {
 
     browserSync.init({
-      proxy: 'http://localhost:4567', // Middleman server
+      proxy: "http://localhost:4567", // Middleman server
       open: false,
       reloadDelay: 100, // Concurrency fix
       reloadDebounce: 500, // Concurrency fix
@@ -139,7 +132,7 @@ gulp.task('watch',
         PATH.tmp.css,
         PATH.tmp.snipcart,
         PATH.tmp.js,
-        __dirname + '/source/**/*.slim'
+        __dirname + "/source/**/*.slim"
       ],
       port: 7000,
       ui: { port: 7001 }
@@ -149,45 +142,26 @@ gulp.task('watch',
     function callback() {
 
       // Inject CSS/ JS
-      gulp.watch(PATH.css.all, [ 'css:main', 'css:snipcart' ]);
-      gulp.watch(PATH.js.all, [ 'js:bundle' ]);
+      gulp.watch(PATH.css.all, [ "css:main", "css:snipcart" ]);
+      gulp.watch(PATH.js.all, [ "js:bundle" ]);
 
       // Reload browserSync after html changes
-      gulp.watch(path.join(PATH.source, '**/*.slim'))
-        .on('change', browserSync.reload);
+      gulp.watch(path.join(PATH.source, "**/*.slim"))
+        .on("change", browserSync.reload);
 
       gulpCallback();
     }
   );
 });
 
-////////////////////////////////////////////////////////////
-//  CSS/ JS
-////////////////////////////////////////////////////////////
-
-// Postcss (default)
-const postcssDefaultPlugins = [
-  autoprefixer({ browsers: [ 'last 2 versions' ] }),
-  mqpacker({ sort: true })
-];
-
-const postcssProdPlugins = [
-  autoprefixer({ browsers: [ 'last 2 versions' ] }),
-  mqpacker({ sort: true }),
-  cssnano({ preset: 'default' })
-];
-
-const postcssStream = lazypipe().pipe(function() {
-  return gulpif(isProd,
-    postcss(postcssDefaultPlugins.concat(postcssProdPlugins)),
-    postcss(postcssDefaultPlugins))
-});
+/*		=Caching
+  ========================================================================== */
 
 // Asset caching manifest options
 const manifestOpts = {
   merge: true,
-  base: 'source/assets',
-  path: 'source/assets/rev-manifest.json'
+  base: "source/assets",
+  path: "source/assets/rev-manifest.json"
 };
 
 // Asset caching
@@ -203,36 +177,56 @@ const assetCachingStream = lazypipe()
     return gulpif(isProd, gulp.dest(PATH.assets))
   });
 
+/*		=CSS
+  ========================================================================== */
+
+// Postcss (default)
+const postcssDefaultPlugins = [
+  autoprefixer({ browsers: [ "last 2 versions" ] }),
+  mqpacker({ sort: true })
+];
+
+const postcssProdPlugins = [
+  autoprefixer({ browsers: [ "last 2 versions" ] }),
+  mqpacker({ sort: true }),
+  cssnano({ preset: "default" })
+];
+
+const postcssStream = lazypipe().pipe(function() {
+  return gulpif(isProd,
+    postcss(postcssDefaultPlugins.concat(postcssProdPlugins)),
+    postcss(postcssDefaultPlugins))
+});
 
 // Main CSS
-gulp.task('css:main', function() {
+gulp.task("css:main", function() {
   return gulp.src(PATH.css.main)
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass().on("error", sass.logError))
     .pipe(postcssStream())
     .pipe(assetCachingStream());
 });
 
 // Snipcart CSS
-gulp.task('css:snipcart', function() {
+gulp.task("css:snipcart", function() {
   return gulp.src(PATH.css.snipcart)
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass().on("error", sass.logError))
     .pipe(postcssStream())
     .pipe(assetCachingStream());
 });
 
 // Vendor CSS
-gulp.task('css:vendor', function() {
+gulp.task("css:vendor", function() {
   return gulp.src(PATH.css.vendor)
-    .pipe(concat('vendor.css'))
+    .pipe(concat("vendor.css"))
     .pipe(postcss([
-      cssnano({ preset: 'default' })
+      cssnano({ preset: "default" })
     ]))
     .pipe(assetCachingStream());
 });
 
 // Lint CSS
-gulp.task('css:lint', function() {
-  return gulp.src(path.join(PATH.css, '**.scss'))
+gulp.task("css:lint", function() {
+  return gulp.src(path.join(PATH.css, "**.scss"))
     .pipe(postcss(
       [
         stylelint(),
@@ -243,18 +237,20 @@ gulp.task('css:lint', function() {
     ));
 });
 
-// Scripts
+/*		=Scripts
+  ========================================================================== */
+
 const uglifyStream = lazypipe().pipe(uglify);
-gulp.task('js:bundle', function() {
+gulp.task("js:bundle", function() {
 
   var files = [ PATH.js.main, PATH.js.vendor ];
 
   var tasks = files.map(function(entry) {
     return browserify({ entries: entry })
-      .transform('babelify')
+      .transform("babelify")
       .bundle()
-      .on('error', function(e) { gutil.log(e); })
-      .pipe(source(entry.split('/').pop()))
+      .on("error", function(e) { gutil.log(e); })
+      .pipe(source(entry.split("/").pop()))
       .pipe(streamify(function() {
         return gulpif(isProd, uglify())
       }))
@@ -264,51 +260,56 @@ gulp.task('js:bundle', function() {
   return es.merge(tasks);
 });
 
-////////////////////////////////////////////////////////////
-//  Images
-////////////////////////////////////////////////////////////
-
-gulp.task('svg', function() {
-  return gulp.src(PATH.images.icons)
-    .pipe(svgSprite(svgSpriteConfig))
-    .pipe(gulp.dest('./source/assets/images'));
-});
-
-/*		Fonts
+/*		=Images
   ========================================================================== */
 
-gulp.task('gzip', function() {
+gulp.task("svg", function() {
+  return gulp.src(PATH.images.icons)
+    .pipe(svgSprite(svgSpriteConfig))
+    .pipe(gulp.dest("./source/assets/images"));
+});
+
+/*		=Compress
+  ========================================================================== */
+
+gulp.task("gzip", function() {
   return gulp.src([PATH.fontsGzip])
     .pipe(gzip())
     .pipe(gulp.dest(PATH.tmp.dir));
 })
 
-////////////////////////////////////////////////////////////
-//  Copy
-////////////////////////////////////////////////////////////
+/*		=Copy
+  ========================================================================== */
 
-gulp.task('copy', function() {
+// Netlify headers/ redirects etc
+gulp.task("cp:netlify", function() {
 
-  return gulp.src([ PATH.fonts, PATH.headers, PATH.redirects ])
+  return gulp.src([PATH.headers, PATH.redirects])
     .pipe(gulp.dest(PATH.tmp.dir));
 });
 
-////////////////////////////////////////////////////////////
-//  Sequences
-////////////////////////////////////////////////////////////
+// Assets
+gulp.task("cp:assets", function() {
 
-gulp.task('default', function(cb) {
-  runSequence([ 'watch' ], cb);
+  return gulp.src([PATH.fonts])
+    .pipe(gulp.dest(PATH.tmp.dir));
 });
 
-gulp.task('assets', function(cb) {
-  runSequence('css:main', 'css:snipcart', 'css:vendor', 'js:bundle', cb);
+/*		=Sequences
+  ========================================================================== */
+
+gulp.task("default", function(cb) {
+  runSequence([ "watch" ], cb);
 });
 
-gulp.task('build', function(cb) {
-  runSequence('assets', 'gzip', 'copy', cb);
+gulp.task("assets", function(cb) {
+  runSequence("css:main", "css:snipcart", "css:vendor", "js:bundle", cb);
 });
 
-gulp.task('lint', function(cb) {
-  runSequence('lint:css', cb);
+gulp.task("build", function(cb) {
+  runSequence("assets", "gzip", "cp:netlify", "cp:assets", cb);
+});
+
+gulp.task("lint", function(cb) {
+  runSequence("lint:css", cb);
 });
