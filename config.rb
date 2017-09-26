@@ -17,7 +17,7 @@ require "yaml"
 # Dotenv
 Dotenv.load
 
-# Import custom helpers
+# Template helpers
 helpers CustomHelpers
 
 # Kramdown opts
@@ -26,8 +26,23 @@ set :markdown_engine, :kramdown
 # Slim opts
 Slim::Engine.set_options sort_attrs: false
 
-# Import Netlify opts
+# Import libs
 include Netlify
+
+###########################################################################
+##		=Config helpers
+###########################################################################
+
+def getData(subDir)
+  dataDir = "data/hs/#{ subDir }"
+
+  Dir.foreach(dataDir) do |file|
+    next if file == "." or file == ".."
+    yamlData = YAML::load_file("#{ dataDir }/#{ file }")
+
+    yamlData
+  end
+end
 
 ###########################################################################
 ##		=Variables
@@ -107,7 +122,9 @@ def sharedBuildEnv
 
   # Netlify
   redirects()
-  headers(cssMainHash, cssVendorHash, jsMainHash, jsVendorHash)
+  headers({
+    logoMob: "getData('universal')"
+  })
 
   # Pretty html filenames
   activate :directory_indexes
@@ -121,6 +138,8 @@ def sharedBuildEnv
     source: ".tmp/assets",
     latency: 1
 end
+
+puts getData("universal")
 
 ##  Build
 ##############################
