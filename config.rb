@@ -33,16 +33,16 @@ include Netlify
 ##		=Config helpers
 ###########################################################################
 
-def getData(subDir)
-  dataDir = "data/hs/#{ subDir }"
+# def getData(subDir)
+#   dataDir = "data/hs/#{ subDir }"
 
-  Dir.foreach(dataDir) do |file|
-    next if file == "." or file == ".."
-    yamlData = YAML::load_file("#{ dataDir }/#{ file }")
+#   Dir.foreach(dataDir) do |file|
+#     next if file == "." or file == ".."
+#     yamlData = YAML::load_file("#{ dataDir }/#{ file }")
 
-    yamlData
-  end
-end
+#     yamlData
+#   end
+# end
 
 ###########################################################################
 ##		=Variables
@@ -122,9 +122,10 @@ def sharedBuildEnv
 
   # Netlify
   redirects()
-  headers({
-    logoMob: "getData('universal')"
-  })
+  # headers({
+  #   logoMob: "getData('universal')"
+  # })
+  headers()
 
   # Pretty html filenames
   activate :directory_indexes
@@ -138,8 +139,6 @@ def sharedBuildEnv
     source: ".tmp/assets",
     latency: 1
 end
-
-puts getData("universal")
 
 ##  Build
 ##############################
