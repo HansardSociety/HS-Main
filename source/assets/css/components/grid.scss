@@ -42,16 +42,16 @@
 
   // Columns:
   // Cell 1 through 12 (100 / 12 == 8.3333)
-  @for $n from 1 through 12 {
+  @each $numKey, $numVal in $numerals {
 
     // Cell
-    .grid__cell--#{ $n } {
-      flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal }) !important; // need to override flex from descendant selector
+    .grid__cell--#{ $numVal } {
+      flex: 1 calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // need to override flex from descendant selector
     }
 
     // Offset
-    .grid__cell--offset-#{ $n } {
-      margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal / 2 }) !important; // See above
+    .grid__cell--offset-#{ $numVal } {
+      margin-left: calc(#{ 8.3333 * $numKey + '%'} + #{ $sizeVal / 2 }) !important; // See above
     }
 
     // Breakpoints
@@ -59,13 +59,13 @@
       @include above($breakpoint) {
 
         // Cell
-        .grid__cell--above-#{ $breakpoint }-#{ $n } {
-          flex: 1 calc((#{ 8.3333 * $n + '%'}) - #{ $sizeVal }) !important; // see above
+        .grid__cell--above-#{ $breakpoint }-#{ $numVal } {
+          flex: 1 calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // see above
         }
 
         // Offset
-        .grid__cell--above-#{ $breakpoint }-offset-#{ $n } {
-          margin-left: calc(#{ 8.3333 * $n + '%'} + #{ $sizeVal / 2 }) !important; // see above
+        .grid__cell--above-#{ $breakpoint }-offset-#{ $numVal } {
+          margin-left: calc(#{ 8.3333 * $numKey + '%'} + #{ $sizeVal / 2 }) !important; // see above
         }
       }
     }
@@ -73,17 +73,17 @@
 }
 
 // Order
-@for $n from 0 through 10 {
+@each $numKey, $numVal in $numerals {
 
-  .grid__cell--order-#{ $n } {
-    order: #{ $n };
+  .grid__cell--order-#{ $numVal } {
+    order: #{ $numKey };
   }
 
   @each $breakpoint in map-keys($breakpoints) {
     @include above($breakpoint) {
 
-      .grid__cell--above-#{ $breakpoint }-order-#{ $n } {
-        order: #{ $n };
+      .grid__cell--above-#{ $breakpoint }-order-#{ $numVal } {
+        order: #{ $numKey };
       }
     }
   }

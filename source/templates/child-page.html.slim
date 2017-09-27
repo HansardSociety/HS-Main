@@ -24,14 +24,14 @@ article
     / Page intro/ featured item
     .content__header
       .grid.grid--md.grid--center
-        section.grid__cell.grid__cell--above-md-7.copy{
-          class="#{ 'grid__cell--order-2 grid__cell--above-md-order-1' if ["blog", "events" ].include? @entry[:category]  }"
+        section.grid__cell.grid__cell--above-md-VII.copy{
+          class="#{ 'grid__cell--order-II grid__cell--above-md-order-I' if ["blog", "events" ].include? @entry[:category]  }"
         }
           = markdown(@introduction, 'byline')
 
         / Featured side content
-        aside.grid__cell.grid__cell--above-md-5.grid__cell--fill{
-          class="#{ 'grid__cell--order-1 grid__cell--above-md-order-2' if ["blog", "events" ].include? @entry[:category]  }"
+        aside.grid__cell.grid__cell--above-md-V.grid__cell--fill{
+          class="#{ 'grid__cell--order-I grid__cell--above-md-order-II' if ["blog", "events" ].include? @entry[:category]  }"
         }
 
           / Entry has featured content...
@@ -59,7 +59,7 @@ article
       .grid.grid--md.grid--center
 
         / Copy
-        .grid__cell.grid__cell--above-md-7.grid__cell--expand.JS-inactive.copy#expand
+        .grid__cell.grid__cell--above-md-VII.grid__cell--expand.JS-inactive.copy#expand
 
           / Copy
           = markdown(@copy)
@@ -73,7 +73,7 @@ article
                   aria_id: "activate-expand", aria_target_id: 'expand' }}
 
         / Side content
-        aside.grid__cell.grid__cell--above-md-5
+        aside.grid__cell.grid__cell--above-md-V
 
           / Side cards
           - if [ "blog", "events", "intelligence", "research", "resources" ].include? @entry[:category]
