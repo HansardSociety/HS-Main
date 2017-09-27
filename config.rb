@@ -97,7 +97,13 @@ end
 ##  Shared build config
 ##############################
 
-def sharedBuildEnv
+def sharedBuildEnv(buildEnv)
+
+  # Vars
+  isProd = (buildEnv == 'prod')
+  buildDir = (isProd ? 'prod' : 'preview')
+
+  # Ignore
   ignore "assets/**"
   ignore "layouts/**"
   ignore "partials/**"
@@ -138,29 +144,38 @@ def sharedBuildEnv
     command: "yarn run epipe:build",
     source: ".tmp/assets",
     latency: 1
+
+  after_build do
+
+    # Redirects
+    if buildEnv == "prod"
+      File.rename "build/prod/.redirects", "build/prod/_redirects"
+    end
+
+    # http/2 headers
+    File.rename "build/#{ buildDir }/.headers", "build/#{ buildDir }/_headers"
+
+    # Node scripts
+    system "NODE_ENV=#{ isProd ? 'prod' : 'prodPreview' } node purify.js"
+  end
 end
 
 ##  Build
 ##############################
 
 configure :prod do
-  sharedBuildEnv()
+  sharedBuildEnv("prod")
 
   set :ENV, "production"
   set :SNIPCART_TKN, ENV["SNIPCART_LIVE_TKN"]
   set :build_dir, "build/prod"
-
-  after_build do
-    File.rename "build/prod/.redirects", "build/prod/_redirects"
-    File.rename "build/prod/.headers", "build/prod/_headers"
-  end
 end
 
 ##  Preview site
 ##############################
 
 configure :preview do
-  sharedBuildEnv()
+  sharedBuildEnv("preview")
 
   set :ENV, "preview"
   set :SNIPCART_TKN, ENV["SNIPCART_PREVIEW_TKN"]
