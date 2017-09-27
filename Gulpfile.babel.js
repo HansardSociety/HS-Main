@@ -299,7 +299,7 @@ gulp.task("cp:assets", function() {
   ========================================================================== */
 
 gulp.task("default", function(cb) {
-  runSequence([ "watch" ], cb);
+  runSequence(["watch"], cb);
 });
 
 gulp.task("assets", function(cb) {
