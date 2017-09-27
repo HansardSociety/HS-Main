@@ -47,11 +47,11 @@ module BuildEnvs
     jsMainHash = manifest_hash["main.js"]
     jsVendorHash = manifest_hash["vendor.js"]
 
-    set :CSS_MAIN,     "/assets/styles/" + cssMainHash
-    set :CSS_SNIPCART, "/assets/styles/" + cssSnipcartHash
-    set :CSS_VENDOR,   "/assets/styles/" + cssVendorHash
-    set :JS_MAIN,      "/assets/scripts/" + jsMainHash
-    set :JS_VENDOR,    "/assets/scripts/" + jsVendorHash
+    set :CSS_MAIN,     "/assets/styles/#{ cssMainHash }"
+    set :CSS_SNIPCART, "/assets/styles/#{ cssSnipcartHash }"
+    set :CSS_VENDOR,   "/assets/styles/#{ cssVendorHash }"
+    set :JS_MAIN,      "/assets/scripts/#{ jsMainHash }"
+    set :JS_VENDOR,    "/assets/scripts/#{ jsVendorHash }"
 
     # Netlify
     redirects()
