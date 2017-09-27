@@ -3,19 +3,19 @@
 
 // Fonts
 @each $typeKey, $typeVal in map-get($type, font-primary) {
-  $assetPath: map-get($path, assets);
+  $fontPath: map-get($path, fonts);
   $fontFamily: map-get($typeVal, family);
 
   @font-face {
     font-family: "#{ map-get($typeVal, family) }";
 
-    src: url("/#{ $fontFamily }.eot");
-    src: url("/#{ $fontFamily }.woff2") format("woff2"),
-         url("/#{ $fontFamily }.woff") format("woff"),
-         url("/#{ $fontFamily }.ttf") format("truetype"),
+    src: url("#{ $fontPath }/#{ $fontFamily }.eot");
+    src: url("#{ $fontPath }/#{ $fontFamily }.woff2") format("woff2"),
+         url("#{ $fontPath }/#{ $fontFamily }.woff") format("woff"),
+         url("#{ $fontPath }/#{ $fontFamily }.ttf") format("truetype"),
 
-         url("/#{ $fontFamily }.svg##{ $fontFamily }") format("svg"),
-         url("/#{ $fontFamily }.eot?#iefix") format("embedded-opentype");
+         url("#{ $fontPath }/#{ $fontFamily }.svg##{ $fontFamily }") format("svg"),
+         url("#{ $fontPath }/#{ $fontFamily }.eot?#iefix") format("embedded-opentype");
 
     font-weight: normal;
     font-style: normal;

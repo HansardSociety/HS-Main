@@ -10,3 +10,4 @@ node_modules/
 .hs-space-hash
 npm-debug.log
 source/assets/rev-manifest.json
+yarn-error.log

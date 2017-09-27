@@ -95,13 +95,9 @@ const PATH = {
     main: __dirname + "/source/assets/js/main.js",
     vendor: __dirname + "/source/assets/js/vendor.js"
   },
-  fonts: __dirname + "/source/assets/fonts/*.*",
-  fontsGzip: __dirname + "/source/assets/fonts/*.{otf,ttf,svg}",
   images: {
     icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
   },
-  headers: __dirname + "/netlify/.headers",
-  redirects: __dirname + "/netlify/.redirects",
   tmp: {
     dir: __dirname + "/.tmp/assets",
     assets: __dirname + "/.tmp/assets",
@@ -118,7 +114,7 @@ const PATH = {
   ========================================================================== */
 
 gulp.task("watch",
-  [ "css:main", "css:snipcart", "css:vendor", "js:bundle", "cp:assets", "cp:netlify" ],
+  [ "css:main", "css:snipcart", "css:vendor", "js:bundle" ],
 
   function(gulpCallback) {
 
@@ -271,32 +267,6 @@ gulp.task("svg", function() {
     .pipe(gulp.dest("./source/assets/images"));
 });
 
-/*		=Compress
-  ========================================================================== */
-
-gulp.task("gzip", function() {
-  return gulp.src([PATH.fontsGzip])
-    .pipe(gzip())
-    .pipe(gulp.dest(PATH.tmp.dir));
-})
-
-/*		=Copy
-  ========================================================================== */
-
-// Netlify headers/ redirects etc
-gulp.task("cp:netlify", function() {
-
-  return gulp.src([PATH.headers, PATH.redirects])
-    .pipe(gulp.dest(PATH.tmp.dir));
-});
-
-// Assets
-gulp.task("cp:assets", function() {
-
-  return gulp.src([PATH.fonts])
-    .pipe(gulp.dest(PATH.tmp.dir));
-});
-
 /*		=Sequences
   ========================================================================== */
 
@@ -309,7 +279,7 @@ gulp.task("assets", function(cb) {
 });
 
 gulp.task("build", function(cb) {
-  runSequence("assets", "gzip", "cp:netlify", "cp:assets", cb);
+  runSequence("assets", cb);
 });
 
 gulp.task("lint", function(cb) {

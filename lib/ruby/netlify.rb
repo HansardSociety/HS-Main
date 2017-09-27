@@ -2,7 +2,7 @@ module Netlify
 
   # Redirects
   def redirects()
-    File.open("./netlify/.redirects", "w+") do |file|
+    File.open("source/.redirects", "w+") do |file|
       file << "/home /\n"
       file << "/audit /research/audit-of-political-engagement\n"
       file << "/newsletter https://hansardsociety.activehosted.com/f/9\n"
@@ -34,7 +34,7 @@ module Netlify
   # end
 
   def headers()
-    File.open("./netlify/.headers", "w+") do |file|
+    File.open("source/.headers", "w+") do |file|
       file << "/*\n"
       # file << "  Link: </#{ cssMainHash }>; rel=preload; as=style\n"
       # file << "  Link: </#{ cssVendorHash }>; rel=preload; as=style\n"
