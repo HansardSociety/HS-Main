@@ -1,7 +1,7 @@
 # Config
-require "./lib/data_maps"
-require "./lib/helpers"
-require "./lib/netlify"
+require "./lib/ruby/data_maps"
+require "./lib/ruby/helpers"
+require "./lib/ruby/netlify"
 
 require "dotenv"
 require "json"
@@ -155,8 +155,9 @@ def sharedBuildEnv(buildEnv)
     # http/2 headers
     File.rename "build/#{ buildDir }/.headers", "build/#{ buildDir }/_headers"
 
-    # Node scripts
-    system "NODE_ENV=#{ isProd ? 'prod' : 'prodPreview' } node purify.js"
+    # Scripts
+    runPurifyCSS = "NODE_ENV=#{ isProd ? 'prod' : 'prodPreview' } node lib/node/purify.js"
+    system runPurifyCSS
   end
 end
 
