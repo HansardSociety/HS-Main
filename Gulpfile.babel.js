@@ -180,18 +180,20 @@ const assetCachingStream = lazypipe()
 /*		=CSS
   ========================================================================== */
 
-// Postcss (default)
+// PostCSS (default)
 const postcssDefaultPlugins = [
   autoprefixer({ browsers: [ "last 2 versions" ] }),
   mqpacker({ sort: true })
 ];
 
+// PostCSS production plugins
 const postcssProdPlugins = [
   autoprefixer({ browsers: [ "last 2 versions" ] }),
   mqpacker({ sort: true }),
   cssnano({ preset: "default" })
 ];
 
+// PostCSS stream
 const postcssStream = lazypipe().pipe(function() {
   return gulpif(isProd,
     postcss(postcssDefaultPlugins.concat(postcssProdPlugins)),
