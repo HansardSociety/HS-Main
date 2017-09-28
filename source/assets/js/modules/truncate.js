@@ -13,7 +13,7 @@ const truncateText = () => {
     var nonTextHeight   = 0;
     forEach(container.childNodes, (index, elem) => {
 
-      if (!elem.classList.contains('side-card__title')) {
+      if (elem.classList != undefined && !elem.classList.contains('side-card__title')) {
         nonTextHeight += elem.offsetHeight;
       }
     });

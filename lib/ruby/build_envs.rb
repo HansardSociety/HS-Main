@@ -23,6 +23,9 @@ module BuildEnvs
     ignore "partials/**"
     ignore "templates/**"
 
+    # relative links
+    set :relative_links, true
+
     ##		=External pipeline
     ########################################
 

@@ -22,8 +22,9 @@ head
   title= siteData(:site_title)
 
   / CSS
-  link{ rel="stylesheet" href="#{ config[:CSS_VENDOR] }" }
-  link{ rel="stylesheet" href="#{ config[:CSS_MAIN] }" }
+  = stylesheet_link_tag "#{ config[:CSS_VENDOR] }", :relative => true
+  = stylesheet_link_tag "#{ config[:CSS_MAIN] }", :relative => true
+
 
   / Snipcart
   - if @entry[:featured]
@@ -34,7 +35,7 @@ head
         id="snipcart"
         data-api-key="#{ config[:SNIPCART_TKN] }"
       }
-      link{ rel="stylesheet" href="#{ config[:CSS_SNIPCART] }" }
+    = stylesheet_link_tag "#{ config[:CSS_SNIPCART] }", :relative => true
 
   / Google Analytics
   - if config[:ENV] == 'production'

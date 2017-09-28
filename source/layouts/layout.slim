@@ -26,6 +26,7 @@ html
       / Footer
       = partial 'partials/footer'
 
-  / Scripts
-  script{ async src="#{ config[:JS_VENDOR] }" }
-  script{ async src="#{ config[:JS_MAIN] }" }
+  / Scripts:
+  / Need to be relative for uncss-jsdom
+  = javascript_include_tag "#{ config[:JS_VENDOR] }", :relative => true
+  = javascript_include_tag "#{ config[:JS_MAIN] }", :relative => true

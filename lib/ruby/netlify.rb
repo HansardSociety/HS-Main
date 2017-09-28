@@ -40,9 +40,9 @@ module Netlify
       # file << "  Link: </#{ cssVendorHash }>; rel=preload; as=style\n"
       # file << "  Link: </#{ jsMainHash }>; rel=preload; as=script\n"
       # file << "  Link: </#{ jsVendorHash }>; rel=preload; as=script\n"
-      file << "  Link: </AvenirLTStd-Roman.woff2>; rel=preload; as=font\n"
-      file << "  Link: </AvenirLTStd-Heavy.woff2>; rel=preload; as=font\n"
-      file << "  Link: </AvenirLTStd-Oblique.woff2>; rel=preload; as=font\n"
+      file << "  Link: </assets/fonts/AvenirLTStd-Roman.woff2>; rel=preload; as=font\n"
+      file << "  Link: </assets/fonts/AvenirLTStd-Heavy.woff2>; rel=preload; as=font\n"
+      file << "  Link: </assets/fonts/AvenirLTStd-Oblique.woff2>; rel=preload; as=font\n"
     end
   end
 end
