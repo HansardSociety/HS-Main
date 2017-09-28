@@ -43,7 +43,7 @@
 .carousel__prev,
 .carousel__next {
   @extend %e-cursor-pointer;
-  @extend %e-ff-prim-medium;
+  @extend %e-ff-prim-heavy;
   @extend %e-flex-row-center;
   @extend %e-fz-xs;
   @extend %e-trans-core;

@@ -40,7 +40,7 @@
   .strap-#{ $sizeKey },
   .label-#{ $sizeKey },
   .cross-head-#{ $sizeKey } {
-    @extend %e-ff-prim-medium;
+    @extend %e-ff-prim-heavy;
   }
 
   .strap-#{ $sizeKey },
@@ -102,5 +102,5 @@
   ========================================================================== */
 
 strong {
-  @extend %e-ff-prim-medium;
+  @extend %e-ff-prim-heavy;
 }

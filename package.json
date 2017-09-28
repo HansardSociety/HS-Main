@@ -21,7 +21,6 @@
     "dev:poll": "bundle exec middleman server --watcher-force-polling",
     "post:prod": "NODE_ENV=prod node lib/node/_scripts.js",
     "post:preview": "NODE_ENV=preview node lib/node/_scripts.js"
-
   },
   "keywords": [],
   "author": "@LukeBoga",
@@ -33,7 +32,6 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-2": "^6.24.1",
     "babelify": "^7.3.0",
-    "blazy": "^1.8.2",
     "browser-sync": "^2.18.8",
     "browserify": "^14.1.0",
     "browserify-shim": "^3.8.14",
@@ -46,7 +44,6 @@
     "gulp-gzip": "^1.4.0",
     "gulp-if": "^2.0.2",
     "gulp-postcss": "^6.3.0",
-    "gulp-purifycss": "^0.2.0",
     "gulp-rev": "^7.1.2",
     "gulp-sass": "^3.1.0",
     "gulp-streamify": "^1.0.2",
@@ -58,7 +55,6 @@
     "node-sass": "^4.5.0",
     "postcss-reporter": "^3.0.0",
     "postcss-scss": "^0.4.0",
-    "purify-css": "^1.2.5",
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
     "stylelint": "^7.8.0",
@@ -67,6 +63,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "blazy": "^1.8.2",
     "lodash": "^4.17.4",
     "normalize.css": "^5.0.0",
     "picturefill": "^3.0.2",
