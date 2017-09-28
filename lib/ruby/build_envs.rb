@@ -89,9 +89,9 @@ module BuildEnvs
       moveAssets("css", "styles")
       moveAssets("js", "scripts")
 
-      # Scripts
-      runPurifyCSS = "NODE_ENV=#{ isProd ? 'prod' : 'prodPreview' } node lib/node/purify.js"
-      system runPurifyCSS
+      # Node scripts
+      runNodeScripts = "yarn run #{ isProd ? 'post:prod' : 'post:preview' }"
+      system runNodeScripts
     end
   end
 

@@ -176,6 +176,8 @@ const assetCachingStream = lazypipe()
 /*		=CSS
   ========================================================================== */
 
+// const cssnanoOpts =
+
 // PostCSS (default)
 const postcssDefaultPlugins = [
   autoprefixer({ browsers: [ "last 2 versions" ] }),
@@ -185,8 +187,8 @@ const postcssDefaultPlugins = [
 // PostCSS production plugins
 const postcssProdPlugins = [
   autoprefixer({ browsers: [ "last 2 versions" ] }),
-  mqpacker({ sort: true }),
-  cssnano({ preset: "default" })
+  mqpacker({ sort: true })
+  // cssnano({ preset: "default" })
 ];
 
 // PostCSS stream

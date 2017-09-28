@@ -21,7 +21,7 @@ helpers CustomHelpers
 set :markdown_engine, :kramdown
 
 # Slim opts
-Slim::Engine.set_options sort_attrs: false
+Slim::Engine.set_options sort_attrs: false, pretty: true
 
 # Import libs
 include BuildEnvs
@@ -48,16 +48,3 @@ buildDev()
 # Dymnamic pages
 dynamicContentfulPages()
 dynamicCustomPages()
-
-
-# def getData(subDir)
-#   dataDir = "data/hs/#{ subDir }"
-
-#   Dir.foreach(dataDir) do |file|
-#     next if file == "." or file == ".."
-#     yamlData = YAML::load_file("#{ dataDir }/#{ file }")
-
-#     yamlData
-#   end
-# end
-

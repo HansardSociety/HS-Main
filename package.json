@@ -18,7 +18,10 @@
     "preview:deploy": "yarn run data:preview && bundle exec middleman build -e preview",
     "dev": "bundle exec middleman server",
     "dev:clean": "yarn run clean && yarn run data:preview && bundle exec middleman server",
-    "dev:poll": "bundle exec middleman server --watcher-force-polling"
+    "dev:poll": "bundle exec middleman server --watcher-force-polling",
+    "post:prod": "NODE_ENV=prod node lib/node/_scripts.js",
+    "post:preview": "NODE_ENV=preview node lib/node/_scripts.js"
+
   },
   "keywords": [],
   "author": "@LukeBoga",
@@ -60,6 +63,7 @@
     "run-sequence": "^1.2.2",
     "stylelint": "^7.8.0",
     "stylelint-scss": "^1.4.1",
+    "uncss": "^0.15.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
