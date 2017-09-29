@@ -215,20 +215,27 @@ const postcssStream = lazypipe().pipe(function() {
     postcss(postcssDefaultPlugins))
 });
 
-// Main CSS
-gulp.task("css:main", function() {
-  return gulp.src(PATH.css.main)
-    .pipe(sass().on("error", sass.logError))
-    .pipe(postcssStream())
-    .pipe(assetCachingStream());
-});
 
-// Snipcart CSS
-gulp.task("css:snipcart", function() {
-  return gulp.src(PATH.css.snipcart)
-    .pipe(sass().on("error", sass.logError))
-    .pipe(postcssStream())
-    .pipe(assetCachingStream());
+gulp.task("css", function() {
+
+  var files = [
+    PATH.css.main,
+    PATH.css.snipcart,
+    PATH.css.vendor
+  ];
+
+  Object.keys(files).map((entry) => {
+    const isSass = (files[entry].split(".").pop() == "scss")
+
+    return gulp.src(files[entry])
+      .pipe(gulpif(
+        isSass,
+        sass().on("error", sass.logError)),
+        .pipe(concat("vendor.css"))
+      )
+      .pipe(postcssStream())
+      .pipe(assetCachingStream());
+  })
 });
 
 // Vendor CSS
@@ -256,9 +263,6 @@ gulp.task("css:lint", function() {
 
 /*		=Scripts
   ========================================================================== */
-
-const compiler = require('google-closure-compiler-js').gulp();
-const hashedAssets = require("./source/assets/rev-manifest.json")
 
 gulp.task("js:bundle", function() {
 
