@@ -14,19 +14,16 @@ require "lib/ruby/helpers"
 # Dotenv
 Dotenv.load
 
-# Template helpers
-helpers CustomHelpers
+###########################################################################
+##		=Templating
+###########################################################################
 
-# Kramdown opts
-set :markdown_engine, :kramdown
+# Directory structure
+set :layouts_dir, "views/layouts"
 
-# Slim opts
-Slim::Engine.set_options sort_attrs: false, pretty: true
-
-# Import libs
-include BuildEnvs
-include ContentfulConfig
-include DynamicPages
+helpers CustomHelpers # helpers
+set :markdown_engine, :kramdown # Kramdown
+Slim::Engine.set_options sort_attrs: false, pretty: true # Slim
 
 # Page options
 page "/*.xml", layout: false
@@ -36,6 +33,14 @@ page "/*.txt", layout: false
 # Site variables
 set :SITE_TITLE, "Hansard Society"
 set :SITE_URL, ""
+
+###########################################################################
+##		=Build
+###########################################################################
+
+include BuildEnvs
+include ContentfulConfig
+include DynamicPages
 
 # Contentful config
 contentfulEnvs()
