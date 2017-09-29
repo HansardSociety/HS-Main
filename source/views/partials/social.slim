@@ -11,7 +11,7 @@
     href="#{ url =~ /@/ ? 'mailto:' + url : url }"
     target="_blank"
   }
-    = partial 'partials/icon',
+    = partial 'views/partials/icon',
       locals: { \
         icon: "#{ url =~ /@/ ? 'email' : 'social-' + @domain.sld }",
         color: 'orange',

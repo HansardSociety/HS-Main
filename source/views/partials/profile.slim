@@ -33,7 +33,7 @@
           .grid__cell.grid__cell--xxs
 
             / Button
-            = partial 'partials/btn',
+            = partial 'views/partials/btn',
               locals: { local_data: \
                 { type: 'state', switch: true,
                   size: 'sm',
@@ -44,12 +44,12 @@
                   aria_target_id: @cta_id }}
 
             / Modal
-            = partial 'partials/modal',
+            = partial 'views/partials/modal',
               locals: { local_data: \
                 { id: @cta_id,
                   content: @biog }}
 
         / Social
-        = partial 'partials/social',
+        = partial 'views/partials/social',
           locals: { local_data: \
             { icons: [ @email, @twitter, @linkedin ] }}

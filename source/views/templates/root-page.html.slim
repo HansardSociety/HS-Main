@@ -16,7 +16,7 @@ article
   ////////////////////////////
 
   - if @entry[:banner_image]
-    = partial 'partials/banner',
+    = partial 'views/partials/banner',
       locals: { entry: @entry }
 
   //  Feed
@@ -30,13 +30,13 @@ article
           / Blog
           - if @entry[:category] == 'blog' && page[:category] == 'blog'
             .grid__cell.grid__cell--above-sm-VI.grid__cell--above-md-IV
-              = partial 'partials/main-card',
+              = partial 'views/partials/main-card',
                 locals: { local_data: \
                   { entry_data: page }}
 
           / Events
           - if @entry[:category] == 'events' && page[:category] == 'events'
             .grid__cell.grid__cell--above-sm-VI.grid__cell--above-md-IV
-              = partial 'partials/main-card',
+              = partial 'views/partials/main-card',
                 locals: { local_data: \
                   { entry_data: page }}

@@ -13,7 +13,7 @@
       - if @entryData[:featured]
         - @entryData[:featured].map do |page|
           .carousel__item.swiper-slide
-            = partial 'partials/main-card',
+            = partial 'views/partials/main-card',
               locals: { local_data: \
                 { entry_data: page[:page],
                   featured: true,
@@ -22,7 +22,7 @@
       / Related (tagging)
       - relatedContent(@entryData, @blogCount) do |page|
         .carousel__item.swiper-slide
-          = partial 'partials/main-card',
+          = partial 'views/partials/main-card',
             locals: { local_data: \
               { entry_data: page,
                 carousel: true }}
@@ -31,7 +31,7 @@
     - if @context == 'latest'
       - latestContent(yield: true, num: 8) do |page|
         .carousel__item.swiper-slide
-          = partial 'partials/main-card',
+          = partial 'views/partials/main-card',
             locals: { local_data: \
               { entry_data: page,
                 carousel: true }}
@@ -40,7 +40,7 @@
     - if @context == 'category-latest'
       - latestContent(yield: true, num: 8, pageCategories: @categories) do |page|
         .carousel__item.swiper-slide
-          = partial 'partials/main-card',
+          = partial 'views/partials/main-card',
             locals: { local_data: \
               { entry_data: page,
                 carousel: true }}
@@ -51,18 +51,18 @@
 
         / Profile cards
         - if item[:TYPE] == 'people'
-          = partial 'partials/staff-card',
+          = partial 'views/partials/staff-card',
             locals: { local_data: \
               { entry_data: item[:profile] }}
 
   / Actions
   .carousel__actions
     .carousel__prev
-      = partial 'partials/icon',
+      = partial 'views/partials/icon',
         locals: { icon: 'chevron-left', size: 'xs', color: 'green' }
       span Prev
 
     .carousel__next
       span Next
-      = partial 'partials/icon',
+      = partial 'views/partials/icon',
         locals: { icon: 'chevron-right', size: 'xs', color: 'green' }

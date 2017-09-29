@@ -14,7 +14,7 @@
 article
 
   / Banner
-  = partial 'partials/banner',
+  = partial 'views/partials/banner',
     locals: { entry: @entry }
 
   .content.content--wide.content--paper.e-mgn-b-lg{
@@ -41,7 +41,7 @@ article
             - if @entry[:category] == "blog"
               - @entry[:featured].map do |featured|
                 - if featured[:author]
-                  = partial 'partials/profile',
+                  = partial 'views/partials/profile',
                     locals: { local_data: \
                     { profile_data: featured[:author],
                       side: true }}
@@ -49,7 +49,7 @@ article
             / Research and resources
             - if ["events", "intelligence", "research", "resources"].include? @entry[:category]
               - @entry[:featured].first(1).map do |featured|
-                = partial 'partials/side-card',
+                = partial 'views/partials/side-card',
                   locals: { local_data: \
                     { side_card_data: featured,
                       featured: true }}
@@ -66,7 +66,7 @@ article
 
           / Expand button
           .grid__expand-btn
-            = partial 'partials/btn',
+            = partial 'views/partials/btn',
               locals: { local_data: \
                 { type: 'state', size: 'md', style: 'secondary', fill: true,
                   label_on: 'Show more', label_off: 'Show less', label_size: 'lg',
@@ -86,7 +86,7 @@ article
                 - if index == 0
                   h2.side-title Featured
 
-                = partial 'partials/side-card',
+                = partial 'views/partials/side-card',
                   locals: { local_data: \
                     { side_card_data: featured }}
 
@@ -96,7 +96,7 @@ article
               h2.side-title Featured
               - @entry[:featured].drop(1).map do |featured|
                 - if !["people", "product", "registration"].include? featured[:TYPE]
-                  = partial 'partials/side-card',
+                  = partial 'views/partials/side-card',
                     locals: { local_data: \
                       { side_card_data: featured }}
 
@@ -104,7 +104,7 @@ article
             - if @entry[:tags]
               h2.side-title Related
               - relatedContent(@entry, @blogCount) do |page|
-                = partial 'partials/side-card',
+                = partial 'views/partials/side-card',
                   locals: { local_data: \
                     { side_card_data: page }}
 
@@ -112,7 +112,7 @@ article
             - if @entry[:external_links]
               .section-lg
                 - @entry[:external_links].map do |link|
-                  = partial 'partials/ext-link',
+                  = partial 'views/partials/ext-link',
                     locals: { local_data: \
                       { ext_link_data: link }}
 
@@ -120,12 +120,12 @@ article
           - if @category == 'about'
             h2.side-title Latest
             - latestContent(yield: true, num: 4) do |page|
-              = partial 'partials/side-card',
+              = partial 'views/partials/side-card',
                 locals: { local_data: \
                   { side_card_data: page }}
 
           / Newsletter signup
           .box.e-bgc-dark-grey.e-col-white.e-mgn-b-xs
-            = partial 'partials/signup-box',
+            = partial 'views/partials/signup-box',
               locals: { local_data: { copy_size: 'sm'}}
 

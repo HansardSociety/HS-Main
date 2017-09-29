@@ -7,28 +7,28 @@
 article
 
   / Banner
-  = partial 'partials/banner',
+  = partial 'views/partials/banner',
     locals: { entry: @entry }
 
   / Latest
   .panel#introduction
     .panel__content.panel__content--full
       h2.title-xl.e-align-cen.e-col-green Latest
-      = partial 'partials/carousel',
+      = partial 'views/partials/carousel',
         locals: { local_data: \
           { context: 'latest' }}
 
   / Newsletter
   .panel.e-bgc-dark-grey
     .content.content--mid.e-align-cen.e-col-white
-      = partial 'partials/signup-box',
+      = partial 'views/partials/signup-box',
         locals: { local_data: { copy_size: 'md'}}
 
   / Research
   .panel.e-bgc-light-grey
     .panel__content.panel__content--full
       h2.title-xl.e-align-cen.e-col-green Our work
-      = partial 'partials/carousel',
+      = partial 'views/partials/carousel',
         locals: { local_data: \
           { context: 'category-latest',
             categories: [ 'research' ] }}
@@ -37,7 +37,7 @@ article
   .panel
     .panel__content.panel__content--full
       h2.title-xl.e-align-cen.e-col-green Blog
-      = partial 'partials/carousel',
+      = partial 'views/partials/carousel',
         locals: { local_data: \
           { context: 'category-latest',
             categories: [ 'blog' ] }}
@@ -46,7 +46,7 @@ article
   .panel.e-bgc-light-grey
     .panel__content.panel__content--full
       h2.title-xl.e-align-cen.e-col-green Events
-      = partial 'partials/carousel',
+      = partial 'views/partials/carousel',
         locals: { local_data: \
           { context: 'category-latest',
             categories: [ 'events' ] }}

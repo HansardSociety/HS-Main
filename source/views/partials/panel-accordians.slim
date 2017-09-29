@@ -19,6 +19,6 @@
     .grid.grid--xs
       - @panel_data[:accordians].each do |accordian|
         .grid__cell.grid__cell--fill.grid__cell--above-sm-VI
-          = partial 'partials/accordian',
+          = partial 'views/partials/accordian',
             locals: { local_data: \
               { accordian_data: accordian }}

@@ -1,7 +1,7 @@
 doctype html
 html
 
-  =partial 'partials/head'
+  =partial 'views/partials/head'
 
   body.JS-state-global
 
@@ -11,20 +11,20 @@ html
     .site-container
 
       / Navbar
-      = partial 'partials/navbar'
+      = partial 'views/partials/navbar'
 
       main
         = yield
 
         / Newsletter modal
-        = partial 'partials/modal',
+        = partial 'views/partials/modal',
           locals: { local_data: \
             { id: 'modal-monthly-newsletter-subscription',
               yield: true, size: 'narrow' }}
           = siteData(:newsletter_embed)
 
       / Footer
-      = partial 'partials/footer'
+      = partial 'views/partials/footer'
 
   / Scripts:
   / Need to be relative for uncss-jsdom

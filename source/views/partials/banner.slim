@@ -81,7 +81,7 @@ header.banner{
 
                 / Download
                 - if cta[:action] == 'download'
-                  = partial 'partials/btn',
+                  = partial 'views/partials/btn',
                     locals: { local_data: \
                       { type: 'link', size: 'lg', style: 'primary',
                         label: cta.button_text, label_size: 'lg', url: cta[:file][:url] }}
@@ -90,7 +90,7 @@ header.banner{
                 - if cta[:action] == 'modal'
 
                   / Modal button
-                  = partial 'partials/btn',
+                  = partial 'views/partials/btn',
                     locals: { local_data: \
                       { type: 'state',
                         size: 'lg', style: 'secondary',
@@ -104,7 +104,7 @@ header.banner{
   - if entry[:TYPE] == 'landing_page' && entry[:calls_to_action] != nil
     - entry[:calls_to_action].each do |cta|
       - if cta[:action] == 'modal'
-        = partial 'partials/modal',
+        = partial 'views/partials/modal',
           locals: { local_data: \
           { id: cta.modal[:cta_id],
             content: cta.modal[:content] }}
@@ -114,7 +114,7 @@ header.banner{
     a.banner__scroll.e-col-orange{
       href="#introduction"
     }
-      = partial 'partials/icon',
+      = partial 'views/partials/icon',
         locals: \
         { icon: 'ios-arrow-thin-down',
           size: 'lg' }

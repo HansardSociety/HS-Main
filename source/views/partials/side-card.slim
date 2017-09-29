@@ -79,7 +79,7 @@ article.side-card{
         }
 
       - if featuredRegistration
-        = partial 'partials/date',
+        = partial 'views/partials/date',
           locals: { local_data: \
             { date_data: dateTime }}
 
@@ -121,13 +121,13 @@ article.side-card{
           - if featuredProduct
 
             - if setData[:price] == 0
-              = partial 'partials/btn',
+              = partial 'views/partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'sm', style: 'primary',
                     label: 'Download', label_size: 'sm', url: setData[:download] }}
 
             - if setData[:price] > 0
-              = partial 'partials/btn',
+              = partial 'views/partials/btn',
                 locals: { local_data: \
                   { type: 'link', size: 'sm', style: 'primary', product: setData,
                     label: "Buy (£#{ setData[:price] })", label_size: 'sm' }}
@@ -144,13 +144,13 @@ article.side-card{
               - @price == setData[:price]
 
               / Modal window
-              = partial 'partials/modal',
+              = partial 'views/partials/modal',
                 locals: { local_data: \
                   { id: setData[:modal][:cta_id],
                     content: setData[:modal][:content] }}
 
               / Modal button
-              = partial 'partials/btn',
+              = partial 'views/partials/btn',
                 locals: { local_data: \
                   { type: 'state',
                     size: 'sm', style: 'primary',

@@ -19,14 +19,14 @@ nav#navbar.navbar.JS-inactive
     .navbar__left
 
       / Menu (mobile)
-      = partial 'partials/menu',
+      = partial 'views/partials/menu',
         locals: { local_data: \
           { id: 'menu-mobile',
             screen: 'mobile',
             nav_items: @sort_nav }}
 
       / Menu button (mobile)
-      = partial 'partials/btn',
+      = partial 'views/partials/btn',
         locals: { local_data: \
           { type: 'state', size: 'sm',
             page: 'no-scroll', secondary_target: 'navbar',
@@ -35,7 +35,7 @@ nav#navbar.navbar.JS-inactive
 
     / Logo
     .navbar__center
-      =partial 'partials/logo'
+      =partial 'views/partials/logo'
 
     .navbar__right
 
@@ -71,7 +71,7 @@ nav#navbar.navbar.JS-inactive
               - if nav[:pages] && nav[:pages].length > 1
 
                 / Dropdown
-                = partial 'partials/btn',
+                = partial 'views/partials/btn',
                   locals: { local_data: \
                     { type: 'state',
                       page: 'no-scroll', exclusive: true, secondary_target: 'navbar',
@@ -82,7 +82,7 @@ nav#navbar.navbar.JS-inactive
                       aria_target_id: @menu_desktop_id_base }}
 
             / Menu (desktop)
-            = partial 'partials/menu',
+            = partial 'views/partials/menu',
               locals: { local_data: \
                         { id: @menu_desktop_id_base,
                           screen: 'desktop',
@@ -90,7 +90,7 @@ nav#navbar.navbar.JS-inactive
 
       / Search
       .e-col-white
-        = partial 'partials/btn',
+        = partial 'views/partials/btn',
           locals: { local_data: \
             { type: 'state', size: 'sm',
               page: 'no-scroll', exclusive: true,

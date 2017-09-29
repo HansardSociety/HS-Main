@@ -24,7 +24,7 @@ section.accordian{
     h3.title-sm.e-col-green= @title
 
     .accordian__control.e-col-green
-      = partial 'partials/btn',
+      = partial 'views/partials/btn',
         locals: { local_data: \
           { type: 'state', size: 'sm',
             icon: 'chevron-down', icon_size: 'xs',
@@ -43,7 +43,7 @@ section.accordian{
             .accordian__cta
               / Download
               - if cta.action == 'download'
-                = partial 'partials/btn',
+                = partial 'views/partials/btn',
                   locals: { local_data: \
                     { type: 'link', size: 'sm', fill: true, style: 'primary',
                       label: cta.button_text, label_size: 'sm', url: cta.file.url }}

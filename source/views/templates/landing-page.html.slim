@@ -4,7 +4,7 @@ article
 
   / Banner
   - if @entry[:banner_image]
-    = partial 'partials/banner',
+    = partial 'views/partials/banner',
       locals: { entry: @entry }
 
   / Introduction
@@ -18,7 +18,7 @@ article
     .panel.panel--light-grey#latest
       .panel__content.panel__content--full
         h2.title-lg.e-col-green.e-align-cen Latest
-        = partial 'partials/carousel',
+        = partial 'views/partials/carousel',
           locals: { local_data: \
             { entry_data: @entry,
               context: 'related' }}
@@ -30,7 +30,7 @@ article
 
       / Content panel
       - if panel[:TYPE] == 'panel_content'
-        = partial 'partials/panel-content',
+        = partial 'views/partials/panel-content',
           locals: { local_data: \
             { entry_data: panel,
               index: index }}
@@ -40,14 +40,14 @@ article
         .panel.panel--light-grey
           .panel__content.panel__content--full
             h2.title-xl.e-col-green.e-align-cen= panel[:title]
-            = partial 'partials/carousel',
+            = partial 'views/partials/carousel',
               locals: { local_data: \
                 { entry_data: panel[:carousel],
                   context: 'custom' }}
 
       / Accordian panel
       - if panel[:TYPE] == 'panel_accordians'
-        = partial 'partials/panel-accordians',
+        = partial 'views/partials/panel-accordians',
           locals: { local_data: \
             { entry_data: panel,
               index: index }}
@@ -57,7 +57,7 @@ article
     - data.hs.people.each do |k, v|
       - if v.employment
         - @ctaID = (v[:full_name] + '-' + v[:ID]).parameterize
-        = partial 'partials/modal',
+        = partial 'views/partials/modal',
           locals: { local_data: \
             { id: @ctaID,
               content: v.biog }}

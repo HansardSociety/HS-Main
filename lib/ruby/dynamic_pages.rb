@@ -11,7 +11,7 @@ module DynamicPages
       # Homepage
       data.hs.homepage.each do |id, home|
         proxy "/index.html",
-              "/templates/home.html",
+              "/views/templates/home.html",
               ignore: true,
               locals: { home: home }
       end
@@ -19,7 +19,7 @@ module DynamicPages
       # Child pages
       data.hs.child_page.each do |id, child_page|
         proxy "#{ child_page.category.parameterize + "/" + child_page.slug }.html",
-              "/templates/child-page.html",
+              "/views/templates/child-page.html",
               ignore: true,
               locals: { child_page: child_page }
       end
@@ -27,7 +27,7 @@ module DynamicPages
       # Landing pages
       data.hs.landing_page.each do |id, landing_page|
         proxy "#{ landing_page.category.parameterize + "/" + landing_page.slug }.html",
-              "/templates/landing-page.html",
+              "/views/templates/landing-page.html",
               ignore: true,
               locals: { landing_page: landing_page }
       end
@@ -35,7 +35,7 @@ module DynamicPages
       # Child pages
       data.hs.root_page.each do |id, root_page|
         proxy "#{ root_page.category.parameterize }.html",
-              "/templates/root-page.html",
+              "/views/templates/root-page.html",
               ignore: true,
               locals: { root_page: root_page }
       end
@@ -48,6 +48,6 @@ module DynamicPages
   def dynamicCustomPages()
 
     # AJAX elements
-    proxy "/ajax.html", "/templates/ajax.html", :layout => false
+    proxy "/ajax.html", "/views/templates/ajax.html", :layout => false
   end
 end

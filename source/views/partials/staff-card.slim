@@ -41,7 +41,7 @@
 
           / Biog button
           .grid__cell.grid__cell--xxs
-            = partial 'partials/btn',
+            = partial 'views/partials/btn',
               locals: { local_data: \
                 { type: 'state', switch: true,
                   size: 'sm', style: 'secondary',
@@ -50,12 +50,12 @@
                   aria_id: "activate-#{ @cta_id }",
                   aria_target_id: @cta_id }}
 
-            / = partial 'partials/modal',
+            / = partial 'views/partials/modal',
             /   locals: { local_data: \
             /     { id: @cta_id,
             /       content: @biog }}
 
           / Social icons
-          = partial 'partials/social',
+          = partial 'views/partials/social',
             locals: { local_data: \
               { icons: @social }}

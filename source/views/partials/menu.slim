@@ -48,7 +48,7 @@
               .dropdown__control
 
                 / dropdown control
-                = partial 'partials/btn',
+                = partial 'views/partials/btn',
                   locals: { local_data: \
                     { type: 'state', size: 'sm',
                       icon: 'chevron-down', icon_size: 'xs',
@@ -97,7 +97,7 @@
         - if category == 'about'
           li.menu__column.e-acc-orange-top
             .section-sm
-              = partial 'partials/signup-box',
+              = partial 'views/partials/signup-box',
                 locals: { local_data: { copy_size: 'sm'}}
 
 
@@ -107,5 +107,5 @@
 
   / mobile
   - if @screen == 'mobile'
-    = partial 'partials/signup-box',
+    = partial 'views/partials/signup-box',
       locals: { local_data: { copy_size: 'sm'}}
