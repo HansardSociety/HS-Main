@@ -1,6 +1,7 @@
 .image {
   @extend %e-flex-row-start;
   @extend %e-overflow-hidden;
+  @extend %e-rad-slight;
   @extend %e-width-full;
 }
 

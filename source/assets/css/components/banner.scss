@@ -38,7 +38,7 @@
 .banner__strap {
   @extend .strap-md;
   @extend %e-max-width-full;
-  @extend %e-mgn-t-sm;
+  @extend %e-mgn-t-xs;
   @include above(sm) {
     @extend %e-mgn-auto-x__sm;
   }
