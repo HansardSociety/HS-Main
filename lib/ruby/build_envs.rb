@@ -134,11 +134,11 @@ module BuildEnvs
       set :ENV, "development"
 
       # Assets
-      set :CSS_MAIN,     "/main.css"
+      set :CSS_MAIN, "/main.css"
       set :CSS_SNIPCART, "/snipcart.css"
-      set :CSS_VENDOR,   "/vendor.css"
-      set :JS_MAIN,      "/main.js"
-      set :JS_VENDOR,    "/vendor.js"
+      set :CSS_VENDOR, "/vendor.css"
+      set :JS_MAIN, "/main.js"
+      set :JS_VENDOR, "/vendor.js"
 
       # Snipcart
       set :SNIPCART_TKN, ENV["SNIPCART_PREVIEW_TKN"]
