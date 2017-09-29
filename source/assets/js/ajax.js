@@ -1,5 +1,3 @@
-import { forEach, toggleClass } from "./core";
-
 // HTML to DOM
 function html2dom(parent, html, elem) {
   const container = document.createElement("div");
@@ -47,5 +45,3 @@ const getForms = (() => {
   getElem(newsletterFormTriggers, newsletterForm);
 
 })();
-
-export { getForms }

@@ -1,6 +1,3 @@
-import Blazy from "blazy";
-import { forEach, toggleClass } from "./core";
-
 /*    bLazy: https://github.com/dinbror/blazy
   ========================================================================== */
 
@@ -31,5 +28,3 @@ const blazyCarousel = (() => {
     })
   });
 })();
-
-export { blazy, blazyCarousel }

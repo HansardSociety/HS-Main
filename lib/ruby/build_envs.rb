@@ -19,9 +19,7 @@ module BuildEnvs
 
     # Ignore
     ignore "assets/{[!fonts]}**"
-    ignore "layouts/**"
-    ignore "partials/**"
-    ignore "templates/**"
+    ignore "views/**"
 
     # relative links
     set :relative_links, true
@@ -61,7 +59,6 @@ module BuildEnvs
     # headers({
     #   logoMob: "getData('universal')"
     # })
-    headers()
 
     # Pretty html filenames
     activate :directory_indexes

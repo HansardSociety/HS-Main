@@ -6,7 +6,6 @@ const gulp         = require("gulp");
 const gulpif       = require("gulp-if");
 const babel        = require("gulp-babel");
 const browserSync  = require("browser-sync").create();
-const browserify   = require("browserify");
 const concat       = require("gulp-concat");
 const es           = require("event-stream");
 const gutil        = require("gulp-util");
@@ -19,7 +18,6 @@ const source       = require("vinyl-source-stream");
 const streamify    = require("gulp-streamify");
 const svgSprite    = require("gulp-svg-sprite");
 const touch        = require("gulp-touch");
-const uglify       = require("gulp-uglify");
 
 const postcss      = require("gulp-postcss");
 const autoprefixer = require("autoprefixer");
@@ -93,7 +91,28 @@ const PATH = {
   js: {
     all: __dirname + "/source/assets/js/**/*.js",
     main: __dirname + "/source/assets/js/main.js",
-    vendor: __dirname + "/source/assets/js/vendor.js"
+    vendor: __dirname + "/source/assets/js/vendor.js",
+    modules: {
+      vendor: [
+        __dirname + "/node_modules/promise-polyfill/promise.js",
+        __dirname + "/node_modules/lodash/lodash.js",
+        __dirname + "/node_modules/picturefill/dist/picturefill.js",
+        __dirname + "/node_modules/whatwg-fetch/fetch.js",
+        __dirname + "/node_modules/swiper/dist/js/swiper.js",
+        __dirname + "/node_modules/smooth-scroll/dist/js/smooth-scroll.js",
+        __dirname + "/node_modules/blazy/blazy.js",
+      ],
+      main: [
+        __dirname + "/source/assets/js/core.js",
+        __dirname + "/source/assets/js/toggle-state.js",
+        __dirname + "/source/assets/js/nav.js",
+        __dirname + "/source/assets/js/ajax.js",
+        __dirname + "/source/assets/js/truncate.js",
+        __dirname + "/source/assets/js/misc.js",
+        __dirname + "/source/assets/js/lazy.js",
+        __dirname + "/source/assets/js/carousel.js"
+      ]
+    }
   },
   images: {
     icons: __dirname + `/source/assets/images/ionicons/?(${ iconsList }).svg`
@@ -176,8 +195,6 @@ const assetCachingStream = lazypipe()
 /*		=CSS
   ========================================================================== */
 
-// const cssnanoOpts =
-
 // PostCSS (default)
 const postcssDefaultPlugins = [
   autoprefixer({ browsers: [ "last 2 versions" ] }),
@@ -240,24 +257,22 @@ gulp.task("css:lint", function() {
 /*		=Scripts
   ========================================================================== */
 
-const uglifyStream = lazypipe().pipe(uglify);
+const compiler = require('google-closure-compiler-js').gulp();
+const hashedAssets = require("./source/assets/rev-manifest.json")
+
 gulp.task("js:bundle", function() {
 
-  var files = [ PATH.js.main, PATH.js.vendor ];
+  var modules = PATH.js.modules;
 
-  var tasks = files.map(function(entry) {
-    return browserify({ entries: entry })
-      .transform("babelify")
-      .bundle()
-      .on("error", function(e) { gutil.log(e); })
-      .pipe(source(entry.split("/").pop()))
-      .pipe(streamify(function() {
-        return gulpif(isProd, uglify())
-      }))
-      .pipe(streamify(assetCachingStream()));
-  });
+  Object.keys(modules).map((bundle) => {
 
-  return es.merge(tasks);
+    return gulp.src(modules[bundle])
+      .pipe(concat(`${ bundle }.js`))
+      .pipe(gulpif(bundle == "main", babel({
+        presets: ["env"]
+      })))
+      .pipe(assetCachingStream())
+  })
 });
 
 /*		=Images

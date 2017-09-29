@@ -1,12 +1,10 @@
-import Swiper from "swiper";
-
 const carousel = (() => {
-  new Swiper ('.swiper-container', {
+  new Swiper (".swiper-container", {
 
-    nextButton: '.carousel__next',
-    prevButton: '.carousel__prev',
+    nextButton: ".carousel__next",
+    prevButton: ".carousel__prev",
 
-    direction: 'horizontal',
+    direction: "horizontal",
     loop: false,
     keyboardControl: true,
     preloadImages: false,
@@ -24,5 +22,3 @@ const carousel = (() => {
     }
   });
 })()
-
-export { carousel };

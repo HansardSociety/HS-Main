@@ -1,10 +1,4 @@
-import { forEach, toggleClass } from './core';
-
-////////////////////////////////////////////////////////////
-//  Toggle state
-////////////////////////////////////////////////////////////
-
-const toggleState = () => {
+const toggleState = (() => {
 
   const globalState = document.querySelector('.JS-state-global');
   const baseElem    = document.querySelector('.site-container');
@@ -152,6 +146,4 @@ const toggleState = () => {
       changeState(this);
     });
   });
-}
-
-export default toggleState();
+})()

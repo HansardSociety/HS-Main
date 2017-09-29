@@ -1,5 +1,3 @@
-import smoothScroll from 'smooth-scroll';
-
 /*		Banner height
   ========================================================================== */
 
@@ -16,10 +14,7 @@ const bannerHeight = (() => {
 /*    Smooth Scroll: https://github.com/cferdinandi/smooth-scroll
   ========================================================================== */
 
-const smoothScrolling = new smoothScroll('a[href^="#"]', {
+const smoothScrolling = new SmoothScroll('a[href^="#"]', {
   offset: 64,
   speed: 600
 });
-
-// Export components
-export { smoothScrolling, bannerHeight }

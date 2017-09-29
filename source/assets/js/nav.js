@@ -1,12 +1,3 @@
-import _ from 'lodash';
-import { throttle } from 'lodash/fp';
-import { forEach, toggleClass } from './core';
-
-///////////////////////////////////////////////////////////
-//  Nav
-////////////////////////////////////////////////////////////
-
-
 const shrinkNav = (() => {
 
   var navbar = document.querySelector('.navbar');
@@ -43,5 +34,3 @@ const shrinkNav = (() => {
     windowPosition();
   }, 200));
 })();
-
-export { shrinkNav }
