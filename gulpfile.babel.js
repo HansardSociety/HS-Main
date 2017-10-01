@@ -1,3 +1,7 @@
+"use strict";
+
+import { css } from "./gulp/css"
+
 // Inspiration from https://github.com/NathanBowers/mm-template/
 
 const path         = require("path");
@@ -31,47 +35,50 @@ const ENV          = gutil.env.GULP_ENV;
 const isProd       = ENV == "production";
 const isDev        = ENV == "development";
 
+gulp.task("css", () => { return css() })
+
+////////////////////////////////////////////////////////////////////////////////////////////
 /*		=SVG sprite
   ========================================================================== */
 
-// Icons (Ionicons)
-const iconsList =
-  "android-search|" +
-  "ios-arrow-thin-down|" +
-  "chevron-down|" +
-  "chevron-right|" +
-  "chevron-left|" +
-  "arrow-graph-up-right|" +
-  "bookmark|" +
-  "calendar|" +
-  "cube|" +
-  "map|" +
-  "social-twitter|" +
-  "social-facebook|" +
-  "social-linkedin|" +
-  "email|" +
-  "headphone|" +
-  "ios-videocam|" +
-  "book|" +
-  "android-download|" +
-  "close-round|" +
-  "ios-paper|";
+// // Icons (Ionicons)
+// const iconsList =
+//   "android-search|" +
+//   "ios-arrow-thin-down|" +
+//   "chevron-down|" +
+//   "chevron-right|" +
+//   "chevron-left|" +
+//   "arrow-graph-up-right|" +
+//   "bookmark|" +
+//   "calendar|" +
+//   "cube|" +
+//   "map|" +
+//   "social-twitter|" +
+//   "social-facebook|" +
+//   "social-linkedin|" +
+//   "email|" +
+//   "headphone|" +
+//   "ios-videocam|" +
+//   "book|" +
+//   "android-download|" +
+//   "close-round|" +
+//   "ios-paper|";
 
-// Sprite config
-const svgSpriteConfig = {
-  mode: {
-    symbol: {
-      dest: "."
-    }
-  },
-  svg: {
-    doctypeDeclaration: false,
-    xmlDeclaration: false,
-    rootAttributes: {
-      style: "display:none;"
-    }
-  }
-};
+// // Sprite config
+// const svgSpriteConfig = {
+//   mode: {
+//     symbol: {
+//       dest: "."
+//     }
+//   },
+//   svg: {
+//     doctypeDeclaration: false,
+//     xmlDeclaration: false,
+//     rootAttributes: {
+//       style: "display:none;"
+//     }
+//   }
+// };
 
 /*		=Paths
   ========================================================================== */
@@ -172,94 +179,94 @@ gulp.task("watch",
 /*		=Caching
   ========================================================================== */
 
-// Asset caching manifest options
-const manifestOpts = {
-  merge: true,
-  base: "source/assets",
-  path: "source/assets/rev-manifest.json"
-};
+// // Asset caching manifest options
+// const manifestOpts = {
+//   merge: true,
+//   base: "source/assets",
+//   path: "source/assets/rev-manifest.json"
+// };
 
-// Asset caching
-const assetCachingStream = lazypipe()
-  .pipe(function() {
-    return gulpif(isProd, rev())
-  })
-  .pipe(gulp.dest, PATH.tmp.dir)
-  .pipe(function() {
-    return gulpif(isProd, rev.manifest(manifestOpts))
-  })
-  .pipe(function() {
-    return gulpif(isProd, gulp.dest(PATH.assets))
-  });
+// // Asset caching
+// const assetCachingStream = lazypipe()
+//   .pipe(function() {
+//     return gulpif(isProd, rev())
+//   })
+//   .pipe(gulp.dest, PATH.tmp.dir)
+//   .pipe(function() {
+//     return gulpif(isProd, rev.manifest(manifestOpts))
+//   })
+//   .pipe(function() {
+//     return gulpif(isProd, gulp.dest(PATH.assets))
+//   });
 
 /*		=CSS
   ========================================================================== */
 
-// PostCSS (default)
-const postcssDefaultPlugins = [
-  autoprefixer({ browsers: [ "last 2 versions" ] }),
-  mqpacker({ sort: true })
-];
+// // PostCSS (default)
+// const postcssDefaultPlugins = [
+//   autoprefixer({ browsers: [ "last 2 versions" ] }),
+//   mqpacker({ sort: true })
+// ];
 
-// PostCSS production plugins
-const postcssProdPlugins = [
-  autoprefixer({ browsers: [ "last 2 versions" ] }),
-  mqpacker({ sort: true })
-  // cssnano({ preset: "default" })
-];
+// // PostCSS production plugins
+// const postcssProdPlugins = [
+//   autoprefixer({ browsers: [ "last 2 versions" ] }),
+//   mqpacker({ sort: true })
+//   // cssnano({ preset: "default" })
+// ];
 
-// PostCSS stream
-const postcssStream = lazypipe().pipe(function() {
-  return gulpif(isProd,
-    postcss(postcssDefaultPlugins.concat(postcssProdPlugins)),
-    postcss(postcssDefaultPlugins))
-});
+// // PostCSS stream
+// const postcssStream = lazypipe().pipe(function() {
+//   return gulpif(isProd,
+//     postcss(postcssDefaultPlugins.concat(postcssProdPlugins)),
+//     postcss(postcssDefaultPlugins))
+// });
 
 
-gulp.task("css", function() {
+// gulp.task("css", function() {
 
-  var files = [
-    PATH.css.main,
-    PATH.css.snipcart,
-    PATH.css.vendor
-  ];
+//   var files = [
+//     PATH.css.main,
+//     PATH.css.snipcart,
+//     PATH.css.vendor
+//   ];
 
-  Object.keys(files).map((entry) => {
-    const isSass = (files[entry].split(".").pop() == "scss")
+//   Object.keys(files).map((entry) => {
+//     const isSass = (files[entry].split(".").pop() == "scss")
 
-    return gulp.src(files[entry])
-      .pipe(gulpif(
-        isSass,
-        sass().on("error", sass.logError)),
-        .pipe(concat("vendor.css"))
-      )
-      .pipe(postcssStream())
-      .pipe(assetCachingStream());
-  })
-});
+//     return gulp.src(files[entry])
+//       .pipe(gulpif(
+//         isSass,
+//         sass().on("error", sass.logError)),
+//         .pipe(concat("vendor.css"))
+//       )
+//       .pipe(postcssStream())
+//       .pipe(assetCachingStream());
+//   })
+// });
 
-// Vendor CSS
-gulp.task("css:vendor", function() {
-  return gulp.src(PATH.css.vendor)
-    .pipe(concat("vendor.css"))
-    .pipe(postcss([
-      cssnano({ preset: "default" })
-    ]))
-    .pipe(assetCachingStream());
-});
+// // Vendor CSS
+// gulp.task("css:vendor", function() {
+//   return gulp.src(PATH.css.vendor)
+//     .pipe(concat("vendor.css"))
+//     .pipe(postcss([
+//       cssnano({ preset: "default" })
+//     ]))
+//     .pipe(assetCachingStream());
+// });
 
-// Lint CSS
-gulp.task("css:lint", function() {
-  return gulp.src(path.join(PATH.css, "**.scss"))
-    .pipe(postcss(
-      [
-        stylelint(),
-        reporter({ clearMessages: true })
-      ], {
-        syntax: scss
-      }
-    ));
-});
+// // Lint CSS
+// gulp.task("css:lint", function() {
+//   return gulp.src(path.join(PATH.css, "**.scss"))
+//     .pipe(postcss(
+//       [
+//         stylelint(),
+//         reporter({ clearMessages: true })
+//       ], {
+//         syntax: scss
+//       }
+//     ));
+// });
 
 /*		=Scripts
   ========================================================================== */
@@ -282,11 +289,11 @@ gulp.task("js:bundle", function() {
 /*		=Images
   ========================================================================== */
 
-gulp.task("svg", function() {
-  return gulp.src(PATH.images.icons)
-    .pipe(svgSprite(svgSpriteConfig))
-    .pipe(gulp.dest("./source/assets/images"));
-});
+// gulp.task("svg", function() {
+//   return gulp.src(PATH.images.icons)
+//     .pipe(svgSprite(svgSpriteConfig))
+//     .pipe(gulp.dest("./source/assets/images"));
+// });
 
 /*		=Sequences
   ========================================================================== */
