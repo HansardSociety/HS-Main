@@ -1,10 +1,9 @@
 "use strict";
 
-// Gulp plugins
 import gulp from "gulp"
 import runSequence from "run-sequence"
 
-// Tasks
+// Streams
 import { css } from "./lib/gulp/styles"
 import { iconSprite } from "./lib/gulp/images"
 import { js } from "./lib/gulp/scripts"
