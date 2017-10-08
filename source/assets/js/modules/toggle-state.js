@@ -1,42 +1,42 @@
-const toggleState = (() => {
+const toggleState = () => {
 
-  const globalState = document.querySelector('.JS-state-global');
-  const baseElem    = document.querySelector('.site-container');
+  const globalState = document.querySelector(".JS-state-global");
+  const baseElem = document.querySelector(".site-container");
 
-  const btnsGlobal  = baseElem.querySelectorAll('.btn.JS-target-global');
-  const btns        = baseElem.querySelectorAll('.btn.JS-off, .btn.JS-on');
+  const btnsGlobal = baseElem.querySelectorAll(".btn.JS-target-global");
+  const btns = baseElem.querySelectorAll(".btn.JS-off, .btn.JS-on");
 
   // Change state
   function changeState(activeTrigger) {
 
     // Core
-    const on                   = 'JS-on';
-    const off                  = 'JS-off';
-    const active               = 'JS-active';
-    const activeHold           = 'JS-active-hold';
-    const inactive             = 'JS-inactive';
-    const noScroll             = 'JS-no-scroll';
+    const on = "JS-on";
+    const off = "JS-off";
+    const active = "JS-active";
+    const activeHold = "JS-active-hold";
+    const inactive = "JS-inactive";
+    const noScroll = "JS-no-scroll";
 
     // Global
-    const globalNoScroll       = globalState.classList.contains(noScroll);
+    const globalNoScroll = globalState.classList.contains(noScroll);
 
     // Trigger
-    const triggerStates        = [ 'JS-on', 'JS-off' ];
-    const trigger              = activeTrigger;
-    const triggerTargetID      = trigger.getAttribute('aria-controls');
-    const triggerSwitch        = trigger.classList.contains('JS-switch');
-    const triggerNoScroll      = trigger.classList.contains(noScroll);
-    const triggerExclusive     = trigger.classList.contains('JS-exclusive');
-    const triggerSecTargetAttr = 'data-secondary-target';
-    const triggerSecTargetID   = trigger.getAttribute(triggerSecTargetAttr);
-    const triggerSecTargetAll  = Array.from(baseElem.querySelectorAll(`button[${ triggerSecTargetAttr }]`));
+    const triggerStates = [ "JS-on", "JS-off" ];
+    const trigger = activeTrigger;
+    const triggerTargetID = trigger.getAttribute("aria-controls");
+    const triggerSwitch = trigger.classList.contains("JS-switch");
+    const triggerNoScroll = trigger.classList.contains(noScroll);
+    const triggerExclusive = trigger.classList.contains("JS-exclusive");
+    const triggerSecTargetAttr = "data-secondary-target";
+    const triggerSecTargetID = trigger.getAttribute(triggerSecTargetAttr);
+    const triggerSecTargetAll = Array.from(baseElem.querySelectorAll(`button[${ triggerSecTargetAttr }]`));
 
     // Target
-    const targetStates         = [ 'JS-active', 'JS-inactive' ];
-    const target               = baseElem.querySelector(`#${ triggerTargetID }`);
-    const targetHold           = target.classList.contains(activeHold);
-    const targetSec            = triggerSecTargetID && baseElem.querySelector(`#${ triggerSecTargetID }`);
-    const targetSecHold        = triggerSecTargetID && targetSec.classList.contains(activeHold);
+    const targetStates = [ "JS-active", "JS-inactive" ];
+    const target = baseElem.querySelector(`#${ triggerTargetID }`);
+    const targetHold = target.classList.contains(activeHold);
+    const targetSec = triggerSecTargetID && baseElem.querySelector(`#${ triggerSecTargetID }`);
+    const targetSecHold = triggerSecTargetID && targetSec.classList.contains(activeHold);
 
     function toggleEachState(states, triggerElem) {
       forEach(states, function(index, state) {
@@ -49,7 +49,7 @@ const toggleState = (() => {
     toggleEachState(targetStates, target);
 
     // Determine trigger on/off classes states after state change...
-    const triggerOn  = trigger.classList.contains(on);
+    const triggerOn = trigger.classList.contains(on);
     const triggerOff = trigger.classList.contains(off);
 
     // Conditions for all triggers with secondary targets
@@ -69,7 +69,7 @@ const toggleState = (() => {
         return elem.classList.contains(off)
       }
 
-      // If trigger secondary target doesn't match ANY other scondary target...
+      // If trigger secondary target doesn"t match ANY other scondary target...
       if (arrRemoveActiveTrigger.every(checkUniqueSecTarget)) {
         toggleEachState(targetStates, targetSec)
 
@@ -85,16 +85,16 @@ const toggleState = (() => {
     function triggersWithExclusiveStates() {
 
       // All triggers
-      const allTriggersOn = Array.from(baseElem.querySelectorAll('button.btn.JS-on'));
+      const allTriggersOn = Array.from(baseElem.querySelectorAll("button.btn.JS-on"));
       const arrRemoveActiveTrigger = allTriggersOn.filter(function(elem) {
         return elem != trigger;
       })
 
       for (let elem of arrRemoveActiveTrigger) {
-        const altTargetID     = elem.getAttribute('aria-controls');
-        const altTarget       = baseElem.querySelector(`#${ altTargetID }`);
-        const altTargetSecID  = elem.getAttribute(triggerSecTargetAttr);
-        const altTargetSec    = baseElem.querySelector(`#${ altTargetSecID }`);
+        const altTargetID = elem.getAttribute("aria-controls");
+        const altTarget = baseElem.querySelector(`#${ altTargetID }`);
+        const altTargetSecID = elem.getAttribute(triggerSecTargetAttr);
+        const altTargetSec = baseElem.querySelector(`#${ altTargetSecID }`);
 
         toggleEachState(triggerStates, elem);
         toggleEachState(targetStates, altTarget);
@@ -122,7 +122,7 @@ const toggleState = (() => {
     }
 
     // [1]
-    // Must activate triggers' secondary targets before
+    // Must activate triggers" secondary targets before
     // exclusive triggers shut everything down...
     // If trigger has secondary target...
     if (triggerSecTargetID) triggersWithSecTargets()
@@ -136,14 +136,16 @@ const toggleState = (() => {
     if (triggerNoScroll) changeGlobalState(trigger)
 
     // [4]
-    // If triggers part of 'switch' with other triggers...
+    // If triggers part of "switch" with other triggers...
     if (triggerSwitch) triggersWithSwitch()
   }
 
   // Invoke
   forEach(btns, function(index, btn) {
-    btn.addEventListener('click', function() {
+    btn.addEventListener("click", function() {
       changeState(this);
     });
   });
-})()
+}
+
+export { toggleState }

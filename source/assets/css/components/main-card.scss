@@ -1,20 +1,16 @@
 .main-card {
-  width: calc(100% - 3px); // allow vertical box shadow
-  max-width: 25rem;
-
   text-align: left;
+  height: inherit;
 
   @extend %e-bgc-white;
   @extend %e-box-shad-raised;
-  @extend %e-height-full;
-  @extend %e-mgn-auto-x;
+  @extend %e-min-height-full;
   @extend %e-overflow-hidden;
   @extend %e-rad-slight;
+  @extend %e-width-full;
 
-  &:hover {
-    img {
-      transform: scale(1.05);
-    }
+  &:hover img {
+    transform: scale(1.05);
   }
 }
 

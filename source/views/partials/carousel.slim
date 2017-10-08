@@ -3,8 +3,8 @@
 - @categories = local_data[:categories]
 - @blogCount = local_data[:blog_count]
 
-.carousel.swiper-container
-  .carousel__inner.swiper-wrapper
+.carousel
+  .carousel__inner
 
     / Related content
     - if @context == 'related'
@@ -12,7 +12,7 @@
       / If page contains featured content
       - if @entryData[:featured]
         - @entryData[:featured].map do |page|
-          .carousel__item.swiper-slide
+          .carousel__item
             = partial 'views/partials/main-card',
               locals: { local_data: \
                 { entry_data: page[:page],
@@ -21,7 +21,7 @@
 
       / Related (tagging)
       - relatedContent(@entryData, @blogCount) do |page|
-        .carousel__item.swiper-slide
+        .carousel__item
           = partial 'views/partials/main-card',
             locals: { local_data: \
               { entry_data: page,
@@ -30,7 +30,7 @@
     / Latest content (all)
     - if @context == 'latest'
       - latestContent(yield: true, num: 8) do |page|
-        .carousel__item.swiper-slide
+        .carousel__item
           = partial 'views/partials/main-card',
             locals: { local_data: \
               { entry_data: page,
@@ -39,7 +39,7 @@
     / Latest content (category)
     - if @context == 'category-latest'
       - latestContent(yield: true, num: 8, pageCategories: @categories) do |page|
-        .carousel__item.swiper-slide
+        .carousel__item
           = partial 'views/partials/main-card',
             locals: { local_data: \
               { entry_data: page,

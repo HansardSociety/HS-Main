@@ -8,17 +8,24 @@
   @extend %e-mgn-t-sm;
 }
 
-.carousel__inner,
 .carousel__item {
-  height: inherit; // inherit Swiper's height to define height and strech chidlren (iOS full height fix)
-} .carousel__item > * {
-  @extend %e-height-full;
+  padding: .25rem 1px;
+  margin-left: .25rem;
+  margin-right: .25rem;
+
+  @extend %e-display-flex;
+  @extend %e-min-height-full;
+  @extend %e-width-full;
+
+  @include above(sm) { width: calc((100% / 2) - .5rem); }
+  @include above(lg) { width: calc((100% / 3) - .5rem); }
 }
 
 .carousel__actions {
+  justify-content: space-between;
+
   width: 7.5rem;
 
-  justify-content: space-between;
   @extend %e-col-green;
   @extend %e-flex-row;
   @extend %e-mgn-auto-x;
@@ -31,7 +38,7 @@
     height: 1rem;
     margin-top: -1px;
 
-    content: '';
+    content: "";
 
     opacity: .5;
     border-left: 1px solid Get($colors, primary, green);
@@ -64,7 +71,7 @@
   @extend %e-mgn-r-xs;
 }
 
-.carousel__next > span {
+.carousel__next {
   padding-right: .25rem;
 
   @extend %e-mgn-l-xs;

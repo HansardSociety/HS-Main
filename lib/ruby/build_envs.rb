@@ -42,16 +42,16 @@ module BuildEnvs
     manifest = File.read("source/assets/rev-manifest.json")
     manifest_hash = JSON.parse(manifest)
 
-    cssMainHash = manifest_hash["main.css"]
+    cssMainHash = manifest_hash["app.css"]
     cssSnipcartHash = manifest_hash["snipcart.css"]
     cssVendorHash = manifest_hash["vendor.css"]
-    jsMainHash = manifest_hash["main.js"]
+    jsMainHash = manifest_hash["app.js"]
     jsVendorHash = manifest_hash["vendor.js"]
 
-    set :CSS_MAIN,     "/assets/styles/#{ cssMainHash }"
+    set :CSS_APP,     "/assets/styles/#{ cssMainHash }"
     set :CSS_SNIPCART, "/assets/styles/#{ cssSnipcartHash }"
     set :CSS_VENDOR,   "/assets/styles/#{ cssVendorHash }"
-    set :JS_MAIN,      "/assets/scripts/#{ jsMainHash }"
+    set :JS_APP,      "/assets/scripts/#{ jsMainHash }"
     set :JS_VENDOR,    "/assets/scripts/#{ jsVendorHash }"
 
     # Netlify
@@ -131,10 +131,10 @@ module BuildEnvs
       set :ENV, "development"
 
       # Assets
-      set :CSS_MAIN, "/main.css"
+      set :CSS_APP, "/app.css"
       set :CSS_SNIPCART, "/snipcart.css"
       set :CSS_VENDOR, "/vendor.css"
-      set :JS_MAIN, "/main.js"
+      set :JS_APP, "/app.js"
       set :JS_VENDOR, "/vendor.js"
 
       # Snipcart
