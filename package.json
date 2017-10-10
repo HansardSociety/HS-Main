@@ -26,7 +26,10 @@
     "preview:deploy": "yarn run data:preview && bundle exec middleman build -e preview",
     "dev": "bundle exec middleman server",
     "dev:clean": "yarn run clean && yarn run data:preview && bundle exec middleman server",
-    "dev:poll": "bundle exec middleman server --watcher-force-polling"
+    "dev:poll": "bundle exec middleman server --watcher-force-polling",
+    "==================== POST BUILD": "====================",
+    "post:prod": "NODE_ENV=prod node lib/node/_scripts.js",
+    "post:preview": "NODE_ENV=preview node lib/node/_scripts.js"
   },
   "keywords": [],
   "author": "@LukeBoga",
@@ -53,6 +56,7 @@
     "lazypipe": "^1.0.1",
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
+    "uncss": "^0.15.0",
     "vinyl-named": "^1.1.0",
     "webpack": "^3.6.0",
     "webpack-closure-compiler": "^2.1.5",
