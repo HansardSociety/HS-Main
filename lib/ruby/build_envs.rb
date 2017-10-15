@@ -64,7 +64,7 @@ module BuildEnvs
     activate :directory_indexes
 
     # Enable gzip
-    # activate :gzip
+    activate :gzip
 
     # Move assets
     def moveAssets(ext, dest)
