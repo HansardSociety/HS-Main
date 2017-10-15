@@ -11,7 +11,7 @@
     "data:live": "CONTENTFUL_ENV=live bundle exec middleman contentful",
     "data:preview": "CONTENTFUL_ENV=preview bundle exec middleman contentful",
     "==================== GULP": "====================",
-    "epipe:build": "gulp build --GULP_ENV=production",
+    "epipe:prod": "gulp prod --GULP_ENV=production",
     "epipe:dev": "gulp --GULP_ENV=development",
     "js:dev": "gulp js --GULP_ENV=development",
     "js:prod": "gulp js --GULP_ENV=production",

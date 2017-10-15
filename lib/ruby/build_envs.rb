@@ -32,7 +32,7 @@ module BuildEnvs
 
     activate :external_pipeline,
       name: :gulp,
-      command: "yarn run epipe:build",
+      command: "yarn run epipe:prod",
       source: ".tmp/assets",
       latency: 1
 
