@@ -31,7 +31,6 @@ const getElem = (parentElem, triggerElem, targetElem) => {
         fetch("/ajax")
           .then(response => response.text())
           .then(data => html2dom(parentElem, data, targetElem))
-          .then(eval(targetElem.src))
       }
     })
   }
