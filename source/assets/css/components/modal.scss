@@ -7,15 +7,19 @@
   @extend %e-position-fixed;
   @extend %e-rad-slight;
   @extend %e-width-full-vw;
+}
 
-  &::before {
-    opacity: 0;
+.modal__overlay {
+  top: 0;
+  left: 0;
 
-    @extend %e-bgc-black;
-    @extend %e-pseudo-elem;
-    @extend %e-width-full;
-    @extend %e-height-full;
-  }
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+
+  @extend %e-bgc-black;
+  @extend %e-position-fixed;
 }
 
 .modal__inner {
@@ -48,21 +52,21 @@
   top: 0;
   left: 0;
 
-  height: 1.75rem;
-
   @extend %e-bgc-light-grey;
   @extend %e-position-absolute;
   @extend %e-width-full;
 }
 
 .modal__close {
-  height: inherit;
   margin-left: calc(100% - 1.5rem);
+  padding: .5rem 0;
+
+  line-height: 0;
 }
 
 .modal__content {
   max-height: 100vh; // must use units for Edge scroll
-  margin-top: 1.75rem;
+  margin-top: 2rem;
 
   @extend %e-align-left;
   @extend %e-container;
@@ -75,21 +79,22 @@
 //  Behaviour
 ////////////////////////////////////////////////////////////
 
-
 .modal.JS-active {
   left: 0;
 
   @extend %e-animate-slide-up-in;
 
-  &::before {
+  .modal__overlay {
     animation-delay: 400ms;
 
     @extend %e-animate-fade-in-opaque;
+    @extend %e-height-full-vh;
+    @extend %e-width-full-vw;
   }
 }
 
 // Must declare after
 .modal.JS-active,
-.modal.JS-active::before {
+.modal.JS-active .modal__overlay {
   animation-fill-mode: forwards;
 }

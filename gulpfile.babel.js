@@ -14,8 +14,8 @@ gulp.task("css:custom", () => customCSS())
 gulp.task("css:vendor", () => vendorCSS())
 gulp.task("js", () => js())
 gulp.task("sprite", () => iconSprite())
-gulp.task("watch", ["css", "js"], () => devServer())
 
-// Run sequence
+// Builds
 gulp.task("default", () => runSequence(["watch"]))
+gulp.task("watch", ["css:custom", "css:vendor", "js"], () => devServer())
 gulp.task("prod", () => runSequence(["css:custom", "css:vendor", "js"]))

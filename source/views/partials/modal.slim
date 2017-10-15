@@ -6,6 +6,7 @@
 .modal.JS-inactive{
   id= @id
 }
+  .modal__overlay.JS-off.JS-switch.JS-no-scroll{ aria-controls="#{ @id }" }
   .modal__inner{
     class="#{ 'modal__inner--' + @size if @size }"
   }
