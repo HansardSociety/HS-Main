@@ -2,30 +2,35 @@ doctype html
 html
 
   / Head
-  =partial 'views/partials/head'
+  =partial "views/partials/head"
 
   body.JS-state-global
 
     / SVG sprite
-    = partial 'assets/images/svg/sprite.symbol.svg'
+    = partial "assets/images/svg/sprite.symbol.svg"
 
     .site-container
 
       / Navbar
-      = partial 'views/partials/navbar'
+      = partial "views/partials/navbar"
 
       main
         = yield
 
         / Newsletter modal
-        = partial 'views/partials/modal',
+        / = partial "views/partials/modal",
+        /   locals: { local_data: \
+        /     { id: "modal-monthly-newsletter-subscription",
+        /       yield: true, size: "narrow" }}
+        /   = siteData(:newsletter_embed)
+        = partial "views/partials/modal",
           locals: { local_data: \
-            { id: 'modal-monthly-newsletter-subscription',
-              yield: true, size: 'narrow' }}
-          = siteData(:newsletter_embed)
+            { id: "modal-monthly-newsletter-subscription",
+              size: "narrow",
+              ajax: true }}
 
       / Footer
-      = partial 'views/partials/footer'
+      = partial "views/partials/footer"
 
   / Scripts:
   / Need to be relative for uncss-jsdom

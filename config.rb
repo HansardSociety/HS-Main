@@ -23,7 +23,7 @@ set :layouts_dir, "views/layouts"
 
 helpers CustomHelpers # helpers
 set :markdown_engine, :kramdown # Kramdown
-Slim::Engine.set_options sort_attrs: false, pretty: true # Slim
+Slim::Engine.set_options sort_attrs: false # Slim
 
 # Page options
 page "/*.xml", layout: false
