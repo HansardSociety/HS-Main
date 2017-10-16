@@ -6,10 +6,18 @@ const html2dom = (parent, html, elem) => {
 
   container.innerHTML = html
 
-  const getElem = container.querySelector(elem)
+  const getTargetElem = container.querySelector(elem)
+
+  const scriptElem = container.querySelector("script")
+  const scriptURL = scriptElem.getAttribute("src")
+
   const parentElem = document.querySelector(parent)
 
-  parentElem.appendChild(getElem)
+  const newScript = document.createElement("script")
+  newScript.src = scriptURL
+  newScript.async = false
+
+  parentElem.appendChild(newScript)
 }
 
 // Get AJAX element
