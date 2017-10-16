@@ -88,7 +88,8 @@ article
 
                 = partial 'views/partials/side-card',
                   locals: { local_data: \
-                    { side_card_data: featured }}
+                    { side_card_data: featured,
+                      featured: true }}
 
             / If not blog, add all featured items to the sidebar except
             / the first, which is featured alongside the intro text.
@@ -98,7 +99,8 @@ article
                 - if !["people", "product", "registration"].include? featured[:TYPE]
                   = partial 'views/partials/side-card',
                     locals: { local_data: \
-                      { side_card_data: featured }}
+                      { side_card_data: featured,
+                        featured: true }}
 
             / All tagged/ related content
             - if @entry[:tags]
