@@ -65,7 +65,10 @@
 
 .navbar__center {
   @extend %e-overflow-hidden;
-  @extend %e-pad-t-md;
+
+  @include above(md) {
+    padding-top: 2rem;
+  }
 }
 
 .navbar__list,
