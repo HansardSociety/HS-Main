@@ -48,6 +48,8 @@ figure {
   margin: 0;
 }
 
-main {
-  // padding-bottom: 4rem;
+iframe {
+  border: none !important;
+
+  @extend %e-display-block;
 }

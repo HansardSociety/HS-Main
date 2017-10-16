@@ -27,8 +27,9 @@
 - @aria_id = local_data[:aria_id]
 - @aria_target_id = local_data[:aria_target_id]
 
-/ Product
+/ Misc
 - @product = local_data[:product]
+- @iframe = local_data[:iframe]
 
 / .btn classes
 - @class = [\
@@ -41,6 +42,7 @@
   ('JS-switch' if @type == 'state' && @switch),
   ('JS-no-scroll' if @page == 'no-scroll'),
   ('JS-exclusive' if @exclusive),
+  ('JS-lazy' if @iframe),
   ('snipcart-add-item' if @product) ].compact
 
 / .btn attributes

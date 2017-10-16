@@ -15,24 +15,6 @@ var flktyOpts = {
   selectedAttraction: .1
 }
 
-/*		=Equal height hack: https://codepen.io/desandro/pen/ZXEGVq
-  ========================================================================== */
-
-// const resize = Flickity.prototype.resize
-// const resizeClass = "flickity-resize"
-
-// Flickity.prototype._createResizeClass = function() {
-//   this.element.classList.add(resizeClass)
-// }
-
-// Flickity.createMethods.push("_createResizeClass")
-
-// Flickity.prototype.resize = function() {
-//   this.element.classList.remove(resizeClass)
-//   resize.call(this)
-//   this.element.classList.add(resizeClass)
-// }
-
 /*		=Panel carousel
   ========================================================================== */
 

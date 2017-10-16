@@ -1,31 +1,62 @@
-/*    bLazy: https://github.com/dinbror/blazy
-  ========================================================================== */
-
 import Blazy from "blazy"
+
+/*    Blazy core
+  ========================================================================== */
 
 const blazy = new Blazy()
 
-const blazyCarousel = (() => {
-  const allCarousels = document.querySelectorAll(".carousel")
-  const clickEvents = ["click", "touchstart"]
+/*		=Blazy 'clicktivate'
+  ========================================================================== */
 
-  for (let carousel of allCarousels) {
-    for (let event of clickEvents) {
+// Initiates blazy loading on click/ touch
+const blazyClicktivate = ({ trigger, nestedTargets, nestedElem }) => {
+  const allTriggerElems = document.querySelectorAll(trigger)
+  const allEvents = ["click", "touchstart"]
 
-      carousel.addEventListener(event, () => {
-        const images = carousel.querySelectorAll("img")
+  for (let triggerElem of allTriggerElems) {
+    for (let event of allEvents) {
 
-        for (let img of images) {
+      triggerElem.addEventListener(event, () => {
 
-          if (img.classList.contains("b-loaded")) {
+        if (nestedTargets) {
+          const allTargetElems = triggerElem.querySelectorAll(nestedElem)
+
+          for (let targetElem of allTargetElems) {
+
+            if (targetElem.classList.contains("b-loaded")) {
+              // do nothing
+            } else {
+              blazy.load(targetElem)
+            }
+          }
+        } else {
+          const idTarget = triggerElem.getAttribute("aria-controls")
+          const idTargetElem = document.querySelector(`#${ idTarget }`)
+          const lazyElem = document.querySelector(`#${ idTarget } .b-lazy`)
+
+          if (lazyElem.classList.contains("b-loaded")) {
             // do nothing
           } else {
-            blazy.load(img)
+            blazy.load(lazyElem);
           }
         }
       })
     }
   }
-})()
+}
 
-export { blazyCarousel }
+// Carousel
+const blazyCarousel = (() => blazyClicktivate({
+  trigger: ".carousel",
+  nestedTargets: true,
+  nestedElem: "img"
+}))()
+
+// Modal iframes
+const blazyModalFrame = (() => blazyClicktivate({
+  trigger: ".JS-lazy",
+  nestedTargets: false
+}))()
+
+
+export { blazyCarousel, blazyModalFrame }

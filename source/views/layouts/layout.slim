@@ -17,17 +17,12 @@ html
       main
         = yield
 
-        / Newsletter modal
-        / = partial "views/partials/modal",
-        /   locals: { local_data: \
-        /     { id: "modal-monthly-newsletter-subscription",
-        /       yield: true, size: "narrow" }}
-        /   = siteData(:newsletter_embed)
         = partial "views/partials/modal",
           locals: { local_data: \
             { id: "modal-monthly-newsletter-subscription",
               size: "narrow",
-              ajax: true }}
+              yield: true }}
+          = siteData(:newsletter_embed)
 
       / Footer
       = partial "views/partials/footer"

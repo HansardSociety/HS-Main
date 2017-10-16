@@ -6,18 +6,10 @@ const html2dom = (parent, html, elem) => {
 
   container.innerHTML = html
 
-  const getTargetElem = container.querySelector(elem)
-
-  const scriptElem = container.querySelector("script")
-  const scriptURL = scriptElem.getAttribute("src")
-
+  const targetElem = container.querySelector(elem)
   const parentElem = document.querySelector(parent)
 
-  const newScript = document.createElement("script")
-  newScript.src = scriptURL
-  newScript.async = false
-
-  parentElem.appendChild(newScript)
+  parentElem.appendChild(targetElem)
 }
 
 // Get AJAX element
@@ -48,7 +40,7 @@ const getElem = (parentElem, triggerElem, targetElem) => {
 const getForm = (() => {
   const parentElem = "#modal-monthly-newsletter-subscription .AJAX-host"
   const newsletterFormTriggers = "button[aria-controls='modal-monthly-newsletter-subscription']"
-  const newsletterForm = "#AJAX-form-newsletter script"
+  const newsletterForm = "#AJAX-form-newsletter"
 
   getElem(parentElem, newsletterFormTriggers, newsletterForm)
 })()
