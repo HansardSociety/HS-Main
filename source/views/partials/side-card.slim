@@ -91,12 +91,13 @@ article.side-card{
           - if featuredData
 
             - if featuredData[:alt_category]
+              | #{ featuredData[:alt_category].gsub("-", " ") }
 
-              - if featuredData[:alt_date_time]
-                | #{ featuredData[:alt_category].gsub("-", " ") } / #{ featuredData[:alt_date_time][:date] }
+            - elsif featuredData[:date_time]
+              | #{ featuredData[:category] } / #{ featuredData[:date_time][:date] }
 
-              - else
-                | #{ featuredData[:alt_category].gsub("-", " ") }
+            - else
+              | #{ featuredData[:category].gsub("-", " ") }
 
           - elsif sideCardData[:featured] && (sideCardData[:featured][0][:registration] || sideCardData[:featured][0][:product])
 

@@ -35,7 +35,7 @@ article.main-card{
               - else
                 | #{ @mainCardData[:alt_category].gsub("-", " ") }
 
-            - elsif @mainCardData[:featured][0][:registration] || @mainCardData[:featured][0][:product]
+            - elsif @mainCardData[:featured] && (@mainCardData[:featured][0][:registration] || @mainCardData[:featured][0][:product])
 
               - if @mainCardData[:featured][0][:registration]
                 | #{ @mainCardData[:featured][0][:registration][:category].gsub("-", " ") }&nbsp;/&nbsp;

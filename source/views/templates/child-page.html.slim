@@ -25,13 +25,13 @@ article
     .content__header
       .grid.grid--md.grid--center
         section.grid__cell.grid__cell--above-md-VII.copy{
-          class="#{ 'grid__cell--order-II grid__cell--above-md-order-I' if ["blog", "events" ].include? @entry[:category]  }"
+          class="#{ 'grid__cell--order-II grid__cell--above-md-order-I' if ["blog", "events"].include? @entry[:category]  }"
         }
           = markdown(@introduction, 'byline')
 
         / Featured side content
         aside.grid__cell.grid__cell--above-md-V.grid__cell--fill{
-          class="#{ 'grid__cell--order-I grid__cell--above-md-order-II' if ["blog", "events" ].include? @entry[:category]  }"
+          class="#{ 'grid__cell--order-I grid__cell--above-md-order-II' if ["blog", "events"].include? @entry[:category]  }"
         }
 
           / Entry has featured content...

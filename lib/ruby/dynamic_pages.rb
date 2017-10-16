@@ -34,7 +34,7 @@ module DynamicPages
 
       # Child pages
       data.hs.root_page.each do |id, root_page|
-        proxy "#{ root_page.category.parameterize }.html",
+        proxy "#{ root_page.category.parameterize }/index.html",
               "/views/templates/root-page.html",
               ignore: true,
               locals: { root_page: root_page }

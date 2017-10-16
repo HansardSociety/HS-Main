@@ -9,6 +9,7 @@
 
   height: 3.5rem;
 
+  @extend %e-acc-green-top;
   @extend %e-position-fixed;
   @extend %e-width-full-vw;
   @include above('md') {
@@ -34,7 +35,7 @@
   }
 
   &::before {
-    top: 0;
+    top: 0; // account for nav green brand border top
 
     height: 0;
 
@@ -77,6 +78,8 @@
 }
 
 .navbar__list {
+  line-height: 1;
+
   @include above('md') {
     align-items: center;
     @extend %e-display-flex__md;
@@ -98,6 +101,8 @@
 // ****************************
 
 .navbar.JS-active {
+  border-top: none;
+
   @extend %e-col-white;
   @include above('md') {
     height: 3.5rem;

@@ -45,7 +45,7 @@
 }
 
 .banner__image {
-  @extend %e-bgc-black;
+  @extend %e-bgc-green;
   @extend %e-height-full-vh; // fallback for JS
   @extend %e-overflow-hidden;
   @extend %e-overlay-medium;
