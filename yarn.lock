@@ -4829,9 +4829,9 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-smooth-scroll@cferdinandi/smooth-scroll:
-  version "12.1.0"
-  resolved "https://codeload.github.com/cferdinandi/smooth-scroll/tar.gz/c4d8c3bbeb597777ae5bcf96674c7a7424cedbc0"
+smooth-scroll@^12.1.5:
+  version "12.1.5"
+  resolved "https://registry.yarnpkg.com/smooth-scroll/-/smooth-scroll-12.1.5.tgz#b6d8deca371a9edd5ea3ad291ef0fb7e741ed41e"
 
 sntp@1.x.x:
   version "1.0.9"

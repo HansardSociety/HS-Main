@@ -1,4 +1,6 @@
-
+* {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
 
 ._form_7 {
   width: 100% !important;
@@ -72,4 +74,7 @@
 
 ._submit:hover {
   background-color: #dc6700 !important;
+}
+._field7 textarea {
+	font-family: inherit !important;
 }

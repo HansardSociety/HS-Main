@@ -183,7 +183,8 @@
                             label_size: (@section_header ? 'md' : 'sm'),
                             page: 'no-scroll', switch: true,
                             aria_id: "activate-#{ cta[:modal][:cta_id] }",
-                            aria_target_id: cta[:modal][:cta_id] }}
+                            aria_target_id: cta[:modal][:cta_id],
+                            iframe: ((cta[:modal][:content].include? "<iframe") ? true : false) }}
 
                       / Modal window
                       = partial 'views/partials/modal',
