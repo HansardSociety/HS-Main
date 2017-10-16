@@ -1,5 +1,4 @@
 import { toggleState } from "./modules/toggle-state"
-// import { getForm } from "./modules/fetch"
 import { bannerHeight } from "./modules/banner"
 import { panelCarousel } from "./modules/carousel"
 import { blazyCarousel, blazyModalFrame } from "./modules/lazy"

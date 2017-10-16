@@ -1,4 +1,6 @@
-const truncateText = () => {
+import { forEach } from "./core"
+
+const truncateText = (() => {
   const truncate = (container, content) => {
 
     var container = container
@@ -46,6 +48,6 @@ const truncateText = () => {
       truncate(elem, '.JS-truncate')
     })
   }
-}
+})()
 
 export { truncateText }

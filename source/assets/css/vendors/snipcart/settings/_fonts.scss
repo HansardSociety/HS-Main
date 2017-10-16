@@ -4,7 +4,7 @@
     We don't want to load many fonts on your site so we stay classic.
     You can add your custom fonts here and/or define your own fonts family variables.
 */
-$font-base: "#{ Get($type, font-primary, roman, name) }"; // $font_base;
+$font-base: "#{ Get($type, font-primary, roman, family) }"; // $font_base;
 
 
 /**
@@ -12,8 +12,8 @@ $font-base: "#{ Get($type, font-primary, roman, name) }"; // $font_base;
 */
 @font-face {
     font-family: "Snipcart";
-    src: url('../../../Snipcart.woff?94043836') format("woff"),
-         url('../../../Snipcart.ttf?94043836') format("truetype");
+    src: url('/assets/fonts/Snipcart.woff') format("woff"),
+         url('/assets/fonts/Snipcart.ttf') format("truetype");
     font-weight: normal;
     font-style: normal;
 }
@@ -42,7 +42,7 @@ $fontsize: (
         base: 12px
     ),
     error: (
-        base: 14px
+        base: 18px
     ),
     flash: (
         base: 12px
@@ -55,11 +55,11 @@ $fontsize: (
         base: 18px
     ),
     header: (
-        small: 14px,
+        small: 18px,
         large: 30px
     ),
     product: (
-        base: 14px,
+        base: 18px,
         large: 20px,
         icon: 30px
     ),
@@ -68,12 +68,12 @@ $fontsize: (
         x-large: 22px
     ),
     reset: (
-        base: 14px,
+        base: 18px,
         large: 16px
     ),
     static: (
         small: 12px,
-        base: 14px
+        base: 18px
     ),
     step: (
         small: 10px,
@@ -81,7 +81,7 @@ $fontsize: (
     ),
     table: (
         small: 12px,
-        base: 14px,
+        base: 18px,
         large: 20px
     ),
     discount: (

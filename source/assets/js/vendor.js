@@ -4,7 +4,7 @@ import "whatwg-fetch"
 import "picturefill"
 
 // Libs
-import throttle from "lodash/throttle"
+import "lodash/throttle"
 import "smooth-scroll"
-import Flickity from "flickity"
+import "flickity"
 import "blazy"
