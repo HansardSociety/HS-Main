@@ -14,8 +14,6 @@
 //////////////////////////////
 
 .btn {
-  vertical-align: middle;
-
   @extend %e-cursor-pointer;
   @extend %e-flex-inline-row-center;
   @extend %e-ff-prim-heavy;
@@ -24,13 +22,14 @@
   @extend %e-rad-slight;
   @extend %e-align-cen;
   @extend %e-trans-core;
-}
+
+  }
 
 @each $sizeKey, $sizeVal in map-get($btn, size) {
 
   .btn--#{ $sizeKey } {
-    height: $sizeVal;
     min-width: $sizeVal;
+    height: $sizeVal;
   }
 }
 

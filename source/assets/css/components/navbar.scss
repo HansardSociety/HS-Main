@@ -78,8 +78,6 @@
 }
 
 .navbar__list {
-  line-height: 1;
-
   @include above('md') {
     align-items: center;
     @extend %e-display-flex__md;
