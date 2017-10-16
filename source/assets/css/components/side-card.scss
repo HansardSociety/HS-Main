@@ -61,9 +61,17 @@
   @extend %e-overlay-medium;
 }
 
+.side-card__image--intelligence,
+.side-card__image--events {
+  @extend %e-col-white;
+}
+
 .side-card__image--events {
   @extend %e-bgc-blue;
-  @extend %e-col-white;
+}
+
+.side-card__image--intelligence {
+  @extend %e-bgc-light-blue;
 }
 
 .side-card__content {
