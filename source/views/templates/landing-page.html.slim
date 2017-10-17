@@ -37,9 +37,13 @@ article
 
       / Carousel panel
       - if panel[:TYPE] == 'panel_carousel'
-        .panel.panel--light-grey
+        .panel{
+          class="#{ 'panel--' + panel[:background_color] if panel[:background_color] }"
+        }
           .panel__content.panel__content--full
-            h2.title-xl.e-col-green.e-align-cen= panel[:title]
+            h2.title-xl.e-align-cen{
+              class="e-col-#{ panel[:background_color] != 'dark-grey' ? 'green' : 'white' }"
+            }= panel[:title]
             = partial 'views/partials/carousel',
               locals: { local_data: \
                 { entry_data: panel[:carousel],
@@ -52,7 +56,7 @@ article
             { entry_data: panel,
               index: index }}
 
-  TODO: Biog modals (temp)
+  / TODO: Biog modals (temp)
   - if @entry[:title] == 'Our people'
     - data.hs.people.each do |k, v|
       - if v.employment

@@ -235,7 +235,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         copy_size: (panel.copy_size.parameterize if panel.content_type.id == 'panel_content' && panel.copy_size),
         show_title: (panel.show_title if panel.content_type.id == 'panel_content'),
         section_header: (panel.section_header if panel.content_type.id == 'panel_content'),
-        background_color: (panel.background_color.parameterize if panel.content_type.id == 'panel_content' && panel.background_color),
+        background_color: (panel.background_color.parameterize if (['panel_content', 'panel_carousel'].include? panel.content_type.id) && panel.background_color),
         show_more: ({
           cta_id: (panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]), # split '::' for contentful name-spacing
           content: panel.show_more
