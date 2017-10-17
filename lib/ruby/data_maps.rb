@@ -250,7 +250,20 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           TYPE: item.content_type.id,
 
           # Profile
-          profile: (profile(item) if item.content_type.id == 'people')
+          profile: (profile(item) if item.content_type.id == 'people'),
+
+          # Quotes
+          quote: ({
+            text: item.quote,
+            full_name: item.full_name,
+            role: item.role,
+            organisation: item.organisation,
+            image: ({
+              url: item.image.url,
+              description: item.image.description
+            }.compact if item.image),
+            image_type: item.image_type
+          }.compact if item.content_type.id == 'quote')
         }.compact end : nil),
 
         # Panel accordian
