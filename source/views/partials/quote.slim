@@ -1,0 +1,14 @@
+figure.quote
+  blockquote.quote__text= quoteText
+
+  figcaption
+    p
+      - if fullName
+        span= fullName
+      - if role
+        span= role
+      - if organisation
+        span= organisation
+
+    .quote__image
+      img{ src=imgSrc alt=imgAlt }
