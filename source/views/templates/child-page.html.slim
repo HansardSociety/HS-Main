@@ -83,8 +83,8 @@ article
               - @entry[:featured].reject{ |featured| featured[:author] }.each_with_index do |featured, index|
 
                 / Only add featured title once, before the first item
-                - if index == 0
-                  h2.side-title Featured
+                / - if index == 0
+                /   h2.side-title Featured
 
                 = partial 'views/partials/side-card',
                   locals: { local_data: \
@@ -94,7 +94,7 @@ article
             / If not blog, add all featured items to the sidebar except
             / the first, which is featured alongside the intro text.
             - elsif @entry[:featured] && @entry[:featured].length > 1
-              h2.side-title Featured
+              / h2.side-title Featured
               - @entry[:featured].drop(1).map do |featured|
                 - if !["people", "product", "registration"].include? featured[:TYPE]
                   = partial 'views/partials/side-card',

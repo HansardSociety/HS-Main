@@ -1,61 +1,75 @@
-- @mainCardData = local_data[:entry_data]
-- @featuredCard = local_data[:featured]
+- mainCardData = local_data[:entry_data]
+- featuredCard = local_data[:featured]
 
-- @isCarousel = local_data[:carousel]
+- isCarousel = local_data[:carousel]
 
-- @mainCardInnerElem = {\
-  tag: (@mainCardData[:category] ? 'a' : 'div'),
-  href: @mainCardData[:category] ? internalURL(@mainCardData[:slug], @mainCardData[:category]) : nil }
+- mainCardInnerElem = {\
+  tag: (mainCardData[:category] ? 'a' : 'div'),
+  href: mainCardData[:category] ? internalURL(mainCardData[:slug], mainCardData[:category]) : nil }
 
-/ - if @mainCardData[:category]
+/ - if mainCardData[:category]
 
 article.main-card{
-  class="#{ 'main-card--' + @mainCardData[:category] if @mainCardData[:category] }"
+  class="#{ 'main-card--' + mainCardData[:category] if mainCardData[:category] }"
 }
 
-  *@mainCardInnerElem
+  - if featuredCard
+    span.main-card__featured-icon
+      = partial 'views/partials/icon',
+        locals: { icon: "android-star-outline",
+                  size: "sm" }
+
+  *mainCardInnerElem
 
     / Header
     .main-card__header.e-col-white
       .main-card__image
         img.b-lazy{
           src=mainCardDataURI()
-          data-src="#{ @mainCardData[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ @mainCardData[:banner_image][:focus] }&q=50&fl=progressive"
-          alt="#{ @mainCardData[:banner_image][:alt] }"
+          data-src="#{ mainCardData[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ mainCardData[:banner_image][:focus] }&q=50&fl=progressive"
+          alt="#{ mainCardData[:banner_image][:alt] }"
         }
 
       .main-card__meta
           span.label-xs
 
-            - if @mainCardData[:alt_category]
+            - if featuredCard
 
-              - if @mainCardData[:alt_date_time]
-                | #{ @mainCardData[:alt_category].gsub("-", " ") } / #{ @mainCardData[:alt_date_time][:date] }
+              - if mainCardData[:alt_category] || mainCardData[:alt_date_time]
+
+                - if mainCardData[:alt_date_time]
+                  | #{ mainCardData[:alt_category].gsub("-", " ") } / #{ mainCardData[:alt_date_time][:date] }
+
+                - else
+                  | #{ mainCardData[:alt_category] }
+
+              - elsif mainCardData[:category] == "blog"
+                | #{ mainCardData[:category].gsub("-", " ") } / #{ mainCardData[:date_time][:date] }
 
               - else
-                | #{ @mainCardData[:alt_category].gsub("-", " ") }
+                | #{ mainCardData[:category].gsub("-", " ") }
 
-            - elsif @mainCardData[:featured] && (@mainCardData[:featured][0][:registration] || @mainCardData[:featured][0][:product])
+            - elsif mainCardData[:featured] && (mainCardData[:featured][0][:registration] || mainCardData[:featured][0][:product])
 
-              - if @mainCardData[:featured][0][:registration]
-                | #{ @mainCardData[:featured][0][:registration][:category].gsub("-", " ") }&nbsp;/&nbsp;
-                | #{ @mainCardData[:featured][0][:registration][:date_time][:date] }
+              - if mainCardData[:featured][0][:registration]
+                | #{ mainCardData[:featured][0][:registration][:category].gsub("-", " ") }&nbsp;/&nbsp;
+                | #{ mainCardData[:featured][0][:registration][:date_time][:date] }
 
               - else
-                | #{ @mainCardData[:featured][0][:product][:category] }
+                | #{ mainCardData[:featured][0][:product][:category] }
 
-            - elsif @mainCardData[:category] == "blog"
-                | #{ @mainCardData[:category].gsub("-", " ") } / #{ @mainCardData[:date_time][:date] }
+            - elsif mainCardData[:category] == "blog"
+                | #{ mainCardData[:category].gsub("-", " ") } / #{ mainCardData[:date_time][:date] }
 
             - else
-                | #{ @mainCardData[:category].gsub("-", " ") }
+                | #{ mainCardData[:category].gsub("-", " ") }
 
-      h1.main-card__title.title-md= @mainCardData[:title]
+      h1.main-card__title.title-md= mainCardData[:title]
 
     / Introduction
     .main-card__introduction
 
       / Strip HTML from markdown, trucate text and replace all
       / non-alphanumeric final characters with an elipsis.
-      - @intro_text = markdown(@mainCardData[:introduction]).gsub(/<\/?[^>]*>/, "")
-      p= markdown(@mainCardData[:introduction]).gsub(/<\/?[^>]*>/, "")[0..165].gsub(/[^0-9a-zA-Z]+$/, '') + '…'
+      - @intro_text = markdown(mainCardData[:introduction]).gsub(/<\/?[^>]*>/, "")
+      p= markdown(mainCardData[:introduction]).gsub(/<\/?[^>]*>/, "")[0..165].gsub(/[^0-9a-zA-Z]+$/, '') + '…'

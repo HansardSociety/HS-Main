@@ -5,6 +5,7 @@
 html {
   line-height: Get($type, line-height);
 
+  @extend %e-col-black;
   @extend %e-ff-prim-roman;
   @extend %e-fz-base;
 }

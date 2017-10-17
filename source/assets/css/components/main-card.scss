@@ -20,6 +20,16 @@
 .main-card--resources    { @extend %e-acc-light-green-top; }
 .main-card--research     { @extend %e-acc-green-top; }
 
+.main-card__featured-icon {
+  top: .83333rem;
+  right: .3333rem;
+
+  z-index: 1;
+
+  @extend %e-col-white;
+  @extend %e-position-absolute;
+}
+
 .main-card__header {
   @extend %e-position-relative;
 }
