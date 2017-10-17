@@ -34,10 +34,18 @@ const panelCarousel = (() => {
      */
     window.addEventListener("load", function() {
       const flkty = new Flickity(carousel, flktyOpts)
-      const itemHeight = carousel.querySelector(".carousel__item").clientHeight
+      const allItems = carousel.querySelectorAll(".carousel__item")
+
+      var maxHeight = 0
+
+      for (let item of allItems) {
+        var thisHeight = item.clientHeight
+
+        if (thisHeight > maxHeight) maxHeight = thisHeight
+      }
 
       carousel.classList.add("JS-loaded")
-      carousel.style.height = `${ itemHeight + 4 }px`
+      carousel.style.height = `${ maxHeight + 4 }px`
 
       prevBtn.addEventListener("click", () => flkty.previous())
       nextBtn.addEventListener("click", () => flkty.next())

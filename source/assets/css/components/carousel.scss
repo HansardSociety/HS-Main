@@ -21,6 +21,7 @@
   margin-left: .25rem;
   margin-right: .25rem;
 
+  @extend %e-display-flex;
   @extend %e-width-full;
 
   @include above(sm) { width: calc((100% / 2) - .5rem); }

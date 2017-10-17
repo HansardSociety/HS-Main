@@ -15,7 +15,7 @@ const truncateText = (() => {
     })
 
     var text = container.querySelector(content)
-    var textLines = Math.round((text.offsetHeight / 1.5) / 18) + 4 // Add 2.5 lines for padding
+    var textLines = Math.round((text.offsetHeight / 1.5) / 18) + 4
     var textLength = text.innerText.length
 
     var containerLines = Math.round(((container.offsetHeight - nonTextHeight) / 1.5) / 18)
