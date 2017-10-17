@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "blazy": "^1.8.2",
+    "clamp-js": "^0.7.0",
     "flickity": "^2.0.10",
     "normalize.css": "^5.0.0",
     "picturefill": "^3.0.2",

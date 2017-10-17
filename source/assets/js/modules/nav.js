@@ -27,7 +27,7 @@ const shrinkNav = (() => {
   window.addEventListener("scroll", throttle(() => {
 
     windowPosition()
-  }, 200))
+  }, 400))
 })()
 
 
