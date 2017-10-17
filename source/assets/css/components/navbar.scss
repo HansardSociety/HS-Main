@@ -9,7 +9,6 @@
 
   height: 3.5rem;
 
-  @extend %e-acc-green-top;
   @extend %e-position-fixed;
   @extend %e-width-full-vw;
   @include above('md') {
@@ -21,6 +20,7 @@
   z-index: 1;
 
   justify-content: space-between;
+
   @extend %e-container;
   @extend %e-container--full;
   @extend %e-flex-row-center;
@@ -37,13 +37,12 @@
   &::before {
     top: 0; // account for nav green brand border top
 
-    height: 0;
+    height: .3333rem;
 
-    background-color: rgba(Get($colors, primary, green), 0);
-
+    @extend %e-bgc-green;
     @extend %e-pseudo-elem;
     @extend %e-width-full-vw;
-    @extend %e-trans-core;
+    @extend %e-trans-height;
   }
 }
 
@@ -55,7 +54,7 @@
 
 .navbar__center,
 .navbar__item--solo {
-  z-index: 1;
+  z-index: 999;
 }
 
 .navbar__left {
@@ -66,7 +65,6 @@
 
 .navbar__center {
   @extend %e-overflow-hidden;
-
   @include above(md) {
     padding-top: 2rem;
   }
@@ -80,6 +78,7 @@
 .navbar__list {
   @include above('md') {
     align-items: center;
+
     @extend %e-display-flex__md;
   }
 }
@@ -113,7 +112,7 @@
     }
 
     .logo__image--desktop {
-      transform: translateY(-125.5px);
+      transform: translateY(-126px);
     }
   }
 
@@ -122,7 +121,7 @@
     &::before {
       height: 3.5rem;
 
-      @extend %e-bgc-green;
+      @extend %e-zidx-neg;
       @extend %e-box-shad-raised;
     }
   }

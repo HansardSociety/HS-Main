@@ -5,34 +5,44 @@ import Flickity from "flickity"
 
 var flktyOpts = {
   cellSelector: ".carousel__item",
-  contain: true,
   cellAlign: "left",
+  contain: true,
+  friction: .8,
   initialIndex: 0,
   lazyLoad: false,
   pageDots: false,
   prevNextButtons: false,
-  friction: .8,
-  selectedAttraction: .1
+  selectedAttraction: .1,
+  setGallerySize: false
 }
 
 /*		=Panel carousel
   ========================================================================== */
 
 const panelCarousel = (() => {
-  const allContainers = document.querySelectorAll(".carousel")
+  const allCarouselContainers = document.querySelectorAll(".carousel")
 
-  for (let container of allContainers) {
-    const carousel = container.querySelector(".carousel__inner")
-    const actions = container.querySelector(".carousel__actions")
+  for (let carouselContainer of allCarouselContainers) {
+    const carousel = carouselContainer.querySelector(".carousel__inner")
+    const actions = carouselContainer.querySelector(".carousel__actions")
     const prevBtn = actions.querySelector(".carousel__prev")
     const nextBtn = actions.querySelector(".carousel__next")
 
-    // Core config
-    const flkty = new Flickity(carousel, flktyOpts)
+    /**
+     * Initiate Flickity on window load to prevent iOS
+     * setting height of item too early.
+     */
+    window.addEventListener("load", function() {
+      const flkty = new Flickity(carousel, flktyOpts)
+      const itemHeight = carousel.querySelector(".carousel__item").clientHeight
 
-    // Prev/ next buttons
-    prevBtn.addEventListener("click", () => flkty.previous())
-    nextBtn.addEventListener("click", () => flkty.next())
+      carousel.classList.add("JS-loaded")
+      carousel.style.height = `${ itemHeight + 4 }px`
+
+      prevBtn.addEventListener("click", () => flkty.previous())
+      nextBtn.addEventListener("click", () => flkty.next())
+    })
+
   }
 })()
 

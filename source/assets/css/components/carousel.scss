@@ -8,13 +8,19 @@
   @extend %e-mgn-t-sm;
 }
 
+.carousel__inner {
+  height: 0;
+  opacity: 0;
+
+  @extend %e-overflow-hidden;
+  @extend %e-trans-opacity;
+}
+
 .carousel__item {
   padding: .25rem 1px;
   margin-left: .25rem;
   margin-right: .25rem;
 
-  @extend %e-display-flex;
-  @extend %e-min-height-full;
   @extend %e-width-full;
 
   @include above(sm) { width: calc((100% / 2) - .5rem); }
@@ -71,8 +77,19 @@
   @extend %e-mgn-r-xs;
 }
 
-.carousel__next {
+.carousel__next > span {
   padding-right: .25rem;
 
   @extend %e-mgn-l-xs;
+}
+
+/*		=Behaviour
+  ========================================================================== */
+
+.carousel__inner.JS-loaded {
+  opacity: 1;
+
+  & .carousel__item {
+    height: inherit;
+  }
 }

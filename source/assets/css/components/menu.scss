@@ -4,12 +4,13 @@
 
   padding-top: 3.5rem;
 
+  z-index: -2; // Make sure is behind nav__inner background
+
   @extend %e-bgc-black;
   @extend %e-container;
   @extend %e-height-full-vh;
   @extend %e-position-fixed;
   @extend %e-trans-transform;
-  @extend %e-zidx-neg;
   @include above('xs') {
     @extend %e-display-none__md;
   }

@@ -152,8 +152,10 @@ $easing: (
 );
 
 $transition: (
-  core:       (all map-get($easing, core)),
-  transform:  (transform map-get($easing, core))
+  core: (all map-get($easing, core)),
+  height: (height map-get($easing, core)),
+  opacity: (opacity map-get($easing, core)),
+  transform: (transform map-get($easing, core))
 );
 
 $animate: (
