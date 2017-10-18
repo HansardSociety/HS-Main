@@ -94,7 +94,7 @@ article.side-card{
               | #{ featuredData[:alt_category].gsub("-", " ") }
 
             - elsif featuredData[:date_time]
-              | #{ featuredData[:category] } / #{ featuredData[:date_time][:date] }
+              | #{ featuredData[:category].gsub("-", " ") } / #{ featuredData[:date_time][:date] }
 
             - else
               | #{ featuredData[:category].gsub("-", " ") }
