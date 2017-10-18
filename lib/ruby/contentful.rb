@@ -20,8 +20,8 @@ module ContentfulConfig
       f.content_types   = {
         child_page:   { mapper: ChildPageMap,   id: "child_page" },
         homepage:     { mapper: HomeMap,        id: "home" },
-        landing_page: { mapper: LandingPageMap, id: "landing_page" },
-        root_page:    { mapper: RootPageMap,    id: "root_page" },
+        # landing_page: { mapper: LandingPageMap, id: "landing_page" },
+        # root_page:    { mapper: RootPageMap,    id: "root_page" },
         navigation:   { mapper: NavigationMap,  id: "navigation" },
         universal:    { mapper: UniversalMap,   id: "universal" },
         people:       { mapper: PeopleMap,      id: "people" }

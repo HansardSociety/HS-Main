@@ -46,6 +46,7 @@ def pageBase(pageType, ctx, data)
 
   if ["childPage", "landingPage", "rootPage"].include? pageType
     ctx.category = data.category.parameterize
+    ctx.sub_category = (data.sub_category.split(" :: ")[1].parameterize if data.sub_category)
   end
 
   # Child/ landing page

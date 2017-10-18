@@ -28,13 +28,13 @@
                 carousel: true }}
 
     / Latest content (all)
-    - if @context == 'latest'
-      - latestContent(yield: true, num: 8) do |page|
-        .carousel__item
-          = partial 'views/partials/main-card',
-            locals: { local_data: \
-              { entry_data: page,
-                carousel: true }}
+    / - if @context == 'latest'
+    /   - latestContent(yield: true, num: 8) do |page|
+    /     .carousel__item
+    /       = partial 'views/partials/main-card',
+    /         locals: { local_data: \
+    /           { entry_data: page,
+    /             carousel: true }}
 
     / Latest content (category)
     - if @context == 'category-latest'
