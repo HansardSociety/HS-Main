@@ -17,15 +17,13 @@
 }
 
 .carousel__item {
-  padding: .25rem 1px;
-  margin-left: .25rem;
-  margin-right: .25rem;
+  padding: 0 .25rem .25rem;
 
   @extend %e-display-flex;
   @extend %e-width-full;
 
-  @include above(sm) { width: calc((100% / 2) - .5rem); }
-  @include above(lg) { width: calc((100% / 3) - .5rem); }
+  @include above(sm) { width: (100% / 2); }
+  @include above(lg) { width: calc(100% / 3); }
 }
 
 .carousel__actions {
@@ -56,6 +54,8 @@
 
 .carousel__prev,
 .carousel__next {
+  user-select: none;
+
   @extend %e-cursor-pointer;
   @extend %e-ff-prim-heavy;
   @extend %e-flex-row-center;
