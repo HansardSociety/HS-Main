@@ -102,29 +102,29 @@ article
                       { side_card_data: featured,
                         featured: true }}
 
-            / All tagged/ related content
-            - if @entry[:tags]
-              h2.side-title Related
-              - relatedContent(@entry, @blogCount) do |page|
-                = partial 'views/partials/side-card',
-                  locals: { local_data: \
-                    { side_card_data: page }}
+            / / All tagged/ related content
+            / - if @entry[:tags]
+            /   h2.side-title Related
+            /   - relatedContent(@entry, @blogCount) do |page|
+            /     = partial 'views/partials/side-card',
+            /       locals: { local_data: \
+            /         { side_card_data: page }}
 
-            / External links
-            - if @entry[:external_links]
-              .section-lg
-                - @entry[:external_links].map do |link|
-                  = partial 'views/partials/ext-link',
-                    locals: { local_data: \
-                      { ext_link_data: link }}
+            / / External links
+            / - if @entry[:external_links]
+            /   .section-lg
+            /     - @entry[:external_links].map do |link|
+            /       = partial 'views/partials/ext-link',
+            /         locals: { local_data: \
+            /           { ext_link_data: link }}
 
-          / Latest items for about pages
-          - if @category == 'about'
-            h2.side-title Latest
-            - latestContent(yield: true, num: 4) do |page|
-              = partial 'views/partials/side-card',
-                locals: { local_data: \
-                  { side_card_data: page }}
+          / / Latest items for about pages
+          / - if @category == 'about'
+          /   h2.side-title Latest
+          /   - latestContent(yield: true, num: 4) do |page|
+          /     = partial 'views/partials/side-card',
+          /       locals: { local_data: \
+          /         { side_card_data: page }}
 
           / Newsletter signup
           .box.e-bgc-dark-grey.e-col-white.e-mgn-b-xs

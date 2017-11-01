@@ -52,4 +52,4 @@ buildDev()
 
 # Dymnamic pages
 dynamicContentfulPages()
-dynamicCustomPages()
+# dynamicCustomPages()

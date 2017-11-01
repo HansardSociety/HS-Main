@@ -39,18 +39,15 @@ def pageBase(pageType, ctx, data)
   ctx.title = data.title
   ctx.banner_image = media(data.banner_image, focus: data)
 
-  # Landing/ root/ home page
-  if ["landingPage", "rootPage", "homePage"].include? pageType
+  # Landing/ home page
+  if ["landingPage", "homePage"].include? pageType
     ctx.subtitle = data.subtitle
-  end
-
-  if ["childPage", "landingPage", "rootPage"].include? pageType
-    ctx.category = data.category.parameterize
-    ctx.sub_category = (data.sub_category.split(" :: ")[1].parameterize if data.sub_category)
   end
 
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
+    ctx.category = data.category.parameterize
+    ctx.sub_category = (data.sub_category.split(" :: ")[1].parameterize if data.sub_category)
     ctx.slug = data.slug.parameterize
     ctx.introduction = data.introduction
     ctx.date_time = dateTime(data)
@@ -199,6 +196,7 @@ end
 class LandingPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     pageBase("landingPage", context, entry) # core page data
+
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
 
     # Call(s) to action

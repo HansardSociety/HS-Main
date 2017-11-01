@@ -1,20 +1,22 @@
+def proxyBase(url, template, data)
+  proxy url, template, ignore: true, locals: { entry_data: data }
+end
+
 def dynPageBase(data, template)
   data.each do |id, entry_data|
     slug = entry_data.slug
     category = entry_data.category
     sub_category = (entry_data.sub_category if entry_data.sub_category)
-    # template = "/views/templates/#{ template }.html"
+    viewTemplate = "/views/templates/#{ template }.html"
 
-    if sub_category && sub_category != "none"
-      proxy "#{ category }/#{ slug }.html",
-            "/views/templates/#{ template }.html",
-            ignore: true,
-            locals: { entry_data: entry_data }
+    if template == "home"
+      proxyBase("/index.html", viewTemplate, entry_data)
+
+    elsif !sub_category && sub_category != "none"
+      proxyBase("#{ category }/#{ slug }.html", viewTemplate, entry_data)
+
     else
-      proxy "#{ category }/#{ sub_category }/#{ slug }.html",
-            "/views/templates/#{ template }.html",
-            ignore: true,
-            locals: { entry_data: entry_data }
+      proxyBase("#{ category }/#{ sub_category }/#{ slug }.html", viewTemplate, entry_data)
     end
   end
 end
@@ -29,52 +31,9 @@ module DynamicPages
     # Only run if data dir exists
     if Dir.exist?(config.data_dir)
 
-      # Homepage
-      data.hs.homepage.each do |id, home|
-        proxy "/index.html",
-              "/views/templates/home.html",
-              ignore: true,
-              locals: { home: home }
-      end
-
+      dynPageBase(data.hs.homepage, "home")
       dynPageBase(data.hs.child_page, "child-page")
-      # dynPageBase(data.hs.landing_page, "landing-page")
-
-      # Child pages
-      # data.hs.child_page.each do |id, child_page|
-      #   proxy "#{ child_page.category.parameterize + "/" + child_page.slug }.html",
-      #         "/views/templates/child-page.html",
-      #         ignore: true,
-      #         locals: { child_page: child_page }
-      # end
-
-      # Landing pages
-      # data.hs.landing_page.each do |id, landing_page|
-      #   slug = landing_page.slug
-      #   category = landing_page.category
-      #   sub_category = (landing_page.sub_category if landing_page.sub_category)
-      #   template = "/views/templates/landing-page.html"
-
-      #   if sub_category && sub_category != "none"
-      #     proxy "#{ category }/#{ slug }.html",
-      #           template,
-      #           ignore: true,
-      #           locals: { landing_page: landing_page }
-      #   else
-      #     proxy "#{ category }/#{ sub_category }/#{ slug }.html",
-      #           template,
-      #           ignore: true,
-      #           locals: { landing_page: landing_page }
-      #   end
-      # end
-
-      # Child pages
-      # data.hs.root_page.each do |id, root_page|
-      #   proxy "#{ root_page.category.parameterize }/index.html",
-      #         "/views/templates/root-page.html",
-      #         ignore: true,
-      #         locals: { root_page: root_page }
-      # end
+      dynPageBase(data.hs.landing_page, "landing-page")
     end
   end
 
