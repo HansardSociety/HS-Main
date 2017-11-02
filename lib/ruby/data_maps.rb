@@ -65,8 +65,7 @@ def metaLabel(data, opts = {})
   opts = defaults.merge(opts)
 
   dataAlt = opts[:dataAlt]
-
-  isPage = ["about", "blog", "events", "intelligence", "research", "resources"].include? data.content_type.id
+  isPage = ["child_page", "landing_page"].include? data.content_type.id
 
   # Check if alternative data, eg. product/ registration
   if dataAlt
@@ -86,7 +85,9 @@ def metaLabel(data, opts = {})
     end
 
   elsif isPage
-    isBlog = data.content_type.id == "blog"
+    usesDate = ["Blog", "Events"].include? data.category
+    isBlog = data.category == "Blog"
+    isEvent = data.category == "Events"
 
     isBlog \
       ? "#{ data.category } / #{ dateTime(data)[:date] }" \
@@ -372,6 +373,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     slug(context, entry)
     sharedPageBase("childPage", context, entry) # core page data
+    context.meta_label = entry.featured && (["product", "registration"].include? entry.featured[0].content_type.id) ? metaLabel(entry, { dataAlt: entry.featured[0] }) : metaLabel(entry)
     context.copy = entry.copy # main copy
 
     # Featured
@@ -379,7 +381,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
-        meta_label: ((["product", "registration"].include? featured.content_type.id) ? metaLabel(entry, { dataAlt: featured }) : metaLabel(featured)), # only include alt data if registration/ product
+        meta_label: ((["product", "registration"].include? featured.content_type.id) || (["product", "registration"].include? featured.featured[0].content_type.id) ? metaLabel(entry, { dataAlt: featured }) : metaLabel(featured)), # only include alt data if registration/ product
 
         # Featured (people)
         author: (profile(featured) if featured.content_type.id == 'people'),
