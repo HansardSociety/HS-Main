@@ -74,12 +74,12 @@ end
 def callsToAction(data)
   ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta| {
     ID: cta.sys[:id],
-    title: cta.title.split('::')[0], # split '::' for contentful name-spacing
+    title: cta.title.split(" :: ")[0], # split '::' for contentful name-spacing
     action: cta.action.parameterize, # eg. modal, download etc
     button_text: cta.button_text,
     file: (media(cta.file, title: true) if cta.file),
     modal: ({
-      cta_id: (cta.title.split('::')[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
+      cta_id: (cta.title.split(" :: ")[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
       content: cta.modal,
       width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
     }.compact if cta.action == 'Modal')
