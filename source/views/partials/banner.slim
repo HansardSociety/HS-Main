@@ -60,23 +60,23 @@ header.banner{
       class="#{ 'e-mgn-auto-x__sm' if (@isSpecialPage) }"
     }
 
-      / Date (blog only)
-      - if entry[:featured] && (entry[:featured][0][:registration] || entry[:featured][0][:product])
+      / / Date (blog only)
+      / - if entry[:featured] && (entry[:featured][0][:registration] || entry[:featured][0][:product])
 
-        - if entry[:featured][0][:registration]
-          span.label-xs #{ entry[:category] } / #{ entry[:featured][0][:registration][:category].gsub("-", " ") } / #{ entry[:featured][0][:registration][:date_time][:date] }
+      /   - if entry[:featured][0][:registration]
+      /     span.label-xs #{ entry[:category] } / #{ entry[:featured][0][:registration][:category].gsub("-", " ") } / #{ entry[:featured][0][:registration][:date_time][:date] }
 
-        - else
-          span.label-xs #{ entry[:category] } / #{ entry[:featured][0][:product][:category].gsub("-", " ") }
+      /   - else
+      /     span.label-xs #{ entry[:category] } / #{ entry[:featured][0][:product][:category].gsub("-", " ") }
 
-      - elsif entry[:alt_date_time]
-          span.label-xs #{ entry[:category] } / #{ entry[:alt_category] } / #{ entry[:alt_date_time][:date] }
+      / - elsif entry[:alt_date_time]
+      /     span.label-xs #{ entry[:category] } / #{ entry[:alt_category] } / #{ entry[:alt_date_time][:date] }
 
-      - elsif entry[:TYPE] == 'child_page' && entry[:category] == 'blog'
-        span.label-xs #{ entry[:category] } / #{ entry[:date_time].date }
+      / - elsif entry[:TYPE] == 'child_page' && entry[:category] == 'blog'
+      /   span.label-xs #{ entry[:category] } / #{ entry[:date_time].date }
 
-      - elsif entry[:TYPE] == 'child_page'
-        span.label-xs #{ entry[:category] }
+      / - elsif entry[:TYPE] == 'child_page'
+      /   span.label-xs #{ entry[:category] }
 
       / Title
       h1{

@@ -57,6 +57,43 @@ def media(data, opts = {})
   }.compact
 end
 
+# Meta label
+def metaLabel(data, opts = {})
+  defaults = {
+    dataAlt: false
+  }
+  opts = defaults.merge(opts)
+
+  dataAlt = opts[:dataAlt]
+
+  isPage = ["about", "blog", "events", "intelligence", "research", "resources"].include? data.content_type.id
+
+  # Check if alternative data, eg. product/ registration
+  if dataAlt
+    isProduct = dataAlt.content_type.id == "product"
+    isRegistration = dataAlt.content_type.id == "registration"
+
+    # In case sub-category isn't defined (though it should always be!)
+    if data.sub_category
+      isRegistration \
+        ? "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") } / #{ dateTime(dataAlt)[:date] }" \
+        : "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") }"
+
+    else
+      isRegistration \
+        ? "#{ data.category } / #{ dateTime(dataAlt)[:date] }" \
+        : "#{ data.category }"
+    end
+
+  elsif isPage
+    isBlog = data.content_type.id == "blog"
+
+    isBlog \
+      ? "#{ data.category } / #{ dateTime(data)[:date] }" \
+      : "#{ data.category }"
+  end
+end
+
 # Core page data
 def sharedPageBase(pageType, ctx, data)
 
@@ -74,9 +111,20 @@ def sharedPageBase(pageType, ctx, data)
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
     ctx.category = data.category.parameterize
-    ctx.sub_category = (subCategorySlugify(data) if data.sub_category)
+
+    # Has sub-category
+    if data.sub_category
+      ctx.sub_category = subCategorySlugify(data)
+    end
+
     ctx.introduction = data.introduction
     ctx.date_time = dateTime(data)
+
+    # Has alternative date/ time
+    if data.featured && data.featured[0].content_type.id == "registration"
+      ctx.date_time_alt = dateTime(data.featured[0])
+    end
+
     ctx.blog_count = data.blog_count if data.blog_count
     ctx.tags = data.tags.map{ |tag| tag.gsub("'", '').parameterize } if data.tags
   end
@@ -87,12 +135,12 @@ def featuredPage(data)
   featuredPageData = ({
     title: data.title,
     slug: data.slug.parameterize,
-    category: data.category.parameterize,
+    category: (data.category.parameterize if data.category),
+    sub_category: (subCategorySlugify(data) if data.sub_category),
     introduction: data.introduction,
     banner_image: media(data.banner_image, focus: data),
-    date_time: (dateTime(data) if !data.featured || data.featured[0].content_type.id != 'registration'),
-    # alt_category: (data.featured[0].category.parameterize if data.featured && (['product', 'registration'].include? data.featured[0].content_type.id)),
-    alt_date_time: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
+    date_time: dateTime(data),
+    date_time_alt: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
   }.compact if ['child_page', 'landing_page'].include? data.content_type.id)
 end
 
@@ -331,6 +379,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
+        meta_label: ((["product", "registration"].include? featured.content_type.id) ? metaLabel(entry, { dataAlt: featured }) : metaLabel(featured)), # only include alt data if registration/ product
 
         # Featured (people)
         author: (profile(featured) if featured.content_type.id == 'people'),
@@ -338,7 +387,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         # Featured registration
         registration: ({
           meta_title: featured.meta_title,
-          category: featured.category.parameterize,
           venue: featured.venue,
           price: featured.price,
           date_time: dateTime(featured),
@@ -352,7 +400,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         # Featured product
         product: ({
           title: featured.title,
-          category: featured.category.parameterize,
           product_id: featured.product_id,
           price: featured.price,
           image: {

@@ -1,5 +1,64 @@
-- mainCardData = local_data[:entry_data]
-- featuredCard = local_data[:featured]
+/ Core
+/**************************************************
+
+/ Partial data
+- partialData = local_data[:side_card_data]
+
+/ Nested content types
+- featuredPage = partialData[:page]
+- featuredProduct = partialData[:product]
+- featuredRegistration = partialData[:registration]
+- featuredData = [ featuredPage, featuredProduct, featuredRegistration ].compact[0]
+
+/ Set data source
+- setData = featuredData ? featuredData : partialData
+
+/ Content vars
+/**************************************************
+
+/ Category
+- category = setData[:category].gsub("-", " ")
+- pageCategory = @entry[:category].gsub("-", " ")
+
+/ Images
+- imageBanner = setData[:banner_image]
+- imageProduct = setData[:image]
+- if imageBanner || imageProduct
+  - image = imageBanner ? imageBanner : imageProduct
+  - imageURL = image[:url]
+  - imageAlt = image[:alt]
+  - imageFocus = image[:focus]
+
+/ locals
+- featuredItem = local_data[:featured]
+
+/ Types
+/**************************************************
+
+/ Card types
+- isBlogCard = (category == 'blog')
+- isEventsCard = (category == 'events')
+- isIntelligenceCard = (category == 'intelligence')
+- isResearchCard = (category == 'research')
+- isResourcesCard = (category == 'resources')
+
+- hasRegistration = (category == 'research')
+
+/ Dates
+- dateTime = setData[:date_time]
+- dateTimeReg = featuredData ? setData[:alt_date_time] : altData(setData, { type: "date_time", content_type: "registration" })
+
+/ Alternative sub categories
+/ - if isEventsCard || isResourcesCard
+/   - categoryAlt = featuredData \
+/     ? setData[:alt_category].gsub("-", " ") \
+/     : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" }).gsub("-", " ")
+
+- featuredRegistration || featuredProduct
+
+
+
+
 
 - isCarousel = local_data[:carousel]
 
@@ -32,37 +91,31 @@ article.main-card{
 
       .main-card__meta
           span.label-xs
+            - if featuredData
 
-            - if featuredCard
+              - if featuredData[:alt_category]
+                | #{ featuredData[:alt_category].gsub("-", " ") }
 
-              - if mainCardData[:alt_category] || mainCardData[:alt_date_time]
-
-                - if mainCardData[:alt_date_time]
-                  | #{ mainCardData[:alt_category].gsub("-", " ") } / #{ mainCardData[:alt_date_time][:date] }
-
-                - else
-                  | #{ mainCardData[:alt_category] }
-
-              - elsif mainCardData[:category] == "blog"
-                | #{ mainCardData[:category].gsub("-", " ") } / #{ mainCardData[:date_time][:date] }
+              - elsif featuredData[:date_time]
+                | #{ featuredData[:category].gsub("-", " ") } / #{ featuredData[:date_time][:date] }
 
               - else
-                | #{ mainCardData[:category].gsub("-", " ") }
+                | #{ featuredData[:category].gsub("-", " ") }
 
-            - elsif mainCardData[:featured] && (mainCardData[:featured][0][:registration] || mainCardData[:featured][0][:product])
+            - elsif sideCardData[:featured] && (sideCardData[:featured][0][:registration] || sideCardData[:featured][0][:product])
 
-              - if mainCardData[:featured][0][:registration]
-                | #{ mainCardData[:featured][0][:registration][:category].gsub("-", " ") }&nbsp;/&nbsp;
-                | #{ mainCardData[:featured][0][:registration][:date_time][:date] }
+              - if sideCardData[:featured][0][:registration]
+                | #{ sideCardData[:featured][0][:registration][:category].gsub("-", " ") }&nbsp;/&nbsp;
+                | #{ sideCardData[:featured][0][:registration][:date_time][:date] }
 
               - else
-                | #{ mainCardData[:featured][0][:product][:category] }
+                | #{ sideCardData[:featured][0][:product][:category] }
 
-            - elsif mainCardData[:category] == "blog"
-                | #{ mainCardData[:category].gsub("-", " ") } / #{ mainCardData[:date_time][:date] }
+            - elsif sideCardData[:category] == "blog"
+              | #{ sideCardData[:category].gsub("-", " ") } / #{ sideCardData[:date_time][:date] }
 
             - else
-                | #{ mainCardData[:category].gsub("-", " ") }
+              | #{ sideCardData[:category].to_s.gsub("-", " ") }
 
       h1.main-card__title.title-md= mainCardData[:title]
 

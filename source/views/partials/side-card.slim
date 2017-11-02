@@ -2,15 +2,14 @@
 /**************************************************
 
 / Partial data
-- partialData = hashify(local_data[:side_card_data])
-- sideCardData = local_data[:side_card_data]
+- partialData = local_data[:side_card_data]
 
 / Nested content types
 - featuredAuthor = partialData[:author]
 - featuredPage = partialData[:page]
 - featuredProduct = partialData[:product]
 - featuredRegistration = partialData[:registration]
-- featuredData = [ featuredAuthor, featuredPage, featuredProduct, featuredRegistration ].compact[0]
+- featuredData = [featuredAuthor, featuredPage, featuredProduct, featuredRegistration].compact[0]
 
 / Set data source
 - setData = featuredData ? featuredData : partialData
@@ -19,8 +18,8 @@
 /**************************************************
 
 / Category
-- category = setData[:category].gsub("-", " ")
 - pageCategory = @entry[:category].gsub("-", " ")
+- category = setData[:category] ? setData[:category].gsub("-", " ") : pageCategory
 
 / Images
 - imageBanner = setData[:banner_image]
@@ -51,10 +50,10 @@
 - dateTimeReg = featuredData ? setData[:alt_date_time] : altData(setData, { type: "date_time", content_type: "registration" })
 
 / Alternative sub categories
-- if isEventsCard || isResourcesCard
-  - categoryAlt = featuredData \
-    ? setData[:alt_category].gsub("-", " ") \
-    : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" }).gsub("-", " ")
+/ - if isEventsCard || isResourcesCard
+/   - categoryAlt = featuredData \
+/     ? setData[:sub_category].gsub("-", " ") \
+/     : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" }).gsub("-", " ")
 
 - featuredRegistration || featuredProduct
 
@@ -88,31 +87,34 @@ article.side-card{
 
         span.label-xs.e-col-mid-grey
 
-          - if featuredData
+          - if partialData[:meta_label]
+            | #{ partialData[:meta_label] }
 
-            - if featuredData[:alt_category]
-              | #{ featuredData[:alt_category].gsub("-", " ") }
+          / - if featuredData
 
-            - elsif featuredData[:date_time]
-              | #{ featuredData[:category].gsub("-", " ") } / #{ featuredData[:date_time][:date] }
+          /   - if featuredData[:sub_category]
+          /     | #{ featuredData[:sub_category].gsub("-", " ") }
 
-            - else
-              | #{ featuredData[:category].gsub("-", " ") }
+          /   - elsif featuredData[:date_time]
+          /     | #{ featuredData[:category].gsub("-", " ") } / #{ featuredData[:date_time][:date] }
 
-          - elsif sideCardData[:featured] && (sideCardData[:featured][0][:registration] || sideCardData[:featured][0][:product])
+          /   - else
+          /     | #{ featuredData[:category].gsub("-", " ") }
 
-            - if sideCardData[:featured][0][:registration]
-              | #{ sideCardData[:featured][0][:registration][:category].gsub("-", " ") }&nbsp;/&nbsp;
-              | #{ sideCardData[:featured][0][:registration][:date_time][:date] }
+          / - elsif partialData[:featured] && (partialData[:featured][0][:registration] || partialData[:featured][0][:product])
 
-            - else
-              | #{ sideCardData[:featured][0][:product][:category] }
+          /   - if partialData[:featured][0][:registration]
+          /     | #{ partialData[:featured][0][:registration][:category].gsub("-", " ") }&nbsp;/&nbsp;
+          /     | #{ partialData[:featured][0][:registration][:date_time][:date] }
 
-          - elsif sideCardData[:category] == "blog"
-            | #{ sideCardData[:category].gsub("-", " ") } / #{ sideCardData[:date_time][:date] }
+          /   - else
+          /     | #{ partialData[:featured][0][:product][:category] }
 
-          - else
-            | #{ sideCardData[:category].to_s.gsub("-", " ") }
+          / - elsif partialData[:category] == "blog"
+          /   | #{ partialData[:category].gsub("-", " ") } / #{ partialData[:date_time][:date] }
+
+          / - else
+          /   | #{ partialData[:category].to_s.gsub("-", " ") }
 
       .side-card__title
 
