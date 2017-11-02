@@ -120,7 +120,7 @@ article.side-card{
         - if !featuredRegistration && !featuredProduct
           h1.title-sm
             a.JS-truncate{
-              href="#{ internalURL(setData[:slug], category) }"
+              href="#{ internalURL(setData[:slug]) }"
               class="#{ featuredItem ? 'link-white' : 'link' }"
             }= setData[:title]
         - else

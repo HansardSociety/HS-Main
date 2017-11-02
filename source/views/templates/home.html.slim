@@ -2,7 +2,7 @@
 //  Homepage
 ////////////////////////////////////////////////////////////
 
-- @entry = home
+- @entry = entry_data
 
 article
 
@@ -24,29 +24,29 @@ article
       = partial 'views/partials/signup-box',
         locals: { local_data: { copy_size: 'md'}}
 
-  / / Research
-  / .panel.e-bgc-light-grey
-  /   .panel__content.panel__content--full
-  /     h2.title-xl.e-align-cen.e-col-green Our work
-  /     = partial 'views/partials/carousel',
-  /       locals: { local_data: \
-  /         { context: 'category-latest',
-  /           categories: [ 'research' ] }}
+  / Research
+  .panel.e-bgc-light-grey
+    .panel__content.panel__content--full
+      h2.title-xl.e-align-cen.e-col-green Our work
+      = partial 'views/partials/carousel',
+        locals: { local_data: \
+          { context: 'category-latest',
+            categories: [ 'research' ] }}
 
-  / / Blog
-  / .panel
-  /   .panel__content.panel__content--full
-  /     h2.title-xl.e-align-cen.e-col-green Blog
-  /     = partial 'views/partials/carousel',
-  /       locals: { local_data: \
-  /         { context: 'category-latest',
-  /           categories: [ 'blog' ] }}
+  / Blog
+  .panel
+    .panel__content.panel__content--full
+      h2.title-xl.e-align-cen.e-col-green Blog
+      = partial 'views/partials/carousel',
+        locals: { local_data: \
+          { context: 'category-latest',
+            categories: [ 'blog' ] }}
 
-  / / Events
-  / .panel.e-bgc-light-grey
-  /   .panel__content.panel__content--full
-  /     h2.title-xl.e-align-cen.e-col-green Events
-  /     = partial 'views/partials/carousel',
-  /       locals: { local_data: \
-  /         { context: 'category-latest',
-  /           categories: [ 'events' ] }}
+  / Events
+  .panel.e-bgc-light-grey
+    .panel__content.panel__content--full
+      h2.title-xl.e-align-cen.e-col-green Events
+      = partial 'views/partials/carousel',
+        locals: { local_data: \
+          { context: 'category-latest',
+            categories: [ 'events' ] }}

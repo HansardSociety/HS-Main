@@ -21,8 +21,8 @@
 .main-card--research     { @extend %e-acc-green-top; }
 
 .main-card__featured-icon {
-  top: .83333rem;
-  right: .3333rem;
+  top: .5rem;
+  right: .5rem;
 
   z-index: 1;
 
@@ -83,8 +83,6 @@
   flex-flow: row nowrap;
 
   height: 162px;
-
-  // border-bottom: 2px solid $brand_white_3;
 }
 
 .main-card__side-image {

@@ -2,6 +2,33 @@
 ##  =Shared
 ############################################################
 
+# Parameterize sub-category
+def subCategorySlugify(data)
+  data.sub_category.split(" :: ")[1].parameterize
+end
+
+# Slug
+def slug(ctx, data, opts = {})
+  defaults = {
+    category: data.category.parameterize,
+    indexPage: false,
+    slug: data.slug,
+    subCategory: data.sub_category
+  }
+  opts = defaults.merge(opts)
+
+  category = opts[:category]
+  indexPage = opts[:indexPage]
+  slug = opts[:slug]
+  subCategory = opts[:subCategory]
+
+  if subCategory
+    ctx.slug = "#{ category }/#{ subCategorySlugify(data) }/#{ indexPage ? "index" : slug }"
+  else
+    ctx.slug = "#{ category }/#{ indexPage ? "index" : slug }"
+  end
+end
+
 # Date/ time formatting
 def dateTime(data)
   dateTimeData = {
@@ -31,7 +58,7 @@ def media(data, opts = {})
 end
 
 # Core page data
-def pageBase(pageType, ctx, data)
+def sharedPageBase(pageType, ctx, data)
 
   # Shared
   ctx.ID = data.sys[:id]
@@ -47,8 +74,7 @@ def pageBase(pageType, ctx, data)
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
     ctx.category = data.category.parameterize
-    ctx.sub_category = (data.sub_category.split(" :: ")[1].parameterize if data.sub_category)
-    ctx.slug = data.slug.parameterize
+    ctx.sub_category = (subCategorySlugify(data) if data.sub_category)
     ctx.introduction = data.introduction
     ctx.date_time = dateTime(data)
     ctx.blog_count = data.blog_count if data.blog_count
@@ -65,9 +91,9 @@ def featuredPage(data)
     introduction: data.introduction,
     banner_image: media(data.banner_image, focus: data),
     date_time: (dateTime(data) if !data.featured || data.featured[0].content_type.id != 'registration'),
-    alt_category: (data.featured[0].category.parameterize if data.featured && (['product', 'registration'].include? data.featured[0].content_type.id)),
+    # alt_category: (data.featured[0].category.parameterize if data.featured && (['product', 'registration'].include? data.featured[0].content_type.id)),
     alt_date_time: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
-  }.compact if [ 'child_page', 'landing_page'].include? data.content_type.id)
+  }.compact if ['child_page', 'landing_page'].include? data.content_type.id)
 end
 
 # Calls to action
@@ -138,7 +164,8 @@ end
 
 class HomeMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    pageBase("homePage", context, entry)
+    sharedPageBase("homePage", context, entry)
+    context.slug = "index"
   end
 end
 
@@ -195,9 +222,14 @@ end
 
 class LandingPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    pageBase("landingPage", context, entry) # core page data
-
+    slug(context, entry, { indexPage: entry.index_page ? true : false })
+    sharedPageBase("landingPage", context, entry) # core page data
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
+
+    # Check if set as index of category/ sub-category
+    if entry.index_page
+      context.index_page = entry.index_page
+    end
 
     # Call(s) to action
     if entry.calls_to_action
@@ -290,7 +322,8 @@ end
 
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    pageBase("childPage", context, entry) # core page data
+    slug(context, entry)
+    sharedPageBase("childPage", context, entry) # core page data
     context.copy = entry.copy # main copy
 
     # Featured
@@ -363,7 +396,7 @@ class RootPageMap < ContentfulMiddleman::Mapper::Base
     ##  Core
     ##############################
 
-    pageBase("rootPage", context, entry)
+    sharedPageBase("rootPage", context, entry)
     context.category = entry.category.parameterize
 
     ##  Banner image

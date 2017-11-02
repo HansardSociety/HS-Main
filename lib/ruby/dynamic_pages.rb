@@ -3,29 +3,20 @@ def proxyBase(url, template, data)
 end
 
 def dynPageBase(data, template)
-  data.each do |id, entry_data|
-    slug = entry_data.slug
-    category = entry_data.category
-    sub_category = (entry_data.sub_category if entry_data.sub_category)
+  data.each do |id, entryData|
+    slug = entryData.slug
     viewTemplate = "/views/templates/#{ template }.html"
 
-    if template == "home"
-      proxyBase("/index.html", viewTemplate, entry_data)
-
-    elsif !sub_category && sub_category != "none"
-      proxyBase("#{ category }/#{ slug }.html", viewTemplate, entry_data)
-
-    else
-      proxyBase("#{ category }/#{ sub_category }/#{ slug }.html", viewTemplate, entry_data)
-    end
+    proxy "/#{ slug }.html",
+          viewTemplate,
+          ignore: true,
+          locals: { entry_data: entryData }
   end
 end
 
 module DynamicPages
 
-  ##		=Contentful pages
-  ########################################
-
+  # Contentful pages
   def dynamicContentfulPages()
 
     # Only run if data dir exists
@@ -37,9 +28,7 @@ module DynamicPages
     end
   end
 
-  ##		=Custom pages
-  ########################################
-
+  # Custom pages
   def dynamicCustomPages()
 
     # AJAX elements

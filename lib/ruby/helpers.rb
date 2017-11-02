@@ -16,8 +16,8 @@ module CustomHelpers
   end
 
   # Internal URLs (for envs)
-  def internalURL(slug, cat)
-    "#{ siteData(:siteURL) }/#{ cat + "/" if cat }#{ slug }#{ config[:ENV] == "development" ? ".html" : "" }"
+  def internalURL(slug)
+    "#{ siteData(:siteURL) }/#{ slug }#{ config[:ENV] == "development" ? ".html" : "" }"
   end
 
   # Partial data
@@ -136,6 +136,16 @@ module CustomHelpers
       @concatPages.map{ |page| yield page }
     end
   end
+
+  # def metaData(data)
+  #   featuredAuthor = data[:author]
+  #   featuredPage = data[:page]
+  #   featuredProduct = data[:product]
+  #   featuredRegistration = data[:registration]
+  #   featuredData = [ featuredAuthor, featuredPage, featuredProduct, featuredRegistration ].compact[0]
+
+
+  # end
 
   # Main card placeholder data URI
   def mainCardDataURI
