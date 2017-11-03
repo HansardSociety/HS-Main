@@ -381,7 +381,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
-        meta_label: ((["product", "registration"].include? featured.content_type.id) || (["product", "registration"].include? featured.featured[0].content_type.id) ? metaLabel(entry, { dataAlt: featured }) : metaLabel(featured)), # only include alt data if registration/ product
+        meta_label: ((["product", "registration"].include? featured.content_type.id) ? metaLabel(entry, { dataAlt: featured }) : metaLabel(featured)), # only include alt data if registration/ product
 
         # Featured (people)
         author: (profile(featured) if featured.content_type.id == 'people'),
