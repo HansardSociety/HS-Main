@@ -57,7 +57,7 @@ article
               index: index }}
 
   / TODO: Biog modals (temp)
-  - if @entry[:title] == "Our people"
+  - if @entry[:ID] == "6b4aZvjw3KUkO84UGkeYaI"
     - data.hs.people.each do |k, v|
       - if v.employment
         - @ctaID = (v[:full_name] + "-" + v[:ID]).parameterize

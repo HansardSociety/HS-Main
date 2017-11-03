@@ -1,4 +1,4 @@
-/ Core
+/ Variables
 /**************************************************
 
 / Partial data
@@ -14,9 +14,6 @@
 / Set data source
 - setData = featuredData ? featuredData : partialData
 
-/ Content vars
-/**************************************************
-
 / Category
 - pageCategory = @entry[:category].gsub("-", " ")
 - category = setData[:category] ? setData[:category].gsub("-", " ") : pageCategory
@@ -30,30 +27,9 @@
   - imageAlt = image[:alt]
   - imageFocus = image[:focus]
 
-/ locals
 - featuredItem = local_data[:featured]
 
-/ Types
-/**************************************************
-
-/ Card types
-- isBlogCard = (category == 'blog')
-- isEventsCard = (category == 'events')
-- isIntelligenceCard = (category == 'intelligence')
-- isResearchCard = (category == 'research')
-- isResourcesCard = (category == 'resources')
-
-- hasRegistration = (category == 'research')
-
-/ Dates
 - dateTime = setData[:date_time]
-- dateTimeReg = featuredData ? setData[:alt_date_time] : altData(setData, { type: "date_time", content_type: "registration" })
-
-/ Alternative sub categories
-/ - if isEventsCard || isResourcesCard
-/   - categoryAlt = featuredData \
-/     ? setData[:sub_category].gsub("-", " ") \
-/     : altData(setData, { type: "category", content_type: isEventsCard ? "registration" : "product" }).gsub("-", " ")
 
 - featuredRegistration || featuredProduct
 
@@ -62,59 +38,29 @@
 
 article.side-card{
   class="side-card--#{ featuredRegistration ? pageCategory : category }"
-  class="#{ 'side-card--featured' if featuredItem }"
+  class="#{ "side-card--featured" if featuredItem }"
 }
   .side-card__inner
     .side-card__image{
-      class="#{ image ? 'side-card__image--overlay' : 'side-card__image--' + pageCategory }"
+      class="#{ image ? "side-card__image--overlay" : "side-card__image--" + pageCategory }"
     }
 
       / If banner image
       - if image
         img.b-lazy{
           src=sideCardDataURI()
-          data-src="#{ imageURL }#{ ('?fit=fill&w=229&h=324&f=' + imageFocus + '&q=50&fl=progressive') if imageBanner }"
+          data-src="#{ imageURL }#{ ("?fit=fill&w=229&h=324&f=" + imageFocus + "&q=50&fl=progressive") if imageBanner }"
           alt="#{ imageAlt }"
         }
 
       - if featuredRegistration
-        = partial 'views/partials/date',
+        = partial "views/partials/date",
           locals: { local_data: \
             { date_data: dateTime }}
 
     .side-card__content
       .side-card__meta
-
-        span.label-xs.e-col-mid-grey
-
-          - if partialData[:meta_label]
-            | #{ partialData[:meta_label] }
-
-          / - if featuredData
-
-          /   - if featuredData[:sub_category]
-          /     | #{ featuredData[:sub_category].gsub("-", " ") }
-
-          /   - elsif featuredData[:date_time]
-          /     | #{ featuredData[:category].gsub("-", " ") } / #{ featuredData[:date_time][:date] }
-
-          /   - else
-          /     | #{ featuredData[:category].gsub("-", " ") }
-
-          / - elsif partialData[:featured] && (partialData[:featured][0][:registration] || partialData[:featured][0][:product])
-
-          /   - if partialData[:featured][0][:registration]
-          /     | #{ partialData[:featured][0][:registration][:category].gsub("-", " ") }&nbsp;/&nbsp;
-          /     | #{ partialData[:featured][0][:registration][:date_time][:date] }
-
-          /   - else
-          /     | #{ partialData[:featured][0][:product][:category] }
-
-          / - elsif partialData[:category] == "blog"
-          /   | #{ partialData[:category].gsub("-", " ") } / #{ partialData[:date_time][:date] }
-
-          / - else
-          /   | #{ partialData[:category].to_s.gsub("-", " ") }
+        span.label-xs.e-col-mid-grey= partialData[:meta_label]
 
       .side-card__title
 
@@ -123,37 +69,39 @@ article.side-card{
           h1.title-sm
             a.JS-truncate{
               href="#{ internalURL(setData[:slug]) }"
-              class="#{ featuredItem ? 'link-white' : 'link' }"
+              class="#{ featuredItem ? "link-white" : "link" }"
             }= setData[:title]
+
         - else
           h1.title-sm.JS-truncate{
-            class="#{ featuredItem ? 'e-col-white' : 'e-col-green'}"
+            class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
           }= featuredProduct ? setData[:title] : setData[:venue]
 
       / Is product or registration
       - if featuredRegistration || featuredProduct
         .side-card__actions{
-          class="#{ featuredItem ? 'e-col-white' : 'e-col-green'}"
+          class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
         }
 
+          / Product
           - if featuredProduct
 
             - if setData[:price] == 0
-              = partial 'views/partials/btn',
+              = partial "views/partials/btn",
                 locals: { local_data: \
-                  { type: 'link', size: 'sm', style: 'primary',
-                    label: 'Download', label_size: 'sm', url: setData[:download] }}
+                  { type: "link", size: "sm", style: "primary",
+                    label: "Download", label_size: "sm", url: setData[:download] }}
 
             - if setData[:price] > 0
-              = partial 'views/partials/btn',
+              = partial "views/partials/btn",
                 locals: { local_data: \
-                  { type: 'link', size: 'sm', style: 'primary', product: setData,
-                    label: "Buy (£#{ setData[:price] })", label_size: 'sm' }}
+                  { type: "link", size: "sm", style: "primary", product: setData,
+                    label: "Buy (£#{ setData[:price] })", label_size: "sm" }}
 
           / Registration
           - if featuredRegistration
 
-            - if setData[:date_time][:integer] < Time.now.strftime('%s').to_i
+            - if setData[:date_time][:integer] < Time.now.strftime("%s").to_i
               p
                 strong CLOSED
 
@@ -162,17 +110,17 @@ article.side-card{
               - @price == setData[:price]
 
               / Modal window
-              = partial 'views/partials/modal',
+              = partial "views/partials/modal",
                 locals: { local_data: \
                   { id: setData[:modal][:cta_id],
                     content: setData[:modal][:content] }}
 
               / Modal button
-              = partial 'views/partials/btn',
+              = partial "views/partials/btn",
                 locals: { local_data: \
-                  { type: 'state',
-                    size: 'sm', style: 'primary',
-                    label_on: 'Register now', label_off: 'Close', label_size: 'sm',
-                    page: 'no-scroll', switch: true,
+                  { type: "state",
+                    size: "sm", style: "primary",
+                    label_on: "Register now", label_off: "Close", label_size: "sm",
+                    page: "no-scroll", switch: true,
                     aria_id: "activate-#{ setData[:modal][:cta_id] }",
                     aria_target_id: setData[:modal][:cta_id] }}

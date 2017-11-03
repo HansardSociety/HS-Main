@@ -1,7 +1,7 @@
 .copy {
   @extend %e-position-relative;
 
-  > p, > h1, > h2, > h3, > h4, > h5, > h6, > img, > iframe, ul {
+  > p, > h1, > h2, > h3, > h4, > h5, > h6, ul {
     &:not(:only-child) {
       @extend %e-mgn-b-sm;
     }
@@ -12,6 +12,12 @@
     &:not(:only-child, :first-child) {
       margin-top: 1em;
     }
+  }
+
+  img,
+  iframe {
+    @extend %e-mgn-t-sm;
+    @extend %e-mgn-b-sm;
   }
 
   > h1, > h2, > h3, > h4, > h5, > h6 {

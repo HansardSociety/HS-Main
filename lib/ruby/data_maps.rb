@@ -1,35 +1,34 @@
-############################################################
-##  =Shared
-############################################################
+##########################################################################################
+##		=Shared
+##########################################################################################
 
-# Parameterize sub-category
+##		=Sub-category slugify
+########################################
+
 def subCategorySlugify(data)
   data.sub_category.split(" :: ")[1].parameterize
 end
 
 # Slug
-def slug(ctx, data, opts = {})
-  defaults = {
-    category: data.category.parameterize,
-    indexPage: false,
-    slug: data.slug,
-    subCategory: data.sub_category
-  }
+def slug(data, opts = {})
+  defaults = { indexPage: false }
   opts = defaults.merge(opts)
 
-  category = opts[:category]
   indexPage = opts[:indexPage]
-  slug = opts[:slug]
-  subCategory = opts[:subCategory]
+  category = data.category.parameterize
+  slug = data.slug
+  subCategory = data.sub_category
 
   if subCategory
-    ctx.slug = "#{ category }/#{ subCategorySlugify(data) }/#{ indexPage ? "index" : slug }"
+    "#{ category }/#{ subCategorySlugify(data) }/#{ indexPage ? "index" : slug }"
   else
-    ctx.slug = "#{ category }/#{ indexPage ? "index" : slug }"
+    "#{ category }/#{ indexPage ? "index" : slug }"
   end
 end
 
-# Date/ time formatting
+##		=Date/ time
+########################################
+
 def dateTime(data)
   dateTimeData = {
     integer: data.date_time.strftime('%s').to_i,
@@ -41,7 +40,9 @@ def dateTime(data)
   }
 end
 
-# Media data (ie. images/ files)
+##		=Media data
+########################################
+
 def media(data, opts = {})
   defaults = {
     focus: false,
@@ -57,45 +58,80 @@ def media(data, opts = {})
   }.compact
 end
 
-# Meta label
+##		=Meta label
+########################################
+
 def metaLabel(data, opts = {})
-  defaults = {
-    dataAlt: false
-  }
+  defaults = { parentData: false }
   opts = defaults.merge(opts)
 
-  dataAlt = opts[:dataAlt]
   isPage = ["child_page", "landing_page"].include? data.content_type.id
+  isNestedType = ["product", "registration"].include? data.content_type.id
 
-  # Check if alternative data, eg. product/ registration
-  if dataAlt
-    isProduct = dataAlt.content_type.id == "product"
-    isRegistration = dataAlt.content_type.id == "registration"
+  if isPage
+    hasAltData = ["registration"].include? data.featured[0].content_type.id if data.featured
 
-    # In case sub-category isn't defined (though it should always be!)
-    if data.sub_category
-      isRegistration \
-        ? "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") } / #{ dateTime(dataAlt)[:date] }" \
-        : "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") }"
+    # Check if page has alternative date, eg. registration date/ time
+    if hasAltData
+      altData = data.featured[0]
+      altDateTime = dateTime(data.featured[0]) if altData.date_time
+
+      if data.sub_category
+        if altDateTime
+          "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") } / #{ altDateTime[:date] }"
+        else
+          "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") }"
+        end
+      else
+        if altDateTime
+          "#{ data.category } / #{ altDateTime[:date] }"
+        else
+          "#{ data.category }"
+        end
+      end
 
     else
-      isRegistration \
-        ? "#{ data.category } / #{ dateTime(dataAlt)[:date] }" \
-        : "#{ data.category }"
+      usesDateTime = ["Blog"].include? data.category
+
+      if data.sub_category
+        if usesDateTime
+          "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") } / #{ dateTime(data)[:date] }"
+        else
+          "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") }"
+        end
+      else
+        if usesDateTime
+          "#{ data.category } / #{ dateTime(data)[:date] }"
+        else
+          "#{ data.category }"
+        end
+      end
     end
 
-  elsif isPage
-    usesDate = ["Blog", "Events"].include? data.category
-    isBlog = data.category == "Blog"
-    isEvent = data.category == "Events"
+  else
+    "Hello"
+    # parentData = opts[:parentData]
+    # usesDateTime = ["registration"].include? data.content_type.id
 
-    isBlog \
-      ? "#{ data.category } / #{ dateTime(data)[:date] }" \
-      : "#{ data.category }"
+    # if parentData.sub_category
+    #   if usesDateTime
+    #     "#{ parentData.category } / #{ subCategorySlugify(parentData).gsub("-", " ") } / #{ dateTime(data)[:date] }"
+    #   else
+    #     "#{ parentData.category } / #{ subCategorySlugify(parentData).gsub("-", " ") }"
+    #   end
+    # else
+    #   if usesDateTime
+    #     "#{ parentData.category } / #{ dateTime(parentData)[:date] }"
+    #   else
+    #     "#{ parentData.category }"
+    #   end
+    # end
   end
 end
 
-# Core page data
+##		=Shared page data
+########################################
+
 def sharedPageBase(pageType, ctx, data)
 
   # Shared
@@ -112,6 +148,7 @@ def sharedPageBase(pageType, ctx, data)
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
     ctx.category = data.category.parameterize
+    ctx.meta_label = metaLabel(data)
 
     # Has sub-category
     if data.sub_category
@@ -131,11 +168,14 @@ def sharedPageBase(pageType, ctx, data)
   end
 end
 
-# Featured page
+##		=Featured page data (child pages)
+########################################
+
 def featuredPage(data)
   featuredPageData = ({
     title: data.title,
-    slug: data.slug.parameterize,
+    meta_label: "metaLabel(data)",
+    slug: slug(data, { indexPage: data.content_type.id == "landing_page" ? data.index_page : false }),
     category: (data.category.parameterize if data.category),
     sub_category: (subCategorySlugify(data) if data.sub_category),
     introduction: data.introduction,
@@ -145,7 +185,9 @@ def featuredPage(data)
   }.compact if ['child_page', 'landing_page'].include? data.content_type.id)
 end
 
-# Calls to action
+##		=Calls to action
+########################################
+
 def callsToAction(data)
   ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta| {
     ID: cta.sys[:id],
@@ -160,6 +202,9 @@ def callsToAction(data)
     }.compact if cta.action == 'Modal')
   }.compact end : nil)
 end
+
+##		=Profile data
+########################################
 
 def profile(data)
   profileData = {
@@ -179,9 +224,9 @@ def profile(data)
   }.compact
 end
 
-############################################################
+###########################################################################
 ## =Universal
-############################################################
+###########################################################################
 
 class UniversalMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
@@ -207,9 +252,9 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
   end
 end
 
-############################################################
+###########################################################################
 ##  =Homepage
-############################################################
+###########################################################################
 
 class HomeMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
@@ -218,9 +263,9 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
   end
 end
 
-############################################################
+###########################################################################
 ##  =Navigation
-############################################################
+###########################################################################
 
 class NavigationMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
@@ -244,9 +289,9 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
   end
 end
 
-############################################################
+###########################################################################
 ##  =People
-############################################################
+###########################################################################
 
 class PeopleMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
@@ -265,15 +310,16 @@ class PeopleMap < ContentfulMiddleman::Mapper::Base
   end
 end
 
-############################################################
+###########################################################################
 ##  =Landing page
-############################################################
+###########################################################################
 
 class LandingPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    slug(context, entry, { indexPage: entry.index_page ? true : false })
     sharedPageBase("landingPage", context, entry) # core page data
+
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
+    context.slug = slug(entry, { indexPage: entry.index_page })
 
     # Check if set as index of category/ sub-category
     if entry.index_page
@@ -290,8 +336,8 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
-        page: featuredPage(featured)
-      }.compact
+        meta_label: metaLabel(featured),
+    }.merge(featuredPage(featured)).compact
       end # End: Featured map
     end # End: All featured
 
@@ -352,7 +398,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           cta_id: ('accordian-' + accordian.title.split('::')[0].parameterize + '-' + accordian.sys[:id]), # split '::' for contentful name-spacing
           title: accordian.title,
           copy: accordian.copy,
-          calls_to_action:  callsToAction(accordian)
+          calls_to_action: callsToAction(accordian)
         }.compact end : nil)
       }.compact
       end
@@ -365,23 +411,22 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
   end
 end
 
-############################################################
+###########################################################################
 ##  =Child page
-############################################################
+###########################################################################
 
 class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
-    slug(context, entry)
     sharedPageBase("childPage", context, entry) # core page data
-    context.meta_label = entry.featured && (["product", "registration"].include? entry.featured[0].content_type.id) ? metaLabel(entry, { dataAlt: entry.featured[0] }) : metaLabel(entry)
+
     context.copy = entry.copy # main copy
+    context.slug = slug(entry)
 
     # Featured
     if entry.featured
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
-        meta_label: ((["product", "registration"].include? featured.content_type.id) ? metaLabel(entry, { dataAlt: featured }) : metaLabel(featured)), # only include alt data if registration/ product
 
         # Featured (people)
         author: (profile(featured) if featured.content_type.id == 'people'),
@@ -389,6 +434,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         # Featured registration
         registration: ({
           meta_title: featured.meta_title,
+          meta_label: metaLabel(featured, { parentData: entry }),
           venue: featured.venue,
           price: featured.price,
           date_time: dateTime(featured),
@@ -402,6 +448,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         # Featured product
         product: ({
           title: featured.title,
+          meta_label: metaLabel(featured, { parentData: entry }),
           product_id: featured.product_id,
           price: featured.price,
           image: {
@@ -435,9 +482,9 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
   end
 end
 
-############################################################
+###########################################################################
 ##  Root page
-############################################################
+###########################################################################
 
 class RootPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
