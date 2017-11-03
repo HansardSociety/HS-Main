@@ -189,10 +189,16 @@ def profile(data)
   }.compact
 end
 
-##		=Featured page (child pages)
+##		=Featured data
 ########################################
 
-def featuredPage(data)
+def featuredData(data, opts = {})
+  defaults = { parentData: false }
+  opts = defaults.merge(opts)
+
+  parentData = opts[:parentData]
+
+  featuredAuthorData = profile(data) if data.content_type.id == "people"
 
   featuredPageData = ({
     title: data.title,
@@ -204,20 +210,19 @@ def featuredPage(data)
     banner_image: media(data.banner_image, focus: data),
     date_time: dateTime(data),
     date_time_alt: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
-  }.compact if ['child_page', 'landing_page'].include? data.content_type.id)
-end
+  } if ['child_page', 'landing_page'].include? data.content_type.id)
 
-##		=Featured author (child pages)
-########################################
-
-def featuredAuthor(data)
-  featuredAuthorData = profile(data) if featured.content_type.id == 'people'
-end
-
-##		=Featured registration (child pages)
-########################################
-
-def featuredRegistration(data, parentData)
+  featuredProductData = ({
+    title: data.title,
+    meta_label: metaLabel(data, { parentData: parentData }),
+    product_id: data.product_id,
+    price: data.price,
+    image: {
+      url: data.image.url,
+      alt: data.image.description
+    },
+    download: (data.media.url if data.media)
+  } if data.content_type.id == 'product')
 
   featuredRegistrationData = ({
     meta_title: data.meta_title,
@@ -231,24 +236,13 @@ def featuredRegistration(data, parentData)
       content: data.embed_code
     }
   } if data.content_type.id == "registration")
-end
 
-##		=Featured product (child pages)
-########################################
-
-def featuredProduct(data, parentData)
-
-  featuredProductData = ({
-    title: data.title,
-    meta_label: metaLabel(data, { parentData: parentData }),
-    product_id: data.product_id,
-    price: data.price,
-    image: {
-      url: data.image.url,
-      alt: data.image.description
-    },
-    download: (data.media.url if data.media)
-  } if data.content_type.id == 'product')
+  featuredDataAll = [
+    *featuredAuthorData,
+    *featuredPageData,
+    *featuredProductData,
+    *featuredRegistrationData,
+  ].to_h
 end
 
 ##		=Calls to action
@@ -382,8 +376,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
-        meta_label: metaLabel(featured),
-    }.merge(featuredPage(featured)).compact
+      }.merge(featuredData(featured))
       end # End: Featured map
     end # End: All featured
 
@@ -473,7 +466,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
-    }.merge(**featuredRegistration(featured, entry)).compact
+    }.merge(featuredData(featured, { parentData: entry }))
       end # End: Featured map
     end # End: All featured
 
