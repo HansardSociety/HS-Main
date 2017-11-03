@@ -168,41 +168,6 @@ def sharedPageBase(pageType, ctx, data)
   end
 end
 
-##		=Featured page data (child pages)
-########################################
-
-def featuredPage(data)
-  featuredPageData = ({
-    title: data.title,
-    meta_label: "metaLabel(data)",
-    slug: slug(data, { indexPage: data.content_type.id == "landing_page" ? data.index_page : false }),
-    category: (data.category.parameterize if data.category),
-    sub_category: (subCategorySlugify(data) if data.sub_category),
-    introduction: data.introduction,
-    banner_image: media(data.banner_image, focus: data),
-    date_time: dateTime(data),
-    date_time_alt: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
-  }.compact if ['child_page', 'landing_page'].include? data.content_type.id)
-end
-
-##		=Calls to action
-########################################
-
-def callsToAction(data)
-  ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta| {
-    ID: cta.sys[:id],
-    title: cta.title.split(" :: ")[0], # split '::' for contentful name-spacing
-    action: cta.action.parameterize, # eg. modal, download etc
-    button_text: cta.button_text,
-    file: (media(cta.file, title: true) if cta.file),
-    modal: ({
-      cta_id: (cta.title.split(" :: ")[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
-      content: cta.modal,
-      width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
-    }.compact if cta.action == 'Modal')
-  }.compact end : nil)
-end
-
 ##		=Profile data
 ########################################
 
@@ -222,6 +187,87 @@ def profile(data)
       alt: data.photo.description
     } if data.photo)
   }.compact
+end
+
+##		=Featured page (child pages)
+########################################
+
+def featuredPage(data)
+
+  featuredPageData = ({
+    title: data.title,
+    meta_label: "metaLabel(data)",
+    slug: slug(data, { indexPage: data.content_type.id == "landing_page" ? data.index_page : false }),
+    category: (data.category.parameterize if data.category),
+    sub_category: (subCategorySlugify(data) if data.sub_category),
+    introduction: data.introduction,
+    banner_image: media(data.banner_image, focus: data),
+    date_time: dateTime(data),
+    date_time_alt: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
+  }.compact if ['child_page', 'landing_page'].include? data.content_type.id)
+end
+
+##		=Featured author (child pages)
+########################################
+
+def featuredAuthor(data)
+  featuredAuthorData = profile(data) if featured.content_type.id == 'people'
+end
+
+##		=Featured registration (child pages)
+########################################
+
+def featuredRegistration(data, parentData)
+
+  featuredRegistrationData = ({
+    meta_title: data.meta_title,
+    meta_label: metaLabel(data, { parentData: parentData }),
+    venue: data.venue,
+    price: data.price,
+    date_time: dateTime(data),
+    embed_code: data.embed_code,
+    modal: {
+      cta_id: (data.meta_title.split('::')[0].parameterize + '-' + data.sys[:id]), # split '::' for contentful name-spacing
+      content: data.embed_code
+    }
+  } if data.content_type.id == "registration")
+end
+
+##		=Featured product (child pages)
+########################################
+
+def featuredProduct(data, parentData)
+
+  featuredProductData = ({
+    title: data.title,
+    meta_label: metaLabel(data, { parentData: parentData }),
+    product_id: data.product_id,
+    price: data.price,
+    image: {
+      url: data.image.url,
+      alt: data.image.description
+    },
+    download: (data.media.url if data.media)
+  } if data.content_type.id == 'product')
+end
+
+##		=Calls to action
+########################################
+
+def callsToAction(data)
+
+  ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta| {
+    ID: cta.sys[:id],
+    title: cta.title.split(" :: ")[0], # split '::' for contentful name-spacing
+    action: cta.action.parameterize, # eg. modal, download etc
+    button_text: cta.button_text,
+    file: (media(cta.file, title: true) if cta.file),
+    modal: ({
+      cta_id: (cta.title.split(" :: ")[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
+      content: cta.modal,
+      width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
+    }.compact if cta.action == 'Modal')
+  }.compact end : nil)
 end
 
 ###########################################################################
@@ -427,40 +473,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       context.featured = entry.featured.map do |featured| {
         ID: featured.sys[:id],
         TYPE: featured.content_type.id,
-
-        # Featured (people)
-        author: (profile(featured) if featured.content_type.id == 'people'),
-
-        # Featured registration
-        registration: ({
-          meta_title: featured.meta_title,
-          meta_label: metaLabel(featured, { parentData: entry }),
-          venue: featured.venue,
-          price: featured.price,
-          date_time: dateTime(featured),
-          embed_code: featured.embed_code,
-          modal: {
-            cta_id: (featured.meta_title.split('::')[0].parameterize + '-' + featured.sys[:id]), # split '::' for contentful name-spacing
-            content: featured.embed_code
-          }
-        }.compact if featured.content_type.id == 'registration'),
-
-        # Featured product
-        product: ({
-          title: featured.title,
-          meta_label: metaLabel(featured, { parentData: entry }),
-          product_id: featured.product_id,
-          price: featured.price,
-          image: {
-            url: featured.image.url,
-            alt: featured.image.description
-          },
-          download: (featured.media.url if featured.media)
-        }.compact if featured.content_type.id == 'product'),
-
-        # Featured page
-        page: featuredPage(featured)
-      }.compact
+    }.merge(**featuredRegistration(featured, entry)).compact
       end # End: Featured map
     end # End: All featured
 
