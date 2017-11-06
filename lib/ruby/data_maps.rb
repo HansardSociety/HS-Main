@@ -107,25 +107,6 @@ def metaLabel(data, opts = {})
         end
       end
     end
-
-  else
-    "Hello"
-    # parentData = opts[:parentData]
-    # usesDateTime = ["registration"].include? data.content_type.id
-
-    # if parentData.sub_category
-    #   if usesDateTime
-    #     "#{ parentData.category } / #{ subCategorySlugify(parentData).gsub("-", " ") } / #{ dateTime(data)[:date] }"
-    #   else
-    #     "#{ parentData.category } / #{ subCategorySlugify(parentData).gsub("-", " ") }"
-    #   end
-    # else
-    #   if usesDateTime
-    #     "#{ parentData.category } / #{ dateTime(parentData)[:date] }"
-    #   else
-    #     "#{ parentData.category }"
-    #   end
-    # end
   end
 end
 
@@ -198,6 +179,11 @@ def featuredData(data, opts = {})
 
   parentData = opts[:parentData]
 
+  featuredCoreData = {
+    ID: data.sys[:id],
+    TYPE: data.content_type.id
+  }
+
   featuredAuthorData = profile(data) if data.content_type.id == "people"
 
   featuredPageData = ({
@@ -209,8 +195,8 @@ def featuredData(data, opts = {})
     introduction: data.introduction,
     banner_image: media(data.banner_image, focus: data),
     date_time: dateTime(data),
-    date_time_alt: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == 'registration')
-  } if ['child_page', 'landing_page'].include? data.content_type.id)
+    date_time_alt: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == "registration")
+  } if ["child_page", "landing_page"].include? data.content_type.id)
 
   featuredProductData = ({
     title: data.title,
@@ -222,7 +208,7 @@ def featuredData(data, opts = {})
       alt: data.image.description
     },
     download: (data.media.url if data.media)
-  } if data.content_type.id == 'product')
+  } if data.content_type.id == "product")
 
   featuredRegistrationData = ({
     meta_title: data.meta_title,
@@ -238,6 +224,7 @@ def featuredData(data, opts = {})
   } if data.content_type.id == "registration")
 
   featuredDataAll = [
+    *featuredCoreData,
     *featuredAuthorData,
     *featuredPageData,
     *featuredProductData,
@@ -371,14 +358,13 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       context.calls_to_action = callsToAction(entry)
     end
 
-    # Featured
-    if entry.featured
-      context.featured = entry.featured.map do |featured| {
-        ID: featured.sys[:id],
-        TYPE: featured.content_type.id,
-      }.merge(featuredData(featured))
-      end # End: Featured map
-    end # End: All featured
+    # # Featured
+    # if entry.featured
+    #   context.featured = entry.featured.map do |featured| {
+    #     featuredData(featured)
+    #   }
+    #   end # End: Featured map
+    # end # End: All featured
 
     # Panels
     if entry.panels
@@ -464,9 +450,8 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     # Featured
     if entry.featured
       context.featured = entry.featured.map do |featured| {
-        ID: featured.sys[:id],
-        TYPE: featured.content_type.id,
-    }.merge(featuredData(featured, { parentData: entry }))
+        hello: "you"
+      }.merge(featuredData(featured, { parentData: entry }))
       end # End: Featured map
     end # End: All featured
 

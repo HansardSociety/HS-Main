@@ -40,10 +40,10 @@ article
             / Blog (authors)
             - if @entry[:category] == "blog"
               - @entry[:featured].map do |featured|
-                - if featured[:author]
+                - if featured[:TYPE] == "people"
                   = partial 'views/partials/profile',
                     locals: { local_data: \
-                    { profile_data: featured[:author],
+                    { profile_data: featured,
                       side: true }}
 
             / Research and resources
@@ -76,11 +76,11 @@ article
         aside.grid__cell.grid__cell--above-md-V
 
           / Side cards
-          - if [ "blog", "events", "intelligence", "research", "resources" ].include? @entry[:category]
+          - if ["blog", "events", "intelligence", "research", "resources"].include? @entry[:category]
 
             / If blog, add all non-author featured content to sidebar
             - if @entry[:category] == "blog"
-              - @entry[:featured].reject{ |featured| featured[:author] }.each_with_index do |featured, index|
+              - @entry[:featured].reject{ |featured| featured[:TYPE] == "people" }.each_with_index do |featured, index|
 
                 / Only add featured title once, before the first item
                 / - if index == 0
