@@ -65,6 +65,7 @@ def metaLabel(data, opts = {})
   defaults = { parentData: false }
   opts = defaults.merge(opts)
 
+  parentData = opts[:parentData]
   isPage = ["child_page", "landing_page"].include? data.content_type.id
   isNestedType = ["product", "registration"].include? data.content_type.id
 
@@ -107,6 +108,23 @@ def metaLabel(data, opts = {})
         end
       end
     end
+
+  elsif isNestedType
+    isRegistration = data.content_type.id == "registration"
+
+    if parentData.sub_category
+      if isRegistration
+        "#{ parentData.category } / #{ subCategorySlugify(parentData).gsub("-", " ") } / #{ dateTime(data)[:date] }"
+      else
+        "#{ parentData.category } / #{ subCategorySlugify(parentData).gsub("-", " ") }"
+      end
+    else
+      if isRegistration
+        "#{ parentData.category } / #{ dateTime(data)[:date] }"
+      else
+        "#{ parentData.category }"
+      end
+    end
   end
 end
 
@@ -128,6 +146,8 @@ def sharedPageBase(pageType, ctx, data)
 
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
+    # hasNestedType = ["product", "registration"].include? data.featured[0].content_type.id if data.featured
+
     ctx.category = data.category.parameterize
     ctx.meta_label = metaLabel(data)
 
@@ -229,7 +249,7 @@ def featuredData(data, opts = {})
     *featuredPageData,
     *featuredProductData,
     *featuredRegistrationData,
-  ].to_h
+  ].to_h.compact
 end
 
 ##		=Calls to action

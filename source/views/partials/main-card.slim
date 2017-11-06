@@ -1,13 +1,12 @@
 - mainCardData = local_data[:entry_data]
 - featuredCard = local_data[:featured]
 
-- isCarousel = local_data[:carousel]
-
 - mainCardInnerElem = {\
   tag: (mainCardData[:category] ? 'a' : 'div'),
   href: mainCardData[:category] ? internalURL(mainCardData[:slug]) : nil }
 
-/ - if mainCardData[:category]
+/ p= mainCardData
+
 article.main-card{
   class="#{ 'main-card--' + mainCardData[:category] if mainCardData[:category] }"
 }
