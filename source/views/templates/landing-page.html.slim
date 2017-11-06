@@ -14,7 +14,7 @@ article
         = markdown(@entry[:introduction], "byline")
 
   / Latest (related)
-  - if @entry[:latest_carousel] == true
+  - if @entry[:latest_carousel] && !@entry[:index_page]
     .panel.panel--light-grey#latest
       .panel__content.panel__content--full
         h2.title-lg.e-col-green.e-align-cen Latest
@@ -34,6 +34,16 @@ article
           locals: { local_data: \
             { entry_data: panel,
               index: index }}
+
+      / Feed panel
+      - if panel[:TYPE] == "panel_feed"
+        .panel
+          .panel__content.panel__content--narrow
+            h2.title-xl.e-col-green.e-align-cen= panel[:title]
+            = partial "views/partials/feed-item",
+              locals: { local_data: \
+                { entry_data: panel,
+                  index: index }}
 
       / Carousel panel
       - if panel[:TYPE] == "panel_carousel"

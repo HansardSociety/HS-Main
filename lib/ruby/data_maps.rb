@@ -416,36 +416,43 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           panel_width: ((panel.panel_width ? panel.panel_width.parameterize : 'wide') if panel.content_type.id == 'panel_content'),
           share_buttons: (panel.share_buttons if panel.content_type.id == 'panel_content'),
 
+          # Panel accordian
+          accordians: (panel.content_type.id == 'panel_accordians' ? panel.accordians.map do |accordian|
+            {
+              ID: accordian.sys[:id],
+              cta_id: ('accordian-' + accordian.title.split('::')[0].parameterize + '-' + accordian.sys[:id]), # split '::' for contentful name-spacing
+              title: accordian.title,
+              copy: accordian.copy,
+              calls_to_action: callsToAction(accordian)
+            }.compact
+          end : nil),
+
           # Panel carousel cards
-          carousel: (panel.content_type.id == 'panel_carousel' ? panel.items.map do |item| {
-            ID: item.sys[:id],
-            TYPE: item.content_type.id,
+          carousel: (panel.content_type.id == 'panel_carousel' ? panel.items.map do |item|
+            {
+              ID: item.sys[:id],
+              TYPE: item.content_type.id,
 
-            # Profile
-            profile: (profile(item) if item.content_type.id == 'people'),
+              # Profile
+              profile: (profile(item) if item.content_type.id == 'people'),
 
-            # Quotes
-            quote: ({
-              text: item.quote,
-              full_name: item.full_name,
-              role: item.role,
-              organisation: item.organisation,
-              image: ({
-                url: item.image.url,
-                description: item.image.description
-              }.compact if item.image),
-              image_type: item.image_type
-            }.compact if item.content_type.id == 'quote')
-          }.compact end : nil),
+              # Quotes
+              quote: ({
+                text: item.quote,
+                full_name: item.full_name,
+                role: item.role,
+                organisation: item.organisation,
+                image: ({
+                  url: item.image.url,
+                  description: item.image.description
+                }.compact if item.image),
+                image_type: item.image_type
+              }.compact if item.content_type.id == 'quote')
+            }.compact
+          end : nil),
 
           # Panel accordian
-          accordians: (panel.content_type.id == 'panel_accordians' ? panel.accordians.map do |accordian| {
-            ID: accordian.sys[:id],
-            cta_id: ('accordian-' + accordian.title.split('::')[0].parameterize + '-' + accordian.sys[:id]), # split '::' for contentful name-spacing
-            title: accordian.title,
-            copy: accordian.copy,
-            calls_to_action: callsToAction(accordian)
-          }.compact end : nil)
+          feed: (panel.feed_category.gsub(" :: ", "").gsub("'", "").parameterize if panel.content_type.id == "panel_feed")
         }.compact
       end
     end

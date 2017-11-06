@@ -16,8 +16,7 @@
             = partial 'views/partials/main-card',
               locals: { local_data: \
                 { entry_data: page,
-                  featured: true,
-                  carousel: true }}
+                  featured: true }}
 
       / Related (tagging)
       - relatedContent(@entryData, @blogCount) do |page|

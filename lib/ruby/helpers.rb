@@ -60,8 +60,9 @@ module CustomHelpers
     }
     opts = defaults.merge(opts)
 
+    # Only include specified categories and not page indices
     @allMainPages = @allPages.select{ |id, page|
-      opts[:pageCategories].include? page[:category]
+      (opts[:pageCategories].include? page[:category]) && !page[:index_page]
     }.compact
 
     @allPagesRegHash = convertToRegularHash(@allMainPages).values
