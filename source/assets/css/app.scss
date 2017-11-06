@@ -4,12 +4,12 @@
 @import "./config";
 
 // Functions
-@import './functions/mapping';
-@import './functions/media-queries';
-@import './functions/string-replace';
+@import "./functions/mapping";
+@import "./functions/media-queries";
+@import "./functions/string-replace";
 
 // Core
-@import './extensions/type';
+@import "./extensions/type";
 @import "./components/core";
 
 ///////////////////////////////////////////////////////////
@@ -17,22 +17,22 @@
 ////////////////////////////////////////////////////////////
 
 // Components (core - maintain order)
-@import './extensions/box-model';
-@import './extensions/display';
-@import './extensions/positioning';
-@import './extensions/width-height';
-@import './extensions/overflow';
+@import "./extensions/box-model";
+@import "./extensions/display";
+@import "./extensions/positioning";
+@import "./extensions/width-height";
+@import "./extensions/overflow";
 
 // Components (dependent/ non-dependent)
-@import './extensions/colors';
-@import './extensions/container';
-@import './extensions/cursor';
-@import './extensions/hidden';
-@import './extensions/motion';
-@import './extensions/opacity';
-@import './extensions/overlay';
-@import './extensions/pseudo-elem';
-@import './extensions/z-index';
+@import "./extensions/colors";
+@import "./extensions/container";
+@import "./extensions/cursor";
+@import "./extensions/hidden";
+@import "./extensions/motion";
+@import "./extensions/opacity";
+@import "./extensions/overlay";
+@import "./extensions/pseudo-elem";
+@import "./extensions/z-index";
 
 ///////////////////////////////////////////////////////////
 //  =Components
@@ -56,7 +56,8 @@
 @import "./components/dropdown";
 @import "./components/ext-link";
 @import "./components/expand";
-@import './components/form';
+@import "./components/feed-item";
+@import "./components/form";
 @import "./components/footer";
 @import "./components/icon";
 @import "./components/image";

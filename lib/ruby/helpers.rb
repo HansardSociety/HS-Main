@@ -49,28 +49,28 @@ module CustomHelpers
 
   # Latest content
   def latestContent(opts = {})
-    @childPages = data.hs.child_page
-    @landingPages = data.hs.landing_page
-    @allPages = @childPages.merge(@landingPages)
+    childPages = data.hs.child_page
+    landingPages = data.hs.landing_page
+    allPages = childPages.merge(landingPages)
 
     defaults = {
       yield: false,
-      num: @allPages.length,
+      num: allPages.length,
       pageCategories: siteData(:main_categories)
     }
     opts = defaults.merge(opts)
 
-    # Only include specified categories and not page indices
-    @allMainPages = @allPages.select{ |id, page|
-      (opts[:pageCategories].include? page[:category]) && !page[:index_page]
+    # Only include specified category/ sub-category and not page indices
+    allMainPages = allPages.select{ |id, page|
+      (opts[:pageCategories].include? (page[:category] || page[:sub_category])) && !page[:index_page]
     }.compact
 
-    @allPagesRegHash = convertToRegularHash(@allMainPages).values
-    @sortPagesByDate = @allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
-    @pages = @sortPagesByDate[0..opts[:num]]
+    allPagesRegHash = convertToRegularHash(allMainPages).values
+    sortPagesByDate = allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
+    pages = sortPagesByDate[0..opts[:num]]
 
     # Output
-    @pages.map{ |page| opts[:yield] == true ? yield(page) : page }
+    pages.map{ |page| opts[:yield] == true ? yield(page) : page }
   end
 
   # Related content/ tagging by category

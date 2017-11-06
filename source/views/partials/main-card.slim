@@ -20,7 +20,7 @@ article.main-card{
   *mainCardInnerElem
 
     / Header
-    .main-card__header.e-col-white
+    header.main-card__header.e-col-white
       .main-card__image
         img.b-lazy{
           src=mainCardDataURI()
@@ -29,12 +29,12 @@ article.main-card{
         }
 
       .main-card__meta
-          span.label-xs= mainCardData[:meta_label]
+        span.label-xs= mainCardData[:meta_label]
 
       h1.main-card__title.title-md= mainCardData[:title]
 
     / Introduction
-    .main-card__introduction
+    section.main-card__introduction
 
       / Strip HTML from markdown, trucate text and replace all
       / non-alphanumeric final characters with an elipsis.
