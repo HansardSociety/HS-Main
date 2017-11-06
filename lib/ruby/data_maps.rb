@@ -188,7 +188,7 @@ def featuredData(data, opts = {})
 
   featuredPageData = ({
     title: data.title,
-    meta_label: "metaLabel(data)",
+    meta_label: metaLabel(data),
     slug: slug(data, { indexPage: data.content_type.id == "landing_page" ? data.index_page : false }),
     category: (data.category.parameterize if data.category),
     sub_category: (subCategorySlugify(data) if data.sub_category),
@@ -237,18 +237,20 @@ end
 
 def callsToAction(data)
 
-  ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta| {
-    ID: cta.sys[:id],
-    title: cta.title.split(" :: ")[0], # split '::' for contentful name-spacing
-    action: cta.action.parameterize, # eg. modal, download etc
-    button_text: cta.button_text,
-    file: (media(cta.file, title: true) if cta.file),
-    modal: ({
-      cta_id: (cta.title.split(" :: ")[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
-      content: cta.modal,
-      width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
-    }.compact if cta.action == 'Modal')
-  }.compact end : nil)
+  ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta|
+    {
+      ID: cta.sys[:id],
+      title: cta.title.split(" :: ")[0], # split '::' for contentful name-spacing
+      action: cta.action.parameterize, # eg. modal, download etc
+      button_text: cta.button_text,
+      file: (media(cta.file, title: true) if cta.file),
+      modal: ({
+        cta_id: (cta.title.split(" :: ")[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
+        content: cta.modal,
+        width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
+      }.compact if cta.action == 'Modal')
+    }.compact
+  end : nil)
 end
 
 ###########################################################################
@@ -301,11 +303,12 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
 
     # Site pages
     if entry.pages
-      context.pages = entry.pages.map do |page| {
-        title: page.title,
-        slug: page.slug,
-        category: page.category.parameterize
-      }
+      context.pages = entry.pages.map do |page|
+        {
+          title: page.title,
+          slug: page.slug,
+          category: page.category.parameterize
+        }
       end
     end
 
@@ -358,74 +361,72 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       context.calls_to_action = callsToAction(entry)
     end
 
-    # # Featured
-    # if entry.featured
-    #   context.featured = entry.featured.map do |featured| {
-    #     featuredData(featured)
-    #   }
-    #   end # End: Featured map
-    # end # End: All featured
+    if entry.featured
+      context.featured = entry.featured.map do |featured|
+        featuredData(featured)
+      end
+    end
 
     # Panels
     if entry.panels
-      context.panels = entry.panels.map do |panel| {
+      context.panels = entry.panels.map do |panel|
+        {
+          # Core
+          ID: panel.sys[:id],
+          TYPE: panel.content_type.id,
+          title: panel.title,
 
-        # Core
-        ID: panel.sys[:id],
-        TYPE: panel.content_type.id,
-        title: panel.title,
+          # Calls to action
+          calls_to_action: callsToAction(panel),
 
-        # Calls to action
-        calls_to_action: callsToAction(panel),
+          # Panel content and accordians
+          label: (panel.label if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
+          copy: (panel.copy if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
 
-        # Panel content and accordians
-        label: (panel.label if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
-        copy: (panel.copy if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
+          # Panel content
+          copy_size: (panel.copy_size.parameterize if panel.content_type.id == 'panel_content' && panel.copy_size),
+          show_title: (panel.show_title if panel.content_type.id == 'panel_content'),
+          section_header: (panel.section_header if panel.content_type.id == 'panel_content'),
+          background_color: (panel.background_color.parameterize if (['panel_content', 'panel_carousel'].include? panel.content_type.id) && panel.background_color),
+          show_more: ({
+            cta_id: (panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]), # split '::' for contentful name-spacing
+            content: panel.show_more
+          }.compact if panel.content_type.id == 'panel_content' && panel.show_more),
+          image: (media(panel.image) if panel.content_type.id == 'panel_content' && panel.image),
+          panel_width: ((panel.panel_width ? panel.panel_width.parameterize : 'wide') if panel.content_type.id == 'panel_content'),
+          share_buttons: (panel.share_buttons if panel.content_type.id == 'panel_content'),
 
-        # Panel content
-        copy_size: (panel.copy_size.parameterize if panel.content_type.id == 'panel_content' && panel.copy_size),
-        show_title: (panel.show_title if panel.content_type.id == 'panel_content'),
-        section_header: (panel.section_header if panel.content_type.id == 'panel_content'),
-        background_color: (panel.background_color.parameterize if (['panel_content', 'panel_carousel'].include? panel.content_type.id) && panel.background_color),
-        show_more: ({
-          cta_id: (panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]), # split '::' for contentful name-spacing
-          content: panel.show_more
-        }.compact if panel.content_type.id == 'panel_content' && panel.show_more),
-        image: (media(panel.image) if panel.content_type.id == 'panel_content' && panel.image),
-        panel_width: ((panel.panel_width ? panel.panel_width.parameterize : 'wide') if panel.content_type.id == 'panel_content'),
-        share_buttons: (panel.share_buttons if panel.content_type.id == 'panel_content'),
+          # Panel carousel cards
+          carousel: (panel.content_type.id == 'panel_carousel' ? panel.items.map do |item| {
+            ID: item.sys[:id],
+            TYPE: item.content_type.id,
 
-        # Panel carousel cards
-        carousel: (panel.content_type.id == 'panel_carousel' ? panel.items.map do |item| {
-          ID: item.sys[:id],
-          TYPE: item.content_type.id,
+            # Profile
+            profile: (profile(item) if item.content_type.id == 'people'),
 
-          # Profile
-          profile: (profile(item) if item.content_type.id == 'people'),
+            # Quotes
+            quote: ({
+              text: item.quote,
+              full_name: item.full_name,
+              role: item.role,
+              organisation: item.organisation,
+              image: ({
+                url: item.image.url,
+                description: item.image.description
+              }.compact if item.image),
+              image_type: item.image_type
+            }.compact if item.content_type.id == 'quote')
+          }.compact end : nil),
 
-          # Quotes
-          quote: ({
-            text: item.quote,
-            full_name: item.full_name,
-            role: item.role,
-            organisation: item.organisation,
-            image: ({
-              url: item.image.url,
-              description: item.image.description
-            }.compact if item.image),
-            image_type: item.image_type
-          }.compact if item.content_type.id == 'quote')
-        }.compact end : nil),
-
-        # Panel accordian
-        accordians: (panel.content_type.id == 'panel_accordians' ? panel.accordians.map do |accordian| {
-          ID: accordian.sys[:id],
-          cta_id: ('accordian-' + accordian.title.split('::')[0].parameterize + '-' + accordian.sys[:id]), # split '::' for contentful name-spacing
-          title: accordian.title,
-          copy: accordian.copy,
-          calls_to_action: callsToAction(accordian)
-        }.compact end : nil)
-      }.compact
+          # Panel accordian
+          accordians: (panel.content_type.id == 'panel_accordians' ? panel.accordians.map do |accordian| {
+            ID: accordian.sys[:id],
+            cta_id: ('accordian-' + accordian.title.split('::')[0].parameterize + '-' + accordian.sys[:id]), # split '::' for contentful name-spacing
+            title: accordian.title,
+            copy: accordian.copy,
+            calls_to_action: callsToAction(accordian)
+          }.compact end : nil)
+        }.compact
       end
     end
 
@@ -449,20 +450,20 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
 
     # Featured
     if entry.featured
-      context.featured = entry.featured.map do |featured| {
-        hello: "you"
-      }.merge(featuredData(featured, { parentData: entry }))
-      end # End: Featured map
-    end # End: All featured
+      context.featured = entry.featured.map do |featured|
+        featuredData(featured, { parentData: entry })
+      end
+    end
 
     # External links
     if entry.external_links
-      context.external_links = entry.external_links.map do |link| {
-        title: link.title,
-        category: link.category.parameterize,
-        outlet: PublicSuffix.parse(URI.parse(link.url).host).domain,
-        url: link.url
-      }
+      context.external_links = entry.external_links.map do |link|
+        {
+          title: link.title,
+          category: link.category.parameterize,
+          outlet: PublicSuffix.parse(URI.parse(link.url).host).domain,
+          url: link.url
+        }
       end
     end
 

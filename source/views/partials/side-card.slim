@@ -5,22 +5,18 @@
 - partialData = local_data[:side_card_data]
 
 / Nested content types
-- featuredAuthor = partialData[:author]
-- featuredPage = partialData[:page]
-- featuredProduct = partialData[:product]
-- featuredRegistration = partialData[:registration]
-- featuredData = [featuredAuthor, featuredPage, featuredProduct, featuredRegistration].compact[0]
-
-/ Set data source
-- setData = featuredData ? featuredData : partialData
+- featuredAuthor = partialData[:TYPE] == "author"
+- featuredPage = partialData[:TYPE] == "page"
+- featuredProduct = partialData[:TYPE] == "product"
+- featuredRegistration = partialData[:TYPE] == "registration"
 
 / Category
 - pageCategory = @entry[:category].gsub("-", " ")
-- category = setData[:category] ? setData[:category].gsub("-", " ") : pageCategory
+- category = partialData[:category] ? partialData[:category].gsub("-", " ") : pageCategory
 
 / Images
-- imageBanner = setData[:banner_image]
-- imageProduct = setData[:image]
+- imageBanner = partialData[:banner_image]
+- imageProduct = partialData[:image]
 - if imageBanner || imageProduct
   - image = imageBanner ? imageBanner : imageProduct
   - imageURL = image[:url]
@@ -29,7 +25,7 @@
 
 - featuredItem = local_data[:featured]
 
-- dateTime = setData[:date_time]
+- dateTime = partialData[:date_time]
 
 - featuredRegistration || featuredProduct
 
@@ -68,14 +64,14 @@ article.side-card{
         - if !featuredRegistration && !featuredProduct
           h1.title-sm
             a.JS-truncate{
-              href="#{ internalURL(setData[:slug]) }"
+              href="#{ internalURL(partialData[:slug]) }"
               class="#{ featuredItem ? "link-white" : "link" }"
-            }= setData[:title]
+            }= partialData[:title]
 
         - else
           h1.title-sm.JS-truncate{
             class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
-          }= featuredProduct ? setData[:title] : setData[:venue]
+          }= featuredProduct ? partialData[:title] : partialData[:venue]
 
       / Is product or registration
       - if featuredRegistration || featuredProduct
@@ -86,34 +82,34 @@ article.side-card{
           / Product
           - if featuredProduct
 
-            - if setData[:price] == 0
+            - if partialData[:price] == 0
               = partial "views/partials/btn",
                 locals: { local_data: \
                   { type: "link", size: "sm", style: "primary",
-                    label: "Download", label_size: "sm", url: setData[:download] }}
+                    label: "Download", label_size: "sm", url: partialData[:download] }}
 
-            - if setData[:price] > 0
+            - if partialData[:price] > 0
               = partial "views/partials/btn",
                 locals: { local_data: \
-                  { type: "link", size: "sm", style: "primary", product: setData,
-                    label: "Buy (£#{ setData[:price] })", label_size: "sm" }}
+                  { type: "link", size: "sm", style: "primary", product: partialData,
+                    label: "Buy (£#{ partialData[:price] })", label_size: "sm" }}
 
           / Registration
           - if featuredRegistration
 
-            - if setData[:date_time][:integer] < Time.now.strftime("%s").to_i
+            - if partialData[:date_time][:integer] < Time.now.strftime("%s").to_i
               p
                 strong CLOSED
 
             - else
 
-              - @price == setData[:price]
+              - @price == partialData[:price]
 
               / Modal window
               = partial "views/partials/modal",
                 locals: { local_data: \
-                  { id: setData[:modal][:cta_id],
-                    content: setData[:modal][:content] }}
+                  { id: partialData[:modal][:cta_id],
+                    content: partialData[:modal][:content] }}
 
               / Modal button
               = partial "views/partials/btn",
@@ -122,5 +118,5 @@ article.side-card{
                     size: "sm", style: "primary",
                     label_on: "Register now", label_off: "Close", label_size: "sm",
                     page: "no-scroll", switch: true,
-                    aria_id: "activate-#{ setData[:modal][:cta_id] }",
-                    aria_target_id: setData[:modal][:cta_id] }}
+                    aria_id: "activate-#{ partialData[:modal][:cta_id] }",
+                    aria_target_id: partialData[:modal][:cta_id] }}
