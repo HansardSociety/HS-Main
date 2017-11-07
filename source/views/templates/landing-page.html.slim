@@ -14,7 +14,7 @@ article
         = markdown(@entry[:introduction], "byline")
 
   / Latest (related)
-  - if @entry[:latest_carousel] && !@entry[:index_page]
+  - if @entry[:latest_carousel] && @entry[:tags]
     .panel.panel--light-grey#latest
       .panel__content.panel__content--full
         h2.title-lg.e-col-green.e-align-cen Latest
@@ -23,9 +23,21 @@ article
             { entry_data: @entry,
               context: "related" }}
 
+  / Latest (category)
+  - if @entry[:latest_carousel] && !@entry[:tags]
+    .panel.panel--light-grey#latest
+      .panel__content.panel__content--full
+        h2.title-lg.e-col-green.e-align-cen Latest
+        = partial "views/partials/carousel",
+          locals: { local_data: \
+            { entry_data: @entry,
+              context: "category-latest",
+              categories: @entry[:category] }}
+
   / Curated panels
   - if @entry[:panels]
 
+    / Give each panel index for anchor
     - @entry[:panels].each_with_index do |panel, index|
 
       / Content panel

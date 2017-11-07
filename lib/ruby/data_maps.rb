@@ -452,7 +452,10 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           end : nil),
 
           # Panel accordian
-          feed: (panel.feed_category.gsub(" :: ", "").gsub("'", "").parameterize if panel.content_type.id == "panel_feed"),
+          feed: ({
+            category: panel.feed_category.gsub(" :: ", "").gsub("'", "").parameterize,
+            initial_count: panel.initial_count
+          } if panel.content_type.id == "panel_feed")
         }.compact
       end
     end

@@ -1,15 +1,16 @@
 - feedData = local_data[:entry_data]
 
-- latestContent(yield: true, num: 8, pageCategories: feedData[:feed]) do |page|
+- latestContent(yield: true, num: feedData[:feed][:initial_count], pageCategories: feedData[:feed][:category]) do |page|
   article.feed-item
     .feed-item__img
-      / img{
-      /   src
-      / }
+      img.b-lazy{
+        src=feedItemCardDataURI()
+        data-src="#{ page[:banner_image][:url] }?fit=fill&w=300&h=300&f=#{ page[:banner_image][:focus] }&q=50&fl=progressive"
+        alt="#{ page[:banner_image][:alt] }"
+      }
     .feed-item__content
       span.label-xs.e-col-mid-grey= page[:meta_label]
       h1.title-md
         a.link{
           href="#{ internalURL(page[:slug]) }"
         }= page[:title]
-

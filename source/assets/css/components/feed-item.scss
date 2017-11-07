@@ -1,3 +1,32 @@
 .feed-item {
-  @extend %e-mgn-t-sm;
+  align-items: flex-start;
+
+  border-bottom: 1px solid Get($colors, greyscale, light-grey);
+
+  &:first-of-type {
+    @extend %e-mgn-t-md;
+  }
+
+  @extend %e-mgn-b-sm;
+  @extend %e-pad-b-sm;
+  @extend %e-flex-row-nowrap;
+}
+
+.feed-item__img {
+  width: 20%;
+
+  @extend %e-mgn-t-xs;
+  @extend %e-mgn-r-sm;
+  @extend %e-overflow-hidden;
+}
+
+.feed-item__img > img {
+  flex: 0 0 80%;
+
+  @extend %e-width-full;
+  @extend %e-rad-circ;
+}
+
+.feed-item__content {
+  width: calc(80% - 1rem);
 }
