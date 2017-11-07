@@ -15,9 +15,9 @@ article
 
   / Latest (related)
   - if @entry[:latest_carousel] && @entry[:tags]
-    .panel.panel--light-grey#latest
+    .panel.panel--light-grey#arrow-dest
       .panel__content.panel__content--full
-        h2.title-lg.e-col-green.e-align-cen Latest
+        h2.title-xl.e-col-green.e-align-cen Latest
         = partial "views/partials/carousel",
           locals: { local_data: \
             { entry_data: @entry,
@@ -25,9 +25,9 @@ article
 
   / Latest (category)
   - if @entry[:latest_carousel] && !@entry[:tags]
-    .panel.panel--light-grey#latest
+    .panel.panel--light-grey#arrow-dest
       .panel__content.panel__content--full
-        h2.title-lg.e-col-green.e-align-cen Latest
+        h2.title-xl.e-col-green.e-align-cen Latest
         = partial "views/partials/carousel",
           locals: { local_data: \
             { entry_data: @entry,
@@ -36,6 +36,9 @@ article
 
   / Curated panels
   - if @entry[:panels]
+
+    - if !@entry[:latest_carousel]
+      span#arrow-dest{ aria-hidden="true" }
 
     / Give each panel index for anchor
     - @entry[:panels].each_with_index do |panel, index|
