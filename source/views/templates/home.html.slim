@@ -51,19 +51,32 @@ article
           { context: 'category-latest',
             categories: [ 'events' ] }}
 
-  .panel
 
+  .panel
     - childPages = data.hs.child_page
     - landingPages = data.hs.landing_page
     - allPages = landingPages.merge(childPages)
 
     - pagesByCategory = allPages.group_by{ |id, page| page[:category] }
 
-    - pagesWithSubCategory = allPages.select{ |id, page| page[:sub_category] != nil }
-    - pagesBySubCategory = pagesWithSubCategory.group_by{ |id, page| page[:sub_category] }
 
-    / p= pagesByCategory
-    - pagesByCategory.map do |x, y|
-      - newh = [*y].to_h
-      - newh.map do |l, m|
-        p= m.category
+    - pagesByCategory.each do |category, pages|
+      - paginatePages = pages.each_slice(5).to_a
+      - paginatePages.each do |pagination|
+        - pagination.each do |x|
+          p= "ooo"
+
+
+
+
+
+
+
+
+
+    / - pagesByCategory.each do |cat, val|
+
+    /   - heres2 = val.each_slice(5).to_a
+    /   - heres2.each do |val2|
+    /     - val2.each do |id, val3|
+    /       p= val3[:category]

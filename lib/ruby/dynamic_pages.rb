@@ -15,25 +15,30 @@ def dynPageBase(data, template)
 end
 
 # Feed pages for infinite-scroll
-# def feedPages()
-#   childPages = data.hs.child_page
-#   landingPages = data.hs.landing_page
-#   allPages = landingPages.merge(childPages)
+def feedPages()
+  childPages = data.hs.child_page
+  landingPages = data.hs.landing_page
+  allPages = landingPages.merge(childPages)
 
-#   pagesByCategory = allPages.group_by{ |page| page[:category] }
+  pagesByCategory = allPages.group_by{ |id, page| page[:category] }.values
 
-#   pagesWithSubCategory = allPages.select{ |page| page[:sub_category] != nil }
-#   pagesBySubCategory = pagesWithSubCategory.group_by{ |page| page[:sub_category] }
+  # pagesWithSubCategory = allPages.select{ |id, page| page[:sub_category] != nil }
+  # pagesBySubCategory = pagesWithSubCategory.group_by{ |id, page| page[:sub_category] }
 
-#   pagesByCategory.each do |id, entryData|
-#     slug = entryData.slug
+  # categoryPages = pagesByCategory.map{ |group, pages| [*pages].to_h }
 
-#     proxy "/#{ slug }.html",
-#           "/views/templates/feed-page.html",
-#           ignore: true,
-#           locals: { entry_data: entryData }
-#   end
-# end
+  pagesByCategory.each do |category, pages|
+    pagination = pages.slice(5).to_a
+
+    pagination.each do |pagesData|
+      slug = "/#{ slug }.html"
+
+      proxy slug,
+            "/views/templates/feed-page.html",
+            ignore: true,
+            locals: { entry_data: entryData }
+  end
+end
 
 module DynamicPages
 
