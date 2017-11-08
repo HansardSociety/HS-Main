@@ -9,5 +9,4 @@ node_modules/
 .env
 .hs-space-hash
 npm-debug.log
-source/assets/rev-manifest.json
 yarn-error.log
