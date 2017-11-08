@@ -110,8 +110,8 @@ module BuildEnvs
       moveAssets("js", "scripts")
 
       # Node scripts
-      runNodeScripts = "yarn run post:#{ MM_ENV }"
-      system runNodeScripts
+      # runNodeScripts = "yarn run post:#{ MM_ENV }"
+      # system runNodeScripts
     end
   end
 

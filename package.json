@@ -53,6 +53,7 @@
     "iframe-resizer": "^3.5.15",
     "js-yaml": "^3.10.0",
     "lazypipe": "^1.0.1",
+    "postcss-uncss": "^0.15.0",
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
