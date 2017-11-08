@@ -50,33 +50,3 @@ article
         locals: { local_data: \
           { context: 'category-latest',
             categories: [ 'events' ] }}
-
-
-  .panel
-    - childPages = data.hs.child_page
-    - landingPages = data.hs.landing_page
-    - allPages = landingPages.merge(childPages)
-
-    - pagesByCategory = allPages.group_by{ |id, page| page[:category] }
-
-
-    - pagesByCategory.each do |category, pages|
-      - paginatePages = pages.each_slice(5).to_a
-      - paginatePages.each do |pagination|
-        - pagination.each do |x|
-          p= "ooo"
-
-
-
-
-
-
-
-
-
-    / - pagesByCategory.each do |cat, val|
-
-    /   - heres2 = val.each_slice(5).to_a
-    /   - heres2.each do |val2|
-    /     - val2.each do |id, val3|
-    /       p= val3[:category]

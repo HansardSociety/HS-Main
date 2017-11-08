@@ -25,7 +25,6 @@ head
   = stylesheet_link_tag "#{ config[:CSS_VENDOR] }", :relative => true
   = stylesheet_link_tag "#{ config[:CSS_APP] }", :relative => true
 
-
   / Snipcart
   - if @entry[:featured]
     - if @entry[:featured].any? { |featured| featured.include? 'product' }

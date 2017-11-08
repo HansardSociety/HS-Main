@@ -14,48 +14,59 @@ def dynPageBase(data, template)
   end
 end
 
-# Feed pages for infinite-scroll
-def feedPages()
-  childPages = data.hs.child_page
-  landingPages = data.hs.landing_page
-  allPages = landingPages.merge(childPages)
-
-  pagesByCategory = allPages.group_by{ |id, page| page[:category] }.values
-
-  # pagesWithSubCategory = allPages.select{ |id, page| page[:sub_category] != nil }
-  # pagesBySubCategory = pagesWithSubCategory.group_by{ |id, page| page[:sub_category] }
-
-  # categoryPages = pagesByCategory.map{ |group, pages| [*pages].to_h }
-
-  pagesByCategory.each do |category, pages|
-    pagination = pages.slice(5).to_a
-
-    pagination.each do |pagesData|
-      slug = "/#{ slug }.html"
-
-      proxy slug,
-            "/views/templates/feed-page.html",
-            ignore: true,
-            locals: { entry_data: entryData }
-  end
-end
-
 module DynamicPages
 
-  # Contentful pages
-  def dynamicContentfulPages()
+  ###########################################################################
+  ##		=Contentful pages
+  ###########################################################################
+
+  def dynamicContentfulPages(env)
 
     # Only run if data dir exists
     if Dir.exist?(config.data_dir)
+      childPages = data.hs.child_page
+      landingPages = data.hs.landing_page
 
-      # Core templates
+      ##		=Core pages
+      ########################################
+
       dynPageBase(data.hs.homepage, "home")
-      dynPageBase(data.hs.child_page, "child-page")
-      dynPageBase(data.hs.landing_page, "landing-page")
+      dynPageBase(childPages, "child-page")
+      dynPageBase(landingPages, "landing-page")
+
+      ##		=Feed pages
+      ########################################
+
+      # Middleman development error with merged data, but works fine
+      # in build envs - workaround so we can at least work on feed pages
+      # in development.
+      allPages = (env == "dev" ? childPages : childPages.merge(landingPages))
+
+      mainCategories = ["blog", "events", "research", "resources", "intelligence"]
+      pagesByCategory = allPages.group_by{ |id, page| page[:category] }
+      mainCategoryPages = pagesByCategory.select{ |category, pages| mainCategories.include? category }
+
+      mainCategoryPages.each do |category, pages|
+        paginatePages = pages.each_slice(5).to_a
+
+        paginatePages.each_with_index do |paginatedPagesData, index|
+          url = "/#{ category }/feed/page-#{ index + 1 }.html"
+          viewTemplate = "/views/templates/feed-page.html"
+
+          proxy url,
+                viewTemplate,
+                ignore: true,
+                layout: "fetch",
+                locals: { entry_data: "paginatedPagesData" }
+        end
+      end
     end
   end
 
-  # Custom pages
+  ###########################################################################
+  ##		=Custom pages
+  ###########################################################################
+
   def dynamicCustomPages()
 
     # AJAX elements

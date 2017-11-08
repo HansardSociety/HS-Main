@@ -1,3 +1,5 @@
+require "json"
+
 module CustomHelpers
 
   # Convert MM data to regular hash
