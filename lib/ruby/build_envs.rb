@@ -1,4 +1,6 @@
 require "fileutils"
+require "json"
+
 require "lib/ruby/dynamic_pages"
 require "lib/ruby/netlify"
 
@@ -105,10 +107,6 @@ module BuildEnvs
       # Move assets
       moveAssets("css", "styles")
       moveAssets("js", "scripts")
-
-      # Node scripts
-      # runNodeScripts = "yarn run post:#{ MM_ENV }"
-      # system runNodeScripts
     end
   end
 
@@ -139,7 +137,7 @@ module BuildEnvs
   ##		=Development
   ########################################
 
-  def buildDev()
+  def devServer()
     configure :server do
 
       # Core config

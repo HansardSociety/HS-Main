@@ -56,7 +56,9 @@ article
           .panel__content.panel__content--narrow
             h2.title-xl.e-col-green.e-align-cen= panel[:title]
             = partial "views/partials/feed",
-              locals: { category: panel[:feed][:category] }
+              locals: { \
+                category: panel[:feed][:category],
+                count: panel[:feed][:initial_count] }
               = partial "views/partials/feed-item",
                 locals: { local_data: \
                   { entry_data: panel,

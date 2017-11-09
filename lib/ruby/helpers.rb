@@ -1,6 +1,13 @@
 require "json"
+require "lib/ruby/config_helpers"
+
+include ConfigHelpers
 
 module CustomHelpers
+
+  ###########################################################################
+  ##		=Basic helpers
+  ###########################################################################
 
   # Convert MM data to regular hash
   def convertToRegularHash(data)
@@ -19,7 +26,7 @@ module CustomHelpers
 
   # Internal URLs (for envs)
   def internalURL(slug)
-    "#{ siteData(:siteURL) }/#{ slug }#{ config[:ENV] == "development" ? ".html" : "" }"
+    "#{ siteData(:siteURL) }/#{ slug }#{ config[:ENV] == "development" ? (slug.include?("/index") ? "" :  ".html") : "" }"
   end
 
   # Partial data
@@ -27,7 +34,31 @@ module CustomHelpers
     Hash[data.map{ |key, val| [key.to_sym, val] }]
   end
 
-  # Registration data and fallback
+  ###########################################################################
+  ##		=Feed data
+  ###########################################################################
+
+  def countFeedPages(setCategory)
+    childPages = data.hs.child_page
+    landingPages = data.hs.landing_page
+    allPages = childPages.merge(landingPages)
+
+    feedPages(allPages) do |catPages|
+      getCategoryPages = catPages.select{ |category, pages| category == setCategory }
+
+      getCategoryPages.each do |category, pages|
+        paginatedPages = pages.each_slice(5).to_a
+        numberOfPages = paginatedPages.size
+
+        yield("#{ numberOfPages }")
+      end
+    end
+  end
+
+  ###########################################################################
+  ##		=Registration data and fallback
+  ###########################################################################
+
   def altData(data, opts = {})
     defaults = {
       type: "date_time",
@@ -49,7 +80,10 @@ module CustomHelpers
     end
   end
 
-  # Latest content
+  ###########################################################################
+  ##		=Latest content
+  ###########################################################################
+
   def latestContent(opts = {})
     childPages = data.hs.child_page
     landingPages = data.hs.landing_page
@@ -79,7 +113,10 @@ module CustomHelpers
     pages.map{ |page| isYield ? yield(page) : page }
   end
 
-  # Related content/ tagging by category
+  ###########################################################################
+  ##		=Related content/ tagging by category
+  ###########################################################################
+
   def relatedContent(entryData, blogCount)
 
     # Control number of blog posts
@@ -143,6 +180,10 @@ module CustomHelpers
       @concatPages.map{ |page| yield page }
     end
   end
+
+  ###########################################################################
+  ##		=Data URIs
+  ###########################################################################
 
   # Main card placeholder data URI
   def mainCardDataURI

@@ -1,6 +1,15 @@
 - feedCategory = category
+- feedCount = count
 
-.feed{ data-feed-category="#{ feedCategory }" }
+- totalFeedPages = 0
+- countFeedPages(category) do |number|
+  - totalFeedPages = number
+
+.feed{
+  data-feed-category="#{ feedCategory }"
+  data-feed-count="#{ feedCount }"
+  data-feed-total="#{ totalFeedPages }"
+}
   .feed__items
     =yield
 

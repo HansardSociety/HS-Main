@@ -1,16 +1,23 @@
-def proxyBase(url, template, data)
-  proxy url, template, ignore: true, locals: { entry_data: data }
+require "lib/ruby/config_helpers"
+
+include ConfigHelpers
+
+def proxyBase(url, template, layout, data)
+  proxy url,
+        template,
+        ignore: true,
+        layout: layout,
+        locals: {
+          entry_data: data
+        }
 end
 
 def dynPageBase(data, template)
   data.each do |id, entryData|
-    slug = entryData.slug
+    url = "/#{ entryData.slug }.html"
     viewTemplate = "/views/templates/#{ template }.html"
 
-    proxy "/#{ slug }.html",
-          viewTemplate,
-          ignore: true,
-          locals: { entry_data: entryData }
+    proxyBase(url, viewTemplate, "layout", entryData)
   end
 end
 
@@ -37,28 +44,16 @@ module DynamicPages
       ##		=Feed pages
       ########################################
 
-      # Middleman development error with merged data, but works fine
-      # in build envs - workaround so we can at least work on feed pages
-      # in development.
-      allPages = (env == "dev" ? childPages : childPages.merge(landingPages))
+      feedPages(env == "dev" ? childPages : childPages.merge(landingPages)) do |catPages|
+        catPages.each do |category, pages|
+          paginatePages = pages.each_slice(5).to_a
 
-      pagesByDate = allPages.sort_by{ |id, page| - page[:date_time][:integer] }
-      mainCategories = ["blog", "events", "research", "resources", "intelligence"]
-      pagesByCategory = pagesByDate.group_by{ |id, page| page[:category] }
-      mainCategoryPages = pagesByCategory.select{ |category, pages| mainCategories.include? category }
+          paginatePages.each_with_index do |paginatedPagesData, index|
+            url = "/#{ category }/feed/page-#{ index + 1 }.html"
+            viewTemplate = "/views/templates/feed-page.html"
 
-      mainCategoryPages.each do |category, pages|
-        paginatePages = pages.each_slice(5).to_a
-
-        paginatePages.each_with_index do |paginatedPagesData, index|
-          url = "/#{ category }/feed/page-#{ index + 1 }.html"
-          viewTemplate = "/views/templates/feed-page.html"
-
-          proxy url,
-                viewTemplate,
-                ignore: true,
-                layout: "fetch",
-                locals: { entry_data: paginatedPagesData }
+            proxyBase(url, viewTemplate, "fetch", paginatedPagesData)
+          end
         end
       end
     end

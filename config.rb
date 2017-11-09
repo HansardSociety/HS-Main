@@ -8,7 +8,6 @@ require "yaml"
 require "lib/ruby/build_envs"
 require "lib/ruby/contentful"
 require "lib/ruby/data_maps"
-# require "lib/ruby/dynamic_pages"
 require "lib/ruby/helpers"
 
 # Dotenv
@@ -32,4 +31,4 @@ contentfulEnvs()
 # Build environments
 buildProd()
 buildPreview()
-buildDev()
+devServer()
