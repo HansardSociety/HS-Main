@@ -42,9 +42,9 @@ module DynamicPages
       # in development.
       allPages = (env == "dev" ? childPages : childPages.merge(landingPages))
 
+      pagesByDate = allPages.sort_by{ |id, page| - page[:date_time][:integer] }
       mainCategories = ["blog", "events", "research", "resources", "intelligence"]
-      pagesByCategory = allPages.group_by{ |id, page| page[:category] }
-      pagesByDate = pagesByCategory.sort_by{ |page| - page[:date_time][:integer] }
+      pagesByCategory = pagesByDate.group_by{ |id, page| page[:category] }
       mainCategoryPages = pagesByCategory.select{ |category, pages| mainCategories.include? category }
 
       mainCategoryPages.each do |category, pages|
