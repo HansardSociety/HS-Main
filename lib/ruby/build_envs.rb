@@ -80,9 +80,6 @@ module BuildEnvs
     # Netlify
     redirects()
 
-    # Pretty html filenames
-    activate :directory_indexes
-
     # Enable gzip - implemented by Netlify
     # activate :gzip
 
@@ -160,12 +157,6 @@ module BuildEnvs
 
       # Snipcart
       set :SNIPCART_TKN, ENV["SNIPCART_PREVIEW_TKN"]
-
-      activate :directory_indexes
-      activate :external_pipeline,
-        name: :gulp,
-        command: "yarn run epipe:dev",
-        source: ".tmp/assets"
     end
   end
 end

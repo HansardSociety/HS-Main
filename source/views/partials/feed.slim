@@ -1,0 +1,16 @@
+- feedCategory = category
+
+.feed{ data-feed-category="#{ feedCategory }" }
+  .feed__items
+    =yield
+
+  .page-load-status
+    .loader-ellips.infinite-scroll-request
+      .loader-ellips__dot
+      .loader-ellips__dot
+      .loader-ellips__dot
+      .loader-ellips__dot
+    .infinite-scroll-last End of content
+    .infinite-scroll-error No more pages to load
+
+  button.view-more-button View more

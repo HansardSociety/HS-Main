@@ -52,17 +52,20 @@ article
 
       / Feed panel
       - if panel[:TYPE] == "panel_feed"
-        .panel
+        .panel{ id="panel-#{ index }" }
           .panel__content.panel__content--narrow
             h2.title-xl.e-col-green.e-align-cen= panel[:title]
-            = partial "views/partials/feed-item",
-              locals: { local_data: \
-                { entry_data: panel,
-                  index: index }}
+            = partial "views/partials/feed",
+              locals: { category: panel[:feed][:category] }
+              = partial "views/partials/feed-item",
+                locals: { local_data: \
+                  { entry_data: panel,
+                    context: "dynamic" }}
 
       / Carousel panel
       - if panel[:TYPE] == "panel_carousel"
         .panel{
+          id="panel-#{ index }"
           class="#{ "panel--" + panel[:background_color] if panel[:background_color] }"
         }
           .panel__content.panel__content--full

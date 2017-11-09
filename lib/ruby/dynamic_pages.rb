@@ -57,7 +57,7 @@ module DynamicPages
                 viewTemplate,
                 ignore: true,
                 layout: "fetch",
-                locals: { entry_data: "paginatedPagesData" }
+                locals: { entry_data: paginatedPagesData }
         end
       end
     end

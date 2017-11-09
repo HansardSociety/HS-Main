@@ -7,8 +7,8 @@ var flktyOpts = {
   cellSelector: ".carousel__item",
   cellAlign: "left",
   contain: true,
-  friction: .8,
-  // groupCells: true,
+  friction: 1,
+  groupCells: true,
   initialIndex: 0,
   lazyLoad: false,
   pageDots: false,
@@ -51,7 +51,6 @@ const panelCarousel = (() => {
       prevBtn.addEventListener("click", () => flkty.previous())
       nextBtn.addEventListener("click", () => flkty.next())
     })
-
   }
 })()
 

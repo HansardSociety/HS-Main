@@ -18,6 +18,10 @@
   @extend %e-mgn-t-xs;
   @extend %e-mgn-r-sm;
   @extend %e-overflow-hidden;
+
+  @include above(sm) {
+    margin-right: 2rem;
+  }
 }
 
 .feed-item__img > img {
@@ -29,4 +33,8 @@
 
 .feed-item__content {
   width: calc(80% - 1rem);
+
+  @include above(sm) {
+    width: calc(80% - 2rem);
+  }
 }
