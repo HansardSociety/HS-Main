@@ -44,6 +44,7 @@ module DynamicPages
 
       mainCategories = ["blog", "events", "research", "resources", "intelligence"]
       pagesByCategory = allPages.group_by{ |id, page| page[:category] }
+      pagesByDate = pagesByCategory.sort_by{ |page| - page[:date_time][:integer] }
       mainCategoryPages = pagesByCategory.select{ |category, pages| mainCategories.include? category }
 
       mainCategoryPages.each do |category, pages|
