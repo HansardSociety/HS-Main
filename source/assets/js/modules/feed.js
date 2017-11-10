@@ -9,11 +9,15 @@ const infiniteFeed = (() => {
     const feedLoad = feed.querySelector(".feed__load")
 
     const feedCategory = feed.getAttribute("data-feed-category")
-    const initialCount = feed.getAttribute("data-feed-count")
+    var initialCount = feed.getAttribute("data-feed-count")
     var feedTotal = feed.getAttribute("data-feed-total")
+
+    initialCount = Number(initialCount)
+    feedTotal = Number(feedTotal)
+
     const dedupe = feed.getAttribute("data-feed-dedupe") == "true"
 
-    if (initialCount === feedTotal) {
+    if (initialCount >= feedTotal) {
       feedStatus.style.display = "none"
       feedLoad.style.display = "none"
 
@@ -29,8 +33,6 @@ const infiniteFeed = (() => {
 
         feedPages.push(`page-${ pageNo }.html`)
       }
-
-      console.log(feedTotal)
 
       function feedPagePath() {
         const slug = feedPages[this.loadCount]
