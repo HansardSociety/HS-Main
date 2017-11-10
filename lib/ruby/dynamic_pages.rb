@@ -44,12 +44,17 @@ module DynamicPages
       ##		=Feed pages
       ########################################
 
-      feedPages(env == "dev" ? childPages : childPages.merge(landingPages)) do |catPages|
+      feedPagesData = (env == "dev" ? childPages : childPages.merge(landingPages))
+
+      feedPages(feedPagesData, :sub_category) do |catPages, urlStub|
         catPages.each do |category, pages|
           paginatePages = pages.each_slice(3).to_a
 
           paginatePages.each_with_index do |paginatedPagesData, index|
-            url = "/#{ category }/feed/page-#{ index + 1 }.html"
+
+            stub = paginatedPagesData.map{ |id, page| "#{page[:category]}"}
+
+            url = "/#{ stub }/feed/page-#{ index + 1 }.html"
             viewTemplate = "/views/templates/feed-page.html"
 
             proxyBase(url, viewTemplate, "fetch", paginatedPagesData)
