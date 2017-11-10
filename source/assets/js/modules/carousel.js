@@ -8,7 +8,7 @@ var flktyOpts = {
   cellAlign: "left",
   contain: true,
   friction: 1,
-  groupCells: true,
+  wrapAround: true,
   initialIndex: 0,
   lazyLoad: false,
   pageDots: false,

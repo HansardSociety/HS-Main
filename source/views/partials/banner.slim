@@ -1,15 +1,15 @@
-- @isSpecialPage = [ 'landing_page', 'root_page', 'home' ].include? entry[:TYPE]
+- @isSpecialPage = ["landing_page", "root_page", "home"].include? entry[:TYPE]
 
 header.banner{
   class="banner--#{
-    (@isSpecialPage) ? 'full' : 'semi'
+    (@isSpecialPage) ? "full" : "semi"
   }"
-  style="height: #{ (@isSpecialPage) ? '100vh' : '66.6666vh' };"
+  style="height: #{ (@isSpecialPage) ? "100vh" : "66.6666vh" };"
 }
 
   / Image
   .banner__image{
-    class="#{ 'banner__image--' + entry[:banner_image][:focus] }"
+    class="#{ "banner__image--" + entry[:banner_image][:focus] }"
   }
     picture
 
@@ -28,19 +28,19 @@ header.banner{
         media="(orientation: portrait)"
         sizes="100vw"
         srcset="#{ entry[:banner_image][:url] }?#{
-                   entry == 'landing_page' ?
-                   'fit=fill&w=360&h=640&q=50&fl=progressive' :
-                   'fit=fill&w=360&h=360&q=50&fl=progressive'
+                   entry == "landing_page" ?
+                   "fit=fill&w=360&h=640&q=50&fl=progressive" :
+                   "fit=fill&w=360&h=360&q=50&fl=progressive"
                 }&f=#{ entry[:banner_image][:focus] } 360w,
                 #{ entry[:banner_image][:url] }?#{
-                   entry == 'landing_page' ?
-                   'fit=fill&w=720&h=1280&q=50&fl=progressive' :
-                   'fit=fill&w=720&h=720&q=50&fl=progressive'
+                   entry == "landing_page" ?
+                   "fit=fill&w=720&h=1280&q=50&fl=progressive" :
+                   "fit=fill&w=720&h=720&q=50&fl=progressive"
                 }&f=#{ entry[:banner_image][:focus] } 720w,
                 #{ entry[:banner_image][:url] }?#{
-                   entry == 'landing_page' ?
-                   'fit=fill&w=1080&h=1440&q=50&fl=progressive' :
-                   'fit=fill&w=1080&h=1080&q=50&fl=progressive'
+                   entry == "landing_page" ?
+                   "fit=fill&w=1080&h=1440&q=50&fl=progressive" :
+                   "fit=fill&w=1080&h=1080&q=50&fl=progressive"
                 }&f=#{ entry[:banner_image][:focus] } 1080w"
       }
 
@@ -52,73 +52,58 @@ header.banner{
 
   / Content wrapper
   .banner__inner{
-    class="#{ 'banner__inner--overlap' if entry[:TYPE] == 'child_page' }"
+    class="#{ "banner__inner--overlap" if entry[:TYPE] == "child_page" }"
   }
 
     / Content
     .banner__content {
-      class="#{ 'e-mgn-auto-x__sm' if (@isSpecialPage) }"
+      class="#{ "e-mgn-auto-x__sm" if (@isSpecialPage) }"
     }
 
-      / / Date (blog only)
-      / - if entry[:featured] && (entry[:featured][0][:registration] || entry[:featured][0][:product])
-
-      /   - if entry[:featured][0][:registration]
-      /     span.label-xs #{ entry[:category] } / #{ entry[:featured][0][:registration][:category].gsub("-", " ") } / #{ entry[:featured][0][:registration][:date_time][:date] }
-
-      /   - else
-      /     span.label-xs #{ entry[:category] } / #{ entry[:featured][0][:product][:category].gsub("-", " ") }
-
-      / - elsif entry[:alt_date_time]
-      /     span.label-xs #{ entry[:category] } / #{ entry[:alt_category] } / #{ entry[:alt_date_time][:date] }
-
-      / - elsif entry[:TYPE] == 'child_page' && entry[:category] == 'blog'
-      /   span.label-xs #{ entry[:category] } / #{ entry[:date_time].date }
-
-      / - elsif entry[:TYPE] == 'child_page'
-      /   span.label-xs #{ entry[:category] }
+      - if entry[:TYPE] == "child_page"
+        span.label-xs #{ entry[:meta_label] }
 
       / Title
       h1{
-        class="#{ (@isSpecialPage) ? 'title-xxl' : 'title-xl' }"
+        class="#{ (@isSpecialPage) ? "title-xxl" : "title-xl" }"
       }= entry[:title]
 
       - if @isSpecialPage
         p.banner__strap= entry[:subtitle]
 
       / Actions
-      - if entry[:TYPE] == 'landing_page' && entry[:calls_to_action] != nil
+      - if entry[:TYPE] == "landing_page" && entry[:calls_to_action] != nil
         .section-sm
           .grid.grid--xs.grid--above-sm-center
             - entry[:calls_to_action].each do |cta|
               .grid__cell
 
                 / Download
-                - if cta[:action] == 'download'
-                  = partial 'views/partials/btn',
+                - if cta[:action] == "download"
+                  = partial "views/partials/btn",
                     locals: { local_data: \
-                      { type: 'link', size: 'lg', style: 'primary',
-                        label: cta.button_text, label_size: 'lg', url: cta[:file][:url] }}
+                      { type: "link", size: "lg", style: "primary",
+                        label: cta.button_text, label_size: "lg", url: cta[:file][:url] }}
 
                 / Modal
-                - if cta[:action] == 'modal'
+                - if cta[:action] == "modal"
 
                   / Modal button
-                  = partial 'views/partials/btn',
+                  = partial "views/partials/btn",
                     locals: { local_data: \
-                      { type: 'state',
-                        size: 'lg', style: 'secondary',
-                        label_on: cta[:button_text], label_off: 'Close',
-                        label_size: 'lg',
-                        page: 'no-scroll', exclusive: true, switch: true,
+                      { type: "state",
+                        size: "lg", style: "secondary",
+                        label_on: cta[:button_text], label_off: "Close",
+                        label_size: "lg",
+                        page: "no-scroll", exclusive: true, switch: true,
                         aria_id: "activate-#{  cta.modal[:cta_id] }",
                         aria_target_id: cta.modal[:cta_id] }}
 
   / Modal content (here to avoid banner__inner transform cascade)
-  - if entry[:TYPE] == 'landing_page' && entry[:calls_to_action] != nil
+  - if entry[:TYPE] == "landing_page" && entry[:calls_to_action] != nil
     - entry[:calls_to_action].each do |cta|
-      - if cta[:action] == 'modal'
-        = partial 'views/partials/modal',
+      - if cta[:action] == "modal"
+        = partial "views/partials/modal",
           locals: { local_data: \
           { id: cta.modal[:cta_id],
             content: cta.modal[:content] }}
@@ -128,7 +113,7 @@ header.banner{
     a.banner__scroll.e-col-orange{
       href="#arrow-dest"
     }
-      = partial 'views/partials/icon',
+      = partial "views/partials/icon",
         locals: \
-        { icon: 'ios-arrow-thin-down',
-          size: 'lg' }
+        { icon: "ios-arrow-thin-down",
+          size: "lg" }

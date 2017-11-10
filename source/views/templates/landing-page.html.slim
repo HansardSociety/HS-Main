@@ -54,15 +54,13 @@ article
       - if panel[:TYPE] == "panel_feed"
         .panel{ id="panel-#{ index }" }
           .panel__content.panel__content--narrow
-            h2.title-xl.e-col-green.e-align-cen= panel[:title]
+
+            - if panel[:show_title]
+              h2.title-xl.e-col-green.e-align-cen= panel[:title]
+
             = partial "views/partials/feed",
-              locals: { \
-                category: panel[:feed][:category],
-                count: panel[:feed][:initial_count] }
-              = partial "views/partials/feed-item",
-                locals: { local_data: \
-                  { entry_data: panel,
-                    context: "dynamic" }}
+              locals: { local_data: \
+                { entry_data: panel }}
 
       / Carousel panel
       - if panel[:TYPE] == "panel_carousel"

@@ -35,7 +35,7 @@
 
     / Latest content (category)
     - if context == "category-latest"
-      - latestContent(yield: true, num: 6, pageCategories: categories) do |page|
+      - latestContent(yield: true, num: 6, page_cats: categories) do |page|
         .carousel__item
           = partial "views/partials/main-card",
             locals: { local_data: \

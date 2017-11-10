@@ -1,25 +1,54 @@
-- feedCategory = category
-- feedCount = count
+- partialData = local_data[:entry_data]
+- tags = partialData[:tags]
+
+- feedData = partialData[:feed]
+- feedCategory = feedData[:category]
+- feedCount = feedData[:initial_count]
+
+/ Only dedupe if dedupe is true, latest carousel exists and page has no tags
+- feedDedupe = (feedData[:dedupe] && @entry[:latest_carousel] && !@entry[:tags])
 
 - totalFeedPages = 0
-- countFeedPages(category) do |number|
+- countFeedPages(feedCategory) do |number|
   - totalFeedPages = number
 
-.feed{
-  data-feed-category="#{ feedCategory }"
-  data-feed-count="#{ feedCount }"
-  data-feed-total="#{ totalFeedPages }"
-}
+- dataAttrs = { \
+  "data-feed-category": "#{ feedCategory }",
+  "data-feed-count": "#{ feedCount }",
+  "data-feed-total": "#{ totalFeedPages }",
+  "data-feed-dedupe": "#{ feedDedupe }" }
+
+.feed{ *dataAttrs }
   .feed__items
-    =yield
 
-  .page-load-status
-    .loader-ellips.infinite-scroll-request
-      .loader-ellips__dot
-      .loader-ellips__dot
-      .loader-ellips__dot
-      .loader-ellips__dot
-    .infinite-scroll-last End of content
-    .infinite-scroll-error No more pages to load
+    / Start at 7th index in pages array if dedupe is set
+    / and also add 6 to the count to make up for the
+    / shorter array. NB. 6 = latest carousel length.
+    - latestContent( \
+      yield: true,
+      num: (feedDedupe ? feedCount + 6 : feedCount),
+      start: (feedDedupe ? 6 : 0),
+      page_cats: feedCategory) do |page|
 
-  button.view-more-button View more
+      = partial "views/partials/feed-item",
+        locals: { local_data: \
+          { entry_data: page,
+            context: "dynamic" }}
+
+  .feed__status
+
+    .infinite-scroll-request.e-col-green
+      = partial "views/partials/icon",
+        locals: \
+        { icon: "load-c",
+          size: "md" }
+
+    span.infinite-scroll-last.label-sm.e-col-mid-grey &mdash; End &mdash;
+    span.infinite-scroll-error.label-sm.e-col-mid-grey &mdash; End &mdash;
+
+  .feed__load
+    = partial "views/partials/btn",
+      locals: { local_data: \
+        { type: "link", size: "md", style: "secondary",
+          label: "Load more...", label_size: "md" }}
+

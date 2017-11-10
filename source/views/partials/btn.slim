@@ -33,64 +33,64 @@
 
 / .btn classes
 - @class = [\
-  ('btn'),
-  ('btn--' + @size if @size),
-  ('btn--' + @style if @style),
-  ('btn--fill' if @fill),
-  ('e-col-current' if @icon),
-  ('JS-off' if @type == 'state'),
-  ('JS-switch' if @type == 'state' && @switch),
-  ('JS-no-scroll' if @page == 'no-scroll'),
-  ('JS-exclusive' if @exclusive),
-  ('JS-lazy' if @iframe),
-  ('snipcart-add-item' if @product) ].compact
+  ("btn"),
+  ("btn--" + @size if @size),
+  ("btn--" + @style if @style),
+  ("btn--fill" if @fill),
+  ("e-col-current" if @icon),
+  ("JS-off" if @type == "state"),
+  ("JS-switch" if @type == "state" && @switch),
+  ("JS-no-scroll" if @page == "no-scroll"),
+  ("JS-exclusive" if @exclusive),
+  ("JS-lazy" if @iframe),
+  ("snipcart-add-item" if @product) ].compact
 
 / .btn attributes
 - @attrs = {\
-  'aria-controls': (@aria_target_id if @aria_target_id),
-  'role': ('button' if @aria_id),
-  'href': (@url if @url),
-  'data-secondary-target': (@secondary_target if @secondary_target)}.compact
+  "aria-controls": (@aria_target_id if @aria_target_id),
+  "role": ("button" if @aria_id),
+  "href": (@url if @url),
+  "data-secondary-target": (@secondary_target if @secondary_target)}.compact
 
 / Button splat
 - @btn = { \
-  tag: (@type == 'state' ? 'button' : 'a'),
+  tag: (@type == "link" ? "a" : "button"),
   class: @class,
-  'data-item-id': (@product[:product_id] if @product),
-  'data-item-name': (@product[:title] if @product),
-  'data-item-price': (@product[:price] if @product),
-  'data-item-url': ("https://www.hansardsociety.org.uk/#{ @entry[:category] }/#{ @entry[:slug] }" if @product)}.merge(@attrs)
+  "data-item-id": (@product[:product_id] if @product),
+  "data-item-name": (@product[:title] if @product),
+  "data-item-price": (@product[:price] if @product),
+  "data-item-url": ("https://www.hansardsociety.org.uk/#{ @entry[:slug] }" if @product)}.merge(@attrs)
 
 / Button splat
 *@btn
 
   / .btn__content
   span{
-    class="#{ @icon == 'menu' ? 'btn__menu' : 'btn__content' }"
+    class="#{ @icon == "menu" ? "btn__menu" : "btn__content" }"
     aria-hidden="true"
   }
 
     - if @text
       span.btn__text= @text
 
-    - if @icon && @icon != 'menu'
+    - if @icon && @icon != "menu"
       span.btn__icon{
-        class="#{ 'btn__icon--' + @animation if @animation }"
-        class="#{ 'btn__icon--' + @icon_color if @icon_color }"
+        class="#{ "btn__icon--" + @animation if @animation }"
+        class="#{ "btn__icon--" + @icon_color if @icon_color }"
       }
-        = partial 'views/partials/icon',
+        = partial "views/partials/icon",
           locals: { icon: @icon,
                     size: @icon_size }
 
     - if @label_on
       span.btn__label.btn__label--change{
-        class="#{ 'btn__label--' + @label_size }"
+        class="#{ "btn__label--" + @label_size }"
 
         data-on-text="#{ @label_on }"
         data-off-text="#{ @label_off }"
       }
 
-    - if @type == 'link' && @label
+    - if (["link", "plain"].include? @type) && @label
       span.btn__label{
-        class="#{ 'btn__label--' + @label_size }"
+        class="#{ "btn__label--" + @label_size }"
       }= @label

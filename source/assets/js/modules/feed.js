@@ -1,13 +1,16 @@
 import InfiniteScroll from "infinite-scroll"
 
-const feedScroll = (() => {
+const infiniteFeed = (() => {
   const feed = document.querySelector(".feed")
 
   if (feed) {
     const container = feed.querySelector(".feed__items")
     const initialCount = feed.getAttribute("data-feed-count")
     const feedTotal = feed.getAttribute("data-feed-total")
-    const initialPagesCount = initialCount / 3
+    const dedupe = feed.getAttribute("data-feed-dedupe") == "true"
+
+    var initialPagesCount = initialCount / 3
+    if (dedupe) initialPagesCount = initialPagesCount + 2
 
     var feedPages = []
     for (let i = initialPagesCount; i < feedTotal; i++) {
@@ -15,8 +18,6 @@ const feedScroll = (() => {
 
       feedPages.push(`page-${ pageNo }.html`)
     }
-
-    console.log(feedPages)
 
     function feedPagePath() {
       const slug = feedPages[this.loadCount]
@@ -26,12 +27,13 @@ const feedScroll = (() => {
 
     const infScroll = new InfiniteScroll(container, {
       path: feedPagePath,
+      history: false,
       append: ".feed-item",
-      button: ".view-more-button",
+      button: ".feed__load",
       scrollThreshold: false,
-      status: ".page-load-status"
+      status: ".feed__status"
     })
   }
 })()
 
-export { feedScroll }
+export { infiniteFeed }

@@ -405,7 +405,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
 
           # Panel content
           copy_size: (panel.copy_size.parameterize if panel.content_type.id == 'panel_content' && panel.copy_size),
-          show_title: (panel.show_title if panel.content_type.id == 'panel_content'),
+          show_title: (panel.show_title if ["panel_content", "panel_feed"].include? panel.content_type.id),
           section_header: (panel.section_header if panel.content_type.id == 'panel_content'),
           background_color: (panel.background_color.parameterize if (['panel_content', 'panel_carousel'].include? panel.content_type.id) && panel.background_color),
           show_more: ({
@@ -454,7 +454,8 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           # Panel accordian
           feed: ({
             category: panel.feed_category.gsub(" :: ", "").gsub("'", "").parameterize,
-            initial_count: panel.initial_count
+            initial_count: panel.initial_count,
+            dedupe: panel.dedupe
           } if panel.content_type.id == "panel_feed")
         }.compact
       end

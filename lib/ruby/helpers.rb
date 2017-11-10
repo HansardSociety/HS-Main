@@ -47,7 +47,7 @@ module CustomHelpers
       getCategoryPages = catPages.select{ |category, pages| category == setCategory }
 
       getCategoryPages.each do |category, pages|
-        paginatedPages = pages.each_slice(5).to_a
+        paginatedPages = pages.each_slice(3).to_a
         numberOfPages = paginatedPages.size
 
         yield("#{ numberOfPages }")
@@ -91,13 +91,15 @@ module CustomHelpers
 
     defaults = {
       yield: false,
+      start: 0,
       num: allPages.length,
-      pageCategories: siteData(:main_categories)
+      page_cats: siteData(:main_categories)
     }
     opts = defaults.merge(opts)
 
-    pageCategories = opts[:pageCategories]
+    pageCategories = opts[:page_cats]
     itemCount = opts[:num] - 1
+    start = opts[:start]
     isYield = opts[:yield]
 
     # Only include specified category/ sub-category and not page indices
@@ -107,7 +109,7 @@ module CustomHelpers
 
     allPagesRegHash = convertToRegularHash(allMainPages).values
     sortPagesByDate = allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
-    pages = sortPagesByDate[0..itemCount]
+    pages = sortPagesByDate[start..itemCount]
 
     # Output
     pages.map{ |page| isYield ? yield(page) : page }

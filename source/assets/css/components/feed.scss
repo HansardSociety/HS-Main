@@ -1,0 +1,19 @@
+.feed {}
+
+.feed__load,
+.feed__status {
+  @extend %e-align-cen;
+  @extend %e-mgn-t-md;
+  @extend %e-mgn-auto-x;
+}
+
+.feed__status {
+  display: none;
+}
+
+.feed__status .infinite-scroll-request > svg {
+  animation-iteration-count: infinite;
+  animation-duration: 500ms;
+
+  @extend %e-animate-spin;
+}

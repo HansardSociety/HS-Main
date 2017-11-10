@@ -46,7 +46,7 @@ module DynamicPages
 
       feedPages(env == "dev" ? childPages : childPages.merge(landingPages)) do |catPages|
         catPages.each do |category, pages|
-          paginatePages = pages.each_slice(5).to_a
+          paginatePages = pages.each_slice(3).to_a
 
           paginatePages.each_with_index do |paginatedPagesData, index|
             url = "/#{ category }/feed/page-#{ index + 1 }.html"

@@ -182,6 +182,12 @@ $animate: (
     start: translate3d(-50%, 100vh, 0),
     end: translate3d(-50%, -50%, 0),
     easing: map-get($easing, core)
+  ),
+  spin: (
+    prop: transform,
+    start: rotate(0deg),
+    end: rotate(360deg),
+    easing: ease-out 1s
   )
 );
 
