@@ -61,6 +61,39 @@ end
 ##		=Meta label
 ########################################
 
+def metaLabelContent(data, opts = {})
+  defaults = {
+    parent_data: false,
+    alt_date_time: false,
+    alt_cond: false
+  }
+  opts = defaults.merge(opts)
+
+  parentData = opts[:parent_data]
+  altCond = opts[:alt_cond]
+  altDateTime = opts[:alt_date_time]
+
+  if parentData
+    dataHost = parentData.sub_category
+  else
+    dataHost = data.sub_category
+  end
+
+  if dataHost
+    if altCond
+      "#{ parentData ? parentData.category : data.category } / #{ subCategorySlugify(parentData ? parentData : data ).gsub("-", " ") } / #{ altDateTime ? dateTime(altDateTime)[:date] : dateTime(data)[:date] }"
+    else
+      "#{ parentData ? parentData.category : data.category } / #{ subCategorySlugify(parentData ? parentData : data ).gsub("-", " ") }"
+    end
+  else
+    if altCond
+      "#{ parentData ? parentData.category : data.category } / #{ dateTime(data)[:date] }"
+    else
+      "#{ parentData ? parentData.category : data.category }"
+    end
+  end
+end
+
 def metaLabel(data, opts = {})
   defaults = { parentData: false }
   opts = defaults.merge(opts)
@@ -74,57 +107,28 @@ def metaLabel(data, opts = {})
 
     # Check if page has alternative date, eg. registration date/ time
     if hasAltData
-      altData = data.featured[0]
-      altDateTime = dateTime(data.featured[0]) if altData.date_time
+      altDateTime = data.featured[0] if (data.featured && data.featured[0].date_time)
 
-      if data.sub_category
-        if altDateTime
-          "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") } / #{ altDateTime[:date] }"
-        else
-          "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") }"
-        end
-      else
-        if altDateTime
-          "#{ data.category } / #{ altDateTime[:date] }"
-        else
-          "#{ data.category }"
-        end
-      end
+      metaLabelContent(data, {
+        alt_date_time: altDateTime,
+        alt_cond: altDateTime
+      })
 
     else
       usesDateTime = ["Blog"].include? data.category
 
-      if data.sub_category
-        if usesDateTime
-          "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") } / #{ dateTime(data)[:date] }"
-        else
-          "#{ data.category } / #{ subCategorySlugify(data).gsub("-", " ") }"
-        end
-      else
-        if usesDateTime
-          "#{ data.category } / #{ dateTime(data)[:date] }"
-        else
-          "#{ data.category }"
-        end
-      end
+      metaLabelContent(data, {
+        alt_cond: usesDateTime
+      })
     end
 
   elsif isNestedType
     isRegistration = data.content_type.id == "registration"
 
-    if parentData.sub_category
-      if isRegistration
-        "#{ parentData.category } / #{ subCategorySlugify(parentData).gsub("-", " ") } / #{ dateTime(data)[:date] }"
-      else
-        "#{ parentData.category } / #{ subCategorySlugify(parentData).gsub("-", " ") }"
-      end
-    else
-      if isRegistration
-        "#{ parentData.category } / #{ dateTime(data)[:date] }"
-      else
-        "#{ parentData.category }"
-      end
-    end
+    metaLabelContent(data, {
+      parent_data: parentData,
+      alt_cond: isRegistration
+    })
   end
 end
 
