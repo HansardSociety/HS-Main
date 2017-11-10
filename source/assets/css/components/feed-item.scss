@@ -3,14 +3,13 @@
 
   border-bottom: 1px solid Get($colors, greyscale, light-grey);
 
-  &:first-of-type {
-    @extend %e-mgn-t-md;
-  }
-
   @extend %e-animate-fade-in-load;
   @extend %e-mgn-b-sm;
   @extend %e-pad-b-sm;
   @extend %e-flex-row-nowrap;
+  @include above(sm) {
+    align-items: center;
+  }
 }
 
 .feed-item__img {
@@ -19,7 +18,6 @@
   @extend %e-mgn-t-xs;
   @extend %e-mgn-r-sm;
   @extend %e-overflow-hidden;
-
   @include above(sm) {
     margin-right: 2rem;
   }
@@ -37,5 +35,6 @@
 
   @include above(sm) {
     width: calc(80% - 2rem);
+    margin-top: -1rem;
   }
 }

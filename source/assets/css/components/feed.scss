@@ -1,8 +1,11 @@
-.feed {}
+.feed {
+  @extend %e-mgn-t-md;
+}
 
 .feed__load,
 .feed__status {
   @extend %e-align-cen;
+  @extend %e-animate-fade-in-load;
   @extend %e-mgn-t-md;
   @extend %e-mgn-auto-x;
 }

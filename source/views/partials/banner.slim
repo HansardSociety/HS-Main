@@ -56,8 +56,8 @@ header.banner{
   }
 
     / Content
-    .banner__content {
-      class="#{ "e-mgn-auto-x__sm" if (@isSpecialPage) }"
+    .banner__content{
+      class="#{ "e-mgn-auto-x__sm banner__content--text-bg" if (@isSpecialPage) }"
     }
 
       - if entry[:TYPE] == "child_page"

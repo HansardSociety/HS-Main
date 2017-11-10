@@ -15,8 +15,6 @@ module ConfigHelpers
     pagesByCategory = pagesByDate.group_by{ |id, page| page[categoryLev] }.compact
     selectedPages = pagesByCategory.select{ |category, pages| categories.include? category }
 
-    urlStub = selectedPages.map{ |category, pages| pages }
-
-    yield(selectedPages, urlStub)
+    yield(selectedPages)
   end
 end

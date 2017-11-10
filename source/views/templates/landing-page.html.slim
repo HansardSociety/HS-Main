@@ -52,7 +52,10 @@ article
 
       / Feed panel
       - if panel[:TYPE] == "panel_feed"
-        .panel{ id="panel-#{ index }" }
+        .panel{
+          id="panel-#{ index }"
+          class="#{ "panel--" + panel[:background_color] if panel[:background_color] }"
+        }
           .panel__content.panel__content--narrow
 
             - if panel[:show_title]

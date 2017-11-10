@@ -3,6 +3,7 @@
 
 - feedData = partialData[:feed]
 - feedCategory = feedData[:category]
+- feedSubCategory = feedData[:sub_category] if feedData[:sub_category]
 - feedCount = feedData[:initial_count]
 
 / Only dedupe if dedupe is true, latest carousel exists and page has no tags
@@ -10,10 +11,10 @@
 
 - totalFeedPages = 0
 - countFeedPages(feedCategory) do |number|
-  - totalFeedPages = number
+  - totalFeedPages = number.to_i + 1
 
 - dataAttrs = { \
-  "data-feed-category": "#{ feedCategory }",
+  "data-feed-category": (feedSubCategory ? "#{ feedCategory }::#{ feedSubCategory }" : "#{ feedCategory }"),
   "data-feed-count": "#{ feedCount }",
   "data-feed-total": "#{ totalFeedPages }",
   "data-feed-dedupe": "#{ feedDedupe }" }
@@ -24,10 +25,11 @@
     / Start at 7th index in pages array if dedupe is set
     / and also add 6 to the count to make up for the
     / shorter array. NB. 6 = latest carousel length.
+    - latestCount = 6
     - latestContent( \
       yield: true,
-      num: (feedDedupe ? feedCount + 6 : feedCount),
-      start: (feedDedupe ? 6 : 0),
+      num: (feedDedupe ? feedCount + latestCount : feedCount),
+      start: (feedDedupe ? latestCount : 0),
       page_cats: feedCategory) do |page|
 
       = partial "views/partials/feed-item",

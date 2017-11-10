@@ -43,7 +43,7 @@ module CustomHelpers
     landingPages = data.hs.landing_page
     allPages = childPages.merge(landingPages)
 
-    feedPages(allPages) do |catPages, urlStub|
+    feedPages(allPages) do |catPages|
       getCategoryPages = catPages.select{ |category, pages| category == setCategory }
 
       getCategoryPages.each do |category, pages|

@@ -5,8 +5,17 @@
 ##		=Sub-category slugify
 ########################################
 
+def detatchCategory(data, opts = {})
+  defaults = { part: 1 }
+  opts = defaults.merge(opts)
+
+  part = opts[:part]
+
+  (data.include? "::") ? data.split(" :: ")[part].parameterize : data.parameterize
+end
+
 def subCategorySlugify(data)
-  data.sub_category.split(" :: ")[1].parameterize
+  detatchCategory(data.sub_category)
 end
 
 # Slug
@@ -411,7 +420,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           copy_size: (panel.copy_size.parameterize if panel.content_type.id == 'panel_content' && panel.copy_size),
           show_title: (panel.show_title if ["panel_content", "panel_feed"].include? panel.content_type.id),
           section_header: (panel.section_header if panel.content_type.id == 'panel_content'),
-          background_color: (panel.background_color.parameterize if (['panel_content', 'panel_carousel'].include? panel.content_type.id) && panel.background_color),
+          background_color: (panel.background_color.parameterize if (["panel_carousel", "panel_content", "panel_feed"].include? panel.content_type.id) && panel.background_color),
           show_more: ({
             cta_id: (panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]), # split '::' for contentful name-spacing
             content: panel.show_more
@@ -455,12 +464,13 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
             }.compact
           end : nil),
 
-          # Panel accordian
+          # Panel feed
           feed: ({
-            category: panel.feed_category.gsub(" :: ", "").gsub("'", "").parameterize,
+            category: detatchCategory(panel.feed_category, { part: 0 }),
+            sub_category: (detatchCategory(panel.feed_category) if panel.feed_category.include? "::"),
             initial_count: panel.initial_count,
             dedupe: panel.dedupe
-          } if panel.content_type.id == "panel_feed")
+          }.compact if panel.content_type.id == "panel_feed")
         }.compact
       end
     end

@@ -35,6 +35,13 @@
   @extend %e-position-relative;
 }
 
+.banner__content--text-bg {
+  background-color: rgba(0, 0, 0, .3333);
+
+  @extend %e-pad-sm;
+  @extend %e-rad-slight;
+}
+
 .banner__strap {
   @extend .strap-md;
   @extend %e-max-width-full;
@@ -75,6 +82,7 @@
 
 .banner__scroll {
   bottom: 1rem;
+
   display: none;
 
   @extend %e-absolute-center-x;
