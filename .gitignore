@@ -9,4 +9,5 @@ node_modules/
 .env
 .hs-space-hash
 npm-debug.log
+rev-manifest.json
 yarn-error.log
