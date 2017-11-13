@@ -166,7 +166,7 @@ module CustomHelpers
       @registrationPages = @pagesTagged.select{ |page|
         @pageTypes = ["events"].include? page[:category]
         @timeNow = Time.now.strftime("%s").to_i
-        @isInPast = altData(page, { type: "date_time", content_type: "registration" })[:integer].to_i >= @timeNow
+        @isInPast = (page[:date_time_alt] ? page[:date_time_alt][:integer] : page[:date_time][:integer]) >= @timeNow
 
         @pageTypes && @isInPast
       }[0..2]
