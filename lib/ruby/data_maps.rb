@@ -96,7 +96,7 @@ def metaLabelContent(data, opts = {})
     end
   else
     if altCond
-      "#{ parentData ? parentData.category : data.category } / #{ dateTime(data)[:date] }"
+      "#{ parentData ? parentData.category : data.category } / #{ altDateTime ? dateTime(altDateTime)[:date] : dateTime(data)[:date] }"
     else
       "#{ parentData ? parentData.category : data.category }"
     end
@@ -127,7 +127,7 @@ def metaLabel(data, opts = {})
       usesDateTime = ["Blog"].include? data.category
 
       metaLabelContent(data, {
-        alt_cond: usesDateTime
+        alt_cond: usesDateTime,
       })
     end
 
