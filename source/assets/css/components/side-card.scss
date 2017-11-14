@@ -45,7 +45,6 @@
   width: 6.36rem; // side card image ratio
   margin-left: -.16665rem;
 
-  @extend %e-bgc-green;
   @extend %e-flex-row-center;
   @extend %e-overflow-hidden;
   @extend %e-position-relative;
@@ -59,6 +58,7 @@
 }
 
 .side-card__image--overlay {
+  @extend %e-bgc-green;
   @extend %e-overlay-medium;
 }
 

@@ -170,11 +170,13 @@ def sharedPageBase(pageType, ctx, data)
     end
 
     ctx.introduction = data.introduction
-    ctx.date_time = dateTime(data)
 
     # Has alternative date/ time
     if data.featured && data.featured[0].content_type.id == "registration"
+      ctx.date_time = dateTime(data.featured[0])
       ctx.date_time_alt = dateTime(data.featured[0])
+    else
+      ctx.date_time = dateTime(data)
     end
 
     ctx.blog_count = data.blog_count if data.blog_count

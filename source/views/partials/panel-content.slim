@@ -135,11 +135,10 @@
             = markdown(@copy) if @copy
 
           - if @show_more
-            .copy.e-mgn-b-sm
-              = partial 'views/partials/expand',
-                locals: { local_data: \
-                { id: @show_more.cta_id,
-                  content: @show_more.content }}
+            = partial 'views/partials/expand',
+              locals: { local_data: \
+              { id: @show_more.cta_id,
+                content: @show_more.content }}
 
           / Calls to action
           - if @show_more || @calls_to_action

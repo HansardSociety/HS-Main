@@ -35,7 +35,7 @@
   @extend %e-flex-row;
   // @extend %e-height-full-vh;
   @extend %e-overflow-y-hidden;
-  @extend %e-box-shad-raised;
+  @extend %e-box-shad-z1;
   @include above('sm') {
     height: 100%;
     height: auto;

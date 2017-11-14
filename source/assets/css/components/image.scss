@@ -1,23 +1,34 @@
 .image {
-  @extend %e-flex-row-start;
+  left: 50%;
+  transform: translateX(-50%);
+
+  @extend %e-display-inline-block;
   @extend %e-overflow-hidden;
+  @extend %e-position-relative;
   @extend %e-rad-slight;
-  @extend %e-width-full;
+  @extend %e-max-width-full;
 }
 
 .image--feature {
-  // @extend %e-box-shad-raised;
+  padding: 1.5rem;
+
+  @extend %e-bgc-white;
+  @extend %e-box-shad-z3;
 }
 
 .image__img {
   order: 2;
-  @extend %e-width-full;
+
+  @extend %e-display-block;
+  @extend %e-max-width-full;
+  @extend %e-position-relative;
 }
 
 .image__caption {
+  order: 1;
+
   width: calc(100% + 2rem);
   margin: 0 -1rem 1rem;
 
-  order: 1;
   @extend %e-pad-xs;
 }
