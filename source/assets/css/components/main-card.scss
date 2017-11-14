@@ -36,14 +36,17 @@
 
 .main-card__image {
   @extend %e-overflow-hidden;
+  @extend %e-bgc-green;
 
   & > img {
     min-height: 1px; // Fix Safari height issues on lazy images
 
     @extend %e-display-block;
     @extend %e-fix-webkit-blur;
+    @extend %e-position-relative;
     @extend %e-trans-transform;
     @extend %e-max-width-full;
+    @extend %e-width-full;
   }
 }
 
