@@ -32,5 +32,5 @@
 .e-align-left { text-align: left; }
 
 .e-txt-shad-slight {
-  text-shadow: Get($shadow, text, raised);
+  text-shadow: Get($shadow, text, z1);
 }

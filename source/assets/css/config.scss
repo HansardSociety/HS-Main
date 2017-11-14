@@ -207,14 +207,17 @@ $properties: (
 
 $shadow: (
   box: (
-    raised: (
-      0 2px 2px 0 rgba(0, 0, 0, .14),
-      0 1px 5px 0 rgba(0, 0, 0, .12),
-      0 3px 1px -2px rgba(0, 0, 0, .2)
+    z1: (
+      0 1px 3px rgba(0, 0, 0, 0.12),
+      0 1px 2px rgba(0, 0, 0, 0.24)
+    ),
+    z3: (
+      0 19px 38px rgba(0, 0, 0, 0.30),
+      0 15px 12px rgba(0, 0, 0, 0.22)
     )
   ),
   text: (
-    raised: (
+    z1: (
       0px 1px 1px rgba(0, 0, 0, 0.5)
     )
   )

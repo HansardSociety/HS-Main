@@ -1,14 +1,17 @@
 .feed-item {
   align-items: flex-start;
 
-  border-bottom: 1px solid Get($colors, greyscale, light-grey);
-
   @extend %e-animate-fade-in-load;
-  @extend %e-mgn-b-sm;
-  @extend %e-pad-b-sm;
   @extend %e-flex-row-nowrap;
   @include above(sm) {
     align-items: center;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid Get($colors, greyscale, light-grey);
+
+    @extend %e-mgn-b-sm;
+    @extend %e-pad-b-sm;
   }
 }
 
@@ -21,6 +24,7 @@
   @extend %e-overflow-hidden;
   @extend %e-rad-circ;
   @include above(sm) {
+    margin-top: 0;
     margin-right: 2rem;
   }
 }

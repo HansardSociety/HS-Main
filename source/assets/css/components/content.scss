@@ -17,7 +17,7 @@
 
 .content--paper {
   @extend %e-bgc-white;
-  @extend %e-box-shad-raised;
+  @extend %e-box-shad-z1;
   @extend %e-overflow-hidden;
   @include above(sm) {
     border-top-left-radius: map-get($radii, slight);

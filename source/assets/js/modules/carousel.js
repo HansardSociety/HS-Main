@@ -11,7 +11,7 @@ var flktyOpts = {
   wrapAround: true,
   initialIndex: 0,
   lazyLoad: false,
-  pageDots: false,
+  pageDots: true,
   prevNextButtons: false,
   selectedAttraction: .1,
   setGallerySize: false

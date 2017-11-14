@@ -1,19 +1,11 @@
-////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
+- @image_data = local_data[:image_data]
 
-- @image_data         = local_data[:image_data]
+- @feature = local_data[:feature]
 
-- @feature            = local_data[:feature]
-
-- @url                = @image_data[:url]
-- @alt                = @image_data[:alt]
-- @focus              = @image_data[:focus]
-- @caption            = @image_data[:caption]
-
-////////////////////////////////////////////////////////////
-//  Image
-////////////////////////////////////////////////////////////
+- @url = @image_data[:url]
+- @alt = @image_data[:alt]
+- @focus = @image_data[:focus]
+- @caption = @image_data[:caption]
 
 figure.image{
   class="#{ 'image--feature' if  @feature }"
