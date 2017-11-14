@@ -108,11 +108,11 @@
 
     / If panel contains image...
     - else
-      .grid.grid--md
+      .grid.grid--md.grid--center
 
         / Panel title
         - if @show_title || @show_title != false
-          .grid__cell.grid__cell--above-sm-VIII.grid__cell--above-sm-offset-IV
+          .grid__cell.grid__cell--fill.grid__cell--above-sm-VIII.grid__cell--above-sm-offset-IV
             - if @label
               span.cross-head-sm= @label
             h3.e-col-green{
@@ -120,14 +120,14 @@
             }= @title
 
         / Image
-        .grid__cell.grid__cell--above-sm-IV
+        .grid__cell.grid__cell--fill.grid__cell--above-sm-IV
           = partial 'views/partials/image',
             locals: { local_data: \
               { image_data: @image,
                 feature: true }}
 
         / Copy
-        .grid__cell.grid__cell--above-sm-VIII
+        .grid__cell.grid__cell--fill.grid__cell--above-sm-VIII
           .copy.e-mgn-b-sm{
             class="#{ 'e-fz-lg' if @copy_size == 'extra-large' }"
             class="#{ 'e-fz-md' if @copy_size == 'large' }"
