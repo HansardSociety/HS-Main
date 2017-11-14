@@ -100,14 +100,13 @@
   ========================================================================== */
 
 .flickity-page-dots {
-  .dot {
+  & > .dot {
     width: 6px;
     height: 6px;
     margin: 0 4px;
   }
 
-  .dot.is-selected {
+  & > .dot.is-selected {
     @extend %e-bgc-green;
-
   }
 }
