@@ -15,19 +15,19 @@
 .feed-item__img {
   width: 20%;
 
+  @extend %e-bgc-green;
   @extend %e-mgn-t-xs;
   @extend %e-mgn-r-sm;
   @extend %e-overflow-hidden;
+  @extend %e-rad-circ;
   @include above(sm) {
     margin-right: 2rem;
   }
 }
 
 .feed-item__img > img {
-  flex: 0 0 80%;
-
+  @extend %e-display-block;
   @extend %e-width-full;
-  @extend %e-rad-circ;
 }
 
 .feed-item__content {
