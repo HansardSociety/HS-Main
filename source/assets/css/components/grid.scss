@@ -36,7 +36,9 @@
     }
 
     & > .grid__cell--fill {
-      flex: 0 0 calc(100% - #{ $sizeVal });
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: calc(100% - #{ $sizeVal });
     }
   }
 
@@ -46,7 +48,8 @@
 
     // Cell
     .grid__cell--#{ $numVal } {
-      flex: 1 calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // need to override flex from descendant selector
+      flex-grow: 1 !important;
+      flex-basis: calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // need to override flex from descendant selector
     }
 
     // Offset
@@ -60,7 +63,8 @@
 
         // Cell
         .grid__cell--above-#{ $breakpoint }-#{ $numVal } {
-          flex: 1 calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // see above
+          flex-grow: 1 !important;
+          flex-basis: calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // see above
         }
 
         // Offset
