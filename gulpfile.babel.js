@@ -16,7 +16,7 @@ gulp.task("css:vendor", () => vendorCSS())
 gulp.task("js", () => js())
 gulp.task("sprite", () => iconSprite())
 
-// Builds
+// Builds.
 gulp.task("default", () => runSequence(["watch"]))
 gulp.task("watch", ["css:custom-app", "css:custom-vendor", "css:vendor", "js"], () => devServer())
 gulp.task("prod", () => runSequence(["css:custom-app", "css:custom-vendor", "css:vendor", "js"]))
