@@ -7,7 +7,7 @@ var flktyOpts = {
   cellSelector: ".carousel__item",
   cellAlign: "left",
   contain: true,
-  friction: 1,
+  friction: .5,
   wrapAround: true,
   initialIndex: 0,
   lazyLoad: false,
