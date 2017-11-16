@@ -18,7 +18,7 @@
 .content--paper {
   @extend %e-bgc-white;
   @extend %e-box-shad-z1;
-  @extend %e-overflow-hidden;
+  // @extend %e-overflow-hidden;
   @include above(sm) {
     border-top-left-radius: map-get($radii, slight);
     border-top-right-radius: map-get($radii, slight);
@@ -43,7 +43,7 @@
 
   &::before {
     left: -1rem;
-    top: -1rem;
+    // top: -1rem;
     width: calc(100% + 2rem);
     height: calc(100% + 1rem);
 
