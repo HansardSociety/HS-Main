@@ -22,8 +22,7 @@
   @extend %e-rad-slight;
   @extend %e-align-cen;
   @extend %e-trans-core;
-
-  }
+}
 
 @each $sizeKey, $sizeVal in map-get($btn, size) {
 
