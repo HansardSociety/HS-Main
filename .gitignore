@@ -4,6 +4,8 @@ data/
 node_modules/
 .sass-cache/
 .tmp/
+source/.assets/**
+!source/.assets/fonts
 
 .DS_Store
 .env
