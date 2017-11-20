@@ -124,7 +124,7 @@ module BuildEnvs
       activate :external_pipeline,
         name: :gulp,
         command: "yarn run epipe:dev",
-        source: "source/assets",
+        source: "source/.assets",
         latency: 1
 
       # Core config

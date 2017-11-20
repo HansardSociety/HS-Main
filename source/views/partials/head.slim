@@ -26,14 +26,13 @@ head
   = stylesheet_link_tag "#{ config[:CSS_APP] }", :relative => true
 
   / Snipcart
-  - if @entry[:featured]
-    - if @entry[:featured].any? { |featured| featured.include? "product" }
-      script{ src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" }
-      script{
-        src="https://cdn.snipcart.com/scripts/2.0/snipcart.js"
-        id="snipcart"
-        data-api-key="#{ config[:SNIPCART_TKN] }"
-      }
+  - if @entry[:featured] && @entry[:featured].any? { |featured| featured.TYPE.include? "product" }
+    script{ src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" }
+    script{
+      src="https://cdn.snipcart.com/scripts/2.0/snipcart.js"
+      id="snipcart"
+      data-api-key="#{ config[:SNIPCART_TKN] }"
+    }
     = stylesheet_link_tag "#{ config[:CSS_SNIPCART] }", :relative => true
 
   / Google Analytics
