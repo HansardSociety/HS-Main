@@ -62,11 +62,11 @@ module BuildEnvs
     jsAppHash = manifest_hash["app.js"]
     jsVendorHash = manifest_hash["vendor.js"]
 
-    set :CSS_APP, "/assets/#{ cssAppHash }"
-    set :CSS_SNIPCART, "/assets/#{ cssSnipcartHash }"
-    set :CSS_VENDOR, "/assets/#{ cssVendorHash }"
-    set :JS_APP, "/assets/#{ jsAppHash }"
-    set :JS_VENDOR, "/assets/#{ jsVendorHash }"
+    set :CSS_APP, "/.assets/#{ cssAppHash }"
+    set :CSS_SNIPCART, "/.assets/#{ cssSnipcartHash }"
+    set :CSS_VENDOR, "/.assets/#{ cssVendorHash }"
+    set :JS_APP, "/.assets/#{ jsAppHash }"
+    set :JS_VENDOR, "/.assets/#{ jsVendorHash }"
 
     set :build_dir, "build/#{ MM_ENV }"
 
@@ -85,7 +85,7 @@ module BuildEnvs
       File.rename "#{ @buildSrc }/.headers", "#{ @buildSrc }/_headers"
 
       # Rename assets dir
-      File.rename "#{ @buildSrc }/.assets", "#{ @buildSrc }/assets"
+      # File.rename "#{ @buildSrc }/.assets", "#{ @buildSrc }/assets"
 
     end
   end
