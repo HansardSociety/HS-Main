@@ -11,6 +11,6 @@ source/.assets/**
 .env
 .hs-space-hash
 npm-debug.log
-#source/assets/rev-manifest.json
+source/assets/rev-manifest.json
 yarn-error.log
 
