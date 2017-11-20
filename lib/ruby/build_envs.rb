@@ -57,13 +57,11 @@ module BuildEnvs
     manifest_hash = JSON.parse(manifest)
 
     cssAppHash = manifest_hash["app.css"]
-    cssSnipcartHash = manifest_hash["snipcart.css"]
     cssVendorHash = manifest_hash["vendor.css"]
     jsAppHash = manifest_hash["app.js"]
     jsVendorHash = manifest_hash["vendor.js"]
 
     set :CSS_APP, "/assets/#{ cssAppHash }"
-    set :CSS_SNIPCART, "/assets/#{ cssSnipcartHash }"
     set :CSS_VENDOR, "/assets/#{ cssVendorHash }"
     set :JS_APP, "/assets/#{ jsAppHash }"
     set :JS_VENDOR, "/assets/#{ jsVendorHash }"
@@ -135,7 +133,6 @@ module BuildEnvs
 
       # Assets
       set :CSS_APP, "/app.css"
-      set :CSS_SNIPCART, "/snipcart.css"
       set :CSS_VENDOR, "/vendor.css"
       set :JS_APP, "/app.js"
       set :JS_VENDOR, "/vendor.js"
