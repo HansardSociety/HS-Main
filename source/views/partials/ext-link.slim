@@ -1,30 +1,22 @@
-////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
-
-- @ext_link_data = local_data[:ext_link_data]
-
-////////////////////////////////////////////////////////////
-//  External link
-////////////////////////////////////////////////////////////
+- partialData = local_data[:ext_link_data]
 
 article.ext-link
   h1.ext-link__inner.title-sm
 
     / Meta
-    span.ext-link__text.label-xs.e-col-mid-grey{ aria-hidden="true"}= @ext_link_data[:outlet]
+    span.ext-link__text.label-xs.e-col-mid-grey{ aria-hidden="true"}= partialData[:outlet]
 
     / Icons
     span.ext-link__icon{ aria-hidden="true"}
-      = partial 'views/partials/icon',
+      = partial "views/partials/icon",
         locals: { icon:  (\
-                    ('ios-paper' if @ext_link_data[:category] == 'article') || \
-                    ('android-download' if @ext_link_data[:category] == 'download') || \
-                    ('headphone' if @ext_link_data[:category] == 'audio') || \
-                    ('ios-videocam' if @ext_link_data[:category] == 'video') || \
-                    ('ios-book' if @ext_link_data[:category] == 'book')),
-                  size:  'xs',
-                  color: 'green' }
+            ("ios-paper" if partialData[:category] == "article") || \
+            ("android-download" if partialData[:category] == "download") || \
+            ("headphone" if partialData[:category] == "audio") || \
+            ("ios-videocam" if partialData[:category] == "video") || \
+            ("ios-book" if partialData[:category] == "book")),
+          size:  "xs",
+          color: "green" }
 
-    a.ext-link__text{ href="#{ @ext_link_data[:url] }" }
-      span.link.u-font-sm= @ext_link_data[:title]
+    a.ext-link__text{ href="#{ partialData[:url] }" }
+      span.link.u-font-sm= partialData[:title]

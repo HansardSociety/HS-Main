@@ -305,6 +305,11 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.newsletter_embed = entry.newsletter_embed
     context.uncss_urls = entry.uncss_urls
 
+    # Social
+    context.twitter = entry.twitter
+    context.linkedin = entry.linkedin
+    context.facebook = entry.facebook
+
     context.logo = {
       mobile: media(entry.logo_mobile),
       desktop: media(entry.logo_desktop)

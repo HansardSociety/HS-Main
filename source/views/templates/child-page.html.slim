@@ -14,7 +14,7 @@
 article
 
   / Banner
-  = partial 'views/partials/banner',
+  = partial "views/partials/banner",
     locals: { entry: @entry }
 
   .content.content--wide.content--paper.e-mgn-b-lg{
@@ -25,13 +25,13 @@ article
     .content__header
       .grid.grid--md.grid--center
         section.grid__cell.grid__cell--above-md-VII.copy{
-          class="#{ 'grid__cell--order-II grid__cell--above-md-order-I' if ["blog", "events"].include? @entry[:category] }"
+          class="#{ "grid__cell--order-II grid__cell--above-md-order-I" if ["blog", "events"].include? @entry[:category] }"
         }
-          = markdown(@introduction, 'byline')
+          = markdown(@introduction, "byline")
 
         / Featured side content
         aside.grid__cell.grid__cell--above-md-V.grid__cell--fill{
-          class="#{ 'grid__cell--order-I grid__cell--above-md-order-II' if ["blog", "events"].include? @entry[:category] }"
+          class="#{ "grid__cell--order-I grid__cell--above-md-order-II" if ["blog", "events"].include? @entry[:category] }"
         }
 
           / Entry has featured content...
@@ -41,7 +41,7 @@ article
             - if @entry[:category] == "blog"
               - @entry[:featured].map do |featured|
                 - if featured[:TYPE] == "people"
-                  = partial 'views/partials/profile',
+                  = partial "views/partials/profile",
                     locals: { local_data: \
                     { profile_data: featured,
                       side: true }}
@@ -49,7 +49,7 @@ article
             / Research and resources
             - if ["events", "intelligence", "research", "resources"].include? @entry[:category]
               - @entry[:featured].first(1).map do |featured|
-                = partial 'views/partials/side-card',
+                = partial "views/partials/side-card",
                   locals: { local_data: \
                     { side_card_data: featured,
                       featured: true }}
@@ -66,11 +66,11 @@ article
 
           / Expand button
           .grid__expand-btn
-            = partial 'views/partials/btn',
+            = partial "views/partials/btn",
               locals: { local_data: \
-                { type: 'state', size: 'md', style: 'secondary', fill: true,
-                  label_on: 'Show more', label_off: 'Show less', label_size: 'lg',
-                  aria_id: "activate-expand", aria_target_id: 'expand' }}
+                { type: "state", size: "md", style: "secondary", fill: true,
+                  label_on: "Show more", label_off: "Show less", label_size: "lg",
+                  aria_id: "activate-expand", aria_target_id: "expand" }}
 
         / Side content
         aside.grid__cell.grid__cell--above-md-V
@@ -86,7 +86,7 @@ article
                 / - if index == 0
                 /   h2.side-title Featured
 
-                = partial 'views/partials/side-card',
+                = partial "views/partials/side-card",
                   locals: { local_data: \
                     { side_card_data: featured,
                       featured: true }}
@@ -97,7 +97,7 @@ article
               / h2.side-title Featured
               - @entry[:featured].drop(1).map do |featured|
                 - if !["people", "product", "registration"].include? featured[:TYPE]
-                  = partial 'views/partials/side-card',
+                  = partial "views/partials/side-card",
                     locals: { local_data: \
                       { side_card_data: featured,
                         featured: true }}
@@ -106,28 +106,29 @@ article
             - if @entry[:tags]
               h2.side-title Related
               - relatedContent(@entry, @blogCount) do |page|
-                = partial 'views/partials/side-card',
+                = partial "views/partials/side-card",
                   locals: { local_data: \
                     { side_card_data: page }}
 
-            / / External links
-            / - if @entry[:external_links]
-            /   .section-lg
-            /     - @entry[:external_links].map do |link|
-            /       = partial 'views/partials/ext-link',
-            /         locals: { local_data: \
-            /           { ext_link_data: link }}
+            / External links
+            - if @entry[:external_links]
+              .section-sm
+                h2.side-title Coverage
+                - @entry[:external_links].map do |link|
+                  = partial "views/partials/ext-link",
+                    locals: { local_data: \
+                      { ext_link_data: link }}
 
-          / / Latest items for about pages
-          / - if @category == 'about'
-          /   h2.side-title Latest
-          /   - latestContent(yield: true, num: 4) do |page|
-          /     = partial 'views/partials/side-card',
-          /       locals: { local_data: \
-          /         { side_card_data: page }}
+          / Latest items for about pages
+          - if @category == "about"
+            h2.side-title Latest
+            - latestContent(yield: true, num: 4) do |page|
+              = partial "views/partials/side-card",
+                locals: { local_data: \
+                  { side_card_data: page }}
 
           / Newsletter signup
-          .box.e-bgc-dark-grey.e-col-white.e-mgn-b-xs
-            = partial 'views/partials/signup-box',
-              locals: { local_data: { copy_size: 'sm'}}
+          .box.e-bgc-green.e-col-white.e-mgn-b-xs
+            = partial "views/partials/signup-box",
+              locals: { local_data: { copy_size: "sm"}}
 
