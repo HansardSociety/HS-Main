@@ -1,6 +1,10 @@
 .ext-link {
   @extend %e-mgn-b-sm;
   @extend %e-position-relative;
+
+  &:first-of-type {
+    @extend %e-mgn-t-sm;
+  }
 }
 
 .ext-link__inner {

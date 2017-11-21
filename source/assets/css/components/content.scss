@@ -45,9 +45,19 @@
     left: -1rem;
     // top: -1rem;
     width: calc(100% + 2rem);
-    height: calc(100% + 1rem);
+    height: 100%;
 
     @extend %e-bgc-light-grey;
     @extend %e-pseudo-elem;
+  }
+}
+
+.content__aside {
+  @extend %e-acc-light-grey-top;
+  // @extend %e-mgn-t-md;
+  @extend %e-pad-t-sm;
+
+  @include above(md) {
+    border: 0;
   }
 }

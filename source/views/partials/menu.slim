@@ -1,43 +1,40 @@
-////////////////////////////////////////////////////////////
-//  Variables
-////////////////////////////////////////////////////////////
+- id = local_data[:id]
+- navItems = local_data[:nav_items]
+- screen = local_data[:screen]
 
-- @id        = local_data[:id]
-- @nav_items = local_data[:nav_items]
-- @screen    = local_data[:screen]
+- twitter = siteData(:twitter)
+- linkedin = siteData(:linkedin)
+- facebook = siteData(:facebook)
 
-////////////////////////////////////////////////////////////
-//  Menu
-////////////////////////////////////////////////////////////
 
 .menu.e-col-white.JS-inactive{
-  class="menu--#{ @screen } "
-  id= @id
+  class="menu--#{ screen } "
+  id= id
 }
   .menu__nav-bg
   ul.menu__container{
-    class="#{ 'menu__container--columns' if @screen == 'desktop' }"
+    class="#{ "menu__container--columns" if screen == "desktop" }"
   }
 
     ////////////////////////////////////////////////////////
     // Mobile
     ////////////////////////////////////////////////////////
 
-    - if @screen == 'mobile'
-      - @nav_items.each do |id, nav|
+    - if screen == "mobile"
+      - navItems.each do |id, nav|
         li.menu__category.menu__category--outer{
-          class="#{ 'dropdown' if nav[:pages] && nav[:pages].length > 1 }"
+          class="#{ "dropdown" if nav[:pages] && nav[:pages].length > 1 }"
         }
 
           h2.title-md{
-            class="#{ 'dropdown__title' if nav[:pages] && nav[:pages].length > 1 }"
+            class="#{ "dropdown__title" if nav[:pages] && nav[:pages].length > 1 }"
           }
 
             / If navigation item contains one or no pages
             - if nav[:pages] && nav[:pages].length <= 1
               - nav[:pages].each do |page|
                 a{
-                  href="#{ config[:SITE_URL] }/#{ page.slug + (config[:ENV] == 'development' ? '.html' : '') }"
+                  href="#{ internalURL(page[:slug]) }"
                   title="#{ nav[:title] } - #{ config[:SITE_TITLE] }"
                 }= nav[:title]
 
@@ -48,16 +45,16 @@
               .dropdown__control
 
                 / dropdown control
-                = partial 'views/partials/btn',
+                = partial "views/partials/btn",
                   locals: { local_data: \
-                    { type: 'state', size: 'sm',
-                      icon: 'chevron-down', icon_size: 'xs',
-                      animation: 'rotate',
+                    { type: "state", size: "sm",
+                      icon: "chevron-down", icon_size: "xs",
+                      animation: "rotate",
                       aria_id: "activate-menu-dropdown-#{ nav[:title].parameterize }",
                       aria_target_id: "menu-dropdown-#{ nav[:title].parameterize }" }}
 
           ul{
-            class="#{ 'dropdown__content JS-inactive' if nav[:pages] }"
+            class="#{ "dropdown__content JS-inactive" if nav[:pages] }"
             id="menu-dropdown-#{ nav[:title].parameterize }"
           }
 
@@ -73,16 +70,18 @@
                     - pages.each do |page|
                       li
                         h4.title-sm.e-mgn-t-xs
-                          a.menu__link{
-                            href= "#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
+                          a.link-white{
+                            href= "#{ internalURL(page[:slug], { page_data: page }) }"
                           }= page.title
 
     ////////////////////////////////////////////////////////
     // Desktop
     ////////////////////////////////////////////////////////
 
-    - if @screen == 'desktop' && @nav_items[:pages]
-      - @nav_items.pages.group_by(&:category).each do |category, pages|
+    - if screen == "desktop" && navItems[:pages]
+
+      - navItems.pages.group_by(&:category).each do |category, pages|
+
         li.menu__column{
           class="menu__column--#{ category.parameterize }"
         }
@@ -90,15 +89,22 @@
 
           - pages.each do |page|
             h4.title-sm.e-mgn-t-xs
-              a.menu__link{
-                href="#{config[:SITE_URL] + '/' + page.category.parameterize + '/' + page.slug + (config[:ENV] == 'development' ? '.html' : '')}"
+              a.link-white{
+                href="#{ internalURL(page[:slug], { page_data: page }) }"
               }= page.title
 
-        - if category == 'about'
+        - if category == "about"
           li.menu__column.e-acc-orange-top
             .section-sm
-              = partial 'views/partials/signup-box',
-                locals: { local_data: { copy_size: 'sm'}}
+
+              = partial "views/partials/signup-box",
+                locals: { local_data: { copy_size: "sm"}}
+
+              h2.title-lg.e-mgn-t-md Follow us
+              .grid.grid--xxs.e-mgn-t-sm
+                = partial "views/partials/social",
+                  locals: { local_data: \
+                    { icons: [twitter, linkedin, facebook] }}
 
 
   ////////////////////////////////////////////////////////
@@ -106,6 +112,15 @@
   ////////////////////////////////////////////////////////
 
   / mobile
-  - if @screen == 'mobile'
-    = partial 'views/partials/signup-box',
-      locals: { local_data: { copy_size: 'sm'}}
+  - if screen == "mobile"
+
+    / Newsletter signup
+    = partial "views/partials/signup-box",
+      locals: { local_data: { copy_size: "sm"}}
+
+    h2.title-lg.e-mgn-t-md Follow us
+    .grid.grid--xxs.e-mgn-t-sm
+      = partial "views/partials/social",
+        locals: { local_data: \
+          { icons: [twitter, linkedin, facebook] }}
+
