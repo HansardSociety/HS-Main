@@ -1,6 +1,8 @@
 ﻿// HS theme
 @import "../../config";
 @import '../../functions/mapping';
+@import '../../functions/media-queries';
+@import '../../extensions/motion';
 // END: HS theme
 
 /**
@@ -56,7 +58,9 @@ body.snip-open {
 
 // Base layout
 .snip-layout {
-    background: rgba(123, 123, 123, .75);
+    @extend %e-animate-fade-in-opaque;
+
+    background: rgba(Get($colors, greyscale, black), .85);
     bottom: 0;
     color: palette(layout, color);
     font-family: $font-base;
@@ -64,6 +68,7 @@ body.snip-open {
     left: 0;
     line-height: normal;
     overflow-x: auto;
+    // overflow: hidden;
     padding: 0;
     position: fixed;
     right: 0;

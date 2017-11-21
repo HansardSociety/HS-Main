@@ -1,15 +1,10 @@
-///////////////////////////////////////////////////////////
-//  =Overlay
-////////////////////////////////////////////////////////////
-
 %e-overlay-light,
 %e-overlay-medium,
 %e-overlay-dark {
   &::after {
-    @extend
-      %e-height-full,
-      %e-pseudo-elem,
-      %e-width-full;
+    @extend %e-height-full;
+    @extend %e-pseudo-elem;
+    @extend %e-width-full;
   }
 }
 
