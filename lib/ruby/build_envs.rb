@@ -108,7 +108,7 @@ module BuildEnvs
       buildCore()
 
       set :ENV, "preview"
-      set :SNIPCART_TKN, ENV["SNIPCART_PREVIEW_TKN"]
+      set :SNIPCART_TKN, ENV["SNIPCART_TEST_TKN"]
     end
   end
 
@@ -138,7 +138,7 @@ module BuildEnvs
       set :JS_VENDOR, "/vendor.js"
 
       # Snipcart
-      set :SNIPCART_TKN, ENV["SNIPCART_PREVIEW_TKN"]
+      set :SNIPCART_TKN, ENV["SNIPCART_TEST_TKN"]
     end
   end
 end
