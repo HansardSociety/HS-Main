@@ -2,11 +2,6 @@
 - navItems = local_data[:nav_items]
 - screen = local_data[:screen]
 
-- twitter = siteData(:twitter)
-- linkedin = siteData(:linkedin)
-- facebook = siteData(:facebook)
-
-
 .menu.e-col-white.JS-inactive{
   class="menu--#{ screen } "
   id= id
@@ -96,16 +91,11 @@
         - if category == "about"
           li.menu__column.e-acc-orange-top
             .section-sm
-
               = partial "views/partials/signup-box",
                 locals: { local_data: { copy_size: "sm"}}
 
-              h2.title-lg.e-mgn-t-md Follow us
-              .grid.grid--xxs.e-mgn-t-sm
-                = partial "views/partials/social",
-                  locals: { local_data: \
-                    { icons: [twitter, linkedin, facebook] }}
-
+            .section-sm
+              = partial "views/partials/social-follow"
 
   ////////////////////////////////////////////////////////
   // Custom content
@@ -115,12 +105,11 @@
   - if screen == "mobile"
 
     / Newsletter signup
-    = partial "views/partials/signup-box",
-      locals: { local_data: { copy_size: "sm"}}
+    .section-sm
+      = partial "views/partials/signup-box",
+        locals: { local_data: { copy_size: "sm" }}
 
-    h2.title-lg.e-mgn-t-md Follow us
-    .grid.grid--xxs.e-mgn-t-sm
-      = partial "views/partials/social",
-        locals: { local_data: \
-          { icons: [twitter, linkedin, facebook] }}
+    / Social follow
+    .section-sm
+      = partial "views/partials/social-follow"
 
