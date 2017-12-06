@@ -44,7 +44,7 @@ article.side-card{
       / If banner image
       - if image
         img.b-lazy{
-          src=sideCardDataURI()
+          src="/#{ assetsDir }/images/svg/sprite.symbol.svg#images"
           data-src="#{ imageURL }#{ ("?fit=fill&w=229&h=324&f=" + imageFocus + "&q=50&fl=progressive") if imageBanner }"
           alt="#{ imageAlt }"
         }
