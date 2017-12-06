@@ -1,10 +1,5 @@
 source "https://rubygems.org"
 
-<<<<<<< HEAD
-# Gems
-=======
-# Some gems
->>>>>>> feature/dev/mm-build-perf
 gem "dotenv"
 gem "bundler"
 gem "kramdown"
