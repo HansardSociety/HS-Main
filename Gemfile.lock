@@ -1,7 +1,18 @@
 GIT
-  remote: https://github.com/HansardSociety/middleman.git
-  revision: d845349969132cd166a856f85811a8f17011b21f
-  branch: hs/prod
+  remote: https://github.com/contentful/contentful_middleman.git
+  revision: d75146dbe34216397184898bf9de658f60f8b4fd
+  branch: v4-1.x-stable
+  specs:
+    contentful_middleman (1.5.0)
+      contentful (~> 1.0)
+      contentful-webhook-listener (~> 0.1)
+      middleman-cli (~> 4.0)
+      middleman-core (~> 4.0)
+
+GIT
+  remote: https://github.com/middleman/middleman.git
+  revision: ecb84cc6d2f05bd75a4125b7494a058ed702279e
+  branch: master
   specs:
     middleman-cli (4.2.1)
       thor (>= 0.17.0, < 2.0)
@@ -27,17 +38,6 @@ GIT
       servolux
       tilt (~> 2.0)
       uglifier (~> 3.0)
-
-GIT
-  remote: https://github.com/contentful/contentful_middleman.git
-  revision: d75146dbe34216397184898bf9de658f60f8b4fd
-  branch: v4-1.x-stable
-  specs:
-    contentful_middleman (1.5.0)
-      contentful (~> 1.0)
-      contentful-webhook-listener (~> 0.1)
-      middleman-cli (~> 4.0)
-      middleman-core (~> 4.0)
 
 GEM
   remote: https://rubygems.org/
