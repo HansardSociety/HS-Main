@@ -1,5 +1,6 @@
 require "dotenv"
 require "json"
+require "kramdown"
 require "public_suffix"
 require "slim"
 require "yaml"
