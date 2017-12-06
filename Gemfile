@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# All gems
+# Gems
 gem "dotenv"
 gem "bundler"
 gem "kramdown"
