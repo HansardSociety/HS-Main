@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "==================== CORE": "====================",
-    "clean": "rimraf data/ build/ .tmp/ 'source/.assets/!(fonts)**'",
+    "clean": "rimraf data/ .tmp/ 'source/.assets/!(fonts)**'",
     "==================== DATA": "====================",
     "data": "bundle exec middleman contentful",
     "data:live": "CONTENTFUL_ENV=live bundle exec middleman contentful",
