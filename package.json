@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "==================== CORE": "====================",
-    "clean": "rimraf data/ build/ .tmp/ 'source/.assets/!(fonts)**'",
+    "clean": "rimraf data/ build/ .tmp/ 'source/.assets/!(fonts|images)**'",
     "==================== DATA": "====================",
     "data": "bundle exec middleman contentful",
     "data:live": "CONTENTFUL_ENV=live bundle exec middleman contentful",
@@ -76,6 +76,7 @@
     "picturefill": "^3.0.2",
     "promise-polyfill": "^6.0.2",
     "smooth-scroll": "^12.1.5",
+    "svgxuse": "^1.2.6",
     "whatwg-fetch": "^2.0.3"
   }
 }

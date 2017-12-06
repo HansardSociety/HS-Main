@@ -10,6 +10,7 @@ import "core-js/es6/symbol"
 import "promise-polyfill"
 import "picturefill"
 import "whatwg-fetch"
+import "svgxuse"
 
 /*		=Libs
   ========================================================================== */
