@@ -22,8 +22,9 @@ head
   title= siteData(:site_title)
 
   / CSS
-  = stylesheet_link_tag "#{ config[:CSS_VENDOR] }", :relative => true
-  = stylesheet_link_tag "#{ config[:CSS_APP] }", :relative => true
+
+  link{ href="#{ assetsDir }#{ config[:CSS_VENDOR] }" rel="stylesheet" }
+  link{ href="#{ assetsDir }#{ config[:CSS_APP] }" rel="stylesheet" }
 
   / Snipcart
   - if @entry[:featured] && @entry[:featured].any? { |featured| featured.TYPE.include? "product" }

@@ -46,6 +46,11 @@ module CustomHelpers
     Hash[data.map{ |key, val| [key.to_sym, val] }]
   end
 
+  # Assets folder
+  def assetsDir
+    "/#{ "." if config[:ENV] == "development" }assets"
+  end
+
   ###########################################################################
   ##		=Feed data
   ###########################################################################
