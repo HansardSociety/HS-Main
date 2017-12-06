@@ -1,7 +1,7 @@
 GIT
-  remote: /mnt/c/Users/lukebm/Projects/middleman
-  revision: 705568b1691dd2fd65ae165eaa3c37d634913311
-  branch: hs/perf
+  remote: https://github.com/HansardSociety/middleman.git
+  revision: d845349969132cd166a856f85811a8f17011b21f
+  branch: hs/prod
   specs:
     middleman-cli (4.2.1)
       thor (>= 0.17.0, < 2.0)
