@@ -8,7 +8,7 @@
   @extend %e-bgc-light-grey;
   @extend %e-mgn-b-xs;
   @extend %e-overflow-hidden;
-  @extend %e-trans-core;
+  // @extend %e-trans-core;
   @extend %e-rad-slight;
 }
 
@@ -59,7 +59,7 @@
 
 .side-card__image--overlay {
   @extend %e-bgc-green;
-  @extend %e-overlay-medium;
+  // @extend %e-overlay-medium;
 }
 
 .side-card__image--intelligence,
@@ -92,4 +92,13 @@
 
 .side-card__actions {
   @extend %e-pad-t-xs;
+}
+
+/*		=Behaviour
+  ========================================================================== */
+
+.side-card {
+  .b-lazy.b-loaded {
+    @extend %e-animate-fade-in-load;
+  }
 }

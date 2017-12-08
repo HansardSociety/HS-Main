@@ -21,17 +21,17 @@ article.main-card{
 
     / Header
     header.main-card__header.e-col-white
+
       .main-card__image
         img.b-lazy{
-          src=mainCardDataURI()
+          src="#{ assetsDir }/images/placeholder__main-card.svg"
           data-src="#{ mainCardData[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ mainCardData[:banner_image][:focus] }&q=50&fl=progressive"
           alt="#{ mainCardData[:banner_image][:alt] }"
         }
+        h1.main-card__title.title-md= mainCardData[:title]
 
       .main-card__meta
         span.label-xs= mainCardData[:meta_label]
-
-      h1.main-card__title.title-md= mainCardData[:title]
 
     / Introduction
     section.main-card__introduction

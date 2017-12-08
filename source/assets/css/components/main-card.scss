@@ -76,34 +76,21 @@
   line-height: 1.3333;
 }
 
-////////////////////////////////////////////////////////////
-//  TEMP
-////////////////////////////////////////////////////////////
+/*		=Behaviour
+  ========================================================================== */
 
-.main-card__header--side {
-  display: flex;
-  align-items: flex-end;
-  flex-flow: row nowrap;
+.main-card {
+  .b-lazy + .main-card__title {
+    opacity: 0;
 
-  height: 162px;
-}
-
-.main-card__side-image {
-  height: 100%;
-  > img {
-    height: 100% ;
+    @extend %e-trans-opacity;
   }
-}
 
-.main-card__content {
-  padding: 1rem 1rem 1rem .5rem;
-}
+  .b-loaded + .main-card__title {
+    opacity: 1;
+  }
 
-.b-lazy {
-  opacity: 0;
-}
-
-.b-lazy.b-loaded {
-  opacity: 1;
-  transition: all ease-in-out .2s;
+  .b-lazy.b-loaded {
+    @extend %e-animate-fade-in-load;
+  }
 }
