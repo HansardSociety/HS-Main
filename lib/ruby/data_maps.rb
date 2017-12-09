@@ -151,6 +151,7 @@ def sharedPageBase(pageType, ctx, data)
   ctx.TYPE = data.content_type.id
   ctx.title = data.title
   ctx.banner_image = media(data.banner_image, focus: data)
+  ctx.introduction = data.introduction
 
   # Landing/ home page
   if ["landingPage", "homePage"].include? pageType
@@ -168,8 +169,6 @@ def sharedPageBase(pageType, ctx, data)
     if data.sub_category
       ctx.sub_category = subCategorySlugify(data)
     end
-
-    ctx.introduction = data.introduction
 
     # Has alternative date/ time
     if data.featured && data.featured[0].content_type.id == "registration"
@@ -387,6 +386,8 @@ end
 class LandingPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     sharedPageBase("landingPage", context, entry) # core page data
+
+    context.show_introduction = entry.show_introduction
 
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
     context.slug = slug(entry, { indexPage: entry.index_page })

@@ -77,6 +77,7 @@ module BuildEnvs
       # Redirects
       if MM_ENV == "prod"
         File.rename "build/prod/.redirects", "build/prod/_redirects"
+        FileUtils.cp_r Dir.glob("source/assets/images/favicons/**"), "#{ @buildSrc }"
       end
 
       # http/2 headers

@@ -38,5 +38,4 @@ article.main-card{
 
       / Strip HTML from markdown, trucate text and replace all
       / non-alphanumeric final characters with an elipsis.
-      - @intro_text = markdown(mainCardData[:introduction]).gsub(/<\/?[^>]*>/, "")
-      p= markdown(mainCardData[:introduction]).gsub(/<\/?[^>]*>/, "")[0..165].gsub(/[^0-9a-zA-Z]+$/, '') + '…'
+      p= truncateHtml(markdown(mainCardData[:introduction]))

@@ -1,6 +1,10 @@
 head
-  meta{ content="IE=edge" http-equiv="X-UA-Compatible" }
-  meta{ charset="utf-8" }
+  meta content="IE=edge" http-equiv="X-UA-Compatible"
+  meta charset="utf-8"
+
+  / No index for preview site
+  - if config[:ENV] == "preview"
+    meta name="robots" content="noindex"
 
   / Twitter card
   meta name="twitter:card" content="summary_large_image"
@@ -9,22 +13,16 @@ head
   meta name="twitter:description" content="#{ @entry[:introduction] }"
   meta name="twitter:image" content="https:#{ @entry[:banner_image].url }"
 
-  / No index
-  - if config[:ENV] == "preview"
-    meta{ name="robots" content="noindex" }
-
   / Responsive
-  meta{
-    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
-    name="viewport"
-  }
+  meta name="viewport" content="width=device-width, initial-scale=1"
 
-  title= siteData(:site_title)
+  title="#{ @entry[:title] }#{ " - " + siteData(:site_title) if @entry[:TYPE] != "home" }"
+
+  meta name="description" content="#{ truncateHtml((@entry[:introduction] ? @entry[:introduction] : siteData(:site_title)), { elipsis: false, trunc: 149 }) }"
 
   / CSS
-
-  link{ href="#{ assetsDir }#{ config[:CSS_VENDOR] }" rel="stylesheet" }
-  link{ href="#{ assetsDir }#{ config[:CSS_APP] }" rel="stylesheet" }
+  link href="#{ assetsDir }#{ config[:CSS_VENDOR] }" rel="stylesheet"
+  link href="#{ assetsDir }#{ config[:CSS_APP] }" rel="stylesheet"
 
   / Snipcart
   - if @entry[:featured] && @entry[:featured].any? { |featured| featured.TYPE.include? "product" }
