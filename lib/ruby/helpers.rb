@@ -51,6 +51,17 @@ module CustomHelpers
     "/#{ "." if config[:ENV] == "development" }assets"
   end
 
+  # Truncate and strip HTML
+  def truncateHtml(data, opts = {})
+    defaults = {
+      trunc: 165,
+      elipsis: true
+    }
+    opts = defaults.merge(opts)
+
+    "#{ data.gsub(/<\/?[^>]*>/, "")[0..opts[:trunc]].gsub(/[^0-9a-zA-Z]+$/, '') }#{ "…" if opts[:elipsis] }"
+  end
+
   ###########################################################################
   ##		=Feed data
   ###########################################################################
