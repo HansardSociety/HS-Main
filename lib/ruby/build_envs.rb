@@ -61,10 +61,10 @@ module BuildEnvs
     jsAppHash = manifest_hash["app.js"]
     jsVendorHash = manifest_hash["vendor.js"]
 
-    set :CSS_APP, "/assets/#{ cssAppHash }"
-    set :CSS_VENDOR, "/assets/#{ cssVendorHash }"
-    set :JS_APP, "/assets/#{ jsAppHash }"
-    set :JS_VENDOR, "/assets/#{ jsVendorHash }"
+    set :CSS_APP, "/#{ cssAppHash }"
+    set :CSS_VENDOR, "/#{ cssVendorHash }"
+    set :JS_APP, "/#{ jsAppHash }"
+    set :JS_VENDOR, "/#{ jsVendorHash }"
 
     set :build_dir, "build/#{ MM_ENV }"
 
