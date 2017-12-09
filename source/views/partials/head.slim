@@ -18,7 +18,7 @@ head
 
   title="#{ @entry[:title] }#{ " - " + siteData(:site_title) if @entry[:TYPE] != "home" }"
 
-  meta name="description" content="#{ truncateHtml(@entry[:introduction], { elipsis: false, trunc: 149 }) }"
+  meta name="description" content="#{ truncateHtml((@entry[:introduction] ? @entry[:introduction] : siteData(:site_title)), { elipsis: false, trunc: 149 }) }"
 
   / CSS
   link href="#{ assetsDir }#{ config[:CSS_VENDOR] }" rel="stylesheet"

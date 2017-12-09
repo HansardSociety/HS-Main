@@ -5,7 +5,7 @@ import runSequence from "run-sequence"
 
 // Streams
 import { cssApp, cssVendor } from "./lib/gulp/styles"
-import { iconSprite, minSVG, svgDataURI } from "./lib/gulp/images"
+import { iconSprite, minSVG } from "./lib/gulp/images"
 import { js } from "./lib/gulp/scripts"
 import { devServer } from "./lib/gulp/dev-server"
 
