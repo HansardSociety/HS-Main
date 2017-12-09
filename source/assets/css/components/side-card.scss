@@ -8,7 +8,6 @@
   @extend %e-bgc-light-grey;
   @extend %e-mgn-b-xs;
   @extend %e-overflow-hidden;
-  // @extend %e-trans-core;
   @extend %e-rad-slight;
 }
 
@@ -59,7 +58,6 @@
 
 .side-card__image--overlay {
   @extend %e-bgc-green;
-  // @extend %e-overlay-medium;
 }
 
 .side-card__image--intelligence,
@@ -78,9 +76,8 @@
 .side-card__content {
   flex: 1;
 
-  padding: 2rem 1rem 1rem .5rem;
-
   height: inherit;
+  padding: 2rem 1rem 1rem .5rem;
 
   @extend %e-position-relative;
 }
