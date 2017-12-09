@@ -1,3 +1,5 @@
+# 0.1.0
+
 require "dotenv"
 require "json"
 require "kramdown"
