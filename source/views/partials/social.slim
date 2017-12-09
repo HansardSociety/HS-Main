@@ -10,6 +10,7 @@
     class="#{ 'grid__cell grid__cell--xxs' if @urls.length > 0 }"
     href="#{ url =~ /@/ ? 'mailto:' + url : url }"
     target="_blank"
+    rel="noopener"
   }
     = partial 'views/partials/icon',
       locals: { \
