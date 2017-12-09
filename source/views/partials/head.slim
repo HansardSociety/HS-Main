@@ -6,12 +6,24 @@ head
   - if config[:ENV] == "preview"
     meta name="robots" content="noindex"
 
-  / Twitter card
+  / Social media data
+  / - if config[:ENV] == "production"
+
+  / Twitter
   meta name="twitter:card" content="summary_large_image"
   meta name="twitter:site" content="@HansardSociety"
   meta name="twitter:title" content="#{ @entry[:title] }"
   meta name="twitter:description" content="#{ @entry[:introduction] }"
   meta name="twitter:image" content="https:#{ @entry[:banner_image].url }"
+
+  / Facebook OG
+  meta property="og:url" content="#{ siteData(:site_url) }/#{ @entry[:slug] }"
+  meta property="og:type" content="article"
+  meta property="og:title" content="#{ @entry[:title] }"
+  meta property="og:description" content="#{ @entry[:introduction] }"
+  meta property="og:image" content="https:#{ @entry[:banner_image][:url] }?w=1920&h=1008&fit=crop"
+  meta property="og:image:width" content="1920"
+  meta property="og:image:height" content="1008"
 
   / Responsive
   meta name="viewport" content="width=device-width, initial-scale=1"
