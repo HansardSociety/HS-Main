@@ -54,9 +54,9 @@ article.side-card{
           locals: { local_data: \
             { date_data: dateTime }}
 
-    span.side-card__label.label-xs.e-col-mid-grey= partialData[:meta_label]
-
     .side-card__content{ class="#{ (featuredRegistration || featuredProduct) ? "JS-clamp-2" : "JS-clamp-3"  }" }
+
+      span.side-card__label.label-xs.e-col-mid-grey= partialData[:meta_label]
 
       .side-card__title
 
