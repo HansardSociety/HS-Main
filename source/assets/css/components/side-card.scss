@@ -73,6 +73,13 @@
   @extend %e-bgc-light-blue;
 }
 
+.side-card__label {
+  top: .25rem;
+  left: .5rem;
+
+  @extend %e-position-absolute;
+}
+
 .side-card__content {
   flex: 1;
 
@@ -82,18 +89,11 @@
   @extend %e-position-relative;
 }
 
-.side-card__meta {
-  top: .25rem;
-  left: .5rem;
-
-  @extend %e-position-absolute;
-}
-
 .side-card__actions {
-  position: absolute;
   bottom: 2rem;
   left: 7rem;
 
+  @extend %e-position-absolute;
   @extend %e-pad-t-xs;
 }
 
