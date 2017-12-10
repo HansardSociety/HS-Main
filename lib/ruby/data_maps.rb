@@ -11,7 +11,7 @@ def detatchCategory(data, opts = {})
 
   part = opts[:part]
 
-  (data.include? "::") ? data.split(" :: ")[part].parameterize : data.parameterize
+  (data.include? "❱❱") ? data.split(" ❱❱ ")[part].parameterize : data.parameterize
 end
 
 def subCategorySlugify(data)
@@ -252,7 +252,7 @@ def featuredData(data, opts = {})
     date_time: dateTime(data),
     embed_code: data.embed_code,
     modal: {
-      cta_id: (data.meta_title.split('::')[0].parameterize + '-' + data.sys[:id]), # split '::' for contentful name-spacing
+      cta_id: (data.meta_title.split('❱❱')[0].parameterize + '-' + data.sys[:id]), # split '❱❱' for contentful name-spacing
       content: data.embed_code
     }
   } if data.content_type.id == "registration")
@@ -475,7 +475,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           # Panel feed
           feed: ({
             category: detatchCategory(panel.feed_category, { part: 0 }),
-            sub_category: (detatchCategory(panel.feed_category) if panel.feed_category.include? "::"),
+            sub_category: (detatchCategory(panel.feed_category) if panel.feed_category.include? "❱❱"),
             initial_count: panel.initial_count,
             dedupe: panel.dedupe
           }.compact if panel.content_type.id == "panel_feed")
