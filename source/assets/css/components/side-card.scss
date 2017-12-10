@@ -73,13 +73,6 @@
   @extend %e-bgc-light-blue;
 }
 
-.side-card__label {
-  top: .25rem;
-  left: .5rem;
-
-  @extend %e-position-absolute;
-}
-
 .side-card__content {
   flex: 1;
 
@@ -87,6 +80,12 @@
   padding: 2rem 1rem 1rem .5rem;
 
   @extend %e-position-relative;
+}
+
+.side-card__label {
+  top: .25rem;
+  left: .5rem;
+  position: absolute;
 }
 
 .side-card__actions {
