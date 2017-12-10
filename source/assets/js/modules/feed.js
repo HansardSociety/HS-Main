@@ -37,7 +37,7 @@ const infiniteFeed = (() => {
       function feedPagePath() {
         const slug = feedPages[this.loadCount]
 
-        if (slug) return `/${ feedCategory.replace("::", "/") }/feed/${ slug }`
+        if (slug) return `/${feedCategory.replace("::", "/") }/feed/${ slug }`
       }
 
       const infScroll = new InfiniteScroll(container, {
