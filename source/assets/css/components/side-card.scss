@@ -38,6 +38,7 @@
 
 .side-card__inner {
   @extend %e-flex-row-start;
+  @extend %e-position-relative;
 }
 
 .side-card__image {
@@ -85,7 +86,8 @@
 .side-card__label {
   top: .25rem;
   left: .5rem;
-  position: absolute;
+
+  @extend %e-position-absolute;
 }
 
 .side-card__actions {
