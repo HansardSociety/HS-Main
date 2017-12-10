@@ -3,7 +3,7 @@ head
   meta charset="utf-8"
 
   / No index for preview site
-  - if config[:ENV] == "preview"
+  - if config[:ENV] != "production"
     meta name="robots" content="noindex"
 
   / Social media data
