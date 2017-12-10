@@ -54,23 +54,24 @@ article.side-card{
           locals: { local_data: \
             { date_data: dateTime }}
 
-    .side-card__content{ class="#{ (featuredRegistration || featuredProduct) ? "JS-clamp-2" : "JS-clamp-3"  }" }
+    span.side-card__label.label-xs.e-col-mid-grey= partialData[:meta_label]
 
-      .side-card__label
-        span.label-xs.e-col-mid-grey= partialData[:meta_label]
+    .side-card__content{
+      class="#{ (featuredRegistration || featuredProduct) ? "JS-clamp-2" : "JS-clamp-3"  }"
+    }
 
       .side-card__title
 
         / Not registration or product
         - if !featuredRegistration && !featuredProduct
           h1.title-sm
-            a.JS-truncate{
+            a{
               href="#{ internalURL(partialData[:slug]) }"
               class="#{ featuredItem ? "link-white" : "link" }"
             }= partialData[:title]
 
         - else
-          h1.title-sm.JS-truncate{
+          h1.title-sm{
             class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
           }= featuredProduct ? partialData[:title] : partialData[:venue]
 

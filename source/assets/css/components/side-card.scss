@@ -38,6 +38,7 @@
 
 .side-card__inner {
   @extend %e-flex-row-start;
+  @extend %e-position-relative;
 }
 
 .side-card__image {
@@ -73,28 +74,28 @@
   @extend %e-bgc-light-blue;
 }
 
-.side-card__label {
-  top: .25rem;
-  left: .5rem;
-
-  @extend %e-position-absolute;
-}
-
 .side-card__content {
   flex: 1;
-
   height: inherit;
-  padding: 2rem 1rem 1rem .5rem;
+
+  padding: 2.5rem 1rem 1rem .5rem;
 
   @extend %e-position-relative;
 }
 
+.side-card__label,
 .side-card__actions {
-  bottom: 2rem;
-  left: 7rem;
+  left: 6.75rem;
 
-  @extend %e-position-absolute;
-  @extend %e-pad-t-xs;
+  position: absolute;
+}
+
+.side-card__label {
+  top: 1rem;
+}
+
+.side-card__actions {
+  bottom: 1rem;
 }
 
 /*		=Behaviour

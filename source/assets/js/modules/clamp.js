@@ -6,12 +6,12 @@ const clamp = (() => {
 
   for (let i of clamp2) {
 
-    lineClamp(i, { lineCount: 4 })
+    lineClamp(i, { lineCount: 5 })
   }
 
   for (let i of clamp3) {
 
-    lineClamp(i, { lineCount: 5 })
+    lineClamp(i, { lineCount: 6 })
   }
 })()
 
