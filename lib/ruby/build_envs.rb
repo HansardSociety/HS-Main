@@ -113,6 +113,18 @@ module BuildEnvs
     end
   end
 
+  ##		=Experimental
+  ########################################
+
+  def buildExperimental()
+    configure :exp do
+      buildCore()
+
+      set :ENV, "experimental"
+      set :SNIPCART_TKN, ENV["SNIPCART_TEST_TKN"]
+    end
+  end
+
   ##		=Development
   ########################################
 
