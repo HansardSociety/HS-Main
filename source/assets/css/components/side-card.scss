@@ -83,19 +83,19 @@
   @extend %e-position-relative;
 }
 
-.side-card__label {
-  top: 1rem;
-  left: .5rem;
+.side-card__label,
+.side-card__actions {
+  left: 6.75rem;
 
   @extend %e-position-absolute;
 }
 
+.side-card__label {
+  top: 1rem;
+}
+
 .side-card__actions {
   bottom: 1rem;
-  left: 6.75rem;
-
-  @extend %e-position-absolute;
-  @extend %e-pad-t-xs;
 }
 
 /*		=Behaviour
