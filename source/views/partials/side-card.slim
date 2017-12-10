@@ -60,18 +60,20 @@ article.side-card{
       class="#{ (featuredRegistration || featuredProduct) ? "JS-clamp-2" : "JS-clamp-3"  }"
     }
 
-      / Not registration or product
-      - if !featuredRegistration && !featuredProduct
-        h1.title-sm
-          a{
-            href="#{ internalURL(partialData[:slug]) }"
-            class="#{ featuredItem ? "link-white" : "link" }"
-          }= partialData[:title]
+      .side-card__title
 
-      - else
-        h1.title-sm{
-          class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
-        }= featuredProduct ? partialData[:title] : partialData[:venue]
+        / Not registration or product
+        - if !featuredRegistration && !featuredProduct
+          h1.title-sm
+            a{
+              href="#{ internalURL(partialData[:slug]) }"
+              class="#{ featuredItem ? "link-white" : "link" }"
+            }= partialData[:title]
+
+        - else
+          h1.title-sm{
+            class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
+          }= featuredProduct ? partialData[:title] : partialData[:venue]
 
     / Is product or registration
     - if featuredRegistration || featuredProduct
