@@ -78,13 +78,13 @@
   flex: 1;
 
   height: inherit;
-  padding: 2rem 1rem 1rem .5rem;
+  padding: 2.5rem 1rem 1rem .5rem;
 
   @extend %e-position-relative;
 }
 
 .side-card__label {
-  top: .25rem;
+  top: 1rem;
   left: .5rem;
 
   @extend %e-position-absolute;
