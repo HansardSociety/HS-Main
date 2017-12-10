@@ -87,7 +87,7 @@
 .side-card__actions {
   left: 6.75rem;
 
-  @extend %e-position-absolute;
+  position: absolute;
 }
 
 .side-card__label {
