@@ -73,7 +73,7 @@
   }
 
   li:nth-of-type(1n + 2) {
-    @extend %e-pad-t-xs;
+    padding-top: .5em;
   }
 
   /* Unordered */
