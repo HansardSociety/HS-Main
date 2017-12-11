@@ -102,14 +102,6 @@ article
                       { side_card_data: featured,
                         featured: true }}
 
-            / External links
-            - if @entry[:external_links]
-              h2.side-title Resources and coverage
-              - @entry[:external_links].map do |link|
-                = partial "views/partials/ext-link",
-                  locals: { local_data: \
-                    { ext_link_data: link }}
-
             / All tagged/ related content
             - if @entry[:tags]
               h2.side-title Related
@@ -117,6 +109,16 @@ article
                 = partial "views/partials/side-card",
                   locals: { local_data: \
                     { side_card_data: page }}
+
+            / External links
+            - if @entry[:external_links]
+              .section-sm
+                h2.side-title Coverage
+                - @entry[:external_links].map do |link|
+                  = partial "views/partials/ext-link",
+                    locals: { local_data: \
+                      { ext_link_data: link }}
+
 
           / Latest items for about pages
           - if @category == "about"
