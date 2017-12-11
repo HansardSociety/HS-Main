@@ -104,11 +104,11 @@ article
 
             / External links
             - if @entry[:external_links]
-              .section-sm
-                - @entry[:external_links].map do |link|
-                  = partial "views/partials/ext-link",
-                    locals: { local_data: \
-                      { ext_link_data: link }}
+              h2.side-title Resources and coverage
+              - @entry[:external_links].map do |link|
+                = partial "views/partials/ext-link",
+                  locals: { local_data: \
+                    { ext_link_data: link }}
 
             / All tagged/ related content
             - if @entry[:tags]
