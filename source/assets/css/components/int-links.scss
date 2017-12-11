@@ -1,0 +1,9 @@
+.int-links {
+  font-size: .75rem;
+  padding-left: 1rem !important; // override .copy
+
+  @extend %e-bgc-light-grey;
+  @extend %e-pad-sm;
+  @extend %e-rad-slight;
+  @extend %e-width-full;
+}
