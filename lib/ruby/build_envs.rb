@@ -70,6 +70,7 @@ module BuildEnvs
 
     # Netlify
     redirects()
+    headers()
 
     # After build
     after_build do
