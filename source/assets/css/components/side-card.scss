@@ -80,6 +80,8 @@
   height: inherit;
   padding: 2.5rem 1rem 1rem .5rem;
 
+  line-height: 27px; // px lh required by line-clamp.js
+
   word-wrap: break-word;
 
   overflow-wrap: break-word;
