@@ -65,7 +65,7 @@
   @extend %e-mgn-b-xs;
 
   &:not(:first-child) {
-    margin-top: 1em;
+    @extend %e-mgn-t-md;
   }
 }
 
