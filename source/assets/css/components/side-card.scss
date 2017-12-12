@@ -1,6 +1,7 @@
 .side-card,
 .side-card__inner,
-.side-card__image {
+.side-card__image,
+.side-card__content {
   height: 9rem;
 }
 
@@ -74,27 +75,25 @@
   @extend %e-bgc-light-blue;
 }
 
+.side-card__content {
+  flex: 1;
+  padding: 1rem 1rem 1rem .5rem;
+}
+
 .side-card__title {
-  width: calc(100% - 6.36rem);
-
-  padding: 2.5rem 1rem 1rem .5rem;
-
-  // @extend %e-height-full;
-  @extend %e-position-relative;
+  @extend %e-overflow-hidden;
 }
 
-.side-card__label,
-.side-card__actions {
-  position: absolute;
-  left: 6.75rem;
+.side-card__title--clamp-2 {
+  max-height: calc(2rem * 1.5);
 }
 
-.side-card__label {
-  top: 1rem;
+.side-card__title--clamp-3 {
+  max-height: calc(3rem * 1.5);
 }
 
 .side-card__actions {
-  bottom: 1rem;
+  @extend %e-pad-t-xs;
 }
 
 /*		=Behaviour
