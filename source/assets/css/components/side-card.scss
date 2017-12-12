@@ -76,8 +76,7 @@
 }
 
 .side-card__title {
-  flex: 1;
-
+  width: calc(100% - 6.36rem);
   padding: 2.5rem 1rem 1rem .5rem;
 
   @extend %e-height-full;
