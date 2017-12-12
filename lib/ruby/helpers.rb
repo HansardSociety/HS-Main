@@ -54,7 +54,7 @@ module CustomHelpers
   # Truncate and strip HTML
   def truncateHtml(data, opts = {})
     defaults = {
-      trunc: 165,
+      trunc: 140,
       elipsis: true
     }
     opts = defaults.merge(opts)
