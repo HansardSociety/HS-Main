@@ -1,4 +1,4 @@
-import lineClamp from "line-clamp"
+import shave from "shave"
 
 const clamp = (() => {
   const clamp2 = document.querySelectorAll(".JS-clamp-2")
@@ -6,12 +6,12 @@ const clamp = (() => {
 
   for (let i of clamp2) {
 
-    lineClamp(i, { lineCount: 4.5 })
+    shave(i, 54, { classname: "JS-clamp-2" })
   }
 
   for (let i of clamp3) {
 
-    lineClamp(i, { lineCount: 5.5 })
+    shave(i, 81, { classname: "JS-clamp-3" })
   }
 })()
 
