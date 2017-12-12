@@ -82,6 +82,11 @@
   @extend %e-height-full;
   @extend %e-max-height-full;
   @extend %e-position-relative;
+
+  & .JS-clamp-3 {
+    height: 81px;
+    line-height: 27px;
+  }
 }
 
 .side-card__label,
