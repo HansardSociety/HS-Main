@@ -9,8 +9,9 @@ source/.assets/**
 
 .DS_Store
 .env
+source/.headers
+source/.redirects
 .hs-space-hash
 npm-debug.log
 source/assets/rev-manifest.json
 yarn-error.log
-

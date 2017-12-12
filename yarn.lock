@@ -2674,6 +2674,13 @@ gulp-rev@^7.1.2:
     through2 "^2.0.0"
     vinyl-file "^1.1.0"
 
+gulp-sass-variables@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/gulp-sass-variables/-/gulp-sass-variables-1.1.1.tgz#95921590f8a1b84a687ebcb3ecbc30a74bcef44d"
+  dependencies:
+    gulp-util "^3.0.7"
+    through2 "^2.0.1"
+
 gulp-sass@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/gulp-sass/-/gulp-sass-3.1.0.tgz#53dc4b68a1f5ddfe4424ab4c247655269a8b74b7"
