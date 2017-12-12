@@ -1,6 +1,6 @@
 .side-card,
 .side-card__image,
-.side-card__content {
+.side-card__title {
   height: 9rem;
 }
 
@@ -74,20 +74,24 @@
   @extend %e-bgc-light-blue;
 }
 
-.side-card__content {
+.side-card__title {
   flex: 1;
-  height: inherit;
 
+  height: inherit;
   padding: 2.5rem 1rem 1rem .5rem;
 
+  line-height: 27px; // px lh required by line-clamp.js
+
+  word-wrap: break-word;
+
+  overflow-wrap: break-word;
   @extend %e-position-relative;
 }
 
 .side-card__label,
 .side-card__actions {
-  left: 6.75rem;
-
   position: absolute;
+  left: 6.75rem;
 }
 
 .side-card__label {
