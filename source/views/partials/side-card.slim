@@ -37,6 +37,8 @@ article.side-card{
   class="#{ "side-card--featured" if featuredItem }"
 }
   .side-card__inner
+
+    / Image
     .side-card__image{
       class="#{ image ? "side-card__image--overlay" : "side-card__image--" + pageCategory }"
     }
@@ -54,65 +56,73 @@ article.side-card{
           locals: { local_data: \
             { date_data: dateTime }}
 
-    span.side-card__label.label-xs.e-col-mid-grey= partialData[:meta_label]
+    / Content
+    .side-card__content
 
-    .side-card__title
+      / Label
+      .side-card__label
+        span.label-xs.e-col-mid-grey= partialData[:meta_label]
 
-      / Not registration or product
-      - if !featuredRegistration && !featuredProduct
-        h1.title-sm
-          a.JS-clamp-3{
-            href="#{ internalURL(partialData[:slug]) }"
-            class="#{ featuredItem ? "link-white" : "link" }"
-          }= partialData[:title]
-
-      - else
-        h1.title-sm.JS-clamp-2{
-          class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
-        }= featuredProduct ? partialData[:title] : partialData[:venue]
-
-    / Is product or registration
-    - if featuredRegistration || featuredProduct
-      .side-card__actions{
-        class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
+      / Title
+      .side-card__title{
+        class="side-card__title--#{ (featuredRegistration || featuredProduct) ? "clamp-2" : "clamp-3" }"
       }
 
-        / Product
-        - if featuredProduct
+        / Not registration or product
+        - if !featuredRegistration && !featuredProduct
+          h1.title-sm
+            a.JS-clamp-3{
+              href="#{ internalURL(partialData[:slug]) }"
+              class="#{ featuredItem ? "link-white" : "link" }"
+            }= partialData[:title]
 
-          - if partialData[:price] == 0
-            = partial "views/partials/btn",
-              locals: { local_data: \
-                { type: "link", size: "sm", style: "primary",
-                  label: "Download", label_size: "sm", url: partialData[:download] }}
+        - else
+          h1.title-sm.JS-clamp-2{
+            class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
+          }= featuredProduct ? partialData[:title] : partialData[:venue]
 
-          - if partialData[:price] > 0
-            = partial "views/partials/btn",
-              locals: { local_data: \
-                { type: "link", size: "sm", style: "primary", product: partialData,
-                  label: "Buy (£#{ partialData[:price] })", label_size: "sm" }}
+      / Actions - if product or registration...
+      - if featuredRegistration || featuredProduct
+        .side-card__actions{
+          class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
+        }
 
-        / Registration
-        - if featuredRegistration
+          / Product
+          - if featuredProduct
 
-          - if partialData[:date_time][:integer] < Time.now.strftime("%s").to_i
-            p
-              em CLOSED
+            - if partialData[:price] == 0
+              = partial "views/partials/btn",
+                locals: { local_data: \
+                  { type: "link", size: "sm", style: "primary",
+                    label: "Download", label_size: "sm", url: partialData[:download] }}
 
-          - else
+            - if partialData[:price] > 0
+              = partial "views/partials/btn",
+                locals: { local_data: \
+                  { type: "link", size: "sm", style: "primary", product: partialData,
+                    label: "Buy (£#{ partialData[:price] })", label_size: "sm" }}
 
-            / Modal window
-            = partial "views/partials/modal",
-              locals: { local_data: \
-                { id: partialData[:modal][:cta_id],
-                  content: partialData[:modal][:content] }}
+          / Registration
+          - if featuredRegistration
 
-            / Modal button
-            = partial "views/partials/btn",
-              locals: { local_data: \
-                { type: "state",
-                  size: "sm", style: "primary",
-                  label_on: "Register now", label_off: "Close", label_size: "sm",
-                  page: "no-scroll", switch: true,
-                  aria_id: "activate-#{ partialData[:modal][:cta_id] }",
-                  aria_target_id: partialData[:modal][:cta_id] }}
+            - if partialData[:date_time][:integer] < Time.now.strftime("%s").to_i
+              p
+                em CLOSED
+
+            - else
+
+              / Modal window
+              = partial "views/partials/modal",
+                locals: { local_data: \
+                  { id: partialData[:modal][:cta_id],
+                    content: partialData[:modal][:content] }}
+
+              / Modal button
+              = partial "views/partials/btn",
+                locals: { local_data: \
+                  { type: "state",
+                    size: "sm", style: "primary",
+                    label_on: "Register now", label_off: "Close", label_size: "sm",
+                    page: "no-scroll", switch: true,
+                    aria_id: "activate-#{ partialData[:modal][:cta_id] }",
+                    aria_target_id: partialData[:modal][:cta_id] }}
