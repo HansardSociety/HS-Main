@@ -16,9 +16,6 @@
 
          url("#{ $fontPath }/#{ $fontFamily }.svg##{ $fontFamily }") format("svg"),
          url("#{ $fontPath }/#{ $fontFamily }.eot?#iefix") format("embedded-opentype");
-
-    font-weight: normal;
-    font-style: normal;
   }
 }
 
