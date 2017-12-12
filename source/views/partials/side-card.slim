@@ -56,9 +56,7 @@ article.side-card{
 
     span.side-card__label.label-xs.e-col-mid-grey= partialData[:meta_label]
 
-    .side-card__title{
-      class="#{ (featuredRegistration || featuredProduct) ? "JS-clamp-2" : "JS-clamp-3"  }"
-    }
+    .side-card__title
 
       / Not registration or product
       - if !featuredRegistration && !featuredProduct
@@ -66,11 +64,13 @@ article.side-card{
           a{
             href="#{ internalURL(partialData[:slug]) }"
             class="#{ featuredItem ? "link-white" : "link" }"
+            class="#{ (featuredRegistration || featuredProduct) ? "JS-clamp-2" : "JS-clamp-3"  }"
           }= partialData[:title]
 
       - else
         h1.title-sm{
           class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
+          class="#{ (featuredRegistration || featuredProduct) ? "JS-clamp-2" : "JS-clamp-3"  }"
         }= featuredProduct ? partialData[:title] : partialData[:venue]
 
     / Is product or registration
