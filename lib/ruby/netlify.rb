@@ -10,17 +10,8 @@ module Netlify
   end
 
   # headers
-  def headers(opts = {})
-    # defaults = {
-    #   cssMainHash: "",
-    #   cssVendorHash: "",
-    #   jsMainHash: "",
-    #   jsVendorHash: "",
-    #   logoMob: ""
-    # }
-    # opts = defaults.merge(opts)
-
-    File.open("./netlify/.headers", "w+") do |file|
+  def headers()
+    File.open("source/.headers", "w+") do |file|
       file << "/*\n"
       file << "  Link: </AvenirLTStd-Roman.woff2>; rel=preload; as=font\n"
       file << "  Link: </AvenirLTStd-Heavy.woff2>; rel=preload; as=font\n"
