@@ -1,7 +1,6 @@
 .side-card,
 .side-card__inner,
-.side-card__image,
-.side-card__title {
+.side-card__image {
   height: 9rem;
 }
 
@@ -80,10 +79,8 @@
 
   padding: 2.5rem 1rem 1rem .5rem;
 
-  @extend %e-height-full;
+  // @extend %e-height-full;
   @extend %e-position-relative;
-
-
 }
 
 .side-card__label,
