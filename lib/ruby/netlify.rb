@@ -13,8 +13,8 @@ module Netlify
   def headers()
     File.open("source/.headers", "w+") do |file|
       file << "/*\n"
-      file << "  Link: </AvenirLTStd-Roman.woff2>; rel=preload; as=font\n"
-      file << "  Link: </AvenirLTStd-Heavy.woff2>; rel=preload; as=font\n"
+      file << "  Link: </assets/fonts/AvenirLTStd-Roman.woff2>; rel=preload; as=font\n"
+      file << "  Link: </assets/fonts/AvenirLTStd-Heavy.woff2>; rel=preload; as=font\n"
     end
   end
 end
