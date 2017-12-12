@@ -73,7 +73,7 @@
   }
 
   li:nth-of-type(1n + 2) {
-    padding-top: .5em;
+    padding-top: 1em;
   }
 
   /* Unordered */
@@ -82,7 +82,7 @@
 
     > li {
       &::before{
-        content: counter( root-ul-counter, disc );
+        content: counter(root-ul-counter, disc);
         counter-increment: root-ul-counter;
       }
 
@@ -91,7 +91,7 @@
 
         > li {
           &::before {
-            content: counter( level-one-ul-counter, square );
+            content: counter(level-one-ul-counter, square);
             counter-increment: level-one-ul-counter;
           }
 
@@ -100,7 +100,7 @@
 
             > li {
               &::before {
-                content: counter( level-two-ul-counter, circle );
+                content: counter(level-two-ul-counter, circle);
                 counter-increment: level-two-ul-counter;
               }
             }
@@ -113,7 +113,7 @@
 
         > li {
           &::before {
-            content: counter( level-one-ol-counter, decimal ) ".";
+            content: counter(level-one-ol-counter, decimal) ".";
             counter-increment: level-one-ol-counter;
           }
 
@@ -122,7 +122,7 @@
 
             > li {
               &::before {
-                content: counter( level-two-ol-counter, lower-roman ) ".";
+                content: counter(level-two-ol-counter, lower-roman) ".";
                 counter-increment: level-two-ol-counter;
               }
             }
@@ -138,7 +138,7 @@
 
     > li {
       &::before {
-        content: counter( root-ul-counter, decimal ) ".";
+        content: counter(root-ul-counter, decimal) ".";
         counter-increment: root-ul-counter;
       }
 
@@ -147,7 +147,7 @@
 
         > li {
           &::before {
-            content: counter( level-one-ul-counter, lower-roman ) ".";
+            content: counter(level-one-ul-counter, lower-roman) ".";
             counter-increment: level-one-ul-counter;
           }
 
@@ -156,7 +156,7 @@
 
             > li {
               &::before {
-                content: counter( level-two-ul-counter, lower-latin ) ".";
+                content: counter(level-two-ul-counter, lower-latin) ".";
                 counter-increment: level-two-ul-counter;
               }
             }
@@ -169,7 +169,7 @@
 
         > li {
           &::before {
-            content: counter( level-one-ol-counter, decimal );
+            content: counter(level-one-ol-counter, decimal);
             counter-increment: level-one-ol-counter;
           }
 
@@ -178,7 +178,7 @@
 
             > li {
               &::before {
-                content: counter( level-two-ol-counter, lower-roman );
+                content: counter(level-two-ol-counter, lower-roman);
                 counter-increment: level-two-ol-counter;
               }
             }
