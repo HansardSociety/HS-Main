@@ -6,8 +6,18 @@ head
   - if config[:ENV] != "production"
     meta name="robots" content="noindex"
 
-  / Social media data
-  / - if config[:ENV] == "production"
+  / CSS
+  link href="#{ assetsDir }#{ config[:CSS_VENDOR] }" rel="stylesheet"
+  link href="#{ assetsDir }#{ config[:CSS_APP] }" rel="stylesheet"
+
+  / Snipcart
+  - if @entry[:featured] && @entry[:featured].any? { |featured| featured.TYPE.include? "product" }
+    script{ src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" }
+    script{
+      src="https://cdn.snipcart.com/scripts/2.0/snipcart.js"
+      id="snipcart"
+      data-api-key="#{ config[:SNIPCART_TKN] }"
+    }
 
   / Twitter
   meta name="twitter:card" content="summary_large_image"
@@ -31,19 +41,6 @@ head
   title="#{ @entry[:title] }#{ " - " + siteData(:site_title) if @entry[:TYPE] != "home" }"
 
   meta name="description" content="#{ truncateHtml((@entry[:introduction] ? @entry[:introduction] : siteData(:site_title)), { elipsis: false, trunc: 149 }) }"
-
-  / CSS
-  link href="#{ assetsDir }#{ config[:CSS_VENDOR] }" rel="stylesheet"
-  link href="#{ assetsDir }#{ config[:CSS_APP] }" rel="stylesheet"
-
-  / Snipcart
-  - if @entry[:featured] && @entry[:featured].any? { |featured| featured.TYPE.include? "product" }
-    script{ src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" }
-    script{
-      src="https://cdn.snipcart.com/scripts/2.0/snipcart.js"
-      id="snipcart"
-      data-api-key="#{ config[:SNIPCART_TKN] }"
-    }
 
   / Google Analytics
   - if config[:ENV] == "production"
