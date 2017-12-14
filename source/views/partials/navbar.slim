@@ -52,7 +52,7 @@ nav#navbar.navbar.JS-inactive
               - if nav[:pages] && nav[:pages].length <= 1
                 - nav[:pages].each do |page|
                   a{
-                    href="#{ internalURL(page[:slug], { page_date: page }) }"
+                    href="#{ internalURL(page[:slug]) }"
                     title="#{ nav[:title] + " | " + config[:SITE_TITLE] }"
                   }= nav[:title]
 

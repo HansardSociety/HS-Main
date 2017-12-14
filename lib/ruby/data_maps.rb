@@ -1,6 +1,7 @@
-##########################################################################################
+###########################################################################
 ##		=Shared
-##########################################################################################
+###########################################################################
+
 
 ##		=Sub-category slugify
 ########################################
@@ -345,7 +346,7 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
       context.pages = entry.pages.map do |page|
         {
           title: page.title,
-          slug: page.slug,
+          slug: slug(page, { indexPage: (page.content_type.id == "landing_page" ? page.index_page : false) }),
           category: page.category.parameterize
         }
       end
