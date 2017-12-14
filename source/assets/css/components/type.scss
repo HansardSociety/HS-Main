@@ -30,14 +30,22 @@
     @extend %e-fz-#{ $sizeKey };
   }
 
-  .title-#{ $sizeKey } {
-    @extend %e-ff-prim-heavy;
-  }
-
+  .title-#{ $sizeKey },
   .strap-#{ $sizeKey },
   .label-#{ $sizeKey },
   .cross-head-#{ $sizeKey } {
-    @extend %e-ff-prim-heavy;
+    @extend %e-ff-prim-roman;
+  }
+
+  .title-#{ $sizeKey },
+  .strap-#{ $sizeKey } {
+    font-weight: normal;
+  }
+
+  .label-#{ $sizeKey },
+  .cross-head-#{ $sizeKey },
+  strong {
+    font-weight: bold;
   }
 
   .strap-#{ $sizeKey },
@@ -93,11 +101,4 @@
   border-bottom: 2px solid rgba(Get($colors, greyscale, white), .15);
 
   @extend %e-col-white;
-}
-
-/*		=Misc
-  ========================================================================== */
-
-strong {
-  @extend %e-ff-prim-heavy;
 }
