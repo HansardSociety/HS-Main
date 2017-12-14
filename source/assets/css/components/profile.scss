@@ -14,7 +14,7 @@
   height: 4rem;
 
   @extend %e-overflow-hidden;
-  @extend %e-rad-circ;
+  @extend %e-rad-slight;
 
   & > img {
     @extend %e-height-full;

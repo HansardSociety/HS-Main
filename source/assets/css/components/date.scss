@@ -13,12 +13,12 @@
   line-height: 1;
   font-size: 3.25rem;
 
-  @extend %e-ff-prim-heavy;
+  @extend %e-ff-prim-roman;
 }
 
 .date__tmy {
   font-size: .75rem;
 
-  @extend %e-ff-prim-heavy;
+  @extend %e-ff-prim-roman;
   @extend %e-upper;
 }
