@@ -29,6 +29,7 @@
     "dev": "MM_ENV=dev bundle exec middleman server",
     "dev:clean": "yarn run clean && yarn run data:preview && MM_ENV=dev bundle exec middleman server",
     "exp": "yarn run prepipe:prod && MM_ENV=exp bundle exec middleman build -e exp",
+    "exp:dev:clean": "yarn run clean && yarn run data:experimental && MM_ENV=dev bundle exec middleman server",
     "exp:clean": "yarn run clean && yarn run data:experimental && yarn run prepipe:prod && MM_ENV=exp bundle exec middleman build -e exp",
     "exp:deploy": "yarn run clean && yarn run data:experimental && yarn run prepipe:prod && MM_ENV=exp bundle exec middleman build -e exp",
     "==================== POST BUILD": "====================",

@@ -47,7 +47,7 @@ article
                       side: true }}
 
             / Research and resources
-            - if ["events", "intelligence", "research", "resources"].include? @entry[:category]
+            - if ["events", "intelligence", "projects", "publications"].include? @entry[:category]
               - @entry[:featured].first(1).map do |featured|
                 = partial "views/partials/side-card",
                   locals: { local_data: \
@@ -76,7 +76,7 @@ article
         aside.grid__cell.grid__cell--above-md-V
 
           / Side cards
-          - if ["blog", "events", "intelligence", "research", "resources"].include? @entry[:category]
+          - if ["blog", "events", "intelligence", "projects", "publications"].include? @entry[:category]
 
             / If blog, add all non-author featured content to sidebar
             - if @entry[:category] == "blog"

@@ -9,6 +9,12 @@
   }
 }
 
+%e-ff-prim-roman-bold {
+  font-weight: bold;
+
+  @extend %e-ff-prim-roman;
+}
+
 /*		=Font size
   ========================================================================== */
 

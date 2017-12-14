@@ -80,12 +80,12 @@
 }
 
 // Accents
-.menu__column--research,
-.menu__category--research     { @extend %e-acc-green-top; }
+.menu__column--projects,
+.menu__category--projects     { @extend %e-acc-green-top; }
 .menu__column--about,
 .menu__category--about        { @extend %e-acc-green-top; }
-.menu__column--resources,
-.menu__category--resources    { @extend %e-acc-light-green-top; }
+.menu__column--publications,
+.menu__category--publications    { @extend %e-acc-light-green-top; }
 .menu__column--publications,
 .menu__category--publications { @extend %e-acc-light-green-top; }
 .menu__column--intelligence,
