@@ -30,7 +30,6 @@
               - nav[:pages].each do |page|
                 a{
                   href="#{ internalURL(page[:slug]) }"
-                  title="#{ nav[:title] } - #{ config[:SITE_TITLE] }"
                 }= nav[:title]
 
             / If navigation item contains more than one page
@@ -66,7 +65,7 @@
                       li
                         h4.title-sm.e-mgn-t-xs
                           a.link-white{
-                            href= "#{ internalURL(page[:slug], { page_data: page }) }"
+                            href= "#{ internalURL(page[:slug]) }"
                           }= page.title
 
     ////////////////////////////////////////////////////////
@@ -85,7 +84,7 @@
           - pages.each do |page|
             h4.title-sm.e-mgn-t-xs
               a.link-white{
-                href="#{ internalURL(page[:slug], { page_data: page }) }"
+                href="#{ internalURL(page[:slug]) }"
               }= page.title
 
         - if category == "about"

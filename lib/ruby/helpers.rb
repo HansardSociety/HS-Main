@@ -25,20 +25,10 @@ module CustomHelpers
   end
 
   # Internal URLs (for envs)
-  def internalURL(slug, opts = {})
-    defaults = { page_data: false }
-    opts = defaults.merge(opts)
+  def internalURL(slug)
+    isDev = config[:ENV] == "development"
 
-    if opts[:page_data]
-      pageData = opts[:page_data]
-      category = pageData[:category]
-      subCategory = pageData[:sub_category]
-
-      "#{ siteData(:siteURL) }#{ ("/" + category) if category }#{ ("/" + subCategory) if subCategory }/#{ slug }#{ config[:ENV] == "development" ? (slug.include?("/index") ? "" :  ".html") : "" }"
-
-    else
-      "#{ siteData(:siteURL) }/#{ slug }#{ config[:ENV] == "development" ? (slug.include?("/index") ? "" :  ".html") : "" }"
-    end
+    "#{ siteData(:siteURL) }/#{ slug }#{ isDev ? ".html" : "" }"
   end
 
   # Partial data
