@@ -168,7 +168,7 @@ def featuredData(data, opts = {})
     date_time: dateTime(data),
     embed_code: data.embed_code,
     modal: {
-      cta_id: (data.meta_title.split('❱❱')[0].parameterize + '-' + data.sys[:id]), # split '❱❱' for contentful name-spacing
+      cta_id: (data.meta_title.split('::')[0].parameterize + '-' + data.sys[:id]), # split '❱❱' for contentful name-spacing
       content: data.embed_code
     }
   } if data.content_type.id == "registration")
@@ -190,15 +190,17 @@ def callsToAction(data)
   ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta|
     {
       ID: cta.sys[:id],
-      title: cta.title.split(" :: ")[0], # split '::' for contentful name-spacing
-      action: cta.action.parameterize, # eg. modal, download etc
+      TYPE: cta.content_type.id,
+      title: cta.title,
       button_text: cta.button_text,
-      file: (media(cta.file, title: true) if cta.file),
+      file: (media(cta.file, title: true) if cta.content_type.id == "cta_download"),
       modal: ({
-        cta_id: (cta.title.split(" :: ")[0].parameterize + '-' + cta.sys[:id]), # split '::' for contentful name-spacing
+        cta_id: (cta.title.parameterize + '-' + cta.sys[:id]),
         content: cta.modal,
-        width: (cta.modal_width ? cta.modal_width.parameterize : 'wide')
-      }.compact if cta.action == 'Modal')
+      }.compact if cta.content_type.id == "cta_modal"),
+      page: ({
+        title: "Hello"
+      }.compact if cta.content_type.id == "cta_page")
     }.compact
   end : nil)
 end
@@ -337,20 +339,20 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           calls_to_action: callsToAction(panel),
 
           # Panel content and accordians
-          label: (panel.label if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
+          # label: (panel.label if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
           copy: (panel.copy if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
 
           # Panel content
           copy_size: (panel.copy_size.parameterize if panel.content_type.id == 'panel_content' && panel.copy_size),
           show_title: (panel.show_title if ["panel_content", "panel_feed"].include? panel.content_type.id),
-          section_header: (panel.section_header if panel.content_type.id == 'panel_content'),
+          # section_header: (panel.section_header if panel.content_type.id == 'panel_content'),
           background_color: (panel.background_color.parameterize if (["panel_carousel", "panel_content", "panel_feed"].include? panel.content_type.id) && panel.background_color),
           show_more: ({
             cta_id: (panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]), # split '::' for contentful name-spacing
             content: panel.show_more
           }.compact if panel.content_type.id == 'panel_content' && panel.show_more),
           image: (media(panel.image) if panel.content_type.id == 'panel_content' && panel.image),
-          panel_width: ((panel.panel_width ? panel.panel_width.parameterize : 'wide') if panel.content_type.id == 'panel_content'),
+          # panel_width: ((panel.panel_width ? panel.panel_width.parameterize : 'wide') if panel.content_type.id == 'panel_content'),
           share_buttons: (panel.share_buttons if panel.content_type.id == 'panel_content'),
 
           # Panel accordian
