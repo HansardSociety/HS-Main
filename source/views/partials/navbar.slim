@@ -43,41 +43,40 @@ nav#navbar.navbar.JS-inactive
           / Base ID for menu and menu button (drop-down)
           - @menu_desktop_id_base = "menu-desktop-" + nav[:title].parameterize
 
-          li.navbar__item{
+          li.navbar__item.title-sm.e-col-white{
             class="#{ "navbar__item--solo" if (nav[:pages] && nav[:pages].length <= 1) || (nav[:external_url]) }"
           }
-            h2.title-sm.e-col-white
 
-              / If navigation item contains one or no pages
-              - if nav[:pages] && nav[:pages].length <= 1
-                - nav[:pages].each do |page|
-                  a{
-                    href="#{ internalURL(page[:slug]) }"
-                    title="#{ nav[:title] + " | " + config[:SITE_TITLE] }"
-                  }= nav[:title]
-
-              / If navigation item = external URL
-              - if nav[:external_url]
+            / If navigation item contains one or no pages
+            - if nav[:pages] && nav[:pages].length <= 1
+              - nav[:pages].each do |page|
                 a{
-                  href="#{ nav[:external_url] }"
-                  title="#{ nav[:title] }"
-                  target="_blank"
-                  rel="noopener"
+                  href="#{ internalURL(page[:slug]) }"
+                  title="#{ nav[:title] + " | " + config[:SITE_TITLE] }"
                 }= nav[:title]
 
-              / If navigation item contains more than one page
-              - if nav[:pages] && nav[:pages].length > 1
+            / If navigation item = external URL
+            - if nav[:external_url]
+              a{
+                href="#{ nav[:external_url] }"
+                title="#{ nav[:title] }"
+                target="_blank"
+                rel="noopener"
+              }= nav[:title]
 
-                / Dropdown
-                = partial "views/partials/btn",
-                  locals: { local_data: \
-                    { type: "state",
-                      page: "no-scroll", exclusive: true, secondary_target: "navbar",
-                      icon: "chevron-down", icon_size: "xs",
-                      text: nav[:title], text_size: "sm",
-                      animation: "rotate",
-                      aria_id: "activate-#{ @menu_desktop_id_base }",
-                      aria_target_id: @menu_desktop_id_base }}
+            / If navigation item contains more than one page
+            - if nav[:pages] && nav[:pages].length > 1
+
+              / Dropdown
+              = partial "views/partials/btn",
+                locals: { local_data: \
+                  { type: "state",
+                    page: "no-scroll", exclusive: true, secondary_target: "navbar",
+                    icon: "chevron-down", icon_size: "xs",
+                    text: nav[:title], text_size: "sm",
+                    animation: "rotate",
+                    aria_id: "activate-#{ @menu_desktop_id_base }",
+                    aria_target_id: @menu_desktop_id_base }}
 
             / Menu (desktop)
             = partial "views/partials/menu",

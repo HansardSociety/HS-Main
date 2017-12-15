@@ -16,10 +16,6 @@ def detachCategory(data, opts = {})
   (data.include? "❱❱") ? data.split(" ❱❱ ")[part].parameterize : data.parameterize
 end
 
-# def subCategorySlugify(data)
-#   detachCategory(data.sub_category)
-# end
-
 # Slug
 def slug(data)
   indexPage = data.content_type.id == "landing_page" ? data.index_page : false
@@ -80,7 +76,6 @@ def sharedPageBase(pageType, ctx, data)
 
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
-    # hasNestedType = ["product", "registration"].include? data.featured[0].content_type.id if data.featured
 
     ctx.category = detachCategory(data.category)
     ctx.meta_label = "Meta label"
@@ -144,11 +139,9 @@ def featuredData(data, opts = {})
   featuredPageData = ({
     title: data.title,
     meta_label: "Meta label",
-    # meta_label: metaLabel(data),
     slug: slug(data),
     category: (detachCategory(data.category) if data.category),
     sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? "❱❱"),
-    # sub_category: (subCategorySlugify(data) if data.sub_category),
     introduction: data.introduction,
     banner_image: media(data.banner_image, focus: data),
     date_time: dateTime(data),
@@ -158,7 +151,6 @@ def featuredData(data, opts = {})
   featuredProductData = ({
     title: data.title,
     meta_label: "Meta label",
-    # meta_label: metaLabel(data, { parentData: parentData }),
     product_id: data.product_id,
     price: data.price,
     image: {
@@ -171,7 +163,6 @@ def featuredData(data, opts = {})
   featuredRegistrationData = ({
     meta_title: data.meta_title,
     meta_label: "Meta label",
-    # meta_label: metaLabel(data, { parentData: parentData }),
     venue: data.venue,
     price: data.price,
     date_time: dateTime(data),
@@ -271,8 +262,9 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
         {
           title: page.title,
           slug: slug(page),
-          category: page.category.parameterize
-        }
+          category: detachCategory(page.category),
+          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? "❱❱")
+        }.compact
       end
     end
 
@@ -315,7 +307,6 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     context.show_introduction = entry.show_introduction
 
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
-    # context.slug = slug(entry, { indexPage: entry.index_page })
 
     # Check if set as index of category/ sub-category
     if entry.index_page
@@ -424,7 +415,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     sharedPageBase("childPage", context, entry) # core page data
 
     context.copy = entry.copy # main copy
-    # context.slug = slug(entry)
 
     # Featured
     if entry.featured
@@ -448,28 +438,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     # Tags
     if entry.tags
       context.tags = entry.tags.map{ |tag| tag.gsub("'", '').parameterize }
-    end
-  end
-end
-
-###########################################################################
-##  Root page
-###########################################################################
-
-class RootPageMap < ContentfulMiddleman::Mapper::Base
-  def map(context, entry)
-
-    ##  Core
-    ##############################
-
-    sharedPageBase("rootPage", context, entry)
-    context.category = entry.category.parameterize
-
-    ##  Banner image
-    ##############################
-
-    if entry.banner_image
-      context.banner_image = media(entry.banner_image, focus: entry)
     end
   end
 end
