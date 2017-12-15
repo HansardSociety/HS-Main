@@ -45,6 +45,7 @@
 
   .label-#{ $sizeKey } {
     @extend %e-upper;
+    @extend %e-display-block;
   }
 
   .cross-head-#{ $sizeKey } {
