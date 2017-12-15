@@ -2,12 +2,13 @@
 ##		=Shared
 ###########################################################################
 
+@split = "❱❱"
 
 ##		=Sub-category slugify
 ########################################
 
-def detatchCategory(data, opts = {})
-  defaults = { part: 1 }
+def detachCategory(data, opts = {})
+  defaults = { part: 0 }
   opts = defaults.merge(opts)
 
   part = opts[:part]
@@ -15,25 +16,17 @@ def detatchCategory(data, opts = {})
   (data.include? "❱❱") ? data.split(" ❱❱ ")[part].parameterize : data.parameterize
 end
 
-def subCategorySlugify(data)
-  detatchCategory(data.sub_category)
-end
+# def subCategorySlugify(data)
+#   detachCategory(data.sub_category)
+# end
 
 # Slug
-def slug(data, opts = {})
-  defaults = { indexPage: false }
-  opts = defaults.merge(opts)
-
-  indexPage = opts[:indexPage]
-  category = data.category.parameterize
+def slug(data)
+  indexPage = data.content_type.id == "landing_page" ? data.index_page : false
+  category = (data.category.include? "❱❱") ? data.category.gsub("❱❱", "/").parameterize : data.category.parameterize
   slug = data.slug
-  subCategory = data.sub_category
 
-  if subCategory
-    "#{ category }/#{ subCategorySlugify(data) }/#{ indexPage ? "index" : slug }"
-  else
-    "#{ category }/#{ indexPage ? "index" : slug }"
-  end
+  indexPage ? "#{ category }/#{ slug }/index" : "#{ category }/#{ slug }"
 end
 
 ##		=Date/ time
@@ -68,80 +61,6 @@ def media(data, opts = {})
   }.compact
 end
 
-##		=Meta label
-########################################
-
-def metaLabelContent(data, opts = {})
-  defaults = {
-    parent_data: false,
-    alt_date_time: false,
-    alt_cond: false
-  }
-  opts = defaults.merge(opts)
-
-  parentData = opts[:parent_data]
-  altCond = opts[:alt_cond]
-  altDateTime = opts[:alt_date_time]
-
-  if parentData
-    dataHost = parentData.sub_category
-  else
-    dataHost = data.sub_category
-  end
-
-  if dataHost
-    if altCond
-      "#{ parentData ? parentData.category : data.category } / #{ subCategorySlugify(parentData ? parentData : data ).gsub("-", " ") } / #{ altDateTime ? dateTime(altDateTime)[:date] : dateTime(data)[:date] }"
-    else
-      "#{ parentData ? parentData.category : data.category } / #{ subCategorySlugify(parentData ? parentData : data ).gsub("-", " ") }"
-    end
-  else
-    if altCond
-      "#{ parentData ? parentData.category : data.category } / #{ altDateTime ? dateTime(altDateTime)[:date] : dateTime(data)[:date] }"
-    else
-      "#{ parentData ? parentData.category : data.category }"
-    end
-  end
-end
-
-def metaLabel(data, opts = {})
-  defaults = { parentData: false }
-  opts = defaults.merge(opts)
-
-  parentData = opts[:parentData]
-  isPage = ["child_page", "landing_page"].include? data.content_type.id
-  isNestedType = ["product", "registration"].include? data.content_type.id
-
-  if isPage
-    hasAltData = ["registration"].include? data.featured[0].content_type.id if data.featured
-
-    # Check if page has alternative date, eg. registration date/ time
-    if hasAltData
-      altDateTime = data.featured[0] if (data.featured && data.featured[0].date_time)
-
-      metaLabelContent(data, {
-        alt_date_time: altDateTime,
-        alt_cond: altDateTime
-      })
-
-    else
-      usesDateTime = ["Blog"].include? data.category
-
-      metaLabelContent(data, {
-        alt_cond: usesDateTime,
-      })
-    end
-
-  elsif isNestedType
-    isRegistration = data.content_type.id == "registration"
-
-    metaLabelContent(data, {
-      parent_data: parentData,
-      alt_cond: isRegistration
-    })
-  end
-end
-
 ##		=Shared page data
 ########################################
 
@@ -163,12 +82,13 @@ def sharedPageBase(pageType, ctx, data)
   if ["childPage", "landingPage"].include? pageType
     # hasNestedType = ["product", "registration"].include? data.featured[0].content_type.id if data.featured
 
-    ctx.category = data.category.parameterize
-    ctx.meta_label = metaLabel(data)
+    ctx.category = detachCategory(data.category)
+    ctx.meta_label = "Meta label"
+    ctx.slug = slug(data)
 
     # Has sub-category
-    if data.sub_category
-      ctx.sub_category = subCategorySlugify(data)
+    if data.category.include? "❱❱"
+      ctx.sub_category = detachCategory(data.category, { part: 1 })
     end
 
     # Has alternative date/ time
@@ -223,10 +143,12 @@ def featuredData(data, opts = {})
 
   featuredPageData = ({
     title: data.title,
-    meta_label: metaLabel(data),
-    slug: slug(data, { indexPage: data.content_type.id == "landing_page" ? data.index_page : false }),
-    category: (data.category.parameterize if data.category),
-    sub_category: (subCategorySlugify(data) if data.sub_category),
+    meta_label: "Meta label",
+    # meta_label: metaLabel(data),
+    slug: slug(data),
+    category: (detachCategory(data.category) if data.category),
+    sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? "❱❱"),
+    # sub_category: (subCategorySlugify(data) if data.sub_category),
     introduction: data.introduction,
     banner_image: media(data.banner_image, focus: data),
     date_time: dateTime(data),
@@ -235,7 +157,8 @@ def featuredData(data, opts = {})
 
   featuredProductData = ({
     title: data.title,
-    meta_label: metaLabel(data, { parentData: parentData }),
+    meta_label: "Meta label",
+    # meta_label: metaLabel(data, { parentData: parentData }),
     product_id: data.product_id,
     price: data.price,
     image: {
@@ -247,7 +170,8 @@ def featuredData(data, opts = {})
 
   featuredRegistrationData = ({
     meta_title: data.meta_title,
-    meta_label: metaLabel(data, { parentData: parentData }),
+    meta_label: "Meta label",
+    # meta_label: metaLabel(data, { parentData: parentData }),
     venue: data.venue,
     price: data.price,
     date_time: dateTime(data),
@@ -346,7 +270,7 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
       context.pages = entry.pages.map do |page|
         {
           title: page.title,
-          slug: slug(page, { indexPage: (page.content_type.id == "landing_page" ? page.index_page : false) }),
+          slug: slug(page),
           category: page.category.parameterize
         }
       end
@@ -391,7 +315,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     context.show_introduction = entry.show_introduction
 
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
-    context.slug = slug(entry, { indexPage: entry.index_page })
+    # context.slug = slug(entry, { indexPage: entry.index_page })
 
     # Check if set as index of category/ sub-category
     if entry.index_page
@@ -475,8 +399,8 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
 
           # Panel feed
           feed: ({
-            category: detatchCategory(panel.feed_category, { part: 0 }),
-            sub_category: (detatchCategory(panel.feed_category) if panel.feed_category.include? "❱❱"),
+            category: detachCategory(panel.feed_category),
+            sub_category: (detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? "❱❱"),
             initial_count: panel.initial_count,
             dedupe: panel.dedupe
           }.compact if panel.content_type.id == "panel_feed")
@@ -486,7 +410,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
 
     # Tagging
     if entry.tags
-      context.tags = entry.tags.map{ |tag| tag.gsub("'", '').parameterize }
+      context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize }
     end
   end
 end
@@ -500,7 +424,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     sharedPageBase("childPage", context, entry) # core page data
 
     context.copy = entry.copy # main copy
-    context.slug = slug(entry)
+    # context.slug = slug(entry)
 
     # Featured
     if entry.featured
