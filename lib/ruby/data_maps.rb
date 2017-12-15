@@ -30,12 +30,12 @@ end
 
 def dateTime(data)
   dateTimeData = {
-    integer: data.date_time.strftime('%s').to_i,
-    date: data.date_time.strftime('%d %b, %y'),
-    time: data.date_time.strftime('%I:%M %p'),
-    day: data.date_time.strftime('%d'),
-    month: data.date_time.strftime('%b'),
-    year: data.date_time.strftime('%Y')
+    integer: data.date_time.strftime("%s").to_i,
+    date: data.date_time.strftime("%d %b, %y"),
+    time: data.date_time.strftime("%I:%M %p"),
+    day: data.date_time.strftime("%d"),
+    month: data.date_time.strftime("%b"),
+    year: data.date_time.strftime("%Y")
   }
 end
 
@@ -95,7 +95,7 @@ def sharedPageBase(pageType, ctx, data)
     end
 
     ctx.blog_count = data.blog_count if data.blog_count
-    ctx.tags = data.tags.map{ |tag| tag.gsub("'", '').parameterize } if data.tags
+    ctx.tags = data.tags.map{ |tag| tag.gsub("'", "").parameterize } if data.tags
   end
 end
 
@@ -104,7 +104,7 @@ end
 
 def profile(data)
   profileData = {
-    cta_id: ((data.full_name + '-' + data.sys[:id]).parameterize if data.full_name), # only if 'people'
+    cta_id: ((data.full_name + "-" + data.sys[:id]).parameterize if data.full_name), # only if "people"
     full_name: data.full_name,
     role: data.role,
     organisation: data.organisation,
@@ -168,7 +168,7 @@ def featuredData(data, opts = {})
     date_time: dateTime(data),
     embed_code: data.embed_code,
     modal: {
-      cta_id: (data.meta_title.split('::')[0].parameterize + '-' + data.sys[:id]), # split '❱❱' for contentful name-spacing
+      cta_id: (data.meta_title.split("::")[0].parameterize + "-" + data.sys[:id]), # split "❱❱" for contentful name-spacing
       content: data.embed_code
     }
   } if data.content_type.id == "registration")
@@ -195,7 +195,7 @@ def callsToAction(data)
       button_text: cta.button_text,
       file: (media(cta.file, title: true) if cta.content_type.id == "cta_download"),
       modal: ({
-        cta_id: (cta.title.parameterize + '-' + cta.sys[:id]),
+        cta_id: (cta.title.parameterize + "-" + cta.sys[:id]),
         content: cta.modal,
       }.compact if cta.content_type.id == "cta_modal"),
       page: ({
@@ -329,37 +329,38 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     # Panels
     if entry.panels
       context.panels = entry.panels.map do |panel|
+        isPanelAccordians = panel.content_type.id == "panel_accordians"
+        isPanelCarousel = panel.content_type.id == "panel_carousel"
+        isPanelContent = panel.content_type.id == "panel_content"
+        isPanelFeed = panel.content_type.id == "panel_feed"
+        isPanelHeader = panel.content_type.id == "panel_header"
+
         {
           # Core
           ID: panel.sys[:id],
           TYPE: panel.content_type.id,
           title: panel.title,
-
-          # Calls to action
           calls_to_action: callsToAction(panel),
+          copy: panel.copy,
 
-          # Panel content and accordians
-          # label: (panel.label if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
-          copy: (panel.copy if [ 'panel_accordians', 'panel_content' ].include? panel.content_type.id),
+          # Shared
+          background_color: (panel.background_color.parameterize if isPanelCarousel || isPanelContent || isPanelFeed),
+          show_title: (panel.show_title if isPanelContent || isPanelFeed),
+          share_buttons: (panel.share_buttons if isPanelContent || isPanelHeader),
 
           # Panel content
-          copy_size: (panel.copy_size.parameterize if panel.content_type.id == 'panel_content' && panel.copy_size),
-          show_title: (panel.show_title if ["panel_content", "panel_feed"].include? panel.content_type.id),
-          # section_header: (panel.section_header if panel.content_type.id == 'panel_content'),
-          background_color: (panel.background_color.parameterize if (["panel_carousel", "panel_content", "panel_feed"].include? panel.content_type.id) && panel.background_color),
+          copy_size: (panel.copy_size.parameterize if isPanelContent && panel.copy_size),
           show_more: ({
-            cta_id: (panel.title.split('::')[0].parameterize + '-' + panel.sys[:id]), # split '::' for contentful name-spacing
+            cta_id: (panel.title.split("::")[0].parameterize + "-" + panel.sys[:id]),
             content: panel.show_more
-          }.compact if panel.content_type.id == 'panel_content' && panel.show_more),
-          image: (media(panel.image) if panel.content_type.id == 'panel_content' && panel.image),
-          # panel_width: ((panel.panel_width ? panel.panel_width.parameterize : 'wide') if panel.content_type.id == 'panel_content'),
-          share_buttons: (panel.share_buttons if panel.content_type.id == 'panel_content'),
+          }.compact if isPanelContent && panel.show_more),
+          image: (media(panel.image) if isPanelContent),
 
           # Panel accordian
-          accordians: (panel.content_type.id == 'panel_accordians' ? panel.accordians.map do |accordian|
+          accordians: (isPanelAccordians ? panel.accordians.map do |accordian|
             {
               ID: accordian.sys[:id],
-              cta_id: ('accordian-' + accordian.title.split('::')[0].parameterize + '-' + accordian.sys[:id]), # split '::' for contentful name-spacing
+              cta_id: ("accordian-" + accordian.title.split("::")[0].parameterize + "-" + accordian.sys[:id]), # split "::" for contentful name-spacing
               title: accordian.title,
               copy: accordian.copy,
               calls_to_action: callsToAction(accordian)
@@ -367,13 +368,13 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           end : nil),
 
           # Panel carousel cards
-          carousel: (panel.content_type.id == 'panel_carousel' ? panel.items.map do |item|
+          carousel: (isPanelCarousel ? panel.items.map do |item|
             {
               ID: item.sys[:id],
               TYPE: item.content_type.id,
 
               # Profile
-              profile: (profile(item) if item.content_type.id == 'people'),
+              profile: (profile(item) if item.content_type.id == "people"),
 
               # Quotes
               quote: ({
@@ -386,7 +387,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
                   description: item.image.description
                 }.compact if item.image),
                 image_type: item.image_type
-              }.compact if item.content_type.id == 'quote')
+              }.compact if item.content_type.id == "quote")
             }.compact
           end : nil),
 
@@ -396,7 +397,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
             sub_category: (detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? "❱❱"),
             initial_count: panel.initial_count,
             dedupe: panel.dedupe
-          }.compact if panel.content_type.id == "panel_feed")
+          }.compact if isPanelFeed)
         }.compact
       end
     end
@@ -439,7 +440,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
 
     # Tags
     if entry.tags
-      context.tags = entry.tags.map{ |tag| tag.gsub("'", '').parameterize }
+      context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize }
     end
   end
 end
