@@ -139,60 +139,84 @@ end
 def featuredData(data, opts = {})
   defaults = { parentData: false }
   opts = defaults.merge(opts)
-
   parentData = opts[:parentData]
 
+  isPage = ["child_page", "landing_page"].include? data.content_type.id
+  isProduct = data.content_type.id == "product"
+  isPeople = data.content_type.id == "people"
+  isRegistration = data.content_type.id == "registration"
+
+  featuredAuthorData = {}
+  featuredPageData = {}
+  featuredProductData = {}
+  featuredRegistrationData = {}
+
+  # Core
   featuredCoreData = {
     ID: data.sys[:id],
     TYPE: data.content_type.id
   }
 
-  featuredAuthorData = profile(data) if data.content_type.id == "people"
+  # People
+  if isPeople
+    featuredAuthorData = profile(data)
+  end
 
-  featuredPageData = ({
-    title: data.title,
-    meta_label: "Meta label",
-    slug: slug(data),
-    category: (detachCategory(data.category) if data.category),
-    sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $marker),
-    introduction: data.introduction,
-    banner_image: media(data.banner_image, focus: data),
-    date_time: dateTime(data),
-    date_time_alt: (dateTime(data.featured[0]) if data.featured && data.featured[0].content_type.id == "registration")
-  } if ["child_page", "landing_page"].include? data.content_type.id)
+  # Page
+  if isPage
+    hasFeaturedRegistration = data.featured && data.featured[0].content_type.id == "registration"
 
-  featuredProductData = ({
-    title: data.title,
-    meta_label: "Meta label",
-    product_id: data.product_id,
-    price: data.price,
-    image: {
-      url: data.image.url,
-      alt: data.image.description
-    },
-    download: (data.media.url if data.media)
-  } if data.content_type.id == "product")
+    featuredPageData = {
+      title: data.title,
+      meta_label: "Meta label",
+      slug: slug(data),
+      category: (detachCategory(data.category) if data.category),
+      sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $marker),
+      introduction: data.introduction,
+      banner_image: media(data.banner_image, focus: data),
+      date_time: dateTime(data),
+      date_time_alt: (dateTime(data.featured[0]) if hasFeaturedRegistration)
+    }.compact
+  end
 
-  featuredRegistrationData = ({
-    meta_title: data.meta_title,
-    meta_label: "Meta label",
-    venue: data.venue,
-    price: data.price,
-    date_time: dateTime(data),
-    embed_code: data.embed_code,
-    modal: {
-      cta_id: (data.meta_title.split("::")[0].parameterize + "-" + data.sys[:id]), # split $marker for contentful name-spacing
-      content: data.embed_code
+  # Product
+  if isProduct
+    featuredProductData = {
+      title: data.title,
+      meta_label: "Meta label",
+      product_id: data.product_id,
+      price: data.price,
+      image: {
+        url: data.image.url,
+        alt: data.image.description
+      },
+      download: (data.media.url if data.media)
+    }.compact
+  end
+
+  # Registration
+  if isRegistration
+    featuredRegistrationData = {
+      meta_title: data.meta_title,
+      meta_label: "Meta label",
+      venue: data.venue,
+      price: data.price,
+      date_time: dateTime(data),
+      embed_code: data.embed_code,
+      modal: {
+        cta_id: (data.meta_title.split("::")[0].parameterize + "-" + data.sys[:id]),
+        content: data.embed_code
+      }
     }
-  } if data.content_type.id == "registration")
+  end
 
-  featuredDataAll = [
-    *featuredCoreData,
-    *featuredAuthorData,
-    *featuredPageData,
-    *featuredProductData,
-    *featuredRegistrationData,
-  ].to_h.compact
+  # Merged
+  featuredCoreData.merge(
+    **featuredAuthorData,
+    **featuredPageData,
+    **featuredProductData,
+    **featuredRegistrationData
+  ).compact
 end
 
 ###########################################################################
@@ -390,10 +414,13 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         if isPanelCarousel
           panelCarousel = {
             carousel: panel.items.map do |item|
+              isPeople = item.content_type.id == "people"
+              isQuote = item.content_type.id == "quote"
+
               {
                 ID: item.sys[:id],
                 TYPE: item.content_type.id,
-                profile: (profile(item) if item.content_type.id == "people"),
+                profile: (profile(item) if isPeople),
                 quote: ({
                   text: item.quote,
                   full_name: item.full_name,
@@ -404,7 +431,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
                     description: item.image.description
                   }.compact if item.image),
                   image_type: item.image_type
-                }.compact if item.content_type.id == "quote")
+                }.compact if isQuote)
               }.compact
             end
           }
@@ -428,14 +455,22 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           panelFeed = {
             feed: {
               category: detachCategory(panel.feed_category),
-              sub_category: (detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker),
+              sub_category: (
+                detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker
+              ),
               initial_count: panel.initial_count,
               dedupe: panel.dedupe
             }.compact
           }
         end
 
-        panelCore.merge **panelContent, **panelAccordians, **panelCarousel, **panelFeed
+        # Merge
+        panelCore.merge(
+          **panelContent,
+          **panelAccordians,
+          **panelCarousel,
+          **panelFeed
+        ).compact
       end
     end
 
