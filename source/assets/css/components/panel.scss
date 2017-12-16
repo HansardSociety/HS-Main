@@ -5,12 +5,7 @@
   @extend %e-position-relative;
 }
 
-.panel--light-grey {
-  @extend %e-bgc-light-grey;
-}
-
 .panel--dark {
-  @extend %e-bgc-dark-grey;
   @extend %e-col-white;
 }
 

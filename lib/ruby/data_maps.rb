@@ -202,19 +202,23 @@ end
 def callsToAction(data)
 
   ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta|
+    isDownload = cta.content_type.id == "cta_download"
+    isModal = cta.content_type.id == "cta_modal"
+    isPage = cta.content_type.id == "cta_page"
+
     {
       ID: cta.sys[:id],
       TYPE: cta.content_type.id,
       title: cta.title,
       button_text: cta.button_text,
-      file: (media(cta.file, title: true) if cta.content_type.id == "cta_download"),
+      file: (media(cta.file, title: true) if isDownload),
       modal: ({
         cta_id: (cta.title.parameterize + "-" + cta.sys[:id]),
         content: cta.modal,
-      }.compact if cta.content_type.id == "cta_modal"),
+      }.compact if isModal),
       page: ({
         title: "Hello"
-      }.compact if cta.content_type.id == "cta_page")
+      }.compact if isPage)
     }.compact
   end : nil)
 end
@@ -332,6 +336,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       context.calls_to_action = callsToAction(entry)
     end
 
+    # Featured content
     if entry.featured
       context.featured = entry.featured.map do |featured|
         featuredData(featured)
@@ -361,7 +366,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           TYPE: panel.content_type.id,
           title: panel.title,
           calls_to_action: callsToAction(panel),
-          copy: (panel.copy if !isPanelCarousel && !isPanelFeed),
+          copy: (panel.copy if isPanelContent || isPanelAccordians),
           background_color: (panel.background_color.parameterize if !isPanelAccordians),
           show_title: (panel.show_title if isPanelContent || isPanelFeed),
         }.compact

@@ -7,9 +7,13 @@
 
 .panel{
   id="panel-#{ index }"
+  class="e-bgc-black"
+  class="#{ "panel--dark" if ["black", "dark-grey", "green"].include? bgc }"
 }
 
   / Panel title
   .panel__content.panel__content--narrow
-    h3.title-xxl.e-col-green.e-align-cen= title
+    h3.title-xxl.e-align-cen= title
+    .panel__section.copy.e-align-cen.e-fz-md
+      = markdown(copy)
 
