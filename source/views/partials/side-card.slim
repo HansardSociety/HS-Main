@@ -34,7 +34,7 @@
 
 article.side-card{
   class="side-card--#{ featuredRegistration ? pageCategory : category }"
-  class="#{ "side-card--featured" if featuredItem }"
+  class="#{ featuredItem ? "side-card--featured" : "side-card--related" }"
 }
   .side-card__inner
 
@@ -78,13 +78,13 @@ article.side-card{
 
         - else
           h1.title-sm.JS-clamp-2{
-            class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
+            class="#{ featuredItem ? "e-col-greyscale-0" : "e-col-green"}"
           }= featuredProduct ? partialData[:title] : partialData[:venue]
 
       / Actions - if product or registration...
       - if featuredRegistration || featuredProduct
         .side-card__actions{
-          class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
+          class="#{ featuredItem ? "e-col-greyscale-0" : "e-col-green"}"
         }
 
           / Product

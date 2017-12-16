@@ -1,7 +1,5 @@
 - panelData = local_data[:entry_data]
 - bgc = panelData[:background_color]
-- bgcDarkGrey = bgc == "dark-grey"
-- bgcLightGrey = bgc == "light-grey"
 - image = panelData[:image]
 - title = panelData[:title]
 - hasTitle = panelData[:show_title] != nil
@@ -13,8 +11,7 @@
 
 .panel{
   id="panel-#{ index }"
-  class="#{ "panel--dark" if bgcDarkGrey }"
-  class="#{ "panel--light-grey" if bgcLightGrey }"
+  class="#{ panelBgc(bgc) }"
 }
 
   / Panel title

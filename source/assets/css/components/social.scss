@@ -2,16 +2,16 @@
   width: Get($btn, size, md);
   height: Get($btn, size, sm);
 
-  border: 2px solid Get($colors, primary, orange);
+  border: 2px solid Get($colorGroups, orange, 2);
 
-  @extend %e-col-orange;
+  @extend %e-col-orange-2;
   @extend %e-flex-row-center;
   @extend %e-rad-slight;
   @extend %e-trans-core;
 
   &:hover {
-    @extend %e-bgc-orange;
-    @extend %e-col-white;
+    @extend %e-bgc-orange-2;
+    @extend %e-col-greyscale-0;
 
 
     svg {

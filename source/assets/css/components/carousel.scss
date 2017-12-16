@@ -65,7 +65,7 @@
   @extend %e-upper;
 
   &:hover:not(.swiper-button-disabled) {
-    @extend %e-col-orange;
+    @extend %e-col-orange-2;
   }
 
   &.swiper-button-disabled {
@@ -107,6 +107,6 @@
   }
 
   & > .dot.is-selected {
-    @extend %e-bgc-green;
+    @extend %e-bgc-brand-green-2;
   }
 }

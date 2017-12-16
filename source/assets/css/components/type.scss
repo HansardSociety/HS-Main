@@ -91,5 +91,5 @@
 .link-white {
   border-bottom: 2px solid rgba(Get($colors, greyscale, white), .15);
 
-  @extend %e-col-white;
+  @extend %e-col-greyscale-0;
 }

@@ -15,7 +15,7 @@ article
 
   / Latest (related)
   - if @entry[:latest_carousel] && @entry[:tags]
-    .panel.panel--light-grey#arrow-dest
+    .panel.e-bgc-greyscale-1#arrow-dest
       .panel__content.panel__content--full
         h2.title-xxl.e-col-green.e-align-cen.e-mgn-b-md Latest
         = partial "views/partials/carousel",
@@ -25,7 +25,7 @@ article
 
   / Latest (category)
   - if @entry[:latest_carousel] && !@entry[:tags]
-    .panel.panel--light-grey#arrow-dest
+    .panel.e-bgc-greyscale-1#arrow-dest
       .panel__content.panel__content--full
         h2.title-xl.e-col-green.e-align-cen Latest
         = partial "views/partials/carousel",

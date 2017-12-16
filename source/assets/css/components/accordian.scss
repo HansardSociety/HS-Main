@@ -24,6 +24,10 @@
   @extend %e-position-relative;
 }
 
+.accordian__content {
+  border-top: 1px solid Get($colorGroups, greyscale, 2)
+}
+
 .accordian__control {
   right: .5rem;
 

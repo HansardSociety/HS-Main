@@ -43,7 +43,7 @@ nav#navbar.navbar.JS-inactive
           / Base ID for menu and menu button (drop-down)
           - @menu_desktop_id_base = "menu-desktop-" + nav[:title].parameterize
 
-          li.navbar__item.title-sm.e-col-white{
+          li.navbar__item.title-sm.e-col-greyscale-0{
             class="#{ "navbar__item--solo" if (nav[:pages] && nav[:pages].length <= 1) || (nav[:external_url]) }"
           }
 
@@ -86,7 +86,7 @@ nav#navbar.navbar.JS-inactive
                           nav_items: nav }}
 
       / Search
-      .e-col-white
+      .e-col-greyscale-0
         = partial "views/partials/btn",
           locals: { local_data: \
             { type: "state", size: "sm",

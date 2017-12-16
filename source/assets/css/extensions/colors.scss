@@ -1,7 +1,3 @@
-///////////////////////////////////////////////////////////
-//  =Colors
-////////////////////////////////////////////////////////////
-
 @each $name, $color in Merge(
   map-get($colors, primary),
   map-get($colors, secondary),
@@ -17,5 +13,20 @@
   .e-bgc-#{ $name },
   %e-bgc-#{ $name } {
     background-color: $color;
+  }
+}
+
+@each $colorName, $colorShades in $colorGroups {
+  @each $shadeNum, $shadeHex in $colorShades {
+
+    %e-col-#{ $colorName }-#{ $shadeNum },
+    .e-col-#{ $colorName }-#{ $shadeNum } {
+      color: $shadeHex;
+    }
+
+    %e-bgc-#{ $colorName }-#{ $shadeNum },
+    .e-bgc-#{ $colorName }-#{ $shadeNum } {
+      background-color: $shadeHex;
+    }
   }
 }

@@ -7,13 +7,23 @@
 
 .panel{
   id="panel-#{ index }"
-  class="e-bgc-black"
-  class="#{ "panel--dark" if ["black", "dark-grey", "green"].include? bgc }"
+  class="#{ panelBgc(bgc) }"
 }
 
   / Panel title
   .panel__content.panel__content--narrow
     h3.title-xxl.e-align-cen= title
-    .panel__section.copy.e-align-cen.e-fz-md
-      = markdown(copy)
 
+  - if callsToAction
+    .panel__section
+      .grid.grid--xs.grid--center
+        - callsToAction.each do |cta|
+          .grid__cell
+              - if cta[:TYPE] == "cta_download"
+                = partial "views/partials/btn",
+                  locals: { local_data: \
+                    { type: "link",
+                      size: "md", style: "primary",
+                      label: cta[:button_text],
+                      label_size: "md",
+                      url: cta[:file].url }}
