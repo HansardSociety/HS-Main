@@ -349,11 +349,13 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         isPanelFeed = panel.content_type.id == "panel_feed"
         isPanelHeader = panel.content_type.id == "panel_header"
 
-        panelContent = {}
         panelAccordians = {}
         panelCarousel = {}
+        panelContent = {}
         panelFeed = {}
 
+        # Panel core
+        # Contains all panel_header fields too
         panelCore = {
           ID: panel.sys[:id],
           TYPE: panel.content_type.id,
@@ -363,19 +365,6 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           background_color: (panel.background_color.parameterize if !isPanelAccordians),
           show_title: (panel.show_title if isPanelContent || isPanelFeed),
         }.compact
-
-        # Panel content
-        if isPanelContent
-          panelContent = {
-            copy_size: (panel.copy_size.parameterize if panel.copy_size),
-            show_more: ({
-              cta_id: panel.title.split("::")[0].parameterize + "-" + panel.sys[:id],
-              content: panel.show_more
-            }.compact if panel.show_more),
-            image: media(panel.image),
-            share_buttons: panel.share_buttons
-          }
-        end
 
         # Panel accordions
         if isPanelAccordians
@@ -413,6 +402,19 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
                 }.compact if item.content_type.id == "quote")
               }.compact
             end
+          }
+        end
+
+        # Panel content
+        if isPanelContent
+          panelContent = {
+            copy_size: (panel.copy_size.parameterize if panel.copy_size),
+            show_more: ({
+              cta_id: panel.title.split("::")[0].parameterize + "-" + panel.sys[:id],
+              content: panel.show_more
+            }.compact if panel.show_more),
+            image: media(panel.image),
+            share_buttons: panel.share_buttons
           }
         end
 

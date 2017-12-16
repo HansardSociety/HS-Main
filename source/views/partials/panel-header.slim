@@ -1,0 +1,15 @@
+- panelData = local_data[:entry_data]
+- bgc = panelData[:background_color]
+- title = panelData[:title]
+- copy = panelData[:copy]
+- callsToAction = panelData[:calls_to_action]
+- index = local_data[:index]
+
+.panel{
+  id="panel-#{ index }"
+}
+
+  / Panel title
+  .panel__content.panel__content--narrow
+    h3.title-xxl.e-col-green.e-align-cen= title
+
