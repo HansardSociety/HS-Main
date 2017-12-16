@@ -335,70 +335,86 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
         isPanelFeed = panel.content_type.id == "panel_feed"
         isPanelHeader = panel.content_type.id == "panel_header"
 
-        {
-          # Core
+        panelContent = {}
+        panelAccordians = {}
+        panelCarousel = {}
+        panelFeed = {}
+
+        panelCore = {
           ID: panel.sys[:id],
           TYPE: panel.content_type.id,
           title: panel.title,
           calls_to_action: callsToAction(panel),
-          copy: panel.copy,
-
-          # Shared
-          background_color: (panel.background_color.parameterize if isPanelCarousel || isPanelContent || isPanelFeed),
+          # copy: panel.copy,
+          # background_color: (panel.background_color.parameterize if isPanelCarousel || isPanelContent || isPanelFeed),
           show_title: (panel.show_title if isPanelContent || isPanelFeed),
-          share_buttons: (panel.share_buttons if isPanelContent || isPanelHeader),
-
-          # Panel content
-          copy_size: (panel.copy_size.parameterize if isPanelContent && panel.copy_size),
-          show_more: ({
-            cta_id: (panel.title.split("::")[0].parameterize + "-" + panel.sys[:id]),
-            content: panel.show_more
-          }.compact if isPanelContent && panel.show_more),
-          image: (media(panel.image) if isPanelContent),
-
-          # Panel accordian
-          accordians: (isPanelAccordians ? panel.accordians.map do |accordian|
-            {
-              ID: accordian.sys[:id],
-              cta_id: ("accordian-" + accordian.title.split("::")[0].parameterize + "-" + accordian.sys[:id]), # split "::" for contentful name-spacing
-              title: accordian.title,
-              copy: accordian.copy,
-              calls_to_action: callsToAction(accordian)
-            }.compact
-          end : nil),
-
-          # Panel carousel cards
-          carousel: (isPanelCarousel ? panel.items.map do |item|
-            {
-              ID: item.sys[:id],
-              TYPE: item.content_type.id,
-
-              # Profile
-              profile: (profile(item) if item.content_type.id == "people"),
-
-              # Quotes
-              quote: ({
-                text: item.quote,
-                full_name: item.full_name,
-                role: item.role,
-                organisation: item.organisation,
-                image: ({
-                  url: item.image.url,
-                  description: item.image.description
-                }.compact if item.image),
-                image_type: item.image_type
-              }.compact if item.content_type.id == "quote")
-            }.compact
-          end : nil),
-
-          # Panel feed
-          feed: ({
-            category: detachCategory(panel.feed_category),
-            sub_category: (detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? "❱❱"),
-            initial_count: panel.initial_count,
-            dedupe: panel.dedupe
-          }.compact if isPanelFeed)
         }.compact
+
+        # Panel content
+        if isPanelContent
+          panelContent = {
+            copy_size: (panel.copy_size.parameterize if panel.copy_size),
+            show_more: ({
+              cta_id: panel.title.split("::")[0].parameterize + "-" + panel.sys[:id],
+              content: panel.show_more
+            }.compact if panel.show_more),
+            image: media(panel.image),
+            share_buttons: panel.share_buttons
+          }
+        end
+
+        # Panel accordions
+        if isPanelAccordians
+          panelAccordians = {
+            accordians: panel.accordians.map do |accordian|
+              {
+                ID: accordian.sys[:id],
+                cta_id: "accordian-" + accordian.title.split("::")[0].parameterize + "-" + accordian.sys[:id],
+                title: accordian.title,
+                copy: accordian.copy,
+                calls_to_action: callsToAction(accordian)
+              }.compact
+            end
+          }
+        end
+
+        # Panel carousel
+        if isPanelCarousel
+          panelCarousel = {
+            carousel: panel.items.map do |item|
+              {
+                ID: item.sys[:id],
+                TYPE: item.content_type.id,
+                profile: (profile(item) if item.content_type.id == "people"),
+                quote: ({
+                  text: item.quote,
+                  full_name: item.full_name,
+                  role: item.role,
+                  organisation: item.organisation,
+                  image: ({
+                    url: item.image.url,
+                    description: item.image.description
+                  }.compact if item.image),
+                  image_type: item.image_type
+                }.compact if item.content_type.id == "quote")
+              }.compact
+            end
+          }
+        end
+
+        if isPanelFeed
+          panelFeed = {
+            feed: {
+              category: detachCategory(panel.feed_category),
+              sub_category: (detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? "❱❱"),
+              initial_count: panel.initial_count,
+              dedupe: panel.dedupe
+            }.compact
+          }
+        end
+
+        panel = {}
+        panel.merge **panelCore, **panelContent, **panelAccordians, **panelCarousel, **panelFeed
       end
     end
 
