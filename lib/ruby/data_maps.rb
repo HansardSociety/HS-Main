@@ -245,7 +245,7 @@ def callsToAction(data)
       button_text: cta.button_text,
       file: (media(cta.file, title: true) if isDownload),
       modal: ({
-        cta_id: (cta.title.parameterize + "-" + cta.sys[:id]),
+        cta_id: targetID("modal", cta.title, cta),
         content: cta.modal,
       }.compact if isModal),
       page: ({
@@ -264,15 +264,15 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.ID = entry.sys[:id]
     context.TYPE = entry.content_type.id
     context.title = entry.title
-
     context.site_title = entry.site_title
     context.site_url = entry.site_url
     context.main_categories = entry.main_categories.map{ |cat| cat.parameterize.gsub("'", "") }
+
     context.newsletter_text = entry.newsletter_text
     context.newsletter_embed = entry.newsletter_embed
+
     context.uncss_urls = entry.uncss_urls
 
-    # Social
     context.twitter = entry.twitter
     context.linkedin = entry.linkedin
     context.facebook = entry.facebook
