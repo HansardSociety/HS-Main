@@ -1,32 +1,41 @@
-###########################################################################
-##		=Shared
-###########################################################################
+markerSym = "❱❱"
+$marker = "#{ markerSym }"
 
-@split = "❱❱"
-
-##		=Sub-category slugify
-########################################
+###########################################################################
+##		=Detatch category
+###########################################################################
 
 def detachCategory(data, opts = {})
   defaults = { part: 0 }
   opts = defaults.merge(opts)
-
   part = opts[:part]
 
-  (data.include? "❱❱") ? data.split(" ❱❱ ")[part].parameterize : data.parameterize
+  data.include?($marker) ? data.split($marker)[part].parameterize : data.parameterize
 end
 
-# Slug
+###########################################################################
+##		=Slug
+###########################################################################
+
 def slug(data)
   indexPage = data.content_type.id == "landing_page" ? data.index_page : false
-  category = (data.category.include? "❱❱") ? data.category.gsub("❱❱", "/").parameterize : data.category.parameterize
-  slug = data.slug
+  category = detachCategory(data.category)
 
-  indexPage ? "#{ category }/#{ slug }/index" : "#{ category }/#{ slug }"
+  if data.category.include? $marker
+    subCategory = detachCategory(data.category, { part: 1 })
+    slug = "#{ category }/#{ subCategory }/#{ data.slug }"
+
+    indexPage ? slug + "/index" : slug
+  else
+    slug = "#{ category }/#{ data.slug }"
+
+    indexPage ? slug + "/index" : slug
+  end
 end
 
+###########################################################################
 ##		=Date/ time
-########################################
+###########################################################################
 
 def dateTime(data)
   dateTimeData = {
@@ -39,8 +48,9 @@ def dateTime(data)
   }
 end
 
+###########################################################################
 ##		=Media data
-########################################
+###########################################################################
 
 def media(data, opts = {})
   defaults = {
@@ -57,8 +67,9 @@ def media(data, opts = {})
   }.compact
 end
 
+###########################################################################
 ##		=Shared page data
-########################################
+###########################################################################
 
 def sharedPageBase(pageType, ctx, data)
 
@@ -78,11 +89,11 @@ def sharedPageBase(pageType, ctx, data)
   if ["childPage", "landingPage"].include? pageType
 
     ctx.category = detachCategory(data.category)
-    ctx.meta_label = "Meta label"
+    ctx.meta_label = data.category.gsub($marker, "/")
     ctx.slug = slug(data)
 
     # Has sub-category
-    if data.category.include? "❱❱"
+    if data.category.include? $marker
       ctx.sub_category = detachCategory(data.category, { part: 1 })
     end
 
@@ -99,8 +110,9 @@ def sharedPageBase(pageType, ctx, data)
   end
 end
 
+###########################################################################
 ##		=Profile data
-########################################
+###########################################################################
 
 def profile(data)
   profileData = {
@@ -120,8 +132,9 @@ def profile(data)
   }.compact
 end
 
+###########################################################################
 ##		=Featured data
-########################################
+###########################################################################
 
 def featuredData(data, opts = {})
   defaults = { parentData: false }
@@ -141,7 +154,7 @@ def featuredData(data, opts = {})
     meta_label: "Meta label",
     slug: slug(data),
     category: (detachCategory(data.category) if data.category),
-    sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? "❱❱"),
+    sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $marker),
     introduction: data.introduction,
     banner_image: media(data.banner_image, focus: data),
     date_time: dateTime(data),
@@ -168,7 +181,7 @@ def featuredData(data, opts = {})
     date_time: dateTime(data),
     embed_code: data.embed_code,
     modal: {
-      cta_id: (data.meta_title.split("::")[0].parameterize + "-" + data.sys[:id]), # split "❱❱" for contentful name-spacing
+      cta_id: (data.meta_title.split("::")[0].parameterize + "-" + data.sys[:id]), # split $marker for contentful name-spacing
       content: data.embed_code
     }
   } if data.content_type.id == "registration")
@@ -182,8 +195,9 @@ def featuredData(data, opts = {})
   ].to_h.compact
 end
 
+###########################################################################
 ##		=Calls to action
-########################################
+###########################################################################
 
 def callsToAction(data)
 
@@ -265,7 +279,7 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
           title: page.title,
           slug: slug(page),
           category: detachCategory(page.category),
-          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? "❱❱")
+          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $marker)
         }.compact
       end
     end
@@ -305,9 +319,7 @@ end
 class LandingPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     sharedPageBase("landingPage", context, entry) # core page data
-
     context.show_introduction = entry.show_introduction
-
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
 
     # Check if set as index of category/ sub-category
@@ -326,7 +338,9 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       end
     end
 
-    # Panels
+    ##		=Panels
+    ########################################
+
     if entry.panels
       context.panels = entry.panels.map do |panel|
         isPanelAccordians = panel.content_type.id == "panel_accordians"
@@ -345,8 +359,8 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           TYPE: panel.content_type.id,
           title: panel.title,
           calls_to_action: callsToAction(panel),
-          # copy: panel.copy,
-          # background_color: (panel.background_color.parameterize if isPanelCarousel || isPanelContent || isPanelFeed),
+          copy: (panel.copy if !isPanelCarousel && !isPanelFeed),
+          background_color: (panel.background_color.parameterize if !isPanelAccordians),
           show_title: (panel.show_title if isPanelContent || isPanelFeed),
         }.compact
 
@@ -402,19 +416,19 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           }
         end
 
+        # Panel feed
         if isPanelFeed
           panelFeed = {
             feed: {
               category: detachCategory(panel.feed_category),
-              sub_category: (detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? "❱❱"),
+              sub_category: (detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker),
               initial_count: panel.initial_count,
               dedupe: panel.dedupe
             }.compact
           }
         end
 
-        panel = {}
-        panel.merge **panelCore, **panelContent, **panelAccordians, **panelCarousel, **panelFeed
+        panelCore.merge **panelContent, **panelAccordians, **panelCarousel, **panelFeed
       end
     end
 
