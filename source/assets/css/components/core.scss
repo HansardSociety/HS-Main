@@ -5,7 +5,10 @@
 html {
   line-height: Get($type, line-height);
 
-  @extend %e-col-black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @extend %e-col-greyscale-3;
   @extend %e-ff-prim-roman;
   @extend %e-fz-base;
 }

@@ -47,7 +47,7 @@ article
                       side: true }}
 
             / Research and resources
-            - if ["events", "intelligence", "research", "resources"].include? @entry[:category]
+            - if ["events", "intelligence", "projects", "publications"].include? @entry[:category]
               - @entry[:featured].first(1).map do |featured|
                 = partial "views/partials/side-card",
                   locals: { local_data: \
@@ -76,7 +76,7 @@ article
         aside.grid__cell.grid__cell--above-md-V
 
           / Side cards
-          - if ["blog", "events", "intelligence", "research", "resources"].include? @entry[:category]
+          - if ["blog", "events", "intelligence", "projects", "publications"].include? @entry[:category]
 
             / If blog, add all non-author featured content to sidebar
             - if @entry[:category] == "blog"
@@ -119,6 +119,7 @@ article
                     locals: { local_data: \
                       { ext_link_data: link }}
 
+
           / Latest items for about pages
           - if @category == "about"
             h2.side-title Latest
@@ -128,12 +129,12 @@ article
                   { side_card_data: page }}
 
           / Newsletter signup
-          .box.e-bgc-green.e-col-white.e-mgn-b-xs
+          .box.e-bgc-brand-green-1.e-col-greyscale-0.e-mgn-b-xs
             = partial "views/partials/signup-box",
               locals: { local_data: { copy_size: "sm" }}
 
           / / Social follow
-          / .box.e-bgc-green.e-col-white.e-mgn-b-xs
+          / .box.e-bgc-brand-green-2.e-col-greyscale-0.e-mgn-b-xs
           /   = partial "views/partials/social-follow"
 
 

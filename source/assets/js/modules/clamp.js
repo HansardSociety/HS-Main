@@ -1,17 +1,15 @@
-import lineClamp from "line-clamp"
+import shave from "shave"
 
 const clamp = (() => {
   const clamp2 = document.querySelectorAll(".JS-clamp-2")
   const clamp3 = document.querySelectorAll(".JS-clamp-3")
 
   for (let i of clamp2) {
-
-    lineClamp(i, { lineCount: 4 })
+    shave(i, 54, { spaces: false })
   }
 
   for (let i of clamp3) {
-
-    lineClamp(i, { lineCount: 5 })
+    shave(i, 81, { spaces: false })
   }
 })()
 

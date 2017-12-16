@@ -1,17 +1,12 @@
 // Panels
 .panel {
   @extend %e-container;
-  @extend %e-pad-x-lg;
+  @extend %e-pad-x-xl;
   @extend %e-position-relative;
 }
 
-.panel--light-grey {
-  @extend %e-bgc-light-grey;
-}
-
 .panel--dark {
-  @extend %e-bgc-dark-grey;
-  @extend %e-col-white;
+  @extend %e-col-greyscale-0;
 }
 
 .panel__content {

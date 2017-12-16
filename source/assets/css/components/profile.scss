@@ -1,5 +1,5 @@
 .profile {
-  @extend %e-bgc-dark-grey;
+  @extend %e-bgc-greyscale-3;
   @extend %e-flex-row-center;
   @extend %e-pad-sm;
   @extend %e-rad-slight;
@@ -14,7 +14,7 @@
   height: 4rem;
 
   @extend %e-overflow-hidden;
-  @extend %e-rad-circ;
+  @extend %e-rad-slight;
 
   & > img {
     @extend %e-height-full;

@@ -16,9 +16,6 @@
 
          url("#{ $fontPath }/#{ $fontFamily }.svg##{ $fontFamily }") format("svg"),
          url("#{ $fontPath }/#{ $fontFamily }.eot?#iefix") format("embedded-opentype");
-
-    font-weight: normal;
-    font-style: normal;
   }
 }
 
@@ -33,14 +30,12 @@
     @extend %e-fz-#{ $sizeKey };
   }
 
-  .title-#{ $sizeKey } {
-    @extend %e-ff-prim-heavy;
-  }
-
+  .title-#{ $sizeKey },
   .strap-#{ $sizeKey },
   .label-#{ $sizeKey },
-  .cross-head-#{ $sizeKey } {
-    @extend %e-ff-prim-heavy;
+  .cross-head-#{ $sizeKey },
+  strong {
+    @extend %e-ff-prim-roman-bold;
   }
 
   .strap-#{ $sizeKey },
@@ -50,6 +45,7 @@
 
   .label-#{ $sizeKey } {
     @extend %e-upper;
+    @extend %e-display-block;
   }
 
   .cross-head-#{ $sizeKey } {
@@ -95,12 +91,5 @@
 .link-white {
   border-bottom: 2px solid rgba(Get($colors, greyscale, white), .15);
 
-  @extend %e-col-white;
-}
-
-/*		=Misc
-  ========================================================================== */
-
-strong {
-  @extend %e-ff-prim-heavy;
+  @extend %e-col-greyscale-0;
 }

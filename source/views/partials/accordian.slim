@@ -2,48 +2,42 @@
 //  Variables
 ////////////////////////////////////////////////////////////
 
-- @accordian_data     = local_data[:accordian_data]
-
-- @ID                 = @accordian_data[:id]
-- @title              = @accordian_data[:title]
-- @cta_id             = @accordian_data[:cta_id]
-- @calls_to_action    = @accordian_data[:calls_to_action]
-
-
-////////////////////////////////////////////////////////////
-//  Accordian
-////////////////////////////////////////////////////////////
+- accordianData = local_data[:accordian_data]
+- title = accordianData[:title]
+- ctaID = accordianData[:cta_id]
+- callsToAction = accordianData[:calls_to_action]
 
 section.accordian{
   class="#{
-    'accordian--ctas' if @calls_to_action
+    "accordian--ctas" if callsToAction
   }"
 }
 
   .accordian__header
-    h3.title-sm.e-col-green= @title
+    h3.title-sm.e-col-green= title
 
     .accordian__control.e-col-green
-      = partial 'views/partials/btn',
+      = partial "views/partials/btn",
         locals: { local_data: \
-          { type: 'state', size: 'sm',
-            icon: 'chevron-down', icon_size: 'xs',
-            animation: 'rotate',
-            aria_id: "activate-#{ @cta_id }", aria_target_id: "#{ @cta_id }" }}
+          { type: "state", size: "sm",
+            icon: "chevron-down", icon_size: "xs",
+            animation: "rotate",
+            aria_id: "activate-#{ ctaID }", aria_target_id: "#{ ctaID }" }}
 
   .accordian__expand.JS-inactive{
-    id="#{ @cta_id }"
+    id="#{ ctaID }"
   }
     .accordian__content
 
       / Calls to action
-      - if @calls_to_action
-          - @calls_to_action.each do |cta|
+      - if callsToAction
+          - callsToAction.each do |cta|
 
             .accordian__cta
+
               / Download
-              - if cta.action == 'download'
-                = partial 'views/partials/btn',
+              - if cta.TYPE == "cta_download"
+                = partial "views/partials/btn",
                   locals: { local_data: \
-                    { type: 'link', size: 'sm', fill: true, style: 'primary',
-                      label: cta.button_text, label_size: 'sm', url: cta.file.url }}
+                    { type: "link", size: "sm", fill: true, style: "primary",
+                      label: cta.button_text, label_size: "sm", url: cta.file.url }}

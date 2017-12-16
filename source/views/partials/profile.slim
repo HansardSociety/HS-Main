@@ -20,10 +20,10 @@
     }
 
   .profile__main
-    h1.title-sm.e-col-white= fullName
-    p.strap-xs.e-col-white= role + (organisation ? "," : "")
+    h1.title-sm.e-col-greyscale-0= fullName
+    p.strap-xs.e-col-greyscale-0= role + (organisation ? "," : "")
     - if organisation
-      p.strap-xs.e-col-white= organisation
+      p.strap-xs.e-col-greyscale-0= organisation
 
   - if (biog || twitter || linkedIn) && actions != false
     .profile__actions

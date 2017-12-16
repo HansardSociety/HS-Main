@@ -2,7 +2,7 @@
 - navItems = local_data[:nav_items]
 - screen = local_data[:screen]
 
-.menu.e-col-white.JS-inactive{
+.menu.e-col-greyscale-0.JS-inactive{
   class="menu--#{ screen } "
   id= id
 }
@@ -21,7 +21,7 @@
           class="#{ "dropdown" if nav[:pages] && nav[:pages].length > 1 }"
         }
 
-          h2.title-md{
+          .title-md{
             class="#{ "dropdown__title" if nav[:pages] && nav[:pages].length > 1 }"
           }
 
@@ -30,7 +30,6 @@
               - nav[:pages].each do |page|
                 a{
                   href="#{ internalURL(page[:slug]) }"
-                  title="#{ nav[:title] } - #{ config[:SITE_TITLE] }"
                 }= nav[:title]
 
             / If navigation item contains more than one page
@@ -56,18 +55,35 @@
             / Group pages by category
             - if nav[:pages]
               - nav[:pages].group_by(&:category).each do |category, pages|
-                li.menu__category{
-                  class="menu__category--#{ category.downcase }"
-                }
-                  h3.label-xs.e-col-mid-grey.e-mgn-t-xs= category if nav[:title] != category
+                - pagesWithSubCats = pages.select{ |page| page[:sub_category] }
+                - pagesWithoutSubCats = pages.select{ |page| !page[:sub_category] }
 
+
+                li.menu__category{
+                  class="menu__category--#{ category.parameterize }"
+                }
+                  span.label-sm.e-pad-t-xs.e-col-mid-grey= category
                   ul
-                    - pages.each do |page|
-                      li
-                        h4.title-sm.e-mgn-t-xs
-                          a.link-white{
-                            href= "#{ internalURL(page[:slug], { page_data: page }) }"
-                          }= page.title
+
+                    / Pages without subcategories
+                    - if pagesWithoutSubCats
+                      - pagesWithoutSubCats.each do |page|
+                        li.e-pad-t-xs
+                          a.title-sm.link-white{
+                            href="#{ internalURL(page[:slug]) }"
+                          }= page[:title]
+
+                    / Pages with sub-categories
+                    - if pagesWithSubCats
+                      - pagesWithSubCats.group_by(&:sub_category).each do |subCat, subCatPages|
+                        li
+                          span.label-xs.e-pad-t-sm.e-col-mid-grey= subCat
+                          ul
+                            - subCatPages.each do |page|
+                              li.e-pad-t-xs
+                                a.title-sm.link-white{
+                                  href="#{ internalURL(page[:slug]) }"
+                                }= page[:title]
 
     ////////////////////////////////////////////////////////
     // Desktop
@@ -76,20 +92,38 @@
     - if screen == "desktop" && navItems[:pages]
 
       - navItems.pages.group_by(&:category).each do |category, pages|
+        - pagesWithSubCats = pages.select{ |page| page[:sub_category] }
+        - pagesWithoutSubCats = pages.select{ |page| !page[:sub_category] }
 
-        li.menu__column{
+        li.menu__column.e-pad-t-xs{
           class="menu__column--#{ category.parameterize }"
         }
-          h3.label-xs.e-col-mid-grey.e-mgn-t-xs= category
+          span.label-sm.e-col-mid-grey= category
 
-          - pages.each do |page|
-            h4.title-sm.e-mgn-t-xs
-              a.link-white{
-                href="#{ internalURL(page[:slug], { page_data: page }) }"
-              }= page.title
+          ul
+
+            / Pages without subcategories
+            - if pagesWithoutSubCats
+              - pagesWithoutSubCats.each do |page|
+                li.e-pad-t-xs
+                  a.title-sm.link-white{
+                    href="#{ internalURL(page[:slug]) }"
+                  }= page[:title]
+
+            / Pages with sub-categories
+            - if pagesWithSubCats
+              - pagesWithSubCats.group_by(&:sub_category).each do |subCat, subCatPages|
+                li
+                  span.label-xs.e-pad-t-sm.e-col-mid-grey= subCat
+                  ul
+                    - subCatPages.each do |page|
+                      li.e-pad-t-xs
+                        a.title-sm.link-white{
+                          href="#{ internalURL(page[:slug]) }"
+                        }= page[:title]
 
         - if category == "about"
-          li.menu__column.e-acc-orange-top
+          li.menu__column.e-acc-brand-green-2-top
             .section-sm
               = partial "views/partials/signup-box",
                 locals: { local_data: { copy_size: "sm"}}

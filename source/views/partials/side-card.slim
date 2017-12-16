@@ -34,9 +34,11 @@
 
 article.side-card{
   class="side-card--#{ featuredRegistration ? pageCategory : category }"
-  class="#{ "side-card--featured" if featuredItem }"
+  class="#{ featuredItem ? "side-card--featured" : "side-card--related" }"
 }
   .side-card__inner
+
+    / Image
     .side-card__image{
       class="#{ image ? "side-card__image--overlay" : "side-card__image--" + pageCategory }"
     }
@@ -54,69 +56,73 @@ article.side-card{
           locals: { local_data: \
             { date_data: dateTime }}
 
-    .side-card__content{
-      class="#{ (featuredRegistration || featuredProduct) ? "JS-clamp-2" : "JS-clamp-3"  }"
-    }
-      .side-card__meta
+    / Content
+    .side-card__content
+
+      / Label
+      .side-card__label
         span.label-xs.e-col-mid-grey= partialData[:meta_label]
 
-      .side-card__title
+      / Title
+      .side-card__title{
+        class="side-card__title--#{ (featuredRegistration || featuredProduct) ? "clamp-2" : "clamp-3" }"
+      }
 
         / Not registration or product
         - if !featuredRegistration && !featuredProduct
           h1.title-sm
-            a.JS-truncate{
+            a.JS-clamp-3{
               href="#{ internalURL(partialData[:slug]) }"
               class="#{ featuredItem ? "link-white" : "link" }"
             }= partialData[:title]
 
         - else
-          h1.title-sm.JS-truncate{
-            class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
+          h1.title-sm.JS-clamp-2{
+            class="#{ featuredItem ? "e-col-greyscale-0" : "e-col-green"}"
           }= featuredProduct ? partialData[:title] : partialData[:venue]
 
-    / Is product or registration
-    - if featuredRegistration || featuredProduct
-      .side-card__actions{
-        class="#{ featuredItem ? "e-col-white" : "e-col-green"}"
-      }
+      / Actions - if product or registration...
+      - if featuredRegistration || featuredProduct
+        .side-card__actions{
+          class="#{ featuredItem ? "e-col-greyscale-0" : "e-col-green"}"
+        }
 
-        / Product
-        - if featuredProduct
+          / Product
+          - if featuredProduct
 
-          - if partialData[:price] == 0
-            = partial "views/partials/btn",
-              locals: { local_data: \
-                { type: "link", size: "sm", style: "primary",
-                  label: "Download", label_size: "sm", url: partialData[:download] }}
+            - if partialData[:price] == 0
+              = partial "views/partials/btn",
+                locals: { local_data: \
+                  { type: "link", size: "sm", style: "primary",
+                    label: "Download", label_size: "sm", url: partialData[:download] }}
 
-          - if partialData[:price] > 0
-            = partial "views/partials/btn",
-              locals: { local_data: \
-                { type: "link", size: "sm", style: "primary", product: partialData,
-                  label: "Buy (£#{ partialData[:price] })", label_size: "sm" }}
+            - if partialData[:price] > 0
+              = partial "views/partials/btn",
+                locals: { local_data: \
+                  { type: "link", size: "sm", style: "primary", product: partialData,
+                    label: "Buy (£#{ partialData[:price] })", label_size: "sm" }}
 
-        / Registration
-        - if featuredRegistration
+          / Registration
+          - if featuredRegistration
 
-          - if partialData[:date_time][:integer] < Time.now.strftime("%s").to_i
-            p
-              em CLOSED
+            - if partialData[:date_time][:integer] < Time.now.strftime("%s").to_i
+              p
+                em CLOSED
 
-          - else
+            - else
 
-            / Modal window
-            = partial "views/partials/modal",
-              locals: { local_data: \
-                { id: partialData[:modal][:cta_id],
-                  content: partialData[:modal][:content] }}
+              / Modal window
+              = partial "views/partials/modal",
+                locals: { local_data: \
+                  { id: partialData[:modal][:cta_id],
+                    content: partialData[:modal][:content] }}
 
-            / Modal button
-            = partial "views/partials/btn",
-              locals: { local_data: \
-                { type: "state",
-                  size: "sm", style: "primary",
-                  label_on: "Register now", label_off: "Close", label_size: "sm",
-                  page: "no-scroll", switch: true,
-                  aria_id: "activate-#{ partialData[:modal][:cta_id] }",
-                  aria_target_id: partialData[:modal][:cta_id] }}
+              / Modal button
+              = partial "views/partials/btn",
+                locals: { local_data: \
+                  { type: "state",
+                    size: "sm", style: "primary",
+                    label_on: "Register now", label_off: "Close", label_size: "sm",
+                    page: "no-scroll", switch: true,
+                    aria_id: "activate-#{ partialData[:modal][:cta_id] }",
+                    aria_target_id: partialData[:modal][:cta_id] }}

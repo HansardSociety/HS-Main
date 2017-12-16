@@ -14,8 +14,8 @@
 }
 
 .form--dark {
-  @extend %e-bgc-black;
-  @extend %e-col-white;
+  @extend %e-bgc-greyscale-3;
+  @extend %e-col-greyscale-0;
 
   .form__text::placeholder {
     @extend %e-col-grey;
@@ -34,7 +34,7 @@
   border: 2px solid Get($colors, greyscale, mid-grey);
   background: transparent;
 
-  @extend %e-col-white;
+  @extend %e-col-greyscale-0;
   @extend %e-ff-prim-roman;
   @extend %e-rad-slight;
   @extend %e-width-full;

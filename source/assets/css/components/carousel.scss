@@ -58,14 +58,14 @@
   user-select: none;
 
   @extend %e-cursor-pointer;
-  @extend %e-ff-prim-heavy;
+  @extend %e-ff-prim-roman-bold;
   @extend %e-flex-row-center;
   @extend %e-fz-xs;
   @extend %e-trans-core;
   @extend %e-upper;
 
   &:hover:not(.swiper-button-disabled) {
-    @extend %e-col-orange;
+    @extend %e-col-orange-2;
   }
 
   &.swiper-button-disabled {
@@ -107,6 +107,6 @@
   }
 
   & > .dot.is-selected {
-    @extend %e-bgc-green;
+    @extend %e-bgc-brand-green-2;
   }
 }

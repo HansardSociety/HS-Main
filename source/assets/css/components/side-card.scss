@@ -1,48 +1,52 @@
 .side-card,
+.side-card__inner,
 .side-card__image,
 .side-card__content {
   height: 9rem;
 }
 
 .side-card {
-  @extend %e-bgc-light-grey;
   @extend %e-mgn-b-xs;
   @extend %e-overflow-hidden;
   @extend %e-rad-slight;
 }
 
+.side-card--related {
+  @extend %e-bgc-greyscale-1;
+}
+
+.side-card--featured {
+  @extend %e-bgc-greyscale-3;
+}
+
 .side-card--events {
-  @extend %e-acc-blue-left;
+  @extend %e-acc-hot-pink-2-left;
 }
 
 .side-card--blog {
-  @extend %e-acc-brown-left;
+  @extend %e-acc-sea-green-2-left;
 }
 
 .side-card--intelligence {
   @extend %e-acc-light-blue-left;
 }
 
-.side-card--resources,
 .side-card--publications {
-  @extend %e-acc-light-green-left;
+  @extend %e-acc-orange-2-left;
 }
 
-.side-card--research {
-  @extend %e-acc-green-left;
-}
-
-.side-card--featured {
-  @extend %e-bgc-dark-grey;
+.side-card--projects {
+  @extend %e-acc-brand-green-2-left;
 }
 
 .side-card__inner {
   @extend %e-flex-row-start;
+  @extend %e-position-relative;
 }
 
 .side-card__image {
   width: 6.36rem; // side card image ratio
-  margin-left: -.16665rem;
+  margin-left: -.5rem;
 
   @extend %e-flex-row-center;
   @extend %e-overflow-hidden;
@@ -57,43 +61,40 @@
 }
 
 .side-card__image--overlay {
-  @extend %e-bgc-green;
+  @extend %e-bgc-brand-green-2;
 }
 
 .side-card__image--intelligence,
 .side-card__image--events {
-  @extend %e-col-white;
+  @extend %e-col-greyscale-0;
 }
 
 .side-card__image--events {
-  @extend %e-bgc-blue;
+  @extend %e-bgc-hot-pink-2;
 }
 
 .side-card__image--intelligence {
-  @extend %e-bgc-light-blue;
+  @extend %e-bgc-slate-blue-2;
 }
 
 .side-card__content {
   flex: 1;
-
-  height: inherit;
-  padding: 2rem 1rem 1rem .5rem;
-
-  @extend %e-position-relative;
+  padding: 1rem 1rem 1rem .5rem;
 }
 
-.side-card__meta {
-  top: .25rem;
-  left: .5rem;
+.side-card__title {
+  @extend %e-overflow-hidden;
+}
 
-  @extend %e-position-absolute;
+.side-card__title--clamp-2 {
+  max-height: calc(2rem * 1.5);
+}
+
+.side-card__title--clamp-3 {
+  max-height: calc(3rem * 1.5);
 }
 
 .side-card__actions {
-  position: absolute;
-  bottom: 2rem;
-  left: 7rem;
-
   @extend %e-pad-t-xs;
 }
 

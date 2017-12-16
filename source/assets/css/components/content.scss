@@ -25,13 +25,13 @@
   }
 }
 
-.content--about { @extend %e-acc-green-top; }
-.content--blog { @extend %e-acc-brown-top; }
-.content--events { @extend %e-acc-blue-top; }
-.content--intelligence { @extend %e-acc-light-blue-top; }
-.content--legal { @extend %e-acc-black-top; }
-.content--research { @extend %e-acc-green-top; }
-.content--resources { @extend %e-acc-light-green-top; }
+.content--about { @extend %e-acc-brand-green-2-top; }
+.content--blog { @extend %e-acc-sea-green-2-top; }
+.content--events { @extend %e-acc-hot-pink-2-top; }
+.content--intelligence { @extend %e-acc-slate-blue-2-top; }
+.content--legal { @extend %e-acc-greyscale-3-top; }
+.content--projects { @extend %e-acc-brand-green-2-top; }
+.content--publications { @extend %e-acc-orange-2-top; }
 
 .content__header,
 .content__section {
