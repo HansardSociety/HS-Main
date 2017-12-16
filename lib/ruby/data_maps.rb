@@ -14,6 +14,14 @@ def detachCategory(data, opts = {})
 end
 
 ###########################################################################
+##		=Target ID
+###########################################################################
+
+def targetID(type, dataTitle, dataID)
+  "#{ type }-" + dataTitle.split("::")[0].parameterize + "-" + dataID.sys[:id]
+end
+
+###########################################################################
 ##		=Slug
 ###########################################################################
 
@@ -204,7 +212,7 @@ def featuredData(data, opts = {})
       date_time: dateTime(data),
       embed_code: data.embed_code,
       modal: {
-        cta_id: (data.meta_title.split("::")[0].parameterize + "-" + data.sys[:id]),
+        cta_id: targetID("registration", data.meta_title, data),
         content: data.embed_code
       }
     }
@@ -401,7 +409,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
             accordians: panel.accordians.map do |accordian|
               {
                 ID: accordian.sys[:id],
-                cta_id: "accordian-" + accordian.title.split("::")[0].parameterize + "-" + accordian.sys[:id],
+                cta_id: targetID("accordian", accordian.title, accordian),
                 title: accordian.title,
                 copy: accordian.copy,
                 calls_to_action: callsToAction(accordian)
@@ -442,7 +450,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
           panelContent = {
             copy_size: (panel.copy_size.parameterize if panel.copy_size),
             show_more: ({
-              cta_id: panel.title.split("::")[0].parameterize + "-" + panel.sys[:id],
+              cta_id: targetID("expand", panel.title, panel),
               content: panel.show_more
             }.compact if panel.show_more),
             image: media(panel.image),
