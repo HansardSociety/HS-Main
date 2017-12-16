@@ -1,193 +1,96 @@
-- @panel_data = local_data[:entry_data]
-- @bgc = @panel_data[:background_color]
-- @bgcDarkGrey = @bgc == 'dark-grey'
-- @bgcLightGrey = @bgc == 'light-grey'
-- @image = @panel_data[:image]
-- @title = @panel_data[:title]
-- @label = @panel_data[:label]
-- @show_title = @panel_data[:show_title]
-- @copy = @panel_data[:copy]
-- @copy_size = @panel_data[:copy_size]
-- @section_header = @panel_data[:section_header]
-- @show_more = @panel_data[:show_more]
-- @calls_to_action = @panel_data[:calls_to_action]
-
-- @panelWidth = @panel_data[:panel_width]
-
-- @index = local_data[:index]
+- panelData = local_data[:entry_data]
+- bgc = panelData[:background_color]
+- image = panelData[:image]
+- title = panelData[:title]
+- hasTitle = panelData[:show_title] != nil
+- copy = panelData[:copy]
+- copySize = panelData[:copy_size]
+- showMoreCopy = panelData[:show_more]
+- callsToAction = panelData[:calls_to_action]
+- index = local_data[:index]
 
 .panel{
-  id="panel-#{ @index }"
-  class="#{ 'panel--dark' if @bgcDarkGrey }"
-  class="#{ 'panel--light-grey' if @bgcLightGrey }"
+  id="panel-#{ index }"
+  class="#{ panelBgc(bgc) }"
 }
-  .panel__content{
-    class="panel__content--#{ @panelWidth }"
-  }
-    / p= @width
 
-    / If panel doesn't contain an image
-    - if !@image
+  / Panel title
+  - if hasTitle
+    .panel__content.panel__content--narrow
+      h3.title-xl.e-col-green.e-align-cen.e-mgn-b-xl= title
 
-      / Title
-      - if @show_title || @show_title != false
-        .panel__section.e-align-cen
-          - if @label
-            span.cross-head-sm= @label
-          h2{
-            class="title-#{ @section_header ? 'xxl' : 'xl' }"
-            class="#{ 'e-col-green' if !@bgcDarkGrey }"
-          }= @title
+  .panel__content.panel__content--full
+    .grid.grid--lg.grid--center
+
+      / Image
+      .grid__cell.grid__cell--fill.grid__cell--above-sm-V
+        = partial "views/partials/image",
+          locals: { local_data: \
+            { image_data: image,
+              feature: true }}
 
       / Copy
-      - if @copy
-        .panel__section.copy.e-align-cen{
-          class="#{ 'e-fz-lg' if @copy_size == 'extra-large' }"
-          class="#{ 'e-fz-md' if @copy_size == 'large' }"
+      .grid__cell.grid__cell--fill.grid__cell--above-sm-VII
+        .copy{
+          class="#{ "e-fz-lg" if copySize == "extra-large" }"
+          class="#{ "e-fz-md" if copySize == "large" }"
         }
-          = markdown(@copy)
+          = markdown(copy) if copy
 
-        / Show more coopy
-        - if @show_more
-          .panel__section
-            = partial 'views/partials/expand',
-              locals: { local_data: \
-              { id: @show_more.cta_id,
-                content: @show_more.content }}
-
-
-      - if @show_more || @calls_to_action
-        .panel__section
-          .grid.grid--xs.grid--center
-
-            / Show more button
-            - if @show_more
-              .grid__cell
-                = partial 'views/partials/btn',
-                  locals: { local_data: \
-                    { type: 'state',
-                      size: (@section_header ? 'md' : 'sm'), style: 'secondary',
-                      label_on: 'Show more', label_off: 'Show less',
-                      label_size: (@section_header ? 'md' : 'sm'),
-                      aria_id: "activate-#{ @show_more.cta_id }",
-                      aria_target_id:  @show_more.cta_id }}
-
-            - @calls_to_action.each do |cta|
-              .grid__cell
-
-                / Download
-                - if cta.action == 'download'
-                  = partial 'views/partials/btn',
-                    locals: { local_data: \
-                      { type: 'link',
-                        size: (@section_header ? 'md' : 'sm'), style: 'primary',
-                        label: cta[:button_text],
-                        label_size: (@section_header ? 'md' : 'sm'),
-                        url: cta[:file].url }}
-
-                / Modal
-                - if cta.action == 'modal'
-
-                  / Modal button
-                  = partial 'views/partials/btn',
-                    locals: { local_data: \
-                      { type: 'state',
-                        size: (@section_header ? 'md' : 'sm'), style: 'secondary',
-                        label_on: cta[:button_text], label_off: 'Close',
-                        label_size: (@section_header ? 'md' : 'sm'),
-                        page: 'no-scroll', switch: true,
-                        aria_id: "activate-#{ cta[:modal][:cta_id] }",
-                        aria_target_id: cta[:modal][:cta_id] }}
-
-                  / Modal window
-                  = partial 'views/partials/modal',
-                    locals: { local_data: \
-                    { id: cta[:modal][:cta_id],
-                      content: cta[:modal][:content],
-                      size: cta[:modal][:width] }}
-
-    / If panel contains image...
-    - else
-      .grid.grid--md.grid--center
-
-        / Panel title
-        - if @show_title || @show_title != false
-          .grid__cell.grid__cell--fill.grid__cell--above-sm-VIII.grid__cell--above-sm-offset-IV
-            - if @label
-              span.cross-head-sm= @label
-            h3.e-col-green{
-              class="title-#{ @section_header ? 'xl' : 'lg' }"
-            }= @title
-
-        / Image
-        .grid__cell.grid__cell--fill.grid__cell--above-sm-IV
-          = partial 'views/partials/image',
+        - if showMoreCopy
+          = partial "views/partials/expand",
             locals: { local_data: \
-              { image_data: @image,
-                feature: true }}
+            { id: showMoreCopy.cta_id,
+              content: showMoreCopy.content }}
 
-        / Copy
-        .grid__cell.grid__cell--fill.grid__cell--above-sm-VIII
-          .copy.e-mgn-b-sm{
-            class="#{ 'e-fz-lg' if @copy_size == 'extra-large' }"
-            class="#{ 'e-fz-md' if @copy_size == 'large' }"
-          }
-            = markdown(@copy) if @copy
+        / Calls to action
+        - if showMoreCopy || callsToAction
+          .grid.grid--xs
 
-          - if @show_more
-            = partial 'views/partials/expand',
-              locals: { local_data: \
-              { id: @show_more.cta_id,
-                content: @show_more.content }}
+            / Show more
+            - if showMoreCopy
+              .grid__cell
+                = partial "views/partials/btn",
+                  locals: { local_data: \
+                    { type: "state",
+                      size: "sm", style: "secondary",
+                      label_on: "Show more", label_off: "Show less",
+                      label_size: "sm",
+                      aria_id: "activate-#{ showMoreCopy.cta_id }",
+                      aria_target_id: showMoreCopy.cta_id }}
 
-          / Calls to action
-          - if @show_more || @calls_to_action
-            .grid.grid--xs
-
-              / Show more
-              - if @show_more
+            - if callsToAction
+              - callsToAction.each do |cta|
                 .grid__cell
-                  = partial 'views/partials/btn',
-                    locals: { local_data: \
-                      { type: 'state',
-                        size: (@section_header ? 'md' : 'sm'), style: 'secondary',
-                        label_on: 'Show more', label_off: 'Show less',
-                        label_size: (@section_header ? 'md' : 'sm'),
-                        aria_id: "activate-#{ @show_more.cta_id }",
-                        aria_target_id: @show_more.cta_id }}
 
-              - if @calls_to_action
-                - @calls_to_action.each do |cta|
-                  .grid__cell
+                  / Download
+                  - if cta.TYPE == "cta_download"
+                    = partial "views/partials/btn",
+                      locals: { local_data: \
+                        { type: "link",
+                          size: "sm", style: "primary",
+                          label: cta[:button_text],
+                          label_size: "sm",
+                          url: cta[:file].url }}
 
-                    / Download
-                    - if cta.action == 'download'
-                      = partial 'views/partials/btn',
-                        locals: { local_data: \
-                          { type: 'link',
-                            size: (@section_header ? 'md' : 'sm'), style: 'primary',
-                            label: cta[:button_text],
-                            label_size: (@section_header ? 'md' : 'sm'),
-                            url: cta[:file].url }}
+                  / Modal
+                  - if cta.TYPE == "cta_modal"
 
-                    / Modal
-                    - if cta.action == 'modal'
+                    / Modal button
+                    = partial "views/partials/btn",
+                      locals: { local_data: \
+                        { type: "state",
+                          size: "sm", style: "secondary",
+                          label_on: cta[:button_text], label_off: "Close",
+                          label_size: "sm",
+                          page: "no-scroll", switch: true,
+                          aria_id: "activate-#{ cta[:modal][:cta_id] }",
+                          aria_target_id: cta[:modal][:cta_id],
+                          iframe: ((cta[:modal][:content].include? "<iframe") ? true : false) }}
 
-                      / Modal button
-                      = partial 'views/partials/btn',
-                        locals: { local_data: \
-                          { type: 'state',
-                            size: (@section_header ? 'md' : 'sm'), style: 'secondary',
-                            label_on: cta[:button_text], label_off: 'Close',
-                            label_size: (@section_header ? 'md' : 'sm'),
-                            page: 'no-scroll', switch: true,
-                            aria_id: "activate-#{ cta[:modal][:cta_id] }",
-                            aria_target_id: cta[:modal][:cta_id],
-                            iframe: ((cta[:modal][:content].include? "<iframe") ? true : false) }}
-
-                      / Modal window
-                      = partial 'views/partials/modal',
-                        locals: { local_data: \
-                        { id: cta[:modal][:cta_id],
-                          content: cta[:modal][:content],
-                          size: cta[:modal][:width] }}
+                    / Modal window
+                    = partial "views/partials/modal",
+                      locals: { local_data: \
+                      { id: cta[:modal][:cta_id],
+                        content: cta[:modal][:content],
+                        size: cta[:modal][:width] }}

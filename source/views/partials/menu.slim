@@ -2,7 +2,7 @@
 - navItems = local_data[:nav_items]
 - screen = local_data[:screen]
 
-.menu.e-col-white.JS-inactive{
+.menu.e-col-greyscale-0.JS-inactive{
   class="menu--#{ screen } "
   id= id
 }
@@ -123,7 +123,7 @@
                         }= page[:title]
 
         - if category == "about"
-          li.menu__column.e-acc-orange-top
+          li.menu__column.e-acc-brand-green-2-top
             .section-sm
               = partial "views/partials/signup-box",
                 locals: { local_data: { copy_size: "sm"}}

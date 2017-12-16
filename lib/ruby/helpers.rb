@@ -53,6 +53,29 @@ module CustomHelpers
   end
 
   ###########################################################################
+  ##		=Background colours
+  ###########################################################################
+
+  def panelBgc(bgc)
+    isDarkBgc = ["black", "brand-green", "dark-grey", "hot-pink", "orange", "purple", "slate-blue"].include?(bgc)
+    isLightBgc = ["light-grey", "sea-green", "white"].include?(bgc)
+    isGreyscaleBgc = ["black", "dark-grey", "light-grey", "white"].include?(bgc)
+    isDarkGreyscaleBgc = ["black", "dark-grey"].include?(bgc)
+    isLightGreyscaleBgc = ["light-grey", "white"].include?(bgc)
+    colWhite = "e-col-greyscale-0"
+
+    if isGreyscaleBgc
+      if isDarkGreyscaleBgc
+       "#{ colWhite } #{ bgc == "black" ? "e-bgc-greyscale-3" : "e-bgc-greyscale-2" }"
+      else
+        "#{ bgc == "white" ? "e-bgc-greyscale-0" : "e-bgc-greyscale-1" }"
+      end
+    else
+      "#{ colWhite if isDarkBgc } e-bgc-#{ bgc }-1"
+    end
+  end
+
+  ###########################################################################
   ##		=Feed data
   ###########################################################################
 

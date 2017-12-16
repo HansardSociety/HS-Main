@@ -39,7 +39,7 @@
 
     height: .3333rem;
 
-    @extend %e-bgc-green;
+    @extend %e-bgc-brand-green-2;
     @extend %e-pseudo-elem;
     @extend %e-width-full-vw;
     @extend %e-trans-height;
@@ -97,7 +97,7 @@
 .navbar.JS-active {
   border-top: none;
 
-  @extend %e-col-white;
+  @extend %e-col-greyscale-0;
   @include above('md') {
     height: 3.5rem;
 
