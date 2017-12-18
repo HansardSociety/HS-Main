@@ -76,6 +76,35 @@ def media(data, opts = {})
 end
 
 ###########################################################################
+##		=Meta label
+###########################################################################
+
+def metaLabel(data, opts = {})
+  defaults = { reg_data: false }
+  opts = defaults.merge(opts)
+
+  regData = opts[:reg_data]
+
+  hasSubcategory = data.category.include?($marker)
+  hasNestedRegistration = data.featured && data.featured[0].content_type.id == "registration"
+
+  category = detachCategory(data.category)
+  subCategory = detachCategory(data.category, { part: 1 }) if hasSubcategory
+
+  baseLabel = "#{ category }#{ " / " + subCategory if hasSubcategory }"
+
+  if regData
+    "#{ baseLabel } / #{ dateTime(regData)[:date] }"
+  else
+    if hasNestedRegistration
+      "#{ baseLabel } / #{ dateTime(data.featured[0])[:date] }"
+    else
+      category == "blog" ? "#{ baseLabel } / #{ dateTime(data)[:date] }" : "#{ baseLabel }"
+    end
+  end
+end
+
+###########################################################################
 ##		=Shared page data
 ###########################################################################
 
@@ -97,7 +126,7 @@ def sharedPageBase(pageType, ctx, data)
   if ["childPage", "landingPage"].include? pageType
 
     ctx.category = detachCategory(data.category)
-    ctx.meta_label = data.category.gsub($marker, "/")
+    ctx.meta_label = metaLabel(data)
     ctx.slug = slug(data)
 
     # Has sub-category
@@ -145,9 +174,9 @@ end
 ###########################################################################
 
 def featuredData(data, opts = {})
-  defaults = { parentData: false }
+  defaults = { parent_data: false }
   opts = defaults.merge(opts)
-  parentData = opts[:parentData]
+  parentData = opts[:parent_data]
 
   isPage = ["child_page", "landing_page"].include? data.content_type.id
   isProduct = data.content_type.id == "product"
@@ -172,18 +201,15 @@ def featuredData(data, opts = {})
 
   # Page
   if isPage
-    hasFeaturedRegistration = data.featured && data.featured[0].content_type.id == "registration"
-
     featuredPageData = {
       title: data.title,
-      meta_label: "Meta label",
+      meta_label: metaLabel(data),
       slug: slug(data),
       category: (detachCategory(data.category) if data.category),
       sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $marker),
       introduction: data.introduction,
       banner_image: media(data.banner_image, focus: data),
-      date_time: dateTime(data),
-      date_time_alt: (dateTime(data.featured[0]) if hasFeaturedRegistration)
+      date_time: dateTime(data)
     }.compact
   end
 
@@ -191,7 +217,7 @@ def featuredData(data, opts = {})
   if isProduct
     featuredProductData = {
       title: data.title,
-      meta_label: "Meta label",
+      meta_label: metaLabel(parentData),
       product_id: data.product_id,
       price: data.price,
       image: {
@@ -206,7 +232,7 @@ def featuredData(data, opts = {})
   if isRegistration
     featuredRegistrationData = {
       meta_title: data.meta_title,
-      meta_label: "Meta label",
+      meta_label: metaLabel(parentData, { reg_data: data }),
       venue: data.venue,
       price: data.price,
       date_time: dateTime(data),
@@ -369,11 +395,11 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     end
 
     # Featured content
-    if entry.featured
-      context.featured = entry.featured.map do |featured|
-        featuredData(featured)
-      end
-    end
+    # if entry.featured
+    #   context.featured = entry.featured.map do |featured|
+    #     featuredData(featured)
+    #   end
+    # end
 
     ##		=Panels
     ########################################
@@ -502,7 +528,8 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     # Featured
     if entry.featured
       context.featured = entry.featured.map do |featured|
-        featuredData(featured, { parentData: entry })
+        # featuredData(featured, { parentData: entry })
+        featuredData(featured, { parent_data: entry })
       end
     end
 
