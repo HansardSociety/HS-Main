@@ -6,27 +6,41 @@ article
   = partial "views/partials/banner",
     locals: { entry: @entry }
 
+  / Introduction
+  - if @entry[:introduction]
+    .panel#arrow-dest
+      .panel__content.panel__content--medium.e-align-cen
+        = markdown(@entry[:introduction], "byline")
 
-  - categories = ["projects", "blog", "publications", "intelligence", "events"]
-  - pageCategories = siteData(:main_categories).sort_by{ |category, pages| categories.index(category) }
-
-  .panel#arrow-dest
+  / Latest
+  .panel.e-bgc-greyscale-1
     .panel__content.panel__content--full
-      h2.title-xl.e-align-cen.e-col-green Latest
+      h2.title-xxl.e-align-cen.e-col-brand-green-2 Latest
       = partial "views/partials/carousel",
         locals: { local_data: \
           { context: "latest" }}
+
   / Newsletter
   .panel.e-bgc-brand-green-1
     .content.content--mid.e-align-cen.e-col-greyscale-0
       = partial "views/partials/signup-box",
         locals: { local_data: { copy_size: "md"}}
 
-  - pageCategories[0..4].each do |category|
-    .panel.e-bgc-light-grey
-      .panel__content.panel__content--full
-        h2.title-xl.e-align-cen.e-col-green= category.capitalize
-        = partial "views/partials/carousel",
-          locals: { local_data: \
-            { context: "category-latest",
-              categories: [category] }}
+
+  / Curated panels
+  - if @entry[:panels]
+    - @entry[:panels].each_with_index do |panel, index|
+      - bgc = panel.background_color
+      - isLightBgc = ["light-grey", "sea-green", "white"].include?(bgc)
+
+      - if panel[:TYPE] == "panel_carousel_category"
+        .panel{ class="#{ panelBgc(bgc) }" }
+          .panel__content.panel__content--full
+            h2.title-xxl.e-align-cen.e-mgn-b-md{
+              class="#{ "e-col-brand-green-2" if isLightBgc }"
+            }= panel[:title]
+            = partial "views/partials/carousel",
+              locals: { local_data: \
+                { entry_data: @entry,
+                  context: "category-latest",
+                  categories: [panel[:category]] }}
