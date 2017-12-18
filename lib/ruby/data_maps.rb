@@ -28,16 +28,22 @@ end
 def slug(data)
   indexPage = data.content_type.id == "landing_page" ? data.index_page : false
   category = detachCategory(data.category)
+  slug = data.slug
 
   if data.category.include? $marker
     subCategory = detachCategory(data.category, { part: 1 })
-    slug = "#{ category }/#{ subCategory }/#{ data.slug }"
 
-    indexPage ? slug + "/index" : slug
+    if indexPage
+      "#{ category }/#{ subCategory }/index"
+    else
+      "#{ category }/#{ subCategory }/#{ slug }"
+    end
   else
-    slug = "#{ category }/#{ data.slug }"
-
-    indexPage ? slug + "/index" : slug
+    if indexPage
+      "#{ category }/index"
+    else
+      "#{ category }/#{ slug }"
+    end
   end
 end
 
