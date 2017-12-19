@@ -1,6 +1,7 @@
 - panelData = local_data[:entry_data]
 - bgc = panelData[:background_color]
 - image = panelData[:image]
+- imageSize = panelData[:image_size]
 - title = panelData[:title]
 - hasTitle = panelData[:show_title] != nil
 - copy = panelData[:copy]
@@ -16,21 +17,30 @@
 
   / Panel title
   - if hasTitle
-    .panel__content.panel__content--narrow
+    .panel__content.panel__content--narrow.e-hide-above-sm
       h3.title-xl.e-col-green.e-align-cen.e-mgn-b-xl= title
 
   .panel__content.panel__content--full
     .grid.grid--lg.grid--center
 
       / Image
-      .grid__cell.grid__cell--fill.grid__cell--above-sm-V
+      .grid__cell{
+        class="grid__cell--above-sm-#{
+          imageSize == "large" ? "V" : (imageSize == "medium" ? "IV" : "III")
+        }"
+      }
         = partial "views/partials/image",
           locals: { local_data: \
             { image_data: image,
               feature: true }}
 
       / Copy
-      .grid__cell.grid__cell--fill.grid__cell--above-sm-VII
+      .grid__cell.grid__cell--above-sm-VII
+
+        / Panel title
+        - if hasTitle
+          h3.title-xl.e-col-green.e-mgn-b-md.e-hide-below-sm= title
+
         .copy{
           class="#{ "e-fz-lg" if copySize == "extra-large" }"
           class="#{ "e-fz-md" if copySize == "large" }"

@@ -1,8 +1,7 @@
-////////////////////////////////////////////////////////////
-//  Media queries
-////////////////////////////////////////////////////////////
+/*		=Breakpoints
+  ========================================================================== */
 
-// Breakpoints
+// Above
 @mixin above($breakpoint) {
   $value: map-get($breakpoints, $breakpoint);
 
@@ -20,6 +19,7 @@
   }
 }
 
+// Below
 @mixin below($breakpoint) {
   $value: map-get($breakpoints, $breakpoint);
 
@@ -37,7 +37,9 @@
   }
 }
 
-// Orientations
+/*		=Orientation
+  ========================================================================== */
+
 @mixin orientation($orientation) {
   $value: map-get($orientations, $orientation);
 
@@ -46,7 +48,9 @@
   }
 }
 
-// Aspect ratios
+/*		=Aspect ratio
+  ========================================================================== */
+
 @mixin aspectRatio($value) {
   // $value: map-get($aspect_ratios, $aspect_ratio);
 

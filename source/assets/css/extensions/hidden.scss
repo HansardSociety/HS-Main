@@ -18,3 +18,11 @@
     }
   }
 }
+
+@each $breakpointKey, $breakpointVal in $breakpoints {
+  @include below($breakpointKey) {
+    .e-hide-below-#{ $breakpointKey } {
+      display: none;
+    }
+  }
+}

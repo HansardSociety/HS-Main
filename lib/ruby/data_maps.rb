@@ -386,6 +386,7 @@ def panels(ctx, data)
           content: panel.show_more
         }.compact if panel.show_more),
         image: media(panel.image),
+        image_size: panel.image_size.parameterize,
         share_buttons: panel.share_buttons
       }
     end
