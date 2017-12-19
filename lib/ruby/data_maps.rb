@@ -28,16 +28,22 @@ end
 def slug(data)
   indexPage = data.content_type.id == "landing_page" ? data.index_page : false
   category = detachCategory(data.category)
+  slug = data.slug
 
   if data.category.include? $marker
     subCategory = detachCategory(data.category, { part: 1 })
-    slug = "#{ category }/#{ subCategory }/#{ data.slug }"
 
-    indexPage ? slug + "/index" : slug
+    if indexPage
+      "#{ category }/#{ subCategory }/index"
+    else
+      "#{ category }/#{ subCategory }/#{ slug }"
+    end
   else
-    slug = "#{ category }/#{ data.slug }"
-
-    indexPage ? slug + "/index" : slug
+    if indexPage
+      "#{ category }/index"
+    else
+      "#{ category }/#{ slug }"
+    end
   end
 end
 
@@ -282,6 +288,139 @@ def callsToAction(data)
 end
 
 ###########################################################################
+##		=Panels
+###########################################################################
+
+def panels(ctx, data)
+  ctx.panels = data.panels.map do |panel|
+    isPanelAccordians = panel.content_type.id == "panel_accordians"
+    isPanelCarouselCustom = panel.content_type.id == "panel_carousel"
+    isPanelCarouselCategory = panel.content_type.id == "panel_carousel_category"
+    isPanelContent = panel.content_type.id == "panel_content"
+    isPanelFeed = panel.content_type.id == "panel_feed"
+    isPanelHeader = panel.content_type.id == "panel_header"
+
+    panelAccordians = {}
+    panelCarouselCustom = {}
+    panelCarouselCategory = {}
+    panelContent = {}
+    panelFeed = {}
+
+    ##		=Panel core
+    ########################################
+
+    # Contains all panel_header fields too
+    panelCore = {
+      ID: panel.sys[:id],
+      TYPE: panel.content_type.id,
+      title: panel.title,
+      calls_to_action: callsToAction(panel),
+      copy: (panel.copy if isPanelContent || isPanelAccordians),
+      background_color: (panel.background_color.parameterize if !isPanelAccordians),
+      show_title: (panel.show_title if isPanelContent || isPanelFeed),
+    }.compact
+
+    ##		=Panel accordions
+    ########################################
+
+    if isPanelAccordians
+      panelAccordians = {
+        accordians: panel.accordians.map do |accordian|
+          {
+            ID: accordian.sys[:id],
+            cta_id: targetID("accordian", accordian.title, accordian),
+            title: accordian.title,
+            copy: accordian.copy,
+            calls_to_action: callsToAction(accordian)
+          }.compact
+        end
+      }
+    end
+
+    ##		=Panel carousel (custom)
+    ########################################
+
+    if isPanelCarouselCustom
+      panelCarouselCustom = {
+        carousel: panel.items.map do |item|
+          isPeople = item.content_type.id == "people"
+          isQuote = item.content_type.id == "quote"
+
+          {
+            ID: item.sys[:id],
+            TYPE: item.content_type.id,
+            profile: (profile(item) if isPeople),
+            quote: ({
+              text: item.quote,
+              full_name: item.full_name,
+              role: item.role,
+              organisation: item.organisation,
+              image: ({
+                url: item.image.url,
+                description: item.image.description
+              }.compact if item.image),
+              image_type: item.image_type
+            }.compact if isQuote)
+          }.compact
+        end
+      }
+    end
+
+    ##		=Panel carousel (category)
+    ########################################
+
+    if isPanelCarouselCategory
+      panelCarouselCategory = {
+        category: panel.category.downcase
+      }.compact
+    end
+
+    ##		=Panel content
+    ########################################
+
+    if isPanelContent
+      panelContent = {
+        copy_size: (panel.copy_size.parameterize if panel.copy_size),
+        show_more: ({
+          cta_id: targetID("expand", panel.title, panel),
+          content: panel.show_more
+        }.compact if panel.show_more),
+        image: media(panel.image),
+        image_size: panel.image_size.parameterize,
+        share_buttons: panel.share_buttons
+      }
+    end
+
+    ##		=Panel feed
+    ########################################
+
+    if isPanelFeed
+      panelFeed = {
+        feed: {
+          category: detachCategory(panel.feed_category),
+          sub_category: (
+            detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker
+          ),
+          initial_count: panel.initial_count,
+          dedupe: panel.dedupe
+        }.compact
+      }
+    end
+
+    ##		=Merge panels
+    ########################################
+
+    panelCore.merge(
+      **panelContent,
+      **panelAccordians,
+      **panelCarouselCustom,
+      **panelCarouselCategory,
+      **panelFeed
+    ).compact
+  end
+end
+
+###########################################################################
 ## =Universal
 ###########################################################################
 
@@ -322,6 +461,10 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     sharedPageBase("homePage", context, entry)
     context.slug = "index"
+
+    if entry.panels
+      panels(context, entry)
+    end
   end
 end
 
@@ -401,111 +544,8 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     #   end
     # end
 
-    ##		=Panels
-    ########################################
-
     if entry.panels
-      context.panels = entry.panels.map do |panel|
-        isPanelAccordians = panel.content_type.id == "panel_accordians"
-        isPanelCarousel = panel.content_type.id == "panel_carousel"
-        isPanelContent = panel.content_type.id == "panel_content"
-        isPanelFeed = panel.content_type.id == "panel_feed"
-        isPanelHeader = panel.content_type.id == "panel_header"
-
-        panelAccordians = {}
-        panelCarousel = {}
-        panelContent = {}
-        panelFeed = {}
-
-        # Panel core
-        # Contains all panel_header fields too
-        panelCore = {
-          ID: panel.sys[:id],
-          TYPE: panel.content_type.id,
-          title: panel.title,
-          calls_to_action: callsToAction(panel),
-          copy: (panel.copy if isPanelContent || isPanelAccordians),
-          background_color: (panel.background_color.parameterize if !isPanelAccordians),
-          show_title: (panel.show_title if isPanelContent || isPanelFeed),
-        }.compact
-
-        # Panel accordions
-        if isPanelAccordians
-          panelAccordians = {
-            accordians: panel.accordians.map do |accordian|
-              {
-                ID: accordian.sys[:id],
-                cta_id: targetID("accordian", accordian.title, accordian),
-                title: accordian.title,
-                copy: accordian.copy,
-                calls_to_action: callsToAction(accordian)
-              }.compact
-            end
-          }
-        end
-
-        # Panel carousel
-        if isPanelCarousel
-          panelCarousel = {
-            carousel: panel.items.map do |item|
-              isPeople = item.content_type.id == "people"
-              isQuote = item.content_type.id == "quote"
-
-              {
-                ID: item.sys[:id],
-                TYPE: item.content_type.id,
-                profile: (profile(item) if isPeople),
-                quote: ({
-                  text: item.quote,
-                  full_name: item.full_name,
-                  role: item.role,
-                  organisation: item.organisation,
-                  image: ({
-                    url: item.image.url,
-                    description: item.image.description
-                  }.compact if item.image),
-                  image_type: item.image_type
-                }.compact if isQuote)
-              }.compact
-            end
-          }
-        end
-
-        # Panel content
-        if isPanelContent
-          panelContent = {
-            copy_size: (panel.copy_size.parameterize if panel.copy_size),
-            show_more: ({
-              cta_id: targetID("expand", panel.title, panel),
-              content: panel.show_more
-            }.compact if panel.show_more),
-            image: media(panel.image),
-            share_buttons: panel.share_buttons
-          }
-        end
-
-        # Panel feed
-        if isPanelFeed
-          panelFeed = {
-            feed: {
-              category: detachCategory(panel.feed_category),
-              sub_category: (
-                detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker
-              ),
-              initial_count: panel.initial_count,
-              dedupe: panel.dedupe
-            }.compact
-          }
-        end
-
-        # Merge
-        panelCore.merge(
-          **panelContent,
-          **panelAccordians,
-          **panelCarousel,
-          **panelFeed
-        ).compact
-      end
+      panels(context, entry)
     end
 
     # Tagging

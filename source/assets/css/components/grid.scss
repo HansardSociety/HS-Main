@@ -31,14 +31,16 @@
     @extend %e-mgn-neg-t-#{ $sizeKey };
 
     & > .grid__cell {
+      // width: 100%;
       @extend %e-mgn-t-#{ $sizeKey };
       @extend %e-mgn-l-#{ $sizeKey };
     }
 
     & > .grid__cell--fill {
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: calc(100% - #{ $sizeVal });
+      width: 100%;
+      flex-grow: 1;
+      // flex-shrink: 0;
+      // flex-basis: calc(100% - #{ $sizeVal });
     }
   }
 
@@ -63,7 +65,7 @@
 
         // Cell
         .grid__cell--above-#{ $breakpoint }-#{ $numVal } {
-          flex-grow: 1 !important;
+          // flex-grow: 1 !important;
           flex-basis: calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // see above
         }
 

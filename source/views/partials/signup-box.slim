@@ -1,8 +1,10 @@
-- @copy_size = local_data[:copy_size]
-- @btn_size = local_data[:btn_size]
+- copySize = local_data[:copy_size]
 
-h2.title-lg.e-mgn-b-sm Join our newsletter
-p.e-mgn-b-sm{ class="strap-#{ @copy_size }" }= siteData(:newsletter_text)
+h2{
+  class="title-#{ copySize == "md" ? "xxl" : "lg" }"
+  class="e-mgn-b-#{ copySize == "md" ? "md" : "sm" }"
+} Join our newsletter
+p.e-mgn-b-sm{ class="strap-#{ copySize }" }= siteData(:newsletter_text)
 = partial "views/partials/btn",
   locals: { local_data: \
     { type: "state", switch: true,
