@@ -6,7 +6,7 @@
   @extend %e-overflow-hidden;
   @extend %e-position-relative;
   @extend %e-rad-slight;
-  @extend %e-max-width-full;
+  @extend %e-width-full;
 }
 
 .image--feature {
@@ -20,7 +20,7 @@
   order: 2;
 
   @extend %e-display-block;
-  @extend %e-max-width-full;
+  @extend %e-width-full;
   @extend %e-position-relative;
 }
 

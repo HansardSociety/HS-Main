@@ -8,11 +8,11 @@
 - @caption = @image_data[:caption]
 
 figure.image{
-  class="#{ 'image--feature' if  @feature }"
+  class="#{ "image--feature" if  @feature }"
 }
 
   img.image__img{
-    src="#{ @url + (@focus ? '?fit=fill&w=563&h=317&f=' + @focus : '') }"
+    src="#{ @url + (@focus ? "?fit=fill&w=563&h=317&f=" + @focus : "") }"
     alt="#{ @alt }"
   }
 

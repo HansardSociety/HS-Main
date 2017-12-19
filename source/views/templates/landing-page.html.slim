@@ -13,26 +13,10 @@ article
       .panel__content.panel__content--medium.e-align-cen
         = markdown(@entry[:introduction], "byline")
 
-  / Latest (related)
-  - if @entry[:latest_carousel] && @entry[:tags]
-    .panel.e-bgc-greyscale-1#arrow-dest
-      .panel__content.panel__content--full
-        h2.title-xxl.e-col-green.e-align-cen.e-mgn-b-md Latest
-        = partial "views/partials/carousel",
-          locals: { local_data: \
-            { entry_data: @entry,
-              context: "related" }}
 
-  / Latest (category)
-  - if @entry[:latest_carousel] && !@entry[:tags]
-    .panel.e-bgc-greyscale-1#arrow-dest
-      .panel__content.panel__content--full
-        h2.title-xl.e-col-green.e-align-cen Latest
-        = partial "views/partials/carousel",
-          locals: { local_data: \
-            { entry_data: @entry,
-              context: "category-latest",
-              categories: @entry[:category] }}
+  = partial "views/partials/panel/latest",
+    locals: { local_data: \
+      { entry_data: @entry }}
 
   / Curated panels
   - if @entry[:panels]
@@ -45,14 +29,14 @@ article
 
       / Header panel
       - if panel[:TYPE] == "panel_header"
-        = partial "views/partials/panel-header",
+        = partial "views/partials/panel/header",
           locals: { local_data: \
             { entry_data: panel,
               index: index }}
 
       / Content panel
       - if panel[:TYPE] == "panel_content"
-        = partial "views/partials/panel-content",
+        = partial "views/partials/panel/content",
           locals: { local_data: \
             { entry_data: panel,
               index: index }}
@@ -89,7 +73,7 @@ article
 
       / Accordian panel
       - if panel[:TYPE] == "panel_accordians"
-        = partial "views/partials/panel-accordians",
+        = partial "views/partials/panel/accordians",
           locals: { local_data: \
             { entry_data: panel,
               index: index }}

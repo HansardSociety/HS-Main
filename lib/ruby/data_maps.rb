@@ -28,16 +28,22 @@ end
 def slug(data)
   indexPage = data.content_type.id == "landing_page" ? data.index_page : false
   category = detachCategory(data.category)
+  slug = data.slug
 
   if data.category.include? $marker
     subCategory = detachCategory(data.category, { part: 1 })
-    slug = "#{ category }/#{ subCategory }/#{ data.slug }"
 
-    indexPage ? slug + "/index" : slug
+    if indexPage
+      "#{ category }/#{ subCategory }/index"
+    else
+      "#{ category }/#{ subCategory }/#{ slug }"
+    end
   else
-    slug = "#{ category }/#{ data.slug }"
-
-    indexPage ? slug + "/index" : slug
+    if indexPage
+      "#{ category }/index"
+    else
+      "#{ category }/#{ slug }"
+    end
   end
 end
 
@@ -76,6 +82,35 @@ def media(data, opts = {})
 end
 
 ###########################################################################
+##		=Meta label
+###########################################################################
+
+def metaLabel(data, opts = {})
+  defaults = { reg_data: false }
+  opts = defaults.merge(opts)
+
+  regData = opts[:reg_data]
+
+  hasSubcategory = data.category.include?($marker)
+  hasNestedRegistration = data.featured && data.featured[0].content_type.id == "registration"
+
+  category = detachCategory(data.category)
+  subCategory = detachCategory(data.category, { part: 1 }) if hasSubcategory
+
+  baseLabel = "#{ category }#{ " / " + subCategory if hasSubcategory }"
+
+  if regData
+    "#{ baseLabel } / #{ dateTime(regData)[:date] }"
+  else
+    if hasNestedRegistration
+      "#{ baseLabel } / #{ dateTime(data.featured[0])[:date] }"
+    else
+      category == "blog" ? "#{ baseLabel } / #{ dateTime(data)[:date] }" : "#{ baseLabel }"
+    end
+  end
+end
+
+###########################################################################
 ##		=Shared page data
 ###########################################################################
 
@@ -97,7 +132,7 @@ def sharedPageBase(pageType, ctx, data)
   if ["childPage", "landingPage"].include? pageType
 
     ctx.category = detachCategory(data.category)
-    ctx.meta_label = data.category.gsub($marker, "/")
+    ctx.meta_label = metaLabel(data)
     ctx.slug = slug(data)
 
     # Has sub-category
@@ -145,9 +180,9 @@ end
 ###########################################################################
 
 def featuredData(data, opts = {})
-  defaults = { parentData: false }
+  defaults = { parent_data: false }
   opts = defaults.merge(opts)
-  parentData = opts[:parentData]
+  parentData = opts[:parent_data]
 
   isPage = ["child_page", "landing_page"].include? data.content_type.id
   isProduct = data.content_type.id == "product"
@@ -172,18 +207,15 @@ def featuredData(data, opts = {})
 
   # Page
   if isPage
-    hasFeaturedRegistration = data.featured && data.featured[0].content_type.id == "registration"
-
     featuredPageData = {
       title: data.title,
-      meta_label: "Meta label",
+      meta_label: metaLabel(data),
       slug: slug(data),
       category: (detachCategory(data.category) if data.category),
       sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $marker),
       introduction: data.introduction,
       banner_image: media(data.banner_image, focus: data),
-      date_time: dateTime(data),
-      date_time_alt: (dateTime(data.featured[0]) if hasFeaturedRegistration)
+      date_time: dateTime(data)
     }.compact
   end
 
@@ -191,7 +223,7 @@ def featuredData(data, opts = {})
   if isProduct
     featuredProductData = {
       title: data.title,
-      meta_label: "Meta label",
+      meta_label: metaLabel(parentData),
       product_id: data.product_id,
       price: data.price,
       image: {
@@ -206,7 +238,7 @@ def featuredData(data, opts = {})
   if isRegistration
     featuredRegistrationData = {
       meta_title: data.meta_title,
-      meta_label: "Meta label",
+      meta_label: metaLabel(parentData, { reg_data: data }),
       venue: data.venue,
       price: data.price,
       date_time: dateTime(data),
@@ -256,6 +288,139 @@ def callsToAction(data)
 end
 
 ###########################################################################
+##		=Panels
+###########################################################################
+
+def panels(ctx, data)
+  ctx.panels = data.panels.map do |panel|
+    isPanelAccordians = panel.content_type.id == "panel_accordians"
+    isPanelCarouselCustom = panel.content_type.id == "panel_carousel"
+    isPanelCarouselCategory = panel.content_type.id == "panel_carousel_category"
+    isPanelContent = panel.content_type.id == "panel_content"
+    isPanelFeed = panel.content_type.id == "panel_feed"
+    isPanelHeader = panel.content_type.id == "panel_header"
+
+    panelAccordians = {}
+    panelCarouselCustom = {}
+    panelCarouselCategory = {}
+    panelContent = {}
+    panelFeed = {}
+
+    ##		=Panel core
+    ########################################
+
+    # Contains all panel_header fields too
+    panelCore = {
+      ID: panel.sys[:id],
+      TYPE: panel.content_type.id,
+      title: panel.title,
+      calls_to_action: callsToAction(panel),
+      copy: (panel.copy if isPanelContent || isPanelAccordians),
+      background_color: (panel.background_color.parameterize if !isPanelAccordians),
+      show_title: (panel.show_title if isPanelContent || isPanelFeed),
+    }.compact
+
+    ##		=Panel accordions
+    ########################################
+
+    if isPanelAccordians
+      panelAccordians = {
+        accordians: panel.accordians.map do |accordian|
+          {
+            ID: accordian.sys[:id],
+            cta_id: targetID("accordian", accordian.title, accordian),
+            title: accordian.title,
+            copy: accordian.copy,
+            calls_to_action: callsToAction(accordian)
+          }.compact
+        end
+      }
+    end
+
+    ##		=Panel carousel (custom)
+    ########################################
+
+    if isPanelCarouselCustom
+      panelCarouselCustom = {
+        carousel: panel.items.map do |item|
+          isPeople = item.content_type.id == "people"
+          isQuote = item.content_type.id == "quote"
+
+          {
+            ID: item.sys[:id],
+            TYPE: item.content_type.id,
+            profile: (profile(item) if isPeople),
+            quote: ({
+              text: item.quote,
+              full_name: item.full_name,
+              role: item.role,
+              organisation: item.organisation,
+              image: ({
+                url: item.image.url,
+                description: item.image.description
+              }.compact if item.image),
+              image_type: item.image_type
+            }.compact if isQuote)
+          }.compact
+        end
+      }
+    end
+
+    ##		=Panel carousel (category)
+    ########################################
+
+    if isPanelCarouselCategory
+      panelCarouselCategory = {
+        category: panel.category.downcase
+      }.compact
+    end
+
+    ##		=Panel content
+    ########################################
+
+    if isPanelContent
+      panelContent = {
+        copy_size: (panel.copy_size.parameterize if panel.copy_size),
+        show_more: ({
+          cta_id: targetID("expand", panel.title, panel),
+          content: panel.show_more
+        }.compact if panel.show_more),
+        image: media(panel.image),
+        image_size: panel.image_size.parameterize,
+        share_buttons: panel.share_buttons
+      }
+    end
+
+    ##		=Panel feed
+    ########################################
+
+    if isPanelFeed
+      panelFeed = {
+        feed: {
+          category: detachCategory(panel.feed_category),
+          sub_category: (
+            detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker
+          ),
+          initial_count: panel.initial_count,
+          dedupe: panel.dedupe
+        }.compact
+      }
+    end
+
+    ##		=Merge panels
+    ########################################
+
+    panelCore.merge(
+      **panelContent,
+      **panelAccordians,
+      **panelCarouselCustom,
+      **panelCarouselCategory,
+      **panelFeed
+    ).compact
+  end
+end
+
+###########################################################################
 ## =Universal
 ###########################################################################
 
@@ -296,6 +461,10 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     sharedPageBase("homePage", context, entry)
     context.slug = "index"
+
+    if entry.panels
+      panels(context, entry)
+    end
   end
 end
 
@@ -369,117 +538,14 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     end
 
     # Featured content
-    if entry.featured
-      context.featured = entry.featured.map do |featured|
-        featuredData(featured)
-      end
-    end
-
-    ##		=Panels
-    ########################################
+    # if entry.featured
+    #   context.featured = entry.featured.map do |featured|
+    #     featuredData(featured)
+    #   end
+    # end
 
     if entry.panels
-      context.panels = entry.panels.map do |panel|
-        isPanelAccordians = panel.content_type.id == "panel_accordians"
-        isPanelCarousel = panel.content_type.id == "panel_carousel"
-        isPanelContent = panel.content_type.id == "panel_content"
-        isPanelFeed = panel.content_type.id == "panel_feed"
-        isPanelHeader = panel.content_type.id == "panel_header"
-
-        panelAccordians = {}
-        panelCarousel = {}
-        panelContent = {}
-        panelFeed = {}
-
-        # Panel core
-        # Contains all panel_header fields too
-        panelCore = {
-          ID: panel.sys[:id],
-          TYPE: panel.content_type.id,
-          title: panel.title,
-          calls_to_action: callsToAction(panel),
-          copy: (panel.copy if isPanelContent || isPanelAccordians),
-          background_color: (panel.background_color.parameterize if !isPanelAccordians),
-          show_title: (panel.show_title if isPanelContent || isPanelFeed),
-        }.compact
-
-        # Panel accordions
-        if isPanelAccordians
-          panelAccordians = {
-            accordians: panel.accordians.map do |accordian|
-              {
-                ID: accordian.sys[:id],
-                cta_id: targetID("accordian", accordian.title, accordian),
-                title: accordian.title,
-                copy: accordian.copy,
-                calls_to_action: callsToAction(accordian)
-              }.compact
-            end
-          }
-        end
-
-        # Panel carousel
-        if isPanelCarousel
-          panelCarousel = {
-            carousel: panel.items.map do |item|
-              isPeople = item.content_type.id == "people"
-              isQuote = item.content_type.id == "quote"
-
-              {
-                ID: item.sys[:id],
-                TYPE: item.content_type.id,
-                profile: (profile(item) if isPeople),
-                quote: ({
-                  text: item.quote,
-                  full_name: item.full_name,
-                  role: item.role,
-                  organisation: item.organisation,
-                  image: ({
-                    url: item.image.url,
-                    description: item.image.description
-                  }.compact if item.image),
-                  image_type: item.image_type
-                }.compact if isQuote)
-              }.compact
-            end
-          }
-        end
-
-        # Panel content
-        if isPanelContent
-          panelContent = {
-            copy_size: (panel.copy_size.parameterize if panel.copy_size),
-            show_more: ({
-              cta_id: targetID("expand", panel.title, panel),
-              content: panel.show_more
-            }.compact if panel.show_more),
-            image: media(panel.image),
-            share_buttons: panel.share_buttons
-          }
-        end
-
-        # Panel feed
-        if isPanelFeed
-          panelFeed = {
-            feed: {
-              category: detachCategory(panel.feed_category),
-              sub_category: (
-                detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker
-              ),
-              initial_count: panel.initial_count,
-              dedupe: panel.dedupe
-            }.compact
-          }
-        end
-
-        # Merge
-        panelCore.merge(
-          **panelContent,
-          **panelAccordians,
-          **panelCarousel,
-          **panelFeed
-        ).compact
-      end
+      panels(context, entry)
     end
 
     # Tagging
@@ -502,7 +568,8 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     # Featured
     if entry.featured
       context.featured = entry.featured.map do |featured|
-        featuredData(featured, { parentData: entry })
+        # featuredData(featured, { parentData: entry })
+        featuredData(featured, { parent_data: entry })
       end
     end
 

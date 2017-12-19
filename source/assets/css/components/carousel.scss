@@ -30,8 +30,8 @@
 .carousel__actions {
   justify-content: space-between;
 
-  width: 7.5rem;
-  margin-top: 2.5rem;
+  width: 8rem;
+  margin-top: 3rem;
 
   @extend %e-col-green;
   @extend %e-flex-row;
@@ -100,6 +100,9 @@
   ========================================================================== */
 
 .flickity-page-dots {
+  left: .25rem;
+  bottom: -2rem;
+
   & > .dot {
     width: 6px;
     height: 6px;
