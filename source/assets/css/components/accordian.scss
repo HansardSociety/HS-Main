@@ -5,10 +5,6 @@
   @extend %e-rad-slight;
 }
 
-.test-class {
-  color: pink;
-}
-
 .accordian__expand {
   max-height: 0;
 
@@ -38,9 +34,8 @@
   margin-top: .25rem;
 }
 
-////////////////////////////////////////////////////////////
-//  Behaviour
-/////////////////////////////////////////////////////////////
+/*		=Behaviour
+  ========================================================================== */
 
 .accordian__expand.JS-active {
   max-height: 20rem;

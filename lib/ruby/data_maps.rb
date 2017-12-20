@@ -431,7 +431,6 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.title = entry.title
     context.site_title = entry.site_title
     context.site_url = entry.site_url
-    context.main_categories = entry.main_categories.map{ |cat| cat.parameterize.gsub("'", "") }
 
     context.newsletter_text = entry.newsletter_text
     context.newsletter_embed = entry.newsletter_embed

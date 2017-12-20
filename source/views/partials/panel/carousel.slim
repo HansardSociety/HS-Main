@@ -12,7 +12,7 @@
 
 - bgcClass = isLatestContext ? "e-bg-shapes" : panelBgc(entryData[:background_color])
 
-- isLightBgc = colorProfile[:light].include?(bgc)
+- isLightBgc = colorProfile(:light).include?(bgc)
 
 .panel{ class=bgcClass }
   .panel__content.panel__content--narrow

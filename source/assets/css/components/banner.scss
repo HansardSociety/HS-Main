@@ -3,19 +3,6 @@
   @extend %e-width-full-vw;
 }
 
-.banner--full {
-  // temp height CSS inline - set by JS
-  @extend %e-overflow-hidden;
-  @include above(sm) {
-    text-align: center;
-  }
-}
-
-.banner--semi {
-  // temp height CSS inline - set by JS
-  // height: 66.6666vh;
-}
-
 .banner__inner {
   @extend %e-absolute-center-xy;
   @extend %e-container;
@@ -40,6 +27,12 @@
 
   @extend %e-pad-sm;
   @extend %e-rad-slight;
+}
+
+.banner__content--lp {
+  @include above(sm) {
+    text-align: center;
+  }
 }
 
 .banner__strap {
