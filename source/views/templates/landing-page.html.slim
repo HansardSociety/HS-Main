@@ -9,9 +9,7 @@ article
 
   / Introduction
   - if @entry[:introduction] && @entry[:show_introduction]
-    .panel#introduction
-      .panel__content.panel__content--medium.e-align-cen
-        = markdown(@entry[:introduction], "byline")
+    = partial "views/partials/panel/introduction"
 
   //////////////////////////////////////////////////
   //  =Latest

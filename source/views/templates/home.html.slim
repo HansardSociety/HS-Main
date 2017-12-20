@@ -7,10 +7,8 @@ article
     locals: { entry: @entry }
 
   / Introduction
-  - if @entry[:introduction]
-    .panel#arrow-dest
-      .panel__content.panel__content--medium.e-align-cen
-        = markdown(@entry[:introduction], "byline")
+  = partial "views/partials/panel/introduction",
+    locals: { entry_data: @entry }
 
   = partial "views/partials/panel/carousel",
     locals: { local_data: \
@@ -26,7 +24,7 @@ article
       / Newsletter
       - if index == 1
         .panel.e-bgc-brand-green-1
-          .content.content--mid.e-align-cen.e-col-greyscale-0
+          .panel__content.panel__content--narrow.e-align-cen.e-col-greyscale-0
             = partial "views/partials/signup-box",
               locals: { local_data: { copy_size: "md"}}
 
