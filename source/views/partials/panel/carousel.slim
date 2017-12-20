@@ -1,18 +1,20 @@
 - entryData = local_data[:entry_data]
 - context = local_data[:context]
+- dataType = local_data[:data_type]
 - categories = local_data[:categories]
 - blogCount = local_data[:blog_count]
 
-- isLatest = context == "latest"
+- isLatestContext = context == :latest
 
-- title = isLatest ? "Latest" : entryData[:title]
-- bgc = isLatest ? "e-grad-brand-green" : panelBgc(entryData[:background_color])
+- title = isLatestContext ? "Latest" : entryData[:title]
+
+- bgc = isLatestContext ? "e-grad-brand-green" : panelBgc(entryData[:background_color])
 - isLightBgc = ["light-grey", "sea-green", "white"].include?(entryData[:background_color])
 
-.panel#arrow-dest{ class=bgc }
+.panel{ class=bgc }
   .panel__content.panel__content--narrow
     h2.title-xl.e-align-cen.e-mgn-b-lg{
-      class="#{ "e-col-brand-green-2" if isLatest || isLightBgc }"
+      class="#{ "e-col-brand-green-2" if isLatestContext || isLightBgc }"
     }= title
 
   .panel__content.panel__content--full
@@ -23,7 +25,7 @@
         //  =Related
         //////////////////////////////////////////////////
 
-        - if context == "related"
+        - if dataType == :related
 
           / If page contains featured content
           - if entryData[:featured]
@@ -46,7 +48,7 @@
         //////////////////////////////////////////////////
 
         / Latest content (all)
-        - if context == "latest"
+        - if dataType == :latest
           - latestContent(yield: true, num: 6) do |page|
             .carousel__item
               = partial "views/partials/main-card",
@@ -54,7 +56,7 @@
                   { entry_data: page }}
 
         / Latest content (category)
-        - if context == "category-latest"
+        - if dataType == :category_latest
           - latestContent(yield: true, num: 6, page_cats: categories) do |page|
             .carousel__item
               = partial "views/partials/main-card",
@@ -65,7 +67,7 @@
         //  =Custom
         //////////////////////////////////////////////////
 
-        - if context == "custom"
+        - if dataType == :custom
           - entryData[:carousel].map do |item|
 
             / Profile cards

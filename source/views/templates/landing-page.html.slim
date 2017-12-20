@@ -20,14 +20,16 @@ article
     = partial "views/partials/panel/carousel",
       locals: { local_data: \
         { entry_data: @entry,
-          context: "related" }}
+          context: :latest,
+          data_type: :related }}
 
   / Category
   - if @entry[:latest_carousel] && !@entry[:tags]
     = partial "views/partials/panel/carousel",
       locals: { local_data: \
         { entry_data: @entry,
-          context: "category-latest",
+          context: :latest,
+          data_type: :category_latest,
           categories: @entry[:category] }}
 
   //////////////////////////////////////////////////
@@ -35,9 +37,6 @@ article
   //////////////////////////////////////////////////
 
   - if @entry[:panels]
-
-    - if !@entry[:latest_carousel]
-      span#arrow-dest{ aria-hidden="true" }
 
     / Give each panel index for anchor
     - @entry[:panels].each_with_index do |panel, index|
@@ -76,7 +75,7 @@ article
         = partial "views/partials/panel/carousel",
           locals: { local_data: \
             { entry_data: panel,
-              context: "custom" }}
+              data_type: :custom }}
 
       / Accordian panel
       - if panel[:TYPE] == "panel_accordians"

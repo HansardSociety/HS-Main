@@ -10,10 +10,12 @@ article
   = partial "views/partials/panel/introduction",
     locals: { entry_data: @entry }
 
+  / Latest carousel
   = partial "views/partials/panel/carousel",
     locals: { local_data: \
       { entry_data: @entry,
-        context: "latest" }}
+        context: :latest,
+        data_type: :latest }}
 
   / Curated panels
   - if @entry[:panels]
@@ -32,5 +34,5 @@ article
         = partial "views/partials/panel/carousel",
           locals: { local_data: \
             { entry_data: panel,
-              context: "category-latest",
+              data_type: :category_latest,
               categories: [panel[:category]] }}

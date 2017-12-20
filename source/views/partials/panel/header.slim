@@ -15,15 +15,15 @@
     h3.title-xxl.e-align-cen= title
 
   - if callsToAction
-    .panel__section
+    .panel__content.panel__content--narrow
       .grid.grid--xs.grid--center
         - callsToAction.each do |cta|
           .grid__cell
-              - if cta[:TYPE] == "cta_download"
-                = partial "views/partials/btn",
-                  locals: { local_data: \
-                    { type: "link",
-                      size: "md", style: "primary",
-                      label: cta[:button_text],
-                      label_size: "md",
-                      url: cta[:file].url }}
+            - if cta[:TYPE] == "cta_download"
+              = partial "views/partials/btn",
+                locals: { local_data: \
+                  { type: "link",
+                    size: "md", style: "primary",
+                    label: cta[:button_text],
+                    label_size: "md",
+                    url: cta[:file].url }}
