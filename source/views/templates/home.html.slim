@@ -12,9 +12,10 @@ article
       .panel__content.panel__content--medium.e-align-cen
         = markdown(@entry[:introduction], "byline")
 
-  = partial "views/partials/panel/latest",
+  = partial "views/partials/panel/carousel",
     locals: { local_data: \
-      { entry_data: @entry }}
+      { entry_data: @entry,
+        context: "latest" }}
 
   / Curated panels
   - if @entry[:panels]
@@ -30,13 +31,8 @@ article
               locals: { local_data: { copy_size: "md"}}
 
       - if panel[:TYPE] == "panel_carousel_category"
-        .panel{ class="#{ panelBgc(bgc) }" }
-          .panel__content.panel__content--full
-            h2.title-xxl.e-align-cen.e-mgn-b-md{
-              class="#{ "e-col-brand-green-2" if isLightBgc }"
-            }= panel[:title]
-            = partial "views/partials/carousel",
-              locals: { local_data: \
-                { entry_data: @entry,
-                  context: "category-latest",
-                  categories: [panel[:category]] }}
+        = partial "views/partials/panel/carousel",
+          locals: { local_data: \
+            { entry_data: panel,
+              context: "category-latest",
+              categories: [panel[:category]] }}
