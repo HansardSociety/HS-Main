@@ -4,8 +4,9 @@ article
 
   / Banner
   - if @entry[:banner_image]
-    = partial "views/partials/banner",
-      locals: { entry: @entry }
+    = partial "views/partials/banner/main",
+      locals: { local_data: { \
+        entry_data: @entry }}
 
   / Introduction
   - if @entry[:introduction] && @entry[:show_introduction]

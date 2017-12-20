@@ -1,5 +1,5 @@
 .main-card {
-  height: inherit;
+  height: 100%;
 
   text-align: left;
 
@@ -14,12 +14,6 @@
     transform: scale(1.05);
   }
 }
-
-.main-card--events { @extend %e-acc-hot-pink-2-top; }
-.main-card--blog { @extend %e-acc-sea-green-2-top; }
-.main-card--intelligence { @extend %e-acc-purple-2-top; }
-.main-card--publications { @extend %e-acc-orange-2-top; }
-.main-card--projects { @extend %e-acc-brand-green-2-top; }
 
 .main-card__featured-icon {
   z-index: 1;

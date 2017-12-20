@@ -1,0 +1,47 @@
+- entryData = local_data[:entry_data]
+
+- imageURL = entryData[:banner_image][:url]
+- imageFocus = entryData[:banner_image][:focus]
+
+- isLandingPage = entryData[:TYPE] == "landing_page"
+
+.banner__image{
+  class="#{ "banner__image--" + imageFocus }"
+}
+  picture
+
+    / Landscape
+    source{
+      media="(orientation: landscape)"
+      sizes="100vw"
+      srcset="#{ imageURL }?w=640&q=50&fl=progressive 640w,
+              #{ imageURL }?w=854&q=50&fl=progressive 854w,
+              #{ imageURL }?w=1280&q=50&fl=progressive 1280w,
+              #{ imageURL }?w=1920&q=50&fl=progressive 1920w"
+    }
+
+    / Portrait
+    source{
+      media="(orientation: portrait)"
+      sizes="100vw"
+      srcset="#{
+        imageURL }?#{
+          isLandingPage ?
+          "fit=fill&w=360&h=640&q=50&fl=progressive" :
+          "fit=fill&w=360&h=360&q=50&fl=progressive"
+        }&f=#{ imageFocus } 360w, #{ imageURL }?#{
+          isLandingPage ?
+          "fit=fill&w=720&h=1280&q=50&fl=progressive" :
+          "fit=fill&w=720&h=720&q=50&fl=progressive"
+        }&f=#{ imageFocus } 720w, #{ imageURL }?#{
+          isLandingPage ?
+          "fit=fill&w=1080&h=1440&q=50&fl=progressive" :
+          "fit=fill&w=1080&h=1080&q=50&fl=progressive"
+        }&f=#{ imageFocus } 1080w"
+    }
+
+    / Fallback
+    img{
+      srcset="#{ imageURL }?f=#{ imageFocus }"
+      alt="#{ entryData[:banner_image].alt }"
+    }

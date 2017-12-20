@@ -53,18 +53,35 @@ module CustomHelpers
   end
 
   ###########################################################################
-  ##		=Background colours
+  ##		=Colors
   ###########################################################################
 
+  def catColor(color)
+    category = color.parameterize.underscore.to_sym
+
+    colors = {
+      blog: "purple",
+      events: "hot-pink",
+      insight: "sea-green",
+      projects: "brand-green",
+      publications: "orange",
+      greyscale: "greyscale"
+    }
+
+    colors[category]
+  end
+
   # Color profile
-  def colorProfile
-    {
+  def colorProfile(color)
+    colors = {
       dark: ["black", "brand-green", "dark-grey", "hot-pink", "orange", "purple", "slate-blue"],
       light: ["light-grey", "sea-green", "white"],
       greyscale: ["black", "dark-grey", "light-grey", "white"],
       dark_greyscale: ["black", "dark-grey"],
       light_greyscale: ["light-grey", "white"]
     }
+
+    colors[color]
   end
 
   # Panel BGCs
@@ -74,11 +91,11 @@ module CustomHelpers
 
     isGradient = opts[:gradient]
 
-    isDarkBgc = colorProfile[:dark].include?(bgc)
-    isLightBgc = colorProfile[:light].include?(bgc)
-    isGreyscaleBgc = colorProfile[:greyscale].include?(bgc)
-    isDarkGreyscaleBgc = colorProfile[:dark_greyscale].include?(bgc)
-    isLightGreyscaleBgc = colorProfile[:light_greyscale].include?(bgc)
+    isDarkBgc = colorProfile(:dark).include?(bgc)
+    isLightBgc = colorProfile(:light).include?(bgc)
+    isGreyscaleBgc = colorProfile(:greyscale).include?(bgc)
+    isDarkGreyscaleBgc = colorProfile(:dark_greyscale).include?(bgc)
+    isLightGreyscaleBgc = colorProfile(:light_greyscale).include?(bgc)
 
     colWhite = "e-col-greyscale-0"
 
@@ -117,31 +134,6 @@ module CustomHelpers
   end
 
   ###########################################################################
-  ##		=Registration data and fallback
-  ###########################################################################
-
-  def altData(data, opts = {})
-    defaults = {
-      type: "date_time",
-      content_type: ""
-    }
-    opts = defaults.merge(opts)
-
-    featuredData = data[:featured]
-
-    if opts[:type] == "date_time"
-      featuredData && featuredData[0][:"#{ opts[:content_type] }"] \
-        ? featuredData[0][:"#{ opts[:content_type] }"][:date_time] \
-        : data[:date_time]
-
-    elsif opts[:type] == "category"
-      featuredData && featuredData[0][:"#{ opts[:content_type] }"] \
-        ? featuredData[0][:"#{ opts[:content_type] }"][:category].gsub("-", " ") \
-        : data[:category].gsub("-", " ")
-    end
-  end
-
-  ###########################################################################
   ##		=Latest content
   ###########################################################################
 
@@ -154,7 +146,7 @@ module CustomHelpers
       yield: false,
       start: 0,
       num: allPages.length,
-      page_cats: siteData(:main_categories)
+      page_cats: siteCategories(:top_main)
     }
     opts = defaults.merge(opts)
 
@@ -191,7 +183,7 @@ module CustomHelpers
 
     # Group and sort pages
     @groupPagesByCategory = latestContent.group_by{ |val| val[:category] }
-    @orderCategories = ["events", "intelligence", "blog", "publications", "projects"]
+    @orderCategories = siteCategories(:top_main)
     @sortPagesByCategory = @groupPagesByCategory.sort_by{ |category, pages| @orderCategories.index(category) }
 
     # Map organised pages
@@ -235,7 +227,7 @@ module CustomHelpers
       # Select pages by category and concatenate
       @blogPages = @pagesTagged.select{ |page| page[:category] == "blog" }[0..@blogCount]
       @otherPages = @pagesTagged.select{ |page|
-        ["intelligence", "projects", "publications"].include? page[:category]
+        ["insight", "projects", "publications"].include? page[:category]
       }[0..2]
       @concatPages = [@registrationPages, @blogPages, @otherPages].reduce([], :concat)
 

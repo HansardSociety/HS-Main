@@ -122,19 +122,6 @@
 /*		=Accents
   ========================================================================== */
 
-$allColorMaps: Merge(map-get($colors, primary), map-get($colors, secondary), map-get($colors, greyscale));
-
-// Accents
-@each $name, $color in $allColorMaps {
-  @each $side in map-get($properties, origins) {
-
-    %e-acc-#{ $name }-#{ $side },
-    .e-acc-#{ $name }-#{ $side } {
-      border-#{ $side }: .5rem solid $color;
-    }
-  }
-}
-
 @each $colorName, $colorShades in $colorGroups {
   @each $shadeNum, $shadeHex in $colorShades {
     @each $side in map-get($properties, origins) {

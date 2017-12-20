@@ -1,54 +1,53 @@
-/ Page data
 - @entry = entry_data
+- blogCount = @entry[:blog_count]
+- category = @entry[:category]
+- copy = @entry[:copy]
+- introduction = @entry[:introduction]
+- featured = @entry[:featured]
 
-/ Page variables
-- @author = @entry[:author]
-- @blogCount = @entry[:blog_count]
-- @category = @entry[:category]
-- @copy = @entry[:copy]
-- @introduction = @entry[:introduction]
-- @promoted_page = @entry[:promoted_page]
-- @registration = @entry[:registration]
-- @product = @entry[:product]
+- isMainCategories = siteCategories(:top_main).include? category
+- isReverseHeaderCats = ["blog", "events"].include? category
+- isBlogPage = category == "blog"
+
+- nonPages = ["people", "product", "registration"]
 
 article
 
   / Banner
-  = partial "views/partials/banner",
-    locals: { entry: @entry }
+  = partial "views/partials/banner/main",
+    locals: { local_data: { \
+      entry_data: @entry }}
 
   .content.content--wide.content--paper.e-mgn-b-lg{
-    class="content--#{ @category }"
+    class="e-acc-#{ catColor(category) }-2-top"
   }
 
     / Page intro/ featured item
     .content__header
       .grid.grid--md.grid--center
         section.grid__cell.grid__cell--above-md-VII.grid__cell--fill.copy{
-          class="#{ "grid__cell--order-II grid__cell--above-md-order-I" if ["blog", "events"].include? @entry[:category] }"
+          class="#{ "grid__cell--order-II grid__cell--above-md-order-I" if isReverseHeaderCats }"
         }
-          = markdown(@introduction, "byline")
+          = markdown(introduction, "byline")
 
         / Featured side content
         aside.grid__cell.grid__cell--above-md-V.grid__cell--fill{
-          class="#{ "grid__cell--order-I grid__cell--above-md-order-II" if ["blog", "events"].include? @entry[:category] }"
+          class="#{ "grid__cell--order-I grid__cell--above-md-order-II" if isReverseHeaderCats }"
         }
 
           / Entry has featured content...
-          - if @entry[:featured]
+          - if featured
 
-            / Blog (authors)
-            - if @entry[:category] == "blog"
-              - @entry[:featured].map do |featured|
+            - if isBlogPage
+              - featured.map do |featured|
                 - if featured[:TYPE] == "people"
                   = partial "views/partials/profile",
                     locals: { local_data: \
                     { profile_data: featured,
                       side: true }}
 
-            / Research and resources
-            - if ["events", "intelligence", "projects", "publications"].include? @entry[:category]
-              - @entry[:featured].first(1).map do |featured|
+            - else
+              - featured.first(1).map do |featured|
                 = partial "views/partials/side-card",
                   locals: { local_data: \
                     { side_card_data: featured,
@@ -57,12 +56,8 @@ article
     / Main content
     .content__section
       .grid.grid--md.grid--center
-
-        / Copy
         .grid__cell.grid__cell--above-md-VII.grid__cell--expand.grid__cell--fill.JS-inactive.copy#expand
-
-          / Copy
-          = markdown(@copy)
+          = markdown(copy)
 
           / Expand button
           .grid__expand-btn
@@ -76,15 +71,11 @@ article
         aside.grid__cell.grid__cell--above-md-V.grid__cell--fill
 
           / Side cards
-          - if ["blog", "events", "intelligence", "projects", "publications"].include? @entry[:category]
+          - if isMainCategories
 
             / If blog, add all non-author featured content to sidebar
-            - if @entry[:category] == "blog"
-              - @entry[:featured].reject{ |featured| featured[:TYPE] == "people" }.each_with_index do |featured, index|
-
-                / Only add featured title once, before the first item
-                / - if index == 0
-                /   h2.side-title Featured
+            - if isBlogPage
+              - featured.reject{ |featured| featured[:TYPE] == "people" }.each_with_index do |featured, index|
 
                 = partial "views/partials/side-card",
                   locals: { local_data: \
@@ -93,19 +84,18 @@ article
 
             / If not blog, add all featured items to the sidebar except
             / the first, which is featured alongside the intro text.
-            - elsif @entry[:featured] && @entry[:featured].length > 1
-              / h2.side-title Featured
-              - @entry[:featured].drop(1).map do |featured|
-                - if !["people", "product", "registration"].include? featured[:TYPE]
+            - elsif featured && featured.length > 1
+              - featured.drop(1).map do |featuredItem|
+                - if !nonPages.include? featuredItem[:TYPE]
                   = partial "views/partials/side-card",
                     locals: { local_data: \
-                      { side_card_data: featured,
+                      { side_card_data: featuredItem,
                         featured: true }}
 
             / All tagged/ related content
             - if @entry[:tags]
               h2.side-title Related
-              - relatedContent(@entry, @blogCount) do |page|
+              - relatedContent(@entry, blogCount) do |page|
                 = partial "views/partials/side-card",
                   locals: { local_data: \
                     { side_card_data: page }}
@@ -119,9 +109,8 @@ article
                     locals: { local_data: \
                       { ext_link_data: link }}
 
-
           / Latest items for about pages
-          - if @category == "about"
+          - if category == "about"
             h2.side-title Latest
             - latestContent(yield: true, num: 4) do |page|
               = partial "views/partials/side-card",
@@ -132,9 +121,3 @@ article
           .box.e-bgc-brand-green-1.e-col-greyscale-0.e-mgn-b-xs
             = partial "views/partials/signup-box",
               locals: { local_data: { copy_size: "sm" }}
-
-          / / Social follow
-          / .box.e-bgc-brand-green-2.e-col-greyscale-0.e-mgn-b-xs
-          /   = partial "views/partials/social-follow"
-
-
