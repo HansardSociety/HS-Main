@@ -1,3 +1,6 @@
+/*		=Core BG colors
+  ========================================================================== */
+
 @each $name, $color in Merge(
   map-get($colors, primary),
   map-get($colors, secondary),
@@ -31,15 +34,35 @@
   }
 }
 
-.e-grad-brand-green {
-  background-color: rgba(Get($colorGroups, brand-green, 2), .05);
+/*		=BG shapes
+  ========================================================================== */
+
+.e-bg-shapes {
+  $color: Get($colorGroups, brand-green, 2);
+
+  background-color: rgba($color, .05);
+
   background-image:
-    linear-gradient(26deg,
-      rgba(Get($colorGroups, brand-green, 2), .03333) 0%,
-      rgba(Get($colorGroups, brand-green, 2), .03333) 60%,
-      transparent 60%),
-    linear-gradient(-30deg,
-      rgba(Get($colorGroups, brand-green, 2), .03333) 0%,
-      rgba(Get($colorGroups, brand-green, 2), .03333) 40%,
-      transparent 40%);
+    linear-gradient(45deg, rgba($color, .03333) 0%, rgba($color, .03333) 60%, transparent 60%),
+    linear-gradient(140deg, rgba($color, .03333) 0%, rgba($color, .03333) 40%, transparent 40%);
+
+  @include above(md) {
+    background-image:
+      linear-gradient(26deg, rgba($color, .03333) 0%, rgba($color, .03333) 60%, transparent 60%),
+      linear-gradient(-30deg, rgba($color, .03333) 0%, rgba($color, .03333) 40%, transparent 40%);
+  }
+}
+
+/*		=BG gradients
+  ========================================================================== */
+
+@each $colorName, $colorShades in $colorGroups {
+
+  $color1: map-get($colorShades, 1);
+  $color2: map-get($colorShades, 2);
+
+  .e-bg-grad-#{ $colorName } {
+    background: $color2;
+    background: radial-gradient(ellipse at center 100%, $color1 30%, $color2 100%);
+  }
 }

@@ -7,7 +7,7 @@
 
 .panel{
   id="panel-#{ index }"
-  class="#{ panelBgc(bgc) }"
+  class="#{ colorProfile[:greyscale] ? panelBgc(bgc) : panelBgc(bgc, { gradient: true }) }"
 }
 
   / Panel title
