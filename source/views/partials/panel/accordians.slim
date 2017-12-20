@@ -1,19 +1,15 @@
 - panelData = local_data[:entry_data]
 - index = local_data[:index]
 
-.panel.e-bgc-brand-green-1.e-col-greyscale-0{
+.panel.e-bg-grad-brand-green.e-col-greyscale-0{
   id="panel-#{ index }"
 }
-  .panel__content.panel__content--narrow.e-align-cen
 
-    / Header
-    .panel__section
-      - if panelData[:label]
-        span.cross-head-sm= panelData[:label]
-      h2.title-xl= panelData[:title]
-    .panel__section
-      - if panelData.copy
-        = markdown(panelData[:copy], 'byline')
+  .panel__content.panel__content--narrow.e-align-cen
+    h3.title-xl.e-mgn-b-md= panelData[:title]
+
+    - if panelData.copy
+      = markdown(panelData[:copy], 'byline')
 
   .panel__content.panel__content--narrow
     .grid.grid--xs

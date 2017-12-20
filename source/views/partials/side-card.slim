@@ -2,45 +2,47 @@
 /**************************************************
 
 / Partial data
-- partialData = local_data[:side_card_data]
+- entryData = local_data[:side_card_data]
+- isFeaturedCard = local_data[:featured]
 
 / Nested content types
-- featuredAuthor = partialData[:TYPE] == "author"
-- featuredPage = partialData[:TYPE] == "page"
-- featuredProduct = partialData[:TYPE] == "product"
-- featuredRegistration = partialData[:TYPE] == "registration"
+- isFeaturedAuthor = entryData[:TYPE] == "author"
+- isFeaturedPage = entryData[:TYPE] == "page"
+- isFeaturedProduct = entryData[:TYPE] == "product"
+- isFeaturedRegistration = entryData[:TYPE] == "registration"
 
 / Category
 - pageCategory = @entry[:category].gsub("-", " ")
-- category = partialData[:category] ? partialData[:category].gsub("-", " ") : pageCategory
+- category = entryData[:category] ? entryData[:category].gsub("-", " ") : pageCategory
 
 / Images
-- imageBanner = partialData[:banner_image]
-- imageProduct = partialData[:image]
+- imageBanner = entryData[:banner_image]
+- imageProduct = entryData[:image]
 - if imageBanner || imageProduct
   - image = imageBanner ? imageBanner : imageProduct
   - imageURL = image[:url]
   - imageAlt = image[:alt]
   - imageFocus = image[:focus]
 
-- featuredItem = local_data[:featured]
+- asideBgc = image ? "e-bgc-brand-green-2" : "e-bgc-#{ catColor(pageCategory) }-2 e-col-greyscale-0"
 
-- dateTime = partialData[:date_time]
+- dateTime = entryData[:date_time]
 
-- featuredRegistration || featuredProduct
+- accentColor = catColor(isFeaturedRegistration ? pageCategory : category)
+- accentClass = "e-acc-#{ accentColor }-2-left"
 
 / Side card elem
 /**************************************************
 
 article.side-card{
-  class="side-card--#{ featuredRegistration ? pageCategory : category }"
-  class="#{ featuredItem ? "side-card--featured" : "side-card--related" }"
+  class="#{ accentClass }"
+  class="#{ isFeaturedCard ? "side-card--featured" : "side-card--related" }"
 }
   .side-card__inner
 
     / Image
-    .side-card__image{
-      class="#{ image ? "side-card__image--overlay" : "side-card__image--" + pageCategory }"
+    .side-card__aside{
+      class="#{ asideBgc }"
     }
 
       / If banner image
@@ -51,7 +53,7 @@ article.side-card{
           alt="#{ imageAlt }"
         }
 
-      - if featuredRegistration
+      - if isFeaturedRegistration
         = partial "views/partials/date",
           locals: { local_data: \
             { date_data: dateTime }}
@@ -61,51 +63,51 @@ article.side-card{
 
       / Label
       .side-card__label
-        span.label-xs.e-col-mid-grey= partialData[:meta_label]
+        span.label-xs.e-col-mid-grey= entryData[:meta_label]
 
       / Title
       .side-card__title{
-        class="side-card__title--#{ (featuredRegistration || featuredProduct) ? "clamp-2" : "clamp-3" }"
+        class="side-card__title--#{ (isFeaturedRegistration || isFeaturedProduct) ? "clamp-2" : "clamp-3" }"
       }
 
         / Not registration or product
-        - if !featuredRegistration && !featuredProduct
+        - if !isFeaturedRegistration && !isFeaturedProduct
           h1.title-sm
             a.JS-clamp-3{
-              href="#{ internalURL(partialData[:slug]) }"
-              class="#{ featuredItem ? "link-white" : "link" }"
-            }= partialData[:title]
+              href="#{ internalURL(entryData[:slug]) }"
+              class="#{ isFeaturedCard ? "link-white" : "link" }"
+            }= entryData[:title]
 
         - else
           h1.title-sm.JS-clamp-2{
-            class="#{ featuredItem ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
-          }= featuredProduct ? partialData[:title] : partialData[:venue]
+            class="#{ isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
+          }= isFeaturedProduct ? entryData[:title] : entryData[:venue]
 
       / Actions - if product or registration...
-      - if featuredRegistration || featuredProduct
+      - if isFeaturedRegistration || isFeaturedProduct
         .side-card__actions{
-          class="#{ featuredItem ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
+          class="#{ isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
         }
 
           / Product
-          - if featuredProduct
+          - if isFeaturedProduct
 
-            - if partialData[:price] == 0
+            - if entryData[:price] == 0
               = partial "views/partials/btn",
                 locals: { local_data: \
                   { type: "link", size: "sm", style: "primary",
-                    label: "Download", label_size: "sm", url: partialData[:download] }}
+                    label: "Download", label_size: "sm", url: entryData[:download] }}
 
-            - if partialData[:price] > 0
+            - if entryData[:price] > 0
               = partial "views/partials/btn",
                 locals: { local_data: \
-                  { type: "link", size: "sm", style: "primary", product: partialData,
-                    label: "Buy (£#{ partialData[:price] })", label_size: "sm" }}
+                  { type: "link", size: "sm", style: "primary", product: entryData,
+                    label: "Buy (£#{ entryData[:price] })", label_size: "sm" }}
 
           / Registration
-          - if featuredRegistration
+          - if isFeaturedRegistration
 
-            - if partialData[:date_time][:integer] < Time.now.strftime("%s").to_i
+            - if entryData[:date_time][:integer] < Time.now.strftime("%s").to_i
               p
                 em CLOSED
 
@@ -114,8 +116,8 @@ article.side-card{
               / Modal window
               = partial "views/partials/modal",
                 locals: { local_data: \
-                  { id: partialData[:modal][:cta_id],
-                    content: partialData[:modal][:content] }}
+                  { id: entryData[:modal][:cta_id],
+                    content: entryData[:modal][:content] }}
 
               / Modal button
               = partial "views/partials/btn",
@@ -124,5 +126,5 @@ article.side-card{
                     size: "sm", style: "primary",
                     label_on: "Register now", label_off: "Close", label_size: "sm",
                     page: "no-scroll", switch: true,
-                    aria_id: "activate-#{ partialData[:modal][:cta_id] }",
-                    aria_target_id: partialData[:modal][:cta_id] }}
+                    aria_id: "activate-#{ entryData[:modal][:cta_id] }",
+                    aria_target_id: entryData[:modal][:cta_id] }}

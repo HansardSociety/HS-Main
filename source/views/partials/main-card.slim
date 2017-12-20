@@ -1,15 +1,24 @@
-- mainCardData = local_data[:entry_data]
+- entryData = local_data[:entry_data]
+- category = entryData[:category]
+
+- imageURL = entryData[:banner_image][:url]
+- imageFocus = entryData[:banner_image][:focus]
+- imageAlt = entryData[:banner_image][:alt]
+
+- title = entryData[:title]
+- introduction = entryData[:introduction]
+- metaLabel = entryData[:meta_label]
+- accent = "e-acc-#{ catColor(category) }-2-top"
+
 - featuredCard = local_data[:featured]
 
-- mainCardInnerElem = {\
-  tag: (mainCardData[:category] ? 'a' : 'div'),
-  href: mainCardData[:category] ? internalURL(mainCardData[:slug]) : nil }
+- mainCardInnerElem = { \
+  tag: (category ? 'a' : 'div'),
+  href: category ? internalURL(entryData[:slug]) : nil }
 
-/ p= mainCardData
+/ p= entryData
 
-article.main-card{
-  class="#{ 'main-card--' + mainCardData[:category] if mainCardData[:category] }"
-}
+article.main-card{ class="#{ accent }" }
 
   - if featuredCard
     span.main-card__featured-icon
@@ -25,17 +34,14 @@ article.main-card{
       .main-card__image
         img.b-lazy{
           src="#{ assetsDir }/images/placeholder__main-card.svg"
-          data-src="#{ mainCardData[:banner_image][:url] }?fit=fill&w=563&h=317&f=#{ mainCardData[:banner_image][:focus] }&q=50&fl=progressive"
-          alt="#{ mainCardData[:banner_image][:alt] }"
+          data-src="#{ imageURL }?fit=fill&w=563&h=317&f=#{ imageFocus }&q=50&fl=progressive"
+          alt="#{ imageAlt }"
         }
-        h1.main-card__title.title-md= mainCardData[:title]
+        h1.main-card__title.title-md= title
 
       .main-card__meta
-        span.label-xs= mainCardData[:meta_label]
+        span.label-xs= metaLabel
 
     / Introduction
     section.main-card__introduction
-
-      / Strip HTML from markdown, trucate text and replace all
-      / non-alphanumeric final characters with an elipsis.
-      p= truncateHtml(markdown(mainCardData[:introduction]))
+      p= truncateHtml(markdown(introduction))

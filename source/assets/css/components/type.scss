@@ -35,7 +35,7 @@
   .label-#{ $sizeKey },
   .cross-head-#{ $sizeKey },
   strong {
-    @extend %e-ff-prim-roman-bold;
+    @extend %e-ff-prim-heavy;
   }
 
   .strap-#{ $sizeKey },

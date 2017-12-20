@@ -4,9 +4,6 @@
 - isLandingPage = @entry[:TYPE] == "landing_page"
 
 header.banner{
-  class="banner--#{
-    isSpecialPage ? "full" : "semi"
-  }"
   style="height: #{ isSpecialPage ? "100vh" : "66.6666vh" };"
 }
 
@@ -60,7 +57,7 @@ header.banner{
 
     / Content
     .banner__content{
-      class="#{ "e-mgn-auto-x__sm banner__content--text-bg" if isSpecialPage }"
+      class="#{ "e-mgn-auto-x banner__content--lp banner__content--text-bg" if isSpecialPage }"
     }
 
       - if isChildPage
@@ -123,10 +120,10 @@ header.banner{
 
   / Scroll down
   - if isSpecialPage
-    a.banner__scroll.e-col-orange-2{
-      href="#arrow-dest"
-    }
+    a#arrow.banner__scroll.e-col-orange-2{ href="#arrow-dest" }
       = partial "views/partials/icon",
         locals: \
         { icon: "ios-arrow-thin-down",
           size: "lg" }
+
+span#arrow-dest{ aria-hidden="true" }

@@ -1,0 +1,6 @@
+- entryData = locals[:entry_data]
+- introduction = entryData[:introduction]
+
+.panel.e-bgc-greyscale-0
+  .panel__content.panel__content--medium.e-align-cen
+    = markdown(introduction, "byline")
