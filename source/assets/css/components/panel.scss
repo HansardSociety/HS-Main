@@ -33,10 +33,6 @@
   @extend %e-container--full;
 }
 
-.panel__section {
-  @extend %e-mgn-t-sm;
-}
-
 // Sections
 @each $sizeKey, $sizeVal in $spacing {
   .section-#{ $sizeKey } {

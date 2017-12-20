@@ -9,20 +9,34 @@ article
 
   / Introduction
   - if @entry[:introduction] && @entry[:show_introduction]
-    .panel#introduction
-      .panel__content.panel__content--medium.e-align-cen
-        = markdown(@entry[:introduction], "byline")
+    = partial "views/partials/panel/introduction"
 
+  //////////////////////////////////////////////////
+  //  =Latest
+  //////////////////////////////////////////////////
 
-  = partial "views/partials/panel/latest",
-    locals: { local_data: \
-      { entry_data: @entry }}
+  / Related
+  - if @entry[:latest_carousel] && @entry[:tags]
+    = partial "views/partials/panel/carousel",
+      locals: { local_data: \
+        { entry_data: @entry,
+          context: :latest,
+          data_type: :related }}
 
-  / Curated panels
+  / Category
+  - if @entry[:latest_carousel] && !@entry[:tags]
+    = partial "views/partials/panel/carousel",
+      locals: { local_data: \
+        { entry_data: @entry,
+          context: :latest,
+          data_type: :category_latest,
+          categories: @entry[:category] }}
+
+  //////////////////////////////////////////////////
+  //  =Curated panels
+  //////////////////////////////////////////////////
+
   - if @entry[:panels]
-
-    - if !@entry[:latest_carousel]
-      span#arrow-dest{ aria-hidden="true" }
 
     / Give each panel index for anchor
     - @entry[:panels].each_with_index do |panel, index|
@@ -58,18 +72,10 @@ article
 
       / Carousel panel
       - if panel[:TYPE] == "panel_carousel"
-        .panel{
-          id="panel-#{ index }"
-          class="#{ "panel--" + panel[:background_color] if panel[:background_color] }"
-        }
-          .panel__content.panel__content--full
-            h2.title-xl.e-align-cen{
-              class="e-col-#{ panel[:background_color] != "dark-grey" ? "green" : "white" }"
-            }= panel[:title]
-            = partial "views/partials/carousel",
-              locals: { local_data: \
-                { entry_data: panel[:carousel],
-                  context: "custom" }}
+        = partial "views/partials/panel/carousel",
+          locals: { local_data: \
+            { entry_data: panel,
+              data_type: :custom }}
 
       / Accordian panel
       - if panel[:TYPE] == "panel_accordians"
@@ -78,7 +84,10 @@ article
             { entry_data: panel,
               index: index }}
 
-  / TODO: Biog modals (temp)
+  //////////////////////////////////////////////////
+  //  =Biog modals
+  //////////////////////////////////////////////////
+
   - if @entry[:ID] == "6b4aZvjw3KUkO84UGkeYaI"
     - data.hs.people.each do |k, v|
       - if v.employment

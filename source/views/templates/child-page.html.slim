@@ -24,7 +24,7 @@ article
     / Page intro/ featured item
     .content__header
       .grid.grid--md.grid--center
-        section.grid__cell.grid__cell--above-md-VII.copy{
+        section.grid__cell.grid__cell--above-md-VII.grid__cell--fill.copy{
           class="#{ "grid__cell--order-II grid__cell--above-md-order-I" if ["blog", "events"].include? @entry[:category] }"
         }
           = markdown(@introduction, "byline")
@@ -59,7 +59,7 @@ article
       .grid.grid--md.grid--center
 
         / Copy
-        .grid__cell.grid__cell--above-md-VII.grid__cell--expand.JS-inactive.copy#expand
+        .grid__cell.grid__cell--above-md-VII.grid__cell--expand.grid__cell--fill.JS-inactive.copy#expand
 
           / Copy
           = markdown(@copy)
@@ -73,7 +73,7 @@ article
                   aria_id: "activate-expand", aria_target_id: "expand" }}
 
         / Side content
-        aside.grid__cell.grid__cell--above-md-V
+        aside.grid__cell.grid__cell--above-md-V.grid__cell--fill
 
           / Side cards
           - if ["blog", "events", "intelligence", "projects", "publications"].include? @entry[:category]

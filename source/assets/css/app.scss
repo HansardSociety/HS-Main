@@ -1,12 +1,14 @@
 // Order important...
 
+// Functions
+@import "./functions/mapping";
+@import "./functions/string-replace";
+
 // Config
 @import "./config";
 
-// Functions
-@import "./functions/mapping";
-@import "./functions/media-queries";
-@import "./functions/string-replace";
+// Mixins
+@import "./mixins/media-queries";
 
 // Core
 @import "./extensions/type";

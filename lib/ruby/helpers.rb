@@ -56,12 +56,30 @@ module CustomHelpers
   ##		=Background colours
   ###########################################################################
 
-  def panelBgc(bgc)
-    isDarkBgc = ["black", "brand-green", "dark-grey", "hot-pink", "orange", "purple", "slate-blue"].include?(bgc)
-    isLightBgc = ["light-grey", "sea-green", "white"].include?(bgc)
-    isGreyscaleBgc = ["black", "dark-grey", "light-grey", "white"].include?(bgc)
-    isDarkGreyscaleBgc = ["black", "dark-grey"].include?(bgc)
-    isLightGreyscaleBgc = ["light-grey", "white"].include?(bgc)
+  # Color profile
+  def colorProfile
+    {
+      dark: ["black", "brand-green", "dark-grey", "hot-pink", "orange", "purple", "slate-blue"],
+      light: ["light-grey", "sea-green", "white"],
+      greyscale: ["black", "dark-grey", "light-grey", "white"],
+      dark_greyscale: ["black", "dark-grey"],
+      light_greyscale: ["light-grey", "white"]
+    }
+  end
+
+  # Panel BGCs
+  def panelBgc(bgc, opts = {})
+    defaults = { gradient: false }
+    opts = defaults.merge(opts)
+
+    isGradient = opts[:gradient]
+
+    isDarkBgc = colorProfile[:dark].include?(bgc)
+    isLightBgc = colorProfile[:light].include?(bgc)
+    isGreyscaleBgc = colorProfile[:greyscale].include?(bgc)
+    isDarkGreyscaleBgc = colorProfile[:dark_greyscale].include?(bgc)
+    isLightGreyscaleBgc = colorProfile[:light_greyscale].include?(bgc)
+
     colWhite = "e-col-greyscale-0"
 
     if isGreyscaleBgc
@@ -71,7 +89,9 @@ module CustomHelpers
         "#{ bgc == "white" ? "e-bgc-greyscale-0" : "e-bgc-greyscale-1" }"
       end
     else
-      "#{ colWhite if isDarkBgc } e-bgc-#{ bgc }-1"
+      bgcClass = isGradient ? "e-bg-grad-#{ bgc }" : "e-bgc-#{ bgc }-1"
+
+      "#{ colWhite if isDarkBgc } #{ bgcClass }"
     end
   end
 
