@@ -37,10 +37,12 @@ article.main-card{ class="#{ accent }" }
           data-src="#{ imageURL }?fit=fill&w=563&h=317&f=#{ imageFocus }&q=50&fl=progressive"
           alt="#{ imageAlt }"
         }
-        h1.main-card__title.title-md= title
+        .main-card__title
+          span.label-xs.e-mgn-b-xxs= metaLabel
+          h1.title-md= title.length > 99 ? "#{ title[0..99] }…" : title
 
-      .main-card__meta
-        span.label-xs= metaLabel
+      / .main-card__meta
+
 
     / Introduction
     section.main-card__introduction

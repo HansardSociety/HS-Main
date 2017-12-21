@@ -62,7 +62,7 @@ module CustomHelpers
     colors = {
       blog: "purple",
       events: "hot-pink",
-      insight: "sea-green",
+      insight: "slate-blue",
       projects: "brand-green",
       publications: "orange",
       greyscale: "greyscale"

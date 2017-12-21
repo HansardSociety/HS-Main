@@ -3,8 +3,9 @@
 article
 
   / Banner
-  = partial "views/partials/banner",
-    locals: { entry: @entry }
+  = partial "views/partials/banner/main",
+    locals: { local_data: { \
+      entry_data: @entry }}
 
   / Introduction
   = partial "views/partials/panel/introduction",
