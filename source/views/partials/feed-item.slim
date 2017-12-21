@@ -19,7 +19,7 @@ article.feed-item
   .feed-item__img
     img{ *imgAttrs }
   .feed-item__content
-    span.label-xs.e-col-mid-grey= feedData[:meta_label]
+    span.label-xs.e-col-greyscale-2= feedData[:meta_label]
     h1.title-md
       a.link{
         href="#{ internalURL(feedData[:slug]) }"

@@ -1,12 +1,13 @@
 - entryData = local_data[:entry_data]
 
-- isSpecialPage = ["landing_page", "home"].include? entryData[:TYPE]
+- hasFullBanner = ["landing_page", "home"].include? entryData[:TYPE]
 - isChildPage = entryData[:TYPE] == "child_page"
 - isHomepage = entryData[:TYPE] == "home"
 - isLandingPage = entryData[:TYPE] == "landing_page"
 
 header.banner{
-  style="height: #{ isSpecialPage ? "100vh" : "66.6666vh" };"
+  class="JS-banner--#{ hasFullBanner ? "full" : "semi" }"
+  style="height: #{ hasFullBanner ? "100vh" : "66.6666vh" };"
 }
 
   / Image
@@ -21,7 +22,7 @@ header.banner{
 
     / Content
     .banner__content{
-      class="#{ "e-mgn-auto-x banner__content--lp banner__content--text-bg" if isSpecialPage }"
+      class="#{ "e-mgn-auto-x banner__content--lp banner__content--text-bg" if hasFullBanner }"
     }
 
       - if isChildPage
@@ -29,39 +30,38 @@ header.banner{
 
       / Title
       h1{
-        class="#{ isSpecialPage ? "title-xxl" : "title-xl" }"
+        class="#{ hasFullBanner ? "title-xxl" : "title-xl" }"
       }= entryData[:title]
 
-      - if isSpecialPage
+      - if hasFullBanner
         p.banner__strap= entryData[:subtitle]
 
       / Actions
       - if isLandingPage && entryData[:calls_to_action] != nil
-        .section-sm
-          .grid.grid--xs.grid--above-sm-center
-            - entryData[:calls_to_action].each do |cta|
-              .grid__cell
+        .grid.grid--xs.grid--above-sm-center.e-mgn-t-sm
+          - entryData[:calls_to_action].each do |cta|
+            .grid__cell
 
-                / Download
-                - if cta[:action] == "download"
-                  = partial "views/partials/btn",
-                    locals: { local_data: \
-                      { type: "link", size: "lg", style: "primary",
-                        label: cta.button_text, label_size: "lg", url: cta[:file][:url] }}
+              / Download
+              - if cta[:TYPE] == "cta_download"
+                = partial "views/partials/btn",
+                  locals: { local_data: \
+                    { type: "link", size: "lg", style: "primary",
+                      label: cta.button_text, label_size: "lg", url: cta[:file][:url] }}
 
-                / Modal
-                - if cta[:action] == "modal"
+              / Modal
+              - if cta[:TYPE] == "modal"
 
-                  / Modal button
-                  = partial "views/partials/btn",
-                    locals: { local_data: \
-                      { type: "state",
-                        size: "lg", style: "secondary",
-                        label_on: cta[:button_text], label_off: "Close",
-                        label_size: "lg",
-                        page: "no-scroll", exclusive: true, switch: true,
-                        aria_id: "activate-#{ cta.modal[:cta_id] }",
-                        aria_target_id: cta.modal[:cta_id] }}
+                / Modal button
+                = partial "views/partials/btn",
+                  locals: { local_data: \
+                    { type: "state",
+                      size: "lg", style: "secondary",
+                      label_on: cta[:button_text], label_off: "Close",
+                      label_size: "lg",
+                      page: "no-scroll", exclusive: true, switch: true,
+                      aria_id: "activate-#{ cta.modal[:cta_id] }",
+                      aria_target_id: cta.modal[:cta_id] }}
 
       - if isHomepage
         .grid.grid--xxs.grid--above-sm-center.e-mgn-t-sm
@@ -69,6 +69,13 @@ header.banner{
             locals: { local_data: \
               { icons: [siteData(:twitter), siteData(:linkedin), siteData(:facebook)] }}
 
+  / Scroll down
+  - if hasFullBanner
+    a#arrow.banner__scroll{ href="#arrow-dest" }
+      = partial "views/partials/icon",
+        locals: \
+        { icon: "ios-arrow-thin-down",
+          size: "sm" }
 
   / Modal content (here to avoid banner__inner transform cascade)
   - if isLandingPage && entryData[:calls_to_action] != nil
@@ -78,13 +85,5 @@ header.banner{
           locals: { local_data: \
           { id: cta.modal[:cta_id],
             content: cta.modal[:content] }}
-
-  / Scroll down
-  - if isSpecialPage
-    a#arrow.banner__scroll.e-col-orange-2{ href="#arrow-dest" }
-      = partial "views/partials/icon",
-        locals: \
-        { icon: "ios-arrow-thin-down",
-          size: "lg" }
 
 span#arrow-dest{ aria-hidden="true" }

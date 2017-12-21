@@ -1,49 +1,69 @@
 - panelData = local_data[:entry_data]
 - bgc = panelData[:background_color]
+
 - image = panelData[:image]
 - imageSize = panelData[:image_size]
+- imageInvert = panelData[:image_invert]
+- isSmallImage = imageSize == "small"
+- isMediumImage = imageSize == "medium"
+- isLargeImage = imageSize == "large"
+
 - title = panelData[:title]
+- titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
 - hasTitle = panelData[:show_title] != nil
+
 - copy = panelData[:copy]
 - copySize = panelData[:copy_size]
+- isCopyLg = copySize == "large"
+- isCopyXl = copySize == "extra-large"
+
 - showMoreCopy = panelData[:show_more]
+
 - callsToAction = panelData[:calls_to_action]
+
 - index = local_data[:index]
 
 .panel{
   id="panel-#{ index }"
-  class="#{ panelBgc(bgc) }"
+  class="#{ colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true }) }"
 }
 
   / Panel title
   - if hasTitle
     .panel__content.panel__content--narrow.e-hide-above-sm
-      h3.title-xl.e-col-green.e-align-cen.e-mgn-b-xl= title
+      h3.title-xl.e-align-cen.e-mgn-b-xl{
+        class=titleColor
+      }= title
 
   .panel__content.panel__content--full
     .grid.grid--lg.grid--center
 
       / Image
       .grid__cell{
+        class="grid__cell--#{
+          isLargeImage ? "10" : (isMediumImage ? "8" : "6")
+        }"
         class="grid__cell--above-sm-#{
-          imageSize == "large" ? "V" : (imageSize == "medium" ? "IV" : "III")
+          isLargeImage ? "5" : (isMediumImage ? "3" : "2")
         }"
       }
         = partial "views/partials/image",
           locals: { local_data: \
             { image_data: image,
-              feature: true }}
+              invert: imageInvert }}
 
       / Copy
-      .grid__cell.grid__cell--above-sm-VII
+      .grid__cell.grid__cell--above-sm-7
 
         / Panel title
         - if hasTitle
-          h3.title-xl.e-col-green.e-mgn-b-md.e-hide-below-sm= title
+          h3.title-xl.e-mgn-b-md.e-hide-below-sm{
+            class=titleColor
+          }= title
 
         .copy{
-          class="#{ "e-fz-lg" if copySize == "extra-large" }"
-          class="#{ "e-fz-md" if copySize == "large" }"
+          class="#{ "e-fz-lg" if isCopyXl }"
+          class="#{ "e-fz-md" if isCopyLg }"
         }
           = markdown(copy) if copy
 
@@ -74,14 +94,19 @@
                 .grid__cell
 
                   / Download
-                  - if cta.TYPE == "cta_download"
+                  - if ["cta_download", "cta_page"].include? cta[:TYPE]
+                    - isPage = cta[:TYPE] == "cta_page"
+                    - isDownload = cta[:TYPE] == "cta_download"
+                    - btnURL = isPage ? internalURL(cta[:page_slug]) : cta[:file].url
+                    - btnSize = isCopyXl ? "lg" : (isCopyLg ? "md" : "sm")
+
                     = partial "views/partials/btn",
                       locals: { local_data: \
                         { type: "link",
-                          size: "sm", style: "primary",
+                          size: btnSize, style: (isPage ? "secondary" : "primary"),
                           label: cta[:button_text],
-                          label_size: "sm",
-                          url: cta[:file].url }}
+                          label_size: btnSize,
+                          url: btnURL }}
 
                   / Modal
                   - if cta.TYPE == "cta_modal"

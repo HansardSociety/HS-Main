@@ -58,18 +58,9 @@ article
 
       / Feed panel
       - if panel[:TYPE] == "panel_feed"
-        .panel{
-          id="panel-#{ index }"
-          class="#{ "panel--" + panel[:background_color] if panel[:background_color] }"
-        }
-          .panel__content.panel__content--narrow
-
-            - if panel[:show_title]
-              h2.title-xl.e-col-green.e-align-cen= panel[:title]
-
-            = partial "views/partials/feed",
-              locals: { local_data: \
-                { entry_data: panel }}
+        = partial "views/partials/panel/feed",
+          locals: { local_data: \
+            { entry_data: panel }}
 
       / Carousel panel
       - if panel[:TYPE] == "panel_carousel"

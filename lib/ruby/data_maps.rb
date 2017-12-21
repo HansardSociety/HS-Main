@@ -276,13 +276,11 @@ def callsToAction(data)
       title: cta.title,
       button_text: cta.button_text,
       file: (media(cta.file, title: true) if isDownload),
+      page_slug: (slug(cta.page) if isPage),
       modal: ({
         cta_id: targetID("modal", cta.title, cta),
         content: cta.modal,
-      }.compact if isModal),
-      page: ({
-        title: "Hello"
-      }.compact if isPage)
+      }.compact if isModal)
     }.compact
   end : nil)
 end
@@ -306,7 +304,7 @@ def panels(ctx, data)
     panelContent = {}
     panelFeed = {}
 
-    ##		=Panel core
+    ##		=Core
     ########################################
 
     # Contains all panel_header fields too
@@ -320,7 +318,7 @@ def panels(ctx, data)
       show_title: (panel.show_title if isPanelContent || isPanelFeed),
     }.compact
 
-    ##		=Panel accordions
+    ##		=Accordions
     ########################################
 
     if isPanelAccordians
@@ -337,7 +335,7 @@ def panels(ctx, data)
       }
     end
 
-    ##		=Panel carousel (custom)
+    ##		=Carousel (custom)
     ########################################
 
     if isPanelCarouselCustom
@@ -366,7 +364,7 @@ def panels(ctx, data)
       }
     end
 
-    ##		=Panel carousel (category)
+    ##		=Carousel (category)
     ########################################
 
     if isPanelCarouselCategory
@@ -375,7 +373,7 @@ def panels(ctx, data)
       }.compact
     end
 
-    ##		=Panel content
+    ##		=Content
     ########################################
 
     if isPanelContent
@@ -387,11 +385,12 @@ def panels(ctx, data)
         }.compact if panel.show_more),
         image: media(panel.image),
         image_size: panel.image_size.parameterize,
+        image_invert: panel.image_invert,
         share_buttons: panel.share_buttons
       }
     end
 
-    ##		=Panel feed
+    ##		=Feed
     ########################################
 
     if isPanelFeed
