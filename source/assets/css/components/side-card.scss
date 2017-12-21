@@ -26,7 +26,6 @@
 
 .side-card__aside {
   width: 6.36rem; // side card image ratio
-  margin-left: -.5rem;
 
   @extend %e-flex-row-center;
   @extend %e-overflow-hidden;

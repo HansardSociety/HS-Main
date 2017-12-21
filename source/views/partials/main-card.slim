@@ -39,11 +39,11 @@ article.main-card{ class="#{ accent }" }
         }
         .main-card__title
           span.label-xs.e-mgn-b-xxs= metaLabel
-          h1.title-md= title.length > 99 ? "#{ title[0..99] }…" : title
+          h1.title-md= truncate(title, { num: 99 })
 
       / .main-card__meta
 
 
     / Introduction
     section.main-card__introduction
-      p= truncateHtml(markdown(introduction))
+      p= truncateHtml(markdown(introduction), { num: 139 })

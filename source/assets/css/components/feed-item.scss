@@ -3,26 +3,30 @@
 
   @extend %e-animate-fade-in-load;
   @extend %e-flex-row-nowrap;
-  @include above(sm) {
-    align-items: center;
-  }
 
   &:not(:last-of-type) {
-    border-bottom: 1px solid Get($colors, greyscale, light-grey);
+    border-bottom: 2px solid Get($colors, greyscale, light-grey);
 
     @extend %e-mgn-b-sm;
     @extend %e-pad-b-sm;
   }
 }
 
+.feed-item__img,
+.feed-item__img > img {
+  @extend %e-rad-slight;
+}
+
 .feed-item__img {
+
   width: 20%;
+  padding-bottom: 20%;
 
   @extend %e-bgc-brand-green-2;
   @extend %e-mgn-t-xs;
   @extend %e-mgn-r-sm;
   @extend %e-overflow-hidden;
-  @extend %e-rad-circ;
+  @extend %e-position-relative;
   @include above(sm) {
     margin-top: 0;
     margin-right: 2rem;
@@ -31,6 +35,7 @@
 
 .feed-item__img > img {
   @extend %e-display-block;
+  @extend %e-position-absolute;
   @extend %e-width-full;
 }
 
@@ -39,6 +44,6 @@
 
   @include above(sm) {
     width: calc(80% - 2rem);
-    margin-top: -1rem;
+    // margin-top: -1rem;
   }
 }

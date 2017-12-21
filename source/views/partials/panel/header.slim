@@ -3,10 +3,8 @@
 - title = panelData[:title]
 - copy = panelData[:copy]
 - callsToAction = panelData[:calls_to_action]
-- index = local_data[:index]
 
 .panel{
-  id="panel-#{ index }"
   class="#{ colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true }) }"
 }
 

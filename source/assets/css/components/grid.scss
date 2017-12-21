@@ -46,17 +46,17 @@
 
   // Columns:
   // Cell 1 through 12 (100 / 12 == 8.3333)
-  @each $numKey, $numVal in $numerals {
+  @each $col in $columns {
 
     // Cell
-    .grid__cell--#{ $numVal } {
+    .grid__cell--#{ $col } {
       // flex-grow: 1 !important;
-      flex-basis: calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // need to override flex from descendant selector
+      flex-basis: calc((#{ 8.3333 * $col + '%'}) - #{ $sizeVal }) !important; // need to override flex from descendant selector
     }
 
     // Offset
-    .grid__cell--offset-#{ $numVal } {
-      margin-left: calc(#{ 8.3333 * $numKey + '%'} + #{ $sizeVal / 2 }) !important; // See above
+    .grid__cell--offset-#{ $col } {
+      margin-left: calc(#{ 8.3333 * $col + '%'} + #{ $sizeVal / 2 }) !important; // See above
     }
 
     // Breakpoints
@@ -64,14 +64,14 @@
       @include above($breakpoint) {
 
         // Cell
-        .grid__cell--above-#{ $breakpoint }-#{ $numVal } {
+        .grid__cell--above-#{ $breakpoint }-#{ $col } {
           // flex-grow: 1 !important;
-          flex-basis: calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // see above
+          flex-basis: calc((#{ 8.3333 * $col + '%'}) - #{ $sizeVal }) !important; // see above
         }
 
         // Offset
-        .grid__cell--above-#{ $breakpoint }-offset-#{ $numVal } {
-          margin-left: calc(#{ 8.3333 * $numKey + '%'} + #{ $sizeVal / 2 }) !important; // see above
+        .grid__cell--above-#{ $breakpoint }-offset-#{ $col } {
+          margin-left: calc(#{ 8.3333 * $col + '%'} + #{ $sizeVal / 2 }) !important; // see above
         }
       }
     }
@@ -79,17 +79,17 @@
 }
 
 // Order
-@each $numKey, $numVal in $numerals {
+@each $col in $columns {
 
-  .grid__cell--order-#{ $numVal } {
-    order: #{ $numKey };
+  .grid__cell--order-#{ $col } {
+    order: #{ $col };
   }
 
   @each $breakpoint in map-keys($breakpoints) {
     @include above($breakpoint) {
 
-      .grid__cell--above-#{ $breakpoint }-order-#{ $numVal } {
-        order: #{ $numKey };
+      .grid__cell--above-#{ $breakpoint }-order-#{ $col } {
+        order: #{ $col };
       }
     }
   }
@@ -129,7 +129,7 @@
 
         content: "";
 
-        background-image: linear-gradient(to top, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, .5) 100%);
+        background-image: linear-gradient(to top, rgba(255, 255, 255, 1) 1rem, rgba(255, 255, 255, 0) 100%);
       }
     }
   }

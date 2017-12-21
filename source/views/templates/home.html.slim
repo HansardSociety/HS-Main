@@ -31,9 +31,18 @@ article
             = partial "views/partials/signup-box",
               locals: { local_data: { copy_size: "md"}}
 
+      / Carousel (category) panel
       - if panel[:TYPE] == "panel_carousel_category"
         = partial "views/partials/panel/carousel",
           locals: { local_data: \
             { entry_data: panel,
               data_type: :category_latest,
               categories: [panel[:category]] }}
+
+      / Content panel
+      - if panel[:TYPE] == "panel_content"
+        = partial "views/partials/panel/content",
+          locals: { local_data: \
+            { entry_data: panel,
+              index: index }}
+

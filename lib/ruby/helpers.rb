@@ -41,15 +41,44 @@ module CustomHelpers
     "/#{ "." if config[:ENV] == "development" }assets"
   end
 
-  # Truncate and strip HTML
-  def truncateHtml(data, opts = {})
-    defaults = {
-      trunc: 140,
-      elipsis: true
-    }
+  # Basic truncate
+  def truncate(text, opts = {})
+    defaults = { num: 100, elipsis: true }
     opts = defaults.merge(opts)
 
-    "#{ data.gsub(/<\/?[^>]*>/, "")[0..opts[:trunc]].gsub(/[^0-9a-zA-Z]+$/, '') }#{ "…" if opts[:elipsis] }"
+    num = opts[:num]
+    elipsis = opts[:elipsis]
+
+    if text.length > num
+
+      # Truncated text
+      visibleText = text[0..num].gsub(/[^0-9a-zA-Z]+$/, "") + (elipsis ? "<span aria-hidden='true'>…</span>" : "")
+
+      # Store truncated text in span tag for SEO
+      hiddenText = "<span class='e-hidden'>" + text[(num + 1)..500] + "</span>"
+
+      visibleText + hiddenText
+    else
+      text
+    end
+  end
+
+  # Truncate and strip HTML
+  def truncateHtml(text, opts = {})
+    defaults = { num: 140, elipsis: true }
+    opts = defaults.merge(opts)
+
+    num = opts[:num]
+    elipsis = opts[:elipsis]
+
+    if text.length > num
+      plainText = text.gsub(/<\/?[^>]*>/, "")
+      truncatedText = truncate(plainText, { num: num, elipsis: elipsis })
+
+      truncatedText
+    else
+      text
+    end
   end
 
   ###########################################################################
