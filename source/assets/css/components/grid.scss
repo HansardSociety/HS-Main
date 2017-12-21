@@ -50,7 +50,7 @@
 
     // Cell
     .grid__cell--#{ $numVal } {
-      flex-grow: 1 !important;
+      // flex-grow: 1 !important;
       flex-basis: calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // need to override flex from descendant selector
     }
 

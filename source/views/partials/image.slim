@@ -1,20 +1,20 @@
-- @image_data = local_data[:image_data]
+- imageData = local_data[:image_data]
 
-- @feature = local_data[:feature]
+- feature = local_data[:feature]
 
-- @url = @image_data[:url]
-- @alt = @image_data[:alt]
-- @focus = @image_data[:focus]
-- @caption = @image_data[:caption]
+- url = imageData[:url]
+- alt = imageData[:alt]
+- focus = imageData[:focus]
+- caption = imageData[:caption]
 
 figure.image{
-  class="#{ "image--feature" if  @feature }"
+  class="#{ "image--feature" if  feature }"
 }
 
   img.image__img{
-    src="#{ @url + (@focus ? "?fit=fill&w=563&h=317&f=" + @focus : "") }"
-    alt="#{ @alt }"
+    src="#{ url + (focus ? "?fit=fill&w=563&h=317&f=" + focus : "") }"
+    alt="#{ alt }"
   }
 
-  - if @caption == true
-    figcaption.image__caption.label-xs= @alt
+  - if caption == true
+    figcaption.image__caption.label-xs= alt
