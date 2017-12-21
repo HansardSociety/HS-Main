@@ -5,7 +5,7 @@ import SmoothScroll from "smooth-scroll"
 
 const anchorScroll = (() => {
   const scroll = new SmoothScroll("#arrow", {
-    offset: 64,
+    offset: 62,
     speed: 600
   })
 })()

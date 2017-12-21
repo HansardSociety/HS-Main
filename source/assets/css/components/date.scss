@@ -1,6 +1,6 @@
 .date {
   @extend %e-align-cen;
-  @extend %e-ff-prim-roman-bold;
+  @extend %e-ff-prim-heavy;
   @extend %e-pad-sm;
   @extend %e-width-full;
 }
@@ -11,7 +11,7 @@
 }
 
 .date__d {
-  font-size: 3.25rem;
+  font-size: 3.75rem;
   line-height: 1;
 }
 

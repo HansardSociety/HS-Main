@@ -1,5 +1,6 @@
 .image {
   left: 50%;
+
   transform: translateX(-50%);
 
   @extend %e-display-inline-block;
@@ -9,11 +10,15 @@
   @extend %e-width-full;
 }
 
-.image--feature {
+.image--light {
   padding: 1.5rem;
 
-  @extend %e-bgc-white;
+  @extend %e-bgc-greyscale-0;
   @extend %e-box-shad-z3;
+}
+
+.image--invert {
+  filter: brightness(0) invert(1);
 }
 
 .image__img {

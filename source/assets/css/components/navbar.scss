@@ -37,8 +37,6 @@
   &::before {
     top: 0; // account for nav green brand border top
 
-    height: .3333rem;
-
     @extend %e-bgc-brand-green-2;
     @extend %e-pseudo-elem;
     @extend %e-width-full-vw;

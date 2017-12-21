@@ -11,9 +11,13 @@
 - isFeaturedProduct = entryData[:TYPE] == "product"
 - isFeaturedRegistration = entryData[:TYPE] == "registration"
 
-/ Category
+- isNonPage = isFeaturedProduct || isFeaturedRegistration
+
+/ Core data
 - pageCategory = @entry[:category].gsub("-", " ")
 - category = entryData[:category] ? entryData[:category].gsub("-", " ") : pageCategory
+- dateTime = entryData[:date_time]
+- title = entryData[:title]
 
 / Images
 - imageBanner = entryData[:banner_image]
@@ -24,25 +28,31 @@
   - imageAlt = image[:alt]
   - imageFocus = image[:focus]
 
+/ Colors
 - asideBgc = image ? "e-bgc-brand-green-2" : "e-bgc-#{ catColor(pageCategory) }-2 e-col-greyscale-0"
-
-- dateTime = entryData[:date_time]
-
 - accentColor = catColor(isFeaturedRegistration ? pageCategory : category)
 - accentClass = "e-acc-#{ accentColor }-2-left"
+
+/ Container element
+- containerClasses = [\
+  "side-card",
+  (isFeaturedCard ? "side-card--featured" : "side-card--related"),
+  (accentClass)]
+
+- containerElem = {\
+  tag: (isNonPage ? "section" : "article"),
+  class: containerClasses }
 
 / Side card elem
 /**************************************************
 
-article.side-card{
-  class="#{ accentClass }"
-  class="#{ isFeaturedCard ? "side-card--featured" : "side-card--related" }"
-}
+*containerElem
   .side-card__inner
 
     / Image
     .side-card__aside{
       class="#{ asideBgc }"
+      class="#{ "e-pad-r-xs" if isNonPage }"
     }
 
       / If banner image
@@ -65,26 +75,24 @@ article.side-card{
       .side-card__label
         span.label-xs.e-col-mid-grey= entryData[:meta_label]
 
-      / Title
-      .side-card__title{
-        class="side-card__title--#{ (isFeaturedRegistration || isFeaturedProduct) ? "clamp-2" : "clamp-3" }"
-      }
+      .side-card__title
 
         / Not registration or product
-        - if !isFeaturedRegistration && !isFeaturedProduct
+        - if !isNonPage
           h1.title-sm
-            a.JS-clamp-3{
+            a{
               href="#{ internalURL(entryData[:slug]) }"
               class="#{ isFeaturedCard ? "link-white" : "link" }"
-            }= entryData[:title]
+            }= truncate(title, { num: 85 })
 
         - else
-          h1.title-sm.JS-clamp-2{
+          h2.title-sm{
             class="#{ isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
-          }= isFeaturedProduct ? entryData[:title] : entryData[:venue]
+          }
+            = isFeaturedProduct ? truncate(title, { num: 55 }) : entryData[:venue]
 
       / Actions - if product or registration...
-      - if isFeaturedRegistration || isFeaturedProduct
+      - if isNonPage
         .side-card__actions{
           class="#{ isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
         }

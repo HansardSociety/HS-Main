@@ -23,9 +23,10 @@
 }
 
 .banner__content--text-bg {
-  background-color: rgba(0, 0, 0, .4);
+  background-color: rgba(0, 0, 0, .6);
 
-  @extend %e-pad-sm;
+  @extend %e-pad-x-md;
+  @extend %e-pad-y-sm;
   @extend %e-rad-slight;
 }
 
@@ -38,7 +39,7 @@
 .banner__strap {
   @extend .strap-md;
   @extend %e-max-width-full;
-  @extend %e-mgn-t-xs;
+  @extend %e-mgn-t-sm;
   @include above(sm) {
     @extend %e-mgn-auto-x__sm;
   }
@@ -75,10 +76,22 @@
 }
 
 .banner__scroll {
-  bottom: 1rem;
-
   display: none;
 
+  background-color: rgba(0, 0, 0, .6);
+
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  bottom: 2rem;
+
   @extend %e-absolute-center-x;
+  @extend %e-col-greyscale-0;
   @extend %e-display-block__sm;
+  @extend %e-rad-circ;
+
+  & > .icon {
+    @extend %e-absolute-center-xy;
+  }
 }
