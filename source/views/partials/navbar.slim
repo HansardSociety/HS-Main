@@ -50,7 +50,7 @@ nav#navbar.navbar.JS-inactive
             / If navigation item contains one or no pages
             - if nav[:pages] && nav[:pages].length <= 1
               - nav[:pages].each do |page|
-                a{
+                a.title-sm{
                   href="#{ internalURL(page[:slug]) }"
                   title="#{ nav[:title] + " | " + config[:SITE_TITLE] }"
                 }= nav[:title]

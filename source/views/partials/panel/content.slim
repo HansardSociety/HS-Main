@@ -40,10 +40,10 @@
 
       / Image
       .grid__cell{
-        class="grid__cell--#{
+        class="grid__cell--lg-#{
           isLargeImage ? "10" : (isMediumImage ? "8" : "6")
         }"
-        class="grid__cell--above-sm-#{
+        class="grid__cell--lg-above-sm-#{
           isLargeImage ? "5" : (isMediumImage ? "3" : "2")
         }"
       }
@@ -53,7 +53,7 @@
               invert: imageInvert }}
 
       / Copy
-      .grid__cell.grid__cell--above-sm-7
+      .grid__cell.grid__cell--lg-above-sm-7
 
         / Panel title
         - if hasTitle
@@ -64,8 +64,7 @@
         .copy{
           class="#{ "e-fz-lg" if isCopyXl }"
           class="#{ "e-fz-md" if isCopyLg }"
-        }
-          = markdown(copy) if copy
+        } = markdown(copy) if copy
 
         - if showMoreCopy
           = partial "views/partials/expand",

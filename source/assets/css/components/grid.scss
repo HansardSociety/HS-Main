@@ -46,29 +46,29 @@ $colBase: 100 / 12;
       flex-grow: 1;
     }
   }
-}
 
-@for $col from 1 through 12 {
-  $width: "#{ $colBase * $col }%";
-  $offset: "#{ $colBase * $col }%";
+  @for $col from 1 through 12 {
+    $width: "#{ $colBase * $col }%";
+    $offset: "#{ $colBase * $col }%";
 
-  .grid__cell--#{ $col } {
-    flex-basis: calc(#{ $width }) !important; // need to override flex from descendant selector
-  }
+    .grid__cell--#{ $sizeName }-#{ $col } {
+      flex-basis: calc(#{ $width } - #{ $sizeUnit }) !important; // need to override flex from descendant selector
+    }
 
-  .grid__cell--offset-#{ $col } {
-    margin-left: calc(#{ $offset }) !important; // See above
-  }
+    .grid__cell--#{ $sizeName }-offset-#{ $col } {
+      margin-left: calc(#{ $offset }) !important; // See above
+    }
 
-  @each $breakpoint in map-keys($breakpoints) {
-    @include above($breakpoint) {
+    @each $breakpoint in map-keys($breakpoints) {
+      @include above($breakpoint) {
 
-      .grid__cell--above-#{ $breakpoint }-#{ $col } {
-        flex-basis: calc(#{ $width }) !important; // see above
-      }
+        .grid__cell--#{ $sizeName }-above-#{ $breakpoint }-#{ $col } {
+          flex-basis: calc(#{ $width } - #{ $sizeUnit }) !important; // see above
+        }
 
-      .grid__cell--above-#{ $breakpoint }-offset-#{ $col } {
-        margin-left: calc(#{ $offset }) !important; // see above
+        .grid__cell--#{ $sizeName }-above-#{ $breakpoint }-offset-#{ $col } {
+          margin-left: calc(#{ $offset }) !important; // see above
+        }
       }
     }
   }
