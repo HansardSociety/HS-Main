@@ -27,6 +27,7 @@ module BuildEnvs
 
     # Dynamic pages
     dynamicContentfulPages(MM_ENV)
+    dynamicCustomPages()
   end
 
   ##		=Build core

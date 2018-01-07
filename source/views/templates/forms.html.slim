@@ -1,0 +1,16 @@
+- formData = entry_data
+
+form.form action=""
+
+  - formData[:elements].each do |elem|
+    - isText = ["full-name"].include?(elem)
+    - isEmail = elem == "email-address"
+
+    - inputType = [\
+      ("text" if isText),
+      ("email" if isEmail) ].compact
+
+    - inputTypeAttrs = {\
+      type: inputType[0] }
+
+    input{ *inputTypeAttrs }
