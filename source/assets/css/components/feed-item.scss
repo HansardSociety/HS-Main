@@ -5,7 +5,7 @@
   @extend %e-flex-row-nowrap;
 
   &:not(:last-of-type) {
-    border-bottom: 2px solid Get($colors, greyscale, light-grey);
+    // border-bottom: 2px solid Get($colors, greyscale, light-grey);
 
     @extend %e-mgn-b-sm;
     @extend %e-pad-b-sm;
@@ -35,7 +35,7 @@
 
 .feed-item__img > img {
   @extend %e-display-block;
-  @extend %e-position-absolute;
+  // @extend %e-position-absolute;
   @extend %e-width-full;
 }
 

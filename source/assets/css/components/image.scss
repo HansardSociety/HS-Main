@@ -1,6 +1,8 @@
 .image {
   left: 50%;
 
+  padding: 1.5rem;
+
   transform: translateX(-50%);
 
   @extend %e-display-inline-block;
@@ -11,13 +13,12 @@
 }
 
 .image--light {
-  padding: 1.5rem;
-
   @extend %e-bgc-greyscale-0;
   @extend %e-box-shad-z3;
 }
 
 .image--invert {
+  background-color: rgba(Get($colorGroups, greyscale, 0), .05);
   filter: brightness(0) invert(1);
 }
 
