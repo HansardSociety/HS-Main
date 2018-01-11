@@ -1,0 +1,29 @@
+- formData = local_data[:entry_data]
+
+form.form{
+  action="/"
+}
+  - formData[:elements].each do |elem|
+    - isText = ["full-name"].include?(elem)
+    - isEmail = elem == "email-address"
+
+    - label = (elem.capitalize.gsub("-", " "))
+
+    - inputType = [\
+      ("text" if isText),
+      ("email" if isEmail) ].compact
+
+    - inputTypeAttrs = {\
+      type: inputType[0],
+      placeholder: (label + "…") }
+
+    label.form__label
+      span.e-hidden= label + ": "
+      input.form__text{ *inputTypeAttrs }
+
+  = partial "views/partials/btn",
+    locals: { local_data: \
+      { type: "plain",
+        size: "md", style: "primary",
+        label: "Submit", label_size: "md",
+        form: true }}

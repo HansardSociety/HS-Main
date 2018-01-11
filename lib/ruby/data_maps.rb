@@ -280,7 +280,9 @@ def callsToAction(data)
       modal: ({
         cta_id: targetID("modal", cta.title, cta),
         content: cta.modal,
-        form_id: ("form-" + cta.form.sys[:id] if cta.form)
+        form: ({
+          elements: cta.form.elements.map{ |i| i.parameterize }
+        }.compact if cta.form)
       }.compact if isModal)
     }.compact
   end : nil)
@@ -293,6 +295,7 @@ end
 def panels(ctx, data)
   ctx.panels = data.panels.map do |panel|
     isPanelAccordians = panel.content_type.id == "panel_accordians"
+    isPanelBand = panel.content_type.id == "panel_band"
     isPanelCarouselCustom = panel.content_type.id == "panel_carousel"
     isPanelCarouselCategory = panel.content_type.id == "panel_carousel_category"
     isPanelContent = panel.content_type.id == "panel_content"
@@ -309,14 +312,14 @@ def panels(ctx, data)
     ########################################
 
     # Contains all panel_header fields too
-    panelCore = {
+    panelShared = {
       ID: panel.sys[:id],
       TYPE: panel.content_type.id,
       title: panel.title,
       calls_to_action: callsToAction(panel),
-      copy: (panel.copy if isPanelContent || isPanelAccordians),
+      copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
       background_color: (panel.background_color.parameterize if !isPanelAccordians),
-      show_title: (panel.show_title if isPanelContent || isPanelFeed),
+      show_title: (panel.show_title if isPanelBand || isPanelContent || isPanelFeed),
     }.compact
 
     ##		=Accordions
@@ -410,7 +413,7 @@ def panels(ctx, data)
     ##		=Merge panels
     ########################################
 
-    panelCore.merge(
+    panelShared.merge(
       **panelContent,
       **panelAccordians,
       **panelCarouselCustom,
@@ -471,14 +474,14 @@ end
 ##		=Forms
 ###########################################################################
 
-class FormMap < ContentfulMiddleman::Mapper::Base
-  def map(context, entry)
-    context.ID = entry.sys[:id]
-    context.TYPE = entry.content_type.id
-    context.meta_title = entry.meta_title
-    context.elements = entry.elements.map{ |i| i.parameterize }
-  end
-end
+# class FormMap < ContentfulMiddleman::Mapper::Base
+#   def map(context, entry)
+#     context.ID = entry.sys[:id]
+#     context.TYPE = entry.content_type.id
+#     context.meta_title = entry.meta_title
+#     context.elements = entry.elements.map{ |i| i.parameterize }
+#   end
+# end
 
 ###########################################################################
 ##  =Navigation

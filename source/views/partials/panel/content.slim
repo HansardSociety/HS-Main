@@ -1,5 +1,7 @@
 - panelData = local_data[:entry_data]
+
 - bgc = panelData[:background_color]
+- bgcClass = colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
 
 - image = panelData[:image]
 - imageSize = panelData[:image_size]
@@ -16,6 +18,7 @@
 - copySize = panelData[:copy_size]
 - isCopyLg = copySize == "large"
 - isCopyXl = copySize == "extra-large"
+- btnSize = (isCopyXl ? "lg" : (isCopyLg ? "md" : "sm"))
 
 - showMoreCopy = panelData[:show_more]
 
@@ -23,9 +26,9 @@
 
 - index = local_data[:index]
 
-.panel{
+section.panel{
   id="panel-#{ index }"
-  class="#{ colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true }) }"
+  class="#{ bgcClass }"
 }
 
   / Panel title
@@ -82,49 +85,15 @@
                 = partial "views/partials/btn",
                   locals: { local_data: \
                     { type: "state",
-                      size: "sm", style: "secondary",
+                      size: btnSize, style: "secondary",
                       label_on: "Show more", label_off: "Show less",
-                      label_size: "sm",
+                      label_size: btnSize,
                       aria_id: "activate-#{ showMoreCopy.cta_id }",
                       aria_target_id: showMoreCopy.cta_id }}
 
             - if callsToAction
               - callsToAction.each do |cta|
-                .grid__cell
-
-                  / Download
-                  - if ["cta_download", "cta_page"].include? cta[:TYPE]
-                    - isPage = cta[:TYPE] == "cta_page"
-                    - isDownload = cta[:TYPE] == "cta_download"
-                    - btnURL = isPage ? internalURL(cta[:page_slug]) : cta[:file].url
-                    - btnSize = isCopyXl ? "lg" : (isCopyLg ? "md" : "sm")
-
-                    = partial "views/partials/btn",
-                      locals: { local_data: \
-                        { type: "link",
-                          size: btnSize, style: (isPage ? "secondary" : "primary"),
-                          label: cta[:button_text],
-                          label_size: btnSize,
-                          url: btnURL }}
-
-                  / Modal
-                  - if cta.TYPE == "cta_modal"
-
-                    / Modal button
-                    = partial "views/partials/btn",
-                      locals: { local_data: \
-                        { type: "state",
-                          size: "sm", style: "secondary",
-                          label_on: cta[:button_text], label_off: "Close",
-                          label_size: "sm",
-                          page: "no-scroll", switch: true,
-                          aria_id: "activate-#{ cta[:modal][:cta_id] }",
-                          aria_target_id: cta[:modal][:cta_id],
-                          iframe: ((cta[:modal][:content].include? "<iframe") ? true : false) }}
-
-                    / Modal window
-                    = partial "views/partials/modal",
-                      locals: { local_data: \
-                      { id: cta[:modal][:cta_id],
-                        content: cta[:modal][:content],
-                        size: cta[:modal][:width] }}
+                = partial "views/partials/ctas",
+                  locals: { local_data: {\
+                    entry_data: cta,
+                    btn_size: btnSize }}
