@@ -8,34 +8,34 @@ form.form{
   data-netlify="true"
 }
 
-  / Bot honeypot
-  label.e-hidden{ aria-hidden="true" }
-    span Don't fill this out!
-    input{ name="bot-field" }
+  / Main form body
+  .form__main
 
-  / Main fields
-  - formData[:elements].each do |elem|
-    - isText = ["full-name"].include?(elem)
-    - isEmail = elem == "email-address"
+    / Bot honeypot
+    label.e-hidden{ aria-hidden="true" }
+      span Don't fill this out!
+      input{ name="bot-field" }
 
-    - label = (elem.capitalize.gsub("-", " "))
+    / Main fields
+    - formData[:elements].each do |elem|
+      - labelCap = elem[:label].capitalize.gsub("-", " ")
 
-    - inputType = [\
-      ("text" if isText),
-      ("email" if isEmail) ].compact
+      - inputAttrs = {\
+        type: "#{ elem[:input_type] }",
+        name: "#{ elem[:label] }",
+        placeholder: "#{ labelCap + "…" }" }
+      - inputAttrs.merge!(required: "") if elem[:required]
 
-    - inputTypeAttrs = {\
-      type: inputType[0],
-      name: elem,
-      placeholder: (label + "…") }
+      label.form__label
+        span.e-hidden= labelCap + ": "
+        input.form__text{ *inputAttrs }
 
-    label.form__label
-      span.e-hidden= label + ": "
-      input.form__text{ *inputTypeAttrs }
+    = partial "views/partials/btn",
+      locals: { local_data: \
+        { type: "plain",
+          size: "md", style: "primary",
+          label: "Submit", label_size: "md",
+          form: true }}
 
-  = partial "views/partials/btn",
-    locals: { local_data: \
-      { type: "plain",
-        size: "md", style: "primary",
-        label: "Submit", label_size: "md",
-        form: true }}
+  .form__confirmation
+    =markdown(formData[:confirmation])

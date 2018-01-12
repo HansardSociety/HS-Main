@@ -17,3 +17,10 @@
   @extend %e-pad-xs;
   @extend %e-rad-slight;
 }
+
+.form__confirmation {
+  opacity: 0;
+
+  @extend %e-display-none;
+  @extend %e-trans-opacity;
+}

@@ -279,11 +279,18 @@ def callsToAction(data)
       page_slug: (slug(cta.page) if isPage),
       modal: ({
         cta_id: targetID("modal", cta.title, cta),
-        content: cta.modal,
+        content: (cta.modal if cta.modal),
         form: ({
           ID: cta.form.sys[:id],
           meta_title: cta.form.meta_title,
-          elements: cta.form.elements.map{ |i| i.parameterize }
+          confirmation: cta.form.confirmation,
+          elements: cta.form.elements.map do |elem|
+            {
+              label: elem.label.parameterize.gsub("-required", ""),
+              input_type: elem.input_type.parameterize,
+              required: elem.required
+            }
+          end
         }.compact if cta.form)
       }.compact if isModal)
     }.compact
