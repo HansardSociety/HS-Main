@@ -2,7 +2,7 @@ const form = (() => {
   var form = document.querySelector(".form")
   var formAction = form.getAttribute("action")
   var submitBtn = form.querySelector("button[type=submit]")
-  var fields = form.querySelectorAll("input[name]")
+  var fields = form.querySelectorAll("input[class^=form]:not(.e-hidden)")
 
   function sendData() {
     var request = new XMLHttpRequest()
@@ -21,7 +21,7 @@ const form = (() => {
 
     // Success
     request.addEventListener("load", function (e) {
-      console.log(request.response)
+      console.log(formData)
     })
 
     // Error
@@ -33,7 +33,7 @@ const form = (() => {
     request.open("POST", formAction)
 
     // Header
-    request.setRequestHeader("Content-Type", "application/x-www/form-urlencoded")
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 
     // Send
     request.send(formData)
