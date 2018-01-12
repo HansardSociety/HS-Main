@@ -1,5 +1,7 @@
 const form = (() => {
   var form = document.querySelector(".form")
+  var formMain = form.querySelector(".form__main")
+  var formConf = form.querySelector(".form__confirmation")
   var formName = form.getAttribute("name")
   var formAction = form.getAttribute("action")
   var submitBtn = form.querySelector("button[type=submit]")
@@ -21,15 +23,17 @@ const form = (() => {
     formData.push(`form-name=${ encodeURIComponent(formName) }`)
 
     // Combine pairs into string and replace %-encoded spaces with "+"
-    formData = `${formData.join("&").replace(/%20/g, "+")}`
+    formData = `${ formData.join("&").replace(/%20/g, "+") }`
 
     // Success
-    request.addEventListener("load", function (e) {
-      console.log("SUCCESS!!")
+    request.addEventListener("load", function(e) {
+      formMain.style.display = "none"
+      formConf.style.display = "block"
+      formConf.style.opacity = "1"
     })
 
     // Error
-    request.addEventListener("error", function (e) {
+    request.addEventListener("error", function(e) {
       console.log("ERROR!!")
     })
 
@@ -43,7 +47,7 @@ const form = (() => {
     request.send(formData)
   }
 
-  submitBtn.addEventListener("click", function (e) {
+  submitBtn.addEventListener("click", function(e) {
     e.preventDefault()
 
     sendData()
