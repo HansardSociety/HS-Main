@@ -1,8 +1,19 @@
 - formData = local_data[:entry_data]
+- formTitle = formData[:meta_title].parameterize + "-" + formData[:ID]
 
 form.form{
-  action="/"
+  name="#{ formTitle }"
+  netlify-honeypot="bot-field"
+  action="thank-you"
+  netlify
 }
+
+  / Bot honeypot
+  label.e-hidden{ aria-hidden="true" }
+    span Don't fill this out!
+    input{ name="bot-field" }
+
+  / Main fields
   - formData[:elements].each do |elem|
     - isText = ["full-name"].include?(elem)
     - isEmail = elem == "email-address"
@@ -15,6 +26,7 @@ form.form{
 
     - inputTypeAttrs = {\
       type: inputType[0],
+      name: elem,
       placeholder: (label + "…") }
 
     label.form__label

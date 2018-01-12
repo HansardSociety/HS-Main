@@ -281,6 +281,8 @@ def callsToAction(data)
         cta_id: targetID("modal", cta.title, cta),
         content: cta.modal,
         form: ({
+          ID: cta.form.sys[:id],
+          meta_title: cta.form.meta_title,
           elements: cta.form.elements.map{ |i| i.parameterize }
         }.compact if cta.form)
       }.compact if isModal)

@@ -1,36 +1,50 @@
 const form = (() => {
   var form = document.querySelector(".form")
   var formAction = form.getAttribute("action")
+  var submitBtn = form.querySelector("button[type=submit]")
+  var fields = form.querySelectorAll("input[name]")
 
   function sendData() {
     var request = new XMLHttpRequest()
-    var formData = new FormData(form) // bind FormData obj and form elem
+
+    // Turn data object into array of URL-encoded key/ val pairs
+    var formData = []
+    for (let field of fields) {
+      var name = field.getAttribute("name")
+      var val = field.value
+
+      formData.push(`${ encodeURIComponent(name)}=${encodeURIComponent(val) }`)
+    }
+
+    // Combine pairs into string and replace %-encoded spaces with "+"
+    formData = `${ formData.join("&").replace(/%20/g, "+") }`
 
     // Success
-    request.addEventListener("load", function(event) {
+    request.addEventListener("load", function (e) {
       console.log(request.response)
     })
 
     // Error
-    request.addEventListener("error", function(event) {
+    request.addEventListener("error", function (e) {
       console.log("ERROR!!")
     })
 
     // Request
-    request.open("POST", "http://httpbin.org/post")
+    request.open("POST", formAction)
 
-    // Send form data
+    // Header
+    request.setRequestHeader("Content-Type", "application/x-www/form-urlencoded")
+
+    // Send
     request.send(formData)
-
-    // console.log()
   }
 
-  form.addEventListener("submit", function(event) {
-    event.preventDefault()
+  submitBtn.addEventListener("click", function(e) {
+    e.preventDefault()
 
     sendData()
-
   })
 })()
 
 export { form }
+
