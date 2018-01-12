@@ -24,12 +24,12 @@ article
       - bgc = panel.background_color
       - isLightBgc = ["light-grey", "sea-green", "white"].include?(bgc)
 
-      / Newsletter
-      - if index == 1
-        .panel.e-bg-grad-brand-green
-          .panel__content.panel__content--narrow.e-align-cen.e-col-greyscale-0
-            = partial "views/partials/signup-box",
-              locals: { local_data: { copy_size: "md"}}
+      / Band panel
+      - if panel[:TYPE] == "panel_band"
+        = partial "views/partials/panel/band",
+          locals: { local_data: \
+            { entry_data: panel,
+              index: index }}
 
       / Carousel (category) panel
       - if panel[:TYPE] == "panel_carousel_category"
@@ -37,7 +37,8 @@ article
           locals: { local_data: \
             { entry_data: panel,
               data_type: :category_latest,
-              categories: [panel[:category]] }}
+              categories: [panel[:category]],
+              index: index }}
 
       / Content panel
       - if panel[:TYPE] == "panel_content"

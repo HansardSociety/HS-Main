@@ -72,15 +72,15 @@ module DynamicPages
   ###########################################################################
 
   def dynamicCustomPages()
-    if Dir.exist?(config.data_dir)
-      data.hs.form_newsletter.each do |id, form|
-        proxyBase(
-          "/forms/form-#{ form.ID }.html",
-          "/views/templates/forms.html",
-          "fetch",
-          form
-        )
-      end
-    end
+    # if Dir.exist?(config.data_dir)
+    #   data.hs.form_newsletter.each do |id, form|
+    #     proxyBase(
+    #       "/forms/form-#{ form.ID }.html",
+    #       "/views/templates/forms.html",
+    #       "fetch",
+    #       form
+    #     )
+    #   end
+    # end
   end
 end

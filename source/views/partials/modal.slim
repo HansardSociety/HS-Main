@@ -1,36 +1,44 @@
-- @ajax = local_data[:ajax]
-- @content = local_data[:content]
-- @id = local_data[:id]
-- @yield = local_data[:yield]
-- @size = local_data[:size]
+- ajax = local_data[:ajax]
+- content = local_data[:content]
+- id = local_data[:id]
+- form = local_data[:form]
+- size = local_data[:size]
 
-.modal.JS-inactive{
-  id= @id
-}
-  .modal__overlay.JS-off.JS-switch.JS-no-scroll{ aria-controls="#{ @id }" }
+- isYield = local_data[:yield]
+
+.modal.JS-inactive{ id=id }
+  .modal__overlay.JS-off.JS-switch.JS-no-scroll{ aria-controls="#{ id }" }
   .modal__inner{
-    class="#{ 'modal__inner--' + @size if @size }"
+    class="#{ "modal__inner--" + size if size }"
   }
 
     / Header
     .modal__header
       .modal__close
-        = partial 'views/partials/btn',
+        = partial "views/partials/btn",
           locals: { local_data: \
-            { type: 'state', switch: true,
-              size: 'xs',
-              icon: 'close-round', icon_size: 'xs', icon_color: 'green',
-              page: 'no-scroll',
-              aria_target_id: @id }}
+            { type: "state", switch: true,
+              size: "xs",
+              icon: "close-round", icon_size: "xs", icon_color: "green",
+              page: "no-scroll",
+              aria_target_id: id }}
 
     / Content
-    .modal__content{
-      class="#{ 'copy' if @content }"
-      class="#{ 'AJAX-host' if @ajax }"
+    .modal__content.e-col-greyscale-3{
+      class="#{ "copy" if content }"
+      class="#{ "AJAX-host" if ajax }"
     }
 
-      - if @yield
+      / Yield
+      - if isYield
         = yield
 
-      - if @content
-        = markdown(@content)
+      / Copy
+      - if content
+        = markdown(content)
+
+      / Form
+      - if form
+        = partial "views/partials/form",
+          locals: { local_data: \
+            { entry_data: form }}
