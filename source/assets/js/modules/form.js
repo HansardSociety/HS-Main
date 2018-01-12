@@ -1,5 +1,6 @@
 const form = (() => {
   var form = document.querySelector(".form")
+  var formName = form.getAttribute("name")
   var formAction = form.getAttribute("action")
   var submitBtn = form.querySelector("button[type=submit]")
   var fields = form.querySelectorAll("input[class^=form]:not(.e-hidden)")
@@ -16,12 +17,15 @@ const form = (() => {
       formData.push(`${ encodeURIComponent(name)}=${encodeURIComponent(val) }`)
     }
 
+    // Add form-name for Netlify
+    formData.push(`form-name=${ encodeURIComponent(formName) }`)
+
     // Combine pairs into string and replace %-encoded spaces with "+"
-    formData = `${ formData.join("&").replace(/%20/g, "+") }`
+    formData = `${formData.join("&").replace(/%20/g, "+")}`
 
     // Success
     request.addEventListener("load", function (e) {
-      console.log(formData)
+      console.log(request.response)
     })
 
     // Error
@@ -30,7 +34,7 @@ const form = (() => {
     })
 
     // Request
-    request.open("POST", formAction)
+    request.open("POST", "https://httpbin.org/post")
 
     // Header
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
@@ -39,7 +43,7 @@ const form = (() => {
     request.send(formData)
   }
 
-  submitBtn.addEventListener("click", function(e) {
+  submitBtn.addEventListener("click", function (e) {
     e.preventDefault()
 
     sendData()
