@@ -25,7 +25,7 @@ const form = (() => {
 
     // Success
     request.addEventListener("load", function (e) {
-      console.log(request.response)
+      console.log("SUCCESS!!")
     })
 
     // Error
@@ -34,7 +34,7 @@ const form = (() => {
     })
 
     // Request
-    request.open("POST", "https://httpbin.org/post")
+    request.open("POST", "/")
 
     // Header
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
