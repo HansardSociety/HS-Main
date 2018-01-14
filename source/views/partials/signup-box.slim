@@ -1,16 +1,28 @@
 - copySize = local_data[:copy_size]
+- formData = siteData(:newsletter_form)
+- modalID = local_data[:id]
 
 h2{
   class="title-#{ copySize == "md" ? "xl" : "lg" }"
   class="e-mgn-b-#{ copySize == "md" ? "md" : "sm" }"
 } Join our newsletter
 p.e-mgn-b-sm{ class="strap-#{ copySize }" }= siteData(:newsletter_text)
+
+/ Modal button
 = partial "views/partials/btn",
   locals: { local_data: \
-    { type: "state", switch: true,
+    { type: "state",
       size: "md", style: "primary",
-      label_on: "Subscribe now", label_off: "Close", label_size: "md",
-      page: "no-scroll",
-      aria_id: "activate-modal-monthly-newsletter-subscription",
-      aria_target_id: "modal-monthly-newsletter-subscription",
-      iframe: true }}
+      label_on: "Subscribe", label_off: "Close",
+      label_size: "md",
+      page: "no-scroll", switch: true,
+      aria_id: "activate-#{ modalID }",
+      aria_target_id: modalID }}
+
+/ Modal window
+= partial "views/partials/modal",
+  locals: { local_data: \
+  { id: modalID,
+    content: false,
+    form: formData,
+    size: "narrow" }}
