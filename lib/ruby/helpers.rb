@@ -175,7 +175,7 @@ module CustomHelpers
       yield: false,
       start: 0,
       num: allPages.length,
-      page_cats: siteCategories(:top_main),
+      page_cats: siteCategories(:top_main)[0],
       sub_cats: false
     }
     opts = defaults.merge(opts)

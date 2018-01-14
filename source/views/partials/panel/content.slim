@@ -18,7 +18,7 @@
 - copySize = panelData[:copy_size]
 - isCopyLg = copySize == "large"
 - isCopyXl = copySize == "extra-large"
-- btnSize = (isCopyXl ? "lg" : (isCopyLg ? "md" : "sm"))
+/ - "sm" = (isCopyXl ? "lg" : (isCopyLg ? "md" : "sm"))
 
 - showMoreCopy = panelData[:show_more]
 
@@ -85,9 +85,9 @@ section.panel{
                 = partial "views/partials/btn",
                   locals: { local_data: \
                     { type: "state",
-                      size: btnSize, style: "secondary",
+                      size: "sm", style: "secondary",
                       label_on: "Show more", label_off: "Show less",
-                      label_size: btnSize,
+                      label_size: "sm",
                       aria_id: "activate-#{ showMoreCopy.cta_id }",
                       aria_target_id: showMoreCopy.cta_id }}
 
@@ -96,4 +96,4 @@ section.panel{
                 = partial "views/partials/ctas",
                   locals: { local_data: {\
                     entry_data: cta,
-                    btn_size: btnSize }}
+                    btn_size: "sm" }}
