@@ -37,11 +37,12 @@ section.panel{ class=panelBgc(bgc) }
         / and also add 6 to the count to make up for the
         / shorter array. NB. 6 = latest carousel length.
         - latestCount = 6
-        - latestContent( \
+        - latestContent(\
           yield: true,
           num: (feedDedupe ? feedCount + latestCount : feedCount),
           start: (feedDedupe ? latestCount : 0),
-          page_cats: feedCategory) do |page|
+          page_cats: (feedSubCategory ? feedSubCategory : feedCategory),
+          sub_cats: (feedSubCategory ? true : false)) do |page|
 
           = partial "views/partials/feed-item",
             locals: { local_data: \

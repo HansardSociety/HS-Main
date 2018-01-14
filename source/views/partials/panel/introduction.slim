@@ -2,12 +2,15 @@
 
 - isHomePage = entryData[:TYPE] == "home"
 - isLandingPage = entryData[:TYPE] == "landing_page"
+
 - category = isHomePage ? "projects" : entryData[:category]
 - introduction = entryData[:introduction]
-- color = catColor(category)
 
-section.panel.e-col-greyscale-0{
-  class="e-bg-grad-#{ color }"
+- color = catColor(category)
+- bgcClass = colorProfile(:greyscale).include?(color) ? panelBgc(color) : panelBgc(color, { gradient: true })
+
+section.panel{
+  class="#{ bgcClass }"
 }
   .panel__content.panel__content--medium.e-align-cen
     = markdown(introduction, "byline")
