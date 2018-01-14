@@ -91,7 +91,7 @@ module CustomHelpers
     colors = {
       blog: "purple",
       events: "hot-pink",
-      insight: "slate-blue",
+      insight: "sea-green",
       projects: "brand-green",
       publications: "orange",
       greyscale: "greyscale"
@@ -175,21 +175,25 @@ module CustomHelpers
       yield: false,
       start: 0,
       num: allPages.length,
-      page_cats: siteCategories(:top_main)
+      page_cats: siteCategories(:top_main),
+      sub_cats: false
     }
     opts = defaults.merge(opts)
 
     pageCategories = opts[:page_cats]
     itemCount = opts[:num] - 1
     start = opts[:start]
+
+    isSubCats = opts[:sub_cats]
     isYield = opts[:yield]
 
     # Only include specified category/ sub-category and not page indices
-    allMainPages = allPages.select{ |id, page|
-      (pageCategories.include? (page[:category] || page[:sub_category])) && !page[:index_page]
-    }.compact
+    allMainPages = allPages.select do |id, page|
+      category = isSubCats ? page[:sub_category] : page[:category]
+      [pageCategories].include?(category) && !page[:index_page]
+    end
 
-    allPagesRegHash = convertToRegularHash(allMainPages).values
+    allPagesRegHash = convertToRegularHash(allMainPages.compact).values
     sortPagesByDate = allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
     pages = sortPagesByDate[start..itemCount]
 

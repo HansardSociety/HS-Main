@@ -318,12 +318,14 @@ def panels(ctx, data)
     isPanelContent = panel.content_type.id == "panel_content"
     isPanelFeed = panel.content_type.id == "panel_feed"
     isPanelHeader = panel.content_type.id == "panel_header"
+    isPanelIcons = panel.content_type.id == "panel_icons"
 
     panelAccordians = {}
     panelCarouselCustom = {}
     panelCarouselCategory = {}
     panelContent = {}
     panelFeed = {}
+    panelIcons = {}
 
     ##		=Core
     ########################################
@@ -427,6 +429,16 @@ def panels(ctx, data)
       }
     end
 
+    ##		=Icons
+    ########################################
+
+    if isPanelIcons
+      panelIcons = {
+        show_descriptions: panel.show_descriptions,
+        icons: panel.icons.map{ |icon| media(icon) }
+      }
+    end
+
     ##		=Merge panels
     ########################################
 
@@ -435,7 +447,8 @@ def panels(ctx, data)
       **panelAccordians,
       **panelCarouselCustom,
       **panelCarouselCategory,
-      **panelFeed
+      **panelFeed,
+      **panelIcons
     ).compact
   end
 end
