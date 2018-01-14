@@ -126,7 +126,9 @@
           li.menu__column.e-acc-brand-green-2-top
             .section-sm
               = partial "views/partials/signup-box",
-                locals: { local_data: { copy_size: "sm"}}
+                locals: { local_data: \
+                  { copy_size: "sm",
+                    id: "modal-monthly-newsletter-subscription-desktop" }}
 
             .section-sm
               = partial "views/partials/social-follow"
@@ -141,7 +143,9 @@
     / Newsletter signup
     .section-sm
       = partial "views/partials/signup-box",
-        locals: { local_data: { copy_size: "sm" }}
+        locals: { local_data: \
+          { copy_size: "sm",
+            id: "modal-monthly-newsletter-subscription-mobile" }}
 
     / Social follow
     .section-sm

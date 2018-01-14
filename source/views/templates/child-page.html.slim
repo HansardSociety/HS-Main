@@ -25,13 +25,13 @@ article
     / Page intro/ featured item
     .content__header
       .grid.grid--md.grid--center
-        section.grid__cell.grid__cell--above-md-7.grid__cell--fill.copy{
+        section.grid__cell.grid__cell--md-above-md-7.grid__cell--fill.copy{
           class="#{ "grid__cell--order-2 grid__cell--above-md-order-1" if isReverseHeaderCats }"
         }
           = markdown(introduction, "byline")
 
         / Featured side content
-        aside.grid__cell.grid__cell--above-md-5.grid__cell--fill{
+        aside.grid__cell.grid__cell--md-above-md-5.grid__cell--fill{
           class="#{ "grid__cell--order-1 grid__cell--above-md-order-2" if isReverseHeaderCats }"
         }
 
@@ -56,7 +56,7 @@ article
     / Main content
     .content__section
       .grid.grid--md.grid--center
-        .grid__cell.grid__cell--above-md-7.grid__cell--expand.grid__cell--fill.JS-inactive.copy#expand
+        .grid__cell.grid__cell--md-above-md-7.grid__cell--expand.grid__cell--fill.JS-inactive.copy#expand
           = markdown(copy)
 
           / Expand button
@@ -68,7 +68,7 @@ article
                   aria_id: "activate-expand", aria_target_id: "expand" }}
 
         / Side content
-        aside.grid__cell.grid__cell--above-md-5.grid__cell--fill
+        aside.grid__cell.grid__cell--md-above-md-5.grid__cell--fill
 
           / Side cards
           - if isMainCategories

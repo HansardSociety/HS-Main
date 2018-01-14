@@ -17,13 +17,6 @@ html
       main
         = yield
 
-        = partial "views/partials/modal",
-          locals: { local_data: \
-            { id: "modal-monthly-newsletter-subscription",
-              size: "narrow",
-              yield: true }}
-          = siteData(:newsletter_embed)
-
       / Footer
       = partial "views/partials/footer"
 
