@@ -8,7 +8,7 @@
 
   @extend %e-bgc-greyscale-3;
   @extend %e-container;
-  @extend %e-min-height-full-vh;
+  @extend %e-height-full-vh;
   @extend %e-position-fixed;
   @extend %e-trans-transform;
   @include above(xs) {
@@ -34,7 +34,7 @@
 }
 
 .menu--desktop {
-  transform: translateY(-100vh);
+  transform: translateY(-100%);
 
   @extend %e-display-none;
   @extend %e-overflow-y-auto;

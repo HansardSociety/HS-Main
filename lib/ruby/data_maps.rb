@@ -260,6 +260,25 @@ def featuredData(data, opts = {})
 end
 
 ###########################################################################
+##		=Form
+###########################################################################
+
+def form(data)
+  {
+    ID: data.sys[:id],
+    meta_title: data.meta_title,
+    confirmation: data.confirmation,
+    elements: data.elements.map do |elem|
+      {
+        label: elem.label.parameterize.gsub("-required", ""),
+        input_type: elem.input_type.parameterize,
+        required: elem.required
+      }
+    end
+  }
+end
+
+###########################################################################
 ##		=Calls to action
 ###########################################################################
 
@@ -280,18 +299,7 @@ def callsToAction(data)
       modal: ({
         cta_id: targetID("modal", cta.title, cta),
         content: (cta.modal if cta.modal),
-        form: ({
-          ID: cta.form.sys[:id],
-          meta_title: cta.form.meta_title,
-          confirmation: cta.form.confirmation,
-          elements: cta.form.elements.map do |elem|
-            {
-              label: elem.label.parameterize.gsub("-required", ""),
-              input_type: elem.input_type.parameterize,
-              required: elem.required
-            }
-          end
-        }.compact if cta.form)
+        form: (form(cta.form) if cta.form)
       }.compact if isModal)
     }.compact
   end : nil)
@@ -445,7 +453,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.site_url = entry.site_url
 
     context.newsletter_text = entry.newsletter_text
-    context.newsletter_embed = entry.newsletter_embed
+    context.newsletter_form = form(entry.newsletter_form)
 
     context.uncss_urls = entry.uncss_urls
 
@@ -478,19 +486,6 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
     end
   end
 end
-
-###########################################################################
-##		=Forms
-###########################################################################
-
-# class FormMap < ContentfulMiddleman::Mapper::Base
-#   def map(context, entry)
-#     context.ID = entry.sys[:id]
-#     context.TYPE = entry.content_type.id
-#     context.meta_title = entry.meta_title
-#     context.elements = entry.elements.map{ |i| i.parameterize }
-#   end
-# end
 
 ###########################################################################
 ##  =Navigation
