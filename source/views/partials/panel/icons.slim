@@ -1,0 +1,22 @@
+- panelData = local_data[:entry_data]
+- bgc = panelData[:background_color]
+- bgcClass = colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
+
+- title = panelData[:title]
+- titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
+- hasTitle = panelData[:show_title] != nil
+
+- copy = panelData[:copy]
+
+- index = local_data[:index]
+
+section.panel{
+  id="panel-#{ index }"
+  class="#{ bgcClass }"
+}
+  .panel__content.panel__content--narrow
+    .panel__content.panel__content--narrow
+
+      - if hasTitle
+        h3.title-xl.e-align-cen.e-mgn-b-md{ class=titleColor }= title
+
