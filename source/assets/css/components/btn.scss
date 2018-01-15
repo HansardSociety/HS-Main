@@ -1,17 +1,7 @@
-////////////////////////////////////////////////////////////
-//  Button - Component
-////////////////////////////////////////////////////////////
-
-//  =Shared
-//////////////////////////////
-
 .btn__icon,
 .btn__label {
   @extend %e-display-block;
 }
-
-//  =Main
-//////////////////////////////
 
 .btn {
   @extend %e-cursor-pointer;
@@ -82,13 +72,14 @@
 .btn__label {
   font-size: .625rem;
 
+  @extend %e-pad-y-sm;
   @extend %e-upper;
 }
 
 @each $widthKey, $widthVal in map-get($btn, text-width) {
 
   .btn__label--#{ $widthKey } {
-    width: $widthVal;
+    min-width: $widthVal;
   }
 }
 
@@ -118,9 +109,6 @@
     @extend %e-position-absolute;
   }
 }
-
-//  =Button menu
-//////////////////////////////
 
 .btn__menu,
 .btn__menu::before,

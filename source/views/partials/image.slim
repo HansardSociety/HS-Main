@@ -1,6 +1,7 @@
 - imageData = local_data[:image_data]
 
 - invert = local_data[:invert]
+- icon = local_data[:icon]
 
 - url = imageData[:url]
 - alt = imageData[:alt]
@@ -9,6 +10,7 @@
 
 figure.image{
   class="#{ invert ? "image--invert" : "image--light" }"
+  class="#{ "image--icon" if icon }"
 }
 
   img.image__img{

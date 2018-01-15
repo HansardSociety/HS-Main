@@ -1,0 +1,46 @@
+.quote {
+  max-width: 35rem;
+
+  @extend %e-align-cen;
+  @extend %e-mgn-auto-x;
+}
+
+.quote__text {
+  @extend %e-fz-md;
+}
+
+.quote__biog {
+  @extend .label-xs;
+  @extend %e-position-relative;
+  @extend %e-pad-t-sm;
+  @extend %e-mgn-t-sm;
+
+  &::before {
+    left: 50%;
+
+    width: 5rem;
+
+    transform: translateX(-50%);
+
+    border-top: 2px solid Get($colorGroups, greyscale, 2);
+
+    @extend %e-pseudo-elem;
+  }
+
+  & > span {
+    @extend %e-display-block;
+  }
+}
+
+.quote__logo {
+  height: 5rem;
+
+  @extend %e-mgn-t-sm;
+  @extend %e-mgn-auto-x;
+
+  & > img {
+    max-width: 10rem;
+
+    @extend %e-height-full;
+  }
+}

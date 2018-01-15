@@ -334,11 +334,13 @@ def panels(ctx, data)
     panelShared = {
       ID: panel.sys[:id],
       TYPE: panel.content_type.id,
-      title: panel.title,
+      background_color: (panel.background_color.parameterize if !isPanelAccordians),
       calls_to_action: callsToAction(panel),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
-      background_color: (panel.background_color.parameterize if !isPanelAccordians),
-      show_title: (panel.show_title if isPanelBand || isPanelContent || isPanelFeed),
+      image: (media(panel.image) if defined?(panel.image) && panel.image != nil && (isPanelBand || isPanelContent)),
+      image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
+      title: panel.title,
+      show_title: (panel.show_title if isPanelBand || isPanelContent || isPanelFeed || isPanelIcons),
     }.compact
 
     ##		=Accordions
@@ -376,11 +378,10 @@ def panels(ctx, data)
               full_name: item.full_name,
               role: item.role,
               organisation: item.organisation,
-              image: ({
-                url: item.image.url,
-                description: item.image.description
-              }.compact if item.image),
-              image_type: item.image_type
+              logo: ({
+                url: item.logo.url,
+                description: item.logo.description
+              }.compact if item.logo)
             }.compact if isQuote)
           }.compact
         end
@@ -406,9 +407,7 @@ def panels(ctx, data)
           cta_id: targetID("expand", panel.title, panel),
           content: panel.show_more
         }.compact if panel.show_more),
-        image: media(panel.image),
         image_size: panel.image_size.parameterize,
-        image_invert: panel.image_invert,
         share_buttons: panel.share_buttons
       }
     end

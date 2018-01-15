@@ -4,7 +4,11 @@
 
 - title = panelData[:title]
 - titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
-- hasTitle = panelData[:show_title] != nil
+- hasTitle = panelData[:show_title]
+
+- image = panelData[:image]
+- imageSize = panelData[:image_size]
+- imageInvert = panelData[:image_invert]
 
 - copy = panelData[:copy]
 
@@ -14,9 +18,16 @@ section.panel{
   id="panel-#{ index }"
   class="#{ bgcClass }"
 }
-  .panel__content.panel__content--narrow
-    .panel__content.panel__content--narrow
+  .panel__content.panel__content--wide
 
-      - if hasTitle
-        h3.title-xl.e-align-cen.e-mgn-b-md{ class=titleColor }= title
+    - if hasTitle
+      h3.title-xl.e-align-cen.e-mgn-b-md{ class=titleColor }= title
 
+    .grid.grid--lg.grid--center.grid--middle
+      - panelData[:icons].each do |image|
+        .grid__cell.grid__cell--lg-above-md-2
+          = partial "views/partials/image",
+            locals: { local_data: \
+              { image_data: image,
+                invert: imageInvert,
+                icon: true }}

@@ -1,11 +1,21 @@
 const form = (() => {
-  var form = document.querySelector(".form")
-  var formMain = form.querySelector(".form__main")
-  var formConf = form.querySelector(".form__confirmation")
-  var formName = form.getAttribute("name")
-  var formAction = form.getAttribute("action")
-  var submitBtn = form.querySelector("button[type=submit]")
-  var fields = form.querySelectorAll("input[class^=form]:not(.e-hidden)")
+  var forms = document.querySelectorAll(".form")
+
+  var formMain
+  var formConf
+  var formName
+  var formAction
+  var submitBtn
+  var fields
+
+  for (let form of forms) {
+    formMain = form.querySelector(".form__main")
+    formConf = form.querySelector(".form__confirmation")
+    formName = form.getAttribute("name")
+    formAction = form.getAttribute("action")
+    submitBtn = form.querySelector("button[type=submit]")
+    fields = form.querySelectorAll("[class^=form__field]:not(.e-hidden)")
+  }
 
   function sendData() {
     var request = new XMLHttpRequest()
@@ -16,7 +26,7 @@ const form = (() => {
       var name = field.getAttribute("name")
       var val = field.value
 
-      formData.push(`${ encodeURIComponent(name)}=${encodeURIComponent(val) }`)
+      formData.push(`${ encodeURIComponent(name)}=${ encodeURIComponent(val) }`)
     }
 
     // Add form-name for Netlify
@@ -27,7 +37,7 @@ const form = (() => {
 
     // Success
     request.addEventListener("load", function(e) {
-      formMain.style.display = "none"
+      // formMain.style.display = "none"
       formConf.style.display = "block"
       formConf.style.opacity = "1"
     })
@@ -50,7 +60,19 @@ const form = (() => {
   submitBtn.addEventListener("click", function(e) {
     e.preventDefault()
 
-    sendData()
+    var fieldsArr = Array.prototype.slice.call(fields)
+    var fieldsPass = fieldsArr.every(field => field.validity.valid)
+
+    if (fieldsPass){
+      return sendData()
+    } else {
+      for (let field of fields) {
+        if (!field.validity.valid) {
+          field.style.borderColor = "red"
+          field.classList.add("JS-error")
+        }
+      }
+    }
   })
 })()
 
