@@ -1,26 +1,67 @@
 .form {
 
+  textarea {
+    resize: vertical;
+    min-height: 10rem;
+  }
 }
 
 .form__label,
-.form__text {
+.form__field {
   @extend %e-width-full;
 }
 
-.form__text {
-  height: 2.5rem;
-
+.form__field {
   border: 2px solid Get($colors, greyscale, mid-grey);
+}
 
+.form__field {
   @extend %e-ff-prim-heavy;
   @extend %e-mgn-b-xs;
   @extend %e-pad-xs;
   @extend %e-rad-slight;
+
+  &:valid {
+    border: 2px solid lightgreen;
+  }
+}
+
+.form__err {
+  margin-top: -.25rem;
+  color: red;
+
+  @extend %e-display-none;
+  @extend %e-ff-prim-heavy;
+  @extend %e-fz-xs;
+  @extend %e-mgn-b-xs;
 }
 
 .form__confirmation {
   opacity: 0;
+  top: 0;
+  left: 0;
 
+  @extend %e-bgc-greyscale-0;
   @extend %e-display-none;
+  @extend %e-height-full;
+  @extend %e-pad-sm;
+  @extend %e-position-absolute;
   @extend %e-trans-opacity;
+  @extend %e-width-full;
+}
+
+/*		=Behaviour
+  ========================================================================== */
+
+.form__field:valid,
+.form__field:valid.JS-error {
+  border: 2px solid Get($colors, greyscale, mid-grey) !important;
+}
+
+.form__field.JS-error + .form__err {
+  @extend %e-display-block;
+}
+
+.form__field:valid + .form__err {
+  display: none !important;
 }

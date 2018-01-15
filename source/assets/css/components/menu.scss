@@ -60,7 +60,7 @@
 .menu__category {
   @extend %e-mgn-t-sm;
   @extend %e-mgn-b-sm;
-  @extend %e-rad-slight;
+  // @extend %e-rad-slight;
 }
 
 .menu__category--outer {
@@ -75,7 +75,7 @@
   flex: 0 30%;
 
   @extend %e-mgn-t-md;
-  @extend %e-rad-slight;
+  // @extend %e-rad-slight;
 
   &:nth-child(1n + 2) {
     @extend %e-mgn-l-md;
@@ -91,8 +91,8 @@
 .menu__category--publications { @extend %e-acc-orange-2-top; }
 .menu__column--publications,
 .menu__category--publications { @extend %e-acc-orange-2-top; }
-.menu__column--intelligence,
-.menu__category--intelligence { @extend %e-acc-slate-blue-2-top; }
+.menu__column--insight,
+.menu__category--insight { @extend %e-acc-sea-green-2-top; }
 
 /*		=Behaviour
   ========================================================================== */
