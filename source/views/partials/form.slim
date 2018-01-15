@@ -19,16 +19,25 @@ form.form{
     / Main fields
     - formData[:elements].each do |elem|
       - labelCap = elem[:label].capitalize.gsub("-", " ")
+      - isNotInput = ["textarea"].include?(elem[:input_type])
 
-      - inputAttrs = {\
-        type: "#{ elem[:input_type] }",
-        name: "#{ elem[:label] }",
-        placeholder: "#{ labelCap + "…" }" }
-      - inputAttrs.merge!(required: "") if elem[:required]
+      - if isNotInput
+        - fieldTag = "textarea"
+      - else
+        - fieldTag = "input"
+
+      - fieldAttrs = {\
+        tag: fieldTag,
+        class: "form__field",
+        type: (elem[:input_type] if !isNotInput),
+        name: elem[:label],
+        placeholder: labelCap + "…" }.compact
+      - fieldAttrs.merge!(required: "") if elem[:required]
 
       label.form__label
         span.e-hidden= labelCap + ": "
-        input.form__text{ *inputAttrs }
+        *fieldAttrs
+        span.form__err Please review this field
 
     = partial "views/partials/btn",
       locals: { local_data: \

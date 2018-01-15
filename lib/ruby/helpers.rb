@@ -175,7 +175,7 @@ module CustomHelpers
       yield: false,
       start: 0,
       num: allPages.length,
-      page_cats: siteCategories(:top_main)[0],
+      page_cats: siteCategories(:top_main),
       sub_cats: false
     }
     opts = defaults.merge(opts)
@@ -190,7 +190,8 @@ module CustomHelpers
     # Only include specified category/ sub-category and not page indices
     allMainPages = allPages.select do |id, page|
       category = isSubCats ? page[:sub_category] : page[:category]
-      [pageCategories].include?(category) && !page[:index_page]
+
+      pageCategories.include?(category) && !page[:index_page]
     end
 
     allPagesRegHash = convertToRegularHash(allMainPages.compact).values
