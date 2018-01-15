@@ -190,6 +190,7 @@ module CustomHelpers
     # Only include specified category/ sub-category and not page indices
     allMainPages = allPages.select do |id, page|
       category = isSubCats ? page[:sub_category] : page[:category]
+
       pageCategories.include?(category) && !page[:index_page]
     end
 
