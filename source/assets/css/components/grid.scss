@@ -9,6 +9,10 @@
   justify-content: center;
 }
 
+.grid--middle {
+  align-items: center;
+}
+
 @each $breakpoint in map-keys($breakpoints) {
   @include above($breakpoint) {
 

@@ -1,14 +1,16 @@
+- quoteData = local_data[:entry_data]
+
 figure.quote
-  blockquote.quote__text= quoteText
+  blockquote.quote__text= quoteData[:text]
 
   figcaption
-    p
-      - if fullName
-        span= fullName
-      - if role
-        span= role
-      - if organisation
-        span= organisation
+    p.quote__biog
+      span= quoteData[:full_name]
+      span= quoteData[:role]
+      span= quoteData[:organisation]
 
-    .quote__image
-      img{ src=imgSrc alt=imgAlt }
+    .quote__logo
+      img{
+        src="#{ quoteData[:logo][:url] }"
+        alt="#{ quoteData[:logo][:alt] }"
+      }
