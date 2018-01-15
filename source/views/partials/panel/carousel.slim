@@ -38,7 +38,7 @@ section.panel{
           / If page contains featured content
           - if entryData[:featured]
             - entryData[:featured].map do |page|
-              .carousel__item
+              .carousel__item.carousel__item--card
                 = partial "views/partials/main-card",
                   locals: { local_data: \
                     { entry_data: page,
@@ -46,7 +46,7 @@ section.panel{
 
           / Related (tagging)
           - relatedContent(entryData, blogCount) do |page|
-            .carousel__item
+            .carousel__item.carousel__item--card
               = partial "views/partials/main-card",
                 locals: { local_data: \
                   { entry_data: page }}
@@ -58,7 +58,7 @@ section.panel{
         / Latest content (all)
         - if dataType == :latest
           - latestContent(yield: true, num: 6) do |page|
-            .carousel__item
+            .carousel__item.carousel__item--card
               = partial "views/partials/main-card",
                 locals: { local_data: \
                   { entry_data: page }}
@@ -66,7 +66,7 @@ section.panel{
         / Latest content (category)
         - if dataType == :category_latest
           - latestContent(yield: true, num: 6, page_cats: categories) do |page|
-            .carousel__item
+            .carousel__item.carousel__item--card
               = partial "views/partials/main-card",
                 locals: { local_data: \
                   { entry_data: page }}
@@ -80,9 +80,17 @@ section.panel{
 
             / Profile cards
             - if item[:TYPE] == "people"
-              = partial "views/partials/staff-card",
-                locals: { local_data: \
-                  { entry_data: item[:profile] }}
+              .carousel__item.carousel__item--card
+                = partial "views/partials/staff-card",
+                  locals: { local_data: \
+                    { entry_data: item[:profile] }}
+
+            / Profile cards
+            - if item[:TYPE] == "quote"
+              .carousel__item
+                = partial "views/partials/quote",
+                  locals: { local_data: \
+                    { entry_data: item[:quote] }}
 
       / Actions
       .carousel__actions
