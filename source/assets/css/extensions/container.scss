@@ -7,13 +7,13 @@
 }
 
 %e-container {
-  @extend %e-pad-y-xs;
+  @extend %e-pad-y-sm;
   // padding-left: .75rem;
   // padding-right: .75rem;
 
-  @include above(xs) {
-    @extend %e-pad-y-sm__xs;
-  }
+  // @include above(xs) {
+  //   @extend %e-pad-y-sm__xs;
+  // }
 }
 
 %e-container--narrow { max-width: 35rem; }

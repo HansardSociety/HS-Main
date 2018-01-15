@@ -19,6 +19,14 @@ section.panel{
   .panel__content.panel__content--narrow
     .panel__content.panel__content--narrow
 
+      / Background image
+      - if panelData[:image]
+        .panel__bg-img
+          img{
+            src="#{ panelData[:image][:url] }"
+            alt="#{ panelData[:image][:description] }"
+          }
+
       - if hasTitle
         h3.title-xl.e-align-cen.e-mgn-b-md{ class=titleColor }= title
 

@@ -50,18 +50,21 @@ header.banner{
                       label: cta.button_text, label_size: "lg", url: cta[:file][:url] }}
 
               / Modal
-              - if cta[:TYPE] == "modal"
+              - if cta[:TYPE] == "cta_modal"
+                - modalID = cta[:modal][:cta_id]
+                - modalContent = cta[:modal][:content]
+                - btnText = cta[:button_text]
 
                 / Modal button
                 = partial "views/partials/btn",
                   locals: { local_data: \
                     { type: "state",
-                      size: "lg", style: "secondary",
-                      label_on: cta[:button_text], label_off: "Close",
+                      size: "lg", style: "primary",
+                      label_on: btnText, label_off: "Close",
                       label_size: "lg",
-                      page: "no-scroll", exclusive: true, switch: true,
-                      aria_id: "activate-#{ cta.modal[:cta_id] }",
-                      aria_target_id: cta.modal[:cta_id] }}
+                      page: "no-scroll", switch: true,
+                      aria_id: "activate-#{ modalID }",
+                      aria_target_id: modalID }}
 
       - if isHomepage
         .grid.grid--xxs.grid--above-sm-center.e-mgn-t-sm
@@ -80,10 +83,17 @@ header.banner{
   / Modal content (here to avoid banner__inner transform cascade)
   - if isLandingPage && entryData[:calls_to_action] != nil
     - entryData[:calls_to_action].each do |cta|
-      - if cta[:action] == "modal"
+      - if cta[:TYPE] == "cta_modal"
+        - modalID = cta[:modal][:cta_id]
+        - modalContent = cta[:modal][:content]
+        - modalForm = cta[:modal][:form]
+        - modalWidth = modalForm ? "narrow" : false
+
         = partial "views/partials/modal",
           locals: { local_data: \
-          { id: cta.modal[:cta_id],
-            content: cta.modal[:content] }}
+          { id: modalID,
+            content: modalContent,
+            form: (modalForm ? modalForm : false),
+            size: modalWidth }}
 
 span#arrow-dest{ aria-hidden="true" }

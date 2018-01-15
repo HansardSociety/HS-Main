@@ -337,6 +337,7 @@ def panels(ctx, data)
       background_color: (panel.background_color.parameterize if !isPanelAccordians),
       calls_to_action: callsToAction(panel),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
+      image: (media(panel.image) if defined?(panel.image) && panel.image != nil && (isPanelBand || isPanelContent)),
       image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
       title: panel.title,
       show_title: (panel.show_title if isPanelBand || isPanelContent || isPanelFeed || isPanelIcons),
@@ -406,7 +407,6 @@ def panels(ctx, data)
           cta_id: targetID("expand", panel.title, panel),
           content: panel.show_more
         }.compact if panel.show_more),
-        image: media(panel.image),
         image_size: panel.image_size.parameterize,
         share_buttons: panel.share_buttons
       }

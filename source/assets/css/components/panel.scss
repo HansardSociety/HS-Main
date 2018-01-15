@@ -1,6 +1,7 @@
 // Panels
 .panel {
   @extend %e-container;
+  @extend %e-overflow-hidden;
   @extend %e-pad-x-xl;
   @extend %e-position-relative;
 }
@@ -31,6 +32,19 @@
 
 .panel__content--full {
   @extend %e-container--full;
+}
+
+.panel__bg-img {
+  max-width: 40rem;
+  left: 40%;
+  bottom: -4rem;
+  opacity: .2;
+
+  @extend %e-position-absolute;
+
+  & > img {
+    @extend %e-width-full;
+  }
 }
 
 // Sections
