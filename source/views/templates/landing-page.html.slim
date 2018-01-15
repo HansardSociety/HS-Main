@@ -49,6 +49,13 @@ article
             { entry_data: panel,
               index: index }}
 
+      / Band panel
+      - if panel[:TYPE] == "panel_band"
+        = partial "views/partials/panel/band",
+          locals: { local_data: \
+            { entry_data: panel,
+              index: index }}
+
       / Carousel panel
       - if panel[:TYPE] == "panel_carousel"
         = partial "views/partials/panel/carousel",
