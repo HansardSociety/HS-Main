@@ -41,7 +41,7 @@ section.panel{ class=panelBgc(bgc) }
           yield: true,
           num: (feedDedupe ? feedCount + latestCount : feedCount),
           start: (feedDedupe ? latestCount : 0),
-          page_cats: (feedSubCategory ? feedSubCategory : feedCategory),
+          page_cats: (feedSubCategory ? [feedSubCategory] : feedCategory),
           sub_cats: (feedSubCategory ? true : false)) do |page|
 
           = partial "views/partials/feed-item",
