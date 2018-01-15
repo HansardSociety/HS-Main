@@ -42,12 +42,19 @@ article
     / Give each panel index for anchor
     - @entry[:panels].each_with_index do |panel, index|
 
-      / Header panel
-      - if panel[:TYPE] == "panel_header"
-        = partial "views/partials/panel/header",
+      / Accordian panel
+      - if panel[:TYPE] == "panel_accordians"
+        = partial "views/partials/panel/accordians",
           locals: { local_data: \
             { entry_data: panel,
               index: index }}
+
+      / Carousel panel
+      - if panel[:TYPE] == "panel_carousel"
+        = partial "views/partials/panel/carousel",
+          locals: { local_data: \
+            { entry_data: panel,
+              data_type: :custom }}
 
       / Content panel
       - if panel[:TYPE] == "panel_content"
@@ -62,16 +69,16 @@ article
           locals: { local_data: \
             { entry_data: panel }}
 
-      / Carousel panel
-      - if panel[:TYPE] == "panel_carousel"
-        = partial "views/partials/panel/carousel",
+      / Header panel
+      - if panel[:TYPE] == "panel_header"
+        = partial "views/partials/panel/header",
           locals: { local_data: \
             { entry_data: panel,
-              data_type: :custom }}
+              index: index }}
 
-      / Accordian panel
-      - if panel[:TYPE] == "panel_accordians"
-        = partial "views/partials/panel/accordians",
+      / icons panel
+      - if panel[:TYPE] == "panel_icons"
+        = partial "views/partials/panel/icons",
           locals: { local_data: \
             { entry_data: panel,
               index: index }}

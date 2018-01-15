@@ -23,6 +23,9 @@
 
   @extend %e-display-flex;
   @extend %e-width-full;
+}
+
+.carousel__item--card {
   @include above(sm) { width: calc(100% / 2); }
   @include above(lg) { width: calc(100% / 3); }
 }
