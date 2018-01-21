@@ -8,11 +8,12 @@
   @extend %e-overflow-hidden;
   @extend %e-position-relative;
   @extend %e-rad-slight;
-  @extend %e-width-full;
+  @extend %e-max-width-full;
 }
 
 .image--icon {
-  max-width: 10rem;
+  max-width: 100%;
+  max-height: 5rem;
 }
 
 .image--light {
@@ -23,16 +24,23 @@
 }
 
 .image--invert {
-  // background-color: rgba(Get($colorGroups, greyscale, 0), .025);
+  opacity: .5;
+
   filter: brightness(0) invert(1);
 }
 
 .image__img {
+  left: 50%;
+
   order: 2;
+
+  max-width: inherit;
+  max-height: inherit;
+
+  transform: translateX(-50%);
 
   @extend %e-display-block;
   @extend %e-position-relative;
-  @extend %e-width-full;
 }
 
 .image__caption {
