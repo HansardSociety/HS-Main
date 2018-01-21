@@ -1,7 +1,12 @@
 - quoteData = local_data[:entry_data]
 
 figure.quote
-  blockquote.quote__text= quoteData[:text]
+  blockquote.quote__text
+    = quoteData[:text]
+    span.quote__sym.e-col-orange-2
+      = partial 'views/partials/icon',
+        locals: { icon: "quote",
+                  size: "lg" }
 
   figcaption
     p.quote__biog
@@ -10,7 +15,8 @@ figure.quote
       span= quoteData[:organisation]
 
     .quote__logo
-      img{
-        src="#{ quoteData[:logo][:url] }"
+      img.b-lazy{
+        src="#{ assetsDir }/images/placeholder__main-card.svg"
+        data-src="#{ quoteData[:logo][:url] }"
         alt="#{ quoteData[:logo][:alt] }"
       }

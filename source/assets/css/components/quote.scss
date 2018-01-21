@@ -1,12 +1,39 @@
 .quote {
   max-width: 35rem;
+  padding-top: 3.5rem;
 
   @extend %e-align-cen;
   @extend %e-mgn-auto-x;
+  @extend %e-position-relative;
 }
 
 .quote__text {
   @extend %e-fz-md;
+}
+
+.quote__sym {
+  top: 0;
+
+  @extend %e-absolute-center-x;
+
+  &::before,
+  &::after {
+    top: 50%;
+
+    width: 3rem;
+
+    border-top: 2px solid Get($colorGroups, orange, 2);
+
+    @extend %e-pseudo-elem;
+  }
+
+  &::before {
+    left: -100%;
+  }
+
+  &::after {
+    left: 100%;
+  }
 }
 
 .quote__biog {

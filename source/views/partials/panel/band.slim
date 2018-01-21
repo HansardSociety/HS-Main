@@ -22,16 +22,18 @@ section.panel{
       / Background image
       - if panelData[:image]
         .panel__bg-img
-          img{
-            src="#{ panelData[:image][:url] }"
+          img.b-lazy{
+            src="#{ panelData[:image][:url] }?fm=jpg&w=800&q=2"
+            data-src="#{ panelData[:image][:url] }?w=800"
             alt="#{ panelData[:image][:description] }"
           }
 
-      - if hasTitle
-        h3.title-xl.e-align-cen.e-mgn-b-md{ class=titleColor }= title
+      .panel__text
+        - if hasTitle
+          h3.title-xl.e-align-cen.e-mgn-b-sm{ class=titleColor }= title
 
-      / - if copy
-      p.strap-md.e-align-cen.e-mgn-b-sm= panelData[:copy]
+        / - if copy
+        p.strap-md.e-align-cen.e-mgn-b-sm= panelData[:copy]
 
       - if callsToAction
         .grid.grid--xs.grid--center
