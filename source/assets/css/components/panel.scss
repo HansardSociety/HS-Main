@@ -34,16 +34,27 @@
   @extend %e-container--full;
 }
 
+.panel__text {
+  @extend %e-position-relative; // need pos to place over absolute bg image
+}
+
 .panel__bg-img {
+  right: 25%;
+  bottom: 0;
+
   max-width: 40rem;
-  left: 40%;
-  bottom: -4rem;
+  height: 100%;
+
   opacity: .2;
 
   @extend %e-position-absolute;
 
   & > img {
-    @extend %e-width-full;
+    max-width: 100%;
+    max-height: 100%;
+
+    @extend %e-display-block;
+    @extend %e-pad-x-md;
   }
 }
 
