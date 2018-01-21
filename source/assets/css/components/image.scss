@@ -25,7 +25,6 @@
 
 .image--invert {
   opacity: .5;
-  // background-color: rgba(Get($colorGroups, greyscale, 0), .025);
 
   filter: brightness(0) invert(1);
 }
