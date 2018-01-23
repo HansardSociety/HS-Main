@@ -16,29 +16,24 @@ section.panel{
   id="panel-#{ index }"
   class="#{ bgcClass }"
 }
+  / Background image
+  - if panelData[:image]
+    img.panel__bg-img.b-lazy{
+      src="#{ panelData[:image][:url] }?fm=jpg&w=800&q=2"
+      data-src="#{ panelData[:image][:url] }?w=800"
+      alt="#{ panelData[:image][:description] }"
+    }
+
   .panel__content.panel__content--narrow
-    .panel__content.panel__content--narrow
+    - if hasTitle
+      h3.title-xl.e-align-cen.e-mgn-b-sm{ class=titleColor }= title
 
-      / Background image
-      - if panelData[:image]
-        .panel__bg-img
-          img.b-lazy{
-            src="#{ panelData[:image][:url] }?fm=jpg&w=800&q=2"
-            data-src="#{ panelData[:image][:url] }?w=800"
-            alt="#{ panelData[:image][:description] }"
-          }
+    / - if copy
+    p.strap-md.e-align-cen.e-mgn-b-sm= panelData[:copy]
 
-      .panel__text
-        - if hasTitle
-          h3.title-xl.e-align-cen.e-mgn-b-sm{ class=titleColor }= title
-
-        / - if copy
-        p.strap-md.e-align-cen.e-mgn-b-sm= panelData[:copy]
-
-      - if callsToAction
-        .grid.grid--xs.grid--center
-          - callsToAction.each do |cta|
-            = partial "views/partials/ctas",
-              locals: { local_data: {\
-                entry_data: cta }}
-
+  - if callsToAction
+    .grid.grid--xs.grid--center
+      - callsToAction.each do |cta|
+        = partial "views/partials/ctas",
+          locals: { local_data: {\
+            entry_data: cta }}

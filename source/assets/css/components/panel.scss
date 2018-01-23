@@ -12,6 +12,7 @@
 
 .panel__content {
   @extend %e-mgn-auto-x;
+  @extend %e-position-relative; // need pos to place over absolute bg image
 
   &:nth-child(1n + 2) {
     @extend %e-mgn-t-md;
@@ -34,27 +35,18 @@
   @extend %e-container--full;
 }
 
-.panel__text {
-  @extend %e-position-relative; // need pos to place over absolute bg image
-}
-
 .panel__bg-img {
-  right: 25%;
-  bottom: 0;
+  max-height: 125%;
 
-  max-width: 40rem;
-  height: 100%;
+  opacity: .15;
 
-  opacity: .2;
-
+  @extend %e-display-block;
   @extend %e-position-absolute;
+  @include above(sm) {
+    top: -2rem;
+    left: 50%;
 
-  & > img {
-    max-width: 100%;
-    max-height: 100%;
-
-    @extend %e-display-block;
-    @extend %e-pad-x-md;
+    transform: translateX(-50%);
   }
 }
 

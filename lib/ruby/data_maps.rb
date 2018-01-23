@@ -18,7 +18,7 @@ end
 ###########################################################################
 
 def targetID(type, dataTitle, dataID)
-  "#{ type }-" + dataTitle.split("::")[0].parameterize + "-" + dataID.sys[:id]
+  "#{ type }-" + dataTitle.split("::")[0].parameterize + "-" + dataID.sys[:id] + "-" + "#{ rand(0...1000) }"
 end
 
 ###########################################################################

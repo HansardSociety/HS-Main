@@ -12,8 +12,9 @@
 }
 
 .image--icon {
-  max-width: 100%;
   max-height: 5rem;
+  max-width: 10rem;
+  width: 100%;
 }
 
 .image--light {
@@ -34,8 +35,9 @@
 
   order: 2;
 
-  max-width: inherit;
   max-height: inherit;
+  max-width: inherit;
+  width: inherit;
 
   transform: translateX(-50%);
 
