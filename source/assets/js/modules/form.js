@@ -35,7 +35,7 @@ const form = (() => {
     })
 
     // Request
-    request.open("POST", "/")
+    request.open("POST", action)
 
     // Header
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
