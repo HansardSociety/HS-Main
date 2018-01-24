@@ -3,7 +3,7 @@ const form = (() => {
   /*		=Send data
     ========================================================================== */
 
-  function sendData(name, fields, confirmation) {
+  function sendData(name, fields, action, confirmation) {
     var request = new XMLHttpRequest()
 
     // Turn data object into array of URL-encoded key/ val pairs
@@ -33,7 +33,7 @@ const form = (() => {
     })
 
     // Request
-    request.open("POST", "/")
+    request.open("POST", action)
 
     // Header
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
@@ -51,6 +51,7 @@ const form = (() => {
     var submitBtn = form.querySelector("button[type=submit]")
 
     submitBtn.addEventListener("click", function(e) {
+      var formAction = this.form.getAttribute("action")
       var formConf = this.form.querySelector(".form__confirmation")
       var formFields = this.form.querySelectorAll("[class^=form__field]:not(.e-hidden)")
       var formName = this.form.getAttribute("name")
@@ -62,7 +63,7 @@ const form = (() => {
 
       // Validate
       if (fieldsPass){
-        sendData(formName, formFields, formConf)
+        sendData(formName, formFields, formAction, formConf)
 
       } else {
 
