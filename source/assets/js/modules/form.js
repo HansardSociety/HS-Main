@@ -9,10 +9,10 @@ const form = (() => {
     // Turn data object into array of URL-encoded key/ val pairs
     var formData = []
     for (let field of fields) {
-      var name = field.getAttribute("name")
-      var val = field.value
+      var fieldName = field.getAttribute("name")
+      var fieldVal = field.fieldValue
 
-      formData.push(`${ encodeURIComponent(name)}=${ encodeURIComponent(val) }`)
+      formData.push(`${ encodeURIComponent(fieldName)}=${ encodeURIComponent(fieldVal) }`)
     }
 
     // Add form-name for Netlify
@@ -21,7 +21,7 @@ const form = (() => {
     // Combine pairs into string and replace %-encoded spaces with "+"
     formData = `${ formData.join("&").replace(/%20/g, "+") }`
 
-    console.log(formData)
+    console.log(name)
 
     // Success
     request.addEventListener("load", function(e) {
