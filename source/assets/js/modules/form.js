@@ -1,23 +1,9 @@
 const form = (() => {
-  var forms = document.querySelectorAll(".form")
 
-  var formMain
-  var formConf
-  var formName
-  var formAction
-  var submitBtn
-  var fields
+  /*		=Send data
+    ========================================================================== */
 
-  for (let form of forms) {
-    formMain = form.querySelector(".form__main")
-    formConf = form.querySelector(".form__confirmation")
-    formName = form.getAttribute("name")
-    formAction = form.getAttribute("action")
-    submitBtn = form.querySelector("button[type=submit]")
-    fields = form.querySelectorAll("[class^=form__field]:not(.e-hidden)")
-  }
-
-  function sendData() {
+  function sendData(name, fields, confirmation) {
     var request = new XMLHttpRequest()
 
     // Turn data object into array of URL-encoded key/ val pairs
@@ -30,16 +16,15 @@ const form = (() => {
     }
 
     // Add form-name for Netlify
-    formData.push(`form-name=${ encodeURIComponent(formName) }`)
+    formData.push(`form-name=${ encodeURIComponent(name) }`)
 
     // Combine pairs into string and replace %-encoded spaces with "+"
     formData = `${ formData.join("&").replace(/%20/g, "+") }`
 
     // Success
     request.addEventListener("load", function(e) {
-      // formMain.style.display = "none"
-      formConf.style.display = "block"
-      formConf.style.opacity = "1"
+      confirmation.style.display = "block"
+      confirmation.style.opacity = "1"
     })
 
     // Error
@@ -57,23 +42,39 @@ const form = (() => {
     request.send(formData)
   }
 
-  submitBtn.addEventListener("click", function(e) {
-    e.preventDefault()
+  /*		=Loop through forms
+    ========================================================================== */
 
-    var fieldsArr = Array.prototype.slice.call(fields)
-    var fieldsPass = fieldsArr.every(field => field.validity.valid)
+  var forms = document.querySelectorAll(".form")
 
-    if (fieldsPass){
-      return sendData()
-    } else {
-      for (let field of fields) {
-        if (!field.validity.valid) {
-          field.style.borderColor = "red"
-          field.classList.add("JS-error")
+  for (let form of forms) {
+    var submitBtn = form.querySelector("button[type=submit]")
+
+    submitBtn.addEventListener("click", function(e) {
+      var formConf = this.form.querySelector(".form__confirmation")
+      var formFields = this.form.querySelectorAll("[class^=form__field]:not(.e-hidden)")
+      var formName = this.form.getAttribute("name")
+
+      var fieldsArr = Array.prototype.slice.call(formFields)
+      var fieldsPass = fieldsArr.every(field => field.validity.valid)
+
+      e.preventDefault()
+
+      // Validate
+      if (fieldsPass){
+        sendData(formName, formFields, formConf)
+
+      } else {
+
+        for (let field of formFields) {
+          if (!field.validity.valid) {
+            field.style.borderColor = "red"
+            field.classList.add("JS-error")
+          }
         }
       }
-    }
-  })
+    })
+  }
 })()
 
 export { form }
