@@ -3,7 +3,13 @@ const form = (() => {
   /*		=Send data
     ========================================================================== */
 
-  function sendData(formName, formFields, formAction, formConfMsg) {
+  function sendData(formData) {
+    var formElem = formData
+    var formAction = formData.getAttribute("action")
+    var formConfMsg = formData.querySelector(".form__confirmation")
+    var formFields = formData.querySelectorAll("[class^=form__field]:not(.e-hidden)")
+    var formName = formData.getAttribute("name")
+
     var request = new XMLHttpRequest()
 
     // Turn data object into array of URL-encoded key/ val pairs
@@ -22,15 +28,10 @@ const form = (() => {
     formData = `${ formData.join("&").replace(/%20/g, "+") }`
 
     // Success
-    request.addEventListener("load", function(e) {
-      formConfMsg.style.display = "block"
-      formConfMsg.style.opacity = "1"
-    })
+    request.addEventListener("load", () => formElem.classList.add("JS-success"))
 
     // Error
-    request.addEventListener("error", function(e) {
-      console.log("ERROR!!")
-    })
+    request.addEventListener("error", () => formElem.classList.add("JS-error"))
 
     // Request
     request.open("POST", formAction)
@@ -51,19 +52,18 @@ const form = (() => {
     var submitBtn = form.querySelector("button[type=submit]")
 
     submitBtn.addEventListener("click", function(e) {
-      var formAction = this.form.getAttribute("action")
-      var formConf = this.form.querySelector(".form__confirmation")
-      var formFields = this.form.querySelectorAll("[class^=form__field]:not(.e-hidden)")
-      var formName = this.form.getAttribute("name")
-
-      var fieldsArr = Array.prototype.slice.call(formFields)
-      var fieldsPass = fieldsArr.every(field => field.validity.valid)
 
       e.preventDefault()
 
       // Validate
+      var formFields = this.form.querySelectorAll("[class^=form__field]:not(.e-hidden)")
+      var fieldsArr = Array.prototype.slice.call(formFields)
+      var fieldsPass = fieldsArr.every(field => field.validity.valid)
+
       if (fieldsPass){
-        sendData(formName, formFields, formAction, formConf)
+        var formData = this.form
+
+        sendData(formData)
 
       } else {
 
