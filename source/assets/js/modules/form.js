@@ -3,30 +3,28 @@ const form = (() => {
   /*		=Send data
     ========================================================================== */
 
-  function sendData(name, fields, action, confirmation) {
+  function sendData(formName, formFields, formAction, formConfMsg) {
     var request = new XMLHttpRequest()
 
     // Turn data object into array of URL-encoded key/ val pairs
     var formData = []
-    for (let field of fields) {
+    for (let field of formFields) {
       var fieldName = field.getAttribute("name")
-      var fieldVal = field.fieldValue
+      var fieldVal = field.value
 
       formData.push(`${ encodeURIComponent(fieldName)}=${ encodeURIComponent(fieldVal) }`)
     }
 
     // Add form-name for Netlify
-    formData.push(`form-name=${ encodeURIComponent(name) }`)
+    formData.push(`form-name=${ encodeURIComponent(formName) }`)
 
     // Combine pairs into string and replace %-encoded spaces with "+"
     formData = `${ formData.join("&").replace(/%20/g, "+") }`
 
-    console.log(name)
-
     // Success
     request.addEventListener("load", function(e) {
-      confirmation.style.display = "block"
-      confirmation.style.opacity = "1"
+      formConfMsg.style.display = "block"
+      formConfMsg.style.opacity = "1"
     })
 
     // Error
@@ -35,7 +33,7 @@ const form = (() => {
     })
 
     // Request
-    request.open("POST", action)
+    request.open("POST", formAction)
 
     // Header
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
