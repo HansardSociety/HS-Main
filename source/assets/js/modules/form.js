@@ -28,10 +28,16 @@ const form = (() => {
     formData = `${ formData.join("&").replace(/%20/g, "+") }`
 
     // Success
-    request.addEventListener("load", () => formElem.classList.add("JS-success"))
+    request.addEventListener("load", () => {
+      formElem.classList.add("JS-success")
+      formElem.parentElement.classList.add("JS-hide-text")
+    })
 
     // Error
-    request.addEventListener("error", () => formElem.classList.add("JS-error"))
+    request.addEventListener("error", () => {
+      formElem.classList.add("JS-error")
+      formElem.parentElement.classList.add("JS-hide-text")
+    })
 
     // Request
     request.open("POST", formAction)

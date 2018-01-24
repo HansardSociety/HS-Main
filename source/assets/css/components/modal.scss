@@ -104,3 +104,8 @@
 .modal.JS-active .modal__overlay {
   animation-fill-mode: forwards;
 }
+
+// Hide first paragraph - eg. on successful form submission
+.modal__content.JS-hide-text > p {
+  @extend %e-display-none;
+}
