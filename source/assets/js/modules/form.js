@@ -12,23 +12,23 @@ const form = (() => {
       var name = field.getAttribute("name")
       var val = field.value
 
-      formData.push(`${encodeURIComponent(name)}=${encodeURIComponent(val)}`)
+      formData.push(`${ encodeURIComponent(name)}=${ encodeURIComponent(val) }`)
     }
 
     // Add form-name for Netlify
-    formData.push(`form-name=${encodeURIComponent(name)}`)
+    formData.push(`form-name=${ encodeURIComponent(name) }`)
 
     // Combine pairs into string and replace %-encoded spaces with "+"
-    formData = `${formData.join("&").replace(/%20/g, "+")}`
+    formData = `${ formData.join("&").replace(/%20/g, "+") }`
 
     // Success
-    request.addEventListener("load", function (e) {
+    request.addEventListener("load", function(e) {
       confirmation.style.display = "block"
       confirmation.style.opacity = "1"
     })
 
     // Error
-    request.addEventListener("error", function (e) {
+    request.addEventListener("error", function(e) {
       console.log("ERROR!!")
     })
 
@@ -48,36 +48,32 @@ const form = (() => {
   var forms = document.querySelectorAll(".form")
 
   for (let form of forms) {
-    var formMain = form.querySelector(".form__main")
-    var formConf = form.querySelector(".form__confirmation")
-    var formName = form.getAttribute("name")
-    var formAction = form.getAttribute("action")
-    var submitBtn = form.querySelector("button")
-    var formFields = form.querySelectorAll("[class^=form__field]:not(.e-hidden)")
+    var submitBtn = form.querySelector("button[type=submit]")
 
     submitBtn.addEventListener("click", function(e) {
-      // console.log("Hello!!")
-      e.preventDefault()
+      var formConf = this.form.querySelector(".form__confirmation")
+      var formFields = this.form.querySelectorAll("[class^=form__field]:not(.e-hidden)")
+      var formName = this.form.getAttribute("name")
 
       var fieldsArr = Array.prototype.slice.call(formFields)
-      var fieldsPass = fieldsArr.every(function(field) {return field.validity.valid})
+      var fieldsPass = fieldsArr.every(field => field.validity.valid)
 
-      console.log(fieldsPass)
+      e.preventDefault()
 
+      // Validate
       if (fieldsPass){
-        return sendData(formName, formFields, formConf)
+        sendData(formName, formFields, formConf)
 
       } else {
-        // console.log("Not validating!!")
-        // for (let field of formFields) {
-        //   if (!field.validity.valid) {
-        //     field.style.borderColor = "red"
-        //     field.classList.add("JS-error")
-        //   }
-        // }
+
+        for (let field of formFields) {
+          if (!field.validity.valid) {
+            field.style.borderColor = "red"
+            field.classList.add("JS-error")
+          }
+        }
       }
     })
-
   }
 })()
 
