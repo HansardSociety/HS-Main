@@ -1,8 +1,9 @@
 .form {
 
   textarea {
-    resize: vertical;
     min-height: 10rem;
+
+    resize: vertical;
   }
 }
 
@@ -28,6 +29,7 @@
 
 .form__err {
   margin-top: -.25rem;
+
   color: red;
 
   @extend %e-display-none;
@@ -36,16 +38,19 @@
   @extend %e-mgn-b-xs;
 }
 
+.form__confirmation,
+.form__error {
+  @extend %e-display-none;
+}
+
 .form__confirmation {
-  opacity: 0;
   top: 0;
   left: 0;
 
+  opacity: 0;
+
   @extend %e-bgc-greyscale-0;
-  @extend %e-display-none;
   @extend %e-height-full;
-  @extend %e-pad-sm;
-  @extend %e-position-absolute;
   @extend %e-trans-opacity;
   @extend %e-width-full;
 }
@@ -64,4 +69,28 @@
 
 .form__field:valid + .form__err {
   display: none !important;
+}
+
+.form.JS-success {
+
+  .form__confirmation {
+    opacity: 1;
+
+    @extend %e-display-block;
+  }
+
+  .form__main {
+    @extend %e-display-none;
+  }
+}
+
+.form.JS-error {
+
+  .form__main {
+    @extend %e-display-none;
+  }
+
+  .form__error {
+    @extend %e-display-block;
+  }
 }

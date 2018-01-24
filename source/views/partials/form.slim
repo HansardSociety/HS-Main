@@ -47,4 +47,14 @@ form.form{
           form: true }}
 
   .form__confirmation
-    =markdown(formData[:confirmation])
+    h2.title-lg.e-col-brand-green-2 Success!
+    .e-mgn-t-sm
+      = markdown(formData[:confirmation])
+    .e-mgn-t-sm
+      = partial "views/partials/social-follow",
+        locals: { local_data: \
+          { light_bg: false }}
+
+  .form__error
+    h2.title-lg.e-col-brand-green-2= ":( Oops! Sorry, something went wrong..."
+    p.e-mgn-t-sm Please reload the page and try again.
