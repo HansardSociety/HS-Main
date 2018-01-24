@@ -21,6 +21,8 @@ const form = (() => {
     // Combine pairs into string and replace %-encoded spaces with "+"
     formData = `${ formData.join("&").replace(/%20/g, "+") }`
 
+    console.log(formData)
+
     // Success
     request.addEventListener("load", function(e) {
       confirmation.style.display = "block"
@@ -33,7 +35,7 @@ const form = (() => {
     })
 
     // Request
-    request.open("POST", action)
+    request.open("POST", "/")
 
     // Header
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
