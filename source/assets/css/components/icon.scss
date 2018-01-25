@@ -1,8 +1,8 @@
 .icon {
   vertical-align: middle;
   fill: currentColor;
-
-  margin-top: -1.5px;
+  padding: 2px;
+  // margin-top: -1.5px;
 }
 
 @each $iconKey, $iconVal in map-get($btn, size) {

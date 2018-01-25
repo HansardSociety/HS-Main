@@ -321,6 +321,7 @@ def panels(ctx, data)
     isPanelIcons = panel.content_type.id == "panel_icons"
 
     panelAccordians = {}
+    panelBand = {}
     panelCarouselCustom = {}
     panelCarouselCategory = {}
     panelContent = {}
@@ -357,6 +358,15 @@ def panels(ctx, data)
             calls_to_action: callsToAction(accordian)
           }.compact
         end
+      }
+    end
+
+    ##		=Band
+    ########################################
+
+    if isPanelBand
+      panelBand = {
+        no_overlap: panel.no_overlap
       }
     end
 
@@ -442,10 +452,11 @@ def panels(ctx, data)
     ########################################
 
     panelShared.merge(
-      **panelContent,
       **panelAccordians,
-      **panelCarouselCustom,
+      **panelBand,
       **panelCarouselCategory,
+      **panelCarouselCustom,
+      **panelContent,
       **panelFeed,
       **panelIcons
     ).compact
