@@ -63,10 +63,11 @@
 }
 
 .modal__close {
-  margin-left: calc(100% - 1.5rem);
-  padding: .5rem 0;
+  margin-left: calc(100% - 2rem);
 
   line-height: 0;
+
+  @extend %e-pad-x-xs;
 }
 
 .modal__content {

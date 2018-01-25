@@ -52,8 +52,7 @@ form.form{
       = markdown(formData[:confirmation])
     .e-mgn-t-sm
       = partial "views/partials/social-follow",
-        locals: { local_data: \
-          { light_bg: false }}
+        locals: { bgc: "light" }
 
   .form__error
     h2.title-lg.e-col-brand-green-2= ":( Oops! Sorry, something went wrong..."

@@ -131,7 +131,8 @@
                     id: "modal-monthly-newsletter-subscription-desktop" }}
 
             .section-sm
-              = partial "views/partials/social-follow"
+              = partial "views/partials/social-follow",
+                locals: { bgc: "dark" }
 
   ////////////////////////////////////////////////////////
   // Custom content
@@ -149,5 +150,6 @@
 
     / Social follow
     .section-sm
-      = partial "views/partials/social-follow"
+      = partial "views/partials/social-follow",
+        locals: { bgc: "dark" }
 
