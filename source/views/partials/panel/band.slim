@@ -21,12 +21,14 @@ section.panel{
 
   / Background image
   - if panelData[:image]
-    img.panel__bg-img.b-lazy{
+    .panel__bg-img{
       class="#{ "panel__bg-img--" + (isNoOverlap ? "no-ol" : "ol") }"
-      src="#{ panelData[:image][:url] }?fm=jpg&w=800&q=2"
-      data-src="#{ panelData[:image][:url] }?w=800"
-      alt="#{ panelData[:image][:description] }"
     }
+      img.panel__bg-img.b-lazy{
+        src="#{ panelData[:image][:url] }?fm=jpg&w=800&q=2"
+        data-src="#{ panelData[:image][:url] }"
+        alt="#{ panelData[:image][:description] }"
+      }
 
   .panel__content.panel__content--narrow
 

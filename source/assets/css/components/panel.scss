@@ -1,9 +1,10 @@
 // Panels
 .panel {
-  @extend %e-flex-row;
+  padding: 5rem 0;
+
+  @extend %e-flex-row-start;
   @extend %e-container;
   @extend %e-overflow-hidden;
-  @extend %e-pad-x-xl;
   @extend %e-position-relative;
 }
 
@@ -12,13 +13,8 @@
 }
 
 .panel__content {
-
   @extend %e-mgn-auto-x;
   @extend %e-position-relative; // need pos to place over absolute bg image
-
-  &:nth-of-type(1n + 2) {
-    // @extend %e-mgn-t-md;
-  }
 }
 
 .panel__content--narrow {
@@ -38,38 +34,42 @@
 }
 
 .panel__bg-img {
-  left: 50%;
+  @extend %e-width-full;
 
-  transform: translateX(-50%);
+  & > img {
+    width: 45rem;
+    max-width: 100%;
+    max-height: 100%;
 
-  @extend %e-display-block;
+    @extend %e-display-block;
+    @extend %e-mgn-auto-x;
+  }
 }
 
 .panel__bg-img--ol {
-  max-height: 125%;
 
-  opacity: .35;
+  & > img {
+    max-height: 125%;
 
-  @extend %e-position-absolute;
-  @include above(sm) {
-    top: -2rem;
-    left: 50%;
+    opacity: .2;
 
-    transform: translateX(-50%);
+    @extend %e-position-absolute;
+    @include above(sm) {
+      // top: -2rem;
+      left: 50%;
+
+      transform: translateX(-50%);
+    }
   }
 }
 
 .panel__bg-img--no-ol {
-  max-width: 100%;
-  max-height: 100%;
-
-  opacity: .8;
-
   order: 2;
 
-  @extend %e-mgn-t-md;
-  @extend %e-position-relative;
-  @include above(sm) {
+  @extend %e-mgn-t-lg;
+
+  & > img {
+    opacity: .8;
   }
 }
 
