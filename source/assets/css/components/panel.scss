@@ -1,8 +1,9 @@
 // Panels
 .panel {
-  padding: 5rem 0;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 
-  @extend %e-flex-row-start;
+  @extend %e-flex-col;
   @extend %e-container;
   @extend %e-overflow-hidden;
   @extend %e-position-relative;
@@ -69,7 +70,7 @@
   @extend %e-mgn-t-lg;
 
   & > img {
-    opacity: .8;
+    opacity: .95;
   }
 }
 
