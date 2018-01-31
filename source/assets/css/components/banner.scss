@@ -7,7 +7,12 @@
   @extend %e-absolute-center-xy;
   @extend %e-container;
   @extend %e-container--full;
+  @extend %e-mgn-t-md;
   @extend %e-pad-x-sm;
+
+  @include above(sm) {
+    margin-top: 0;
+  }
 }
 
 .banner__inner--overlap {
