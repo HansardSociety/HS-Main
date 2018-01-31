@@ -11,7 +11,7 @@
     - if panelData.copy
       = markdown(panelData[:copy], 'byline')
 
-  .panel__content.panel__content--narrow
+  .panel__content.panel__content--narrow.e-mgn-t-md
     .grid.grid--xs
       - panelData[:accordians].each do |accordian|
         .grid__cell.grid__cell--fill.grid__cell--xs-above-sm-6

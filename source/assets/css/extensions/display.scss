@@ -70,5 +70,5 @@ $display: none, inline, block, inline-block, flex, inline-flex;
 /***  =Column  ***/
 
 %e-flex-col {
-  flex-flow: column;
+  flex-direction: column;
 }
