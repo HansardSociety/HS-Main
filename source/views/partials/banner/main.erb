@@ -1,0 +1,98 @@
+<%
+entryData = local_data[:entry_data]
+hasFullBanner = ["landing_page", "home"].include? entryData[:TYPE]
+isChildPage = entryData[:TYPE] == "child_page"
+isHomepage = entryData[:TYPE] == "home"
+isLandingPage = entryData[:TYPE] == "landing_page"
+%>
+
+<header
+  class="banner JS-banner--<%= hasFullBanner ? "full" : "semi" %>"
+  style="height: <%= hasFullBanner ? "100vh" : "66.6666vh" %>;">
+
+  <%= partial "views/partials/banner/image",
+    locals: { local_data: {
+      entry_data: entryData }} %>
+
+  <div class="banner__inner <%= "banner__inner--overlap" if isChildPage %>">
+    <div class="banner__content <%= "banner__content--lp banner__content--text-bg e-mgn-auto-x" if hasFullBanner %>">
+
+      <% if isChildPage %>
+        <span class="label-xs"><%= entryData[:meta_label] %></span>
+      <% end %>
+
+      <h1 class="<%= hasFullBanner ? "title-xxl" : "title-xl" %>"><%=entryData[:title]%></h1>
+
+      <% if hasFullBanner %>
+        <p class="banner__strap"><%= entryData[:subtitle] %></p>
+
+      <% end; if isLandingPage && entryData[:calls_to_action] != nil %>
+        <div class="grid grid--xs grid--above-sm-center e-mgn-t-sm">
+          <% entryData[:calls_to_action].each do |cta| %>
+            <div class="grid__cell">
+
+              <% if cta[:TYPE] == "cta_download" %>
+                <%= partial "views/partials/btn",
+                  locals: { local_data: {
+                    type: "link", size: "lg", style: "primary",
+                    label: cta.button_text, label_size: "lg",
+                    url: cta[:file][:url] }} %>
+
+              <% end; if cta[:TYPE] == "cta_modal"
+                modalID = cta[:modal][:cta_id]
+                modalContent = cta[:modal][:content]
+                btnText = cta[:button_text] %>
+
+                <%= partial "views/partials/btn",
+                  locals: { local_data: {
+                    type: "state",
+                    size: "lg", style: "primary",
+                    label_on: btnText, label_off: "Close",
+                    label_size: "lg",
+                    page: "no-scroll", switch: true,
+                    aria_id: "activate-#{ modalID }",
+                    aria_target_id: modalID }} %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+      <% end; if isHomepage %>
+        <div class="grid grid--xxs grid--above-sm-center e-mgn-t-sm">
+          <%= partial "views/partials/social",
+            locals: { local_data: {
+              icons: [
+                siteData(:twitter),
+                siteData(:linkedin),
+                siteData(:facebook)]}} %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if hasFullBanner %>
+    <a class="banner__scroll" href="#arrow-dest" id="arrow">
+      <%= partial "views/partials/icon",
+        locals: {
+          icon: "ios-arrow-thin-down",
+          size: "sm" } %>
+    </a>
+
+  <% end; if isLandingPage && entryData[:calls_to_action] != nil
+    entryData[:calls_to_action].each do |cta|
+      if cta[:TYPE] == "cta_modal"
+        modalID = cta[:modal][:cta_id]
+        modalContent = cta[:modal][:content]
+        modalForm = cta[:modal][:form]
+        modalWidth = modalForm ? "narrow" : false %>
+
+        <%= partial "views/partials/modal",
+          locals: { local_data: {
+            id: modalID,
+            content: modalContent,
+            form: (modalForm ? modalForm : false),
+            size: modalWidth }} %>
+  <% end; end; end %>
+</header>
+
+<span aria-hidden="true" id="arrow-dest"></span>
