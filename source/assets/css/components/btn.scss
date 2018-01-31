@@ -47,6 +47,8 @@
 }
 
 .btn__content {
+  margin-top: 1px;
+
   @extend %e-flex-row-center;
   @extend %e-width-full;
 }
