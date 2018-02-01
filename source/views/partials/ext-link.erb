@@ -1,0 +1,29 @@
+<%
+partialData = local_data[:ext_link_data]
+category = partialData[:category]
+%>
+
+<article class="ext-link">
+  <h1 class="ext-link__inner title-sm">
+    <span
+      aria-hidden="true"
+      class="ext-link__text label-xs e-col-mid-grey"><%= partialData[:outlet] %></span>
+
+    <span aria-hidden="true" class="ext-link__icon">
+      <%= partial "views/partials/icon",
+        locals: {
+          icon:
+            ("ios-paper" if category == "article") ||
+            ("android-download" if category == "download") ||
+            ("headphone" if category == "audio") ||
+            ("ios-videocam" if category == "video") ||
+            ("ios-book" if category == "book"),
+          size:  "xs",
+          color: "green" } %>
+    </span>
+
+    <a class="ext-link__text" href="<%= partialData[:url] %>">
+      <span class="link"><%= partialData[:title] %></span>
+    </a>
+  </h1>
+</article>

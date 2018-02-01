@@ -1,7 +1,4 @@
 <%
-
-_slim_splat_filter1 = {:hyphen_attrs=>["data", "aria"], :use_html_safe=>false, :sort_attrs=>true, :format=>:xhtml, :attr_quote=>"\"", :merge_attrs=>{"class"=>" "}, :default_tag=>"div", :disable_capture=>true};
-
 entryData = local_data[:entry_data]
 tags = entryData[:tags]
 
@@ -31,9 +28,9 @@ end
   <div class="panel__content panel__content--narrow">
     <div
       class="feed"
-      data-feed-category="<%= (feedSubCategory ? feedCategory + "::" + feedSubCategory : feedCategory) %>",
-      data-feed-count="<%= feedCount %>",
-      data-feed-total="<%= totalFeedPages %>",
+      data-feed-category="<%= (feedSubCategory ? feedCategory + "::" + feedSubCategory : feedCategory) %>"
+      data-feed-count="<%= feedCount %>"
+      data-feed-total="<%= totalFeedPages %>"
       data-feed-dedupe="<%= feedDedupe %>">
 
       <div class="feed__items">
