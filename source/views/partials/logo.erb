@@ -1,0 +1,12 @@
+<a class="logo" href="/">
+  <% data.hs.universal(0).each do |id, site| %>
+    <img
+      alt="<%= site.logo.mobile.description %>"
+      class="logo__image logo__image--mobile"
+      src="<%= site.logo.mobile.url %>"/>
+    <img
+      alt="<%= site.logo.desktop.description %>"
+      class="logo__image logo__image--desktop"
+      src="<%= site.logo.desktop.url %>"/>
+  <% end %>
+</a>

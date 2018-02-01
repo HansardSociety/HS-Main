@@ -1,0 +1,54 @@
+<%
+entryData = local_data[:entry_data]
+category = entryData[:category]
+
+imageURL = entryData[:banner_image][:url]
+imageFocus = entryData[:banner_image][:focus]
+imageAlt = entryData[:banner_image][:alt]
+
+title = entryData[:title]
+introduction = entryData[:introduction]
+metaLabel = entryData[:meta_label]
+accent = "e-acc-#{ catColor(category) }-2-top"
+
+featuredCard = local_data[:featured]
+
+cardInnerTagOpen = category ? "a" : "div"
+cardInnerTagClose = category ? "</a>" : "</div>"
+cardAttrs = {
+  href: (internalURL(entryData[:slug]) if category)
+}.compact
+%>
+
+<article class="main-card <%= accent %>">
+  <% if featuredCard %>
+    <span class="main-card__featured-icon">
+      <%= partial 'views/partials/icon',
+        locals: {
+          icon: "android-star-outline",
+          size: "sm"
+        } %>
+    </span>
+  <% end %>
+
+  <%= tag(cardInnerTagOpen, cardAttrs) %>
+
+    <header class="main-card__header e-col-greyscale-0">
+      <div class="main-card__image">
+        <img
+          class="b-lazy"
+          src="<%= assetsDir %>/images/placeholder__main-card.svg"
+          data-src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=50&fl=progressive"
+          alt="<%= imageAlt %>">
+
+        <div class="main-card__title">
+          <span class="label-xs e-mgn-b-xxs"><%= metaLabel %></span>
+          <h1 class="title-md"><%= truncate(title, { num: 99 }) %></h1>
+        </div>
+      </div>
+    </header>
+    <section class="main-card__introduction">
+      <p><%= truncateHtml(markdown(introduction), { num: 139 }) %></p>
+    </section>
+  <%= cardInnerTagClose %>
+</article>

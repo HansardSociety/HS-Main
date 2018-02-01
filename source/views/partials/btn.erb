@@ -62,6 +62,7 @@ btnAttributes = {
 
   "data-item-id": (product[:product_id] if product),
   "data-item-name": (product[:title] if product),
+  "data-item-price": (product[:price] if product),
   "data-item-url": ("https://www.hansardsociety.org.uk/#{ @entry[:slug] }" if product)
 }.compact
 %>
