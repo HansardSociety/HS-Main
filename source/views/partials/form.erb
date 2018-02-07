@@ -1,0 +1,62 @@
+<%
+formData = local_data[:entry_data]
+formTitle = formData[:meta_title].parameterize + "-" + formData[:ID]
+%>
+
+<form
+  action="thank-you"
+  class="form"
+  data-netlify="true"
+  data-netlify-honeypot="bot-field"
+  name="<%= formTitle %>">
+
+  <div class="form__main">
+    <label aria-hidden="true" class="e-hidden">
+      <span>Don't fill this out!</span>
+      <input name="bot-field" />
+    </label>
+
+    <% formData[:elements].each do |elem|
+      labelCap = elem[:label].capitalize.gsub("-", " ")
+      isNotInput = ["textarea"].include?(elem[:input_type])
+
+      fieldTag = isNotInput ? "textarea" : "input"
+      fieldAttrs = {
+        "class": "form__field",
+        "type": (elem[:input_type] if !isNotInput),
+        "name": elem[:label],
+        "placeholder": labelCap + "…"
+      }.compact
+      fieldAttrs.merge!(required: "") if elem[:required] %>
+
+      <label class="form__label">
+        <span class="e-hidden"><%= labelCap + ": " %></span>
+        <%= tag(fieldTag, fieldAttrs) %>
+        <span class="form__err">Please review this field</span>
+      </label>
+    <% end %>
+
+    <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "plain",
+        size: "md",
+        style: "primary",
+        label: "Submit",
+        label_size: "md",
+        form: true }} %>
+  </div>
+  <div class="form__confirmation">
+    <h2 class="title-lg e-col-brand-green-2">Success!</h2>
+    <div class="e-mgn-t-sm">
+      <%= markdown(formData[:confirmation]) %>
+    </div>
+    <div class="e-mgn-t-sm">
+      <%= partial "views/partials/social-follow",
+        locals: { bgc: "light" } %>
+    </div>
+  </div>
+  <div class="form__error">
+    <h2 class="title-lg e-col-brand-green-2">:( Oops! Sorry, something went wrong..."</h2>
+    <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+  </div>
+</form>

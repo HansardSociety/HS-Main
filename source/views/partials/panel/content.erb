@@ -1,0 +1,94 @@
+<%
+panelData = local_data[:entry_data]
+
+bgc = panelData[:background_color]
+bgcClass = colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
+
+image = panelData[:image]
+imageSize = panelData[:image_size]
+imageInvert = panelData[:image_invert]
+isSmallImage = imageSize == "small"
+isMediumImage = imageSize == "medium"
+isLargeImage = imageSize == "large"
+
+title = panelData[:title]
+titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
+hasTitle = panelData[:show_title] != nil
+
+copy = panelData[:copy]
+copySize = panelData[:copy_size]
+isCopyLg = copySize == "large"
+isCopyXl = copySize == "extra-large"
+
+showMoreCopy = panelData[:show_more]
+
+callsToAction = panelData[:calls_to_action]
+
+index = local_data[:index]
+%>
+
+<section
+  id="panel-<%= index %>"
+  class="panel <%= bgcClass %>">
+
+    <% if hasTitle %>
+      <div class="panel__content panel__content--narrow e-hide-above-sm">
+        <h2 class="title-xl e-align-cen e-mgn-b-lg <%= titleColor %>"><%= title %></h2>
+      </div>
+    <% end %>
+
+    <div class="panel__content panel__content--full">
+      <div class="grid grid--lg grid--center">
+        <div
+          class="grid__cell
+                grid__cell--lg-<%= isLargeImage ? "10" : (isMediumImage ? "8" : "6") %>
+                grid__cell--lg-above-sm-<%= isLargeImage ? "5" : (isMediumImage ? "3" : "2") %>">
+
+          <%= partial "views/partials/image",
+            locals: { local_data: {
+              image_data: image,
+              invert: imageInvert }} %>
+        </div>
+
+      <div class="grid__cell grid__cell--lg-above-sm-7">
+        <% if hasTitle %>
+          <h2 class="title-xl e-mgn-b-sm e-hide-below-sm <%= titleColor %>"><%= title %></h2>
+        <% end %>
+
+        <div class="copy <%= "e-fz-lg" if isCopyXl; "e-fz-md" if isCopyLg %>">
+          <%= markdown(copy) if copy %>
+        </div>
+
+        <% if showMoreCopy %>
+          <%= partial "views/partials/expand",
+            locals: { local_data: {
+              id: showMoreCopy.cta_id,
+              content: showMoreCopy.content }} %>
+
+        <% end; if showMoreCopy || callsToAction %>
+          <div class="grid grid--xs">
+            <% if showMoreCopy %>
+              <div class="grid__cell">
+                <%= partial "views/partials/btn",
+                  locals: { local_data: {
+                    type: "state",
+                    size: "sm", style: "secondary",
+                    label_on: "Show more", label_off: "Show less",
+                    label_size: "sm",
+                    aria_id: "activate-#{ showMoreCopy.cta_id }",
+                    aria_target_id: showMoreCopy.cta_id }} %>
+              </div>
+
+            <% end; if callsToAction
+              callsToAction.each do |cta| %>
+                <%= partial "views/partials/ctas",
+                  locals: { local_data: {
+                    entry_data: cta,
+                    btn_size: "sm" }} %>
+            <% end; end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,5 @@
+<% @feed = entry_data.to_h
+  @feed.each do |id, feedItem| %>
+    <%= partial "views/partials/feed-item",
+      locals: { local_data: { entry_data: feedItem }} %>
+  <% end %>
