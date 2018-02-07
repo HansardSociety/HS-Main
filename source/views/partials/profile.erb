@@ -50,7 +50,7 @@ twitter = profileData[:twitter]
                 content: biog }} %>
           </div>
         <% end %>
-        <%= "views/partials/social",
+        <%= partial "views/partials/social",
           locals: { local_data: {
             icons: [email, twitter, linkedIn] }} %>
       </div>

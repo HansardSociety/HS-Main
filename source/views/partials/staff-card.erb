@@ -1,0 +1,62 @@
+<%
+entryData = local_data[:entry_data]
+twitter = entryData[:twitter]
+linkedin = entryData[:linkedin]
+social = [ twitter, linkedin ].compact
+ctaID = entryData[:cta_id]
+biog = entryData[:biog]
+%>
+
+<section class="staff-card">
+  <figure class="staff-card__header">
+    <img
+      alt="<%= entryData[:photo][:alt] %>"
+      src="<%= entryData[:photo][:url] + "?w=150" %>" />
+    <figcaption>
+      <h2>
+        <span class="staff-card__name"><%= entryData[:full_name] %></span>
+        <span class="staff-card__role"><%= entryData[:role] %></span>
+      </h2>
+    </figcaption>
+  </figure>
+  <div class="staff-card__content">
+
+    <% if entryData[:tel] %>
+      <p class="e-fz-xs">
+        <strong class="e-col-grey">T.&nbsp;</strong>
+        <a
+          class="staff-card__link"
+          href="tel:<%=  entryData[:tel] %>"><%= entryData[:tel] %></a>
+      </p>
+
+    <% end; if entryData[:email] %>
+      <p class="e-mgn-b-sm e-fz-xs">
+        <strong class="e-col-grey">E.&nbsp;</strong>
+        <a
+          class="staff-card__link"
+          href="mailto:<%=  entryData[:email] %>"><%= entryData[:email] %></a></p>
+    <% end %>
+
+    <div class="staff-card__actions">
+      <div class="grid grid--xxs grid--center">
+        <div class="grid__cell grid__cell--xxs">
+          <%= partial "views/partials/btn",
+            locals: { local_data: {
+              type: "state",
+              switch: true,
+              size: "sm",
+              style: "secondary",
+              label_on: "Show biog",
+              label_off: "Close",
+              label_size: "sm",
+              page: "no-scroll",
+              aria_id: "activate-#{ ctaID }",
+              aria_target_id: ctaID }} %>
+        </div>
+        <%= partial "views/partials/social",
+          locals: { local_data: {
+            icons: social }} %>
+      </div>
+    </div>
+  </div>
+</section>

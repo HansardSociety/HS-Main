@@ -25,6 +25,7 @@ if imageBanner || imageProduct
   imageURL = image[:url]
   imageAlt = image[:alt]
   imageFocus = image[:focus]
+end
 
 # Colors
 asideBgc = image ? "e-bgc-brand-green-2" : "e-bgc-#{ catColor(pageCategory) }-2 e-col-greyscale-0"
@@ -32,23 +33,18 @@ accentColor = catColor(isFeaturedRegistration ? pageCategory : category)
 accentClass = "e-acc-#{ accentColor }-2-left"
 
 # Container element
-containerClasses = [
-  "side-card",
-  (isFeaturedCard ? "side-card--featured" : "side-card--related"),
-  (accentClass)
-]
-
-containerElem = {
-  tag: (isNonPage ? "section" : "article"),
-  class: containerClasses
+sideCardTagOpen = isNonPage ? "section" : "article"
+sideCardTagClose = isNonPage ? "</section>" : "</article>"
+sideCardTypeClass = isFeaturedCard ? "side-card--featured" : "side-card--related"
+sideCardAttrs = {
+  "class": "side-card #{ sideCardTypeClass } #{ accentClass }"
 }
 %>
 
-*containerElem
-
+<%= tag(sideCardTagOpen, sideCardAttrs) %>
   <div class="side-card__inner">
     <div class="side-card__aside <%= asideBgc %> <%= "e-pad-r-xs" if isNonPage %>">
-      <%= if image %>
+      <% if image %>
         <img
           class="b-lazy"
           src="<%= assetsDir %>/images/placeholder__side-card.svg"
@@ -87,40 +83,53 @@ containerElem = {
 
           <%# Product %>
           <% if isFeaturedProduct
-            if entryData[:price] == 0 %>
-              = partial "views/partials/btn",
-                locals: { local_data: \
-                  { type: "link", size: "sm", style: "primary",
-                    label: "Download", label_size: "sm", url: entryData[:download] }}
+            if entryData[:price] == 0
+              partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "link",
+                  size: "sm",
+                  style: "primary",
+                  label: "Download",
+                  label_size: "sm",
+                  url: entryData[:download] }}
 
-            - if entryData[:price] > 0
-              = partial "views/partials/btn",
-                locals: { local_data: \
-                  { type: "link", size: "sm", style: "primary", product: entryData,
-                    label: "Buy (£#{ entryData[:price] })", label_size: "sm" }}
+            end; if entryData[:price] > 0
+              partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "link",
+                  size: "sm",
+                  style: "primary",
+                  product: entryData,
+                  label: "Buy (£#{ entryData[:price] })",
+                  label_size: "sm" }}
+          end; end %>
 
-          / Registration
-          - if isFeaturedRegistration
+          <%# Registration %>
+          <% if isFeaturedRegistration
+            if entryData[:date_time][:integer] < Time.now.strftime("%s").to_i %>
+              <p><em>CLOSED</em></p>
 
-            - if entryData[:date_time][:integer] < Time.now.strftime("%s").to_i
-              p
-                em CLOSED
+            <% else %>
+              <%= partial "views/partials/modal",
+                locals: { local_data: {
+                  id: entryData[:modal][:cta_id],
+                  content: entryData[:modal][:content] }} %>
 
-            - else
-
-              / Modal window
-              = partial "views/partials/modal",
-                locals: { local_data: \
-                  { id: entryData[:modal][:cta_id],
-                    content: entryData[:modal][:content] }}
-
-              / Modal button
-              = partial "views/partials/btn",
-                locals: { local_data: \
-                  { type: "state",
-                    size: "sm", style: "primary",
-                    label_on: "Register now", label_off: "Close", label_size: "sm",
-                    page: "no-scroll", switch: true,
-                    aria_id: "activate-#{ entryData[:modal][:cta_id] }",
-                    aria_target_id: entryData[:modal][:cta_id] }}
+              <%= partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "state",
+                  size: "sm",
+                  style: "primary",
+                  label_on: "Register now",
+                  label_off: "Close",
+                  label_size: "sm",
+                  page: "no-scroll",
+                  switch: true,
+                  aria_id: "activate-#{ entryData[:modal][:cta_id] }",
+                  aria_target_id: entryData[:modal][:cta_id] }} %>
+          <% end; end %>
+        </div>
+      <% end %>
+    </div>
   </div>
+<%= sideCardTagClose %>
