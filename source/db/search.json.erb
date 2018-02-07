@@ -1,0 +1,15 @@
+<%
+childPages = data.hs.child_page
+landingPages = data.hs.landing_page
+allPages = childPages.merge(landingPages)
+%>
+
+<%= childPages.map{ |id, page| {
+  "title": page.title,
+  "date": page.date_time.integer.to_i,
+  "slug": page.slug,
+  "category": page.category,
+  "sub_category": (page.sub_category if page.sub_category),
+  "description": page.introduction,
+  "tags": (page.tags.map{ |tag| tag } if page.tags)
+}.compact }.to_json %>
