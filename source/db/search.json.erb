@@ -1,16 +1,23 @@
 <%
-# DB
 childPages = data.hs.child_page
 landingPages = data.hs.landing_page
 allPages = childPages.merge(landingPages)
+
+db = allPages.map do |id, page|
+  {
+    "objectID": page.ID,
+    "title": page.title,
+    "date": page.date_time.integer.to_i,
+    "slug": page.slug,
+    "category": page.category,
+    "sub_category": (page.sub_category if page.sub_category),
+    "description": page.introduction,
+    "image": page.banner_image.url,
+    "tags": (page.tags.map{ |tag| tag } if page.tags)
+  }.compact
+end
+
+dbDescending = db.sort_by{ |page| - page[:date] }
 %>
 
-<%= childPages.map{ |id, page| {
-  "title": page.title,
-  "date": page.date_time.integer.to_i,
-  "slug": page.slug,
-  "category": page.category,
-  "sub_category": (page.sub_category if page.sub_category),
-  "description": page.introduction,
-  "tags": (page.tags.map{ |tag| tag } if page.tags)
-}.compact }.to_json %>
+<%= dbDescending.to_json %>

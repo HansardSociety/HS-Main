@@ -580,11 +580,9 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     end
 
     # Featured content
-    # if entry.featured
-    #   context.featured = entry.featured.map do |featured|
-    #     featuredData(featured)
-    #   end
-    # end
+    if entry.featured
+      context.featured = entry.featured.map{ |featured| featuredData(featured) }
+    end
 
     if entry.panels
       panels(context, entry)

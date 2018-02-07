@@ -89,6 +89,8 @@ module BuildEnvs
       # Rename assets dir
       File.rename "#{ @buildSrc }/.assets", "#{ @buildSrc }/assets"
 
+      # Submit Algolia DB
+      system "node ./lib/js/_scripts && rimraf #{ @buildSrc }/db"
     end
   end
 
