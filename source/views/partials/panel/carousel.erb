@@ -41,11 +41,11 @@ title = isLatestContext ? "Latest" : entryData[:title]
               </div>
 
           <% end; end; relatedContent(entryData, blogCount) do |page| %>
-          <div class="carousel__item carousel__item--card">
-            <%= partial "views/partials/main-card",
-              locals: { local_data: {
-                entry_data: page }} %>
-          </div>
+            <div class="carousel__item carousel__item--card">
+              <%= partial "views/partials/main-card",
+                locals: { local_data: {
+                  entry_data: page }} %>
+            </div>
 
         <% end; end; if dataType == :latest
           latestContent(yield: true, num: 6) do |page| %>
