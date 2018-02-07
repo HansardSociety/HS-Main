@@ -1,0 +1,135 @@
+<%
+# Partial data
+entryData = local_data[:side_card_data]
+isFeaturedCard = local_data[:featured]
+
+# Nested content types
+isFeaturedAuthor = entryData[:TYPE] == "author"
+isFeaturedPage = entryData[:TYPE] == "page"
+isFeaturedProduct = entryData[:TYPE] == "product"
+isFeaturedRegistration = entryData[:TYPE] == "registration"
+
+isNonPage = isFeaturedProduct || isFeaturedRegistration
+
+# Core data
+pageCategory = @entry[:category].gsub("-", " ")
+category = entryData[:category] ? entryData[:category].gsub("-", " ") : pageCategory
+dateTime = entryData[:date_time]
+title = entryData[:title]
+
+# Images
+imageBanner = entryData[:banner_image]
+imageProduct = entryData[:image]
+if imageBanner || imageProduct
+  image = imageBanner ? imageBanner : imageProduct
+  imageURL = image[:url]
+  imageAlt = image[:alt]
+  imageFocus = image[:focus]
+end
+
+# Colors
+asideBgc = image ? "e-bgc-brand-green-2" : "e-bgc-#{ catColor(pageCategory) }-2 e-col-greyscale-0"
+accentColor = catColor(isFeaturedRegistration ? pageCategory : category)
+accentClass = "e-acc-#{ accentColor }-2-left"
+
+# Container element
+sideCardTagOpen = isNonPage ? "section" : "article"
+sideCardTagClose = isNonPage ? "</section>" : "</article>"
+sideCardTypeClass = isFeaturedCard ? "side-card--featured" : "side-card--related"
+sideCardAttrs = {
+  "class": "side-card #{ sideCardTypeClass } #{ accentClass }"
+}
+%>
+
+<%= tag(sideCardTagOpen, sideCardAttrs) %>
+  <div class="side-card__inner">
+    <div class="side-card__aside <%= asideBgc %> <%= "e-pad-r-xs" if isNonPage %>">
+      <% if image %>
+        <img
+          class="b-lazy"
+          src="<%= assetsDir %>/images/placeholder__side-card.svg"
+          data-src="<%= imageURL %><%= ("?fit=fill&w=229&h=324&f=" + imageFocus + "&q=50&fl=progressive") if imageBanner %>"
+          alt="<%= imageAlt %>">
+
+      <% end; if isFeaturedRegistration %>
+        <%= partial "views/partials/date",
+          locals: { local_data: {
+            date_data: dateTime }} %>
+      <% end %>
+    </div>
+    <div class="side-card__content">
+      <div class="side-card__label">
+        <span class="label-xs e-col-mid-grey"><%= entryData[:meta_label] %></span>
+      </div>
+      <div class="side-card__title">
+
+        <%# Not registration or product %>
+        <% if !isNonPage %>
+          <h1 class="title-sm">
+            <a
+              href="<%= internalURL(entryData[:slug]) %>"
+              class="<%= isFeaturedCard ? "link-white" : "link" %>"><%= truncate(title, { num: 85 }) %></a>
+          </h1>
+        <% else %>
+          <h2 class="title-sm <%= isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" %>">
+            <%= isFeaturedProduct ? truncate(title, { num: 55 }) : entryData[:venue] %>
+          </h2>
+        <% end %>
+      </div>
+
+      <%# Actions - if product or registration... %>
+      <% if isNonPage %>
+        <div class="side-card__actions <%= isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" %>">
+
+          <%# Product %>
+          <% if isFeaturedProduct
+            if entryData[:price] == 0
+              partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "link",
+                  size: "sm",
+                  style: "primary",
+                  label: "Download",
+                  label_size: "sm",
+                  url: entryData[:download] }}
+
+            end; if entryData[:price] > 0
+              partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "link",
+                  size: "sm",
+                  style: "primary",
+                  product: entryData,
+                  label: "Buy (£#{ entryData[:price] })",
+                  label_size: "sm" }}
+          end; end %>
+
+          <%# Registration %>
+          <% if isFeaturedRegistration
+            if entryData[:date_time][:integer] < Time.now.strftime("%s").to_i %>
+              <p><em>CLOSED</em></p>
+
+            <% else %>
+              <%= partial "views/partials/modal",
+                locals: { local_data: {
+                  id: entryData[:modal][:cta_id],
+                  content: entryData[:modal][:content] }} %>
+
+              <%= partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "state",
+                  size: "sm",
+                  style: "primary",
+                  label_on: "Register now",
+                  label_off: "Close",
+                  label_size: "sm",
+                  page: "no-scroll",
+                  switch: true,
+                  aria_id: "activate-#{ entryData[:modal][:cta_id] }",
+                  aria_target_id: entryData[:modal][:cta_id] }} %>
+          <% end; end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<%= sideCardTagClose %>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+  <%= partial "views/partials/head" %>
+
+  <body class="JS-state-global">
+    <div class="site-container">
+      <%= partial "views/partials/navbar" %>
+      <main><%= yield %></main>
+      <%= partial "views/partials/footer" %>
+    </div>
+  </body>
+
+  <%# Scripts %>
+  <script src="<%= assetsDir %><%= config[:JS_VENDOR] %>"></script>
+  <script src="<%= assetsDir %><%= config[:JS_APP] %>"></script>
+</html>

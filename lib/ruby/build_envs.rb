@@ -46,6 +46,7 @@ module BuildEnvs
 
     # Ignore
     ignore "assets/**"
+    ignore "data/*.slim"
     ignore "views/**"
 
     # relative links

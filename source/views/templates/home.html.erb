@@ -1,0 +1,42 @@
+<% @entry = entry_data %>
+
+<article>
+
+  <%= partial "views/partials/banner/main",
+    locals: { local_data: { entry_data: @entry }} %>
+
+  <%= partial "views/partials/panel/introduction",
+    locals: { entry_data: @entry } %>
+
+  <%= partial "views/partials/panel/carousel",
+    locals: { local_data: {
+      entry_data: @entry,
+        context: :latest,
+        data_type: :latest }} %>
+
+  <% if @entry[:panels]
+    @entry[:panels].each_with_index do |panel, index|
+      bgc = panel.background_color
+      isLightBgc = ["light-grey", "sea-green", "white"].include?(bgc)
+
+      if panel[:TYPE] == "panel_band" %>
+        <%= partial "views/partials/panel/band",
+          locals: { local_data: {
+            entry_data: panel,
+            index: index }} %>
+
+      <% end; if panel[:TYPE] == "panel_carousel_category" %>
+        <%= partial "views/partials/panel/carousel",
+          locals: { local_data: {
+            entry_data: panel,
+            data_type: :category_latest,
+            categories: panel[:category],
+            index: index }} %>
+
+      <% end; if panel[:TYPE] == "panel_content" %>
+        <%= partial "views/partials/panel/content",
+          locals: { local_data: {
+            entry_data: panel,
+            index: index }} %>
+  <% end; end; end %>
+</article>

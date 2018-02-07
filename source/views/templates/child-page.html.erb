@@ -1,0 +1,153 @@
+<% @entry = entry_data %>
+<% blogCount = @entry[:blog_count] %>
+<% category = @entry[:category] %>
+<% copy = @entry[:copy] %>
+<% introduction = @entry[:introduction] %>
+<% featured = @entry[:featured] %>
+
+<% isMainCategories = siteCategories(:top_main).include? category %>
+<% isReverseHeaderCats = ["blog", "events"].include? category %>
+<% isBlogPage = category == "blog" %>
+
+<% nonPages = ["people", "product", "registration"] %>
+
+<article>
+
+  <%= partial "views/partials/banner/main",
+    locals: { local_data: { entry_data: @entry }} %>
+
+  <div class="content content--wide content--paper e-mgn-b-lg e-acc-<%= catColor(category) %>-2-top">
+
+    <%# Page intro/ featured item %>
+    <div class="content__header">
+      <div class=" grid grid--md grid--center">
+
+        <%# Introduction %>
+        <section
+          class="grid__cell grid__cell--md-above-md-7 grid__cell--fill copy
+                <%= "grid__cell--order-2 grid__cell--above-md-order-1" if isReverseHeaderCats %>">
+
+          <%= markdown(introduction, "byline") %>
+        </section>
+
+        <%# Featured side content %>
+        <aside
+          class="grid__cell grid__cell--md-above-md-5 grid__cell--fill
+                <%= "grid__cell--order-1 grid__cell--above-md-order-2" if isReverseHeaderCats %>">
+
+          <%# Entry has featured content %>
+          <% if featured %>
+            <% if isBlogPage %>
+              <% featured.map do |featured| %>
+                <% if featured[:TYPE] == "people" %>
+                  <%= partial "views/partials/profile",
+                    locals: { local_data: {
+                      profile_data: featured,
+                      side: true }} %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <% featured.first(1).map do |featured|%>
+                <%= partial "views/partials/side-card",
+                  locals: { local_data: {
+                    side_card_data: featured,
+                    featured: true }} %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </aside>
+      </div>
+    </div><%# END :: Page intro %>
+
+    <%# Main content %>
+    <div class="content__section">
+      <div class=" grid grid--md grid--center">
+        <div
+          id="expand"
+          class="grid__cell grid__cell--md-above-md-7 grid__cell--expand grid__cell--fill JS-inactive copy">
+
+          <%= markdown(copy) %>
+
+          <%# Expand button %>
+          <div class="grid__expand-btn">
+            <%= partial "views/partials/btn",
+              locals: { local_data: {
+                type: "state", size: "md", style: "secondary", fill: true,
+                label_on: "Show more", label_off: "Show less", label_size: "lg",
+                aria_id: "activate-expand", aria_target_id: "expand" }} %>
+          </div>
+        </div>
+
+        <%# Side content %>
+        <aside class=" grid__cell grid__cell--md-above-md-5 grid__cell--fill">
+
+          <%# Side cards %>
+          <% if isMainCategories %>
+
+            <%# If blog, add all non-author featured content to sidebar %>
+            <% if isBlogPage %>
+              <% featured.reject{ |featured| featured[:TYPE] == "people" }.each_with_index do |featured, index| %>
+                <%= partial "views/partials/side-card",
+                  locals: { local_data: {
+                    side_card_data: featured,
+                    featured: true }} %>
+              <% end %>
+
+            <%# If not blog, add all featured items to the sidebar except
+              # the first, which is featured alongside the intro text. %>
+            <% elsif featured && featured.length > 1 %>
+              <% featured.drop(1).map do |featuredItem| %>
+                <% if !nonPages.include? featuredItem[:TYPE] %>
+                  <%= partial "views/partials/side-card",
+                    locals: { local_data: {
+                      side_card_data: featuredItem,
+                      featured: true }} %>
+                <% end %>
+              <% end %>
+            <% end %>
+
+            <%# All tagged/ related content %>
+            <% if @entry[:tags] %>
+              <h2 class="side-title">Related</h2>
+              <% relatedContent(@entry, blogCount) do |page| %>
+                <%= partial "views/partials/side-card",
+                  locals: { local_data: {
+                    side_card_data: page }} %>
+              <% end %>
+            <% end %>
+
+            <%# External links %>
+            <% if @entry[:external_links] %>
+              <div class="section-sm">
+                <h2 class="side-title">Coverage</h2>
+                <% @entry[:external_links].map do |link| %>
+                  <%= partial "views/partials/ext-link",
+                    locals: { local_data: {
+                      ext_link_data: link }} %>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %><%# END :: if isMainCategories %>
+
+          <%# Latest items for about pages %>
+          <% if category == "about" %>
+            <h2 class="side-title">Latest</h2>
+            <% latestContent(yield: true, num: 4) do |page| %>
+              <%= partial "views/partials/side-card",
+                locals: { local_data: {
+                  side_card_data: page }} %>
+            <% end %>
+          <% end %>
+
+          <%# Newsletter signup %>
+          <div class=" box e-bgc-brand-green-1 e-col-greyscale-0 e-mgn-b-xs">
+            <%= partial "views/partials/signup-box",
+              locals: { local_data: {
+                copy_size: "sm",
+                id: "modal-monthly-newsletter-subscription-side-bar" }} %>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</article>

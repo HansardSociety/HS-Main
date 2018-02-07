@@ -1,0 +1,101 @@
+<%
+type = local_data[:type]
+style = local_data[:style]
+size = local_data[:size]
+fill = local_data[:fill]
+form = local_data[:form]
+switch = local_data[:switch] # Starts from on state (eg. close btn)
+
+# Text
+text = local_data[:text] # Links only
+label_on = local_data[:label_on]
+label_off = local_data[:label_off]
+label = local_data[:label] # Links only
+label_size = local_data[:label_size]
+url = local_data[:url]
+
+# Icon
+icon = local_data[:icon]
+icon_size = local_data[:icon_size]
+icon_color = local_data[:icon_color]
+animation = local_data[:animation]
+
+# State
+exclusive = local_data[:exclusive]
+page = local_data[:page]
+secondary_target = local_data[:secondary_target]
+
+# Aria
+aria_id = local_data[:aria_id]
+aria_target_id = local_data[:aria_target_id]
+
+# Misc
+product = local_data[:product]
+iframe = local_data[:iframe]
+
+# Button
+btnTagOpen = type == "link" ? :a : :button
+btnTagClose = type == "link" ? "</a>" : "</button>"
+
+btnClasses =
+  "btn
+  #{ "btn--" + size if size }
+  #{ "btn--" + style if style }
+  #{ "btn--fill" if fill }
+  #{ "e-col-current" if icon }
+  #{ "JS-off" if type == "state" }
+  #{ "JS-switch" if type == "state" && switch }
+  #{ "JS-no-scroll" if page == "no-scroll" }
+  #{ "JS-exclusive" if exclusive }
+  #{ "JS-lazy" if iframe }
+  #{ "snipcart-add-item" if product }"
+
+btnAttributes = {
+  "class": "#{ btnClasses }",
+
+  "href": (url if url),
+  "type": ("submit" if form),
+
+  "aria-controls": (aria_target_id if aria_target_id),
+  "role": ("button" if aria_id),
+  "data-secondary-target": (secondary_target if secondary_target),
+
+  "data-item-id": (product[:product_id] if product),
+  "data-item-name": (product[:title] if product),
+  "data-item-price": (product[:price] if product),
+  "data-item-url": ("https://www.hansardsociety.org.uk/#{ @entry[:slug] }" if product)
+}.compact
+%>
+
+
+<%= tag(btnTagOpen, btnAttributes) %>
+
+  <span
+    class="<%= icon == "menu" ? "btn__menu" : "btn__content" %>"
+    aria-hidden="true">
+
+    <% if text %>
+      <span class="btn__text"><%= text %></span>
+
+    <% end; if icon && icon != "menu"%>
+      <span
+        class="btn__icon
+              <%= "btn__icon--" + animation if animation %>
+              <%= "btn__icon--" + icon_color if icon_color %>">
+        <%= partial "views/partials/icon",
+          locals: {
+            icon: icon,
+            size: icon_size } %>
+      </span>
+
+    <% end; if label_on %>
+      <span
+        class="btn__label btn__label--change <%= "btn__label--" + label_size %>"
+        data-on-text="<%= label_on %>"
+        data-off-text="<%= label_off %>"></span>
+
+    <% end; if ["link", "plain"].include?(type) && label %>
+      <span class="btn__label <%= "btn__label--" + label_size %>"><%= label %></span>
+    <% end %>
+
+<%= btnTagClose %>

@@ -1,0 +1,8 @@
+<%
+id = local_data[:id]
+content = local_data[:content]
+%>
+
+<div id="<%= id %>" class="expand copy JS-inactive">
+  <%= markdown(content) %>
+</div>
