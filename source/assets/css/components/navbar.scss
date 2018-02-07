@@ -95,7 +95,7 @@
 .navbar.JS-active {
   border-top: none;
 
-  @extend %e-col-greyscale-0;
+  // @extend %e-col-greyscale-0;
   @include above('md') {
     height: 3.5rem;
 

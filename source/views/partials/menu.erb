@@ -6,7 +6,7 @@ screen = local_data[:screen]
 
 <div
   id="<%= id %>"
-  class="menu e-col-greyscale-0 JS-inactive menu--<%= screen %>">
+  class="menu JS-inactive menu--<%= screen %>">
 
   <div class="menu__nav-bg"></div>
 
@@ -60,8 +60,8 @@ screen = local_data[:screen]
                       pagesWithoutSubCats.each do |page| %>
                         <li class="e-pad-t-xs">
                           <a
-                            class="title-sm link-white"
-                            href="<%= internalURL(page[:slug]) %>"><%= page[:title] %></a>
+                            class="title-sm link"
+                            href="<%= internalURL(page[:slug]) %>"><%= page[:title] %> »</a>
                         </li>
 
                     <% end; end; if pagesWithSubCats
@@ -72,8 +72,8 @@ screen = local_data[:screen]
                             <% subCatPages.each do |page| %>
                               <li class="e-pad-t-xs">
                                 <a
-                                  class="title-sm link-white"
-                                  href="<%= internalURL(page[:slug]) %>"><%= page[:title] %></a>
+                                  class="title-sm link"
+                                  href="<%= internalURL(page[:slug]) %>"><%= page[:title] %> »</a>
                               </li>
                             <% end %>
                           </ul>
@@ -98,8 +98,8 @@ screen = local_data[:screen]
               pagesWithoutSubCats.each do |page| %>
                 <li class="e-pad-t-xs">
                   <a
-                    class="title-sm link-white"
-                    href="<%= internalURL(page[:slug]) %>"><%= page[:title] %></a>
+                    class="title-sm link"
+                    href="<%= internalURL(page[:slug]) %>"><%= page[:title] %> »</a>
                 </li>
 
             <% end; end; if pagesWithSubCats
@@ -110,8 +110,8 @@ screen = local_data[:screen]
                     <% subCatPages.each do |page| %>
                       <li class="e-pad-t-xs">
                         <a
-                          class="title-sm link-white"
-                          href="<%= internalURL(page[:slug]) %>"><%= page[:title] %></a>
+                          class="title-sm link"
+                          href="<%= internalURL(page[:slug]) %>"><%= page[:title] %> »</a>
                       </li>
                     <% end %>
                   </ul>
@@ -125,13 +125,14 @@ screen = local_data[:screen]
             <div class="section-sm">
               <%= partial "views/partials/signup-box",
                 locals: { local_data: {
+                  bgc: "light",
                   copy_size: "sm",
                   id: "modal-monthly-newsletter-subscription-desktop"
                 }} %>
             </div>
             <div class="section-sm">
               <%= partial "views/partials/social-follow",
-                locals: { bgc: "dark" } %>
+                locals: { bgc: "light" } %>
             </div>
           </li>
     <% end; end; end %>

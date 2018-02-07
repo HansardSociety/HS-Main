@@ -35,37 +35,40 @@
           @menu_desktop_id_base = "menu-desktop-" + nav[:title].parameterize %>
 
           <li
-            class="navbar__item title-sm e-col-greyscale-0
+            class="navbar__item title-sm
             <%= "navbar__item--solo" if (nav[:pages] && nav[:pages].length <= 1) || nav[:external_url] %>">
 
             <% if nav[:pages] && nav[:pages].length <= 1
               nav[:pages].each do |page| %>
               <a
-                class="title-sm"
+                class="title-sm e-col-greyscale-0"
                 href="<%= internalURL(page[:slug]) %>"
                 title="<%= nav[:title] + " - " + config[:SITE_TITLE] %>"><%= nav[:title] %></a>
 
             <% end; end; if nav[:external_url] %>
               <a
+                class="e-col-greyscale-0"
                 href="<%= nav[:external_url] %>"
                 rel="noopener"
                 target="_blank"
                 title="<%= nav[:title] %>"><%= nav[:title] %></a>
 
             <% end; if nav[:pages] && nav[:pages].length > 1 %>
-              <%= partial "views/partials/btn",
-                locals: { local_data: {
-                  type: "state",
-                  page: "no-scroll",
-                  exclusive: true,
-                  secondary_target: "navbar",
-                  icon: "chevron-down",
-                  icon_size: "xs",
-                  text: nav[:title],
-                  text_size: "sm",
-                  animation: "rotate",
-                  aria_id: "activate-#{ @menu_desktop_id_base }",
-                  aria_target_id: @menu_desktop_id_base }} %>
+              <div class="e-col-greyscale-0">
+                <%= partial "views/partials/btn",
+                  locals: { local_data: {
+                    type: "state",
+                    page: "no-scroll",
+                    exclusive: true,
+                    secondary_target: "navbar",
+                    icon: "chevron-down",
+                    icon_size: "xs",
+                    text: nav[:title],
+                    text_size: "sm",
+                    animation: "rotate",
+                    aria_id: "activate-#{ @menu_desktop_id_base }",
+                    aria_target_id: @menu_desktop_id_base }} %>
+              </div>
             <% end %>
 
             <%= partial "views/partials/menu",
