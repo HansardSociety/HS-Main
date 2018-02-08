@@ -63,7 +63,6 @@ sideCardAttrs = {
       </div>
       <div class="side-card__title">
 
-        <%# Not registration or product %>
         <% if !isNonPage %>
           <h1 class="title-sm">
             <a
@@ -77,12 +76,16 @@ sideCardAttrs = {
         <% end %>
       </div>
 
-      <%# Actions - if product or registration... %>
       <% if isNonPage %>
         <div class="side-card__actions <%= isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" %>">
 
-          <%# Product %>
+          <!--**********************************************
+              =Product
+          ***********************************************-->
+
           <% if isFeaturedProduct
+
+            # Download
             if entryData[:price] == 0 %>
               <%= partial "views/partials/btn",
                 locals: { local_data: {
@@ -92,19 +95,36 @@ sideCardAttrs = {
                   label: "Download",
                   label_size: "sm",
                   url: entryData[:download] }} %>
+            <% end;
 
-            <% end; if entryData[:price] > 0 %>
+            # Checkout
+            if entryData[:price] > 0
+              checkoutID = "checkout-#{ entryData[:title].parameterize }"  %>
+
               <%= partial "views/partials/btn",
                 locals: { local_data: {
-                  type: "link",
+                  type: "state",
                   size: "sm",
                   style: "primary",
-                  product: entryData,
-                  label: "Buy (£#{ entryData[:price] })",
-                  label_size: "sm" }} %>
+                  label_on: "Buy (£#{ entryData[:price] })",
+                  label_off: "Close",
+                  label_size: "sm",
+                  page: "no-scroll",
+                  switch: true,
+                  aria_id: "activate-#{ checkoutID }",
+                  aria_target_id: checkoutID }} %>
+
+              <%= partial "views/partials/modal",
+                locals: { local_data: {
+                  id: checkoutID,
+                  content: :checkout }} %>
+
           <% end; end %>
 
-          <%# Registration %>
+          <!--**********************************************
+              =Registration
+          ***********************************************-->
+
           <% if isFeaturedRegistration
             if entryData[:date_time][:integer] < Time.now.strftime("%s").to_i %>
               <p><em>CLOSED</em></p>

@@ -50,23 +50,25 @@ btnClasses =
   #{ "JS-lazy" if iframe }
   #{ "snipcart-add-item" if product }"
 
+productAttrs = {}
+if product
+  productAttrs = {
+    "data-item-id": product[:product_id],
+    "data-item-name": product[:title],
+    "data-item-price": product[:price],
+    "data-item-url": "https://www.hansardsociety.org.uk/#{ @entry[:slug] }"
+  }
+end
+
 btnAttributes = {
   "class": "#{ btnClasses }",
-
   "href": (url if url),
   "type": ("submit" if form),
-
   "aria-controls": (aria_target_id if aria_target_id),
   "role": ("button" if aria_id),
   "data-secondary-target": (secondary_target if secondary_target),
-
-  "data-item-id": (product[:product_id] if product),
-  "data-item-name": (product[:title] if product),
-  "data-item-price": (product[:price] if product),
-  "data-item-url": ("https://www.hansardsociety.org.uk/#{ @entry[:slug] }" if product)
-}.compact
+}.merge(productAttrs).compact
 %>
-
 
 <%= tag(btnTagOpen, btnAttributes) %>
 

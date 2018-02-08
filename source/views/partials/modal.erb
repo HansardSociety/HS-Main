@@ -35,7 +35,14 @@ isYield = local_data[:yield]
         <%= yield %>
 
       <% end; if content %>
-        <%= markdown(content) %>
+
+        <% if content == :checkout %>
+          <div>
+            <div id="dropin-container"></div>
+          </div>
+        <% else %>
+          <%= markdown(content) %>
+        <% end %>
 
       <% end; if form %>
         <%= partial "views/partials/form",
