@@ -16,7 +16,7 @@ hasTitle = panelData[:show_title] != nil
 
 <section
   id="panel-<%= index %>"
-  class="panel <%= bgcClass %>">
+  class="panel <%= "panel--bg-img" if panelData[:image] %> <%= bgcClass %>">
 
   <% if panelData[:image] %>
     <div class="panel__bg-img <%= "panel__bg-img--" + (isNoOverlap ? "no-ol" : "ol") %>">

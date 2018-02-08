@@ -119,7 +119,7 @@ def sharedPageBase(pageType, ctx, data)
   # Shared
   ctx.ID = data.sys[:id]
   ctx.TYPE = data.content_type.id
-  ctx.title = data.title
+  ctx.title = data.title.rstrip
   ctx.banner_image = media(data.banner_image, focus: data)
   ctx.introduction = data.introduction
 
@@ -517,13 +517,13 @@ end
 class NavigationMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
 
-    context.title = entry.title
+    context.title = entry.title.rstrip
 
     # Site pages
     if entry.pages
       context.pages = entry.pages.map do |page|
         {
-          title: page.title,
+          title: page.title.rstrip,
           slug: slug(page),
           category: detachCategory(page.category),
           sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $marker)
