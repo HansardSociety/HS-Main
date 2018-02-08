@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-
-  <%= partial "views/partials/head" %>
+  <%= partial "views/partials/head/main" %>
 
   <body class="JS-state-global">
     <div class="site-container">
@@ -11,7 +10,6 @@
     </div>
   </body>
 
-  <%# Scripts %>
   <script src="<%= assetsDir %><%= config[:JS_VENDOR] %>"></script>
   <script src="<%= assetsDir %><%= config[:JS_APP] %>"></script>
 </html>
