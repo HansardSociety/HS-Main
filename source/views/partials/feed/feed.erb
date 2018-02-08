@@ -31,7 +31,7 @@ latestCount = 6
       start: (feedDedupe ? latestCount : 0),
       page_cats: feedCategory
     ) do |page| %>
-      <%= partial "views/partials/feed-item",
+      <%= partial "views/partials/feed/feed-item",
         locals: { local_data: {
           entry_data: page,
           context: "dynamic" }} %>
