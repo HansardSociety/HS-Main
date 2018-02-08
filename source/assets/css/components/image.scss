@@ -12,9 +12,9 @@
 }
 
 .image--icon {
-  max-height: 5rem;
-  max-width: 10rem;
   width: 100%;
+  max-width: 10rem;
+  max-height: 5rem;
 }
 
 .image--light {
@@ -27,7 +27,19 @@
 .image--invert {
   opacity: .5;
 
-  filter: brightness(0) invert(1);
+  @extend %e-bgc-greyscale-0;
+  @extend %e-pad-xs;
+}
+
+@supports (filter: invert(1)) {
+
+  .image--invert {
+    padding: 0;
+
+    background-color: transparent;
+
+    filter: brightness(0) invert(1);
+  }
 }
 
 .image__img {
@@ -35,9 +47,9 @@
 
   order: 2;
 
+  max-width: 100%;
   max-height: inherit;
-  max-width: inherit;
-  width: inherit;
+  // width: inherit;
 
   transform: translateX(-50%);
 

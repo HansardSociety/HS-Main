@@ -10,6 +10,10 @@
   }
 }
 
+.panel--bg-img {
+  @extend %e-flex-row;
+}
+
 .panel--dark {
   @extend %e-col-greyscale-0;
 }
