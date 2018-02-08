@@ -42,7 +42,7 @@ end
             page_cats: (feedSubCategory ? [feedSubCategory] : feedCategory),
             sub_cats: (feedSubCategory ? true : false)) do |page| %>
 
-          <%= partial "views/partials/feed-item",
+          <%= partial "views/partials/feed/feed-item",
             locals: { local_data: {
               entry_data: page,
               context: "dynamic" }} %>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-
-  <%= partial "views/partials/head" %>
+  <%= partial "views/partials/frame/head-main" %>
 
   <body class="JS-state-global">
     <div class="site-container">
@@ -9,9 +8,7 @@
       <main><%= yield %></main>
       <%= partial "views/partials/footer" %>
     </div>
-  </body>
 
-  <%# Scripts %>
-  <script src="<%= assetsDir %><%= config[:JS_VENDOR] %>"></script>
-  <script src="<%= assetsDir %><%= config[:JS_APP] %>"></script>
+    <%= partial "views/partials/frame/body-scripts" %>
+  </body>
 </html>
