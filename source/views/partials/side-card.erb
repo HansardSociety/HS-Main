@@ -83,26 +83,26 @@ sideCardAttrs = {
 
           <%# Product %>
           <% if isFeaturedProduct
-            if entryData[:price] == 0
-              partial "views/partials/btn",
+            if entryData[:price] == 0 %>
+              <%= partial "views/partials/btn",
                 locals: { local_data: {
                   type: "link",
                   size: "sm",
                   style: "primary",
                   label: "Download",
                   label_size: "sm",
-                  url: entryData[:download] }}
+                  url: entryData[:download] }} %>
 
-            end; if entryData[:price] > 0
-              partial "views/partials/btn",
+            <% end; if entryData[:price] > 0 %>
+              <%= partial "views/partials/btn",
                 locals: { local_data: {
                   type: "link",
                   size: "sm",
                   style: "primary",
                   product: entryData,
                   label: "Buy (£#{ entryData[:price] })",
-                  label_size: "sm" }}
-          end; end %>
+                  label_size: "sm" }} %>
+          <% end; end %>
 
           <%# Registration %>
           <% if isFeaturedRegistration

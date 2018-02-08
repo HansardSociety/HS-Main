@@ -6,7 +6,7 @@ featured = @entry[:featured]
     =Payments
 ***********************************************-->
 
-<% if featured && featured.any? { |featured| featured.TYPE.include? "product" } %>
+<% if featured && featured.any? { |featured| featured.TYPE.include?("product") && featured.price > 0 } %>
   <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
   <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
