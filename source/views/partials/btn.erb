@@ -34,8 +34,9 @@ product = local_data[:product]
 iframe = local_data[:iframe]
 
 # Button
-btnTagOpen = type == "link" ? :a : :button
-btnTagClose = type == "link" ? "</a>" : "</button>"
+isLink = type == "link"
+btnTagOpen = isLink ? :a : :button
+btnTagClose = isLink ? "</a>" : "</button>"
 
 btnClasses =
   "btn
@@ -53,7 +54,6 @@ btnClasses =
 productAttrs = {}
 if product
   productAttrs = {
-    "data-item-id": product[:product_id],
     "data-item-name": product[:title],
     "data-item-price": product[:price],
     "data-item-url": "https://www.hansardsociety.org.uk/#{ @entry[:slug] }"
@@ -63,7 +63,7 @@ end
 btnAttributes = {
   "class": "#{ btnClasses }",
   "href": (url if url),
-  "type": ("submit" if form),
+  "type": (isLink ? nil : (form ? "submit" : "button")),
   "aria-controls": (aria_target_id if aria_target_id),
   "role": ("button" if aria_id),
   "data-secondary-target": (secondary_target if secondary_target),
@@ -71,7 +71,6 @@ btnAttributes = {
 %>
 
 <%= tag(btnTagOpen, btnAttributes) %>
-
   <span
     class="<%= icon == "menu" ? "btn__menu" : "btn__content" %>"
     aria-hidden="true">
@@ -99,5 +98,4 @@ btnAttributes = {
     <% end; if ["link", "plain"].include?(type) && label %>
       <span class="btn__label <%= "btn__label--" + label_size %>"><%= label %></span>
     <% end %>
-
 <%= btnTagClose %>

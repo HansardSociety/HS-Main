@@ -21,7 +21,9 @@ isYield = local_data[:yield]
           locals: { local_data: {
             type: "state", switch: true,
             size: "xs",
-            icon: "close-round", icon_size: "xs", icon_color: "green",
+            icon: "close-round",
+            icon_size: "xs",
+            icon_color: "green",
             page: "no-scroll",
             aria_target_id: id }} %>
       </div>
@@ -35,17 +37,10 @@ isYield = local_data[:yield]
         <%= yield %>
 
       <% end; if content %>
-
-        <% if content == :checkout %>
-          <div>
-            <div id="dropin-container"></div>
-          </div>
-        <% else %>
-          <%= markdown(content) %>
-        <% end %>
+        <%= markdown(content) %>
 
       <% end; if form %>
-        <%= partial "views/partials/form",
+        <%= partial "views/partials/form/main",
           locals: { local_data: {
             entry_data: form }} %>
       <% end %>

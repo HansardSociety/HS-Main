@@ -1,4 +1,7 @@
-const form = (() => {
+/*		=Netlify forms
+  ========================================================================== */
+
+const netlifyForms = (() => {
 
   /*		=Send data
     ========================================================================== */
@@ -52,7 +55,7 @@ const form = (() => {
   /*		=Loop through forms
     ========================================================================== */
 
-  var forms = document.querySelectorAll(".form")
+  var forms = document.querySelectorAll(".form[data-netlify]")
 
   for (let form of forms) {
     var submitBtn = form.querySelector("button[type=submit]")
@@ -84,5 +87,5 @@ const form = (() => {
   }
 })()
 
-export { form }
+export { netlifyForms }
 

@@ -1,0 +1,84 @@
+<%
+formData = local_data[:entry_data]
+
+isNetlifyForm = formData[:TYPE] == "form"
+isPaymentForm = formData[:TYPE] == "product"
+
+formAttrsNetlify = {}
+formAttrsPayment = {}
+
+formAttrsCore = {
+  "class": "form",
+  "action": "/",
+}
+
+if isNetlifyForm
+  btnLabel = "Submit"
+
+  formAttrsNetlify = {
+    "data-netlify": "true",
+    "data-netlify-honeypot": "bot-field",
+    "name": "#{ formData[:meta_title].parameterize + "-" + formData[:ID] }"
+  }
+
+elsif isPaymentForm
+  btnLabel = "Confirm order"
+  formAttrsPayment = {
+    "id": "payment-form",
+    "method": "post"
+  }
+end
+
+# Merge
+formAttrs = formAttrsNetlify.merge(formAttrsPayment).compact
+%>
+
+<%= tag(:form, formAttrs) %>
+
+  <!--**********************************************
+      =Main
+  ***********************************************-->
+
+  <div class="form__main">
+    <%= partial "views/partials/form/fields",
+      locals: { form_data: formData } %>
+
+    <% if isNetlifyForm %>
+      <%= partial "views/partials/btn",
+        locals: { local_data: {
+          type: "plain",
+          size: "sm",
+          style: "primary",
+          label: btnLabel,
+          label_size: "sm",
+          form: true }} %>
+    <% end %>
+  </div>
+
+  <% if isNetlifyForm %>
+
+    <!--**********************************************
+        =Success
+    ***********************************************-->
+
+    <div class="form__confirmation">
+      <h2 class="title-lg e-col-brand-green-2">Success!</h2>
+      <div class="e-mgn-t-sm">
+        <%= markdown(formData[:confirmation]) %>
+      </div>
+      <div class="e-mgn-t-sm">
+        <%= partial "views/partials/social-follow",
+          locals: { bgc: "light" } %>
+      </div>
+    </div>
+
+    <!--**********************************************
+        =Error
+    ***********************************************-->
+
+    <div class="form__error">
+      <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong..."</h2>
+      <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+    </div>
+  <% end %>
+</form>

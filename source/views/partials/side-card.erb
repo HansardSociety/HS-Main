@@ -117,8 +117,8 @@ sideCardAttrs = {
               <%= partial "views/partials/modal",
                 locals: { local_data: {
                   id: checkoutID,
-                  content: :checkout }} %>
-
+                  form: entryData,
+                  size: "narrow" }} %>
           <% end; end %>
 
           <!--**********************************************

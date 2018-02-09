@@ -1,0 +1,93 @@
+<%
+formData = form_data
+isNetlifyForm = formData[:TYPE] == "form"
+isPaymentForm = formData[:TYPE] == "product"
+%>
+
+<!--**********************************************
+    =Netlify form
+***********************************************-->
+
+<% if isNetlifyForm %>
+  <label aria-hidden="true" class="e-hidden">
+    <span>Don't fill this out!</span>
+    <input name="bot-field" />
+  </label>
+
+  <% formData[:elements].each do |elem|
+    labelNameCap = elem[:label].capitalize.gsub("-", " ")
+    isNotInput = ["textarea"].include?(elem[:input_type])
+
+    fieldTag = isNotInput ? "textarea" : "input"
+
+    fieldAttrs = {
+      "class": "form__field",
+      "type": (elem[:input_type] if !isNotInput),
+      "name": elem[:label],
+      "placeholder": labelNameCap + "…"
+    }.compact
+
+    fieldAttrs.merge!(required: "") if elem[:required] %>
+
+    <label class="form__label">
+      <span class="e-hidden"><%= labelNameCap + ": " %></span>
+      <%= tag(fieldTag, fieldAttrs) %>
+      <span class="form__err">Please review this field</span>
+    </label>
+
+<!--**********************************************
+    =Payment form (Braintree)
+***********************************************-->
+
+<% end; elsif isPaymentForm
+  paymentForm = formData[:payment_form]
+  isBasic = paymentForm == "basic"
+  isShipping = paymentForm == "shipping",
+  %>
+
+  <div id="form-pages" class="form__pages">
+
+    <!--	=Personal info	-->
+    <div id="form-pg-0" class="form__pg form__pg--0">
+      <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm">Personal info</h3>
+
+      <!--	=Fields	-->
+
+      <!--	=Form actions	-->
+      <div class="form__actions">
+        <div class="form__prev">
+
+        </div>
+        <div class="form__next">
+          <%= partial "views/partials/btn",
+            locals: { local_data: {
+              type: "state",
+              size: "sm",
+              style: "primary",
+              label_on: "Next",
+              label_size: "sm",
+              aria_id: "activate-form-pg-1",
+              aria_target_id: "form-page-1" }} %>
+        </div>
+    </div>
+
+    <!--	=Page 1	-->
+    <div id="form-pg-1" class="form__pg form__pg--1">
+      <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm">Shipping address</h3>
+
+      <!--	=Form actions	-->
+      <div class="form__actions">
+        <div class="form__next">
+          <%= partial "views/partials/btn",
+            locals: { local_data: {
+              type: "state",
+              size: "sm",
+              style: "primary",
+              label_on: "Next",
+              label_size: "sm",
+              aria_id: "activate-form-pg-1",
+              aria_target_id: "form-page-1" }} %>
+        </div>
+    </div>
+  </div>
+<% end %>

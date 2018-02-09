@@ -1,4 +1,4 @@
-import dropin from "braintree-web-drop-in"
+import dropin from "braintree-web"
 
 const button = document.querySelector('#dropin-submit-button');
 
