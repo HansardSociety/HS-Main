@@ -90,10 +90,9 @@ btnAttributes = {
       </span>
 
     <% end; if label_on %>
-      <span
-        class="btn__label btn__label--change <%= "btn__label--" + label_size %>"
-        data-on-text="<%= label_on %>"
-        data-off-text="<%= label_off %>"></span>
+      <span class="btn__label <%= "btn__label--" + label_size %>">
+        <%= label_on %>
+      </span>
 
     <% end; if ["link", "plain"].include?(type) && label %>
       <span class="btn__label <%= "btn__label--" + label_size %>"><%= label %></span>

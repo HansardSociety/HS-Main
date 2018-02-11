@@ -12,8 +12,18 @@
   @extend %e-width-full;
 }
 
+.form__label--bt {
+  margin-bottom: .125rem;
+
+  @extend %e-col-greyscale-2;
+}
+
 .form__field {
   border: 2px solid Get($colors, greyscale, mid-grey);
+}
+
+.form__field--bt {
+  height: 40px;
 }
 
 .form__field {
@@ -25,6 +35,14 @@
   &:valid {
     border: 2px solid lightgreen;
   }
+}
+
+.form__prev {
+  float: left;
+}
+
+.form__next {
+  float: right;
 }
 
 .form__err {
@@ -94,3 +112,39 @@
     @extend %e-display-block;
   }
 }
+
+/*		=Payment behaviour
+  ========================================================================== */
+
+.form__pages,
+.form__pg {
+  @extend %e-width-full;
+}
+
+.form__pages {
+  height: 25rem;
+  max-height: 25rem;
+
+  @extend %e-overflow-hidden;
+  @extend %e-position-relative;
+}
+
+.form__pg {
+  @extend %e-bgc-greyscale-0;
+  @extend %e-height-full;
+  @extend %e-position-absolute-0;
+}
+
+// State 1.1
+.form__pg.JS-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+// State 1.2
+.form__pg.JS-inactive {
+  transform: translateX(-200%);
+  opacity: 0;
+}
+
+

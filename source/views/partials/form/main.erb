@@ -9,7 +9,7 @@ formAttrsPayment = {}
 
 formAttrsCore = {
   "class": "form",
-  "action": "/",
+  "action": "/"
 }
 
 if isNetlifyForm
@@ -30,7 +30,10 @@ elsif isPaymentForm
 end
 
 # Merge
-formAttrs = formAttrsNetlify.merge(formAttrsPayment).compact
+formAttrs = formAttrsCore.merge(
+  **formAttrsNetlify,
+  **formAttrsPayment
+).compact
 %>
 
 <%= tag(:form, formAttrs) %>

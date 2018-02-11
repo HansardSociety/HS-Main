@@ -43,51 +43,81 @@ isPaymentForm = formData[:TYPE] == "product"
   paymentForm = formData[:payment_form]
   isBasic = paymentForm == "basic"
   isShipping = paymentForm == "shipping",
-  %>
+  formPages = [{
+    title: "Start your order",
+    fields: [
+      "first-name",
+      "surname",
+      "email-address"
+    ]}, {
+    title: "Shipping information",
+    fields: [
+      "address-line-1",
+      "address-line-2",
+      "address-line-3",
+      "postcode",
+      "country"
+      ]}, {
+    title: "Payment information",
+    fields: [
+      "card-number",
+      "expiration-date",
+      "cvv"
+  ]}]
+%>
 
   <div id="form-pages" class="form__pages">
 
-    <!--	=Personal info	-->
-    <div id="form-pg-0" class="form__pg form__pg--0">
-      <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm">Personal info</h3>
+    <% formPages.each_with_index do |page, index| %>
 
-      <!--	=Fields	-->
+      <!--	=Page	-->
+      <div id="form-pg-<%= index %>" class="<%= index > 0 ? "JS-inactive" : "JS-active" %> form__pg">
 
-      <!--	=Form actions	-->
-      <div class="form__actions">
-        <div class="form__prev">
+        <!--	=Title	-->
+        <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm"><%= page[:title] %></h3>
 
+        <!--	=Fields	-->
+        <% page[:fields].each do |field| %>
+          <label class="form__label form__label--bt label-xs" for="<%= field %>">
+            <%= field.capitalize.gsub("-", " ") %>
+          </label>
+          <div class="form__field form__field--bt" id="<%= field %>"></div>
+        <% end %>
+
+        <!--	=Form actions	-->
+        <div class="form__actions">
+
+          <% if index > 0 %>
+            <div class="form__prev">
+              <%= partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "state",
+                  switch: true,
+                  size: "sm",
+                  style: "secondary",
+                  label_on: "Back",
+                  label_size: "sm",
+                  aria_id: "activate-form-pg-#{ index }",
+                  aria_target_id: "form-pg-#{ index }" }} %>
+            </div>
+          <% end %>
+
+          <% if index < 2 %>
+            <div class="form__next">
+              <%= partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "state",
+                  switch: true,
+                  size: "sm",
+                  style: "primary",
+                  label_on: "Next",
+                  label_size: "sm",
+                  aria_id: "activate-form-pg-#{ index + 1 }",
+                  aria_target_id: "form-pg-#{ index + 1 }" }} %>
+            </div>
+          <% end %>
         </div>
-        <div class="form__next">
-          <%= partial "views/partials/btn",
-            locals: { local_data: {
-              type: "state",
-              size: "sm",
-              style: "primary",
-              label_on: "Next",
-              label_size: "sm",
-              aria_id: "activate-form-pg-1",
-              aria_target_id: "form-page-1" }} %>
-        </div>
-    </div>
-
-    <!--	=Page 1	-->
-    <div id="form-pg-1" class="form__pg form__pg--1">
-      <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm">Shipping address</h3>
-
-      <!--	=Form actions	-->
-      <div class="form__actions">
-        <div class="form__next">
-          <%= partial "views/partials/btn",
-            locals: { local_data: {
-              type: "state",
-              size: "sm",
-              style: "primary",
-              label_on: "Next",
-              label_size: "sm",
-              aria_id: "activate-form-pg-1",
-              aria_target_id: "form-page-1" }} %>
-        </div>
-    </div>
+      </div>
+    <% end %>
   </div>
 <% end %>

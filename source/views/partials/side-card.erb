@@ -138,13 +138,13 @@ sideCardAttrs = {
               <%= partial "views/partials/btn",
                 locals: { local_data: {
                   type: "state",
+                  switch: true,
                   size: "sm",
                   style: "primary",
                   label_on: "Register now",
                   label_off: "Close",
                   label_size: "sm",
                   page: "no-scroll",
-                  switch: true,
                   aria_id: "activate-#{ entryData[:modal][:cta_id] }",
                   aria_target_id: entryData[:modal][:cta_id] }} %>
           <% end; end %>
