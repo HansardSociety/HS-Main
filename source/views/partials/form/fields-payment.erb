@@ -53,9 +53,39 @@ formPages = [{
 ]}]
 %>
 
-<div id="form-pages" class="form__pages">
+<div class="form__head">
+
+  <!--	=Item	-->
+  <label
+    class="form__label form__label--readonly"
+    for="item"><strong>Item:</strong> <%= formData[:title] %></p></label>
+  <input
+    value="<%= formData[:product_id] %>"
+    class="e-hidden"
+    id="item"
+    type="text"
+    readonly>
+
+  <!--	=Price	-->
+  <label
+    class="form__label form__label--readonly e-mgn-t-xs"
+    for="price"><strong>Price:</strong> GBP £<%= formData[:price] %></label>
+  <input
+    value="<%= formData[:price] %>"
+    class="e-hidden"
+    id="item"
+    type="text"
+    readonly>
+
+</div>
+<div id="form-pages" class="form__pages form__pages--<%= formPages.length - 1 %>">
+
   <% formPages.each_with_index do |page, index| %>
-    <div id="form-pg-<%= index %>" class="<%= index > 0 ? "JS-inactive" : "JS-active" %> form__pg">
+
+    <div
+      id="form-pg-<%= index %>"
+      class="<%= index > 0 ? "JS-inactive" : "JS-active" %>
+            form__page form__page--<%= index %>-to-<%= formPages.length - 1 %>">
 
       <!--	=Title	-->
       <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm"><%= page[:title] %></h3>
