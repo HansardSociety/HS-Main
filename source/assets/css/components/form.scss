@@ -19,7 +19,7 @@
 }
 
 .form__field {
-  border: 2px solid Get($colors, greyscale, mid-grey);
+  border: 2px solid Get($colorGroups, greyscale, 2);
 }
 
 .form__field--bt {
@@ -27,13 +27,20 @@
 }
 
 .form__field {
-  @extend %e-ff-prim-heavy;
+
+  // Match Braintree style
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
   @extend %e-mgn-b-xs;
   @extend %e-pad-xs;
   @extend %e-rad-slight;
 
   &:valid {
     border: 2px solid lightgreen;
+  }
+
+  &::placeholder {
+    // @extend %e-col-greyscale-1;
   }
 }
 
@@ -78,7 +85,7 @@
 
 .form__field:valid,
 .form__field:valid.JS-error {
-  border: 2px solid Get($colors, greyscale, mid-grey) !important;
+  border: 2px solid Get($colorGroups, greyscale, 2) !important;
 }
 
 .form__field.JS-error + .form__err {

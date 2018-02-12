@@ -1,0 +1,39 @@
+<%
+formData = form_data
+%>
+
+<label aria-hidden="true" class="e-hidden">
+  <span>Don't fill this out!</span>
+  <input name="bot-field" />
+</label>
+
+<% formData[:elements].each do |elem|
+  labelNameCap = elem[:label].capitalize.gsub("-", " ")
+  isNotInput = ["textarea"].include?(elem[:input_type])
+
+  fieldTag = isNotInput ? "textarea" : "input"
+
+  fieldAttrs = {
+    "class": "form__field",
+    "type": (elem[:input_type] if !isNotInput),
+    "name": elem[:label],
+    "placeholder": labelNameCap + "…"
+  }.compact
+
+  fieldAttrs.merge!(required: "") if elem[:required] %>
+
+  <label class="form__label">
+    <span class="e-hidden"><%= labelNameCap + ": " %></span>
+    <%= tag(fieldTag, fieldAttrs) %>
+    <span class="form__err">Please review this field</span>
+  </label>
+<% end %>
+
+<%= partial "views/partials/btn",
+locals: { local_data: {
+  type: "plain",
+  size: "sm",
+  style: "primary",
+  label: "Submit",
+  label_size: "sm",
+  form: true }} %>

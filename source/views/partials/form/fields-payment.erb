@@ -1,0 +1,132 @@
+<%
+formData = form_data
+paymentForm = formData[:payment_form]
+isBasic = paymentForm == "basic"
+isShipping = paymentForm == "shipping",
+formPages = [{
+
+  # Personal information
+  type: "custom",
+  title: "Start your order",
+  fields: [{
+    type: "text",
+    id: "first-name",
+    placeholder: "eg. Jane"
+  }, {
+    type: "text",
+    id: "surname",
+    placeholder: "eg. Smith"
+  }, {
+    type: "email",
+    id: "email-address",
+    placeholder: "eg. your@email.com"
+  }]}, {
+
+  # Shipping information
+  type: "custom",
+  title: "Shipping information",
+  fields: [{
+    type: "text",
+    id: "street",
+    placeholder: "eg. 1 Parliament Street"
+  }, {
+    type: "text",
+    id: "town",
+    placeholder: "eg. Westminster"
+  }, {
+    type: "text",
+    id: "city",
+    placeholder: "eg. London"
+  }, {
+    type: "text",
+    id: "postcode",
+    placeholder: "eg. SW1A 0AA"
+  }]}, {
+
+  # Payment information
+  type: "payment",
+  title: "Payment information",
+  fields: [
+    "card-number",
+    "expiration-date",
+    "cvv"
+]}]
+%>
+
+<div id="form-pages" class="form__pages">
+  <% formPages.each_with_index do |page, index| %>
+    <div id="form-pg-<%= index %>" class="<%= index > 0 ? "JS-inactive" : "JS-active" %> form__pg">
+
+      <!--	=Title	-->
+      <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm"><%= page[:title] %></h3>
+
+      <!--	=Fields	-->
+      <% page[:fields].each do |field|
+
+        # Custom fields
+        if page[:type] == "custom" %>
+          <label class="form__label form__label--bt label-xs" for="<%= field[:id] %>">
+            <%= field[:id].capitalize.gsub("-", " ") %>
+          </label>
+          <input
+            type="<%= field[:type] %>"
+            id="<%= field[:id] %>"
+            placeholder="<%= field[:placeholder] %>"
+            class="form__field form__field--bt">
+
+        <% #Payment fields
+        else %>
+          <label class="form__label form__label--bt label-xs" for="<%= field %>">
+            <%= field.capitalize.gsub("-", " ") %>
+          </label>
+          <div class="form__field form__field--bt" id="<%= field %>"></div>
+        <% end %>
+      <% end %>
+
+      <!--	=Form actions	-->
+      <div class="form__actions">
+
+        <% if index > 0 %>
+          <div class="form__prev">
+            <%= partial "views/partials/btn",
+              locals: { local_data: {
+                type: "state",
+                switch: true,
+                size: "sm",
+                style: "secondary",
+                label_on: "Back",
+                label_size: "sm",
+                aria_id: "activate-form-pg-#{ index }",
+                aria_target_id: "form-pg-#{ index }" }} %>
+          </div>
+
+        <% end; if index < 2 %>
+          <div class="form__next">
+            <%= partial "views/partials/btn",
+              locals: { local_data: {
+                type: "state",
+                switch: true,
+                size: "sm",
+                style: "primary",
+                label_on: "Next",
+                label_size: "sm",
+                aria_id: "activate-form-pg-#{ index + 1 }",
+                aria_target_id: "form-pg-#{ index + 1 }" }} %>
+          </div>
+
+        <% end; if page[:type] == "payment" %>
+          <div class="form__next">
+            <%= partial "views/partials/btn",
+              locals: { local_data: {
+                type: "plain",
+                size: "sm",
+                style: "primary",
+                label: "Confirm order",
+                label_size: "sm",
+                form: true }} %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

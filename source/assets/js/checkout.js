@@ -1,11 +1,11 @@
 import braintree from "braintree-web"
 
 var form = document.querySelector("#payment-form");
-var submit = form.querySelector("button[type='submit']");
+var submit = form.querySelector("button[type=submit]");
 
 var checkoutStyles = {
   "input": {
-    "font-size": "14px"
+    "font-size": "16px"
   },
   "input.invalid": {
     "color": "red"

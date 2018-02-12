@@ -13,8 +13,6 @@ formAttrsCore = {
 }
 
 if isNetlifyForm
-  btnLabel = "Submit"
-
   formAttrsNetlify = {
     "data-netlify": "true",
     "data-netlify-honeypot": "bot-field",
@@ -22,7 +20,6 @@ if isNetlifyForm
   }
 
 elsif isPaymentForm
-  btnLabel = "Confirm order"
   formAttrsPayment = {
     "id": "payment-form",
     "method": "post"
@@ -43,18 +40,16 @@ formAttrs = formAttrsCore.merge(
   ***********************************************-->
 
   <div class="form__main">
-    <%= partial "views/partials/form/fields",
-      locals: { form_data: formData } %>
 
+    <!--	=Netlify fields	-->
     <% if isNetlifyForm %>
-      <%= partial "views/partials/btn",
-        locals: { local_data: {
-          type: "plain",
-          size: "sm",
-          style: "primary",
-          label: btnLabel,
-          label_size: "sm",
-          form: true }} %>
+      <%= partial "views/partials/form/fields-netlify",
+        locals: { form_data: formData } %>
+
+    <!--	=Payment fields	-->
+    <% elsif isPaymentForm %>
+      <%= partial "views/partials/form/fields-payment",
+        locals: { form_data: formData } %>
     <% end %>
   </div>
 
