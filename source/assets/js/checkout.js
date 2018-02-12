@@ -69,6 +69,18 @@ function hostedFieldsDidCreate(hostedErr, hostedInstance) {
   form.addEventListener("submit", function(event) {
     event.preventDefault();
 
+    var customFormDataSerialized = $(this).serializeArray()
+
+    function objectifyForm(formArray) {//serialize data function
+      var returnArray = {};
+      for (var i = 0; i < formArray.length; i++) {
+        returnArray[formArray[i]["name"]] = formArray[i]["value"];
+      }
+      return returnArray;
+    }
+
+    var customFormDataObj = objectifyForm(customFormDataSerialized)
+
     hostedInstance.tokenize(function(tokenizeErr, payload) {
 
       if (tokenizeErr) {
@@ -76,7 +88,24 @@ function hostedFieldsDidCreate(hostedErr, hostedInstance) {
         return;
       }
 
-      console.log("Nonce: " + payload.nonce)
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:3000/checkout",
+        data: {
+          "payment_method_nonce": payload.nonce,
+          "product_id": customFormDataObj["item"],
+          "amount": customFormDataObj["price"]
+        }
+
+      }).done(function (result) {
+
+        if (result.success) {
+          console.log("SUCCESS!!")
+
+        } else {
+          console.log("ERROR!!", result);
+        }
+      });
     })
   }, false)
 }

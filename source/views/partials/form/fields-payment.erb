@@ -62,7 +62,7 @@ formPages = [{
   <input
     value="<%= formData[:product_id] %>"
     class="e-hidden"
-    id="item"
+    name="item"
     type="text"
     readonly>
 
@@ -73,7 +73,7 @@ formPages = [{
   <input
     value="<%= formData[:price] %>"
     class="e-hidden"
-    id="item"
+    name="price"
     type="text"
     readonly>
 
@@ -95,12 +95,13 @@ formPages = [{
 
         # Custom fields
         if page[:type] == "custom" %>
-          <label class="form__label form__label--bt label-xs" for="<%= field[:id] %>">
-            <%= field[:id].capitalize.gsub("-", " ") %>
+          <label
+            for="<%= field[:id] %>"
+            class="form__label form__label--bt label-xs"><%= field[:id].capitalize.gsub("-", " ") %>
           </label>
           <input
+            name="<%= field[:id] %>"
             type="<%= field[:type] %>"
-            id="<%= field[:id] %>"
             placeholder="<%= field[:placeholder] %>"
             class="form__field form__field--bt">
 

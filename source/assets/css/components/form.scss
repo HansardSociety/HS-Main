@@ -11,10 +11,6 @@
   @extend %e-overflow-hidden;
 }
 
-label {
-  line-height: 1.5;
-}
-
 .form__label,
 .form__field {
   @extend %e-width-full;
@@ -27,6 +23,7 @@ label {
 }
 
 .form__label--readonly {
+  font-size: .75rem;
   line-height: 1.5;
 }
 
@@ -150,7 +147,6 @@ label {
 .form__page {
   width: calc(100% / 3);
   height: inherit;
-
   // transition: .2s linear transform;
 
   @extend %e-bgc-greyscale-0;
