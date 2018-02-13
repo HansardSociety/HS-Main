@@ -78,9 +78,9 @@ const netlifyForms = (() => {
     var submitBtn = form.querySelector(".btn--submit")
 
     submitBtn.addEventListener("click", function(e) {
-      e.preventDefault()
-
-      validateAndSend(form)
+      // e.preventDefault()
+      console.log(form)
+      // validateAndSend(form)
     })
   }
 })()
