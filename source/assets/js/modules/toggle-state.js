@@ -57,8 +57,6 @@ const toggleState = (() => {
     // Conditions for all triggers with secondary targets
     function triggersWithSecTargets() {
 
-      console.log(trigger)
-
       // Remove active trigger from array of secondary triggers...
       const arrRemoveActiveTrigger = triggerSecTargetAll.filter(function(elem) {
         return elem != trigger

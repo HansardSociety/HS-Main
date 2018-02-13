@@ -43,6 +43,7 @@ btnClasses =
   #{ "btn--" + size if size }
   #{ "btn--" + style if style }
   #{ "btn--fill" if fill }
+  #{ "btn--submit" if form }
   #{ "e-col-current" if icon }
   #{ "JS-off" if type == "state" }
   #{ "JS-switch" if type == "state" && switch }
@@ -63,7 +64,7 @@ end
 btnAttributes = {
   "class": "#{ btnClasses }",
   "href": (url if url),
-  "type": (isLink ? nil : (form ? "submit" : "button")),
+  "type": (isLink ? nil : "button"),
   "aria-controls": (aria_target_id if aria_target_id),
   "role": ("button" if aria_id),
   "data-secondary-target": (secondary_target if secondary_target),

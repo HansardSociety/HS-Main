@@ -1,5 +1,3 @@
-import { forEach } from "./core"
-
 /*		=Send data
   ========================================================================== */
 
@@ -51,15 +49,13 @@ function sendData(formData, endpointURL) {
 /*		=Validate
   ========================================================================== */
 
-function validateFields(getFormElem, sendFormData) {
+function validateAndSend(getFormElem) {
   var formFields = getFormElem.querySelectorAll("[class^=form__field]:not(.e-hidden)")
   var fieldsArr = Array.prototype.slice.call(formFields)
   var fieldsPass = fieldsArr.every(field => field.validity.valid)
 
   if (fieldsPass) {
-    var formData = getFormElem
-
-    return sendFormData
+    sendData(getFormElem, "/")
 
   } else {
     for (let field of formFields) {
@@ -76,29 +72,16 @@ function validateFields(getFormElem, sendFormData) {
   ========================================================================== */
 
 const netlifyForms = (() => {
-  var forms = document.querySelectorAll("form[data-netlify]")
+  var forms = document.querySelectorAll(".form[data-netlify]")
 
   for (let form of forms) {
-    var submitBtn = form.querySelector("button[type=submit]")
-    var formEvents = ["submit", "invalid"]
+    var submitBtn = form.querySelector(".btn--submit")
 
-    form.addEventListener("submit", function(e) {
+    submitBtn.addEventListener("click", function(e) {
       e.preventDefault()
 
-      console.log(form.checkValidity())
-
-    }, false)
-
-    // for (let eventType of formEvents) {
-    //   console.log(form.checkValidity())
-
-    //   submitBtn.addEventListener(eventType, function(e) {
-    //     e.preventDefault()
-
-    //     console.log(eventType)
-
-    //   }, false)
-    // }
+      validateAndSend(this.form)
+    })
   }
 })()
 
