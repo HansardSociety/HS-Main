@@ -4,6 +4,10 @@ formData = local_data[:entry_data]
 isNetlifyForm = formData[:TYPE] == "form"
 isPaymentForm = formData[:TYPE] == "product"
 
+formData.merge!({
+  is_modal: local_data[:modal]
+}.compact)
+
 formAttrsNetlify = {}
 formAttrsPayment = {}
 

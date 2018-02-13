@@ -19,7 +19,8 @@ isYield = local_data[:yield]
       <div class="modal__close">
         <%= partial "views/partials/btn",
           locals: { local_data: {
-            type: "state", switch: true,
+            type: "state",
+            switch: true,
             size: "xs",
             icon: "close-round",
             icon_size: "xs",
@@ -42,7 +43,8 @@ isYield = local_data[:yield]
       <% end; if form %>
         <%= partial "views/partials/form/main",
           locals: { local_data: {
-            entry_data: form }} %>
+            entry_data: form,
+            modal: true }} %>
       <% end %>
     </div>
   </div>

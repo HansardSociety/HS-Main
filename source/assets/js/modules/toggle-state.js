@@ -40,9 +40,9 @@ const toggleState = (() => {
     const targetSec = triggerSecTargetID && baseElem.querySelector(`#${ triggerSecTargetID }`)
     const targetSecHold = triggerSecTargetID && targetSec.classList.contains(activeHold)
 
-    function toggleEachState(states, triggerElem) {
+    function toggleEachState(states, elem) {
       forEach(states, function(index, state) {
-        toggleClass(triggerElem, state)
+        toggleClass(elem, state)
       })
     }
 
