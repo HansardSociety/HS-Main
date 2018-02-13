@@ -98,10 +98,10 @@ var checkoutStyles = {
     "font-size": "16px"
   },
   "input.invalid": {
-    "color": "red"
+    "border-color": "red"
   },
   "input.valid": {
-    "color": "green"
+    "border-color": "green"
   }
 }
 
