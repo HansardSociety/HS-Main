@@ -60,11 +60,13 @@ formPages = [{
     class="form__label form__label--readonly"
     for="item"><strong>Item:</strong> <%= formData[:title] %></p></label>
   <input
-    value="<%= formData[:product_id] %>"
-    class="e-hidden"
+    value="<%= formData[:title] %>"
+    data-product-id="<%= formData[:product_id] %>"
+    class="form__field e-hidden"
     name="item"
     type="text"
-    readonly>
+    readonly
+    tabindex="-1">
 
   <!--	=Price	-->
   <label
@@ -72,10 +74,11 @@ formPages = [{
     for="price"><strong>Price:</strong> GBP £<%= formData[:price] %></label>
   <input
     value="<%= formData[:price] %>"
-    class="e-hidden"
+    class="form__field e-hidden"
     name="price"
     type="text"
-    readonly>
+    readonly
+    tabindex="-1">
 
 </div>
 <div id="form-pages" class="form__pages form__pages--<%= formPages.length - 1 %>">

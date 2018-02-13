@@ -1,56 +1,82 @@
 /*		=Send data
   ========================================================================== */
 
-function sendData(formData, endpointURL) {
+function sendData(formData, ajaxOpts) {
   var formElem = formData
   var formConfMsg = formData.querySelector(".form__confirmation")
-  var formFields = formData.querySelectorAll("[class^=form__field]:not(.e-hidden)")
+  var formFields = formData.querySelectorAll("[class^=form__field]:not([aria-hidden]):not(div)") // ==> don't include hidden elements and divs, which are used by Braintree
   var formName = formData.getAttribute("name")
 
-  var request = new XMLHttpRequest()
+  var isJSON = ajaxOpts.dataType == "json"
+  var isURL = ajaxOpts.dataType == "url"
 
-  // Turn data object into array of URL-encoded key/ val pairs
-  var formData = []
-  for (let field of formFields) {
-    var fieldName = field.getAttribute("name")
-    var fieldVal = field.value
+  var XHR = new XMLHttpRequest()
 
-    formData.push(`${encodeURIComponent(fieldName)}=${encodeURIComponent(fieldVal)}`)
+  /*		=JSON encoded
+    ---------------------------------------- */
+
+  if (isJSON) {
+    var formData = {}
+
+    for (let field of formFields) {
+      var fieldName = field.getAttribute("name")
+      var fieldVal = field.value
+
+      formData[fieldName] = fieldVal
+    }
+
+    formData = Object.assign({}, formData, ajaxOpts.metaData)
+
+  /*		=URL encoded
+    ---------------------------------------- */
+
+  } else if (isURL) {
+
+    // Turn data object into array of URL-encoded key/ val pairs
+    var formData = []
+    for (let field of formFields) {
+      var fieldName = field.getAttribute("name")
+      var fieldVal = field.value
+
+      formData.push(`${encodeURIComponent(fieldName)}=${encodeURIComponent(fieldVal)}`)
+    }
+
+    // Add form-name for Netlify
+    formData.push(`form-name=${encodeURIComponent(formName)}`)
+
+    // Combine pairs into string and replace %-encoded spaces with "+"
+    formData = `${formData.join("&").replace(/%20/g, "+")}`
+
   }
 
-  // Add form-name for Netlify
-  formData.push(`form-name=${encodeURIComponent(formName)}`)
-
-  // Combine pairs into string and replace %-encoded spaces with "+"
-  formData = `${formData.join("&").replace(/%20/g, "+")}`
-
   // Success
-  request.addEventListener("load", () => {
+  XHR.addEventListener("load", () => {
     formElem.classList.add("JS-success")
     formElem.parentElement.classList.add("JS-hide-text")
   })
 
   // Error
-  request.addEventListener("error", () => {
+  XHR.addEventListener("error", () => {
     formElem.classList.add("JS-error")
     formElem.parentElement.classList.add("JS-hide-text")
   })
 
   // Request
-  request.open("POST", endpointURL)
+  XHR.open("POST", ajaxOpts.postURL)
 
   // Header
-  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var contentType = isJSON ? "json;charset=UTF-8" : "x-www-form-urlencoded"
+  XHR.setRequestHeader("Content-Type", `application/${ contentType }`)
 
   // Send
-  request.send(formData)
+  XHR.send(JSON.stringify({ formData }))
 }
 
 /*		=Validate
   ========================================================================== */
 
 function validateFields(getFormElem, sendFormData) {
-  var formFields = getFormElem.querySelectorAll("[class^=form__field]:not(.e-hidden)")
+  var formFields = getFormElem.querySelectorAll("[class^=form__field]:not(.e-hidden):not(div)")
   var fieldsArr = Array.prototype.slice.call(formFields)
   var fieldsPass = fieldsArr.every(field => field.validity.valid)
 
@@ -79,7 +105,7 @@ const netlifyForms = (() => {
   for (let form of forms) {
     var submitBtn = form.querySelector("button[type=submit]")
 
-    submitBtn.addEventListener("click", function (e) {
+    submitBtn.addEventListener("click", function(e) {
       e.preventDefault()
 
       var formElem = this.form
@@ -113,7 +139,7 @@ var checkoutStyles = {
 var paymentFields = {
   number: {
     selector: "#card-number",
-    placeholder: "41111 1111 1111 1111"
+    placeholder: "4111 1111 1111 1111"
   },
   cvv: {
     selector: "#cvv",
@@ -129,7 +155,7 @@ const braintreeCheckout = (() => {
   var form = document.querySelector("#payment-form");
 
   if (form) {
-    var submit = form.querySelector("button[type=submit]");
+    var submitBtn = form.querySelector("button[type=submit]");
 
     /*		=Set up client
       ---------------------------------------- */
@@ -166,33 +192,32 @@ const braintreeCheckout = (() => {
         return
       }
 
-      submit.removeAttribute("disabled")
+      submitBtn.removeAttribute("disabled")
 
-      form.addEventListener("submit", function (event) {
+      form.addEventListener("submit", function(event) {
         event.preventDefault()
 
-        var customFormDataSerialized = $(this).serializeArray()
+        var productID = form.querySelector("[name=item]").getAttribute("data-product-id")
 
-        function objectifyForm(formArray) {//serialize data function
-          var returnArray = {}
+        hostedInstance.tokenize(function(tokenizeErr, payload) {
 
-          for (var i = 0; i < formArray.length; i++) {
-            returnArray[formArray[i]["name"]] = formArray[i]["value"]
-          }
-
-          return returnArray
-        }
-
-        var customFormDataObj = objectifyForm(customFormDataSerialized)
-
-        hostedInstance.tokenize(function (tokenizeErr, payload) {
-
+          // Error
           if (tokenizeErr) {
             console.error(tokenizeErr)
             return
           }
 
-          console.log("SUCCESS!!!!!!!!!!!!!!!!!")
+          // Success
+          var metaData = {
+            "payment-method-nonce": payload.nonce,
+            "product-id": productID
+          }
+
+          sendData(submitBtn.form, {
+            metaData: metaData,
+            postURL: "http://localhost:3000/checkout",
+            dataType: "json"
+          })
         })
       }, false)
     }
