@@ -66,7 +66,7 @@ module BuildEnvs
     set :CSS_APP, "/#{ cssAppHash }"
     set :CSS_VENDOR, "/#{ cssVendorHash }"
     set :JS_APP, "/#{ jsAppHash }"
-    set :JS_CHECKOUT, "/#{ jsCheckoutHash }"
+    # set :JS_CHECKOUT, "/#{ jsCheckoutHash }"
     set :JS_VENDOR, "/#{ jsVendorHash }"
 
     set :build_dir, "build/#{ MM_ENV }"
@@ -154,7 +154,7 @@ module BuildEnvs
       set :CSS_APP, "/app.css"
       set :CSS_VENDOR, "/vendor.css"
       set :JS_APP, "/app.js"
-      set :JS_CHECKOUT, "/checkout.js"
+      # set :JS_CHECKOUT, "/checkout.js"
       set :JS_VENDOR, "/vendor.js"
 
       # Snipcart
