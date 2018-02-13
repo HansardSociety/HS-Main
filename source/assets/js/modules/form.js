@@ -1,3 +1,5 @@
+import { forEach } from "./core"
+
 /*		=Send data
   ========================================================================== */
 
@@ -74,18 +76,29 @@ function validateFields(getFormElem, sendFormData) {
   ========================================================================== */
 
 const netlifyForms = (() => {
-  var forms = document.querySelectorAll(".form[data-netlify]")
+  var forms = document.querySelectorAll("form[data-netlify]")
 
   for (let form of forms) {
     var submitBtn = form.querySelector("button[type=submit]")
+    var formEvents = ["submit", "invalid"]
 
-    submitBtn.addEventListener("click", function(e) {
+    form.addEventListener("submit", function(e) {
       e.preventDefault()
 
-      var formElem = this.form
+      console.log(form.checkValidity())
 
-      validateFields(formElem, sendData(formElem, "/"))
-    })
+    }, false)
+
+    // for (let eventType of formEvents) {
+    //   console.log(form.checkValidity())
+
+    //   submitBtn.addEventListener(eventType, function(e) {
+    //     e.preventDefault()
+
+    //     console.log(eventType)
+
+    //   }, false)
+    // }
   }
 })()
 
