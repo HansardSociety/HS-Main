@@ -7,17 +7,38 @@
   }
 }
 
+.form__main {
+  @extend %e-overflow-hidden;
+}
+
 .form__label,
 .form__field {
   @extend %e-width-full;
 }
 
-.form__field {
-  border: 2px solid Get($colors, greyscale, mid-grey);
+.form__label--bt {
+  margin-bottom: .125rem;
+
+  @extend %e-col-greyscale-2;
+}
+
+.form__label--readonly {
+  font-size: .75rem;
+  line-height: 1.5;
 }
 
 .form__field {
-  @extend %e-ff-prim-heavy;
+  border: 2px solid Get($colorGroups, greyscale, 2);
+}
+
+.form__field--bt {
+  height: 40px;
+}
+
+.form__field {
+  // Match Braintree style
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
   @extend %e-mgn-b-xs;
   @extend %e-pad-xs;
   @extend %e-rad-slight;
@@ -25,6 +46,14 @@
   &:valid {
     border: 2px solid lightgreen;
   }
+}
+
+.form__prev {
+  float: left;
+}
+
+.form__next {
+  float: right;
 }
 
 .form__err {
@@ -55,12 +84,12 @@
   @extend %e-width-full;
 }
 
-/*		=Behaviour
+/*		=Behaviour (validation)
   ========================================================================== */
 
 .form__field:valid,
 .form__field:valid.JS-error {
-  border: 2px solid Get($colors, greyscale, mid-grey) !important;
+  border: 2px solid Get($colorGroups, greyscale, 2) !important;
 }
 
 .form__field.JS-error + .form__err {
@@ -93,4 +122,46 @@
   .form__error {
     @extend %e-display-block;
   }
+}
+
+/*		=Behaviout (payment)
+  ========================================================================== */
+
+.form__pages {
+  @extend %e-flex-row-nowrap;
+  @extend %e-position-relative;
+}
+
+// Index starts @ 0
+.form__pages--2 {
+  width: calc(100% * 3);
+}
+
+.form__head {
+  border-bottom: 2px solid Get($colorGroups, greyscale, 1);
+
+  @extend %e-pad-b-xs;
+  @extend %e-width-full;
+}
+
+.form__page {
+  width: calc(100% / 3);
+  height: inherit;
+  // transition: .2s linear transform;
+
+  @extend %e-bgc-greyscale-0;
+  @extend %e-height-full;
+  @extend %e-pad-t-xs;
+}
+
+.form__page--0-to-2.JS-active {
+  transform: translateX(0);
+}
+
+.form__page--1-to-2.JS-active {
+  transform: translateX(-100%);
+}
+
+.form__page--2-to-2.JS-active {
+  transform: translateX(-200%);
 }

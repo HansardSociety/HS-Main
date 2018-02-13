@@ -194,18 +194,24 @@ def featuredData(data, opts = {})
   featuredProductData = {}
   featuredRegistrationData = {}
 
-  # Core
+  ##		=Core
+  ########################################
+
   featuredCoreData = {
     ID: data.sys[:id],
     TYPE: data.content_type.id
   }
 
-  # People
+  ##		=People
+  ########################################
+
   if isPeople
     featuredAuthorData = profile(data)
   end
 
-  # Page
+  ##		=Page
+  ########################################
+
   if isPage
     featuredPageData = {
       title: data.title,
@@ -219,13 +225,16 @@ def featuredData(data, opts = {})
     }.compact
   end
 
-  # Product
+  ##		=Product
+  ########################################
+
   if isProduct
     featuredProductData = {
       title: data.title,
       meta_label: metaLabel(parentData),
-      product_id: data.product_id,
+      product_id: "product-#{ data.sys[:id] }",
       price: data.price,
+      payment_form: data.payment_form.parameterize,
       image: {
         url: data.image.url,
         alt: data.image.description
@@ -234,7 +243,9 @@ def featuredData(data, opts = {})
     }.compact
   end
 
-  # Registration
+  ##		=Registration
+  ########################################
+
   if isRegistration
     featuredRegistrationData = {
       meta_title: data.meta_title,
@@ -250,7 +261,7 @@ def featuredData(data, opts = {})
     }
   end
 
-  # Merged
+  # Merge
   featuredCoreData.merge(
     **featuredAuthorData,
     **featuredPageData,
@@ -266,6 +277,7 @@ end
 def form(data)
   {
     ID: data.sys[:id],
+    TYPE: data.content_type.id,
     meta_title: data.meta_title,
     confirmation: data.confirmation,
     elements: data.elements.map do |elem|

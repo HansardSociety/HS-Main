@@ -85,33 +85,6 @@
   }
 }
 
-.btn__label--change {
-
-  &::before,
-  &::after {
-    text-align: center;
-
-    @extend %e-display-block;
-    @extend %e-position-relative;
-    @extend %e-trans-transform;
-    @extend %e-width-full;
-  }
-
-  &::before {
-    content: attr(data-on-text);
-    transform: translateY(0);
-  }
-
-  &::after {
-    left: 0;
-
-    content: attr(data-off-text);
-    transform: translateY(5rem);
-
-    @extend %e-position-absolute;
-  }
-}
-
 .btn__menu,
 .btn__menu::before,
 .btn__menu::after {
@@ -162,18 +135,6 @@
       transform: rotate(-45deg);
     }
   }
-
-  .btn__label--change {
-
-    &::before {
-      transform: translateY(-5rem);
-    }
-
-    &::after {
-      transform: translateY(-100%);
-    }
-  }
-
 
   .btn__icon--rotate {
     transform: rotate(180deg);

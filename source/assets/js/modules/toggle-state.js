@@ -57,6 +57,8 @@ const toggleState = (() => {
     // Conditions for all triggers with secondary targets
     function triggersWithSecTargets() {
 
+      console.log(trigger)
+
       // Remove active trigger from array of secondary triggers...
       const arrRemoveActiveTrigger = triggerSecTargetAll.filter(function(elem) {
         return elem != trigger
@@ -71,7 +73,7 @@ const toggleState = (() => {
         return elem.classList.contains(off)
       }
 
-      // If trigger secondary target doesn"t match ANY other scondary target...
+      // If trigger secondary target doesn't match ANY other secondary target...
       if (arrRemoveActiveTrigger.every(checkUniqueSecTarget)) {
         toggleEachState(targetStates, targetSec)
 

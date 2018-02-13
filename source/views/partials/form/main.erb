@@ -1,0 +1,82 @@
+<%
+formData = local_data[:entry_data]
+
+isNetlifyForm = formData[:TYPE] == "form"
+isPaymentForm = formData[:TYPE] == "product"
+
+formAttrsNetlify = {}
+formAttrsPayment = {}
+
+formAttrsCore = {
+  "class": "form",
+  "action": "/"
+}
+
+if isNetlifyForm
+  formAttrsNetlify = {
+    "data-netlify": "true",
+    "data-netlify-honeypot": "bot-field",
+    "name": "#{ formData[:meta_title].parameterize + "-" + formData[:ID] }"
+  }
+
+elsif isPaymentForm
+  formAttrsPayment = {
+    "id": "payment-form",
+    "method": "post"
+  }
+end
+
+# Merge
+formAttrs = formAttrsCore.merge(
+  **formAttrsNetlify,
+  **formAttrsPayment
+).compact
+%>
+
+<%= tag(:form, formAttrs) %>
+
+  <!--**********************************************
+      =Main
+  ***********************************************-->
+
+  <div class="form__main">
+
+    <!--	=Netlify fields	-->
+    <% if isNetlifyForm %>
+      <%= partial "views/partials/form/fields-netlify",
+        locals: { form_data: formData } %>
+
+    <!--	=Payment fields	-->
+    <% elsif isPaymentForm %>
+      <%= partial "views/partials/form/fields-payment",
+        locals: { form_data: formData } %>
+    <% end %>
+  </div>
+
+  <% if isNetlifyForm %>
+
+    <!--**********************************************
+        =Success
+    ***********************************************-->
+
+    <div class="form__confirmation">
+      <h2 class="title-lg e-col-brand-green-2">Success!</h2>
+      <div class="e-mgn-t-sm">
+        <%= markdown(formData[:confirmation]) %>
+      </div>
+      <div class="e-mgn-t-sm">
+        <%= partial "views/partials/social-follow",
+          locals: { bgc: "light" } %>
+      </div>
+    </div>
+
+    <!--**********************************************
+        =Error
+    ***********************************************-->
+
+    <div class="form__error">
+      <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong..."</h2>
+      <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+    </div>
+  <% end %>
+</form>
