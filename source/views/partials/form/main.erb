@@ -7,30 +7,31 @@ isPaymentForm = formData[:TYPE] == "product"
 formAttrsNetlify = {}
 formAttrsPayment = {}
 
-formAttrsCore = {
-  "class": "form",
-  "action": "/"
-}
+# Core attributes
+def formAttrsCore(classes)
+  {
+    "class": "form #{ classes }",
+    "action": "/"
+  }
+end
 
+# Netlify form
 if isNetlifyForm
   formAttrsNetlify = {
     "data-netlify": "true",
     "data-netlify-honeypot": "bot-field",
     "name": "#{ formData[:meta_title].parameterize + "-" + formData[:ID] }"
-  }
+  }.merge(formAttrsCore("form--netlify"))
 
+# Payment form
 elsif isPaymentForm
   formAttrsPayment = {
     "id": "payment-form",
     "method": "post"
-  }
+  }.merge(formAttrsCore("form--payment"))
 end
 
-# Merge
-formAttrs = formAttrsCore.merge(
-  **formAttrsNetlify,
-  **formAttrsPayment
-).compact
+formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
 %>
 
 <%= tag(:form, formAttrs) %>
