@@ -80,11 +80,13 @@ const netlifyForms = (() => {
     var submitBtn = form.querySelector("button[type=submit]")
 
     submitBtn.addEventListener("click", function(e) {
-      var formElem = this.form
-
       e.preventDefault()
 
+      var formElem = this.form
+
       validateFields(formElem, sendData(formElem, "/"))
+
+      return false
     })
   }
 })()
