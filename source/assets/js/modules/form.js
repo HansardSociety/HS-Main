@@ -75,7 +75,9 @@ const netlifyForms = (() => {
   var forms = document.querySelectorAll(".form[data-netlify]")
 
   for (let form of forms) {
-    var submitBtn = form.querySelector("button")
+    var submitBtn = form.querySelector(".btn--submit")
+
+    console.log(submitBtn)
 
     submitBtn.addEventListener("click", function(e) {
       // e.preventDefault()
