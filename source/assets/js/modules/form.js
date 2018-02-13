@@ -75,12 +75,14 @@ const netlifyForms = (() => {
   var forms = document.querySelectorAll(".form[data-netlify]")
 
   for (let form of forms) {
-    var submitBtn = form.querySelector(".btn--submit")
+    var submitBtn = form.querySelector("button")
 
     submitBtn.addEventListener("click", function(e) {
       // e.preventDefault()
-      console.log(form)
-      validateAndSend(form)
+
+      console.log("BUTTON CLICKED!!!")
+
+      // validateAndSend(form)
     })
   }
 })()
