@@ -80,7 +80,7 @@ const netlifyForms = (() => {
     submitBtn.addEventListener("click", function(e) {
       // e.preventDefault()
       console.log(form)
-      // validateAndSend(form)
+      validateAndSend(form)
     })
   }
 })()
