@@ -5,6 +5,8 @@ featured = @entry[:featured]
 <script src="<%= assetsDir %><%= config[:JS_VENDOR] %>"></script>
 <script src="<%= assetsDir %><%= config[:JS_APP] %>"></script>
 
+<!--
 <% if featured && featured.any? { |featured| featured.TYPE.include?("product") && featured.price > 0 } %>
   <script src="<%= assetsDir %><%= config[:JS_CHECKOUT] %>"></script>
 <% end %>
+-->
