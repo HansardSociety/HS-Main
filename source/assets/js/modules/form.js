@@ -74,10 +74,10 @@ function validateAndSend(getFormElem) {
 const netlifyForms = (() => {
   var forms = document.querySelectorAll(".form[data-netlify]")
 
+  console.log("Netlify forms initiated")
+
   for (let form of forms) {
     var submitBtn = form.querySelector(".btn--submit")
-
-    console.log(submitBtn)
 
     submitBtn.addEventListener("click", function(e) {
       // e.preventDefault()
@@ -125,77 +125,77 @@ var paymentFields = {
 }
 
 const braintreeCheckout = (() => {
-  var form = document.querySelector("#payment-form");
+  // var form = document.querySelector("#payment-form");
 
-  if (form) {
-    var submit = form.querySelector("button[type=submit]");
+  // if (form) {
+  //   var submit = form.querySelector("button[type=submit]");
 
-    /*		=Set up client
-      ---------------------------------------- */
+  //   /*		=Set up client
+  //     ---------------------------------------- */
 
-    braintree.client.create({
-      authorization: "sandbox_99kwdtcc_gqg8v5627nfqvf2y"
-    }, clientDidCreate)
+  //   braintree.client.create({
+  //     authorization: "sandbox_99kwdtcc_gqg8v5627nfqvf2y"
+  //   }, clientDidCreate)
 
 
-    /*		=Client instance
-      ---------------------------------------- */
+  //   /*		=Client instance
+  //     ---------------------------------------- */
 
-    function clientDidCreate(clientErr, clientInstance) {
+  //   function clientDidCreate(clientErr, clientInstance) {
 
-      if (clientErr) {
-        console.error(clientErr);
-        return;
-      }
+  //     if (clientErr) {
+  //       console.error(clientErr);
+  //       return;
+  //     }
 
-      braintree.hostedFields.create({
-        client: clientInstance,
-        styles: checkoutStyles,
-        fields: paymentFields
-      }, hostedFieldsDidCreate)
-    }
+  //     braintree.hostedFields.create({
+  //       client: clientInstance,
+  //       styles: checkoutStyles,
+  //       fields: paymentFields
+  //     }, hostedFieldsDidCreate)
+  //   }
 
-    /*		=Hosted fields instance
-      ---------------------------------------- */
+  //   /*		=Hosted fields instance
+  //     ---------------------------------------- */
 
-    function hostedFieldsDidCreate(hostedErr, hostedInstance) {
+  //   function hostedFieldsDidCreate(hostedErr, hostedInstance) {
 
-      if (hostedErr) {
-        console.error(hostedErr)
-        return
-      }
+  //     if (hostedErr) {
+  //       console.error(hostedErr)
+  //       return
+  //     }
 
-      submit.removeAttribute("disabled")
+  //     submit.removeAttribute("disabled")
 
-      form.addEventListener("submit", function (event) {
-        event.preventDefault()
+  //     form.addEventListener("submit", function (event) {
+  //       event.preventDefault()
 
-        var customFormDataSerialized = $(this).serializeArray()
+  //       var customFormDataSerialized = $(this).serializeArray()
 
-        function objectifyForm(formArray) {//serialize data function
-          var returnArray = {}
+  //       function objectifyForm(formArray) {//serialize data function
+  //         var returnArray = {}
 
-          for (var i = 0; i < formArray.length; i++) {
-            returnArray[formArray[i]["name"]] = formArray[i]["value"]
-          }
+  //         for (var i = 0; i < formArray.length; i++) {
+  //           returnArray[formArray[i]["name"]] = formArray[i]["value"]
+  //         }
 
-          return returnArray
-        }
+  //         return returnArray
+  //       }
 
-        var customFormDataObj = objectifyForm(customFormDataSerialized)
+  //       var customFormDataObj = objectifyForm(customFormDataSerialized)
 
-        hostedInstance.tokenize(function (tokenizeErr, payload) {
+  //       hostedInstance.tokenize(function (tokenizeErr, payload) {
 
-          if (tokenizeErr) {
-            console.error(tokenizeErr)
-            return
-          }
+  //         if (tokenizeErr) {
+  //           console.error(tokenizeErr)
+  //           return
+  //         }
 
-          console.log("SUCCESS!!!!!!!!!!!!!!!!!")
-        })
-      }, false)
-    }
-  }
+  //         console.log("SUCCESS!!!!!!!!!!!!!!!!!")
+  //       })
+  //     }, false)
+  //   }
+  // }
 })()
 
 export { netlifyForms, braintreeCheckout }
