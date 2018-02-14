@@ -88,7 +88,8 @@ formPages = [{
     <div
       id="form-pg-<%= index %>"
       class="<%= index > 0 ? "JS-inactive" : "JS-active" %>
-            form__page form__page--<%= index %>-to-<%= formPages.length - 1 %>">
+            form__page form__page--<%= index %>-to-<%= formPages.length - 1 %>"
+      tabindex="<%= index > 0 ? "-1" : "0 " %>">
 
       <!--	=Title	-->
       <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm"><%= page[:title] %></h3>

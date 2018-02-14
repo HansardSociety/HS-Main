@@ -23,7 +23,7 @@ const toggleState = (() => {
     const globalNoScroll = globalState.classList.contains(noScroll)
 
     // Trigger
-    const triggerStates = [ "JS-on", "JS-off" ]
+    const triggerStates = ["JS-on", "JS-off"]
     const trigger = activeTrigger
     const triggerTargetID = trigger.getAttribute("aria-controls")
     const triggerSwitch = trigger.classList.contains("JS-switch")
@@ -34,7 +34,7 @@ const toggleState = (() => {
     const triggerSecTargetAll = Array.from(baseElem.querySelectorAll(`[${ triggerSecTargetAttr }]`))
 
     // Target
-    const targetStates = [ "JS-active", "JS-inactive" ]
+    const targetStates = ["JS-active", "JS-inactive"]
     const target = baseElem.querySelector(`#${ triggerTargetID }`)
     const targetHold = target.classList.contains(activeHold)
     const targetSec = triggerSecTargetID && baseElem.querySelector(`#${ triggerSecTargetID }`)
@@ -42,7 +42,22 @@ const toggleState = (() => {
 
     function toggleEachState(states, elem) {
       forEach(states, function(index, state) {
+        var tabIndexClass = "modal" || "form__page"
+
         toggleClass(elem, state)
+
+        if (elem.classList.contains(tabIndexClass)) {
+
+          if (elem.classList.contains(active)) {
+            var formField = elem.querySelector(".form__field")
+
+            elem.removeAttribute("tabindex")
+            formField ? formField.focus() : false
+
+          } else {
+            elem.setAttribute("tabindex", "-1")
+          }
+        }
       })
     }
 

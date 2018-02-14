@@ -18,7 +18,6 @@ formData = form_data
     "type": (elem[:input_type] if !isNotInput),
     "name": elem[:label],
     "placeholder": labelNameCap + "…",
-    "tabindex": ("-1" if formData[:is_modal])
   }.compact
 
   fieldAttrs.merge!(required: "") if elem[:required] %>

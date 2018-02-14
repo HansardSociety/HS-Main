@@ -224,5 +224,5 @@ const braintreeCheckout = (() => {
   }
 })()
 
-export { netlifyForms, braintreeCheckout, observeActiveForm }
+export { netlifyForms, braintreeCheckout }
 

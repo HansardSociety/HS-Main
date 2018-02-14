@@ -8,7 +8,10 @@ size = local_data[:size]
 isYield = local_data[:yield]
 %>
 
-<div id="<%= id %>" class="modal JS-inactive">
+<div
+  id="<%= id %>"
+  class="modal JS-inactive"
+  tabindex="-1">
 
   <div
     aria-controls="<%= id %>"
