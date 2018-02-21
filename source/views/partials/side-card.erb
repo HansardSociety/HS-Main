@@ -106,7 +106,7 @@ sideCardAttrs = {
                   type: "state",
                   size: "sm",
                   style: "primary",
-                  label_on: "Buy (£#{ entryData[:price] })",
+                  label_on: "Buy £#{ sprintf("%.2f", entryData[:price]) }",
                   label_off: "Close",
                   label_size: "sm",
                   page: "no-scroll",

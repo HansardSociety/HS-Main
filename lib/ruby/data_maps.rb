@@ -232,7 +232,7 @@ def featuredData(data, opts = {})
     featuredProductData = {
       title: data.title,
       meta_label: metaLabel(parentData),
-      product_id: "product-#{ data.sys[:id] }",
+      product_id: data.product_id,
       price: data.price,
       payment_form: data.payment_form.parameterize,
       image: {

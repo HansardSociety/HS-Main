@@ -55,7 +55,7 @@ productAttrs = {}
 if product
   productAttrs = {
     "data-item-name": product[:title],
-    "data-item-price": product[:price],
+    "data-item-price": sprintf("%.2f", product[:price]),
     "data-item-url": "https://www.hansardsociety.org.uk/#{ @entry[:slug] }"
   }
 end

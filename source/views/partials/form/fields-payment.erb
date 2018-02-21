@@ -5,81 +5,85 @@ isBasic = paymentForm == "basic"
 isShipping = paymentForm == "shipping",
 formPages = [{
 
-  # Personal information
-  type: "custom",
-  title: "Start your order",
-  fields: [{
-    type: "text",
-    id: "first-name",
-    placeholder: "eg. Jane"
+    # Personal information
+    type: "custom",
+    title: "Start your order",
+    fields: [{
+      type: "number",
+      label: "Quantity",
+      id: "quantity"
+    }, {
+      type: "text",
+      label: "First name",
+      id: "first-name",
+      placeholder: "eg. Jane"
+    }, {
+      type: "text",
+      label: "Surname",
+      id: "surname",
+      placeholder: "eg. Smith"
+    }, {
+      type: "email",
+      label: "Email",
+      id: "email-address",
+      placeholder: "eg. your@email.com"
+    }]
   }, {
-    type: "text",
-    id: "surname",
-    placeholder: "eg. Smith"
-  }, {
-    type: "email",
-    id: "email-address",
-    placeholder: "eg. your@email.com"
-  }]}, {
 
-  # Shipping information
-  type: "custom",
-  title: "Shipping information",
-  fields: [{
-    type: "text",
-    id: "street",
-    placeholder: "eg. 1 Parliament Street"
+    # Shipping information
+    type: "custom",
+    title: "Shipping address",
+    fields: [{
+      type: "text",
+      label: "Street addr.",
+      id: "street",
+      placeholder: "eg. 1 Parliament Street"
+    }, {
+      type: "text",
+      label: "Town",
+      id: "town",
+      placeholder: "eg. Westminster"
+    }, {
+      type: "text",
+      label: "City/region",
+      id: "city",
+      placeholder: "eg. London"
+    }, {
+      type: "text",
+      label: "Postal code",
+      id: "postal-code",
+      placeholder: "eg. SW1A 0AA"
+    }]
   }, {
-    type: "text",
-    id: "town",
-    placeholder: "eg. Westminster"
-  }, {
-    type: "text",
-    id: "city",
-    placeholder: "eg. London"
-  }, {
-    type: "text",
-    id: "postcode",
-    placeholder: "eg. SW1A 0AA"
-  }]}, {
 
-  # Payment information
-  type: "payment",
-  title: "Payment information",
-  fields: [
-    "card-number",
-    "expiration-date",
-    "cvv"
-]}]
+    # Payment information
+    type: "payment",
+    title: "Billing information",
+    fields: [
+      "card-number",
+      "expiration-date",
+      "cvv",
+      {
+        type: "text",
+        label: "Street addr.",
+        id: "billing-street-address",
+        placeholder: "eg. 1 Parliament Street"
+      }, {
+        type: "text",
+        label: "Postal code",
+        id: "billing-postal-code",
+        placeholder: "eg. SW1A 0AA"
+      }
+    ]
+  }]
 %>
 
 <div class="form__head">
-
-  <!--	=Item	-->
-  <label
-    class="form__label form__label--readonly"
-    for="item"><strong>Item:</strong> <%= formData[:title] %></p></label>
-  <input
-    value="<%= formData[:title] %>"
-    data-product-id="<%= formData[:product_id] %>"
-    class="form__field e-hidden"
-    name="item"
-    type="text"
-    readonly
-    tabindex="-1">
-
-  <!--	=Price	-->
-  <label
-    class="form__label form__label--readonly e-mgn-t-xs"
-    for="price"><strong>Price:</strong> GBP £<%= formData[:price] %></label>
-  <input
-    value="<%= formData[:price] %>"
-    class="form__field e-hidden"
-    name="price"
-    type="text"
-    readonly
-    tabindex="-1">
-
+  <p>
+    <span class="form__product-name"><strong>Item:</strong> <%= formData[:title] %></span>
+    <span class="form__product-price"><strong>Unit price:</strong> £<%= sprintf("%.2f", formData[:price]) %></span>
+    <span class="form__product-total"><strong>TOTAL:</strong> £<%= sprintf("%.2f", formData[:price]) %></span>
+  </p>
 </div>
 <div id="form-pages" class="form__pages form__pages--<%= formPages.length - 1 %>">
 
@@ -94,29 +98,44 @@ formPages = [{
       <!--	=Title	-->
       <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm"><%= page[:title] %></h3>
 
-      <!--	=Fields	-->
-      <% page[:fields].each do |field|
+      <!--	=Custom fields	-->
+      <% if page[:type] == "custom"
+        page[:fields].each do |field| %>
 
-        # Custom fields
-        if page[:type] == "custom" %>
-          <label
-            for="<%= field[:id] %>"
-            class="form__label form__label--bt label-xs"><%= field[:id].capitalize.gsub("-", " ") %>
-          </label>
-          <input
-            name="<%= field[:id] %>"
-            type="<%= field[:type] %>"
-            placeholder="<%= field[:placeholder] %>"
-            class="form__field form__field--bt">
+            <label
+              for="<%= field[:id] %>"
+              class="form__label form__label--bt label-xs"><%= field[:label] %>
+            </label>
+            <input
+              name="<%= field[:id] %>"
+              type="<%= field[:type] %>"
+              placeholder="<%= field[:placeholder] %>"
+              class="form__field form__field--bt">
 
-        <% #Payment fields
-        else %>
-          <label class="form__label form__label--bt label-xs" for="<%= field %>">
-            <%= field.capitalize.gsub("-", " ") %>
-          </label>
-          <div class="form__field form__field--bt" id="<%= field %>"></div>
-        <% end %>
-      <% end %>
+      <!--	=Payment fields	-->
+        <% end;
+      elsif page[:type] == "payment"
+
+        # Braintree fields
+        page[:fields].each do |field|
+
+          if field.class != Hash %>
+            <label class="form__label form__label--bt label-xs" for="<%= field %>">
+              <%= field.capitalize.gsub("-", " ") %>
+            </label>
+            <div class="form__field form__field--bt" id="<%= field %>"></div>
+
+          <% else %>
+            <label
+              for="<%= field[:id] %>"
+              class="form__label form__label--bt label-xs"><%= field[:label] %>
+            </label>
+            <input
+              name="<%= field[:id] %>"
+              type="<%= field[:type] %>"
+              placeholder="<%= field[:placeholder] %>"
+              class="form__field form__field--bt">
+      <% end; end; end %>
 
       <!--	=Form actions	-->
       <div class="form__actions">

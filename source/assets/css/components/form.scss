@@ -1,3 +1,6 @@
+/*		=Core
+  ========================================================================== */
+
 .form {
 
   textarea {
@@ -9,6 +12,14 @@
 
 .form__main {
   @extend %e-overflow-hidden;
+}
+
+.form__prev {
+  float: left;
+}
+
+.form__next {
+  float: right;
 }
 
 .form__label,
@@ -42,18 +53,9 @@
   @extend %e-mgn-b-xs;
   @extend %e-pad-xs;
   @extend %e-rad-slight;
-
   &:valid {
     border: 2px solid lightgreen;
   }
-}
-
-.form__prev {
-  float: left;
-}
-
-.form__next {
-  float: right;
 }
 
 .form__err {
@@ -82,6 +84,57 @@
   @extend %e-height-full;
   @extend %e-trans-opacity;
   @extend %e-width-full;
+}
+
+/*		=Pages/ payment
+  ========================================================================== */
+
+.form__pages {
+  @extend %e-flex-row-nowrap;
+  @extend %e-position-relative;
+}
+
+.form__pages--2 {
+  width: calc(100% * 3);
+}
+
+.form__head {
+  border-radius: 2px;
+  font-size: .75rem;
+
+  @extend %e-col-greyscale-0;
+  @extend %e-bgc-greyscale-3;
+  @extend %e-pad-sm;
+  @extend %e-width-full;
+}
+
+.form__page {
+  width: calc(100% / 3);
+  height: inherit;
+
+  @extend %e-bgc-greyscale-0;
+  @extend %e-height-full;
+  @extend %e-mgn-b-xs;
+  @extend %e-pad-t-xs;
+}
+
+.form__product-name {
+  @extend %e-display-block;
+}
+
+.form__product-price,
+.form__product-total {
+  @extend %e-mgn-r-xs;
+}
+
+.form__product-total {
+  padding: .25rem;
+
+  border-radius: 2px;
+
+  @extend %e-bgc-brand-green-1;
+  @extend %e-display-inline-block;
+  @extend %e-mgn-t-xs;
 }
 
 /*		=Behaviour (validation)
@@ -124,35 +177,15 @@
   }
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
 /*		=Behaviout (payment)
   ========================================================================== */
-
-.form__pages {
-  @extend %e-flex-row-nowrap;
-  @extend %e-position-relative;
-}
-
-// Index starts @ 0
-.form__pages--2 {
-  width: calc(100% * 3);
-}
-
-.form__head {
-  border-bottom: 2px solid Get($colorGroups, greyscale, 1);
-
-  @extend %e-pad-b-xs;
-  @extend %e-width-full;
-}
-
-.form__page {
-  width: calc(100% / 3);
-  height: inherit;
-  // transition: .2s linear transform;
-
-  @extend %e-bgc-greyscale-0;
-  @extend %e-height-full;
-  @extend %e-pad-t-xs;
-}
 
 .form__page--0-to-2.JS-active {
   transform: translateX(0);
