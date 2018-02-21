@@ -94,8 +94,20 @@
   @extend %e-position-relative;
 }
 
+.form__pages--0 {
+  width: 100%;
+}
+
+.form__pages--1 {
+  width: calc(100% * 2);
+}
+
 .form__pages--2 {
   width: calc(100% * 3);
+}
+
+.form__pages--3 {
+  width: calc(100% * 4);
 }
 
 .form__head {
@@ -187,6 +199,8 @@ input[type=number]::-webkit-outer-spin-button {
 /*		=Behaviout (payment)
   ========================================================================== */
 
+/***  =0-2  ***/
+
 .form__page--0-to-2.JS-active {
   transform: translateX(0);
 }
@@ -198,3 +212,22 @@ input[type=number]::-webkit-outer-spin-button {
 .form__page--2-to-2.JS-active {
   transform: translateX(-200%);
 }
+
+/***  =0-3  ***/
+
+.form__page--0-to-3.JS-active {
+  transform: translateX(0);
+}
+
+.form__page--1-to-3.JS-active {
+  transform: translateX(-100%);
+}
+
+.form__page--2-to-3.JS-active {
+  transform: translateX(-200%);
+}
+
+.form__page--3-to-3.JS-active {
+  transform: translateX(-300%);
+}
+

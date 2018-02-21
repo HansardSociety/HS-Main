@@ -5,14 +5,20 @@ isBasic = paymentForm == "basic"
 isShipping = paymentForm == "shipping",
 formPages = [{
 
-    # Personal information
+    # Product information
     type: "custom",
     title: "Start your order",
     fields: [{
       type: "number",
       label: "Quantity",
       id: "quantity"
-    }, {
+    }]
+  }, {
+
+    # Personal information
+    type: "custom",
+    title: "Contact information",
+    fields: [{
       type: "text",
       label: "First name",
       id: "first-name",
@@ -79,11 +85,10 @@ formPages = [{
 %>
 
 <div class="form__head">
-  <p>
-    <span class="form__product-name"><strong>Item:</strong> <%= formData[:title] %></span>
-    <span class="form__product-price"><strong>Unit price:</strong> £<%= sprintf("%.2f", formData[:price]) %></span>
-    <span class="form__product-total"><strong>TOTAL:</strong> £<%= sprintf("%.2f", formData[:price]) %></span>
-  </p>
+  <p><strong>Item:</strong> <span data-product-name="<%= formData[:title] %>"><%= formData[:title] %></p>
+  <p><strong>Price:</strong> <span data-product-price="<%= sprintf("%.2f", formData[:price]) %>">£<%= sprintf("%.2f", formData[:price]) %></p>
+  <p><strong>Qty:</strong> <span data-product-qty="1">1</p>
+  <p><strong>TOTAL:</strong> <span data-product-total="<%= sprintf("%.2f", formData[:price]) %>">£<%= sprintf("%.2f", formData[:price]) %></p>
 </div>
 <div id="form-pages" class="form__pages form__pages--<%= formPages.length - 1 %>">
 
@@ -100,8 +105,20 @@ formPages = [{
 
       <!--	=Custom fields	-->
       <% if page[:type] == "custom"
-        page[:fields].each do |field| %>
+        page[:fields].each do |field|
+          if field[:id] == "quantity" %>
+            <label
+              for="<%= field[:id] %>"
+              class="form__label form__label--bt label-xs"><%= field[:label] %>
+            </label>
+            <input
+              name="<%= field[:id] %>"
+              type="<%= field[:type] %>"
+              value="1"
+              min="1" max="20"
+              class="form__field form__field--bt form__field--qty">
 
+          <% else %>
             <label
               for="<%= field[:id] %>"
               class="form__label form__label--bt label-xs"><%= field[:label] %>
@@ -113,7 +130,7 @@ formPages = [{
               class="form__field form__field--bt">
 
       <!--	=Payment fields	-->
-        <% end;
+        <% end; end;
       elsif page[:type] == "payment"
 
         # Braintree fields
@@ -154,7 +171,7 @@ formPages = [{
                 aria_target_id: "form-pg-#{ index }" }} %>
           </div>
 
-        <% end; if index < 2 %>
+        <% end; if index < (formPages.length - 1) %>
           <div class="form__next">
             <%= partial "views/partials/btn",
               locals: { local_data: {
@@ -175,7 +192,7 @@ formPages = [{
                 type: "plain",
                 size: "sm",
                 style: "primary",
-                label: "Confirm order",
+                label: "Place order",
                 label_size: "sm",
                 form: true }} %>
           </div>
