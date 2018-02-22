@@ -18,12 +18,14 @@ quoteData = local_data[:entry_data]
       <span><%= quoteData[:role] %></span>
       <span><%= quoteData[:organisation] %></span>
     </p>
-    <div class="quote__logo">
-      <img
-        class="b-lazy"
-        alt="<%= quoteData[:logo][:alt] %>"
-        data-src="<%=  quoteData[:logo][:url] %>"
-        src="<%= assetsDir %>/images/placeholder__main-card.svg" />
-    </div>
+      <div class="quote__logo">
+      <% if quoteData[:logo] %>
+        <img
+          class="b-lazy"
+          alt="<%= quoteData[:logo][:alt] %>"
+          data-src="<%=  quoteData[:logo][:url] %>"
+          src="<%= assetsDir %>/images/placeholder__main-card.svg" />
+      <% end %>
+      </div>
   </figcaption>
 </figure>
