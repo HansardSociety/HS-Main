@@ -1,6 +1,5 @@
-///////////////////////////////////////////////////////////
-//  =Box model
-////////////////////////////////////////////////////////////
+/*		=Margins and padding
+  ========================================================================== */
 
 @each $sizeKey, $sizeVal in $spacing {
 
@@ -120,24 +119,23 @@
   }
 }
 
-//  =Borders
-//////////////////////////////
+/*		=Accents
+  ========================================================================== */
 
-$allColorMaps: Merge(map-get($colors, primary), map-get($colors, secondary), map-get($colors, greyscale));
+@each $colorName, $colorShades in $colorGroups {
+  @each $shadeNum, $shadeHex in $colorShades {
+    @each $side in map-get($properties, origins) {
 
-// Accents
-@each $name, $color in $allColorMaps {
-  @each $side in map-get($properties, origins) {
-
-    %e-acc-#{ $name }-#{ $side },
-    .e-acc-#{ $name }-#{ $side } {
-      border-#{ $side }: .3333rem solid $color;
+      %e-acc-#{ $colorName }-#{ $shadeNum }-#{ $side },
+      .e-acc-#{ $colorName }-#{ $shadeNum }-#{ $side } {
+        border-#{ $side }: .5rem solid $shadeHex;
+      }
     }
   }
 }
 
-//  =Radii
-//////////////////////////////
+/*		=Radii
+  ========================================================================== */
 
 @each $radKey, $radVal in $radii {
 
@@ -146,8 +144,8 @@ $allColorMaps: Merge(map-get($colors, primary), map-get($colors, secondary), map
   }
 }
 
-//  =Shadow
-//////////////////////////////
+/*		=Shadow
+  ========================================================================== */
 
 @each $shadowKey, $shadowVal in map-get($shadow, box) {
   %e-box-shad-#{ $shadowKey } {

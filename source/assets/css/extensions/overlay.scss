@@ -11,3 +11,8 @@
 %e-overlay-medium::after { background-color: rgba(#000, .3333); }
 %e-overlay-dark::after   { background-color: rgba(#000, .5); }
 
+%e-overlay-medium::after {
+  $color: Get($colorGroups, greyscale, 3);
+
+  background: radial-gradient(ellipse at center 100%, rgba($color, .1) 0%, rgba($color, .5) 100%);
+}

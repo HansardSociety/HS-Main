@@ -1,7 +1,3 @@
-///////////////////////////////////////////////////////////
-//  =Hidden
-////////////////////////////////////////////////////////////
-
 %e-hidden,
 .e-hidden {
   clip: rect(1px, 1px, 1px, 1px);
@@ -13,4 +9,20 @@
 
   @extend %e-position-absolute;
   @extend %e-overflow-hidden;
+}
+
+@each $breakpointKey, $breakpointVal in $breakpoints {
+  @include above($breakpointKey) {
+    .e-hide-above-#{ $breakpointKey } {
+      display: none;
+    }
+  }
+}
+
+@each $breakpointKey, $breakpointVal in $breakpoints {
+  @include below($breakpointKey) {
+    .e-hide-below-#{ $breakpointKey } {
+      display: none;
+    }
+  }
 }

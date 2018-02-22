@@ -1,0 +1,28 @@
+<%
+imageData = local_data[:image_data]
+
+invert = local_data[:invert]
+icon = local_data[:icon]
+
+url = imageData[:url]
+alt = imageData[:alt]
+focus = imageData[:focus]
+caption = imageData[:caption]
+%>
+
+<figure
+  class="image
+        <%= invert ? "image--invert" : "image--light" %>
+        <%= "image--icon" if icon %>">
+
+  <img
+    class="image__img"
+    alt="<%= alt %>"
+    src="<%= url + (focus ? "?fit=fill&w=563&h=317&f=" + focus : "") %>"/>
+
+  <% if caption == true %>
+    <figcaption class="image__caption label-xs">
+      <%= alt %>
+    </figcaption>
+  <% end %>
+</figure>

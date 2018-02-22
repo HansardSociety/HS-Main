@@ -1,0 +1,203 @@
+<%
+formData = form_data
+paymentForm = formData[:payment_form]
+isBasic = paymentForm == "basic"
+isShipping = paymentForm == "shipping",
+formPages = [{
+
+    # Product information
+    type: "custom",
+    title: "Start your order",
+    fields: [{
+      type: "number",
+      label: "Quantity",
+      id: "quantity"
+    }]
+  }, {
+
+    # Personal information
+    type: "custom",
+    title: "Contact information",
+    fields: [{
+      type: "text",
+      label: "First name",
+      id: "first-name",
+      placeholder: "eg. Jane"
+    }, {
+      type: "text",
+      label: "Surname",
+      id: "surname",
+      placeholder: "eg. Smith"
+    }, {
+      type: "email",
+      label: "Email",
+      id: "email-address",
+      placeholder: "eg. your@email.com"
+    }]
+  }, {
+
+    # Shipping information
+    type: "custom",
+    title: "Shipping address",
+    fields: [{
+      type: "text",
+      label: "Street addr.",
+      id: "street",
+      placeholder: "eg. 1 Parliament Street"
+    }, {
+      type: "text",
+      label: "Town",
+      id: "town",
+      placeholder: "eg. Westminster"
+    }, {
+      type: "text",
+      label: "City/region",
+      id: "city",
+      placeholder: "eg. London"
+    }, {
+      type: "text",
+      label: "Postal code",
+      id: "postal-code",
+      placeholder: "eg. SW1A 0AA"
+    }]
+  }, {
+
+    # Payment information
+    type: "payment",
+    title: "Billing information",
+    fields: [
+      "card-number",
+      "expiration-date",
+      "cvv",
+      {
+        type: "text",
+        label: "Street addr.",
+        id: "billing-street-address",
+        placeholder: "eg. 1 Parliament Street"
+      }, {
+        type: "text",
+        label: "Postal code",
+        id: "billing-postal-code",
+        placeholder: "eg. SW1A 0AA"
+      }
+    ]
+  }]
+%>
+
+<div class="form__head">
+  <p><strong>Item:</strong> <span data-product-name="<%= formData[:title] %>"><%= formData[:title] %></p>
+  <p><strong>Price:</strong> <span data-product-price="<%= sprintf("%.2f", formData[:price]) %>">£<%= sprintf("%.2f", formData[:price]) %></p>
+  <p><strong>Qty:</strong> <span data-product-qty="1">1</p>
+  <p><strong>TOTAL:</strong> <span data-product-total="<%= sprintf("%.2f", formData[:price]) %>">£<%= sprintf("%.2f", formData[:price]) %></p>
+</div>
+<div id="form-pages" class="form__pages form__pages--<%= formPages.length - 1 %>">
+
+  <% formPages.each_with_index do |page, index| %>
+
+    <div
+      id="form-pg-<%= index %>"
+      class="<%= index > 0 ? "JS-inactive" : "JS-active" %>
+            form__page form__page--<%= index %>-to-<%= formPages.length - 1 %>"
+      tabindex="<%= index > 0 ? "-1" : "0 " %>">
+
+      <!--	=Title	-->
+      <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm"><%= page[:title] %></h3>
+
+      <!--	=Custom fields	-->
+      <% if page[:type] == "custom"
+        page[:fields].each do |field|
+          if field[:id] == "quantity" %>
+            <label
+              for="<%= field[:id] %>"
+              class="form__label form__label--bt label-xs"><%= field[:label] %>
+            </label>
+            <input
+              name="<%= field[:id] %>"
+              type="<%= field[:type] %>"
+              value="1"
+              min="1" max="20"
+              class="form__field form__field--bt form__field--qty">
+
+          <% else %>
+            <label
+              for="<%= field[:id] %>"
+              class="form__label form__label--bt label-xs"><%= field[:label] %>
+            </label>
+            <input
+              name="<%= field[:id] %>"
+              type="<%= field[:type] %>"
+              placeholder="<%= field[:placeholder] %>"
+              class="form__field form__field--bt">
+
+      <!--	=Payment fields	-->
+        <% end; end;
+      elsif page[:type] == "payment"
+
+        # Braintree fields
+        page[:fields].each do |field|
+
+          if field.class != Hash %>
+            <label class="form__label form__label--bt label-xs" for="<%= field %>">
+              <%= field.capitalize.gsub("-", " ") %>
+            </label>
+            <div class="form__field form__field--bt" id="<%= field %>"></div>
+
+          <% else %>
+            <label
+              for="<%= field[:id] %>"
+              class="form__label form__label--bt label-xs"><%= field[:label] %>
+            </label>
+            <input
+              name="<%= field[:id] %>"
+              type="<%= field[:type] %>"
+              placeholder="<%= field[:placeholder] %>"
+              class="form__field form__field--bt">
+      <% end; end; end %>
+
+      <!--	=Form actions	-->
+      <div class="form__actions">
+
+        <% if index > 0 %>
+          <div class="form__prev">
+            <%= partial "views/partials/btn",
+              locals: { local_data: {
+                type: "state",
+                switch: true,
+                size: "sm",
+                style: "secondary",
+                label_on: "Back",
+                label_size: "sm",
+                aria_id: "activate-form-pg-#{ index }",
+                aria_target_id: "form-pg-#{ index }" }} %>
+          </div>
+
+        <% end; if index < (formPages.length - 1) %>
+          <div class="form__next">
+            <%= partial "views/partials/btn",
+              locals: { local_data: {
+                type: "state",
+                switch: true,
+                size: "sm",
+                style: "primary",
+                label_on: "Next",
+                label_size: "sm",
+                aria_id: "activate-form-pg-#{ index + 1 }",
+                aria_target_id: "form-pg-#{ index + 1 }" }} %>
+          </div>
+
+        <% end; if page[:type] == "payment" %>
+          <div class="form__next">
+            <%= partial "views/partials/btn",
+              locals: { local_data: {
+                type: "plain",
+                size: "sm",
+                style: "primary",
+                label: "Place order",
+                label_size: "sm",
+                form: true }} %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

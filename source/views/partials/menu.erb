@@ -1,0 +1,154 @@
+<%
+id = local_data[:id]
+navItems = local_data[:nav_items]
+screen = local_data[:screen]
+%>
+
+<div
+  id="<%= id %>"
+  class="menu JS-inactive menu--<%= screen %>">
+
+  <div class="menu__nav-bg"></div>
+
+  <ul
+    class="menu__container
+          <%= "menu__container--columns" if screen == "desktop" %>">
+
+    <% if screen == "mobile"
+      navItems.each do |id, nav| %>
+
+        <li
+          class="menu__category menu__category--outer
+                <%= "dropdown" if nav[:pages] && nav[:pages].length > 1 %>">
+
+          <div
+            class="title-md
+                  <%= "dropdown__title" if nav[:pages] && nav[:pages].length > 1 %>">
+
+            <% if nav[:pages] && nav[:pages].length <= 1
+              nav[:pages].each do |page| %>
+                <a href="<%= internalURL(page[:slug]) %>"><%= nav[:title] %></a>
+
+            <% end; end; if nav[:pages] && nav[:pages].length > 1 %>
+              <%= nav[:title] %>
+              <div class="dropdown__control">
+                <%= partial "views/partials/btn",
+                  locals: { local_data: {
+                    type: "state",
+                    size: "sm",
+                    icon: "chevron-down",
+                    icon_size: "xs",
+                    animation: "rotate",
+                    aria_id: "activate-menu-dropdown-#{ nav[:title].parameterize }",
+                    aria_target_id: "menu-dropdown-#{ nav[:title].parameterize }" }} %>
+              </div>
+            <% end %>
+          </div>
+          <ul
+            id="menu-dropdown-<%= nav[:title].parameterize %>"
+            class="<%= "dropdown__content JS-inactive" if nav[:pages] %>">
+
+            <% if nav[:pages]
+              nav[:pages].group_by(&:category).each do |category, pages|
+                pagesWithSubCats = pages.select{ |page| page[:sub_category] }
+                pagesWithoutSubCats = pages.select{ |page| !page[:sub_category] } %>
+
+                <li class="menu__category menu__category--<%= category.parameterize %>">
+                  <span class="label-sm e-pad-t-xs e-col-mid-grey"><%= category %></span>
+                  <ul>
+                    <% if pagesWithoutSubCats
+                      pagesWithoutSubCats.each do |page| %>
+                        <li class="e-pad-t-xs">
+                          <a
+                            class="title-sm link"
+                            href="<%= internalURL(page[:slug]) %>"><%= page[:title] %>&nbsp;»</a>
+                        </li>
+
+                    <% end; end; if pagesWithSubCats
+                      pagesWithSubCats.group_by(&:sub_category).each do |subCat, subCatPages| %>
+                        <li>
+                          <span class="label-xs e-pad-t-sm e-col-mid-grey"><%= subCat %></span>
+                          <ul>
+                            <% subCatPages.each do |page| %>
+                              <li class="e-pad-t-xs">
+                                <a
+                                  class="title-sm link"
+                                  href="<%= internalURL(page[:slug]) %>"><%= page[:title] %>&nbsp;»</a>
+                              </li>
+                            <% end %>
+                          </ul>
+                        </li>
+                    <% end; end %>
+                  </ul>
+                </li>
+            <% end; end %>
+          </ul>
+        </li>
+
+    <% end; end; if screen == "desktop" && navItems[:pages]
+      navItems.pages.group_by(&:category).each do |category, pages|
+        pagesWithSubCats = pages.select{ |page| page[:sub_category] }
+        pagesWithoutSubCats = pages.select{ |page| !page[:sub_category] } %>
+
+        <li class="menu__column e-pad-t-xs menu__column--<%= category.parameterize %>">
+          <span class="label-sm e-col-mid-grey"><%= category %></span>
+          <ul>
+
+            <% if pagesWithoutSubCats
+              pagesWithoutSubCats.each do |page| %>
+                <li class="e-pad-t-xs">
+                  <a
+                    class="title-sm link"
+                    href="<%= internalURL(page[:slug]) %>"><%= page[:title] %>&nbsp;»</a>
+                </li>
+
+            <% end; end; if pagesWithSubCats
+              pagesWithSubCats.group_by(&:sub_category).each do |subCat, subCatPages| %>
+                <li>
+                  <span class="label-xs e-pad-t-sm e-col-mid-grey"><%= subCat %></span>
+                  <ul>
+                    <% subCatPages.each do |page| %>
+                      <li class="e-pad-t-xs">
+                        <a
+                          class="title-sm link"
+                          href="<%= internalURL(page[:slug]) %>"><%= page[:title] %>&nbsp;»</a>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
+            <% end; end %>
+          </ul>
+        </li>
+
+        <% if category == "about" %>
+          <li class="menu__column e-acc-brand-green-2-top">
+            <div class="section-sm">
+              <%= partial "views/partials/signup-box",
+                locals: { local_data: {
+                  bgc: "light",
+                  copy_size: "sm",
+                  id: "modal-monthly-newsletter-subscription-desktop"
+                }} %>
+            </div>
+            <div class="section-sm">
+              <%= partial "views/partials/social-follow",
+                locals: { bgc: "light" } %>
+            </div>
+          </li>
+    <% end; end; end %>
+  </ul>
+
+  <% if screen == "mobile" %>
+    <div class="section-sm">
+      <%= partial "views/partials/signup-box",
+        locals: { local_data: {
+          copy_size: "sm",
+          id: "modal-monthly-newsletter-subscription-mobile"
+        }} %>
+    </div>
+    <div class="section-sm">
+      <%= partial "views/partials/social-follow",
+        locals: { bgc: "dark" } %>
+    </div>
+  <% end %>
+</div>

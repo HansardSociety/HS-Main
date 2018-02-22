@@ -23,7 +23,7 @@
 
   opacity: 0;
 
-  @extend %e-bgc-black;
+  @extend %e-bgc-greyscale-3;
   @extend %e-position-fixed;
 }
 
@@ -63,10 +63,11 @@
 }
 
 .modal__close {
-  margin-left: calc(100% - 1.5rem);
-  padding: .5rem 0;
+  margin-left: calc(100% - 2rem);
 
   line-height: 0;
+
+  @extend %e-pad-x-xs;
 }
 
 .modal__content {
@@ -76,6 +77,7 @@
   @extend %e-align-left;
   @extend %e-container;
   @extend %e-pad-x-sm;
+  @extend %e-position-relative;
   @extend %e-overflow-y-auto;
   @extend %e-width-full;
 }
@@ -102,4 +104,9 @@
 .modal.JS-active,
 .modal.JS-active .modal__overlay {
   animation-fill-mode: forwards;
+}
+
+// Hide first paragraph - eg. on successful form submission
+.modal__content.JS-hide-text > p {
+  @extend %e-display-none;
 }

@@ -1,0 +1,30 @@
+<%
+bgc = local_data[:bgc]
+copySize = local_data[:copy_size]
+formData = siteData(:newsletter_form)
+modalID = local_data[:id]
+titleClasses = "title-#{ copySize == "md" ? "xl" : "lg" } e-mgn-b-#{ copySize == "md" ? "md" : "sm" } #{ "e-col-brand-green-1" if bgc == "light" }"
+%>
+
+<h2 class="<%= titleClasses %>">Join our newsletter</h2>
+<p class="e-mgn-b-sm strap-<%= copySize %>"><%= siteData(:newsletter_text) %></p>
+
+<%= partial "views/partials/btn",
+  locals: { local_data: {
+    type: "state",
+    size: "md",
+    style: "primary",
+    label_on: "Subscribe",
+    label_off: "Close",
+    label_size: "md",
+    page: "no-scroll",
+    switch: true,
+    aria_id: "activate-#{ modalID }",
+    aria_target_id: modalID }} %>
+
+<%= partial "views/partials/modal",
+  locals: { local_data: {
+    id: modalID,
+    content: false,
+    form: formData,
+    size: "narrow" }} %>

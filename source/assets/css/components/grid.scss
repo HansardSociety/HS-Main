@@ -1,9 +1,16 @@
+/*		=Core
+  ========================================================================== */
+
 .grid {
   @extend %e-flex-row;
 }
 
 .grid--center {
   justify-content: center;
+}
+
+.grid--middle {
+  align-items: center;
 }
 
 @each $breakpoint in map-keys($breakpoints) {
@@ -15,85 +22,83 @@
   }
 }
 
-// Allow item marked 'order-0' (below) to jump to start
 .grid__cell {
   order: 1;
 
   @extend %e-position-relative;
 }
 
-// Sizes
-@each $sizeKey, $sizeVal in $spacing {
+/*		=Columns
+  ========================================================================== */
 
-  // Core
-  .grid--#{ $sizeKey } {
-    @extend %e-mgn-neg-l-#{ $sizeKey };
-    @extend %e-mgn-neg-t-#{ $sizeKey };
+$colBase: 100 / 12;
+
+@each $sizeKey, $sizeVal in $spacing {
+  $sizeName: $sizeKey;
+  $sizeUnit: $sizeVal;
+
+  .grid--#{ $sizeName } {
+    @extend %e-mgn-neg-l-#{ $sizeName };
+    @extend %e-mgn-neg-t-#{ $sizeName };
 
     & > .grid__cell {
-      @extend %e-mgn-t-#{ $sizeKey };
-      @extend %e-mgn-l-#{ $sizeKey };
+      @extend %e-mgn-t-#{ $sizeName };
+      @extend %e-mgn-l-#{ $sizeName };
     }
 
     & > .grid__cell--fill {
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: calc(100% - #{ $sizeVal });
+      flex-grow: 1;
     }
   }
 
-  // Columns:
-  // Cell 1 through 12 (100 / 12 == 8.3333)
-  @each $numKey, $numVal in $numerals {
+  @for $col from 1 through 12 {
+    $width: "#{ $colBase * $col }%";
+    $offset: "#{ $colBase * $col }%";
 
-    // Cell
-    .grid__cell--#{ $numVal } {
-      flex-grow: 1 !important;
-      flex-basis: calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // need to override flex from descendant selector
+    .grid__cell--#{ $sizeName }-#{ $col } {
+      flex-basis: calc(#{ $width } - #{ $sizeUnit }) !important; // need to override flex from descendant selector
     }
 
-    // Offset
-    .grid__cell--offset-#{ $numVal } {
-      margin-left: calc(#{ 8.3333 * $numKey + '%'} + #{ $sizeVal / 2 }) !important; // See above
+    .grid__cell--#{ $sizeName }-offset-#{ $col } {
+      margin-left: calc(#{ $offset }) !important; // See above
     }
 
-    // Breakpoints
     @each $breakpoint in map-keys($breakpoints) {
       @include above($breakpoint) {
 
-        // Cell
-        .grid__cell--above-#{ $breakpoint }-#{ $numVal } {
-          flex-grow: 1 !important;
-          flex-basis: calc((#{ 8.3333 * $numKey + '%'}) - #{ $sizeVal }) !important; // see above
+        .grid__cell--#{ $sizeName }-above-#{ $breakpoint }-#{ $col } {
+          flex-basis: calc(#{ $width } - #{ $sizeUnit }) !important; // see above
         }
 
-        // Offset
-        .grid__cell--above-#{ $breakpoint }-offset-#{ $numVal } {
-          margin-left: calc(#{ 8.3333 * $numKey + '%'} + #{ $sizeVal / 2 }) !important; // see above
+        .grid__cell--#{ $sizeName }-above-#{ $breakpoint }-offset-#{ $col } {
+          margin-left: calc(#{ $offset }) !important; // see above
         }
       }
     }
   }
 }
 
-// Order
-@each $numKey, $numVal in $numerals {
+/*		=Order
+  ========================================================================== */
 
-  .grid__cell--order-#{ $numVal } {
-    order: #{ $numKey };
+@for $col from 1 through 12 {
+
+  .grid__cell--order-#{ $col } {
+    order: #{ $col };
   }
 
   @each $breakpoint in map-keys($breakpoints) {
     @include above($breakpoint) {
 
-      .grid__cell--above-#{ $breakpoint }-order-#{ $numVal } {
-        order: #{ $numKey };
+      .grid__cell--above-#{ $breakpoint }-order-#{ $col } {
+        order: #{ $col };
       }
     }
   }
 }
 
-// Expand
+/*		=Expand
+  ========================================================================== */
 
 .grid__expand-btn {
   display: none;
@@ -127,7 +132,7 @@
 
         content: "";
 
-        background-image: linear-gradient(to top, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, .5) 100%);
+        background-image: linear-gradient(to top, rgba(255, 255, 255, 1) 1rem, rgba(255, 255, 255, 0) 100%);
       }
     }
   }
