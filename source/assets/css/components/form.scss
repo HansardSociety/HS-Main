@@ -39,11 +39,11 @@
 }
 
 .form__field {
-  border: 2px solid Get($colorGroups, greyscale, 2);
+  border: 1px solid Get($colorGroups, greyscale, 2);
 }
 
 .form__field--bt {
-  height: 40px;
+  height: 2.25rem;
 }
 
 .form__field {
@@ -111,18 +111,19 @@
 }
 
 .form__head {
-  border-radius: 2px;
   font-size: .75rem;
 
   @extend %e-col-greyscale-0;
   @extend %e-bgc-greyscale-3;
   @extend %e-pad-sm;
+  @extend %e-position-absolute-0;
   @extend %e-width-full;
 }
 
 .form__page {
   width: calc(100% / 3);
   height: inherit;
+  margin-top: 5rem;
 
   @extend %e-bgc-greyscale-0;
   @extend %e-height-full;
@@ -134,12 +135,14 @@
   @extend %e-display-block;
 }
 
-.form__product-price,
-.form__product-total {
+.form__head-product-price,
+.form__head-product-qty,
+.form__head-product-total {
+  @extend %e-display-inline-block;
   @extend %e-mgn-r-xs;
 }
 
-.form__product-total {
+.form__head-product-total {
   padding: .25rem;
 
   border-radius: 2px;
@@ -149,12 +152,97 @@
   @extend %e-mgn-t-xs;
 }
 
+.form__actions {
+  border-top: 1px solid Get($colorGroups, orange, 2);
+
+  @extend %e-pad-t-sm;
+  @extend %e-mgn-t-sm;
+}
+
+.form__qty {
+  width: 8rem;
+  height: 2.25rem;
+
+  @extend %e-mgn-b-xs;
+  @extend %e-overflow-hidden;
+  @extend %e-position-relative;
+}
+
+.form__qty-actions {
+  top: 0;
+  right: 0;
+
+  width: 2rem;
+
+  border-radius: 0 2px 2px 0;
+
+  @extend %e-col-greyscale-0;
+  @extend %e-ff-prim-heavy;
+  @extend %e-bgc-orange-2;
+  @extend %e-height-full;
+  @extend %e-position-absolute;
+
+  &::after {
+    top: 50%;
+    left: 0;
+
+    content: "";
+    transform: translateY(-50%);
+
+    border-top: 1px solid #fff;
+
+    @extend %e-pseudo-elem;
+    @extend %e-width-full;
+  }
+}
+
+.form__qty-add,
+.form__qty-remove {
+  width: 100%;
+  height: 50%;
+
+  cursor: pointer;
+
+  border-radius: 0 2px 2px 0;
+
+  @extend %e-position-absolute;
+  // @extend %e-trans-core;
+
+  &::before {
+    @extend %e-absolute-center-xy;
+  }
+
+  &:hover {
+    @extend %e-bgc-orange-3;
+  }
+}
+
+.form__qty-add {
+  top: 0;
+
+  &::before {
+    content: "+";
+  }
+}
+
+.form__qty-remove {
+  bottom: 0;
+
+  &::before {
+    content: "−";
+  }
+}
+
+input[name=quantity].form__field {
+  pointer-events: none;
+}
+
 /*		=Behaviour (validation)
   ========================================================================== */
 
 .form__field:valid,
 .form__field:valid.JS-error {
-  border: 2px solid Get($colorGroups, greyscale, 2) !important;
+  border: 1px solid Get($colorGroups, greyscale, 2) !important;
 }
 
 .form__field.JS-error + .form__err {
@@ -191,8 +279,9 @@
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
   margin: 0;
+
+  -webkit-appearance: none;
 }
 
 
@@ -200,6 +289,18 @@ input[type=number]::-webkit-outer-spin-button {
   ========================================================================== */
 
 /***  =0-2  ***/
+
+.form__page {
+  transition: linear .2s all;
+
+  &.JS-inactive {
+    opacity: 0;
+  }
+
+  &.JS-active {
+    opacity: 1;
+  }
+}
 
 .form__page--0-to-2.JS-active {
   transform: translateX(0);

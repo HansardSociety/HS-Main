@@ -52,7 +52,7 @@ const toggleState = (() => {
             var formField = elem.querySelector(".form__field")
 
             elem.removeAttribute("tabindex")
-            formField ? formField.focus() : false
+            // formField ? formField.focus() : false
 
           } else {
             elem.setAttribute("tabindex", "-1")

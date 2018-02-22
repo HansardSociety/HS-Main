@@ -71,8 +71,8 @@
 }
 
 .modal__content {
-  max-height: 100vh; // must use units for Edge scroll
-  margin-top: 2.125rem;
+  max-height: calc(90vh - 2.5rem); // must use units for Edge scroll
+  margin-top: 2.5rem;
 
   @extend %e-align-left;
   @extend %e-container;

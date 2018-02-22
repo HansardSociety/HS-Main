@@ -224,5 +224,59 @@ const braintreeCheckout = (() => {
   }
 })()
 
-export { netlifyForms, braintreeCheckout }
+/*		=Payment state
+  ========================================================================== */
+
+const paymentState = (() => {
+  var paymentForms = document.querySelectorAll(".form--payment")
+
+  for (let form of paymentForms) {
+    var productPage = form.querySelector("[data-form-page=product]")
+    var formHead = form.querySelector(".form__head")
+
+    // Form head
+    var qtyHeadElem = form.querySelector("[data-product-qty]")
+    var totalHeadElem = form.querySelector("[data-product-total]")
+    var priceHeadElem = form.querySelector("[data-product-price]")
+    var priceHeadVal = priceHeadElem.getAttribute("data-product-price") / 1
+
+    // Form qty input
+    var qtyElem = productPage.querySelector(".form__qty")
+    var qtyInput = qtyElem.querySelector("input")
+    var qtyAdd = qtyElem.querySelector(".form__qty-add")
+    var qtyRemove = qtyElem.querySelector(".form__qty-remove")
+
+    qtyAdd.addEventListener("click", function() {
+      var val = qtyInput.value / 1
+      var valNew = val + 1
+
+      qtyInput.value = valNew
+
+      qtyHeadElem.setAttribute("data-product-qty", valNew)
+      qtyHeadElem.innerText = valNew
+
+      var totalPrice = (priceHeadVal * valNew).toFixed(2)
+      totalHeadElem.setAttribute("data-product-total", totalPrice)
+      totalHeadElem.innerText = totalPrice
+    })
+
+    qtyRemove.addEventListener("click", function () {
+      var val = qtyInput.value / 1
+      var valNew = val - 1
+
+      if (val >= 2) {
+        qtyInput.value = valNew
+
+        qtyHeadElem.setAttribute("data-product-qty", valNew)
+        qtyHeadElem.innerText = valNew
+
+        var totalPrice = (priceHeadVal * valNew).toFixed(2)
+        totalHeadElem.setAttribute("data-product-total", totalPrice)
+        totalHeadElem.innerText = totalPrice
+      }
+    })
+  }
+})()
+
+export { netlifyForms, braintreeCheckout, paymentState }
 
