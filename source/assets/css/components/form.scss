@@ -27,23 +27,15 @@
   @extend %e-width-full;
 }
 
-.form__label--bt {
-  margin-bottom: .125rem;
-
-  @extend %e-col-greyscale-2;
-}
-
-.form__label--readonly {
-  font-size: .75rem;
-  line-height: 1.5;
-}
-
-.form__field {
-  border: 1px solid Get($colorGroups, greyscale, 2);
-}
-
-.form__field--bt {
+.form__field,
+.form__qty {
   height: 2.25rem;
+}
+
+.form__field,
+.form__field:valid,
+.form__field:valid.JS-error {
+  border: 2px solid Get($colorGroups, greyscale, 2) !important;
 }
 
 .form__field {
@@ -56,6 +48,11 @@
   &:valid {
     border: 2px solid lightgreen;
   }
+}
+
+.form__label {
+  margin-left: 2px;
+  margin-bottom: 2px;
 }
 
 .form__err {
@@ -152,17 +149,7 @@
   @extend %e-mgn-t-xs;
 }
 
-.form__actions {
-  border-top: 1px solid Get($colorGroups, orange, 2);
-
-  @extend %e-pad-t-sm;
-  @extend %e-mgn-t-sm;
-}
-
 .form__qty {
-  width: 8rem;
-  height: 2.25rem;
-
   @extend %e-mgn-b-xs;
   @extend %e-overflow-hidden;
   @extend %e-position-relative;
@@ -206,7 +193,6 @@
   border-radius: 0 2px 2px 0;
 
   @extend %e-position-absolute;
-  // @extend %e-trans-core;
 
   &::before {
     @extend %e-absolute-center-xy;
@@ -221,7 +207,7 @@
   top: 0;
 
   &::before {
-    content: "+";
+    content: "▴";
   }
 }
 
@@ -229,7 +215,7 @@
   bottom: 0;
 
   &::before {
-    content: "−";
+    content: "▾";
   }
 }
 
@@ -239,11 +225,6 @@ input[name=quantity].form__field {
 
 /*		=Behaviour (validation)
   ========================================================================== */
-
-.form__field:valid,
-.form__field:valid.JS-error {
-  border: 1px solid Get($colorGroups, greyscale, 2) !important;
-}
 
 .form__field.JS-error + .form__err {
   @extend %e-display-block;

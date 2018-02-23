@@ -10,6 +10,19 @@ formPages = [{
     page: "product",
     title: "Start your order",
     fields: [{
+      type: "text",
+      label: "Price [GBP £]",
+      id: "price",
+      value: "#{ sprintf("%.2f", formData[:price]) }",
+      readonly: true
+    }, {
+      type: "text",
+      label: "Item",
+      id: "item",
+      value: "#{ formData[:title] }",
+      readonly: true
+    }, {
+
       type: "number",
       label: "Quantity",
       id: "quantity"
@@ -70,9 +83,6 @@ formPages = [{
     page: "payment",
     title: "Billing information",
     fields: [
-      "card-number",
-      "expiration-date",
-      "cvv",
       {
         type: "text",
         label: "Street addr.",
@@ -83,16 +93,31 @@ formPages = [{
         label: "Postal code",
         id: "billing-postal-code",
         placeholder: "eg. SW1A 0AA"
-      }
+      },
+      "card-number",
+      "expiration-date",
+      "cvv"
     ]
   }]
 %>
 
 <div class="form__head">
-  <p class="form__head-product-name"><strong>Item:</strong> <span data-product-name="<%= formData[:title] %>"><%= formData[:title] %></span></p>
-  <p class="form__head-product-price"><strong>Price:</strong> £<span data-product-price="<%= sprintf("%.2f", formData[:price]) %>"><%= sprintf("%.2f", formData[:price]) %></span></p>
-  <p class="form__head-product-qty"><strong>Qty:</strong> <span data-product-qty="1">1</span></p>
-  <p class="form__head-product-total"><strong>TOTAL:</strong> £<span data-product-total="<%= sprintf("%.2f", formData[:price]) %>"><%= sprintf("%.2f", formData[:price]) %></span></p>
+  <p class="form__head-product-name">
+    <strong>Item:</strong>
+    <span data-product-name="<%= formData[:title] %>"><%= formData[:title] %></span>
+  </p>
+  <p class="form__head-product-price">
+    <strong>Price:</strong>
+    £<span data-product-price="<%= sprintf("%.2f", formData[:price]) %>"><%= sprintf("%.2f", formData[:price]) %></span>
+  </p>
+  <p class="form__head-product-qty">
+    <strong>Qty:</strong>
+    <span data-product-qty="1">1</span>
+  </p>
+  <p class="form__head-product-total">
+    <strong>TOTAL:</strong>
+    £<span data-product-total="<%= sprintf("%.2f", formData[:price]) %>"><%= sprintf("%.2f", formData[:price]) %></span>
+  </p>
 </div>
 <div id="form-pages" class="form__pages form__pages--<%= formPages.length - 1 %>">
 
@@ -111,15 +136,13 @@ formPages = [{
       <% if page[:type] == "custom"
         if page[:page] == "product" %>
           <div class="copy">
-            <p><strong>Item:</strong> <%= formData[:title] %></p>
-            <p><strong>Price:</strong> £<%= sprintf("%.2f", formData[:price]) %></p>
+            <p>Please review the fields below before proceeding.</p>
           </div>
-
         <% end; page[:fields].each do |field|
           if field[:id] == "quantity" %>
             <label
               for="<%= field[:id] %>"
-              class="form__label form__label--bt label-xs"><%= field[:label] %>
+              class="form__label label-xs"><%= field[:label] %>
             </label>
             <div class="form__qty">
               <input
@@ -127,7 +150,7 @@ formPages = [{
                 type="<%= field[:type] %>"
                 value="1"
                 min="1"
-                class="form__field form__field--bt form__field--qty">
+                class="form__field form__field--qty">
               <div class="form__qty-actions">
                 <span class="form__qty-add"></span>
                 <span class="form__qty-remove"></span>
@@ -136,13 +159,14 @@ formPages = [{
           <% else %>
             <label
               for="<%= field[:id] %>"
-              class="form__label form__label--bt label-xs"><%= field[:label] %>
+              class="form__label label-xs"><%= field[:label] %>
             </label>
             <input
               name="<%= field[:id] %>"
               type="<%= field[:type] %>"
+              value="<%= field[:value] %>"
               placeholder="<%= field[:placeholder] %>"
-              class="form__field form__field--bt">
+              class="form__field <%= "form__field--currency" if field[:id] == "price" %>">
 
       <!--	=Payment fields	-->
         <% end; end;
@@ -152,21 +176,21 @@ formPages = [{
         page[:fields].each do |field|
 
           if field.class != Hash %>
-            <label class="form__label form__label--bt label-xs" for="<%= field %>">
+            <label class="form__label label-xs" for="<%= field %>">
               <%= field.capitalize.gsub("-", " ") %>
             </label>
-            <div class="form__field form__field--bt" id="<%= field %>"></div>
+            <div class="form__field" id="<%= field %>"></div>
 
           <% else %>
             <label
               for="<%= field[:id] %>"
-              class="form__label form__label--bt label-xs"><%= field[:label] %>
+              class="form__label label-xs"><%= field[:label] %>
             </label>
             <input
               name="<%= field[:id] %>"
               type="<%= field[:type] %>"
               placeholder="<%= field[:placeholder] %>"
-              class="form__field form__field--bt">
+              class="form__field">
       <% end; end; end %>
 
       <!--	=Form actions	-->

@@ -139,15 +139,15 @@ var checkoutStyles = {
 var paymentFields = {
   number: {
     selector: "#card-number",
-    placeholder: "4111 1111 1111 1111"
+    placeholder: "eg. 4111 1111 1111 1111"
   },
   cvv: {
     selector: "#cvv",
-    placeholder: "123"
+    placeholder: "eg. 123"
   },
   expirationDate: {
     selector: "#expiration-date",
-    placeholder: "10 / 2019"
+    placeholder: "eg. 10 / 2019"
   }
 }
 
