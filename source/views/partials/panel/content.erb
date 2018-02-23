@@ -55,8 +55,15 @@ index = local_data[:index]
           <h2 class="title-xl e-mgn-b-sm e-hide-below-sm <%= titleColor %>"><%= title %></h2>
         <% end %>
 
-        <div class="copy <%= "e-fz-lg" if isCopyXl; "e-fz-md" if isCopyLg %>">
-          <%= markdown(copy) if copy %>
+        <div class="copy">
+          <%=
+            if isCopyXl || isCopyLg
+              paraElem = isCopyXl ? '<p class="e-fz-lg"' : '<p class="e-fz-md"'
+              markdown(copy).sub("<p", paraElem)
+            else
+              markdown(copy)
+            end
+          %>
         </div>
 
         <% if showMoreCopy %>
