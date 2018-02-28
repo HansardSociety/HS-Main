@@ -65,7 +65,7 @@ function sendData(formData, ajaxOpts) {
 
   // Header
   var contentType = isJSON ? "json;charset=UTF-8" : "x-www-form-urlencoded"
-  XHR.setRequestHeader("Content-Type", `application/${ contentType }`)
+  XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 
   // Send
   XHR.send(JSON.stringify({ formData }))
