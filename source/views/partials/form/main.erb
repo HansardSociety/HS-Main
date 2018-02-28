@@ -22,8 +22,8 @@ end
 # Netlify form
 if isNetlifyForm
   formAttrsNetlify = {
-    "data-netlify": "true",
-    "data-netlify-honeypot": "bot-field",
+    "netlify": "",
+    "netlify-honeypot": "bot-field",
     "name": "#{ formData[:meta_title].parameterize + "-" + formData[:ID] }"
   }.merge(formAttrsCore("form--netlify"))
 
