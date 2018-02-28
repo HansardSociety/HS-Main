@@ -25,7 +25,8 @@ function sendData(formData, ajaxOpts) {
       formData[fieldName] = fieldVal
     }
 
-    formData = JSON.stringify(Object.assign({}, formData, ajaxOpts.metaData))
+    formData = Object.assign({}, formData, ajaxOpts.metaData)
+    formData = JSON.stringify({ formData })
 
   /*		=URL encoded
     ---------------------------------------- */
@@ -199,7 +200,11 @@ const braintreeCheckout = (() => {
       form.addEventListener("submit", function(event) {
         event.preventDefault()
 
-        var productID = form.querySelector("[name=item]").getAttribute("data-product-id")
+        var productName = form.querySelector("[data-product-name]").getAttribute("data-product-name")
+          , productID = form.querySelector("[data-product-id]").getAttribute("data-product-id")
+          , productPrice = form.querySelector("[data-product-price]").getAttribute("data-product-price")
+          , productQty = form.querySelector("[data-product-qty]").getAttribute("data-product-qty")
+          , productTotal = form.querySelector("[data-product-total]").getAttribute("data-product-total")
 
         hostedInstance.tokenize(function(tokenizeErr, payload) {
 
@@ -212,7 +217,11 @@ const braintreeCheckout = (() => {
           // Success
           var metaData = {
             "payment-method-nonce": payload.nonce,
-            "product-id": productID
+            "product-name": productName,
+            "product-id": productID,
+            "product-price": productPrice,
+            "product-qty": productQty,
+            "product-total": productTotal
           }
 
           sendData(submitBtn.form, {

@@ -104,7 +104,9 @@ formPages = [{
 <div class="form__head" tabindex="-1">
   <p class="form__head-product-name">
     <strong>Item:</strong>
-    <span data-product-name="<%= formData[:title] %>"><%= formData[:title] %></span>
+    <span
+      data-product-id="<%= formData[:product_id] %>"
+      data-product-name="<%= formData[:title] %>"><%= formData[:title] %></span>
   </p>
   <p class="form__head-product-price">
     <strong>Price:</strong>
