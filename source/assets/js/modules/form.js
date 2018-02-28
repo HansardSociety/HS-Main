@@ -236,6 +236,9 @@ const paymentState = (() => {
     var productPage = form.querySelector("[data-form-page=product]")
     var formHead = form.querySelector(".form__head")
 
+    // Form action buttons => prevent tab between pages
+    var formActions = form.querySelectorAll(".form__actions")
+
     // Form head
     var qtyHeadElem = form.querySelector("[data-product-qty]")
     var totalHeadElem = form.querySelector("[data-product-total]")
@@ -247,6 +250,23 @@ const paymentState = (() => {
     var qtyInput = qtyElem.querySelector("input")
     var qtyAdd = qtyElem.querySelector(".form__qty-add")
     var qtyRemove = qtyElem.querySelector(".form__qty-remove")
+
+    /*		=Prevent tab between pages
+      ---------------------------------------- */
+
+    for (let action of formActions) {
+      var back = action.querySelector(".form__prev")
+      var next = action.querySelector(".form__next")
+
+      next.addEventListener("keydown", function(e) {
+        if (e.which === 9 && !e.shiftKey) {
+          e.preventDefault()
+        }
+      })
+    }
+
+    /*		=Quantity add/remove
+      ---------------------------------------- */
 
     qtyAdd.addEventListener("click", function() {
       var val = qtyInput.value / 1

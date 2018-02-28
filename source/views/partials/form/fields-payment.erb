@@ -101,7 +101,7 @@ formPages = [{
   }]
 %>
 
-<div class="form__head">
+<div class="form__head" tabindex="-1">
   <p class="form__head-product-name">
     <strong>Item:</strong>
     <span data-product-name="<%= formData[:title] %>"><%= formData[:title] %></span>
@@ -127,7 +127,8 @@ formPages = [{
       data-form-page="<%= page[:page] %>"
       id="form-pg-<%= index %>"
       class="<%= index > 0 ? "JS-inactive" : "JS-active" %>
-            form__page form__page--<%= index %>-to-<%= formPages.length - 1 %>">
+            form__page form__page--<%= index %>-to-<%= formPages.length - 1 %>"
+      tabindex="<%= index %>">
 
       <!--	=Title	-->
       <h3 class="title-md e-col-brand-green-1 e-mgn-b-sm"><%= page[:title] %></h3>
@@ -166,7 +167,8 @@ formPages = [{
               type="<%= field[:type] %>"
               value="<%= field[:value] %>"
               placeholder="<%= field[:placeholder] %>"
-              class="form__field <%= "form__field--currency" if field[:id] == "price" %>">
+              class="form__field <%= "form__field--currency" if field[:id] == "price" %>"
+              <%= "readonly" if field[:readonly] %>>
 
       <!--	=Payment fields	-->
         <% end; end;
@@ -197,7 +199,7 @@ formPages = [{
       <div class="form__actions">
 
         <% if index > 0 %>
-          <div class="form__prev">
+          <div class="form__prev" tabindex="-1">
             <%= partial "views/partials/btn",
               locals: { local_data: {
                 type: "state",

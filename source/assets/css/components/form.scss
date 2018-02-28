@@ -53,6 +53,8 @@
 .form__label {
   margin-bottom: 2px;
   margin-left: 2px;
+
+  @extend %e-col-brand-green-1;
 }
 
 .form__err {
@@ -270,8 +272,6 @@ input[type=number]::-webkit-outer-spin-button {
 /*		=Behaviout (payment)
   ========================================================================== */
 
-/***  =0-2  ***/
-
 .form__page {
   transition: linear .2s all;
 
@@ -283,6 +283,8 @@ input[type=number]::-webkit-outer-spin-button {
     opacity: 1;
   }
 }
+
+/***  =0-2  ***/
 
 .form__page--0-to-2.JS-active {
   transform: translateX(0);
