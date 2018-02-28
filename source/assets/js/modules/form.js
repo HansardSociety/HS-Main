@@ -46,6 +46,8 @@ function sendData(formData, ajaxOpts) {
 
     // Combine pairs into string and replace %-encoded spaces with "+"
     formData = `${ formData.join("&").replace(/%20/g, "+") }`
+
+    console.log(formData)
   }
 
   // Success
@@ -65,10 +67,11 @@ function sendData(formData, ajaxOpts) {
 
   // Header
   var contentType = isJSON ? "json;charset=UTF-8" : "x-www-form-urlencoded"
-  XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  XHR.setRequestHeader("Content-Type", `application/${ contentType }`)
 
   // Send
-  XHR.send(JSON.stringify({ formData }))
+  XHR.send(formData)
+  // XHR.send(JSON.stringify({ formData }))
 }
 
 /*		=Validate
