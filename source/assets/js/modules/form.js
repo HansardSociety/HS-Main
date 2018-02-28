@@ -46,9 +46,6 @@ function sendData(formData, ajaxOpts) {
 
     // Combine pairs into string and replace %-encoded spaces with "+"
     formData = `${ formData.join("&").replace(/%20/g, "+") }`
-
-    console.log(formData)
-
   }
 
   // Success
