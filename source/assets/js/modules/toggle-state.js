@@ -42,21 +42,36 @@ const toggleState = (() => {
 
     function toggleEachState(states, elem) {
       forEach(states, function(index, state) {
-        var tabIndexClass = "modal" || "form__page"
+
+        /*		=Core state toggle
+          ---------------------------------------- */
 
         toggleClass(elem, state)
 
-        if (elem.classList.contains(tabIndexClass)) {
+        /*		=Extras
+          ---------------------------------------- */
 
-          if (elem.classList.contains(active)) {
-            var formField = elem.querySelector(".form__field")
+        var isModal = elem.classList.contains("modal")
+        var isFormPage = elem.classList.contains("form__page")
+        var isActive = elem.classList.contains(active)
 
-            elem.removeAttribute("tabindex")
-            // formField ? formField.focus() : false
+        // Focus on first input
+        if ((isModal || isFormPage) && isActive) {
+          setTimeout(() => {
+            elem.querySelector(".form__field").focus()
+          }, 600);
 
-          } else {
-            elem.setAttribute("tabindex", "-1")
-          }
+        // Prevent focus remaining on previous page
+        } else if (isFormPage) {
+          setTimeout(() => {
+            elem.previousElementSibling.focus()
+          }, 600);
+        }
+
+        // Modals
+        if (isModal) {
+          if (isActive) elem.removeAttribute("tabindex")
+          else elem.setAttribute("tabindex", "-1")
         }
       })
     }

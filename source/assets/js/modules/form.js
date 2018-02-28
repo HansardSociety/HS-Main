@@ -25,7 +25,8 @@ function sendData(formData, ajaxOpts) {
       formData[fieldName] = fieldVal
     }
 
-    formData = JSON.stringify(Object.assign({}, formData, ajaxOpts.metaData))
+    formData = Object.assign({}, formData, ajaxOpts.metaData)
+    formData = JSON.stringify({ formData })
 
   /*		=URL encoded
     ---------------------------------------- */
@@ -199,7 +200,11 @@ const braintreeCheckout = (() => {
       form.addEventListener("submit", function(event) {
         event.preventDefault()
 
-        var productID = form.querySelector("[name=item]").getAttribute("data-product-id")
+        var productName = form.querySelector("[data-product-name]").getAttribute("data-product-name")
+          , productID = form.querySelector("[data-product-id]").getAttribute("data-product-id")
+          , productPrice = form.querySelector("[data-product-price]").getAttribute("data-product-price")
+          , productQty = form.querySelector("[data-product-qty]").getAttribute("data-product-qty")
+          , productTotal = form.querySelector("[data-product-total]").getAttribute("data-product-total")
 
         hostedInstance.tokenize(function(tokenizeErr, payload) {
 
@@ -212,7 +217,11 @@ const braintreeCheckout = (() => {
           // Success
           var metaData = {
             "payment-method-nonce": payload.nonce,
-            "product-id": productID
+            "product-name": productName,
+            "product-id": productID,
+            "product-price": productPrice,
+            "product-qty": productQty,
+            "product-total": productTotal
           }
 
           sendData(submitBtn.form, {
@@ -236,6 +245,9 @@ const paymentState = (() => {
     var productPage = form.querySelector("[data-form-page=product]")
     var formHead = form.querySelector(".form__head")
 
+    // Form action buttons => prevent tab between pages
+    var formActions = form.querySelectorAll(".form__actions")
+
     // Form head
     var qtyHeadElem = form.querySelector("[data-product-qty]")
     var totalHeadElem = form.querySelector("[data-product-total]")
@@ -247,6 +259,23 @@ const paymentState = (() => {
     var qtyInput = qtyElem.querySelector("input")
     var qtyAdd = qtyElem.querySelector(".form__qty-add")
     var qtyRemove = qtyElem.querySelector(".form__qty-remove")
+
+    /*		=Prevent tab between pages
+      ---------------------------------------- */
+
+    for (let action of formActions) {
+      var back = action.querySelector(".form__prev")
+      var next = action.querySelector(".form__next")
+
+      next.addEventListener("keydown", function(e) {
+        if (e.which === 9 && !e.shiftKey) {
+          e.preventDefault()
+        }
+      })
+    }
+
+    /*		=Quantity add/remove
+      ---------------------------------------- */
 
     qtyAdd.addEventListener("click", function() {
       var val = qtyInput.value / 1
