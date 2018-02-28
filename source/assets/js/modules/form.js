@@ -25,7 +25,7 @@ function sendData(formData, ajaxOpts) {
       formData[fieldName] = fieldVal
     }
 
-    formData = Object.assign({}, formData, ajaxOpts.metaData)
+    formData = JSON.stringify(Object.assign({}, formData, ajaxOpts.metaData))
 
   /*		=URL encoded
     ---------------------------------------- */
@@ -46,8 +46,6 @@ function sendData(formData, ajaxOpts) {
 
     // Combine pairs into string and replace %-encoded spaces with "+"
     formData = `${ formData.join("&").replace(/%20/g, "+") }`
-
-    console.log(formData)
   }
 
   // Success
@@ -71,7 +69,6 @@ function sendData(formData, ajaxOpts) {
 
   // Send
   XHR.send(formData)
-  // XHR.send(JSON.stringify({ formData }))
 }
 
 /*		=Validate
