@@ -15,3 +15,4 @@ source/.redirects
 npm-debug.log
 source/assets/rev-manifest.json
 yarn-error.log
+package-lock.json

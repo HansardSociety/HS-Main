@@ -27,6 +27,7 @@ module BuildEnvs
 
     # Dynamic pages
     dynamicContentfulPages(MM_ENV)
+    dynamicCustomPages()
   end
 
   ##		=Build core
@@ -45,6 +46,7 @@ module BuildEnvs
 
     # Ignore
     ignore "assets/**"
+    ignore "data/*.erb"
     ignore "views/**"
 
     # relative links
@@ -64,6 +66,7 @@ module BuildEnvs
     set :CSS_APP, "/#{ cssAppHash }"
     set :CSS_VENDOR, "/#{ cssVendorHash }"
     set :JS_APP, "/#{ jsAppHash }"
+    # set :JS_CHECKOUT, "/#{ jsCheckoutHash }"
     set :JS_VENDOR, "/#{ jsVendorHash }"
 
     set :build_dir, "build/#{ MM_ENV }"
@@ -87,6 +90,8 @@ module BuildEnvs
       # Rename assets dir
       File.rename "#{ @buildSrc }/.assets", "#{ @buildSrc }/assets"
 
+      # Submit Algolia DB
+      system "node ./lib/js/_scripts && rimraf #{ @buildSrc }/db"
     end
   end
 
@@ -135,7 +140,7 @@ module BuildEnvs
       # External pipeline
       activate :external_pipeline,
         name: :gulp,
-        command: "yarn run epipe:dev",
+        command: "npm run epipe:dev",
         source: "source/.assets",
         latency: 1
 
@@ -149,6 +154,7 @@ module BuildEnvs
       set :CSS_APP, "/app.css"
       set :CSS_VENDOR, "/vendor.css"
       set :JS_APP, "/app.js"
+      # set :JS_CHECKOUT, "/checkout.js"
       set :JS_VENDOR, "/vendor.js"
 
       # Snipcart

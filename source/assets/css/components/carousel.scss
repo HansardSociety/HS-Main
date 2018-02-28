@@ -23,6 +23,9 @@
 
   @extend %e-display-flex;
   @extend %e-width-full;
+}
+
+.carousel__item--card {
   @include above(sm) { width: calc(100% / 2); }
   @include above(lg) { width: calc(100% / 3); }
 }
@@ -30,8 +33,8 @@
 .carousel__actions {
   justify-content: space-between;
 
-  width: 7.5rem;
-  margin-top: 2.5rem;
+  width: 8.5rem;
+  margin-top: 3rem;
 
   @extend %e-col-green;
   @extend %e-flex-row;
@@ -58,14 +61,14 @@
   user-select: none;
 
   @extend %e-cursor-pointer;
-  @extend %e-ff-prim-roman;
+  @extend %e-ff-prim-heavy;
   @extend %e-flex-row-center;
   @extend %e-fz-xs;
   @extend %e-trans-core;
   @extend %e-upper;
 
   &:hover:not(.swiper-button-disabled) {
-    @extend %e-col-orange;
+    @extend %e-col-orange-2;
   }
 
   &.swiper-button-disabled {
@@ -100,6 +103,9 @@
   ========================================================================== */
 
 .flickity-page-dots {
+  left: .25rem;
+  bottom: -2rem;
+
   & > .dot {
     width: 6px;
     height: 6px;
@@ -107,6 +113,6 @@
   }
 
   & > .dot.is-selected {
-    @extend %e-bgc-green;
+    @extend %e-bgc-brand-green-2;
   }
 }

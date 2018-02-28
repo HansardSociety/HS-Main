@@ -1,0 +1,31 @@
+<%
+quoteData = local_data[:entry_data]
+%>
+
+<figure class="quote">
+  <blockquote class="quote__text">
+    <%= quoteData[:text] %>
+    <span class="quote__sym e-col-orange-2">
+      <%= partial 'views/partials/icon',
+        locals: {
+          icon: "quote",
+          size: "lg" } %>
+    </span>
+  </blockquote>
+  <figcaption>
+    <p class="quote__biog">
+      <span><%= quoteData[:full_name] %></span>
+      <span><%= quoteData[:role] %></span>
+      <span><%= quoteData[:organisation] %></span>
+    </p>
+      <div class="quote__logo">
+      <% if quoteData[:logo] %>
+        <img
+          class="b-lazy"
+          alt="<%= quoteData[:logo][:alt] %>"
+          data-src="<%=  quoteData[:logo][:url] %>"
+          src="<%= assetsDir %>/images/placeholder__main-card.svg" />
+      <% end %>
+      </div>
+  </figcaption>
+</figure>

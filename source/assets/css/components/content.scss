@@ -18,20 +18,11 @@
 .content--paper {
   @extend %e-bgc-white;
   @extend %e-box-shad-z1;
-  // @extend %e-overflow-hidden;
   @include above(sm) {
     border-top-left-radius: map-get($radii, slight);
     border-top-right-radius: map-get($radii, slight);
   }
 }
-
-.content--about { @extend %e-acc-green-top; }
-.content--blog { @extend %e-acc-brown-top; }
-.content--events { @extend %e-acc-blue-top; }
-.content--intelligence { @extend %e-acc-light-blue-top; }
-.content--legal { @extend %e-acc-black-top; }
-.content--research { @extend %e-acc-green-top; }
-.content--resources { @extend %e-acc-light-green-top; }
 
 .content__header,
 .content__section {
@@ -43,21 +34,14 @@
 
   &::before {
     left: -1rem;
-    // top: -1rem;
     width: calc(100% + 2rem);
     height: 100%;
 
-    @extend %e-bgc-light-grey;
+    @extend %e-bgc-greyscale-1;
     @extend %e-pseudo-elem;
   }
 }
 
 .content__aside {
-  @extend %e-acc-light-grey-top;
-  // @extend %e-mgn-t-md;
   @extend %e-pad-t-sm;
-
-  @include above(md) {
-    border: 0;
-  }
 }
