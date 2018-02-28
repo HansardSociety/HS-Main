@@ -38,14 +38,16 @@ function sendData(formData, ajaxOpts) {
       var fieldName = field.getAttribute("name")
       var fieldVal = field.value
 
-      formData.push(`${encodeURIComponent(fieldName)}=${encodeURIComponent(fieldVal)}`)
+      formData.push(`${ encodeURIComponent(fieldName) }=${ encodeURIComponent(fieldVal) }`)
     }
 
     // Add form-name for Netlify
-    formData.push(`form-name=${encodeURIComponent(formName)}`)
+    formData.push(`form-name=${ encodeURIComponent(formName) }`)
 
     // Combine pairs into string and replace %-encoded spaces with "+"
-    formData = `${formData.join("&").replace(/%20/g, "+")}`
+    formData = `${ formData.join("&").replace(/%20/g, "+") }`
+
+    console.log(formData)
 
   }
 
@@ -110,7 +112,10 @@ const netlifyForms = (() => {
 
       var formElem = this.form
       validateFields(formElem, function () {
-        sendData(formElem, "/")
+        sendData(formElem, {
+          postURL: "/",
+          dataType: "url"
+        })
       })
     })
   }

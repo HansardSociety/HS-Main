@@ -22,11 +22,12 @@ formData = form_data
 
   fieldAttrs.merge!(required: "") if elem[:required] %>
 
-  <label class="form__label">
-    <span class="e-hidden"><%= labelNameCap + ": " %></span>
-    <%= tag(fieldTag, fieldAttrs) %>
-    <span class="form__err">Please review this field</span>
+  <label
+    for="<%= elem[:label] %>"
+    class="form__label label-xs"><%= labelNameCap %>
   </label>
+  <%= tag(fieldTag, fieldAttrs) %>
+  <span class="form__err">Please review this field</span>
 <% end %>
 
 <%= partial "views/partials/btn",

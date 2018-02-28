@@ -64,11 +64,8 @@ formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
         =Success
     ***********************************************-->
 
-    <div class="form__confirmation">
-      <h2 class="title-lg e-col-brand-green-2">Success!</h2>
-      <div class="e-mgn-t-sm">
-        <%= markdown(formData[:confirmation]) %>
-      </div>
+    <div class="form__confirmation copy">
+      <%= markdown(formData[:confirmation]) %>
       <div class="e-mgn-t-sm">
         <%= partial "views/partials/social-follow",
           locals: { bgc: "light" } %>

@@ -51,12 +51,13 @@
 }
 
 .form__label {
-  margin-left: 2px;
   margin-bottom: 2px;
+  margin-left: 2px;
 }
 
 .form__err {
-  margin-top: -.25rem;
+  margin-top: -.5rem;
+  margin-left: 2px;
 
   color: red;
 
@@ -165,7 +166,7 @@
 
   @extend %e-col-greyscale-0;
   @extend %e-ff-prim-heavy;
-  @extend %e-bgc-orange-2;
+  @extend %e-bgc-greyscale-2;
   @extend %e-height-full;
   @extend %e-position-absolute;
 
@@ -199,7 +200,7 @@
   }
 
   &:hover {
-    @extend %e-bgc-orange-3;
+    @extend %e-col-greyscale-3;
   }
 }
 
