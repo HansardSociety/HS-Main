@@ -129,7 +129,8 @@ import braintree from "braintree-web"
 
 var checkoutStyles = {
   "input": {
-    "font-size": "16px"
+    "font-size": "18px",
+    "font-family": "sans-serif"
   },
   "input.invalid": {
     "color": "red"
@@ -200,6 +201,7 @@ const braintreeCheckout = (() => {
       form.addEventListener("submit", function(event) {
         event.preventDefault()
 
+        // Product data
         var productName = form.querySelector("[data-product-name]").getAttribute("data-product-name")
           , productID = form.querySelector("[data-product-id]").getAttribute("data-product-id")
           , productPrice = form.querySelector("[data-product-price]").getAttribute("data-product-price")
@@ -251,14 +253,20 @@ const paymentState = (() => {
     // Form head
     var qtyHeadElem = form.querySelector("[data-product-qty]")
     var totalHeadElem = form.querySelector("[data-product-total]")
+    var ppHeadElem = form.querySelector("[data-product-pp]")
     var priceHeadElem = form.querySelector("[data-product-price]")
-    var priceHeadVal = priceHeadElem.getAttribute("data-product-price") / 1
 
     // Form qty input
     var qtyElem = productPage.querySelector(".form__qty")
     var qtyInput = qtyElem.querySelector("input")
     var qtyAdd = qtyElem.querySelector(".form__qty-add")
     var qtyRemove = qtyElem.querySelector(".form__qty-remove")
+
+    // Default units
+    var ppHeadVal = ppHeadElem.getAttribute("data-product-pp") / 1
+    var priceHeadVal = priceHeadElem.getAttribute("data-product-price") / 1
+    var qtyHeadVal = qtyHeadElem.getAttribute("data-product-qty") / 1
+
 
     /*		=Prevent tab between pages
       ---------------------------------------- */
@@ -286,12 +294,14 @@ const paymentState = (() => {
       qtyHeadElem.setAttribute("data-product-qty", valNew)
       qtyHeadElem.innerText = valNew
 
-      var totalPrice = (priceHeadVal * valNew).toFixed(2)
+      qtyHeadVal = qtyHeadElem.getAttribute("data-product-qty") / 1 // reset quantity var
+
+      var totalPrice = ((priceHeadVal * qtyHeadVal) + ppHeadVal).toFixed(2)
       totalHeadElem.setAttribute("data-product-total", totalPrice)
       totalHeadElem.innerText = totalPrice
     })
 
-    qtyRemove.addEventListener("click", function () {
+    qtyRemove.addEventListener("click", function() {
       var val = qtyInput.value / 1
       var valNew = val - 1
 
@@ -301,10 +311,45 @@ const paymentState = (() => {
         qtyHeadElem.setAttribute("data-product-qty", valNew)
         qtyHeadElem.innerText = valNew
 
-        var totalPrice = (priceHeadVal * valNew).toFixed(2)
+        qtyHeadVal = qtyHeadElem.getAttribute("data-product-qty") / 1 // reset quantity var
+
+        var totalPrice = ((priceHeadVal * qtyHeadVal) + ppHeadVal).toFixed(2)
         totalHeadElem.setAttribute("data-product-total", totalPrice)
         totalHeadElem.innerText = totalPrice
       }
+    })
+
+    /*		=Shipping rate
+      ---------------------------------------- */
+
+    var countrySelect = form.querySelector("[name=country]")
+    var britishIslesCodes = ["GB", "GG", "IM", "JE"]
+
+    countrySelect.addEventListener("change", function(el) {
+      var selected = this.options[this.selectedIndex]
+      var selectedCountryCode = selected.getAttribute("data-country-code")
+      var totalPrice = totalHeadElem.getAttribute("data-product-total") / 1
+
+      if (britishIslesCodes.indexOf(selectedCountryCode) > -1) {
+        ppHeadVal = ppHeadElem.getAttribute("data-product-pp-uk") / 1
+
+      } else {
+
+        ppHeadVal = ppHeadElem.getAttribute("data-product-pp-intl") / 1
+      }
+
+      qtyHeadVal = qtyHeadElem.getAttribute("data-product-qty") / 1 // reset var for p&p
+
+      var totalPriceWithPP = ((qtyHeadVal * priceHeadVal) + ppHeadVal).toFixed(2)
+
+      // Set p&p head vals
+      ppHeadVal = ppHeadVal.toFixed(2)
+      ppHeadElem.innerText = ppHeadVal
+      ppHeadElem.setAttribute("data-product-pp", ppHeadVal)
+
+      // Reset total vals
+      totalHeadElem.setAttribute("data-product-total", totalPriceWithPP)
+      totalHeadElem.innerText = totalPriceWithPP
     })
   }
 })()

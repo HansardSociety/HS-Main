@@ -1,4 +1,4 @@
-<%=
+<%
 countries = [
   { name: "United Kingdom", code: "GB" },
   { name: "United States", code: "US" },
@@ -248,7 +248,7 @@ countries = [
 ]
 %>
 
-<option disabled selected value> -- select a country -- </option>
+<option disabled="disabled" selected="selected" value="-- select a country --">-- select a country --</option>
 <% countries.each do |country| %>
   <option
     value="<%= country[:name] %>"

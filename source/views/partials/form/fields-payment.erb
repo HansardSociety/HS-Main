@@ -108,16 +108,23 @@ formPages = [{
       data-product-name="<%= formData[:title] %>"><%= formData[:title] %></span>
   </p>
   <p class="form__head-product-price">
-    <strong>Price:</strong>
+    <strong>Price: </strong>
     £<span data-product-price="<%= sprintf("%.2f", formData[:price]) %>"><%= sprintf("%.2f", formData[:price]) %></span>
   </p>
   <p class="form__head-product-qty">
     <strong>Qty:</strong>
     <span data-product-qty="1">1</span>
   </p>
+  <p class="form__head-product-pp">
+    <strong>P&amp;P: </strong>
+    £<span
+      data-product-pp="0.00"
+      data-product-pp-uk="<%= sprintf("%.2f", siteData(:shipping)[:uk]) %>"
+      data-product-pp-intl="<%= sprintf("%.2f", siteData(:shipping)[:intl]) %>">0.00</span>
+  </p>
   <p class="form__head-product-total">
     <strong>TOTAL:</strong>
-    £<span data-product-total="<%= sprintf("%.2f", formData[:price]) %>"><%= sprintf("%.2f", formData[:price]) %></span>
+    <small>GBP</small> £<span data-product-total="<%= sprintf("%.2f", formData[:price]) %>"><%= sprintf("%.2f", formData[:price]) %></span>
   </p>
 </div>
 <div id="form-pages" class="form__pages form__pages--<%= formPages.length - 1 %>">
@@ -138,16 +145,16 @@ formPages = [{
       <!--	=Custom fields	-->
       <% if page[:type] == "custom"
         if page[:page] == "product" %>
-          <div class="copy">
+          <div class="copy e-mgn-b-sm">
             <p><strong class="e-col-brand-green-1">Item: </strong><%= formData[:title] %></p>
-            <p><strong class="e-col-brand-green-1">Price: </strong>GBP £<%= sprintf("%.2f", formData[:price]) %></p>
+            <p><strong class="e-col-brand-green-1">Price: </strong><small>GBP</small> £<%= sprintf("%.2f", formData[:price]) %></p>
           </div>
 
         <% end; if page[:page] == "shipping" %>
-          <h3 class="label-xs e-col-brand-green-1">Shipping rates</h3>
+          <h3 class="label-xs e-col-brand-green-1">Postage and packaging rates</h3>
           <div class="e-fz-xs  e-mgn-b-sm">
-            <p><strong>United Kindom: </strong>GBP £5.00</p>
-            <p><strong>International: </strong>GBP £10.00</p>
+            <p><strong>United Kindom: </strong><small>GBP</small> £5.00</p>
+            <p><strong>International: </strong><small>GBP</small> £10.00</p>
           </div>
         <% end; page[:fields].each do |field| %>
 
@@ -167,8 +174,18 @@ formPages = [{
                 min="1"
                 class="form__field form__field--qty">
               <div class="form__qty-actions">
-                <span class="form__qty-add"></span>
-                <span class="form__qty-remove"></span>
+                <span class="form__qty-remove">
+                  <%= partial "views/partials/icon",
+                    locals: {
+                      icon: "minus-round",
+                      size: "xs" } %>
+                </span>
+                <span class="form__qty-add">
+                  <%= partial "views/partials/icon",
+                    locals: {
+                      icon: "plus-round",
+                      size: "xs" } %>
+                </span>
               </div>
             </div>
           <% elsif field[:type] == "select" %>

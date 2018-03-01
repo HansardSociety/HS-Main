@@ -2,11 +2,12 @@
   ========================================================================== */
 
 html {
+  vertical-align: middle;
+
   line-height: Get($type, line-height);
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   @extend %e-col-greyscale-3;
   @extend %e-ff-prim-roman;
   @extend %e-fz-base;
@@ -14,6 +15,7 @@ html {
 
 body {
   overflow-x: hidden;
+
   width: 100vw;
 }
 
@@ -79,14 +81,19 @@ label,
 select,
 button,
 textarea {
-  margin: 0;
-  border: 0;
-  padding: 0;
   display: inline-block;
+
+  margin: 0;
+  padding: 0;
+
   vertical-align: middle;
   white-space: normal;
+
+  border: 0;
   background: none;
+
   line-height: 1;
+
   -webkit-appearance: none;
 }
 
@@ -100,8 +107,9 @@ input:focus {
 // Reser number input arrows
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
   margin: 0;
+
+  -webkit-appearance: none;
 }
 input[type=number] {
   -moz-appearance: textfield;
@@ -150,8 +158,9 @@ input[type=file] {}
 /* Make webkit render the search input like a normal text field */
 
 input[type=search] {
-  -webkit-appearance: textfield;
   -webkit-box-sizing: content-box;
+
+  -webkit-appearance: textfield;
 }
 
 
@@ -169,6 +178,7 @@ input[type=search] {
 
 ::-webkit-file-upload-button {
   padding: 0;
+
   border: 0;
   background: none;
 }
@@ -177,10 +187,11 @@ input[type=search] {
 -----------------------------------------------*/
 
 textarea {
-  /* Move the label to the top */
-  vertical-align: top;
   /* Turn off scroll bars in IE unless needed */
   overflow: auto;
+  /* Move the label to the top */
+
+  vertical-align: top;
 }
 
 
