@@ -113,17 +113,24 @@
 .form__head {
   font-size: .75rem;
 
-  @extend %e-col-greyscale-0;
-  @extend %e-bgc-greyscale-3;
+  @extend %e-bgc-greyscale-1;
+  @extend %e-mgn-b-sm;
   @extend %e-pad-sm;
-  @extend %e-position-absolute-0;
+  @extend %e-rad-slight;
   @extend %e-width-full;
+}
+
+.form__head-title {
+  @extend %e-col-brand-green-1;
+
+  & > h3 {
+    @extend %e-display-inline-block;
+  }
 }
 
 .form__page {
   width: calc(100% / 3);
   height: inherit;
-  margin-top: 5rem;
 
   @extend %e-bgc-greyscale-0;
   @extend %e-height-full;
@@ -147,6 +154,7 @@
 
   border-radius: 2px;
 
+  @extend %e-col-greyscale-0;
   @extend %e-bgc-brand-green-1;
   @extend %e-display-inline-block;
   @extend %e-mgn-t-xs;
@@ -186,6 +194,18 @@
   }
 }
 
+.form__actions {
+  @extend %e-mgn-t-sm;
+
+  &::after {
+    clear: both;
+
+    content: "";
+
+    @extend %e-display-block;
+  }
+}
+
 .form__qty-add,
 .form__qty-remove {
   width: 100%;
@@ -202,7 +222,7 @@
   }
 
   &:hover {
-    @extend %e-col-greyscale-3;
+    @extend %e-col-brand-green-1;
   }
 }
 

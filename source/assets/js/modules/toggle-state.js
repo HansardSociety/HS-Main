@@ -58,14 +58,14 @@ const toggleState = (() => {
         // Focus on first input
         if ((isModal || isFormPage) && isActive) {
           setTimeout(() => {
-            elem.querySelector(".form__field").focus()
-          }, 600);
+            elem.focus()
+          }, 400);
 
         // Prevent focus remaining on previous page
         } else if (isFormPage) {
           setTimeout(() => {
             elem.previousElementSibling.focus()
-          }, 600);
+          }, 400);
         }
 
         // Modals
