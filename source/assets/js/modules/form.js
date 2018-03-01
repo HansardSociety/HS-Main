@@ -285,6 +285,9 @@ const paymentState = (() => {
     /*		=Quantity add/remove
       ---------------------------------------- */
 
+    // Force quantity reset in case of cache
+    qtyInput.value = 1
+
     qtyAdd.addEventListener("click", function() {
       var val = qtyInput.value / 1
       var valNew = val + 1
@@ -322,7 +325,7 @@ const paymentState = (() => {
     /*		=Shipping rate
       ---------------------------------------- */
 
-    var countrySelect = form.querySelector("[name=country]")
+    var countrySelect = form.querySelector("[name=shipping-country]")
     var britishIslesCodes = ["GB", "GG", "IM", "JE"]
 
     countrySelect.addEventListener("change", function(el) {
