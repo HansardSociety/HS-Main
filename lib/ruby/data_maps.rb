@@ -498,7 +498,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
 
     context.shipping = {
       uk: entry.shipping_uk,
-      intl: entry.shipping_intl,
+      intl: entry.shipping_intl
     }
 
     context.logo = {
