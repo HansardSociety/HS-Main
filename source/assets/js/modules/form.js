@@ -200,6 +200,7 @@ const braintreeCheckout = (() => {
       form.addEventListener("submit", function(event) {
         event.preventDefault()
 
+        // Product data
         var productName = form.querySelector("[data-product-name]").getAttribute("data-product-name")
           , productID = form.querySelector("[data-product-id]").getAttribute("data-product-id")
           , productPrice = form.querySelector("[data-product-price]").getAttribute("data-product-price")
@@ -291,7 +292,7 @@ const paymentState = (() => {
       totalHeadElem.innerText = totalPrice
     })
 
-    qtyRemove.addEventListener("click", function () {
+    qtyRemove.addEventListener("click", function() {
       var val = qtyInput.value / 1
       var valNew = val - 1
 
@@ -304,6 +305,21 @@ const paymentState = (() => {
         var totalPrice = (priceHeadVal * valNew).toFixed(2)
         totalHeadElem.setAttribute("data-product-total", totalPrice)
         totalHeadElem.innerText = totalPrice
+      }
+    })
+
+    /*		=Shipping rate
+      ---------------------------------------- */
+
+    var countrySelect = form.querySelector("[name=country]")
+    var britishIslesCodes = ("GB" || "GG" || "IM" || "JE")
+
+    countrySelect.addEventListener("change", function(el) {
+      var selected = this.options[this.selectedIndex]
+      var selectedCountryCode = selected.getAttribute("data-country-code")
+
+      if (selectedCountryCode == britishIslesCodes) {
+
       }
     })
   }
