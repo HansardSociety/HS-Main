@@ -16,7 +16,7 @@
 }
 
 .banner__inner--overlap {
-  top: 100%; // ensure overlap content remains above .content
+  top: calc(100% - 2rem); // ensure overlap content remains above .content
 
   transform: translate(-50%, -100%);
 }
