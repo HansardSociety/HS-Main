@@ -43,7 +43,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
   @extend %e-mgn-b-xs;
-  @extend %e-pad-xs;
+  @extend %e-pad-y-xs;
   @extend %e-rad-slight;
   &:valid {
     border: 2px solid lightgreen;
@@ -171,6 +171,7 @@
   right: 0;
 
   width: 2rem;
+  height: 2.25rem;
 
   border-radius: 0 2px 2px 0;
 
@@ -191,18 +192,6 @@
 
     @extend %e-pseudo-elem;
     @extend %e-width-full;
-  }
-}
-
-.form__actions {
-  @extend %e-mgn-t-sm;
-
-  &::after {
-    clear: both;
-
-    content: "";
-
-    @extend %e-display-block;
   }
 }
 
@@ -241,6 +230,19 @@
     content: "▾";
   }
 }
+
+.form__actions {
+  @extend %e-mgn-t-sm;
+
+  &::after {
+    clear: both;
+
+    content: "";
+
+    @extend %e-display-block;
+  }
+}
+
 
 input[name=quantity].form__field {
   pointer-events: none;
@@ -293,7 +295,7 @@ input[type=number]::-webkit-outer-spin-button {
   ========================================================================== */
 
 .form__page {
-  transition: linear .2s all;
+  transition: linear .2s opacity;
 
   &.JS-inactive {
     opacity: 0;

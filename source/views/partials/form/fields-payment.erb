@@ -62,6 +62,10 @@ formPages = [{
       label: "Postal code",
       id: "postal-code",
       placeholder: "eg. SW1A 0AA"
+    }, {
+      type: "select",
+      label: "Country",
+      id: "country"
     }]
   }, {
 
@@ -135,15 +139,26 @@ formPages = [{
       <% if page[:type] == "custom"
         if page[:page] == "product" %>
           <div class="copy">
-            <p><strong>Item: </strong><%= formData[:title] %></p>
-            <p><strong>Price: </strong>GBP £<%= sprintf("%.2f", formData[:price]) %></p>
+            <p><strong class="e-col-brand-green-1">Item: </strong><%= formData[:title] %></p>
+            <p><strong class="e-col-brand-green-1">Price: </strong>GBP £<%= sprintf("%.2f", formData[:price]) %></p>
           </div>
-        <% end; page[:fields].each do |field|
-          if field[:id] == "quantity" %>
-            <label
-              for="<%= field[:id] %>"
-              class="form__label label-xs"><%= field[:label] %>
-            </label>
+
+        <% end; if page[:page] == "shipping" %>
+          <h3 class="label-xs e-col-brand-green-1">Shipping rates</h3>
+          <div class="e-fz-xs  e-mgn-b-sm">
+            <p><strong>United Kindom: </strong>GBP £5.00</p>
+            <p><strong>International: </strong>GBP £10.00</p>
+          </div>
+        <% end; page[:fields].each do |field| %>
+
+          <label
+            for="<%= field[:id] %>"
+            class="form__label label-xs"><%= field[:label] %>
+          </label>
+
+          <% if field[:id] == "quantity" %>
+
+            <!--	=Quantity	-->
             <div class="form__qty">
               <input
                 name="<%= field[:id] %>"
@@ -156,11 +171,19 @@ formPages = [{
                 <span class="form__qty-remove"></span>
               </div>
             </div>
+          <% elsif field[:type] == "select" %>
+
+            <!--	=Select	-->
+            <select
+              class="form__field"
+              name="<%= field[:id] %>">
+
+              <%= partial "views/partials/form/countries" %>
+            </select>
+
           <% else %>
-            <label
-              for="<%= field[:id] %>"
-              class="form__label label-xs"><%= field[:label] %>
-            </label>
+
+            <!--	=Regular inputs	-->
             <input
               name="<%= field[:id] %>"
               type="<%= field[:type] %>"
