@@ -496,6 +496,11 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.linkedin = entry.linkedin
     context.facebook = entry.facebook
 
+    context.shipping = {
+      uk: entry.shipping_uk,
+      intl: entry.shipping_intl,
+    }
+
     context.logo = {
       mobile: media(entry.logo_mobile),
       desktop: media(entry.logo_desktop)
