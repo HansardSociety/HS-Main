@@ -8,10 +8,15 @@
   top: 0;
   left: -9999px;
 
+  // -ms-overflow-style: none;
   @extend %e-height-full-vh;
   @extend %e-position-fixed;
   @extend %e-rad-slight;
   @extend %e-width-full-vw;
+
+  &::-webkit-scrollbar {
+    // @extend %e-display-none;
+  }
 }
 
 .modal__overlay {

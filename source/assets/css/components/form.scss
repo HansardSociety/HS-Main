@@ -144,6 +144,12 @@
 
 .form__head-product-price,
 .form__head-product-qty,
+.form__head-product-pp {
+  @extend %e-mgn-t-xxs;
+}
+
+.form__head-product-price,
+.form__head-product-qty,
 .form__head-product-pp,
 .form__head-product-total {
   @extend %e-display-inline-block;

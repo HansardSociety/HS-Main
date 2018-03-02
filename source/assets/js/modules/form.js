@@ -228,7 +228,7 @@ const braintreeCheckout = (() => {
 
           sendData(submitBtn.form, {
             metaData: metaData,
-            postURL: "http://localhost:3000/checkout",
+            postURL: "http://46.101.77.43/checkout",
             dataType: "json"
           })
         })
@@ -275,6 +275,7 @@ const paymentState = (() => {
       var back = action.querySelector(".form__prev")
       var next = action.querySelector(".form__next")
 
+      // Prevent tab to next page
       next.addEventListener("keydown", function(e) {
         if (e.which === 9 && !e.shiftKey) {
           e.preventDefault()
@@ -297,9 +298,11 @@ const paymentState = (() => {
       qtyHeadElem.setAttribute("data-product-qty", valNew)
       qtyHeadElem.innerText = valNew
 
-      qtyHeadVal = qtyHeadElem.getAttribute("data-product-qty") / 1 // reset quantity var
+      // Reset vars
+      qtyHeadVal = qtyHeadElem.getAttribute("data-product-qty") / 1
+      ppHeadVal = ppHeadElem.getAttribute("data-product-pp") / 1
 
-      var totalPrice = ((priceHeadVal * qtyHeadVal) + ppHeadVal).toFixed(2)
+      var totalPrice = (priceHeadVal * qtyHeadVal + ppHeadVal).toFixed(2)
       totalHeadElem.setAttribute("data-product-total", totalPrice)
       totalHeadElem.innerText = totalPrice
     })
@@ -314,9 +317,11 @@ const paymentState = (() => {
         qtyHeadElem.setAttribute("data-product-qty", valNew)
         qtyHeadElem.innerText = valNew
 
-        qtyHeadVal = qtyHeadElem.getAttribute("data-product-qty") / 1 // reset quantity var
+        // Reset vars
+        qtyHeadVal = qtyHeadElem.getAttribute("data-product-qty") / 1
+        ppHeadVal = ppHeadElem.getAttribute("data-product-pp") / 1
 
-        var totalPrice = ((priceHeadVal * qtyHeadVal) + ppHeadVal).toFixed(2)
+        var totalPrice = (priceHeadVal * qtyHeadVal + ppHeadVal).toFixed(2)
         totalHeadElem.setAttribute("data-product-total", totalPrice)
         totalHeadElem.innerText = totalPrice
       }
@@ -328,6 +333,11 @@ const paymentState = (() => {
     var countrySelect = form.querySelector("[name=shipping-country]")
     var britishIslesCodes = ["GB", "GG", "IM", "JE"]
 
+    // Ensure defaults to "-- select country --"
+    var defaultOpt = "-- select a country --"
+    countrySelect.value = defaultOpt
+
+    // Set shipping rates
     countrySelect.addEventListener("change", function(el) {
       var selected = this.options[this.selectedIndex]
       var selectedCountryCode = selected.getAttribute("data-country-code")

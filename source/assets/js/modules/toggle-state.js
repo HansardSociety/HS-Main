@@ -55,23 +55,25 @@ const toggleState = (() => {
         var isFormPage = elem.classList.contains("form__page")
         var isActive = elem.classList.contains(active)
 
-        // Focus on first input
-        if ((isModal || isFormPage) && isActive) {
-          setTimeout(() => {
-            elem.focus()
-          }, 400);
-
-        // Prevent focus remaining on previous page
-        } else if (isFormPage) {
-          setTimeout(() => {
-            elem.previousElementSibling.focus()
-          }, 400);
-        }
+        // Focus on first input, else prevent focus remaining on previous page
+        if ((isModal || isFormPage) && isActive) setTimeout(() => elem.focus(), 400);
+        else if (isFormPage) setTimeout(() => elem.previousElementSibling.focus(), 400);
 
         // Modals
         if (isModal) {
           if (isActive) elem.removeAttribute("tabindex")
           else elem.setAttribute("tabindex", "-1")
+        }
+
+        // Form pages => reset modal scroll
+        if (isFormPage) {
+          function findAncestor(el, cls) {
+              while ((el = el.parentElement) && !el.classList.contains(cls));
+              return el;
+          }
+
+          var modalContent = findAncestor(elem, "modal__content")
+          modalContent.scrollTop = 0
         }
       })
     }

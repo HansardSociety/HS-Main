@@ -59,6 +59,10 @@ iframe {
   @extend %e-display-block;
 }
 
+div:focus {
+  outline: none;
+}
+
 /*		=Form reset: https://gist.github.com/anthonyshort/552543
 
   ========================================================================== */
