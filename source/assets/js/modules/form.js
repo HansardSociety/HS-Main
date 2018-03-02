@@ -333,6 +333,11 @@ const paymentState = (() => {
     var countrySelect = form.querySelector("[name=shipping-country]")
     var britishIslesCodes = ["GB", "GG", "IM", "JE"]
 
+    // Ensure defaults to "-- select country --"
+    var defaultOpt = "-- select a country --"
+    countrySelect.value = defaultOpt
+
+    // Set shipping rates
     countrySelect.addEventListener("change", function(el) {
       var selected = this.options[this.selectedIndex]
       var selectedCountryCode = selected.getAttribute("data-country-code")
