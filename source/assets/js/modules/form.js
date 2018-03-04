@@ -228,7 +228,7 @@ const braintreeCheckout = (() => {
 
           sendData(submitBtn.form, {
             metaData: metaData,
-            postURL: "http://46.101.77.43/checkout",
+            postURL: "https://46.101.77.43/checkout",
             dataType: "json"
           })
         })

@@ -56,8 +56,8 @@ const toggleState = (() => {
         var isActive = elem.classList.contains(active)
 
         // Focus on first input, else prevent focus remaining on previous page
-        if ((isModal || isFormPage) && isActive) setTimeout(() => elem.focus(), 400);
-        else if (isFormPage) setTimeout(() => elem.previousElementSibling.focus(), 400);
+        if ((isModal || isFormPage) && isActive) setTimeout(() => elem.focus({ preventScroll: true }), 400);
+        else if (isFormPage) setTimeout(() => elem.previousElementSibling.focus({ preventScroll: true }), 400);
 
         // Modals
         if (isModal) {

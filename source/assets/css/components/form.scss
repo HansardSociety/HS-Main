@@ -2,6 +2,7 @@
   ========================================================================== */
 
 .form {
+  @extend %e-pad-b-sm;
 
   textarea {
     min-height: 10rem;
@@ -157,9 +158,11 @@
 }
 
 .form__head-product-total {
-  padding: .25rem;
+  padding: .25rem .5rem;
 
   border-radius: 2px;
+
+  line-height: 1;
 
   @extend %e-col-greyscale-0;
   @extend %e-bgc-brand-green-1;
@@ -177,9 +180,10 @@
   top: 0;
   right: 0;
 
+  align-items: center;
+
   height: 100%;
 
-  align-items: center;
   @extend %e-col-brand-green-1;
   @extend %e-flex-row-nowrap;
   @extend %e-position-absolute;

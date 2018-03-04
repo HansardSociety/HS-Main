@@ -119,8 +119,8 @@ formPages = [{
     <strong>P&amp;P: </strong>
     £<span
       data-product-pp="0.00"
-      data-product-pp-uk="<%= sprintf("%.2f", siteData(:shipping)[:uk]) %>"
-      data-product-pp-intl="<%= sprintf("%.2f", siteData(:shipping)[:intl]) %>">0.00</span>
+      data-product-pp-uk="<%= sprintf("%.2f", siteData(:checkout_shipping)[:uk]) %>"
+      data-product-pp-intl="<%= sprintf("%.2f", siteData(:checkout_shipping)[:intl]) %>">0.00</span>
   </p>
   <p class="form__head-product-total">
     <strong>TOTAL:</strong>

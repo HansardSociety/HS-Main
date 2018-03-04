@@ -4,6 +4,8 @@
 }
 
 .btn {
+  line-height: 1;
+
   @extend %e-cursor-pointer;
   @extend %e-flex-inline-row-center;
   @extend %e-ff-prim-heavy;
