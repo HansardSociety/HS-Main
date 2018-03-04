@@ -492,13 +492,24 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
 
     context.uncss_urls = entry.uncss_urls
 
+    ##		=Social
+    ########################################
+
     context.twitter = entry.twitter
     context.linkedin = entry.linkedin
     context.facebook = entry.facebook
 
-    context.shipping = {
-      uk: entry.shipping_uk,
-      intl: entry.shipping_intl
+    ##		=Checkout
+    ########################################
+
+    context.checkout_shipping = {
+      uk: entry.checkout_shipping_uk,
+      intl: entry.checkout_shipping_intl
+    }
+
+    context.checkout_confirmation = {
+      shipping: entry.checkout_confirmation_shipping,
+      error: entry.checkout_confirmation_error
     }
 
     context.logo = {

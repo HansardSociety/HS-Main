@@ -58,27 +58,30 @@ formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
     <% end %>
   </div>
 
-  <% if isNetlifyForm %>
+  <!--**********************************************
+      =Success
+  ***********************************************-->
 
-    <!--**********************************************
-        =Success
-    ***********************************************-->
+  <div class="form__confirmation copy">
 
-    <div class="form__confirmation copy">
+    <% if isNetlifyForm %>
       <%= markdown(formData[:confirmation]) %>
-      <div class="e-mgn-t-sm">
-        <%= partial "views/partials/social-follow",
-          locals: { bgc: "light" } %>
-      </div>
-    </div>
+    <% elsif isPaymentForm %>
+      <%= markdown(siteData(:checkout_confirmation)[:shipping]) %>
+    <% end %>
 
-    <!--**********************************************
-        =Error
-    ***********************************************-->
-
-    <div class="form__error">
-      <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong..."</h2>
-      <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+    <div class="e-mgn-t-sm">
+      <%= partial "views/partials/social-follow",
+        locals: { bgc: "light" } %>
     </div>
-  <% end %>
+  </div>
+
+  <!--**********************************************
+      =Error
+  ***********************************************-->
+
+  <div class="form__error">
+    <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong..."</h2>
+    <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+  </div>
 </form>
