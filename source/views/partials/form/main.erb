@@ -53,8 +53,15 @@ formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
 
     <!--	=Payment fields	-->
     <% elsif isPaymentForm %>
-      <%= partial "views/partials/form/fields-payment",
-        locals: { form_data: formData } %>
+      <div class="copy">
+        <h2>We are upgrading our checkout system</h2>
+        <p>We are currently upgrading our checkout system and are temporarily taking payments via invoice.</p>
+        <p>To order this item, please email <a href="mailto:payments@hansardsociety.org.uk">payments@hansardsociety.org.uk</a> and we will send you an invoice to make a bank transfer.</p>
+      </div>
+      <div style="display:none;">
+        <%= partial "views/partials/form/fields-payment",
+          locals: { form_data: formData } %>
+      </div>
     <% end %>
   </div>
 
