@@ -28,10 +28,6 @@
     "preview:deploy": "npm run clean && npm run data:preview && npm run prepipe:prod && MM_ENV=preview bundle exec middleman build -e preview",
     "dev": "MM_ENV=dev bundle exec middleman server",
     "dev:clean": "npm run clean && npm run data:preview && MM_ENV=dev bundle exec middleman server",
-    "exp": "npm run prepipe:prod && MM_ENV=exp bundle exec middleman build -e exp",
-    "exp:dev:clean": "npm run clean && npm run data:experimental && MM_ENV=dev bundle exec middleman server",
-    "exp:clean": "npm run clean && npm run data:experimental && npm run prepipe:prod && MM_ENV=exp bundle exec middleman build -e exp",
-    "exp:deploy": "npm run clean && npm run data:experimental && npm run prepipe:prod && MM_ENV=exp bundle exec middleman build -e exp",
     "==================== POST BUILD": "====================",
     "post:prod": "NODE_ENV=prod node lib/node/_scripts.js",
     "post:preview": "NODE_ENV=preview node lib/node/_scripts.js"

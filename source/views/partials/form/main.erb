@@ -22,9 +22,9 @@ end
 # Netlify form
 if isNetlifyForm
   formAttrsNetlify = {
-    "netlify": "",
-    "netlify-honeypot": "bot-field",
-    "name": "#{ formData[:meta_title].parameterize + "-" + formData[:ID] }"
+    "data-netlify": "true",
+    "data-netlify-honeypot": "bot-field",
+    "name": "#{ formData[:meta_title].parameterize }__ENV-#{ config[:ENV] }"
   }.merge(formAttrsCore("form--netlify"))
 
 # Payment form
@@ -38,7 +38,7 @@ end
 formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
 %>
 
-<%= tag(:form, formAttrs) %>
+<% content_tag(:form, formAttrs) do %>
 
   <!--**********************************************
       =Main
@@ -53,12 +53,7 @@ formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
 
     <!--	=Payment fields	-->
     <% elsif isPaymentForm %>
-      <div class="copy">
-        <h2>We are upgrading our checkout system</h2>
-        <p>We are currently upgrading our checkout system and are temporarily taking payments via invoice.</p>
-        <p>To order this item, please email <a href="mailto:payments@hansardsociety.org.uk">payments@hansardsociety.org.uk</a> and we will send you an invoice to make a bank transfer.</p>
-      </div>
-      <div style="display:none;">
+      <div>
         <%= partial "views/partials/form/fields-payment",
           locals: { form_data: formData } %>
       </div>
@@ -91,4 +86,4 @@ formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
     <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong..."</h2>
     <p class="e-mgn-t-sm">Please reload the page and try again.</p>
   </div>
-</form>
+<% end %>

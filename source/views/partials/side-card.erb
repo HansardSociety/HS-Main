@@ -41,7 +41,7 @@ sideCardAttrs = {
 }
 %>
 
-<%= tag(sideCardTagOpen, sideCardAttrs) %>
+<% content_tag(sideCardTagOpen, sideCardAttrs) do %>
   <div class="side-card__inner">
     <div class="side-card__aside <%= asideBgc %> <%= "e-pad-r-xs" if isNonPage %>">
       <% if image %>
@@ -152,4 +152,4 @@ sideCardAttrs = {
       <% end %>
     </div>
   </div>
-<%= sideCardTagClose %>
+<% end %>

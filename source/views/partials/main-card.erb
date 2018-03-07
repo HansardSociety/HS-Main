@@ -31,7 +31,7 @@ cardAttrs = {
     </span>
   <% end %>
 
-  <%= tag(cardInnerTagOpen, cardAttrs) %>
+  <% content_tag(cardInnerTagOpen, cardAttrs) do %>
 
     <header class="main-card__header e-col-greyscale-0">
       <div class="main-card__image">
@@ -50,5 +50,5 @@ cardAttrs = {
     <section class="main-card__introduction">
       <p><%= truncateHtml(markdown(introduction), { num: 139 }) %></p>
     </section>
-  <%= cardInnerTagClose %>
+  <% end %>
 </article>
