@@ -7,11 +7,7 @@
 }
 
 %e-container {
-  @extend %e-pad-y-xs;
-
-  @include above(xs) {
-    @extend %e-pad-y-sm__xs;
-  }
+  @extend %e-pad-y-sm;
 }
 
 %e-container--narrow { max-width: 35rem; }

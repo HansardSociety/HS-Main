@@ -1,0 +1,44 @@
+<%
+accordianData = local_data[:accordian_data]
+title = accordianData[:title]
+ctaID = accordianData[:cta_id]
+callsToAction = accordianData[:calls_to_action]
+%>
+
+<section class="accordian <%= "accordian--ctas" if callsToAction %>">
+  <div class="accordian__header">
+    <h3 class="title-sm e-col-green"><%= title %></h3>
+    <div class="accordian__control e-col-green">
+      <%= partial "views/partials/btn",
+        locals: { local_data: {
+          type: "state", size: "sm",
+          icon: "chevron-down", icon_size: "xs",
+          animation: "rotate",
+          aria_id: "activate-#{ ctaID }",
+          aria_target_id: "#{ ctaID }" }} %>
+    </div>
+  </div>
+  <div
+    id="<%= ctaID %>"
+    class="accordian__expand JS-inactive">
+
+    <div class="accordian__content">
+      <% if callsToAction
+        callsToAction.each do |cta| %>
+          <div class="accordian__cta">
+            <% if cta.TYPE == "cta_download" %>
+              <%= partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "link",
+                  size: "sm",
+                  fill: true,
+                  style: "primary",
+                  label: cta.button_text,
+                  label_size: "sm",
+                  url: cta.file.url }} %>
+            <% end %>
+          </div>
+      <% end; end %>
+    </div>
+  </div>
+</section>

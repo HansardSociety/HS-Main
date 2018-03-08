@@ -1,0 +1,45 @@
+<%
+ctaData = local_data[:entry_data]
+ctaType = ctaData[:TYPE]
+btnText = ctaData[:button_text]
+btnSize = local_data[:btn_size] ? local_data[:btn_size] : "md"
+%>
+
+<div class="grid__cell">
+  <% if ["cta_download", "cta_page"].include? ctaType
+    isPage = ctaData[:TYPE] == "cta_page"
+    isDownload = ctaData[:TYPE] == "cta_download"
+    btnURL = isPage ? internalURL(ctaData[:page_slug]) : ctaData[:file].url%>
+
+    <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "link",
+        size: btnSize, style: (isPage ? "secondary" : "primary"),
+        label: btnText,
+        label_size: btnSize,
+        url: btnURL }} %>
+
+  <% end; if ctaData[:TYPE] == "cta_modal"
+    modalID = ctaData[:modal][:cta_id]
+    modalContent = ctaData[:modal][:content]
+    modalForm = ctaData[:modal][:form]
+    modalWidth = modalForm ? "narrow" : false %>
+
+    <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "state",
+        size: btnSize, style: "primary",
+        label_on: btnText, label_off: "Close",
+        label_size: btnSize,
+        page: "no-scroll", switch: true,
+        aria_id: "activate-#{ modalID }",
+        aria_target_id: modalID }} %>
+
+    <%= partial "views/partials/modal",
+      locals: { local_data: {
+        id: modalID,
+        content: modalContent,
+        form: (modalForm ? modalForm : false),
+        size: modalWidth }} %>
+  <% end %>
+</div>

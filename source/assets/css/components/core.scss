@@ -1,20 +1,21 @@
-////////////////////////////////////////////////////////////
-//  Main
-////////////////////////////////////////////////////////////
+/*		=Main
+  ========================================================================== */
 
 html {
+  vertical-align: middle;
+
   line-height: Get($type, line-height);
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @extend %e-col-black;
+  @extend %e-col-greyscale-3;
   @extend %e-ff-prim-roman;
   @extend %e-fz-base;
 }
 
 body {
   overflow-x: hidden;
+
   width: 100vw;
 }
 
@@ -22,11 +23,11 @@ body {
   box-sizing: border-box;
 }
 
-p, h1, h2, h3, h4, h5, h6, ul, article {
+p, h1, h2, h3, h4, h5, h6, ul, article, blockquote {
   margin: 0;
 }
 
-ul {
+ul, blockquote {
   padding: 0;
 }
 
@@ -56,4 +57,154 @@ iframe {
   border: none !important;
 
   @extend %e-display-block;
+}
+
+div:focus {
+  outline: none;
+}
+
+/*		=Form reset: https://gist.github.com/anthonyshort/552543
+
+  ========================================================================== */
+
+/* ----------------------------------------------------------------------------------------------------
+Super Form Reset
+A couple of things to watch out for:
+- IE8: If a text input doesn't have padding on all sides or none the text won't be centered.
+- The default border sizes on text inputs in all UAs seem to be slightly different. You're better off using custom borders.
+- You NEED to set the font-size and family on all form elements
+- Search inputs need to have their appearance reset and the box-sizing set to content-box to match other UAs
+- You can style the upload button in webkit using ::-webkit-file-upload-button
+- ::-webkit-file-upload-button selectors can't be used in the same selector as normal ones. FF and IE freak out.
+- IE: You don't need to fake inline-block with labels and form controls in IE. They function as inline-block.
+- By turning off ::-webkit-search-decoration, it removes the extra whitespace on the left on search inputs
+----------------------------------------------------------------------------------------------------*/
+
+input,
+label,
+select,
+button,
+textarea {
+  display: inline-block;
+
+  margin: 0;
+  padding: 0;
+
+  vertical-align: middle;
+  white-space: normal;
+
+  border: 0;
+  background: none;
+
+  line-height: 1;
+
+  -webkit-appearance: none;
+}
+
+
+/* Remove the stupid outer glow in Webkit */
+
+input:focus {
+  outline: 0;
+}
+
+// Reser number input arrows
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  margin: 0;
+
+  -webkit-appearance: none;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+/* Text Inputs
+-----------------------------------------------*/
+
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=range],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week] {}
+
+
+/* Button Controls
+-----------------------------------------------*/
+
+input[type=checkbox],
+input[type=radio] {
+  width: 13px;
+  height: 13px;
+}
+
+
+/* File Uploads
+-----------------------------------------------*/
+
+input[type=file] {}
+
+
+/* Search Input
+-----------------------------------------------*/
+
+
+/* Make webkit render the search input like a normal text field */
+
+input[type=search] {
+  -webkit-box-sizing: content-box;
+
+  -webkit-appearance: textfield;
+}
+
+
+/* Turn off the recent search for webkit. It adds about 15px padding on the left */
+
+::-webkit-search-decoration {
+  display: none;
+}
+
+
+/* Buttons
+-----------------------------------------------*/
+
+/* IE8 and FF freak out if this rule is within another selector */
+
+::-webkit-file-upload-button {
+  padding: 0;
+
+  border: 0;
+  background: none;
+}
+
+/* Textarea
+-----------------------------------------------*/
+
+textarea {
+  /* Turn off scroll bars in IE unless needed */
+  overflow: auto;
+  /* Move the label to the top */
+
+  vertical-align: top;
+}
+
+
+/* Selects
+-----------------------------------------------*/
+
+select {}
+
+select[multiple] {
+  /* Move the label to the top */
+  vertical-align: top;
 }

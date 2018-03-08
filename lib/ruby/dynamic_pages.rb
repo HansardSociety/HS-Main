@@ -72,8 +72,6 @@ module DynamicPages
   ###########################################################################
 
   def dynamicCustomPages()
-
-    # AJAX elements
-    # proxy "/ajax.html", "/views/templates/ajax.html", :layout => false
+    #...
   end
 end

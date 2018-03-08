@@ -34,5 +34,4 @@ contentfulEnvs()
 # Build environments
 buildProd()
 buildPreview()
-buildExperimental()
 devServer()

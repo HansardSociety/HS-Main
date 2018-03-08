@@ -1,0 +1,89 @@
+<%
+formData = local_data[:entry_data]
+
+isNetlifyForm = formData[:TYPE] == "form"
+isPaymentForm = formData[:TYPE] == "product"
+
+formData.merge!({
+  is_modal: local_data[:modal]
+}.compact)
+
+formAttrsNetlify = {}
+formAttrsPayment = {}
+
+# Core attributes
+def formAttrsCore(classes)
+  {
+    "class": "form #{ classes }",
+    "action": "/"
+  }
+end
+
+# Netlify form
+if isNetlifyForm
+  formAttrsNetlify = {
+    "data-netlify": "true",
+    "data-netlify-honeypot": "bot-field",
+    "name": "#{ formData[:meta_title].parameterize }__ENV-#{ config[:ENV] }"
+  }.merge(formAttrsCore("form--netlify"))
+
+# Payment form
+elsif isPaymentForm
+  formAttrsPayment = {
+    "id": "payment-form",
+    "method": "post"
+  }.merge(formAttrsCore("form--payment"))
+end
+
+formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
+%>
+
+<% content_tag(:form, formAttrs) do %>
+
+  <!--**********************************************
+      =Main
+  ***********************************************-->
+
+  <div class="form__main">
+
+    <!--	=Netlify fields	-->
+    <% if isNetlifyForm %>
+      <%= partial "views/partials/form/fields-netlify",
+        locals: { form_data: formData } %>
+
+    <!--	=Payment fields	-->
+    <% elsif isPaymentForm %>
+      <div>
+        <%= partial "views/partials/form/fields-payment",
+          locals: { form_data: formData } %>
+      </div>
+    <% end %>
+  </div>
+
+  <!--**********************************************
+      =Success
+  ***********************************************-->
+
+  <div class="form__confirmation copy">
+
+    <% if isNetlifyForm %>
+      <%= markdown(formData[:confirmation]) %>
+    <% elsif isPaymentForm %>
+      <%= markdown(siteData(:checkout_confirmation)[:shipping]) %>
+    <% end %>
+
+    <div class="e-mgn-t-sm">
+      <%= partial "views/partials/social-follow",
+        locals: { bgc: "light" } %>
+    </div>
+  </div>
+
+  <!--**********************************************
+      =Error
+  ***********************************************-->
+
+  <div class="form__error">
+    <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong..."</h2>
+    <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+  </div>
+<% end %>

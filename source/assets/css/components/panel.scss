@@ -1,25 +1,26 @@
 // Panels
 .panel {
   @extend %e-container;
-  @extend %e-pad-x-lg;
+  @extend %e-overflow-hidden;
+  @extend %e-pad-x-xl;
   @extend %e-position-relative;
+  @include above(sm) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
 }
 
-.panel--light-grey {
-  @extend %e-bgc-light-grey;
+.panel--bg-img {
+  @extend %e-flex-row;
 }
 
 .panel--dark {
-  @extend %e-bgc-dark-grey;
-  @extend %e-col-white;
+  @extend %e-col-greyscale-0;
 }
 
 .panel__content {
   @extend %e-mgn-auto-x;
-
-  &:nth-child(1n + 2) {
-    @extend %e-mgn-t-md;
-  }
+  @extend %e-position-relative; // need pos to place over absolute bg image
 }
 
 .panel__content--narrow {
@@ -38,9 +39,49 @@
   @extend %e-container--full;
 }
 
-.panel__section {
-  @extend %e-mgn-t-sm;
+.panel__bg-img {
+  @extend %e-width-full;
+
+  & > img {
+    width: 45rem;
+
+    @extend %e-display-block;
+    @extend %e-mgn-auto-x;
+  }
 }
+
+.panel__bg-img--ol {
+
+  & > img {
+    bottom: -2rem;
+    left: -2rem;
+
+    max-height: 125%;
+
+    opacity: .2;
+
+    @extend %e-position-absolute;
+    @include above(sm) {
+      left: 50%;
+
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.panel__bg-img--no-ol {
+  order: 2;
+
+  @extend %e-mgn-t-lg;
+
+  & > img {
+    max-width: 100%;
+
+    opacity: .95;
+  }
+}
+
+
 
 // Sections
 @each $sizeKey, $sizeVal in $spacing {

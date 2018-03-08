@@ -1,0 +1,105 @@
+<%
+entryData = local_data[:entry_data]
+
+# Locals
+blogCount = local_data[:blog_count]
+categories = local_data[:categories]
+dataType = local_data[:data_type]
+index = local_data[:index]
+
+# Context
+context = local_data[:context]
+isLatestContext = context == :latest
+
+# BGC
+bgc = entryData[:background_color]
+bgcClass = isLatestContext ? "e-bg-shapes" : panelBgc(entryData[:background_color])
+isLightBgc = colorProfile(:light).include?(bgc)
+
+title = isLatestContext ? "Latest" : entryData[:title]
+%>
+
+<section
+  id="panel-<%= index %>"
+  class="panel <%= bgcClass %>">
+  <div class="panel__content panel__content--narrow">
+    <h2
+      class="title-xl e-align-cen e-mgn-b-md
+            <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>"><%= title %></h2>
+  </div>
+  <div class="panel__content panel__content--full">
+    <div class="carousel">
+      <div class="carousel__inner">
+        <% if dataType == :related
+          if entryData[:featured]
+            entryData[:featured].map do |page| %>
+              <div class="carousel__item carousel__item--card">
+                <%= partial "views/partials/main-card",
+                  locals: { local_data: {
+                    entry_data: page,
+                    featured: true }} %>
+              </div>
+
+          <% end; end; relatedContent(entryData, blogCount) do |page| %>
+            <div class="carousel__item carousel__item--card">
+              <%= partial "views/partials/main-card",
+                locals: { local_data: {
+                  entry_data: page }} %>
+            </div>
+
+        <% end; end; if dataType == :latest
+          latestContent(yield: true, num: 6) do |page| %>
+            <div class="carousel__item carousel__item--card">
+              <%= partial "views/partials/main-card",
+                locals: { local_data: {
+                  entry_data: page }} %>
+            </div>
+
+        <% end; end; if dataType == :category_latest
+          latestContent(yield: true, num: 6, page_cats: categories) do |page| %>
+            <div class="carousel__item carousel__item--card">
+              <%= partial "views/partials/main-card",
+                locals: { local_data: {
+                  entry_data: page }} %>
+            </div>
+
+        <% end; end; if dataType == :custom
+          entryData[:carousel].map do |item|
+            if item[:TYPE] == "people" %>
+              <div class="carousel__item carousel__item--card">
+                <%= partial "views/partials/staff-card",
+                  locals: { local_data: {
+                    entry_data: item[:profile] }} %>
+
+              </div>
+            <% end; if item[:TYPE] == "quote" %>
+              <div class="carousel__item">
+                <%= partial "views/partials/quote",
+                  locals: { local_data: {
+                    entry_data: item[:quote] }} %>
+              </div>
+        <% end; end; end %>
+      </div>
+
+      <div class="carousel__actions">
+        <div class="carousel__prev">
+          <%= partial "views/partials/icon",
+            locals: {
+              icon: "chevron-left",
+              size: "xs",
+              color: "green" } %>
+
+          <span>Prev</span>
+        </div>
+        <div class="carousel__next">
+          <span>Next</span>
+          <%= partial "views/partials/icon",
+            locals: {
+              icon: "chevron-right",
+              size: "xs",
+              color: "green" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,35 @@
+<%
+feedData = local_data[:entry_data]
+
+context = local_data[:context]
+isDynamic = context == "dynamic"
+
+imgURL = "#{ feedData[:banner_image][:url] }?fit=fill&w=300&h=300&f=#{ feedData[:banner_image][:focus] }&q=50&fl=progressive"
+imgAlt = feedData[:banner_image][:alt]
+
+if isDynamic == true
+  imgAttrs = {
+    "class": "b-lazy",
+    "src": "/#{ assetsDir }/images/svg/sprite.symbol.svg#images",
+    "data-src": imgURL,
+    "alt": imgAlt
+  }
+else
+  imgAttrs = {
+    "src": imgURL,
+    "alt": imgAlt
+  }
+end
+%>
+
+<article class="feed-item">
+  <div class="feed-item__img">
+    <%= tag(:img, imgAttrs) %>
+  </div>
+  <div class="feed-item__content">
+    <span class="label-xs e-col-greyscale-2"><%= feedData[:meta_label] %></span>
+    <h1 class="title-md">
+      <a class="link" href="<%= internalURL(feedData[:slug]) %>"><%= feedData[:title] %></a>
+    </h1>
+  </div>
+</article>
