@@ -2,10 +2,10 @@
   ========================================================================== */
 
 $path: (
-  assets: "https://www.hansardsociety.org.uk/assets",
-  fonts: "https://www.hansardsociety.org.uk/assets/fonts",
-  css: "https://www.hansardsociety.org.uk/assets/css",
-  js: "https://www.hansardsociety.org.uk/assets/js"
+  assets: "/assets",
+  fonts: "/assets/fonts",
+  css: "/assets/css",
+  js: "/assets/js"
 ) !default;
 
 @if ($env == "development") {
