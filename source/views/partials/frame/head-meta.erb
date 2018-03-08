@@ -22,7 +22,7 @@ isHome = @entry[:TYPE] == "home"
   name="description"
   content="<%= truncateHtml(introduction, { num: 154, elipsis: false }) %>"/>
 
-<title><%= title + " - " + siteData(:site_title) if !isHome %></title>
+<title><%= isHome ? siteData(:site_title) : title + " - " + siteData(:site_title) %></title>
 
 <!--**********************************************
     =Twitter
