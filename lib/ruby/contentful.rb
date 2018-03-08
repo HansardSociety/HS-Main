@@ -11,9 +11,6 @@ module ContentfulConfig
       contentful_tkn = ENV["CONTENTFUL_PREVIEW_TKN"]
       contentful_space = ENV["CONTENTFUL_SPACE_ID"]
       contentful_preview = true
-    when "experimental"
-      contentful_tkn = ENV["EXP_CONTENTFUL_LIVE_TKN"]
-      contentful_space = ENV["EXP_CONTENTFUL_SPACE_ID"]
     end
 
     activate :contentful do |f|
