@@ -21,10 +21,12 @@ end
 
 # Netlify form
 if isNetlifyForm
+  formName = formData[:meta_title].parameterize
+
   formAttrsNetlify = {
     "data-netlify": "true",
     "data-netlify-honeypot": "bot-field",
-    "name": "#{ formData[:meta_title].parameterize }__ENV-#{ config[:ENV] }"
+    "name": "#{ config[:ENV] == "production" ? formName : formName + "-ENV-" + config[:ENV] }"
   }.merge(formAttrsCore("form--netlify"))
 
 # Payment form
