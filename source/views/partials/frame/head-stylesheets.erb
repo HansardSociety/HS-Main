@@ -1,0 +1,3 @@
+<% [config[:CSS_VENDOR], config[:CSS_APP]].each do |stylesheet| %>
+  <link rel="stylesheet" href="<%= assetsDir %><%= stylesheet %>"/>
+<% end %>

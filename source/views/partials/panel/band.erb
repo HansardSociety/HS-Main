@@ -1,0 +1,48 @@
+<%
+panelData = local_data[:entry_data]
+
+bgc = panelData[:background_color]
+bgcClass = colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
+callsToAction = panelData[:calls_to_action]
+copy = panelData[:copy]
+index = local_data[:index]
+
+isNoOverlap = panelData[:no_overlap]
+
+title = panelData[:title]
+titleColor = colorProfile(:dark).include?(bgc) ? "e-col-greyscale-0" : "e-col-brand-green-2"
+hasTitle = panelData[:show_title] != nil
+%>
+
+<section
+  id="panel-<%= index %>"
+  class="panel <%= "panel--bg-img" if panelData[:image] %> <%= bgcClass %>">
+
+  <% if panelData[:image] %>
+    <div class="panel__bg-img <%= "panel__bg-img--" + (isNoOverlap ? "no-ol" : "ol") %>">
+      <img
+        class="panel__bg-img b-lazy"
+        src="<%= panelData[:image][:url] %>?fm=jpg&w=800&q=2"
+        data-src="<%= panelData[:image][:url] %>"
+        alt="<%= panelData[:image][:description] %>"/>
+    </div>
+  <% end %>
+
+  <div class="panel__content panel__content--narrow">
+    <% if hasTitle %>
+      <h2 class="title-xl e-align-cen e-mgn-b-sm <%= titleColor %>"><%= title %></h3>
+
+    <% end; if copy %>
+      <p class="strap-md e-align-cen e-mgn-b-sm"><%= panelData[:copy] %></p>
+
+    <% end; if callsToAction %>
+      <div class="grid grid--xs grid--center">
+        <% callsToAction.each do |cta| %>
+          <%= partial "views/partials/ctas",
+            locals: { local_data: {
+              entry_data: cta }} %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</section>

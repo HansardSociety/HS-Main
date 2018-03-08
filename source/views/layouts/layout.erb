@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <%= partial "views/partials/frame/head-main" %>
+
+  <body class="JS-state-global">
+    <div class="site-container">
+      <%= partial "views/partials/navbar" %>
+      <main><%= yield %></main>
+      <%= partial "views/partials/footer" %>
+    </div>
+
+    <%= partial "views/partials/frame/body-scripts" %>
+  </body>
+</html>

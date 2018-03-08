@@ -4,8 +4,8 @@ import SmoothScroll from "smooth-scroll"
   ========================================================================== */
 
 const anchorScroll = (() => {
-  const scroll = new SmoothScroll('a[href^="#"]', {
-    offset: 64,
+  const scroll = new SmoothScroll("#arrow", {
+    offset: 62,
     speed: 600
   })
 })()

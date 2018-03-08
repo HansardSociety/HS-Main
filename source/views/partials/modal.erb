@@ -1,0 +1,56 @@
+<%
+ajax = local_data[:ajax]
+content = local_data[:content]
+id = local_data[:id]
+form = local_data[:form]
+size = local_data[:size]
+
+isYield = local_data[:yield]
+%>
+
+<div
+  id="<%= id %>"
+  class="modal JS-inactive"
+  tabindex="-1">
+
+  <div
+    aria-controls="<%= id %>"
+    class="modal__overlay JS-off JS-switch JS-no-scroll"></div>
+
+  <div class="modal__inner <%= "modal__inner--" + size if size %>">
+    <div class="modal__header">
+      <div class="modal__close">
+        <%= partial "views/partials/btn",
+          locals: { local_data: {
+            type: "state",
+            switch: true,
+            size: "xs",
+            icon: "close-round",
+            icon_size: "xs",
+            icon_color: "green",
+            page: "no-scroll",
+            aria_target_id: id }} %>
+      </div>
+    </div>
+    <div
+      class="modal__content
+            e-col-greyscale-3
+            JS-focus
+            <%= "copy" if content %>
+            <%= "AJAX-host" if ajax %>">
+
+      <% if isYield %>
+        <%= yield %>
+
+      <% end; if content %>
+        <%= markdown(content) %>
+
+      <% end; if form %>
+        <%= partial "views/partials/form/main",
+          locals: { local_data: {
+            entry_data: form,
+            modal: true }} %>
+      <% end %>
+    </div>
+  </div>
+</div>

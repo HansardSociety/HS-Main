@@ -1,12 +1,8 @@
-////////////////////////////////////////////////////////////
-//  =Display
-////////////////////////////////////////////////////////////
-
 $display: none, inline, block, inline-block, flex, inline-flex;
 
 
-//  =Display
-//////////////////////////////
+/*		=Display core
+  ========================================================================== */
 
 @each $property in $display {
 
@@ -26,27 +22,21 @@ $display: none, inline, block, inline-block, flex, inline-flex;
   }
 }
 
-//  =Flex
-//////////////////////////////
-
-// Options:
-// e-flex-row
-// e-flex-row-start
-// e-flex-row-center
-// e-flex-row-nowrap
-// e-flex-row-nowrap-start
-// e-flex-inline-row
-// e-flex-inline-row-center
+/*		=Flex
+  ========================================================================== */
 
 %e-flex-row,
 %e-flex-row-nowrap,
-%e-flex-row-nowrap-start {
+%e-flex-row-nowrap-start,
+%e-flex-col {
   @extend %e-display-flex;
 }
 
 %e-flex-inline-row {
   @extend %e-display-inline-flex;
 }
+
+/***  =Row  ***/
 
 %e-flex-row,
 %e-flex-inline-row {
@@ -75,4 +65,10 @@ $display: none, inline, block, inline-block, flex, inline-flex;
 %e-flex-row-center,
 %e-flex-inline-row-center {
   align-items: center;
+}
+
+/***  =Column  ***/
+
+%e-flex-col {
+  flex-direction: column;
 }

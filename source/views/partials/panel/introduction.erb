@@ -1,0 +1,17 @@
+<% entryData = locals[:entry_data]
+
+isHomePage = entryData[:TYPE] == "home"
+isLandingPage = entryData[:TYPE] == "landing_page"
+
+category = isHomePage ? "projects" : entryData[:category]
+introduction = entryData[:introduction]
+
+color = catColor(category)
+bgcClass = colorProfile(:greyscale).include?(color) ? panelBgc(color) : panelBgc(color, { gradient: true })
+%>
+
+<section class="panel <%= bgcClass %>">
+  <div class="panel__content panel__content--medium e-align-cen">
+    <%= markdown(introduction, "byline") %>
+  </div>
+</section>

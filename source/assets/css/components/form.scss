@@ -1,58 +1,316 @@
+/*		=Core
+  ========================================================================== */
+
 .form {
-  width: 100%;
+  @extend %e-pad-b-sm;
 
-  @extend %e-mgn-auto-x;
+  textarea {
+    min-height: 10rem;
+
+    resize: vertical;
+  }
+}
+
+.form__main {
+  @extend %e-overflow-hidden;
+}
+
+.form__prev {
+  float: left;
+}
+
+.form__next {
+  float: right;
+}
+
+.form__label,
+.form__field {
+  @extend %e-width-full;
+}
+
+.form__field,
+.form__qty {
+  height: 2.25rem;
+}
+
+.form__field,
+.form__field:valid,
+.form__field:valid.JS-error {
+  border: 2px solid Get($colorGroups, greyscale, 2) !important;
+}
+
+.form__field {
+  // Match Braintree style
+  font-family: sans-serif;
+
+  @extend %e-mgn-b-xs;
+  @extend %e-pad-y-xs;
   @extend %e-rad-slight;
-}
-
-.form--light {
-  @extend %e-bgc-light-grey;
-
-  .form__text::placeholder {
-    @extend %e-col-mid-grey;
+  &:valid {
+    border: 2px solid lightgreen;
   }
 }
 
-.form--dark {
-  @extend %e-bgc-black;
-  @extend %e-col-white;
+.form__label {
+  margin-bottom: 2px;
+  margin-left: 2px;
 
-  .form__text::placeholder {
-    @extend %e-col-grey;
-  }
+  @extend %e-col-brand-green-1;
 }
 
-.form--side {
-  @extend %e-mgn-t-xs;
+.form__err {
+  margin-top: -.5rem;
+  margin-left: 2px;
+
+  color: red;
+
+  @extend %e-display-none;
+  @extend %e-ff-prim-heavy;
+  @extend %e-fz-xs;
+  @extend %e-mgn-b-xs;
+}
+
+.form__confirmation,
+.form__error {
+  @extend %e-display-none;
+}
+
+.form__confirmation {
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+
+  @extend %e-bgc-greyscale-0;
+  @extend %e-height-full;
+  @extend %e-trans-opacity;
+  @extend %e-width-full;
+}
+
+/*		=Pages/ payment
+  ========================================================================== */
+
+.form__pages {
+  @extend %e-flex-row-nowrap;
+  @extend %e-position-relative;
+}
+
+.form__pages--0 {
+  width: 100%;
+}
+
+.form__pages--1 {
+  width: calc(100% * 2);
+}
+
+.form__pages--2 {
+  width: calc(100% * 3);
+}
+
+.form__pages--3 {
+  width: calc(100% * 4);
+}
+
+.form__head {
+  font-size: .75rem;
+
+  @extend %e-bgc-greyscale-1;
+  @extend %e-mgn-b-sm;
   @extend %e-pad-sm;
-}
-
-.form__text {
-  height: 2.5rem;
-  padding: 0 .5rem;
-
-  border: 2px solid Get($colors, greyscale, mid-grey);
-  background: transparent;
-
-  @extend %e-col-white;
-  @extend %e-ff-prim-roman;
   @extend %e-rad-slight;
   @extend %e-width-full;
 }
 
-.form__ty {
- @extend %e-align-cen;
+.form__head-title {
+  @extend %e-col-brand-green-1;
+
+  & > h3 {
+    @extend %e-display-inline-block;
+  }
 }
 
-///////////////////////////////////////////////////////////
-//  =ActiveCampaign style
-////////////////////////////////////////////////////////////
+.form__page {
+  width: calc(100% / 3);
+  height: inherit;
 
-._error * {
-  @extend %e-col-brown;
-  @extend %e-fz-xs;
+  @extend %e-bgc-greyscale-0;
+  @extend %e-height-full;
+  @extend %e-mgn-b-xs;
+  @extend %e-pad-t-xs;
 }
 
-.pika-single {
-  z-index: 10000001 !important;
+.form__product-name {
+  @extend %e-display-block;
 }
+
+.form__head-product-price,
+.form__head-product-qty,
+.form__head-product-pp {
+  @extend %e-mgn-t-xxs;
+}
+
+.form__head-product-price,
+.form__head-product-qty,
+.form__head-product-pp,
+.form__head-product-total {
+  @extend %e-display-inline-block;
+  @extend %e-mgn-r-xs;
+}
+
+.form__head-product-total {
+  padding: .25rem .5rem;
+
+  border-radius: 2px;
+
+  line-height: 1;
+
+  @extend %e-col-greyscale-0;
+  @extend %e-bgc-brand-green-1;
+  @extend %e-display-inline-block;
+  @extend %e-mgn-t-xs;
+}
+
+.form__qty {
+  @extend %e-mgn-b-xs;
+  @extend %e-overflow-hidden;
+  @extend %e-position-relative;
+}
+
+.form__qty-actions {
+  top: 0;
+  right: 0;
+
+  align-items: center;
+
+  height: 100%;
+
+  @extend %e-col-brand-green-1;
+  @extend %e-flex-row-nowrap;
+  @extend %e-position-absolute;
+}
+
+.form__qty-add,
+.form__qty-remove {
+  cursor: pointer;
+  user-select: none;
+
+  @extend %e-pad-y-xs;
+  @extend %e-position-relative;
+  @extend %e-trans-core;
+
+  &:hover {
+    @extend %e-col-orange-1;
+  }
+}
+
+.form__qty-remove {
+  border-right: 1px solid Get($colorGroups, greyscale, 2);
+}
+
+.form__actions {
+  @extend %e-mgn-t-sm;
+
+  &::after {
+    clear: both;
+
+    content: "";
+
+    @extend %e-display-block;
+  }
+}
+
+
+input[name=quantity].form__field {
+  pointer-events: none;
+}
+
+/*		=Behaviour (validation)
+  ========================================================================== */
+
+.form__field.JS-error + .form__err {
+  @extend %e-display-block;
+}
+
+.form__field:valid + .form__err {
+  display: none !important;
+}
+
+.form.JS-success {
+
+  .form__confirmation {
+    opacity: 1;
+
+    @extend %e-display-block;
+  }
+
+  .form__main {
+    @extend %e-display-none;
+  }
+}
+
+.form.JS-error {
+
+  .form__main {
+    @extend %e-display-none;
+  }
+
+  .form__error {
+    @extend %e-display-block;
+  }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  margin: 0;
+
+  -webkit-appearance: none;
+}
+
+
+/*		=Behaviout (payment)
+  ========================================================================== */
+
+.form__page {
+  transition: linear .2s opacity;
+
+  &.JS-inactive {
+    opacity: 0;
+  }
+
+  &.JS-active {
+    opacity: 1;
+  }
+}
+
+/***  =0-2  ***/
+
+.form__page--0-to-2.JS-active {
+  transform: translateX(0);
+}
+
+.form__page--1-to-2.JS-active {
+  transform: translateX(-100%);
+}
+
+.form__page--2-to-2.JS-active {
+  transform: translateX(-200%);
+}
+
+/***  =0-3  ***/
+
+.form__page--0-to-3.JS-active {
+  transform: translateX(0);
+}
+
+.form__page--1-to-3.JS-active {
+  transform: translateX(-100%);
+}
+
+.form__page--2-to-3.JS-active {
+  transform: translateX(-200%);
+}
+
+.form__page--3-to-3.JS-active {
+  transform: translateX(-300%);
+}
+

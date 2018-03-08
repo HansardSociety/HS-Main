@@ -33,19 +33,9 @@
   .title-#{ $sizeKey },
   .strap-#{ $sizeKey },
   .label-#{ $sizeKey },
-  .cross-head-#{ $sizeKey } {
-    @extend %e-ff-prim-roman;
-  }
-
-  .title-#{ $sizeKey },
-  .strap-#{ $sizeKey } {
-    font-weight: normal;
-  }
-
-  .label-#{ $sizeKey },
   .cross-head-#{ $sizeKey },
   strong {
-    font-weight: bold;
+    @extend %e-ff-prim-heavy;
   }
 
   .strap-#{ $sizeKey },
@@ -55,6 +45,7 @@
 
   .label-#{ $sizeKey } {
     @extend %e-upper;
+    @extend %e-display-block;
   }
 
   .cross-head-#{ $sizeKey } {
@@ -100,5 +91,5 @@
 .link-white {
   border-bottom: 2px solid rgba(Get($colors, greyscale, white), .15);
 
-  @extend %e-col-white;
+  @extend %e-col-greyscale-0;
 }

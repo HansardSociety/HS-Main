@@ -23,7 +23,7 @@ const toggleState = (() => {
     const globalNoScroll = globalState.classList.contains(noScroll)
 
     // Trigger
-    const triggerStates = [ "JS-on", "JS-off" ]
+    const triggerStates = ["JS-on", "JS-off"]
     const trigger = activeTrigger
     const triggerTargetID = trigger.getAttribute("aria-controls")
     const triggerSwitch = trigger.classList.contains("JS-switch")
@@ -34,15 +34,47 @@ const toggleState = (() => {
     const triggerSecTargetAll = Array.from(baseElem.querySelectorAll(`[${ triggerSecTargetAttr }]`))
 
     // Target
-    const targetStates = [ "JS-active", "JS-inactive" ]
+    const targetStates = ["JS-active", "JS-inactive"]
     const target = baseElem.querySelector(`#${ triggerTargetID }`)
     const targetHold = target.classList.contains(activeHold)
     const targetSec = triggerSecTargetID && baseElem.querySelector(`#${ triggerSecTargetID }`)
     const targetSecHold = triggerSecTargetID && targetSec.classList.contains(activeHold)
 
-    function toggleEachState(states, triggerElem) {
+    function toggleEachState(states, elem) {
       forEach(states, function(index, state) {
-        toggleClass(triggerElem, state)
+
+        /*		=Core state toggle
+          ---------------------------------------- */
+
+        toggleClass(elem, state)
+
+        /*		=Extras
+          ---------------------------------------- */
+
+        var isModal = elem.classList.contains("modal")
+        var isFormPage = elem.classList.contains("form__page")
+        var isActive = elem.classList.contains(active)
+
+        // Focus on first input, else prevent focus remaining on previous page
+        if ((isModal || isFormPage) && isActive) setTimeout(() => elem.focus({ preventScroll: true }), 400);
+        else if (isFormPage) setTimeout(() => elem.previousElementSibling.focus({ preventScroll: true }), 400);
+
+        // Modals
+        if (isModal) {
+          if (isActive) elem.removeAttribute("tabindex")
+          else elem.setAttribute("tabindex", "-1")
+        }
+
+        // Form pages => reset modal scroll
+        if (isFormPage) {
+          function findAncestor(el, cls) {
+              while ((el = el.parentElement) && !el.classList.contains(cls));
+              return el;
+          }
+
+          var modalContent = findAncestor(elem, "modal__content")
+          modalContent.scrollTop = 0
+        }
       })
     }
 
@@ -71,7 +103,7 @@ const toggleState = (() => {
         return elem.classList.contains(off)
       }
 
-      // If trigger secondary target doesn"t match ANY other scondary target...
+      // If trigger secondary target doesn't match ANY other secondary target...
       if (arrRemoveActiveTrigger.every(checkUniqueSecTarget)) {
         toggleEachState(targetStates, targetSec)
 

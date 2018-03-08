@@ -1,0 +1,61 @@
+/*		=Breakpoints
+  ========================================================================== */
+
+// Above
+@mixin above($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  // If the key exists
+  @if $value != null {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+
+  // If key doesn't exist
+  @else {
+    @warn "No value: `#{ $breakpoint }`. "
+      + "Please defined in: `$breakpoints` map.";
+  }
+}
+
+// Below
+@mixin below($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  // If the key exists
+  @if $value != null {
+    @media (max-width: $value - 1) {
+      @content;
+    }
+  }
+
+  // If key doesn't exist
+  @else {
+    @warn "No value: `#{ $breakpoint }`. "
+      + "Please defined in: `$breakpoints` map.";
+  }
+}
+
+/*		=Orientation
+  ========================================================================== */
+
+@mixin orientation($orientation) {
+  $value: map-get($orientations, $orientation);
+
+  @media (orientation: $value) {
+    @content;
+  }
+}
+
+/*		=Aspect ratio
+  ========================================================================== */
+
+@mixin aspectRatio($value) {
+  // $value: map-get($aspect_ratios, $aspect_ratio);
+
+  @media (min-aspect-ratio: $value) {
+    @content;
+  }
+}
+

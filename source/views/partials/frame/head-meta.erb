@@ -1,0 +1,47 @@
+<%
+introduction = @entry[:introduction] ? @entry[:introduction] : siteData(:site_title)
+imageURL = @entry[:banner_image][:url]
+pageURL = "#{ siteData(:site_url) }/#{ @entry[:slug] }"
+title = @entry[:title]
+isHome = @entry[:TYPE] == "home"
+%>
+
+<!--**********************************************
+    =Core
+***********************************************-->
+
+<meta content="IE=edge" http-equiv="X-UA-Compatible" />
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+<% if config[:ENV] != "production"%>
+  <meta content="noindex" name="robots" />
+<% end %>
+
+<meta
+  name="description"
+  content="<%= truncateHtml(introduction, { num: 154, elipsis: false }) %>"/>
+
+<title><%= title + " - " + siteData(:site_title) if !isHome %></title>
+
+<!--**********************************************
+    =Twitter
+***********************************************-->
+
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@HansardSociety" name="twitter:site"/>
+<meta content="<%= title %>" name="twitter:title"/>
+<meta content="<%= introduction %>" name="twitter:description"/>
+<meta content="https:<%= @entry[:banner_image].url %>" name="twitter:image"/>
+
+<!--**********************************************
+    =Facebook
+***********************************************-->
+
+<meta property="og:url" content="<%= pageURL %>"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="<%= title %>"/>
+<meta property="og:description" content="<%= introduction %>"/>
+<meta property="og:image" content="https:<%= imageURL %>?w=1920&h=1008&fit=crop"/>
+<meta property="og:image:width" content="1920"/>
+<meta property="og:image:height" content="1008"/>

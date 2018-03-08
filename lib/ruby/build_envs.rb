@@ -27,6 +27,7 @@ module BuildEnvs
 
     # Dynamic pages
     dynamicContentfulPages(MM_ENV)
+    dynamicCustomPages()
   end
 
   ##		=Build core
@@ -45,6 +46,7 @@ module BuildEnvs
 
     # Ignore
     ignore "assets/**"
+    ignore "data/*.erb"
     ignore "views/**"
 
     # relative links
@@ -59,20 +61,35 @@ module BuildEnvs
     cssAppHash = manifest_hash["app.css"]
     cssVendorHash = manifest_hash["vendor.css"]
     jsAppHash = manifest_hash["app.js"]
+    jsCheckoutHash = manifest_hash["checkout.js"]
     jsVendorHash = manifest_hash["vendor.js"]
+
+    ##		=Vars
+    ########################################
 
     set :CSS_APP, "/#{ cssAppHash }"
     set :CSS_VENDOR, "/#{ cssVendorHash }"
     set :JS_APP, "/#{ jsAppHash }"
     set :JS_VENDOR, "/#{ jsVendorHash }"
+    set :JS_CHECKOUT, "/#{ jsCheckoutHash }"
+    set :build_dir, @buildSrc
 
-    set :build_dir, "build/#{ MM_ENV }"
+    ##		=Netlify files
+    ########################################
 
-    # Netlify
     redirects()
     headers()
 
-    # After build
+    ##		=Post-processing
+    ########################################
+
+    activate :minify_html,
+      simple_doctype: true,
+      remove_intertag_spaces: true
+
+    ##		=After build
+    ########################################
+
     after_build do
 
       # Redirects
@@ -87,6 +104,8 @@ module BuildEnvs
       # Rename assets dir
       File.rename "#{ @buildSrc }/.assets", "#{ @buildSrc }/assets"
 
+      # Submit Algolia DB
+      system "node ./lib/js/_scripts && rimraf #{ @buildSrc }/db"
     end
   end
 
@@ -98,7 +117,6 @@ module BuildEnvs
       buildCore()
 
       set :ENV, "production"
-      set :SNIPCART_TKN, ENV["SNIPCART_LIVE_TKN"]
     end
   end
 
@@ -110,19 +128,6 @@ module BuildEnvs
       buildCore()
 
       set :ENV, "preview"
-      set :SNIPCART_TKN, ENV["SNIPCART_TEST_TKN"]
-    end
-  end
-
-  ##		=Experimental
-  ########################################
-
-  def buildExperimental()
-    configure :exp do
-      buildCore()
-
-      set :ENV, "experimental"
-      set :SNIPCART_TKN, ENV["SNIPCART_TEST_TKN"]
     end
   end
 
@@ -135,7 +140,7 @@ module BuildEnvs
       # External pipeline
       activate :external_pipeline,
         name: :gulp,
-        command: "yarn run epipe:dev",
+        command: "npm run epipe:dev",
         source: "source/.assets",
         latency: 1
 
@@ -149,10 +154,8 @@ module BuildEnvs
       set :CSS_APP, "/app.css"
       set :CSS_VENDOR, "/vendor.css"
       set :JS_APP, "/app.js"
+      set :JS_CHECKOUT, "/checkout.js"
       set :JS_VENDOR, "/vendor.js"
-
-      # Snipcart
-      set :SNIPCART_TKN, ENV["SNIPCART_TEST_TKN"]
     end
   end
 end

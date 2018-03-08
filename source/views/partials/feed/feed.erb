@@ -1,0 +1,59 @@
+<%
+partialData = local_data[:entry_data]
+tags = partialData[:tags]
+
+feedData = partialData[:feed]
+feedCategory = feedData[:category]
+feedSubCategory = feedData[:sub_category] if feedData[:sub_category]
+feedCount = feedData[:initial_count]
+
+feedDedupe = (feedData[:dedupe] && @entry[:latest_carousel] && !@entry[:tags])
+
+totalFeedPages = 0
+countFeedPages(feedCategory) do |number|
+  totalFeedPages = number.to_i + 1
+end
+
+latestCount = 6
+%>
+
+<div
+  class="feed"
+  data-feed-category="<%= feedSubCategory ? (feedCategory + "::" + feedSubCategory) : feedCategory %>"
+  data-feed-count="<%= feedCount %>"
+  data-feed-total="<%= totalFeedPages %>"
+  data-feed-dedupe="<%= feedDedupe %>">
+
+  <div class="feed__items">
+    <% latestContent(
+      yield: true,
+      num: (feedDedupe ? feedCount + latestCount : feedCount),
+      start: (feedDedupe ? latestCount : 0),
+      page_cats: feedCategory
+    ) do |page| %>
+      <%= partial "views/partials/feed/feed-item",
+        locals: { local_data: {
+          entry_data: page,
+          context: "dynamic" }} %>
+    <% end %>
+  </div>
+  <div class="feed__status">
+    <div class="infinite-scroll-request e-col-green">
+      <%= partial "views/partials/icon",
+        locals: {
+          icon: "load-c",
+          size: "md" } %>
+    </div>
+    <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
+    <span class="infinite-scroll-error label-sm e-col-mid-grey">&mdash; End &mdash;</span>
+  </div>
+  <div class="feed__load">
+    <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "link",
+        size: "md",
+        style: "secondary",
+        label: "Load more...",
+        label_size: "md" }} %>
+  </div>
+</div>
