@@ -96,6 +96,9 @@ module BuildEnvs
       if MM_ENV == "prod"
         File.rename "build/prod/.redirects", "build/prod/_redirects"
         FileUtils.cp_r Dir.glob("source/assets/images/favicons/**"), "#{ @buildSrc }"
+
+        # Submit Algolia DB
+        system "node ./lib/js/_scripts && rimraf #{ @buildSrc }/db"
       end
 
       # http/2 headers
@@ -103,9 +106,6 @@ module BuildEnvs
 
       # Rename assets dir
       File.rename "#{ @buildSrc }/.assets", "#{ @buildSrc }/assets"
-
-      # Submit Algolia DB
-      system "node ./lib/js/_scripts && rimraf #{ @buildSrc }/db"
     end
   end
 
