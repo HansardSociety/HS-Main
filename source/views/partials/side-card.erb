@@ -71,7 +71,12 @@ sideCardAttrs = {
           </h1>
         <% else %>
           <h2 class="title-sm <%= isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" %>">
-            <%= isFeaturedProduct ? truncate(title, { num: 55 }) : entryData[:venue] %>
+            <span class="side-card__title-xs">
+              <%= isFeaturedProduct ? truncate(title, { num: 30 }) : truncate(entryData[:venue], { num: 30 }) %>
+            </span>
+            <span class="side-card__title-sm">
+              <%= isFeaturedProduct ? truncate(title, { num: 55 }) : entryData[:venue] %>
+            </span>
           </h2>
         <% end %>
       </div>
