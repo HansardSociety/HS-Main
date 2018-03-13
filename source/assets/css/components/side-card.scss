@@ -64,6 +64,28 @@
   @include above(sm) {
     @extend %e-display-block__sm;
   }
+  @include above(md) {
+    @extend %e-display-none__md;
+  }
+}
+
+.side-card__title-md {
+  @extend %e-display-none;
+
+  @include above(md) {
+    @extend %e-display-block__md;
+  }
+  @include above(lg) {
+    @extend %e-display-none__lg;
+  }
+}
+
+.side-card__title-lg {
+  @extend %e-display-none;
+
+  @include above(lg) {
+    @extend %e-display-block__lg;
+  }
 }
 
 .side-card__actions {

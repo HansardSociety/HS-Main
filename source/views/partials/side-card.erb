@@ -75,7 +75,13 @@ sideCardAttrs = {
               <%= isFeaturedProduct ? truncate(title, { num: 30 }) : truncate(entryData[:venue], { num: 30 }) %>
             </span>
             <span class="side-card__title-sm">
-              <%= isFeaturedProduct ? truncate(title, { num: 55 }) : entryData[:venue] %>
+              <%= isFeaturedProduct ? truncate(title, { num: 84 }) : truncate(entryData[:venue], { num: 84 }) %>
+            </span>
+            <span class="side-card__title-md">
+              <%= isFeaturedProduct ? truncate(title, { num: 38 }) : truncate(entryData[:venue], { num: 38 }) %>
+            </span>
+            <span class="side-card__title-lg">
+              <%= isFeaturedProduct ? truncate(title, { num: 60 }) : truncate(entryData[:venue], { num: 60 }) %>
             </span>
           </h2>
         <% end %>
