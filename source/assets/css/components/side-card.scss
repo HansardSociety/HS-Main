@@ -52,12 +52,18 @@
   @extend %e-overflow-hidden;
 }
 
-.side-card__title--clamp-2 {
-  max-height: calc(2rem * 1.5);
+.side-card__title-xs {
+  @include above(sm) {
+    @extend %e-display-none__sm;
+  }
 }
 
-.side-card__title--clamp-3 {
-  max-height: calc(3rem * 1.5);
+.side-card__title-sm {
+  @extend %e-display-none;
+
+  @include above(sm) {
+    @extend %e-display-block__sm;
+  }
 }
 
 .side-card__actions {
