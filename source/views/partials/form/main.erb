@@ -25,7 +25,7 @@ if isNetlifyForm
 
   formAttrsNetlify = {
     "data-netlify": "true",
-    "data-netlify-honeypot": "bot-field",
+    "data-netlify-honeypot": "r2d2",
     "name": "#{ config[:ENV] == "production" ? formName : formName + "-ENV-" + config[:ENV] }"
   }.merge(formAttrsCore("form--netlify"))
 
