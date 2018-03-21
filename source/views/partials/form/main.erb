@@ -25,8 +25,8 @@ if isNetlifyForm
 
   formAttrsNetlify = {
     "data-netlify": "true",
-    "data-netlify-honeypot": "r2d2",
-    "name": "#{ config[:ENV] == "production" ? formName + "-02" : formName + "-02-ENV-" + config[:ENV] }"
+    "data-netlify-honeypot": "r2d2-03",
+    "name": "#{ config[:ENV] == "production" ? formName + "-03" : formName + "-03-ENV-" + config[:ENV] }"
   }.merge(formAttrsCore("form--netlify"))
 
 # Payment form
