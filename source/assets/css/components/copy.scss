@@ -37,6 +37,7 @@
 
   img {
     @extend %e-max-width-full;
+    @extend %e-box-shad-z3;
     @extend %e-rad-slight;
   }
 
@@ -47,6 +48,20 @@
   picture {
     width: 100%;
   }
+
+/*		=Twitter
+  ========================================================================== */
+
+iframe.twitter-tweet {
+  padding: 1rem !important;
+
+  margin: 2rem auto !important;
+
+  border-left: .5rem solid Get($colorGroups, orange, 1) !important;
+
+  @extend %e-bgc-greyscale-1;
+  @extend %e-rad-slight;
+}
 
 /* Lists
   ========================================================================== */
