@@ -14,8 +14,7 @@
 
   img,
   iframe {
-    @extend %e-mgn-t-sm;
-    @extend %e-mgn-b-sm;
+    margin: 1rem auto;
   }
 
   > h1, > h2, > h3, > h4, > h5, > h6 {
@@ -52,7 +51,7 @@
 /*		=Twitter
   ========================================================================== */
 
-iframe.twitter-tweet {
+.twitter-tweet {
   padding: 1rem !important;
 
   margin: 2rem auto !important;
