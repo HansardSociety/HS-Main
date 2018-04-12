@@ -33,7 +33,7 @@
 .carousel__actions {
   justify-content: space-between;
 
-  width: 8.5rem;
+  width: 9rem;
   margin-top: 3rem;
 
   @extend %e-col-green;
@@ -62,8 +62,8 @@
 
   @extend %e-cursor-pointer;
   @extend %e-ff-prim-heavy;
-  @extend %e-flex-row-center;
   @extend %e-fz-xs;
+  @extend %e-flex-row-center;
   @extend %e-trans-core;
   @extend %e-upper;
 

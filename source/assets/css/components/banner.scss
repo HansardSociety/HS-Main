@@ -9,7 +9,6 @@
   @extend %e-container--full;
   @extend %e-mgn-t-md;
   @extend %e-pad-x-sm;
-
   @include above(sm) {
     margin-top: 0;
   }
@@ -26,16 +25,17 @@
 }
 
 .banner__content {
+  // @extend %e-container--narrow;
+  width: 32rem;
+
   @extend %e-col-greyscale-0;
-  @extend %e-container--narrow;
   @extend %e-position-relative;
 }
 
 .banner__content--text-bg {
   background-color: rgba(0, 0, 0, .6);
 
-  @extend %e-pad-x-md;
-  @extend %e-pad-y-sm;
+  @extend %e-pad-sm;
   @extend %e-rad-slight;
 }
 
@@ -48,7 +48,6 @@
 .banner__strap {
   @extend .strap-md;
   @extend %e-max-width-full;
-  @extend %e-mgn-t-sm;
   @include above(sm) {
     @extend %e-mgn-auto-x__sm;
   }
@@ -85,22 +84,25 @@
 }
 
 .banner__scroll {
+  bottom: -3rem;
+
   display: none;
 
-  background-color: rgba(0, 0, 0, .6);
-
-
-  width: 2.5rem;
-  height: 2.5rem;
-
-  bottom: 2rem;
+  // width: 3rem;
+  // height: 3rem;
 
   @extend %e-absolute-center-x;
-  @extend %e-col-greyscale-0;
+  @extend %e-bgc-orange-2;
   @extend %e-display-block__sm;
   @extend %e-rad-circ;
+  @extend %e-trans-core;
+
+  // &:hover {
+  //   @extend %e-bgc-orange-3;
+  // }
 
   & > .icon {
     @extend %e-absolute-center-xy;
+    @extend %e-col-orange-2;
   }
 }

@@ -21,9 +21,16 @@
     @extend %e-col-green;
   }
 
-  > h2 { @extend .title-md; }
-  > h3 { @extend .title-sm; }
-  > h4 { @extend .label-sm; }
+  > h2 {
+    @extend .title-md;
+  }
+  > h3 {
+    @extend .title-sm;
+  }
+  > h4 {
+    @extend .title-sm;
+    @extend %e-col-greyscale-2;
+  }
 
   > p > a,
   > p > strong > a,
