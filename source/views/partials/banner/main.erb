@@ -8,7 +8,7 @@ isLandingPage = entryData[:TYPE] == "landing_page"
 
 <header
   class="banner JS-banner--<%= hasFullBanner ? "full" : "semi" %>"
-  style="height: <%= hasFullBanner ? "100vh" : "66.6666vh" %>;">
+  style="height: <%= hasFullBanner ? "100vh" : "75vh" %>;">
 
   <%= partial "views/partials/banner/image",
     locals: { local_data: {
@@ -21,10 +21,10 @@ isLandingPage = entryData[:TYPE] == "landing_page"
         <span class="label-xs"><%= entryData[:meta_label] %></span>
       <% end %>
 
-      <h1 class="<%= hasFullBanner ? "title-xxl" : "title-xl" %>"><%=entryData[:title]%></h1>
+      <h1 class="title-xl e-mgn-t-xs"><%=entryData[:title]%></h1>
 
       <% if hasFullBanner %>
-        <p class="banner__strap"><%= entryData[:subtitle] %></p>
+        <p class="banner__strap e-mgn-t-xs"><%= entryData[:subtitle] %></p>
 
       <% end; if isLandingPage && entryData[:calls_to_action] != nil %>
         <div class="grid grid--xs grid--above-sm-center e-mgn-t-sm">
@@ -67,18 +67,18 @@ isLandingPage = entryData[:TYPE] == "landing_page"
                 siteData(:facebook)]}} %>
         </div>
       <% end %>
+      <% if hasFullBanner %>
+        <a class="banner__scroll" href="#arrow-dest" id="arrow">
+          <%= partial "views/partials/icon",
+            locals: {
+              icon: "arrow-down-c",
+              size: "xl" } %>
+        </a>
+      <% end %>
     </div>
   </div>
 
-  <% if hasFullBanner %>
-    <a class="banner__scroll" href="#arrow-dest" id="arrow">
-      <%= partial "views/partials/icon",
-        locals: {
-          icon: "ios-arrow-thin-down",
-          size: "sm" } %>
-    </a>
-
-  <% end; if isLandingPage && entryData[:calls_to_action] != nil
+  <% if isLandingPage && entryData[:calls_to_action] != nil
     entryData[:calls_to_action].each do |cta|
       if cta[:TYPE] == "cta_modal"
         modalID = cta[:modal][:cta_id]

@@ -1,6 +1,6 @@
 const bannerHeight = (() => {
   const vhFull = Math.max(window.innerHeight)
-  const vhSemi = Math.max(window.innerHeight * .6666)
+  const vhSemi = Math.max(window.innerHeight * .75)
   const bannerFull = document.querySelector('.JS-banner--full')
   const bannerSemi = document.querySelector('.JS-banner--semi')
   const bannerImg = document.querySelector('.banner__image')
