@@ -6,7 +6,7 @@
 <% featured = @entry[:featured] %>
 
 <% isMainCategories = siteCategories(:top_main).include? category %>
-<% isReverseHeaderCats = ["blog", "events"].include? category %>
+<% isReverseHeaderCats = ["blog", "events", "publications"].include? category %>
 <% isBlogPage = category == "blog" %>
 
 <% nonPages = ["people", "product", "registration"] %>

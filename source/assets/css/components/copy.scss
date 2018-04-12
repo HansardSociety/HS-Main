@@ -14,17 +14,23 @@
 
   img,
   iframe {
-    @extend %e-mgn-t-sm;
-    @extend %e-mgn-b-sm;
+    margin: 1rem auto;
   }
 
   > h1, > h2, > h3, > h4, > h5, > h6 {
     @extend %e-col-green;
   }
 
-  > h2 { @extend .title-md; }
-  > h3 { @extend .title-sm; }
-  > h4 { @extend .label-sm; }
+  > h2 {
+    @extend .title-md;
+  }
+  > h3 {
+    @extend .title-sm;
+  }
+  > h4 {
+    @extend .title-sm;
+    @extend %e-col-greyscale-2;
+  }
 
   > p > a,
   > p > strong > a,
@@ -37,6 +43,7 @@
 
   img {
     @extend %e-max-width-full;
+    @extend %e-box-shad-z3;
     @extend %e-rad-slight;
   }
 
@@ -47,6 +54,20 @@
   picture {
     width: 100%;
   }
+
+/*		=Twitter
+  ========================================================================== */
+
+.twitter-tweet {
+  padding: 1rem !important;
+
+  margin: 2rem auto !important;
+
+  border-left: .5rem solid Get($colorGroups, orange, 1) !important;
+
+  @extend %e-bgc-greyscale-1;
+  @extend %e-rad-slight;
+}
 
 /* Lists
   ========================================================================== */
