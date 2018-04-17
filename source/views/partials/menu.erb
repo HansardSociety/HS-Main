@@ -14,6 +14,10 @@ screen = local_data[:screen]
     class="menu__container
           <%= "menu__container--columns" if screen == "desktop" %>">
 
+    <!--**********************************************
+        =Mobile
+    ***********************************************-->
+
     <% if screen == "mobile"
       navItems.each do |id, nav| %>
 
@@ -22,7 +26,7 @@ screen = local_data[:screen]
                 <%= "dropdown" if nav[:pages] && nav[:pages].length > 1 %>">
 
           <div
-            class="title-md
+            class="title-md e-col-brand-green-2
                   <%= "dropdown__title" if nav[:pages] && nav[:pages].length > 1 %>">
 
             <% if nav[:pages] && nav[:pages].length <= 1
@@ -54,8 +58,8 @@ screen = local_data[:screen]
                 pagesWithoutSubCats = pages.select{ |page| !page[:sub_category] } %>
 
                 <li class="menu__category menu__category--<%= category.parameterize %>">
-                  <span class="label-sm e-pad-t-xs e-col-mid-grey"><%= category %></span>
-                  <ul>
+                  <span class="label-sm e-col-mid-grey e-pad-t-xs"><%= category %></span>
+                  <ul class="e-mgn-b-md">
                     <% if pagesWithoutSubCats
                       pagesWithoutSubCats.each do |page| %>
                         <li class="e-pad-t-xs">
@@ -84,6 +88,10 @@ screen = local_data[:screen]
             <% end; end %>
           </ul>
         </li>
+
+    <!--**********************************************
+        =Desktop
+    ***********************************************-->
 
     <% end; end; if screen == "desktop" && navItems[:pages]
       navItems.pages.group_by(&:category).each do |category, pages|
@@ -136,19 +144,22 @@ screen = local_data[:screen]
             </div>
           </li>
     <% end; end; end %>
-  </ul>
 
-  <% if screen == "mobile" %>
-    <div class="section-sm">
-      <%= partial "views/partials/signup-box",
-        locals: { local_data: {
-          copy_size: "sm",
-          id: "modal-monthly-newsletter-subscription-mobile"
-        }} %>
-    </div>
-    <div class="section-sm">
-      <%= partial "views/partials/social-follow",
-        locals: { bgc: "dark" } %>
-    </div>
-  <% end %>
+    <li class="e-pad-b-lg">
+      <% if screen == "mobile" %>
+        <div class="section-sm">
+          <%= partial "views/partials/signup-box",
+            locals: { local_data: {
+              bgc: "light",
+              copy_size: "sm",
+              id: "modal-monthly-newsletter-subscription-mobile"
+            }} %>
+        </div>
+        <div class="section-sm">
+          <%= partial "views/partials/social-follow",
+            locals: { bgc: "light" } %>
+        </div>
+      <% end %>
+    </li>
+  </ul>
 </div>
