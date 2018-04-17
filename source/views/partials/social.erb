@@ -3,6 +3,8 @@ urls = local_data[:icons].reject(&:nil?)
 %>
 
 <% urls.each do |url|
+  origURL = url
+
   if url !~ /@/
     url = URI.parse(url).host
     domain = PublicSuffix.parse(url)
@@ -10,7 +12,7 @@ urls = local_data[:icons].reject(&:nil?)
 
   <a
     class="social <%= "grid__cell grid__cell--xxs" if urls.length > 0 %>"
-    href="<%= url =~ /@/ ? "mailto:" + url : url %>"
+    href="<%= url =~ /@/ ? "mailto:" + url : origURL %>"
     target="_blank"
     rel="noopener">
     <%= partial "views/partials/icon",
