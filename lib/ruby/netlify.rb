@@ -5,7 +5,7 @@ module Netlify
     File.open("source/.redirects", "w+") do |file|
       file << "/home /\n"
       file << "/audit /research/audit-of-political-engagement\n"
-      file << "/newsletter https://hansardsociety.activehosted.com/f/9\n"
+      file << "/newsletter https://www.hansardsociety.org.uk/#panel-2\n"
     end
   end
 
