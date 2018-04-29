@@ -14,7 +14,7 @@ callsToAction = panelData[:calls_to_action]
             panelBgc(bgc, { gradient: true }) %>">
 
   <div class="panel__content panel__content--narrow">
-    <h3 class="title-xxl e-align-cen"><%= title %></h3>
+    <h3 class="<%= "e-col-brand-green-2" if colorProfile(:light).include?(bgc) %> title-xxl e-align-cen"><%= title %></h3>
   </div>
 
   <% if callsToAction %>
@@ -22,15 +22,9 @@ callsToAction = panelData[:calls_to_action]
       <div class="grid grid--xs grid--center">
         <% callsToAction.each do |cta| %>
           <div class="grid__cell">
-            <% if cta[:TYPE] == "cta_download" %>
-              <%= partial "views/partials/btn",
-                locals: { local_data: {
-                  type: "link",
-                  size: "md", style: "primary",
-                  label: cta[:button_text],
-                  label_size: "md",
-                  url: cta[:file].url }} %>
-            <% end %>
+            <%= partial "views/partials/ctas",
+              locals: { local_data: {
+                entry_data: cta }} %>
           </div>
         <% end %>
       </div>
