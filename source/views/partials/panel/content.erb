@@ -6,6 +6,7 @@ bgcClass = colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc
 
 image = panelData[:image]
 imageSize = panelData[:image_size]
+imageBorder = panelData[:image_border]
 imageInvert = panelData[:image_invert]
 isSmallImage = imageSize == "small"
 isMediumImage = imageSize == "medium"
@@ -48,7 +49,8 @@ index = local_data[:index]
           <%= partial "views/partials/image",
             locals: { local_data: {
               image_data: image,
-              invert: imageInvert }} %>
+              invert: imageInvert,
+              border: imageBorder }} %>
         </div>
 
       <div class="grid__cell grid__cell--lg-above-sm-7">
