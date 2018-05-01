@@ -6,6 +6,7 @@ bgcClass = colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc
 
 image = panelData[:image]
 imageSize = panelData[:image_size]
+imageBorder = panelData[:image_border]
 imageInvert = panelData[:image_invert]
 isSmallImage = imageSize == "small"
 isMediumImage = imageSize == "medium"
@@ -21,6 +22,7 @@ isCopyLg = copySize == "large"
 isCopyXl = copySize == "extra-large"
 
 showMoreCopy = panelData[:show_more]
+tweet = panelData[:tweet]
 
 callsToAction = panelData[:calls_to_action]
 
@@ -47,7 +49,8 @@ index = local_data[:index]
           <%= partial "views/partials/image",
             locals: { local_data: {
               image_data: image,
-              invert: imageInvert }} %>
+              invert: imageInvert,
+              border: imageBorder }} %>
         </div>
 
       <div class="grid__cell grid__cell--lg-above-sm-7">
@@ -72,7 +75,7 @@ index = local_data[:index]
               id: showMoreCopy.cta_id,
               content: showMoreCopy.content }} %>
 
-        <% end; if showMoreCopy || callsToAction %>
+        <% end; if showMoreCopy || callsToAction || tweet %>
           <div class="grid grid--xs">
             <% if showMoreCopy %>
               <div class="grid__cell">
@@ -86,12 +89,21 @@ index = local_data[:index]
                     aria_target_id: showMoreCopy.cta_id }} %>
               </div>
 
+            <% end; if tweet %>
+              <%= partial "views/partials/social",
+                locals: { local_data: {
+                  icons: [
+                    "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
+                    ]}} %>
+              <span class="grid__cell grid__cell--xxs e-col-greyscale-2"><small> Tweet this</small> </span>
+
             <% end; if callsToAction
               callsToAction.each do |cta| %>
                 <%= partial "views/partials/ctas",
                   locals: { local_data: {
                     entry_data: cta,
                     btn_size: "sm" }} %>
+
             <% end; end %>
           </div>
         <% end %>

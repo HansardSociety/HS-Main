@@ -1,6 +1,7 @@
 <%
 imageData = local_data[:image_data]
 
+border = local_data[:border]
 invert = local_data[:invert]
 icon = local_data[:icon]
 
@@ -12,6 +13,7 @@ caption = imageData[:caption]
 
 <figure
   class="image
+        <%= "e-pad-sm" if border || border == nil %>
         <%= invert ? "image--invert" : "image--light" %>
         <%= "image--icon" if icon %>">
 

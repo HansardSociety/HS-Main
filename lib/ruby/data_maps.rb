@@ -1,3 +1,5 @@
+require "uri"
+
 markerSym = "❱❱"
 $marker = "#{ markerSym }"
 
@@ -430,7 +432,11 @@ def panels(ctx, data)
           content: panel.show_more
         }.compact if panel.show_more),
         image_size: panel.image_size.parameterize,
-        share_buttons: panel.share_buttons
+        image_border: panel.image_border,
+        tweet: ({
+          text: URI::encode(panel.copy.split("\n\n", 2)[0].slice(0..198) + (panel.copy.length > 198 ? "…" : "")),
+          media: panel.tweet_media
+        } if panel.tweet)
       }
     end
 
