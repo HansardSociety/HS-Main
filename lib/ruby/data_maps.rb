@@ -121,9 +121,9 @@ def sharedPageBase(pageType, ctx, data)
   # Shared
   ctx.ID = data.sys[:id]
   ctx.TYPE = data.content_type.id
-  ctx.title = data.title.rstrip
+  ctx.title = data.title.gsub('"', "&quot;").rstrip
   ctx.banner_image = media(data.banner_image, focus: data)
-  ctx.introduction = data.introduction
+  ctx.introduction = data.introduction.gsub('"', "&quot;")
 
   # Landing/ home page
   if ["landingPage", "homePage"].include? pageType
