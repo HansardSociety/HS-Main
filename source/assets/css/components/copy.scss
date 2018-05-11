@@ -55,9 +55,14 @@
     width: 100%;
   }
 
-/*		=Twitter
+/*		=Quotes
   ========================================================================== */
 
+blockquote {
+  @extend %e-fz-md;
+}
+
+blockquote,
 .twitter-tweet {
   padding: 1rem !important;
 
