@@ -89,9 +89,11 @@ module CustomHelpers
     category = color.parameterize.underscore.to_sym
 
     colors = {
+      about: "brand-green",
       blog: "purple",
       events: "hot-pink",
       insight: "sea-green",
+      legal: "slate-blue",
       projects: "brand-green",
       publications: "orange",
       greyscale: "greyscale"
