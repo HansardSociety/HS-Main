@@ -1,4 +1,5 @@
 require "fileutils"
+require "csv"
 require "json"
 
 require "lib/ruby/dynamic_pages"
@@ -98,7 +99,17 @@ module BuildEnvs
         FileUtils.cp_r Dir.glob("source/assets/images/favicons/**"), "#{ @buildSrc }"
 
         # Submit Algolia DB
-        system "node ./lib/js/_scripts && rimraf #{ @buildSrc }/db"
+        system "node ./lib/js/_scripts"
+        # system "node ./lib/js/_scripts && rimraf #{ @buildSrc }/db"
+
+        # Generate content CSV
+        jsonDB = JSON.parse(File.open("#{ @buildSrc }/db/search.json").read)
+        csvStr = CSV.generate do |csv|
+          jsonDB.each do |hash|
+            csv << hash.values
+          end
+        end
+        File.open("#{ @buildSrc }/db/content.csv", "w+") { |f| f.write(csvStr) }
       end
 
       # http/2 headers
