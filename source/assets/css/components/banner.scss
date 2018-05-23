@@ -4,45 +4,58 @@
 }
 
 .banner__inner {
-  @extend %e-absolute-center-xy;
-  @extend %e-container;
-  @extend %e-container--full;
-  @extend %e-mgn-t-md;
-  @extend %e-pad-x-sm;
-  @include above(sm) {
-    margin-top: 0;
-  }
+  @extend %e-position-absolute;
+  @extend %e-width-full;
 }
 
-.banner__inner--overlap {
+.banner__inner--lp {
+  top: 50%;
+  transform: translateY(-50%);
+
+  background-color: rgba(0, 0, 0, .33);
+
+  @extend %e-mgn-t-md;
+}
+
+.banner__inner--cp {
   top: calc(100% - 2rem); // ensure overlap content remains above .content
+  left: 50%;
 
   transform: translate(-50%, -100%);
-
-  @include above(md) {
-    top: 100%;
-  }
 }
 
 .banner__content {
-  // @extend %e-container--narrow;
-  max-width: 32rem;
-
   @extend %e-col-greyscale-0;
   @extend %e-position-relative;
 }
 
-.banner__content--text-bg {
-  background-color: rgba(0, 0, 0, .6);
-
-  @extend %e-pad-sm;
-  @extend %e-rad-slight;
+.banner__content,
+.banner__title {
+  @extend %e-col-greyscale-0;
 }
 
 .banner__content--lp {
+  max-width: 35rem;
+
+  @extend %e-mgn-auto-x;
+  @extend %e-pad-x-md;
   @include above(sm) {
     text-align: center;
   }
+}
+
+.banner__content {
+  @extend %e-container;
+  @extend %e-container--full;
+}
+
+.banner__content--cp {
+  max-width: 30rem;
+}
+
+.banner__title,
+.banner__strap {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, .33);
 }
 
 .banner__strap {
@@ -54,6 +67,7 @@
 }
 
 .banner__image {
+  filter: saturate(1.75) contrast(.7);
   @extend %e-bgc-brand-green-2;
   @extend %e-height-full-vh; // fallback for JS
   @extend %e-overflow-hidden;
@@ -81,28 +95,4 @@
 
   @extend %e-animate-fade-in-load;
   @extend %e-display-block;
-}
-
-.banner__scroll {
-  bottom: -3rem;
-
-  display: none;
-
-  // width: 3rem;
-  // height: 3rem;
-
-  @extend %e-absolute-center-x;
-  @extend %e-bgc-orange-2;
-  @extend %e-display-block__sm;
-  @extend %e-rad-circ;
-  @extend %e-trans-core;
-
-  // &:hover {
-  //   @extend %e-bgc-orange-3;
-  // }
-
-  & > .icon {
-    @extend %e-absolute-center-xy;
-    @extend %e-col-orange-2;
-  }
 }

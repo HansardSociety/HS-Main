@@ -1,0 +1,18 @@
+<%
+entryData = local_data[:entry_data]
+%>
+
+<header
+  class="banner JS-banner--semi"
+  style="height: 75vh;">
+
+  <%= partial "views/partials/banner/image",
+    locals: { local_data: {
+      entry_data: entryData }} %>
+
+  <div class="banner__inner banner__inner--cp">
+    <div class="banner__content banner__content--cp">
+
+      <span class="label-xs"><%= entryData[:meta_label] %></span>
+      <h1 class="banner__title title-xl"><%= entryData[:title] %></h1>
+</header>

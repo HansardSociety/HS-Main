@@ -7,13 +7,13 @@ var flktyOpts = {
   cellSelector: ".carousel__item",
   cellAlign: "left",
   contain: true,
-  friction: .5,
+  friction: .8,
   wrapAround: true,
   initialIndex: 0,
   lazyLoad: false,
   pageDots: true,
   prevNextButtons: false,
-  selectedAttraction: .1,
+  selectedAttraction: .2,
   setGallerySize: false
 }
 
@@ -28,6 +28,13 @@ const panelCarousel = (() => {
     const actions = carouselContainer.querySelector(".carousel__actions")
     const prevBtn = actions.querySelector(".carousel__prev")
     const nextBtn = actions.querySelector(".carousel__next")
+
+    if (carouselContainer.querySelector(".banner__image")) {
+      flktyOpts = Object.assign({
+        autoPlay: 5000,
+        pauseAutoPlayOnHover: false
+      }, flktyOpts)
+    }
 
     /**
      * Initiate Flickity on window load to prevent iOS

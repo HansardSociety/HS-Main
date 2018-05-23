@@ -538,6 +538,21 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
     sharedPageBase("homePage", context, entry)
     context.slug = "index"
 
+    if entry.featured_pages
+      context.featured_pages = entry.featured_pages.map do |page|
+        {
+          title: page.title,
+          meta_label: metaLabel(page),
+          slug: slug(page),
+          category: (detachCategory(page.category) if page.category),
+          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $marker),
+          introduction: page.introduction,
+          banner_image: media(page.banner_image, focus: page),
+          date_time: dateTime(page)
+        }
+      end
+    end
+
     if entry.panels
       panels(context, entry)
     end
