@@ -12,8 +12,7 @@
   top: 50%;
   transform: translateY(-50%);
 
-  background-color: rgba(0, 0, 0, .33);
-
+  @extend %e-bgc-opaque-1;
   @extend %e-mgn-t-md;
 }
 
@@ -25,13 +24,16 @@
 }
 
 .banner__content {
-  @extend %e-col-greyscale-0;
   @extend %e-position-relative;
 }
 
 .banner__content,
 .banner__title {
   @extend %e-col-greyscale-0;
+}
+
+.banner__content {
+  @extend %e-container;
 }
 
 .banner__content--lp {
@@ -44,18 +46,13 @@
   }
 }
 
-.banner__content {
-  @extend %e-container;
-  @extend %e-container--full;
-}
-
 .banner__content--cp {
   max-width: 30rem;
 }
 
 .banner__title,
 .banner__strap {
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, .33);
+  @extend %e-txt-shad-slight;
 }
 
 .banner__strap {
@@ -67,8 +64,8 @@
 }
 
 .banner__image {
-  filter: saturate(1.75) contrast(.7);
   @extend %e-bgc-brand-green-2;
+  @extend %e-img-filter;
   @extend %e-height-full-vh; // fallback for JS
   @extend %e-overflow-hidden;
   @extend %e-overlay-medium;

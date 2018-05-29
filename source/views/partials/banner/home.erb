@@ -7,8 +7,8 @@ entryData = local_data[:entry_data]
   style="height: 87.5vh;">
 
   <div class="carousel">
-    <div class="carousel__inner">
-      <div class="carousel__item" style="height: 87.5vh;">
+    <div class="carousel__inner JS-carousel--home">
+      <div class="carousel__item carousel__item--banner" style="height: 87.5vh;">
         <%= partial "views/partials/banner/image",
           locals: { local_data: {
             entry_data: entryData }} %>
@@ -32,7 +32,7 @@ entryData = local_data[:entry_data]
       </div>
 
       <% entryData[:featured_pages].each do |page| %>
-        <div class="carousel__item" style="height: 100vh;">
+        <div class="carousel__item carousel__item--banner" style="height: 100vh;">
           <%= partial "views/partials/banner/image",
             locals: { local_data: {
               entry_data: page }} %>
@@ -40,7 +40,7 @@ entryData = local_data[:entry_data]
           <div class="banner__inner banner__inner--lp">
             <div class="banner__content banner__content--lp">
 
-              <span class="label-xs e-mgn-b-xxs"><%= page[:meta_label] %></span>
+              <span class="label-xs e-mgn-b-xxs e-mgn-b-xxs e-pad-y-xs e-pad-x-xxs e-acc-<%= catColor(page[:category]) %>-2"><%= page[:meta_label] %></span>
               <h1 class="banner__title title-xl e-mgn-b-sm"><%= page[:title] %></h1>
               <%= partial "views/partials/btn",
                 locals: { local_data: {

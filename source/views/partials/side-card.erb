@@ -58,9 +58,11 @@ sideCardAttrs = {
       <% end %>
     </div>
     <div class="side-card__content">
-      <div class="side-card__label">
-        <span class="label-xs e-col-mid-grey"><%= entryData[:meta_label] %></span>
-      </div>
+      <% if !isFeaturedProduct %>
+        <div class="side-card__label">
+          <span class="label-xs e-pad-y-xs e-pad-x-xxs e-acc-<%= catColor(isFeaturedRegistration ? pageCategory : category) %>-2 e-col-greyscale-0"><%= entryData[:meta_label] %></span>
+        </div>
+      <% end %>
       <div class="side-card__title">
 
         <% if !isNonPage %>

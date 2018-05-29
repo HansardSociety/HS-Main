@@ -9,6 +9,7 @@ imageAlt = entryData[:banner_image][:alt]
 title = entryData[:title]
 introduction = entryData[:introduction]
 metaLabel = entryData[:meta_label]
+labelAccent = "e-acc-#{ catColor(category) }-2"
 accent = "e-acc-#{ catColor(category) }-2-top"
 
 featuredCard = local_data[:featured]
@@ -42,7 +43,7 @@ cardAttrs = {
           alt="<%= imageAlt %>">
 
         <div class="main-card__title">
-          <span class="label-xs e-mgn-b-xxs"><%= metaLabel %></span>
+          <span class="label-xs e-mgn-b-xxs e-pad-y-xs e-pad-x-xxs <%= labelAccent %>"><%= metaLabel %></span>
           <h1 class="title-md"><%= truncate(title, { num: 99 }) %></h1>
         </div>
       </div>
