@@ -43,7 +43,7 @@
   // Match Braintree style
   font-family: sans-serif;
 
-  @extend %e-mgn-b-xs;
+  // @extend %e-mgn-b-xs;
   @extend %e-pad-y-xs;
   @extend %e-rad-slight;
   &:valid {
@@ -52,7 +52,7 @@
 }
 
 .form__label {
-  margin-bottom: 2px;
+  margin-bottom: -4px;
   margin-left: 2px;
 
   @extend %e-col-brand-green-1;

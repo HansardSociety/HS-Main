@@ -18,12 +18,12 @@
 
 .banner__inner--cp {
   top: calc(100% - 2rem); // ensure overlap content remains above .content
-  left: 50%;
 
-  transform: translate(-50%, -100%);
+  transform: translateY(-100%);
 }
 
 .banner__content {
+  @extend %e-mgn-auto-x;
   @extend %e-position-relative;
 }
 
@@ -34,12 +34,11 @@
 
 .banner__content {
   @extend %e-container;
+  @extend %e-mgn-auto-x;
 }
 
 .banner__content--lp {
-  max-width: 35rem;
-
-  @extend %e-mgn-auto-x;
+  @extend %e-container--narrow;
   @extend %e-pad-x-md;
   @include above(sm) {
     text-align: center;
@@ -47,7 +46,11 @@
 }
 
 .banner__content--cp {
-  max-width: 30rem;
+  @extend %e-container--full;
+}
+
+.banner__content-inner-cp {
+  @extend %e-container--narrow;
 }
 
 .banner__title,

@@ -23,7 +23,7 @@ const panelCarousel = (function() {
 
   for (let carouselContainer of allCarouselContainers) {
     const carousel = carouselContainer.querySelector(".carousel__inner")
-    const carouselHome = carouselContainer.querySelector(".carousel__inner.JS-carousel--home")
+    const carouselHome = carouselContainer.querySelector(".carousel__inner.carousel__inner--banner")
     const actions = carouselContainer.querySelector(".carousel__actions")
     const prevBtn = actions.querySelector(".carousel__prev")
     const nextBtn = actions.querySelector(".carousel__next")

@@ -12,7 +12,8 @@ entryData = local_data[:entry_data]
 
   <div class="banner__inner banner__inner--cp">
     <div class="banner__content banner__content--cp">
-
-      <span class="label-xs e-pad-y-xs e-pad-x-xxs e-acc-<%= catColor(entryData[:category]) %>-2 e-col-greyscale-0"><%= entryData[:meta_label] %></span>
-      <h1 class="banner__title title-xl"><%= entryData[:title] %></h1>
+      <div class="banner__content-inner-cp">
+        <span class="label-xs e-mgn-b-xs e-pad-y-xs e-pad-x-xxs e-acc-<%= catColor(entryData[:category]) %>-2 e-col-greyscale-0"><%= entryData[:meta_label] %></span>
+        <h1 class="banner__title title-xl"><%= entryData[:title] %></h1>
+      </div>
 </header>

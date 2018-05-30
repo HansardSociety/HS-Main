@@ -22,7 +22,15 @@
 /*		=Titles
   ========================================================================== */
 
+%e-lh-semi {
+  line-height: 1.375em;
+}
+
 @each $sizeKey, $sizeVal in map-get($type, sizes) {
+
+  .title-#{ $sizeKey } {
+    @extend %e-lh-semi;
+  }
 
   .title-#{ $sizeKey },
   .strap-#{ $sizeKey },
@@ -77,20 +85,25 @@
   hyphens: auto;
 
   @extend %e-trans-core;
-
-  &:hover {
-    border-bottom: 2px solid Get($colors, secondary, current);
-  }
 }
 
 .link {
-  border-bottom: 2px solid rgba(Get($colors, primary, green), .15);
+  box-shadow:inset 0 -4px 0 rgba(Get($colorGroups, brand-green, 2), .1);
 
   @extend %e-col-green;
+
+  &:hover {
+    box-shadow:inset 0 -4px 0 rgba(Get($colorGroups, brand-green, 2), .2);
+  }
 }
 
+
 .link-white {
-  border-bottom: 2px solid rgba(Get($colors, greyscale, white), .15);
+  box-shadow:inset 0 -4px 0 rgba(Get($colorGroups, greyscale, 0), .1);
 
   @extend %e-col-greyscale-0;
+
+  &:hover {
+    box-shadow:inset 0 -4px 0 rgba(Get($colorGroups, greyscale, 0), .2);
+  }
 }

@@ -51,13 +51,13 @@
     content: "";
 
     opacity: .5;
-    border-left: 1px solid Get($colors, primary, green);
+    border-left: 1px solid Get($colorGroups, greyscale, 2);
 
     @extend %e-absolute-center-xy;
   }
 }
 
-.carousel__actions--home {
+.carousel__actions--banner {
   bottom: .5rem;
 
   @extend %e-absolute-center-x;
@@ -119,19 +119,6 @@
 
   & .carousel__item {
     height: inherit;
-  }
-}
-
-.carousel__item--banner {
-
-  & img {
-    opacity: .25;
-
-    @extend %e-trans-opacity;
-  }
-
-  &.is-selected img {
-    opacity: 1;
   }
 }
 
