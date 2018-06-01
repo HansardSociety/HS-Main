@@ -62,6 +62,14 @@
 
   @extend %e-absolute-center-x;
   @extend %e-col-greyscale-0;
+  @include below(md) {
+    left: 0;
+
+    margin-left: .6666rem;
+    margin-bottom: 1rem;
+
+    transform: translateX(0);
+  }
 
   &::before {
     z-index: -1;
@@ -76,6 +84,9 @@
     background-color: rgba(0, 0, 0, .33);
 
     @extend %e-pseudo-elem;
+    @include below(md) {
+      background-color: transparent;
+    }
   }
 }
 
@@ -84,7 +95,7 @@
   user-select: none;
 
   @extend %e-cursor-pointer;
-  @extend %e-ff-prim-heavy;
+  @extend %e-ff-prim-black;
   @extend %e-fz-xs;
   @extend %e-flex-row-center;
   @extend %e-trans-core;

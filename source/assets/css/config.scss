@@ -40,14 +40,20 @@ $type: (
     roman: (
       family: "AvenirLTStd-Roman"
     ),
-    heavy: (
-      family: "AvenirLTStd-Heavy"
-    ),
     oblique: (
       family: "AvenirLTStd-Oblique"
+    ),
+    medium: (
+      family: "AvenirLTStd-Medium"
+    ),
+    black: (
+      family: "AvenirLTStd-Black"
     )
   )
 );
+
+$systemFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
 
 /*		=Colours
   ========================================================================== */
@@ -249,8 +255,3 @@ $shadow: (
     )
   )
 );
-
-/*		=Fonts
-  ========================================================================== */
-
-$systemFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";

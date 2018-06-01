@@ -39,12 +39,16 @@
   }
 
   .title-#{ $sizeKey },
-  .strap-#{ $sizeKey },
   .label-#{ $sizeKey },
   .cross-head-#{ $sizeKey },
   strong {
-    @extend %e-ff-prim-heavy;
+    @extend %e-ff-prim-black;
   }
+
+  .strap-#{ $sizeKey } {
+    @extend %e-ff-prim-medium;
+  }
+
 
   .strap-#{ $sizeKey },
   .label-#{ $sizeKey } {
@@ -52,8 +56,9 @@
   }
 
   .label-#{ $sizeKey } {
+    // vertical-align: top;
+
     @extend %e-display-inline-block;
-    // @extend %e-rad-slight;
     @extend %e-upper;
   }
 

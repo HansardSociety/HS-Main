@@ -10,10 +10,18 @@
 
 .banner__inner--lp {
   top: 50%;
+
   transform: translateY(-50%);
 
   @extend %e-bgc-opaque-1;
   @extend %e-mgn-t-md;
+  @include below(md) {
+    top: 100%;
+
+    padding-bottom: 6rem;
+
+    transform: translateY(-100%);
+  }
 }
 
 .banner__inner--cp {
