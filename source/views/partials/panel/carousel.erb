@@ -20,7 +20,7 @@ title = isLatestContext ? "Latest" : entryData[:title]
 %>
 
 <section
-  id="panel-<%= index %>"
+  id="panel-<%= isLatestContext ? "latest" : index %>"
   class="panel <%= bgcClass %>">
   <div class="panel__content panel__content--narrow">
     <h2
