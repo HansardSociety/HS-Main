@@ -4,45 +4,66 @@
 }
 
 .banner__inner {
-  @extend %e-absolute-center-xy;
-  @extend %e-container;
-  @extend %e-container--full;
+  @extend %e-position-absolute;
+  @extend %e-width-full;
+}
+
+.banner__inner--lp {
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  @extend %e-bgc-opaque-1;
   @extend %e-mgn-t-md;
-  @extend %e-pad-x-sm;
-  @include above(sm) {
-    margin-top: 0;
+  @include below(md) {
+    top: 100%;
+
+    padding-bottom: 6rem;
+
+    transform: translateY(-100%);
   }
 }
 
-.banner__inner--overlap {
+.banner__inner--cp {
   top: calc(100% - 2rem); // ensure overlap content remains above .content
 
-  transform: translate(-50%, -100%);
-
-  @include above(md) {
-    top: 100%;
-  }
+  transform: translateY(-100%);
 }
 
 .banner__content {
-  // @extend %e-container--narrow;
-  max-width: 32rem;
-
-  @extend %e-col-greyscale-0;
+  @extend %e-mgn-auto-x;
   @extend %e-position-relative;
 }
 
-.banner__content--text-bg {
-  background-color: rgba(0, 0, 0, .6);
+.banner__content,
+.banner__title {
+  @extend %e-col-greyscale-0;
+}
 
-  @extend %e-pad-sm;
-  @extend %e-rad-slight;
+.banner__content {
+  @extend %e-container;
+  @extend %e-mgn-auto-x;
 }
 
 .banner__content--lp {
+  @extend %e-container--narrow;
+  @extend %e-pad-x-md;
   @include above(sm) {
     text-align: center;
   }
+}
+
+.banner__content--cp {
+  @extend %e-container--full;
+}
+
+.banner__content-inner-cp {
+  @extend %e-container--narrow;
+}
+
+.banner__title,
+.banner__strap {
+  @extend %e-txt-shad-slight;
 }
 
 .banner__strap {
@@ -55,6 +76,7 @@
 
 .banner__image {
   @extend %e-bgc-brand-green-2;
+  @extend %e-img-filter;
   @extend %e-height-full-vh; // fallback for JS
   @extend %e-overflow-hidden;
   @extend %e-overlay-medium;
@@ -81,28 +103,4 @@
 
   @extend %e-animate-fade-in-load;
   @extend %e-display-block;
-}
-
-.banner__scroll {
-  bottom: -3rem;
-
-  display: none;
-
-  // width: 3rem;
-  // height: 3rem;
-
-  @extend %e-absolute-center-x;
-  @extend %e-bgc-orange-2;
-  @extend %e-display-block__sm;
-  @extend %e-rad-circ;
-  @extend %e-trans-core;
-
-  // &:hover {
-  //   @extend %e-bgc-orange-3;
-  // }
-
-  & > .icon {
-    @extend %e-absolute-center-xy;
-    @extend %e-col-orange-2;
-  }
 }

@@ -4,8 +4,9 @@
 }
 
 .carousel {
+  cursor: default;
+
   @extend %e-animate-fade-in-load;
-  @extend %e-mgn-t-sm;
 }
 
 .carousel__inner {
@@ -41,7 +42,7 @@
   @extend %e-mgn-auto-x;
   @extend %e-position-relative;
 
-  &::before {
+  &::after {
     left: calc(50% - 1px);
 
     height: 1rem;
@@ -50,9 +51,42 @@
     content: "";
 
     opacity: .5;
-    border-left: 1px solid Get($colors, primary, green);
+    border-left: 1px solid Get($colorGroups, greyscale, 2);
 
     @extend %e-absolute-center-xy;
+  }
+}
+
+.carousel__actions--banner {
+  bottom: .5rem;
+
+  @extend %e-absolute-center-x;
+  @extend %e-col-greyscale-0;
+  @include below(md) {
+    left: 0;
+
+    margin-left: .6666rem;
+    margin-bottom: 1rem;
+
+    transform: translateX(0);
+  }
+
+  &::before {
+    z-index: -1;
+
+    width: calc(100% + 2rem);
+    height: calc(100% + 1.5rem);
+    margin-top: -.75rem;
+    margin-left: -1rem;
+
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: rgba(0, 0, 0, .33);
+
+    @extend %e-pseudo-elem;
+    @include below(md) {
+      background-color: transparent;
+    }
   }
 }
 
@@ -61,7 +95,7 @@
   user-select: none;
 
   @extend %e-cursor-pointer;
-  @extend %e-ff-prim-heavy;
+  @extend %e-ff-prim-black;
   @extend %e-fz-xs;
   @extend %e-flex-row-center;
   @extend %e-trans-core;
@@ -103,8 +137,8 @@
   ========================================================================== */
 
 .flickity-page-dots {
-  left: .25rem;
   bottom: -2rem;
+  left: .25rem;
 
   & > .dot {
     width: 6px;

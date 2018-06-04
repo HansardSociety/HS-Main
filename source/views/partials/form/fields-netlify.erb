@@ -30,11 +30,13 @@ formData = form_data
   <span class="form__err">Please review this field</span>
 <% end %>
 
-<%= partial "views/partials/btn",
-locals: { local_data: {
-  type: "plain",
-  size: "sm",
-  style: "primary",
-  label: "Submit",
-  label_size: "sm",
-  form: true }} %>
+<div class="e-mgn-t-sm">
+  <%= partial "views/partials/btn",
+  locals: { local_data: {
+    type: "plain",
+    size: "sm",
+    style: "primary",
+    label: "Submit",
+    label_size: "sm",
+    form: true }} %>
+</div>

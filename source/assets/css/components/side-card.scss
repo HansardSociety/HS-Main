@@ -36,6 +36,7 @@
 
     @extend %e-display-block;
     @extend %e-height-full;
+    @extend %e-img-filter;
   }
 }
 
@@ -49,7 +50,7 @@
 }
 
 .side-card__title {
-  @extend %e-overflow-hidden;
+  // @extend %e-overflow-hidden;
 }
 
 .side-card__title-xs {
@@ -62,7 +63,7 @@
   @extend %e-display-none;
 
   @include above(sm) {
-    @extend %e-display-block__sm;
+    @extend %e-display-inline__sm;
   }
   @include above(md) {
     @extend %e-display-none__md;
@@ -73,7 +74,7 @@
   @extend %e-display-none;
 
   @include above(md) {
-    @extend %e-display-block__md;
+    @extend %e-display-inline__md;
   }
   @include above(lg) {
     @extend %e-display-none__lg;
@@ -84,7 +85,7 @@
   @extend %e-display-none;
 
   @include above(lg) {
-    @extend %e-display-block__lg;
+    @extend %e-display-inline__lg;
   }
 }
 

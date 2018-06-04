@@ -10,9 +10,7 @@
 }
 
 %e-ff-prim-roman-bold {
-  font-weight: bold;
-
-  @extend %e-ff-prim-roman;
+  @extend %e-ff-prim-black;
 }
 
 %e-ff-system {
@@ -41,6 +39,6 @@
 %e-align-left,
 .e-align-left { text-align: left; }
 
-.e-txt-shad-slight {
+%e-txt-shad-slight {
   text-shadow: Get($shadow, text, z1);
 }
