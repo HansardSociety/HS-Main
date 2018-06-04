@@ -64,6 +64,13 @@ formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
           locals: { form_data: formData } %>
       </div>
     <% end %>
+
+    <!--	=Footer	-->
+    <% if formData[:footer] %>
+      <div class="form__footer copy">
+        <%= markdown(formData[:footer]) %>
+      </div>
+    <% end %>
   </div>
 
   <!--**********************************************

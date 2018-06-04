@@ -1,0 +1,78 @@
+<%
+entryData = local_data[:entry_data]
+%>
+
+<header
+  class="banner JS-banner--full"
+  style="height: 87.5vh;">
+
+  <div class="carousel">
+    <div class="carousel__inner carousel__inner--banner">
+      <div class="carousel__item carousel__item--banner" style="height: 87.5vh;">
+        <%= partial "views/partials/banner/image",
+          locals: { local_data: {
+            entry_data: entryData }} %>
+
+        <div class="banner__inner banner__inner--lp">
+          <div class="banner__content banner__content--lp">
+
+            <h1 class="e-hidden"><%= entryData[:title] %></h1>
+            <p class="banner__strap e-fz-lg"><%= entryData[:subtitle] %></p>
+
+            <div class="grid grid--xxs grid--above-sm-center e-mgn-t-sm">
+              <%= partial "views/partials/social",
+                locals: { local_data: {
+                  icons: [
+                    siteData(:twitter),
+                    siteData(:linkedin),
+                    siteData(:facebook)]}} %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% entryData[:featured_pages].each do |page| %>
+        <article class="carousel__item carousel__item--banner" style="height: 100vh;">
+          <%= partial "views/partials/banner/image",
+            locals: { local_data: {
+              entry_data: page }} %>
+
+          <div class="banner__inner banner__inner--lp">
+            <div class="banner__content banner__content--lp">
+
+              <span class="label-xs vat e-mgn-b-xs e-mgn-b-xxs e-pad-y-xs e-pad-x-xxs e-acc-<%= catColor(page[:category]) %>-2"><%= page[:meta_label] %></span>
+              <h1 class="banner__title title-xl e-mgn-b-md"><%= page[:title] %></h1>
+              <%= partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "link", size: "md", style: "primary",
+                  label: "Read more", label_size: "md",
+                  url: "/#{ page[:slug] }" }} %>
+            </div>
+          </div>
+        </article>
+      <% end %>
+
+
+    </div>
+    <div class="carousel__actions carousel__actions--banner">
+      <div class="carousel__prev">
+        <%= partial "views/partials/icon",
+          locals: {
+            icon: "chevron-left",
+            size: "sm",
+            color: "green" } %>
+
+        <span>Prev</span>
+      </div>
+      <div class="carousel__next">
+        <span>Next</span>
+        <%= partial "views/partials/icon",
+          locals: {
+            icon: "chevron-right",
+            size: "sm",
+            color: "green" } %>
+      </div>
+    </div>
+
+  </div>
+</header>

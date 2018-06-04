@@ -37,6 +37,8 @@
 
     @extend %e-display-block;
     @extend %e-fix-webkit-blur;
+    @extend %e-img-filter;
+    @extend %e-overlay-medium;
     @extend %e-position-relative;
     @extend %e-trans-transform;
     @extend %e-max-width-full;
@@ -44,10 +46,13 @@
   }
 }
 
-.main-card__meta,
 .main-card__title {
-  @extend %e-bgc-overlay-black;
+  @extend %e-bgc-opaque-2;
   @extend %e-position-absolute;
+
+  & > h1 {
+    @extend %e-txt-shad-slight;
+  }
 }
 
 .main-card__meta {
