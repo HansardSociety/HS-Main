@@ -68,6 +68,10 @@
   }
 }
 
+.vat {
+  vertical-align: bottom;
+}
+
 // Side title
 .side-title {
   @extend .title-sm;
