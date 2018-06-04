@@ -40,14 +40,14 @@
 }
 
 .form__field {
-  // Match Braintree style
-  font-family: sans-serif;
-
-  // @extend %e-mgn-b-xs;
+  font-family: $systemFont;
   @extend %e-pad-y-xs;
   @extend %e-rad-slight;
   &:valid {
     border: 2px solid lightgreen;
+  }
+  &::placeholder {
+    @extend %e-ff-prim-oblique;
   }
 }
 
@@ -85,6 +85,11 @@
   @extend %e-height-full;
   @extend %e-trans-opacity;
   @extend %e-width-full;
+}
+
+.form__footer {
+  @extend %e-ff-prim-roman;
+  @extend %e-mgn-t-sm;
 }
 
 /*		=Pages/ payment

@@ -4,7 +4,7 @@
 @each $fontKey, $fontVal in map-get($type, font-primary) {
   %e-ff-prim-#{ $fontKey } {
     font-family: map-get($fontVal, family), Arial, Helvetica, sans-serif;
-    font-weight: map-get($fontVal, weight);
+    // font-weight: map-get($fontVal, weight);
     font-style: map-get($fontVal, style)
   }
 }

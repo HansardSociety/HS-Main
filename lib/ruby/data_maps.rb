@@ -281,6 +281,7 @@ def form(data)
     ID: data.sys[:id],
     TYPE: data.content_type.id,
     meta_title: data.meta_title,
+    footer: data.footer,
     confirmation: data.confirmation,
     elements: data.elements.map do |elem|
       {
