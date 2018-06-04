@@ -124,6 +124,12 @@
 
 @each $colorName, $colorShades in $colorGroups {
   @each $shadeNum, $shadeHex in $colorShades {
+
+    %e-acc-#{ $colorName }-#{ $shadeNum },
+    .e-acc-#{ $colorName }-#{ $shadeNum } {
+      background-color: $shadeHex;
+    }
+
     @each $side in map-get($properties, origins) {
 
       %e-acc-#{ $colorName }-#{ $shadeNum }-#{ $side },
