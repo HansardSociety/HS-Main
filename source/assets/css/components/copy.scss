@@ -17,19 +17,29 @@
     margin: 1rem auto;
   }
 
-  > h1, > h2, > h3, > h4, > h5, > h6 {
-    @extend %e-col-green;
-  }
-
   > h2 {
     @extend .title-md;
   }
   > h3 {
     @extend .title-sm;
   }
+  > h4,
+  > h5 {
+    @extend .strap-sm;
+  }
+
+  > h1, > h2, > h3 {
+    @extend %e-col-brand-green-2;
+  }
+
   > h4 {
-    @extend .title-sm;
-    @extend %e-col-greyscale-2;
+    @extend %e-col-brand-green-3;
+  }
+
+  > h5 {
+    opacity: .5;
+
+    @extend %e-col-greyscale-3;
   }
 
   > p > a,
@@ -64,9 +74,8 @@ blockquote {
 
 blockquote,
 .twitter-tweet {
-  padding: 1rem !important;
-
   margin: 2rem auto !important;
+  padding: 1rem !important;
 
   border-left: .5rem solid Get($colorGroups, orange, 1) !important;
 
@@ -82,6 +91,7 @@ blockquote,
   > ul,
   > ol {
     display: table;
+
     padding-left: 0;
 
     > li {
@@ -89,9 +99,12 @@ blockquote,
 
       &::before {
         display: table-cell;
+
         padding-right: 1rem;
-        font-weight: bold;
+
         color: brand;
+
+        font-weight: bold;
       }
     }
   }
