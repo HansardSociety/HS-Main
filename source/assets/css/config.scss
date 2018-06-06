@@ -38,16 +38,20 @@ $type: (
   ),
   font-primary: (
     roman: (
-      family: "AvenirLTStd-Roman"
+      family: "AvenirLTStd-Roman",
+      weight: 400
     ),
     oblique: (
-      family: "AvenirLTStd-Oblique"
+      family: "AvenirLTStd-Oblique",
+      weight: 400
     ),
     medium: (
-      family: "AvenirLTStd-Medium"
+      family: "AvenirLTStd-Medium",
+      weight: 500
     ),
     black: (
-      family: "AvenirLTStd-Black"
+      family: "AvenirLTStd-Black",
+      weight: 800
     )
   )
 );
