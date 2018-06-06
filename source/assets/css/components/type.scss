@@ -8,6 +8,7 @@
 
   @font-face {
     font-family: "#{ map-get($typeVal, family) }";
+    font-weight: "#{ map-get($typeVal, weight) }";
 
     src: url("#{ $fontPath }/#{ $fontFamily }.eot");
     src: url("#{ $fontPath }/#{ $fontFamily }.woff2") format("woff2"),
