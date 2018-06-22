@@ -18,7 +18,7 @@
   @include below(md) {
     top: 100%;
 
-    padding-bottom: 6rem;
+    padding-bottom: 5rem;
 
     transform: translateY(-100%);
   }
@@ -66,6 +66,21 @@
   @extend %e-txt-shad-slight;
 }
 
+.banner__title--xs {
+  @include above(sm) {
+    @extend %e-display-none__sm;
+  }
+}
+
+.banner__title--sm {
+  @extend %e-display-none;
+
+  @include above(sm) {
+    @extend %e-display-block__sm;
+  }
+}
+
+
 .banner__strap {
   @extend .strap-md;
   @extend %e-max-width-full;
@@ -84,6 +99,11 @@
   @extend %e-trans-opacity;
   @extend %e-width-full;
   @extend %e-zidx-neg;
+
+  img {
+    bottom: 0;
+    @extend %e-position-absolute;
+  }
 }
 
 .banner__image--left {
