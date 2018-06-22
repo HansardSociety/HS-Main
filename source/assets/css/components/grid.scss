@@ -113,8 +113,6 @@ $colBase: 100 / 12;
   .grid__cell--expand {
     position: relative;
 
-    overflow: hidden;
-
     &.JS-active {
       & > .grid__expand-btn {
         display: none;
@@ -122,6 +120,8 @@ $colBase: 100 / 12;
     }
 
     &.JS-inactive {
+      overflow: hidden;
+
       height: 20rem;
 
       &::after {
