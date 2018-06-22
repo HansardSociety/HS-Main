@@ -18,10 +18,6 @@
 .content--paper {
   @extend %e-bgc-white;
   @extend %e-box-shad-z1;
-  @include above(sm) {
-    border-top-left-radius: map-get($radii, slight);
-    border-top-right-radius: map-get($radii, slight);
-  }
 }
 
 .content__header,
