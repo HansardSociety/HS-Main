@@ -13,12 +13,6 @@ labelAccent = "e-acc-#{ catColor(category) }-2"
 accent = "e-acc-#{ catColor(category) }-2-top"
 
 featuredCard = local_data[:featured]
-
-cardInnerTagOpen = category ? "a" : "div"
-cardInnerTagClose = category ? "</a>" : "</div>"
-cardAttrs = {
-  href: (internalURL(entryData[:slug]) if category)
-}.compact
 %>
 
 <article class="main-card <%= accent %>">
@@ -32,24 +26,26 @@ cardAttrs = {
     </span>
   <% end %>
 
-  <% content_tag(cardInnerTagOpen, cardAttrs) do %>
+  <header class="main-card__header e-col-greyscale-0">
+    <div class="main-card__image">
+      <img
+        class="b-lazy"
+        src="<%= assetsDir %>/images/placeholder__main-card.svg"
+        data-src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=50&fl=progressive"
+        alt="<%= imageAlt %>">
 
-    <header class="main-card__header e-col-greyscale-0">
-      <div class="main-card__image">
-        <img
-          class="b-lazy"
-          src="<%= assetsDir %>/images/placeholder__main-card.svg"
-          data-src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=50&fl=progressive"
-          alt="<%= imageAlt %>">
-
-        <div class="main-card__title">
-          <span class="label-xs vat e-mgn-b-xxs e-pad-y-xs e-pad-x-xxs <%= labelAccent %>"><%= metaLabel %></span>
-          <h1 class="title-md"><%= truncate(title, { num: 79 }) %></h1>
-        </div>
+      <div class="main-card__title">
+        <span class="label-xs vat e-mgn-b-xxs e-pad-y-xs e-pad-x-xxs <%= labelAccent %>"><%= metaLabel %></span>
+        <h1 class="title-md"><%= truncate(title, { num: 79 }) %></h1>
       </div>
-    </header>
-    <section class="main-card__introduction">
-      <p><%= truncateHtml(markdown(introduction), { num: 99 }) %></p>
-    </section>
+    </div>
+  </header>
+  <section class="main-card__introduction">
+    <p><%= truncateHtml(markdown(introduction), { num: 99 }) %></p>
+  </section>
+  <% if category %>
+    <a href="<%= internalURL(entryData[:slug]) %>" class="main-card__link">
+      <span class="e-hidden">Go to: <%= title %></span>
+    </a>
   <% end %>
 </article>

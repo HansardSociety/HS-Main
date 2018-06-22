@@ -25,7 +25,7 @@
 }
 
 .banner__inner--cp {
-  top: calc(100% - 2rem); // ensure overlap content remains above .content
+  top: 100%; // ensure overlap content remains above .content
 
   transform: translateY(-100%);
 }
@@ -54,7 +54,13 @@
 }
 
 .banner__content--cp {
+  @extend %e-bgc-opaque-1;
   @extend %e-container--full;
+  @extend %e-pad-x-sm;
+  @include above(sm) {
+    border-top-left-radius: map-get($radii, slight);
+    border-top-right-radius: map-get($radii, slight);
+  }
 }
 
 .banner__content-inner-cp {
