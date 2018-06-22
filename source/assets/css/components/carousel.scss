@@ -62,11 +62,11 @@
 
   @extend %e-absolute-center-x;
   @extend %e-col-greyscale-0;
-  @include below(md) {
+  @include below(sm) {
     left: 0;
 
-    margin-left: .6666rem;
     margin-bottom: 1rem;
+    margin-left: .5rem;
 
     transform: translateX(0);
   }
@@ -137,6 +137,7 @@
   ========================================================================== */
 
 .flickity-page-dots {
+  z-index: 1;
   bottom: -2rem;
   left: .25rem;
 
@@ -147,6 +148,27 @@
   }
 
   & > .dot.is-selected {
+    opacity: .25;
+
     @extend %e-bgc-brand-green-2;
+  }
+
+  & > .dot.is-selected {
+    opacity: 1;
+  }
+}
+
+// Banner override
+.banner {
+  .flickity-page-dots {
+    bottom: -1.5rem;
+
+    & > .dot {
+      @extend %e-bgc-greyscale-0;
+    }
+
+    @include below(sm) {
+      display: none;
+    }
   }
 }
