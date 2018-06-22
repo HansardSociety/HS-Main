@@ -1,7 +1,7 @@
 require "uri"
 
-markerSym = "❱❱"
-$marker = "#{ markerSym }"
+# markerSym = ">"
+$marker = " > "
 
 ###########################################################################
 ##		=Detatch category
