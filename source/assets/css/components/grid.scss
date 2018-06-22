@@ -28,6 +28,10 @@
   @extend %e-position-relative;
 }
 
+.grid__cell--end {
+  align-self: end;
+}
+
 /*		=Columns
   ========================================================================== */
 
