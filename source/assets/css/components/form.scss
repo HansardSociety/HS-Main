@@ -41,6 +41,7 @@
 
 .form__field {
   font-family: $systemFont;
+
   @extend %e-pad-y-xs;
   @extend %e-rad-slight;
   &:valid {
@@ -52,20 +53,21 @@
 }
 
 .form__label {
-  margin-bottom: -4px;
+  display: block !important;
+
+  margin-bottom: 2px;
   margin-left: 2px;
 
+  @extend %e-mgn-t-xs;
   @extend %e-col-brand-green-1;
 }
 
 .form__err {
-  margin-top: -.5rem;
   margin-left: 2px;
 
   color: red;
 
   @extend %e-display-none;
-  @extend %e-ff-prim-black;
   @extend %e-fz-xs;
   @extend %e-mgn-b-xs;
 }
@@ -88,6 +90,8 @@
 }
 
 .form__footer {
+  font-size: .75rem;
+
   @extend %e-ff-prim-roman;
   @extend %e-mgn-t-sm;
 }
