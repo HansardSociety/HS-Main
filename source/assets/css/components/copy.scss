@@ -1,69 +1,84 @@
 .copy {
-  @extend %e-position-relative;
+@extend %e-position-relative;
 
-  > p, > h1, > h2, > h3, > h4, > h5, > h6, ul {
-    @extend %e-mgn-b-sm;
-  }
+> p, > h1, > h2, > h3, > h4, > h5, > h6, ul {
+  @extend %e-mgn-b-sm;
+}
 
-  > p, > h1, > h2, > h3, > h4, > h5, > h6, > iframe {
+> p, > h1, > h2, > h3, > h4, > h5, > h6, > iframe {
 
-    &:not(:only-child, :first-child) {
-      margin-top: 1em;
-    }
+  &:not(:only-child, :first-child) {
+    margin-top: 1em;
   }
+}
 
-  img,
-  iframe {
-    margin: 1rem auto;
-  }
+img,
+iframe {
+  margin: 1rem auto;
+}
 
-  > h2 {
-    @extend .title-md;
-  }
-  > h3 {
-    @extend .title-sm;
-  }
-  > h4,
-  > h5 {
-    @extend .strap-sm;
-  }
+> h2 {
+  @extend .title-md;
+}
+> h3 {
+  @extend .title-sm;
+}
+> h4,
+> h5 {
+  @extend .strap-sm;
+}
 
-  > h1, > h2, > h3 {
-    @extend %e-col-brand-green-2;
-  }
+> h1, > h2, > h3 {
+  @extend %e-col-brand-green-2;
+}
 
-  > h4 {
-    @extend %e-col-brand-green-3;
-  }
+> h4 {
+  @extend %e-col-brand-green-3;
+}
 
-  > h5 {
-    opacity: .5;
+> h5 {
+  opacity: .5;
+
+  @extend %e-col-greyscale-3;
+}
+
+> p > a,
+> p > strong > a,
+> p > em > a,
+> ul > li > a,
+> ol > li > a {
+  @extend .link;
+  @extend %e-ff-prim-roman;
+}
+
+img {
+  @extend %e-max-width-full;
+  @extend %e-box-shad-z3;
+  @extend %e-rad-slight;
+
+  ~ em {
+    margin-top: -1rem;
+
+    font-size: .75rem;
 
     @extend %e-col-greyscale-3;
+    @extend %e-display-block;
   }
+}
 
-  > p > a,
-  > p > strong > a,
-  > p > em > a,
-  > ul > li > a,
-  > ol > li > a {
-    @extend .link;
-    @extend %e-ff-prim-roman;
-  }
+> iframe {
+  @extend %e-width-full;
+}
 
-  img {
-    @extend %e-max-width-full;
-    @extend %e-box-shad-z3;
-    @extend %e-rad-slight;
-  }
+picture {
+  width: 100%;
+}
 
-  > iframe {
-    @extend %e-width-full;
-  }
+hr {
+  border-top: 1px solid Get($colorGroups, greyscale, 1);
 
-  picture {
-    width: 100%;
-  }
+  @extend %e-mgn-x-md;
+}
 
 /*		=Quotes
   ========================================================================== */
@@ -83,141 +98,84 @@ blockquote,
   @extend %e-rad-slight;
 }
 
-/* Lists
+/*    =Lists
   ========================================================================== */
 
-  /* Core */
+/* Core */
 
-  > ul,
-  > ol {
+> ul,
+> ol {
+  display: table;
+
+  padding-left: 0;
+
+  > li {
     display: table;
 
-    padding-left: 0;
+    &::before {
+      display: table-cell;
 
-    > li {
-      display: table;
+      padding-right: 1rem;
 
-      &::before {
-        display: table-cell;
+      color: brand;
 
-        padding-right: 1rem;
-
-        color: brand;
-
-        font-weight: bold;
-      }
+      font-weight: bold;
     }
   }
+}
 
-  li:nth-of-type(1n + 2) {
-    padding-top: .5em;
-  }
+li:nth-of-type(1n + 2) {
+  padding-top: .5em;
+}
 
-  /* Unordered */
-  > ul {
-    counter-reset: root-ul-counter;
+/* Unordered */
+> ul {
+  counter-reset: root-ul-counter;
 
-    > li {
-      &::before{
-        content: counter(root-ul-counter, disc);
-        counter-increment: root-ul-counter;
-      }
+  > li {
+    &::before{
+      content: counter(root-ul-counter, disc);
+      counter-increment: root-ul-counter;
+    }
 
-      > ul {
-        counter-reset: level-one-ul-counter;
+    > ul {
+      counter-reset: level-one-ul-counter;
 
-        > li {
-          &::before {
-            content: counter(level-one-ul-counter, square);
-            counter-increment: level-one-ul-counter;
-          }
-
-          > ul {
-            counter-reset: level-two-ul-counter;
-
-            > li {
-              &::before {
-                content: counter(level-two-ul-counter, circle);
-                counter-increment: level-two-ul-counter;
-              }
-            }
-          }
+      > li {
+        &::before {
+          content: counter(level-one-ul-counter, square);
+          counter-increment: level-one-ul-counter;
         }
-      }
 
-      > ol{
-        counter-reset: level-one-ol-counter;
+        > ul {
+          counter-reset: level-two-ul-counter;
 
-        > li {
-          &::before {
-            content: counter(level-one-ol-counter, decimal) ".";
-            counter-increment: level-one-ol-counter;
-          }
-
-          > ol {
-            counter-reset: level-two-ol-counter;
-
-            > li {
-              &::before {
-                content: counter(level-two-ol-counter, lower-roman) ".";
-                counter-increment: level-two-ol-counter;
-              }
+          > li {
+            &::before {
+              content: counter(level-two-ul-counter, circle);
+              counter-increment: level-two-ul-counter;
             }
           }
         }
       }
     }
-  }
 
-  /* Ordered */
-  > ol {
-    counter-reset: root-ul-counter;
+    > ol{
+      counter-reset: level-one-ol-counter;
 
-    > li {
-      &::before {
-        content: counter(root-ul-counter, decimal) ".";
-        counter-increment: root-ul-counter;
-      }
-
-      > ol {
-        counter-reset: level-one-ul-counter;
-
-        > li {
-          &::before {
-            content: counter(level-one-ul-counter, lower-roman) ".";
-            counter-increment: level-one-ul-counter;
-          }
-
-          > ol {
-            counter-reset: level-two-ul-counter;
-
-            > li {
-              &::before {
-                content: counter(level-two-ul-counter, lower-latin) ".";
-                counter-increment: level-two-ul-counter;
-              }
-            }
-          }
+      > li {
+        &::before {
+          content: counter(level-one-ol-counter, decimal) ".";
+          counter-increment: level-one-ol-counter;
         }
-      }
 
-      > ol {
-        counter-reset: level-one-ol-counter;
+        > ol {
+          counter-reset: level-two-ol-counter;
 
-        > li {
-          &::before {
-            content: counter(level-one-ol-counter, decimal);
-            counter-increment: level-one-ol-counter;
-          }
-
-          > ol {
-            counter-reset: level-two-ol-counter;
-
-            > li {
-              &::before {
-                content: counter(level-two-ol-counter, lower-roman);
-                counter-increment: level-two-ol-counter;
-              }
+          > li {
+            &::before {
+              content: counter(level-two-ol-counter, lower-roman) ".";
+              counter-increment: level-two-ol-counter;
             }
           }
         }
@@ -225,3 +183,61 @@ blockquote,
     }
   }
 }
+
+/* Ordered */
+> ol {
+  counter-reset: root-ul-counter;
+
+  > li {
+    &::before {
+      content: counter(root-ul-counter, decimal) ".";
+      counter-increment: root-ul-counter;
+    }
+
+    > ol {
+      counter-reset: level-one-ul-counter;
+
+      > li {
+        &::before {
+          content: counter(level-one-ul-counter, lower-roman) ".";
+          counter-increment: level-one-ul-counter;
+        }
+
+        > ol {
+          counter-reset: level-two-ul-counter;
+
+          > li {
+            &::before {
+              content: counter(level-two-ul-counter, lower-latin) ".";
+              counter-increment: level-two-ul-counter;
+            }
+          }
+        }
+      }
+    }
+
+    > ol {
+      counter-reset: level-one-ol-counter;
+
+      > li {
+        &::before {
+          content: counter(level-one-ol-counter, decimal);
+          counter-increment: level-one-ol-counter;
+        }
+
+        > ol {
+          counter-reset: level-two-ol-counter;
+
+          > li {
+            &::before {
+              content: counter(level-two-ol-counter, lower-roman);
+              counter-increment: level-two-ol-counter;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+} // END .copy
