@@ -12,11 +12,19 @@ module Netlify
 
   # headers
   def headers()
+    manifest = File.read("source/assets/rev-manifest.json")
+    manifest_hash = JSON.parse(manifest)
+    cssAppHash = manifest_hash["app.css"]
+    cssVendorHash = manifest_hash["vendor.css"]
+    jsAppHash = manifest_hash["app.js"]
+    jsVendorHash = manifest_hash["vendor.js"]
+
     File.open("source/.headers", "w+") do |file|
-      file << "/*\n"
-      # file << "  Link: </assets/fonts/AvenirLTStd-Roman.woff2>; rel=preload; as=font\n"
-      # file << "  Link: </assets/fonts/AvenirLTStd-Heavy.woff2>; rel=preload; as=font\n"
-      # file << "  Link: </assets/images/svg/sprite.symbol.svg>; rel=preload; as=image\n"
+      file << "/server-push-path\n"
+      file << "  Link: </assets/#{ cssAppHash }>; rel=preload; as=style\n"
+      file << "  Link: </assets/#{ cssVendorHash }>; rel=preload; as=style\n"
+      file << "  Link: </assets/#{ jsAppHash }>; rel=preload; as=script\n"
+      file << "  Link: </assets/#{ jsVendorHash }>; rel=preload; as=script\n"
     end
   end
 end
