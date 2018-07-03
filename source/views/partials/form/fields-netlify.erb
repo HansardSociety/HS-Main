@@ -16,7 +16,7 @@ formData = form_data
   fieldAttrs = {
     "class": "form__field",
     "type": (elem[:input_type] if !isNotInput),
-    "name": elem[:label],
+    "id": elem[:label],
     "placeholder": labelNameCap + "…",
   }.compact
 
