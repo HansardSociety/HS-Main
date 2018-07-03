@@ -35,8 +35,7 @@ iframe = local_data[:iframe]
 
 # Button
 isLink = type == "link"
-btnTagOpen = isLink ? :a : :button
-btnTagClose = isLink ? "</a>" : "</button>"
+btnTag = isLink ? :a : :button
 
 btnClasses =
   "btn
@@ -69,7 +68,7 @@ btnAttributes = {
 }.merge(productAttrs).compact
 %>
 
-<% content_tag(btnTagOpen, btnAttributes) do %>
+<% content_tag(btnTag, btnAttributes) do %>
   <span
     class="<%= icon == "menu" ? "btn__menu" : "btn__content" %>"
     aria-hidden="true">
@@ -96,4 +95,5 @@ btnAttributes = {
     <% end; if ["link", "plain"].include?(type) && label %>
       <span class="btn__label <%= "btn__label--" + label_size %>"><%= label %></span>
     <% end %>
+  </span>
 <% end %>
