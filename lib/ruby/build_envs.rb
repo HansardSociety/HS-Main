@@ -75,12 +75,6 @@ module BuildEnvs
     set :JS_CHECKOUT, "/#{ jsCheckoutHash }"
     set :build_dir, @buildSrc
 
-    ##		=Netlify files
-    ########################################
-
-    redirects()
-    headers()
-
     ##		=Post-processing
     ########################################
 
@@ -95,6 +89,9 @@ module BuildEnvs
 
       # Redirects
       if MM_ENV == "prod"
+        redirects()
+        headers()
+
         File.rename "build/prod/.redirects", "build/prod/_redirects"
         FileUtils.cp_r Dir.glob("source/assets/images/favicons/**"), "#{ @buildSrc }"
 
