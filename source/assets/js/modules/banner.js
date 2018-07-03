@@ -14,7 +14,7 @@ const bannerHeight = (() => {
     }
   }
 
-  // bannerImg.style.height = `${ vhFull }px`
+  bannerImg.style.height = `${ vhFull }px`
 })()
 
 export { bannerHeight }
