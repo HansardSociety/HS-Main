@@ -16,7 +16,9 @@ module CustomHelpers
 
   # Markdown
   def markdown(data, type="paragraph")
-    Kramdown::Document.new(type == "byline" ? data.gsub(/(\n|\n\n)/, " ") + "\n{: .strap-md }" : data).to_html
+    text = type == "byline" ? data.gsub(/(\n|\n\n)/, " ") + "\n{: .strap-md }" : data
+
+    Kramdown::Document.new(text, { auto_ids: false }).to_html
   end
 
   # Global variables
