@@ -42,8 +42,10 @@ entryData = local_data[:entry_data]
 
               <span class="label-xs vat e-mgn-b-xs e-mgn-b-xxs e-pad-y-xs e-pad-x-xxs e-acc-<%= catColor(page[:category]) %>-2"><%= page[:meta_label] %></span>
 
-              <h1 class="banner__title banner__title--xs title-lg e-mgn-b-sm"><%= truncate(page[:title], { num: 120 }) %></h1>
-              <h1 class="banner__title banner__title--sm title-lg e-mgn-b-sm"><%= page[:title] %></h1>
+              <h1 class="banner__title title-lg e-mgn-b-sm">
+                <span class="banner__title--xs"><%= truncate(page[:title], { num: 120 }) %></span>
+                <span class="banner__title--sm"><%= page[:title] %></span></h1>
+              </h1>
 
               <%= partial "views/partials/btn",
                 locals: { local_data: {
