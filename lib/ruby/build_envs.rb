@@ -82,6 +82,12 @@ module BuildEnvs
       simple_doctype: true,
       remove_intertag_spaces: true
 
+    ##		=Netlify
+    ########################################
+
+    redirects()
+    headers()
+
     ##		=After build
     ########################################
 
@@ -89,8 +95,6 @@ module BuildEnvs
 
       # Redirects
       if MM_ENV == "prod"
-        redirects()
-        headers()
 
         File.rename "build/prod/.redirects", "build/prod/_redirects"
         FileUtils.cp_r Dir.glob("source/assets/images/favicons/**"), "#{ @buildSrc }"
