@@ -69,9 +69,7 @@ btnAttributes = {
 %>
 
 <% content_tag(btnTag, btnAttributes) do %>
-  <span
-    class="<%= icon == "menu" ? "btn__menu" : "btn__content" %>"
-    aria-hidden="true">
+  <span class="<%= icon == "menu" ? "btn__menu" : "btn__content" %>">
 
     <% if text %>
       <span class="btn__text"><%= text %></span>
