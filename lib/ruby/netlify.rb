@@ -20,7 +20,7 @@ module Netlify
     jsVendorHash = manifest_hash["vendor.js"]
 
     File.open("source/.headers", "w+") do |file|
-      file << "/server-push-path\n"
+      file << "/*\n"
       file << "  Link: </assets/#{ cssAppHash }>; rel=preload; as=style\n"
       file << "  Link: </assets/#{ cssVendorHash }>; rel=preload; as=style\n"
       file << "  Link: </assets/#{ jsAppHash }>; rel=preload; as=script\n"
