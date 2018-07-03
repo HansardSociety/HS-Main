@@ -25,6 +25,7 @@ module Netlify
       file << "  Link: </assets/#{ cssVendorHash }>; rel=preload; as=style\n"
       file << "  Link: </assets/#{ jsAppHash }>; rel=preload; as=script\n"
       file << "  Link: </assets/#{ jsVendorHash }>; rel=preload; as=script\n"
+      file << "  Link: </assets/images/svg/sprite.symbol.svg>; rel=preload; as=image\n"
     end
   end
 end
