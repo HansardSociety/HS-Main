@@ -1,4 +1,5 @@
 %e-width-full { width: 100%; }
+.e-width-full { @extend %e-width-full; }
 %e-width-full-vw { width: 100vw; }
 %e-height-full { height: 100%; }
 %e-height-full-vh { height: 100vh; }
