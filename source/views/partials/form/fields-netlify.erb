@@ -24,8 +24,10 @@ formData = form_data
 
   <label class="e-width-full">
     <span class="form__label label-xs"><%= labelNameCap %></span>
-    <span><%= tag(fieldTag, fieldAttrs) %></span>
-    <span class="form__err">Please review this field</span>
+    <div>
+      <%= tag(fieldTag, fieldAttrs) %>
+      <span class="form__err">Please review this field</span>
+    </div>
   </label>
 <% end %>
 

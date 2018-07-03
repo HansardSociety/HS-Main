@@ -69,7 +69,7 @@
 
   @extend %e-display-none;
   @extend %e-fz-xs;
-  @extend %e-mgn-b-xs;
+  @extend %e-mgn-t-xxs;
 }
 
 .form__confirmation,
@@ -227,7 +227,6 @@
     @extend %e-display-block;
   }
 }
-
 
 input[name=quantity].form__field {
   pointer-events: none;
