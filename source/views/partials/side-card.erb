@@ -20,7 +20,7 @@ title = entryData[:title]
 # Images
 imageBanner = entryData[:banner_image]
 imageProduct = entryData[:image]
-imageLinkedProduct = entryData[:product_image]
+imageLinkedProduct = entryData[:product_image] ? entryData[:product_image] : (entryData[:featured][0][:image] if entryData[:featured] && entryData[:featured][0][:TYPE] == "product")
 if imageBanner || imageProduct
   image = imageLinkedProduct ? imageLinkedProduct : (imageBanner ? imageBanner : imageProduct)
   imageURL = image[:url]
