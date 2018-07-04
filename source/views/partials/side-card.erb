@@ -33,15 +33,14 @@ accentColor = catColor(isFeaturedRegistration ? pageCategory : category)
 accentClass = "e-acc-#{ accentColor }-2-left"
 
 # Container element
-sideCardTagOpen = isNonPage ? "section" : "article"
-sideCardTagClose = isNonPage ? "</section>" : "</article>"
+sideCardTag = isNonPage ? "section" : "article"
 sideCardTypeClass = isFeaturedCard ? "side-card--featured" : "side-card--related"
 sideCardAttrs = {
   "class": "side-card #{ sideCardTypeClass } #{ accentClass }"
 }
 %>
 
-<% content_tag(sideCardTagOpen, sideCardAttrs) do %>
+<% content_tag(sideCardTag, sideCardAttrs) do %>
   <div class="side-card__inner">
     <div class="side-card__aside <%= asideBgc %> <%= "e-pad-r-xs" if isNonPage %>">
       <% if image %>
@@ -70,26 +69,18 @@ sideCardAttrs = {
             <a
               href="<%= internalURL(entryData[:slug]) %>"
               class="<%= isFeaturedCard ? "link-white" : "link" %>">
-              <span class="side-card__title-xs"><%= truncate(title, { num: 65 }) %></span>
+              <span class="side-card__title-xs"><%= truncate(title, { num: 50 }) %></span>
               <span class="side-card__title-sm"><%= truncate(title, { num: 150 }) %></span>
-              <span class="side-card__title-md"><%= truncate(title, { num: 80 }) %></span>
-              <span class="side-card__title-lg"><%= truncate(title, { num: 120 }) %></span>
+              <span class="side-card__title-md"><%= truncate(title, { num: 65 }) %></span>
+              <span class="side-card__title-lg"><%= truncate(title, { num: 90 }) %></span>
             </a>
           </h1>
         <% else %>
           <h2 class="title-sm <%= isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" %>">
-            <span class="side-card__title-xs">
-              <%= isFeaturedProduct ? truncate(title, { num: 50 }) : truncate(entryData[:venue], { num: 50 }) %>
-            </span>
-            <span class="side-card__title-sm">
-              <%= isFeaturedProduct ? truncate(title, { num: 150 }) : truncate(entryData[:venue], { num: 150 }) %>
-            </span>
-            <span class="side-card__title-md">
-              <%= isFeaturedProduct ? truncate(title, { num: 65 }) : truncate(entryData[:venue], { num: 65 }) %>
-            </span>
-            <span class="side-card__title-lg">
-              <%= isFeaturedProduct ? truncate(title, { num: 85 }) : truncate(entryData[:venue], { num: 85 }) %>
-            </span>
+            <span class="side-card__title-xs"><%= truncate(isFeaturedProduct ? title : entryData[:venue], { num: 50 }) %></span>
+            <span class="side-card__title-sm"><%= truncate(isFeaturedProduct ? title : entryData[:venue], { num: 150 }) %></span>
+            <span class="side-card__title-md"><%= truncate(isFeaturedProduct ? title : entryData[:venue], { num: 65 }) %></span>
+            <span class="side-card__title-lg"><%= truncate(isFeaturedProduct ? title : entryData[:venue], { num: 90 }) %></span>
           </h2>
         <% end %>
       </div>
