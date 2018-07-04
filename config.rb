@@ -6,6 +6,7 @@ require "kramdown"
 require "public_suffix"
 require "slim"
 require "yaml"
+require "cgi"
 
 # Config
 require "lib/ruby/build_envs"
