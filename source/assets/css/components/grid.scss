@@ -114,7 +114,7 @@ $colBase: 100 / 12;
     position: relative;
 
     &.JS-active {
-      & > .grid__expand-btn {
+      & ~ .grid__expand-btn {
         display: none;
       }
     }
