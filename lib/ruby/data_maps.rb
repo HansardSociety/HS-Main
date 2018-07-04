@@ -222,6 +222,7 @@ def featuredData(data, opts = {})
       sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $marker),
       introduction: data.introduction,
       banner_image: media(data.banner_image, focus: data),
+      product_image: (media(data.featured[0].image) if data.featured && data.featured[0].content_type.id == "product"),
       date_time: dateTime(data)
     }.compact
   end
