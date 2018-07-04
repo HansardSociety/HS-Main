@@ -20,11 +20,12 @@ title = entryData[:title]
 # Images
 imageBanner = entryData[:banner_image]
 imageProduct = entryData[:image]
+imageLinkedProduct = entryData[:product_image]
 if imageBanner || imageProduct
-  image = imageBanner ? imageBanner : imageProduct
+  image = imageLinkedProduct ? imageLinkedProduct : (imageBanner ? imageBanner : imageProduct)
   imageURL = image[:url]
   imageAlt = image[:alt]
-  imageFocus = image[:focus]
+  cfulSuffix = "?fit=fill&w=229&h=324#{ "&f=" + image[:focus] if image[:focus] }&q=50&fl=progressive"
 end
 
 # Colors
@@ -47,7 +48,7 @@ sideCardAttrs = {
         <img
           class="b-lazy"
           src="<%= assetsDir %>/images/placeholder__side-card.svg"
-          data-src="<%= imageURL %><%= ("?fit=fill&w=229&h=324&f=" + imageFocus + "&q=50&fl=progressive") if imageBanner %>"
+          data-src="<%= imageURL %><%= cfulSuffix if imageBanner || imageLinkedProduct %>"
           alt="<%= imageAlt %>">
 
       <% end; if isFeaturedRegistration %>
