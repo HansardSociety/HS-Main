@@ -11,9 +11,9 @@
   @extend %e-height-full-vh;
   @extend %e-position-fixed;
   @extend %e-trans-transform;
-  @include above(xs) {
-    @extend %e-display-none__md;
-  }
+  // @include above(xs) {
+  //   @extend %e-display-none__md;
+  // }
   -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
