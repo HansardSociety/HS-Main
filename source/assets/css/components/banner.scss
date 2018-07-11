@@ -92,7 +92,7 @@
 .banner__image {
   @extend %e-bgc-brand-green-2;
   @extend %e-img-filter;
-  @extend %e-height-full-vh; // fallback for JS
+  @extend %e-height-full; // fallback for JS
   @extend %e-overflow-hidden;
   @extend %e-overlay-medium;
   @extend %e-position-absolute;
