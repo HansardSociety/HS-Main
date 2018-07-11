@@ -90,6 +90,86 @@
   @extend %e-height-full;
 }
 
+/*		=Responsive text
+  ========================================================================== */
+
+/***  =Title  ***/
+
+.main-card__title-xs {
+  @include above(sm) {
+    @extend %e-display-none__sm;
+  }
+}
+
+.main-card__title-sm {
+  @extend %e-display-none;
+
+  @include above(sm) {
+    @extend %e-display-inline__sm;
+  }
+  @include above(md) {
+    @extend %e-display-none__md;
+  }
+}
+
+.main-card__title-md {
+  @extend %e-display-none;
+
+  @include above(md) {
+    @extend %e-display-inline__md;
+  }
+  @include above(lg) {
+    @extend %e-display-none__lg;
+  }
+}
+
+.main-card__title-lg {
+  @extend %e-display-none;
+
+  @include above(lg) {
+    @extend %e-display-inline__lg;
+  }
+}
+
+/***  =Introduction  ***/
+
+.main-card__introduction-xs {
+  @include above(sm) {
+    @extend %e-display-none__sm;
+  }
+}
+
+.main-card__introduction-sm {
+  @extend %e-display-none;
+
+  @include above(sm) {
+    @extend %e-display-inline__sm;
+  }
+  @include above(md) {
+    @extend %e-display-none__md;
+  }
+}
+
+.main-card__introduction-md {
+  @extend %e-display-none;
+
+  @include above(md) {
+    @extend %e-display-inline__md;
+  }
+  @include above(lg) {
+    @extend %e-display-none__lg;
+  }
+}
+
+.main-card__introduction-lg {
+  @extend %e-display-none;
+
+  @include above(lg) {
+    @extend %e-display-inline__lg;
+  }
+}
+
+
 /*		=Behaviour
   ========================================================================== */
 

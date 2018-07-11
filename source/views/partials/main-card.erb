@@ -36,12 +36,23 @@ featuredCard = local_data[:featured]
 
       <div class="main-card__title">
         <span class="label-xs vat e-mgn-b-xs e-pad-y-xs e-pad-x-xxs <%= labelAccent %>"><%= metaLabel %></span>
-        <h1 class="title-sm"><%= truncate(title, { num: 94 }) %></h1>
+        <h1 class="title-sm">
+          <span class="main-card__title-xs"><%= truncateHtml(title, { num: 84 }) %></span>
+          <span class="main-card__title-sm"><%= truncateHtml(title, { num: 99 }) %></span>
+          <span class="main-card__title-md"><%= truncateHtml(title, { num: 134 }) %></span>
+          <span class="main-card__title-lg"><%= truncateHtml(title, { num: 99 }) %></span>
+        </h1>
+
       </div>
     </div>
   </header>
   <section class="main-card__introduction">
-    <p><%= truncateHtml(markdown(introduction), { num: 89 }) %></p>
+    <p>
+      <span class="main-card__introduction-xs"><%= truncateHtml(markdown(introduction), { num: 84 }) %></span>
+      <span class="main-card__introduction-sm"><%= truncateHtml(markdown(introduction), { num: 99 }) %></span>
+      <span class="main-card__introduction-md"><%= truncateHtml(markdown(introduction), { num: 134 }) %></span>
+      <span class="main-card__introduction-lg"><%= truncateHtml(markdown(introduction), { num: 99 }) %></span>
+    </p>
   </section>
   <% if category %>
     <a href="<%= internalURL(entryData[:slug]) %>" class="main-card__link">
