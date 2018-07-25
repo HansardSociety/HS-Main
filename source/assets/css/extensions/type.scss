@@ -42,3 +42,10 @@
 %e-txt-shad-slight {
   text-shadow: Get($shadow, text, z1);
 }
+
+%e-hyphens {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
