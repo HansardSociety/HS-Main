@@ -1,20 +1,24 @@
 const bannerHeight = (() => {
-  const vhFull = Math.max(window.innerHeight * .875)
-  const vhSemi = Math.max(window.innerHeight * .8)
+  const windowHeight = Math.max(window.innerHeight)
+  const vhLg = windowHeight * .9
+  const vhMd = windowHeight * .85
   const bannerFull = document.querySelector(".JS-banner--full")
   const bannerSemi = document.querySelector(".JS-banner--semi")
-  const bannerHome = document.querySelectorAll(".JS-banner--full .carousel__item")
   const bannerImg = document.querySelector(".banner__image")
 
-  if (bannerFull) bannerFull.style.height = `${ vhFull }px`
-  if (bannerSemi) bannerSemi.style.height = `${ vhSemi }px`
+  const bannerHome = document.querySelectorAll(".JS-banner--full .carousel__item")
+
+  if (bannerFull) bannerFull.style.height = `${ vhLg }px`
+  if (bannerSemi) bannerSemi.style.height = `${ vhMd }px`
+
+  // Home banner
   if (bannerHome) {
     for (let carouselItem of bannerHome) {
-      carouselItem.style.height = `${ vhFull }px`
+      carouselItem.style.height = `${ vhLg }px`
     }
   }
 
-  bannerImg.style.height = `${ vhFull }px`
+  bannerImg.style.height = `${ windowHeight }px`
 })()
 
 export { bannerHeight }

@@ -52,7 +52,6 @@
   }
 
   .label-#{ $sizeKey } {
-    @extend %e-display-inline;
     @extend %e-upper;
   }
 
@@ -63,6 +62,7 @@
 }
 
 .label-tag {
+  @extend %e-display-inline;
   @extend %e-pad-y-xs;
   @extend %e-pad-x-xxs;
 }
@@ -83,11 +83,7 @@
 
 .link,
 .link-white {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto;
-
+  @extend %e-hyphens;
   @extend %e-trans-core;
 }
 
