@@ -103,14 +103,20 @@ blockquote,
 
 /* Core */
 
-> ul,
-> ol {
+ul,
+ol {
   display: table;
 
   padding-left: 0;
 
   > li {
     display: table;
+
+    > ul, > ol {
+      &:first-child {
+        @extend %e-mgn-t-sm;
+      }
+    }
 
     &::before {
       display: table-cell;
