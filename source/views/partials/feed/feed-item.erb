@@ -10,7 +10,7 @@ imgAlt = feedData[:banner_image][:alt]
 if isDynamic == true
   imgAttrs = {
     "class": "b-lazy",
-    "src": "/#{ assetsDir }/images/svg/sprite.symbol.svg#images",
+    "src": "#{ assetsDir }/images/svg/sprite.symbol.svg#images",
     "data-src": imgURL,
     "alt": imgAlt
   }
@@ -29,7 +29,7 @@ end
   <div class="feed-item__content">
     <span class="label-xs label-tag e-acc-<%= catColor(feedData[:category]) %>-2 e-col-greyscale-0"><%= feedData[:meta_label] %></span>
 
-    <h1 class="title-md">
+    <h1 class="title-md e-mgn-t-xxs">
       <a class="link" href="<%= internalURL(feedData[:slug]) %>"><%= feedData[:title] %></a>
     </h1>
   </div>
