@@ -1,4 +1,5 @@
 .banner {
+  background-color: Get($colorGroups, brand-green, 2);
   @extend %e-position-relative;
   @extend %e-width-full-vw;
 }
@@ -93,7 +94,7 @@
   @extend %e-overlay-medium;
   @extend %e-position-absolute;
   @extend %e-width-full;
-  @extend %e-zidx-neg;
+  // @extend %e-zidx-neg;
 
   img {
     bottom: 0;

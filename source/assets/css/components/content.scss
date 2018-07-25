@@ -1,6 +1,7 @@
 .content {
   @extend %e-container;
   @extend %e-mgn-auto-x;
+  @extend %e-position-relative;
 }
 
 .content--narrow {
