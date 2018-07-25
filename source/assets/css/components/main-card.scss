@@ -139,8 +139,6 @@
 /***  =Introduction  ***/
 
 .main-card__introduction-xs {
-  @extend %e-hyphens;
-
   @include above(sm) {
     @extend %e-display-none__sm;
   }
