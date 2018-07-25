@@ -60,7 +60,7 @@ sideCardAttrs = {
     <div class="side-card__content">
       <% if !isFeaturedProduct && !isFeaturedRegistration %>
         <div class="side-card__label">
-          <span class="label-xs vat e-mgn-b-xxs e-pad-y-xs e-pad-x-xxs e-acc-<%= catColor(isFeaturedRegistration ? pageCategory : category) %>-2 e-col-greyscale-0"><%= entryData[:meta_label] %></span>
+          <span class="label-xs label-tag e-acc-<%= catColor(isFeaturedRegistration ? pageCategory : category) %>-2 e-col-greyscale-0"><%= entryData[:meta_label] %></span>
         </div>
       <% end %>
       <div class="side-card__title">
