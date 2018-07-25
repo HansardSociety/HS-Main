@@ -62,6 +62,8 @@
 }
 
 .label-tag {
+  border-radius: 1px;
+
   @extend %e-display-inline;
   @extend %e-pad-y-xs;
   @extend %e-pad-x-xxs;

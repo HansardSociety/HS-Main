@@ -119,5 +119,7 @@
 }
 
 .carousel .banner__content--lp {
-  padding-bottom: 5rem;
+  @include below(md) {
+    padding-bottom: 5rem;
+  }
 }
