@@ -27,7 +27,7 @@ end
     <%= tag(:img, imgAttrs) %>
   </div>
   <div class="feed-item__content">
-    <span class="label-xs vat e-mgn-b-xxs e-pad-y-xs e-pad-x-xxs e-acc-<%= catColor(feedData[:category]) %>-2 e-col-greyscale-0"><%= feedData[:meta_label] %></span>
+    <span class="label-xs label-tag e-acc-<%= catColor(feedData[:category]) %>-2 e-col-greyscale-0"><%= feedData[:meta_label] %></span>
 
     <h1 class="title-md">
       <a class="link" href="<%= internalURL(feedData[:slug]) %>"><%= feedData[:title] %></a>

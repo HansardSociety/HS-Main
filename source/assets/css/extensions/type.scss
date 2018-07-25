@@ -4,13 +4,13 @@
 @each $fontKey, $fontVal in map-get($type, font-primary) {
   %e-ff-prim-#{ $fontKey } {
     font-family: map-get($fontVal, family), Arial, Helvetica, sans-serif;
-    // font-weight: map-get($fontVal, weight);
+    font-weight: map-get($fontVal, weight);
     // font-style: map-get($fontVal, style)
   }
 }
 
 %e-ff-prim-roman-bold {
-  @extend %e-ff-prim-black;
+  @extend %e-ff-prim-medium;
 }
 
 %e-ff-system {

@@ -116,7 +116,7 @@
     &::before {
       height: 3.5rem;
 
-      @extend %e-zidx-neg;
+      // @extend %e-zidx-neg;
       @extend %e-box-shad-z1;
     }
   }
