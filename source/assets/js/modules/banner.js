@@ -18,7 +18,9 @@ const bannerHeight = (() => {
     }
   }
 
-  bannerImg.style.height = `${ windowHeight }px`
+  if (bannerSemi) {
+    bannerImg.style.height = `${ windowHeight }px`
+  }
 })()
 
 export { bannerHeight }
