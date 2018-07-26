@@ -53,9 +53,9 @@
 // Vertical align fix for Chrome mobile
 .e-va-fix {
   vertical-align: text-top;
-  display: contents;
+  // display: contents;
 
   @include below(md) {
-    vertical-align: -webkit-baseline-middle;
+    // vertical-align: -webkit-baseline-middle;
   }
 }
