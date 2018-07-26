@@ -30,7 +30,7 @@ end
       class="feed"
       data-feed-category="<%= (feedSubCategory ? feedCategory + "::" + feedSubCategory : feedCategory) %>"
       data-feed-count="<%= feedCount %>"
-      data-feed-total="<%= totalFeedPages %>"
+      data-feed-total="<%= totalFeedPages <= 1 ? totalFeedPages : totalFeedPages + 1 %>"
       data-feed-dedupe="<%= feedDedupe %>">
 
       <div class="feed__items">
