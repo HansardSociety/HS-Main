@@ -50,10 +50,7 @@
   }
 
   .title-#{ $sizeKey },
-  strong {
-    @extend %e-ff-prim-medium;
-  }
-
+  strong,
   .label-#{ $sizeKey },
   .cross-head-#{ $sizeKey } {
     @extend %e-ff-prim-medium;
