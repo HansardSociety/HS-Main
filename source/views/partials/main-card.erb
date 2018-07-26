@@ -35,7 +35,9 @@ featuredCard = local_data[:featured]
         alt="<%= imageAlt %>">
 
       <div class="main-card__title">
-        <span class="label-xs label-tag <%= labelAccent %>"><%= metaLabel %></span>
+        <span class="label-xs label-tag <%= labelAccent %>">
+            <span class="e-va-fix"><%= metaLabel %></span>
+        </span>
         <h1 class="title-sm e-mgn-t-xs">
           <span class="main-card__title-xs"><%= truncateHtml(title, { num: 84 }) %></span>
           <span class="main-card__title-sm"><%= truncateHtml(title, { num: 99 }) %></span>
