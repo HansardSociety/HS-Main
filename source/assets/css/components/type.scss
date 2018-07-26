@@ -65,8 +65,8 @@
   border-radius: 1px;
 
   @extend %e-display-inline;
-  @extend %e-pad-y-xs;
-  @extend %e-pad-x-xxs;
+  // @extend %e-pad-y-xs;
+  @extend %e-pad-xxs;
 }
 
 // Side title
