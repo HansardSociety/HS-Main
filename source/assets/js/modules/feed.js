@@ -17,9 +17,11 @@ const infiniteFeed = (() => {
 
     const dedupe = feed.getAttribute("data-feed-dedupe") == "true"
 
-    if (initialCount >= feedTotal) {
+    if ((initialCount / 3) >= feedTotal) {
       feedStatus.style.display = "none"
       feedLoad.style.display = "none"
+
+      console.log("YO")
 
     } else {
       var initialPagesCount = initialCount / 3

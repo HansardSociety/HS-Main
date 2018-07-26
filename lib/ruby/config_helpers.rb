@@ -9,7 +9,8 @@ module ConfigHelpers
   end
 
   def feedPages(pagesData, categoryLev = :category)
-    pagesByDate = pagesData.sort_by{ |id, page| - page[:date_time][:integer] }
+    rejectIndices = pagesData.reject{ |id, page| page.index_page == true }
+    pagesByDate = rejectIndices.sort_by{ |id, page| - page[:date_time][:integer] }
 
     mainCats = siteCategories(:top_main)
     mainSubCats = siteCategories(:sub)

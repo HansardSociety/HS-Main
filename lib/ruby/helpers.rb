@@ -149,7 +149,10 @@ module CustomHelpers
   ##		=Feed data
   ###########################################################################
 
-  def countFeedPages(setCategory)
+  def countFeedPages(setCategory, opts = {})
+    defaults = { sub_cat: false }
+    opts = defaults.merge(opts)
+
     childPages = data.hs.child_page
     landingPages = data.hs.landing_page
     allPages = childPages.merge(landingPages)
@@ -158,10 +161,17 @@ module CustomHelpers
       getCategoryPages = catPages.select{ |category, pages| category == setCategory }
 
       getCategoryPages.each do |category, pages|
-        paginatedPages = pages.each_slice(3).to_a
-        numberOfPages = paginatedPages.size
 
-        yield("#{ numberOfPages }")
+        if opts[:sub_cat]
+          getSubCatPages = pages.select{ |id, page| page.sub_category == opts[:sub_cat] }
+          rejectIndices = getSubCatPages.reject{ |id, page| page.index_page == true }
+          paginated = rejectIndices.each_slice(3).to_a.length
+        else
+          rejectIndices = pages.reject{ |id, page| page.index_page == true }
+          paginated = rejectIndices.each_slice(3).to_a.length
+        end
+
+        yield("#{ paginated }")
       end
     end
   end

@@ -10,13 +10,23 @@
     font-family: "#{ map-get($typeVal, family) }";
     font-weight: "#{ map-get($typeVal, weight) }";
 
+    /* IE9 */
     src: url("#{ $fontPath }/#{ $fontFamily }.eot");
-    src: url("#{ $fontPath }/#{ $fontFamily }.woff2") format("woff2"),
+
+    /* IE6-IE8 */
+    src: url("#{ $fontPath }/#{ $fontFamily }.eot?#iefix") format("embedded-opentype"),
+
+         /* Bleeding */
+         url("#{ $fontPath }/#{ $fontFamily }.woff2") format("woff2"),
+
+         /* New */
          url("#{ $fontPath }/#{ $fontFamily }.woff") format("woff"),
+
+         /* New mob */
          url("#{ $fontPath }/#{ $fontFamily }.ttf") format("truetype"),
 
-         url("#{ $fontPath }/#{ $fontFamily }.svg##{ $fontFamily }") format("svg"),
-         url("#{ $fontPath }/#{ $fontFamily }.eot?#iefix") format("embedded-opentype");
+         /* Old iOS */
+         url("#{ $fontPath }/#{ $fontFamily }.svg##{ $fontFamily }") format("svg");
   }
 }
 
@@ -40,9 +50,12 @@
   }
 
   .title-#{ $sizeKey },
-  .label-#{ $sizeKey },
-  .cross-head-#{ $sizeKey },
   strong {
+    @extend %e-ff-prim-medium;
+  }
+
+  .label-#{ $sizeKey },
+  .cross-head-#{ $sizeKey } {
     @extend %e-ff-prim-medium;
   }
 
