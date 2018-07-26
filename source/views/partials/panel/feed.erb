@@ -14,8 +14,8 @@ feedCount = feedData[:initial_count]
 feedDedupe = (feedData[:dedupe] && @entry[:latest_carousel] && !@entry[:tags])
 
 totalFeedPages = 0
-countFeedPages(feedCategory) do |number|
-  totalFeedPages = number.to_i + 1
+countFeedPages(feedCategory, { sub_cat: (feedSubCategory ? feedSubCategory : false) }) do |number|
+  totalFeedPages = number.to_i
 end
 %>
 
@@ -42,7 +42,7 @@ end
             page_cats: (feedSubCategory ? [feedSubCategory] : feedCategory),
             sub_cats: (feedSubCategory ? true : false)) do |page| %>
 
-          <%= partial "views/partials/feed/feed-item",
+          <%= partial "views/partials/feed-item",
             locals: { local_data: {
               entry_data: page,
               context: "dynamic" }} %>
