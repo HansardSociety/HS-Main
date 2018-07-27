@@ -108,7 +108,7 @@
 
             <%# All tagged/ related content %>
             <% if @entry[:tags] %>
-              <h2 class="side-title">Related</h2>
+              <h2 class="side-title e-acc-brand-green-2-top e-pad-t-xs">Related</h2>
               <% relatedContent(@entry, blogCount) do |page| %>
                 <%= partial "views/partials/side-card",
                   locals: { local_data: {
@@ -137,10 +137,19 @@
                 locals: { local_data: {
                   side_card_data: page }} %>
             <% end %>
+          <% else %>
+            <h2 class="side-title e-acc-purple-2-top e-pad-t-xs">Latest blog</h2>
+            <% latestContent(yield: true, num: 3, page_cats: ["blog"]) do |page| %>
+              <% if @entry[:ID] != page[:ID] %>
+                <%= partial "views/partials/side-card",
+                  locals: { local_data: {
+                    side_card_data: page }} %>
+              <% end %>
+            <% end %>
           <% end %>
 
           <%# Newsletter signup %>
-          <div class=" box e-bgc-brand-green-1 e-col-greyscale-0 e-mgn-b-xs">
+          <div class="box e-bgc-brand-green-1 e-col-greyscale-0 e-mgn-t-md e-mgn-b-xs">
             <%= partial "views/partials/signup-box",
               locals: { local_data: {
                 copy_size: "sm",
