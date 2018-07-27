@@ -8,7 +8,6 @@
 
   @font-face {
     font-family: "#{ map-get($typeVal, family) }";
-    font-weight: "#{ map-get($typeVal, weight) }";
 
     /* IE9 */
     src: url("#{ $fontPath }/#{ $fontFamily }.eot");
@@ -29,6 +28,9 @@
 
       /* Old iOS */
       url("#{ $fontPath }/#{ $fontFamily }.svg##{ $fontFamily }") format("svg");
+
+    font-weight: "#{ map-get($typeVal, weight) }";
+    font-style: style;
   }
 }
 
