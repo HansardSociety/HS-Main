@@ -85,9 +85,11 @@
 
 // Side title
 .side-title {
-  @extend .title-sm;
-  @extend %e-col-green;
-  @extend %e-mgn-b-xs;
+  @extend .label-sm;
+  @extend %e-col-greyscale-2;
+  @extend %e-mgn-b-sm;
+  @extend %e-pad-t-xs;
+  @extend %e-mgn-b-sm;
 
   &:not(:first-child) {
     @extend %e-mgn-t-md;
