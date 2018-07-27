@@ -13,20 +13,22 @@
     /* IE9 */
     src: url("#{ $fontPath }/#{ $fontFamily }.eot");
 
-    /* IE6-IE8 */
-    src: url("#{ $fontPath }/#{ $fontFamily }.eot?#iefix") format("embedded-opentype"),
+    src:
 
-         /* Bleeding */
-         url("#{ $fontPath }/#{ $fontFamily }.woff2") format("woff2"),
+      /* IE6-IE8 */
+      url("#{ $fontPath }/#{ $fontFamily }.eot?#iefix") format("embedded-opentype"),
 
-         /* New */
-         url("#{ $fontPath }/#{ $fontFamily }.woff") format("woff"),
+      /* Bleeding */
+      url("#{ $fontPath }/#{ $fontFamily }.woff2") format("woff2"),
 
-         /* New mob */
-         url("#{ $fontPath }/#{ $fontFamily }.ttf") format("truetype"),
+      /* New */
+      url("#{ $fontPath }/#{ $fontFamily }.woff") format("woff"),
 
-         /* Old iOS */
-         url("#{ $fontPath }/#{ $fontFamily }.svg##{ $fontFamily }") format("svg");
+      /* New mob */
+      url("#{ $fontPath }/#{ $fontFamily }.ttf") format("truetype"),
+
+      /* Old iOS */
+      url("#{ $fontPath }/#{ $fontFamily }.svg##{ $fontFamily }") format("svg");
   }
 }
 
@@ -53,7 +55,7 @@
   strong,
   .label-#{ $sizeKey },
   .cross-head-#{ $sizeKey } {
-    @extend %e-ff-prim-medium;
+    @extend %e-ff-prim-heavy;
   }
 
   .strap-#{ $sizeKey },
