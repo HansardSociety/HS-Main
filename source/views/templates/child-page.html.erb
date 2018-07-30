@@ -69,10 +69,32 @@
           <%# Copy %>
           <%= markdown(copy) if copy %>
 
-          <%# Site map %>
-          <% if @entry[:ID] == "1qpGZlJUSAYkaOAemgek08" %>
-            <h2>Here</h2>
+          <!--**********************************************
+              =Site map
+          ***********************************************-->
+
+          <% if @entry[:ID] == "1qpGZlJUSAYkaOAemgek08"
+            pagesByCategory = latestContent(page_cats: siteCategories(:top_all)).group_by{ |val| val[:category] } %>
+
+            <div class="copy">
+              <ul>
+                <% pagesByCategory.sort.each do |category, pages| %>
+                  <li class="e-mgn-t-md">
+                    <a class="link e-fz-lg" href="/<%= category %>"><%= category.capitalize %></a>
+                    <ul class="e-mgn-t-sm">
+                      <% pages.sort_by{ |page| page[:title] }.each do |page| %>
+                        <li>
+                          <span class="label-xs e-col-greyscale-2"><%= page[:meta_label] %></span>
+                          <p><a class="link" href="/<%= page[:slug] %>"><%= page[:title] %></a></p>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </li>
+                <% end %>
+              <ul>
+            </div>
           <% end %>
+          <%# END :: Site map %>
 
           <%# Expand button %>
           <div class="grid__expand-btn">
@@ -139,7 +161,7 @@
 
           <%# Latest items for about pages %>
           <% if category == "about" %>
-            <h2 class="side-title">Latest</h2>
+            <h2 class="side-title e-acc-brand-green-2-top">Latest</h2>
             <% latestContent(yield: true, num: 4) do |page| %>
               <%= partial "views/partials/side-card",
                 locals: { local_data: {

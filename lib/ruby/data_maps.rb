@@ -532,6 +532,17 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.meta = {
       analytics: entry.meta_analytics
     }
+
+    ##		=Footer pages
+    ########################################
+
+    context.footer_pages = entry.footer_pages.map do |page|
+      {
+        title: page.title,
+        slug: slug(page)
+      }
+    end
+
   end
 end
 

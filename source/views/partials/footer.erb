@@ -1,5 +1,32 @@
-<footer class="footer">
-  <div class="footer__inner">
-    <p>Copyright © 2016 Hansard Society • Charity No: 1091364 • Registration No: 4332105.</p>
+<footer class="panel e-bgc-brand-green-2 e-col-greyscale-0">
+  <div class="panel__content panel__content--full">
+    <div class="grid grid--md grid--full">
+
+      <%# Pages %>
+      <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
+        <ul>
+          <% siteData(:footer_pages).each do |page| %>
+            <li class="e-pad-b-xs">
+              <a class="title-sm link-white" href="/<%= page[:slug] %>"><%= page[:title] %></a>
+            </li>
+        </ul>
+        <% end %>
+      </div>
+
+      <%# Newsletter %>
+      <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
+        <%= partial "views/partials/signup-box",
+          locals: { local_data: {
+            bgc: "dark",
+            copy_size: "sm",
+            id: "modal-monthly-newsletter-subscription-footer"
+        }} %>
+      </div>
+
+      <%# Copyright %>
+      <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
+        <p class="e-fz-xs">Copyright © <%= Date.today.year %> Hansard Society • Charity No: 1091364 • Registration No: 4332105.</p>
+      </div>
+    </div>
   </div>
 </footer>

@@ -1,11 +1,11 @@
 .footer {
   @extend %e-col-greyscale-0;
+  @extend %e-container;
   @extend %e-bgc-brand-green-2;
   @extend %e-fz-xs;
   @extend %e-pad-sm;
 }
 
 .footer__inner {
-  @extend %e-container;
-  @extend %e-container--full;
+  @extend %e-container--wide;
 }
