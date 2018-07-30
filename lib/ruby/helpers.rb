@@ -224,7 +224,7 @@ module CustomHelpers
 
     # Control number of blog posts
     # Subtract 1 as data pulled from Contentful (starts at 1)
-    @blogCount = blogCount ? blogCount - 1 : 2
+    @blogCount = blogCount ? blogCount - 1 : 1
 
     # Symbolize entry data to convert to regular hash
     @entryData = convertToRegularHash(entryData)
@@ -270,13 +270,13 @@ module CustomHelpers
         @isInPast = (page[:date_time_alt] ? page[:date_time_alt][:integer] : page[:date_time][:integer]) >= @timeNow
 
         @pageTypes && @isInPast
-      }[0..2]
+      }[0..1]
 
       # Select pages by category and concatenate
       @blogPages = @pagesTagged.select{ |page| page[:category] == "blog" }[0..@blogCount]
       @otherPages = @pagesTagged.select{ |page|
         ["insight", "projects", "publications"].include? page[:category]
-      }[0..2]
+      }[0..1]
       @concatPages = [@registrationPages, @blogPages, @otherPages].reduce([], :concat)
 
       # Output

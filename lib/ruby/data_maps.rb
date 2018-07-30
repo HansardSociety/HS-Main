@@ -499,6 +499,11 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
 
     context.uncss_urls = entry.uncss_urls
 
+    ##		=Categories/sub-categories
+    ########################################
+
+    context.categories = entry.categories
+
     ##		=Social
     ########################################
 

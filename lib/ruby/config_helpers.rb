@@ -1,10 +1,14 @@
+require "json"
+
 module ConfigHelpers
+
   def siteCategories(level)
     categories = {
       top_all: ["about", "blog", "events", "insight", "legal", "projects", "publications"],
       top_main: ["events", "insight", "blog", "publications", "projects"],
       sub: ["education", "training", "research"]
     }
+
     categories[level]
   end
 

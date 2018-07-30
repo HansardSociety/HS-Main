@@ -87,6 +87,9 @@
             <%# If blog, add all non-author featured content to sidebar %>
             <% if isBlogPage %>
               <% featured.reject{ |featured| featured[:TYPE] == "people" }.each_with_index do |featured, index| %>
+                <% if index == 0 %>
+                  <h2 class="side-title e-acc-greyscale-3-top">Featured</h2>
+                <% end %>
                 <%= partial "views/partials/side-card",
                   locals: { local_data: {
                     side_card_data: featured,
@@ -96,6 +99,7 @@
             <%# If not blog, add all featured items to the sidebar except
               # the first, which is featured alongside the intro text. %>
             <% elsif featured && featured.length > 1 %>
+              <h2 class="side-title e-acc-greyscale-3-top">Featured</h2>
               <% featured.drop(1).map do |featuredItem| %>
                 <% if !nonPages.include? featuredItem[:TYPE] %>
                   <%= partial "views/partials/side-card",
@@ -103,6 +107,16 @@
                       side_card_data: featuredItem,
                       featured: true }} %>
                 <% end %>
+              <% end %>
+            <% end %>
+
+            <%# External links %>
+            <% if @entry[:external_links] %>
+              <h2 class="side-title e-acc-greyscale-2-top">Links</h2>
+              <% @entry[:external_links].map do |link| %>
+                <%= partial "views/partials/ext-link",
+                  locals: { local_data: {
+                    ext_link_data: link }} %>
               <% end %>
             <% end %>
 
@@ -114,18 +128,6 @@
                   locals: { local_data: {
                     side_card_data: page }} %>
               <% end %>
-            <% end %>
-
-            <%# External links %>
-            <% if @entry[:external_links] %>
-              <div class="section-sm">
-                <h2 class="side-title">Coverage</h2>
-                <% @entry[:external_links].map do |link| %>
-                  <%= partial "views/partials/ext-link",
-                    locals: { local_data: {
-                      ext_link_data: link }} %>
-                <% end %>
-              </div>
             <% end %>
           <% end %><%# END :: if isMainCategories %>
 
