@@ -62,11 +62,17 @@
     <%# Main content %>
     <div class="content__section">
       <div class=" grid grid--md grid--center">
-        <div
+        <section
           id="expand"
           class="grid__cell grid__cell--md-above-md-7 grid__cell--expand grid__cell--fill JS-inactive copy">
 
+          <%# Copy %>
           <%= markdown(copy) if copy %>
+
+          <%# Site map %>
+          <% if @entry[:ID] == "1qpGZlJUSAYkaOAemgek08" %>
+            <h2>Here</h2>
+          <% end %>
 
           <%# Expand button %>
           <div class="grid__expand-btn">
@@ -76,7 +82,7 @@
                 label_on: "Show more", label_off: "Show less", label_size: "lg",
                 aria_id: "activate-expand", aria_target_id: "expand" }} %>
           </div>
-        </div>
+        </section>
 
         <%# Side content %>
         <aside class="grid__cell grid__cell--md-above-md-5 grid__cell--fill">
@@ -161,4 +167,14 @@
       </div>
     </div>
   </div>
+  <% if isMainCategories %>
+    <section class="panel__pull">
+      <%= partial "views/partials/panel/carousel",
+        locals: { local_data: {
+          entry_data: @entry,
+          context: :latest,
+          data_type: :latest,
+          title: "Latest work" }} %>
+    </section>
+  <% end %>
 </article>

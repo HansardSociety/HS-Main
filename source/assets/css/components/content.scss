@@ -17,6 +17,8 @@
 }
 
 .content--paper {
+  z-index: 1;
+
   @extend %e-bgc-white;
   @extend %e-box-shad-z1;
 }
@@ -31,6 +33,7 @@
 
   &::before {
     left: -1rem;
+
     width: calc(100% + 2rem);
     height: 100%;
 

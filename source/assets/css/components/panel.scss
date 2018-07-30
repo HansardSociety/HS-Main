@@ -77,7 +77,9 @@
   }
 }
 
-
+.panel__pull {
+  margin-top: -4rem;
+}
 
 // Sections
 @each $sizeKey, $sizeVal in $spacing {

@@ -16,7 +16,7 @@ bgc = entryData[:background_color]
 bgcClass = isLatestContext ? "e-bg-shapes" : panelBgc(entryData[:background_color])
 isLightBgc = colorProfile(:light).include?(bgc)
 
-title = isLatestContext ? "Latest" : entryData[:title]
+title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : entryData[:title])
 %>
 
 <section

@@ -11,8 +11,9 @@
   <%= partial "views/partials/panel/carousel",
     locals: { local_data: {
       entry_data: @entry,
-        context: :latest,
-        data_type: :latest }} %>
+      context: :latest,
+      data_type: :latest,
+      title: "Latest" }} %>
 
   <% if @entry[:panels]
     @entry[:panels].each_with_index do |panel, index|
