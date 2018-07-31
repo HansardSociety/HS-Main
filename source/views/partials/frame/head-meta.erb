@@ -28,10 +28,6 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
   <meta content="noindex" name="robots" />
 <% end %>
 
-<meta
-  name="description"
-  content="<%= truncateHtml(introduction, { num: 154, elipsis: false }) %>"/>
-
 <title><%= title %></title>
 
 <!--**********************************************
@@ -60,7 +56,7 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
     =Structured data
 ***********************************************-->
 
-<meta content="<%= introduction %>" name="description"/>
+<meta name="description" content="<%= truncateHtml(introduction, { num: 500, elipsis: false }) %>"/>
 
 <% if @entry[:category] == "blog" %>
   <script type="application/ld+json">
@@ -88,12 +84,12 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
         "name": "Hansard Society",
         "logo": {
           "@type": "ImageObject",
-          "url": "https:<%= siteData(:logo)[:desktop][:url] %>?fm=png",
+          "url": "https:<%= siteData(:logo)[:desktop][:url] %>?fm=png&bg=rgb:04655a",
           "width": 251,
           "height": 342
         }
       },
-      "description": "<%= introduction %>"
+      "description": "<%= truncateHtml(introduction, { num: 500, elipsis: false }) %>"
     }
   </script>
 <% end %>
