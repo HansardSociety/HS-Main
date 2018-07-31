@@ -1,15 +1,21 @@
-<% @entry = entry_data %>
-<% blogCount = @entry[:blog_count] %>
-<% category = @entry[:category] %>
-<% copy = @entry[:copy] %>
-<% introduction = @entry[:introduction] %>
-<% featured = @entry[:featured] %>
+<%
+@entry = entry_data
+blogCount = @entry[:blog_count]
+category = @entry[:category]
+copy = @entry[:copy]
+introduction = @entry[:introduction]
+featured = @entry[:featured]
 
-<% isMainCategories = siteCategories(:top_main).include? category %>
-<% isReverseHeaderCats = ["blog", "events", "publications"].include? category %>
-<% isBlogPage = category == "blog" %>
+isMainCategories = siteCategories(:top_main).include? category
+isReverseHeaderCats = ["blog", "events", "publications"].include? category
+isBlogPage = category == "blog"
 
-<% nonPages = ["people", "product", "registration"] %>
+nonPages = ["people", "product", "registration"]
+
+# For share buttons
+safeTitle = CGI.escape(@entry[:title])
+url = "https://hansardsociety.org.uk/"
+%>
 
 <article>
 
@@ -68,6 +74,19 @@
 
           <%# Copy %>
           <%= markdown(copy) if copy %>
+
+          <hr>
+          <h2 class="title-sm">Enjoy reading this? Please consider sharing it</h2>
+          <div class="grid grid--xxs grid--middle e-mgn-b-sm">
+            <%= partial "views/partials/social",
+              locals: { local_data: {
+                icons: [
+                  "https://twitter.com/intent/tweet?text=#{ safeTitle }&url=#{ url }#{ @entry[:slug] }&via=HansardSociety&related=HansardSociety",
+                  "https://facebook.com/sharer.php?u=#{ url }#{ @entry[:slug] }",
+                  "https://www.linkedin.com/shareArticle?mini=true&url=#{ url }#{ @entry[:slug] }&title=#{ safeTitle }&source=hansardsociety.org.uk"
+                ]}} %>
+          </div>
+
 
           <!--**********************************************
               =Site map
