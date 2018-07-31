@@ -84,9 +84,9 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
         "name": "Hansard Society",
         "logo": {
           "@type": "ImageObject",
-          "url": "https:<%= siteData(:logo)[:desktop][:url] %>?fm=png&bg=rgb:04655a",
-          "width": 251,
-          "height": 342
+          "url": "https://www.hansardsociety.org.uk/assets/images/hs-logo.png",
+          "width": 300,
+          "height": 300
         }
       },
       "description": "<%= truncateHtml(introduction, { num: 500, elipsis: false }) %>"
