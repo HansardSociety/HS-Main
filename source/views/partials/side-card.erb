@@ -25,7 +25,7 @@ if imageBanner || imageProduct
   image = imageLinkedProduct ? imageLinkedProduct : (imageBanner ? imageBanner : imageProduct)
   imageURL = image[:url]
   imageAlt = image[:alt]
-  cfulSuffix = "?fit=fill&w=229&h=324#{ "&f=" + image[:focus] if image[:focus] }&q=50&fl=progressive"
+  cfulSuffix = "?fit=fill&w=229&h=324#{ "&f=" + image[:focus] if image[:focus] }&q=35&fl=progressive"
 end
 
 # Colors
@@ -68,7 +68,7 @@ sideCardAttrs = {
       <div class="side-card__title">
 
         <% if !isNonPage %>
-          <h1 class="title-sm">
+          <h2 class="title-sm">
             <a
               href="<%= internalURL(entryData[:slug]) %>"
               class="<%= isFeaturedCard ? "link-white" : "link" %>">
@@ -77,7 +77,7 @@ sideCardAttrs = {
               <span class="side-card__title-md"><%= truncate(title, { num: 65 }) %></span>
               <span class="side-card__title-lg"><%= truncate(title, { num: 90 }) %></span>
             </a>
-          </h1>
+          </h2>
         <% else %>
           <h2 class="title-sm <%= isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" %>">
             <span class="side-card__title-xs"><%= truncate(isFeaturedProduct ? title : entryData[:venue], { num: 50 }) %></span>

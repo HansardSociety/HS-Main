@@ -135,6 +135,7 @@ def sharedPageBase(pageType, ctx, data)
     ctx.category = detachCategory(data.category)
     ctx.meta_label = metaLabel(data)
     ctx.slug = slug(data)
+    ctx.seo_title = data.seo_title
 
     # Has sub-category
     if data.category.include? $marker
@@ -554,6 +555,7 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     sharedPageBase("homePage", context, entry)
     context.slug = "index"
+    context.seo_title_keywords = entry.seo_title_keywords
 
     if entry.featured_pages
       context.featured_pages = entry.featured_pages.map do |page|

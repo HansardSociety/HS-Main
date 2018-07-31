@@ -2,8 +2,18 @@
 introduction = @entry[:introduction] ? @entry[:introduction] : siteData(:site_title)
 imageURL = @entry[:banner_image][:url]
 pageURL = "#{ siteData(:site_url) }/#{ @entry[:slug] }"
-title = @entry[:title]
 isHome = @entry[:TYPE] == "home"
+
+# Titles
+if isHome
+  title = "#{ @entry[:title] } - #{ @entry[:seo_title_keywords] }"
+elsif @entry[:seo_title]
+  title = "#{ @entry[:seo_title] } | Hansard Society"
+else
+  title = "#{ @entry[:title] } | Hansard Society"
+end
+
+timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601
 %>
 
 <!--**********************************************
@@ -22,7 +32,7 @@ isHome = @entry[:TYPE] == "home"
   name="description"
   content="<%= truncateHtml(introduction, { num: 154, elipsis: false }) %>"/>
 
-<title><%= isHome ? siteData(:site_title) : title + " - " + siteData(:site_title) %></title>
+<title><%= title %></title>
 
 <!--**********************************************
     =Twitter
@@ -45,3 +55,45 @@ isHome = @entry[:TYPE] == "home"
 <meta property="og:image" content="https:<%= imageURL %>?w=1920&h=1008&fit=crop"/>
 <meta property="og:image:width" content="1920"/>
 <meta property="og:image:height" content="1008"/>
+
+<!--**********************************************
+    =Structured data
+***********************************************-->
+
+<meta content="<%= introduction %>" name="description"/>
+
+<% if @entry[:category] == "blog" %>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://google.com/article"
+      },
+      "headline": "<%= title %>",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https:<%= imageURL %>?w=1920&h=1008&fit=crop",
+        "height": 1008,
+        "width": 1920
+      },
+      "datePublished": "<%= timestamp %>",
+      "author": {
+        "@type": "Person",
+        "name": "<%= @entry[:featured] && @entry[:featured][0][:full_name] ? @entry[:featured][0][:full_name] : "Hansard Society" %>"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hansard Society",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https:<%= siteData(:logo)[:desktop][:url] %>?fm=png",
+          "width": 251,
+          "height": 342
+        }
+      },
+      "description": "<%= introduction %>"
+    }
+  </script>
+<% end %>
