@@ -7,6 +7,7 @@ module Netlify
       file << "/audit /research/audit-of-political-engagement\n"
       file << "/blog/bridging-representative-and-direct-democracy-ireland's-citizens'-assemblies /blog/bridging-representative-and-direct-democracy-irelands-citizens-assemblies\n"
       file << "/newsletter https://www.hansardsociety.org.uk/#panel-0\n"
+      file << "/resources/* /publications/:splat\n"
     end
   end
 
