@@ -7,8 +7,8 @@
   z-index: 300;
   top: 0;
   left: -9999px;
-
   // -ms-overflow-style: none;
+
   @extend %e-height-full-vh;
   @extend %e-position-fixed;
   @extend %e-rad-slight;
@@ -33,29 +33,37 @@
 }
 
 .modal__inner {
-  width: 40rem;
-  max-width: calc(100% - 1rem);
-  // height: calc(99.9999vh - 1rem);
-  // min-height: calc(99.9999vh - 1rem);
   max-height: calc(99.9999vh - 1rem);
 
+  border-radius: 4px 4px 0 0;
+
   @extend %e-absolute-center-xy;
-  @extend %e-bgc-white;
-  @extend %e-rad-slight;
-  @extend %e-flex-row;
-  // @extend %e-height-full-vh;
-  @extend %e-overflow-y-hidden;
   @extend %e-box-shad-z1;
-  @include above('sm') {
+  @extend %e-bgc-white;
+  @extend %e-flex-row;
+  @extend %e-overflow-y-hidden;
+  @extend %e-width-full-vw;
+  // override
+  @include below(sm) {
+    top: 100%;
+
+    transform: translate(-50%, -100%);
+  }
+  @include above(sm) {
+    width: 40rem;
     height: 100%;
     height: auto;
     min-height: 5rem;
     max-height: 90vh;
+
+    border-radius: 4px;
   }
 }
 
 .modal__inner--narrow {
-  width: 30rem;
+  @include above(sm) {
+    width: 30rem;
+  }
 }
 
 .modal__header {
