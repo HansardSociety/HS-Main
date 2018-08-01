@@ -51,7 +51,7 @@
 }
 
 .banner__content--cp {
-  @extend %e-bgc-opaque-1;
+  @extend %e-bgc-opaque-2;
   @extend %e-container--full;
   @extend %e-pad-x-sm;
   @include above(sm) {
