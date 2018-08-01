@@ -28,7 +28,7 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
             <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>"><%= title %></h2>
   </div>
   <div class="panel__content panel__content--full">
-    <div class="carousel">
+    <div class="carousel carousel--cards">
       <div class="carousel__inner">
         <% if dataType == :related
           if entryData[:featured]
