@@ -175,21 +175,21 @@
 }
 
 
-/*		=Behaviour
-  ========================================================================== */
+// /*		=Behaviour
+//   ========================================================================== */
 
-.main-card {
-  .b-lazy + .main-card__title {
-    opacity: 0;
+// .main-card {
+//   .b-lazy + .main-card__title {
+//     opacity: 0;
 
-    @extend %e-trans-opacity;
-  }
+//     @extend %e-trans-opacity;
+//   }
 
-  .b-loaded + .main-card__title {
-    opacity: 1;
-  }
+//   .b-loaded + .main-card__title {
+//     opacity: 1;
+//   }
 
-  .b-lazy.b-loaded {
-    @extend %e-animate-fade-in-load;
-  }
-}
+//   .b-lazy.b-loaded {
+//     @extend %e-animate-fade-in-load;
+//   }
+// }
