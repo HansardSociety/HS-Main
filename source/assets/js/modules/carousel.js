@@ -5,10 +5,8 @@ import Flickity from "flickity"
 
 var flickityOpts = {
   cellSelector: ".carousel__item",
-  cellAlign: "left",
   contain: true,
   wrapAround: true,
-  initialIndex: 0,
   lazyLoad: false,
   pageDots: true,
   prevNextButtons: false,
@@ -35,15 +33,24 @@ const panelCarousel = (function() {
     window.addEventListener("load", function() {
 
       if (carouselHome) {
+
         var flickityOptsHome = Object.assign({}, flickityOpts, {
           autoPlay: 5500,
           pauseAutoPlayOnHover: false
         })
+
         var flickity = new Flickity(carouselHome, flickityOptsHome)
 
       } else {
-        var flickityOptsCards = Object.assign({}, flickityOpts, {
-        })
+
+        var flickityOptsCards = Object.assign({}, flickityOpts, {})
+
+        if (matchMedia("screen and (max-width: 959px)").matches) {
+          var flickityOptsCards = Object.assign({}, flickityOpts, {
+            cellAlign: "center"
+          })
+        }
+
         var flickity = new Flickity(carousel, flickityOptsCards)
       }
 
