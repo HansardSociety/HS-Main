@@ -48,7 +48,7 @@
 }
 
 .main-card__title {
-  @extend %e-bgc-opaque-2;
+  @extend %e-bgc-opaque-3;
   @extend %e-display-table; // fixes text v-align in chrome
   @extend %e-position-absolute;
 
