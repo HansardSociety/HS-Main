@@ -240,22 +240,17 @@ $properties: (
 $shadow: (
   box: (
     z1: (
-      0 1px 3px rgba(46, 61, 73, .2),
-      0 1px 2px rgba(46, 61, 73, .2)
+      0 .125rem 1rem -0.125rem rgba(10, 10, 10, .1),
+      0 1rem 1rem -0.75rem rgba(10, 10, 10, .2)
     ),
-    z3: (0 3rem 3rem -1rem rgba(10,10,10,.2))
-    // z3: (
-    //   0 1px 20px 0 rgba(46, 61, 73, .2),
-    //   0 19px 38px 0 rgba(46, 61, 73, .2),
-    //   0 15px 12px 0 rgba(46, 61, 73, .2)
-    // )
+    z3: (0 3rem 3rem -1rem rgba(10, 10, 10, .2))
   ),
   text: (
     z1: (
-      2px 2px 2px rgba(0, 0, 0, .33)
+      0 0 1rem rgba(10, 10, 10, .3)
     ),
     z3: (
-      0 0 20px rgba(0, 0, 0, .6666)
+      0 0 1.125rem rgba(10, 10, 10, .6)
     )
   )
 );
