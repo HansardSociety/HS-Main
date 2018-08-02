@@ -10,7 +10,8 @@ var flickityOpts = {
   lazyLoad: false,
   pageDots: true,
   prevNextButtons: false,
-  setGallerySize: false
+  setGallerySize: false,
+  cellAlign: "left"
 }
 
 /*		=Panel carousel
