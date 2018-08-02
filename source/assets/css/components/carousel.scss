@@ -20,14 +20,13 @@
 }
 
 .carousel__item {
-  padding: 1rem .25rem;
-
   @extend %e-display-flex;
   @extend %e-width-full;
 }
 
 .carousel__item--card {
   width: calc(100% - 2.5rem);
+  padding: 1rem .25rem;
 
   @include above(sm) { width: calc(100% / 2); }
   @include above(lg) { width: calc(100% / 3); }
@@ -139,12 +138,10 @@
   ========================================================================== */
 
 .carousel--cards {
-
   margin-top: -1rem; // account for additional card shadow space
 
   .carousel__inner,
   .flickity-viewport {
-
     @include below(sm) {
       width: 100vw;
       margin-left: -.5rem;
@@ -184,12 +181,12 @@
   .flickity-page-dots {
     bottom: -1.5rem;
 
-    & > .dot {
-      @extend %e-bgc-greyscale-0;
-    }
-
     @include below(sm) {
       display: none;
+    }
+
+    & > .dot {
+      @extend %e-bgc-greyscale-0;
     }
   }
 }
