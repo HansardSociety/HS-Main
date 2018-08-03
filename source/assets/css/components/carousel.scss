@@ -36,7 +36,7 @@
   justify-content: space-between;
 
   width: 9.5rem;
-  margin-top: 3rem;
+  margin-top: 1.75rem;
 
   @extend %e-col-green;
   @extend %e-flex-row;
@@ -151,7 +151,7 @@
 
 .flickity-page-dots {
   z-index: 1;
-  bottom: -2rem;
+  bottom: -1rem;
   left: .25rem;
 
   @include below(sm) {
