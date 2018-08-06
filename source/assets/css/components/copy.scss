@@ -7,7 +7,8 @@
 
 > p, > h1, > h2, > h3, > h4, > h5, > h6, > iframe {
 
-  &:not(:only-child, :first-child) {
+  &:not(:only-child, :first-child),
+  &:nth-child(1n + 2) {
     margin-top: 1em;
   }
 }
