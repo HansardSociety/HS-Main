@@ -143,6 +143,8 @@
   .carousel__inner,
   .flickity-viewport {
     @include below(sm) {
+      left: 0.5rem;
+
       width: 100vw;
       margin-left: -.5rem;
     }
