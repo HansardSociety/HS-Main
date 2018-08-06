@@ -140,13 +140,15 @@
 .carousel--cards {
   margin-top: -1rem; // account for additional card shadow space
 
-  .carousel__inner,
-  .flickity-viewport {
-    @include below(sm) {
-      left: 0.5rem;
+  .carousel__inner {
 
+    @include below(sm) {
       width: 100vw;
-      margin-left: -.5rem;
+      margin-left: -1rem;
+    }
+
+    @include above(sm) {
+      left: .25rem;
     }
   }
 }
