@@ -5,10 +5,9 @@
   @extend %e-mgn-b-sm;
 }
 
-> p, > h1, > h2, > h3, > h4, > h5, > h6, > iframe {
+> h1, > h2, > h3, > h4, > h5, > h6 {
 
-  &:not(:only-child, :first-child),
-  &:nth-child(1n + 2) {
+  &:not(:only-child, :first-child) {
     margin-top: 1em;
   }
 }
