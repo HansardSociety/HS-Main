@@ -65,7 +65,7 @@
     left: 0;
 
     margin-bottom: 1rem;
-    margin-left: .25rem;
+    margin-left: .5rem;
 
     transform: translateX(0);
   }
@@ -136,11 +136,12 @@
   ========================================================================== */
 
 .carousel--cards {
-  width: calc(100% + .5rem);
   margin-top: -1rem; // account for additional card shadow space
-  margin-left: -.5rem;
 
   .carousel__inner {
+    width: calc(100% + .5rem);
+    margin-left: -.5rem;
+
     @include below(sm) {
       width: 100vw;
       margin-left: -1rem;
@@ -154,7 +155,7 @@
 .flickity-page-dots {
   z-index: 1;
   bottom: -1rem;
-  left: .25rem;
+  // left: .25rem;
 
   @include below(sm) {
     margin-left: -.75rem;
