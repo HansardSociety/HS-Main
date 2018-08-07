@@ -6,6 +6,7 @@ blogCount = local_data[:blog_count]
 categories = local_data[:categories]
 dataType = local_data[:data_type]
 index = local_data[:index]
+dedupeEntry = local_data[:dedupe_entry_id]
 
 # Context
 context = local_data[:context]
@@ -48,7 +49,7 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
             </div>
 
         <% end; end; if dataType == :latest
-          latestContent(yield: true, num: 6) do |page| %>
+          latestContent(yield: true, num: 6, dedupe_entry_id: (dedupeEntry ? dedupeEntry : false)) do |page| %>
             <div class="carousel__item carousel__item--card">
               <%= partial "views/partials/main-card",
                 locals: { local_data: {

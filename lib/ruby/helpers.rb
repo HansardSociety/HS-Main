@@ -190,13 +190,15 @@ module CustomHelpers
       start: 0,
       num: allPages.length,
       page_cats: siteCategories(:top_main),
-      sub_cats: false
+      sub_cats: false,
+      dedupe_entry_id: false
     }
     opts = defaults.merge(opts)
 
     pageCategories = opts[:page_cats]
     itemCount = opts[:num] - 1
     start = opts[:start]
+    dedupe = opts[:dedupe_entry_id]
 
     isSubCats = opts[:sub_cats]
     isYield = opts[:yield]
@@ -206,6 +208,11 @@ module CustomHelpers
       category = isSubCats ? page[:sub_category] : page[:category]
 
       pageCategories.include?(category) && !page[:index_page]
+    end
+
+    # De-dupe entry
+    if dedupe
+      allMainPages.reject!{ |id, page| page[:ID] == dedupe }
     end
 
     allPagesRegHash = convertToRegularHash(allMainPages.compact).values
