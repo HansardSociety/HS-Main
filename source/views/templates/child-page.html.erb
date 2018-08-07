@@ -189,12 +189,15 @@ url = "https://hansardsociety.org.uk/"
             <% end %>
           <% else %>
             <h2 class="side-title e-acc-purple-2-top e-pad-t-xs">Latest blog</h2>
-            <% latestContent(yield: true, num: 3, page_cats: ["blog"]) do |page| %>
-              <% if @entry[:ID] != page[:ID] %>
-                <%= partial "views/partials/side-card",
-                  locals: { local_data: {
-                    side_card_data: page }} %>
-              <% end %>
+            <% latestContent(
+              yield: true,
+              num: 3,
+              page_cats: ["blog"],
+              dedupe_entry_id: @entry[:ID]
+            ) do |page| %>
+              <%= partial "views/partials/side-card",
+                locals: { local_data: {
+                  side_card_data: page }} %>
             <% end %>
           <% end %>
 
@@ -216,6 +219,7 @@ url = "https://hansardsociety.org.uk/"
           entry_data: @entry,
           context: :latest,
           data_type: :latest,
+          dedupe_entry_id: @entry[:ID],
           title: "More" }} %>
     </section>
   <% end %>
