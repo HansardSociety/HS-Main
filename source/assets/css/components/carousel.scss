@@ -10,9 +10,7 @@
 }
 
 .carousel__inner {
-  width: calc(100% + .5rem);
   height: 1px;
-  margin-left: -.5rem;
 
   opacity: 0;
 
@@ -138,15 +136,15 @@
   ========================================================================== */
 
 .carousel--cards {
+  width: calc(100% + .5rem);
   margin-top: -1rem; // account for additional card shadow space
+  margin-left: -.5rem;
 
   .carousel__inner {
-
     @include below(sm) {
       width: 100vw;
       margin-left: -1rem;
     }
-
     @include above(sm) {
       left: .25rem;
     }
