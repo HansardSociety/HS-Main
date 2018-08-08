@@ -38,23 +38,17 @@ featuredCard = local_data[:featured]
         <span class="label-xs label-tag <%= labelAccent %>">
             <span class="e-va-fix"><%= metaLabel %></span>
         </span>
-        <h2 class="title-sm e-mgn-t-xs">
-          <span class="main-card__title-xs"><%= truncateHtml(title, { num: 84 }) %></span>
-          <span class="main-card__title-sm"><%= truncateHtml(title, { num: 99 }) %></span>
-          <span class="main-card__title-md"><%= truncateHtml(title, { num: 134 }) %></span>
-          <span class="main-card__title-lg"><%= truncateHtml(title, { num: 99 }) %></span>
+        <h2
+          class="title-sm e-mgn-t-xs JS-truncate"
+          data-truncate="{ 'xs': 84, 'sm': 99, 'md': 134, 'lg': 99 }"><%= title %>
         </h2>
-
       </div>
     </div>
   </header>
   <section class="main-card__introduction">
-    <p>
-      <span class="main-card__introduction-xs"><%= truncateHtml(markdown(introduction), { num: 84 }) %></span>
-      <span class="main-card__introduction-sm"><%= truncateHtml(markdown(introduction), { num: 99 }) %></span>
-      <span class="main-card__introduction-md"><%= truncateHtml(markdown(introduction), { num: 134 }) %></span>
-      <span class="main-card__introduction-lg"><%= truncateHtml(markdown(introduction), { num: 99 }) %></span>
-    </p>
+    <p
+      class="JS-truncate"
+      data-truncate="{ 'xs': 84, 'sm': 99, 'md': 134, 'lg': 99 }"><%= introduction %></p>
   </section>
   <% if category %>
     <a href="<%= internalURL(entryData[:slug]) %>" class="main-card__link">

@@ -13,7 +13,10 @@ entryData = local_data[:entry_data]
   <div class="banner__inner banner__inner--lp">
     <div class="banner__content banner__content--lp">
 
-      <h1 class="banner__title title-lg"><%= entryData[:title] %></h1>
+      <h1
+        class="banner__title title-lg JS-truncate"
+        data-truncate="{ 'xs': 120 }"><%= entryData[:title] %></h1>
+
       <p class="banner__strap e-mgn-t-xs"><%= entryData[:subtitle] %></p>
 
       <% if entryData[:calls_to_action] != nil %>

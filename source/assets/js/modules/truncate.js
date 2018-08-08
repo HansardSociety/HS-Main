@@ -1,53 +1,50 @@
-import { forEach } from "./core"
+const truncateTextMQs = (elem, subStrLengths = {}) => {
+  const breakpoints = {
+    xs: 480,
+    sm: 600,
+    md: 960,
+    lg: 1280
+  }
 
-const truncateText = (() => {
-  const truncate = (container, content) => {
+  const truncateText = (subStr) => {
+    const text = elem.innerText
 
-    var container = container
+    if (text.length > subStr) {
+      const visible = `${ text.substr(0, subStr).replace(/[^a-zA-Z0-9]*$/, "") }<span aria-hidden="true">…</span>`
+      const cut = `<span class="e-hidden"> ${ text.substr(subStr, text.length + 1) }</span>`
 
-    // Get height of non-content container children
-    var nonTextHeight = 0
-    forEach(container.childNodes, (index, elem) => {
-
-      if (elem.classList !== undefined && !elem.classList.contains('side-card__title')) {
-        nonTextHeight +  elem.offsetHeight
-      }
-    })
-
-    var text = container.querySelector(content)
-    var textLines = Math.round((text.offsetHeight / 1.5) / 18) + 4
-    var textLength = text.innerText.length
-
-    var containerLines = Math.round(((container.offsetHeight - nonTextHeight) / 1.5) / 18)
-
-    // Subtract container lines from text lines to get a
-    // negative difference.
-    var lineDifference = (textLines - containerLines)
-
-    // Divide line difference by text lines to get point value,
-    // eg. 2 / 8 equals 0.25, and get opposite by subtracting from 1,
-    // ie. 0.75. Then multiply this by the number of characters
-    // in the text block, reducing the number of characters by
-    // the percentage difference between the conatiner lines
-    // and text lines.
-    var characters = Math.round(textLength * (1 - (lineDifference / textLines)))
-    var truncate = text.innerText.substr(0, characters).trim() + '…'
-
-    // Only execute if text block is larger than its container
-    if (containerLines < textLines) {
-      text.innerText = truncate
+      elem.innerHTML = visible + cut
     }
   }
 
-  forEach(document.querySelectorAll('.side-card__content'), (index, elem) => {
-    truncate(elem, '.JS-truncate')
-  })
+  if (matchMedia(`screen and (max-width: ${ breakpoints.sm - 1 }px)`).matches) {
+    truncateText(subStrLengths.xs)
 
-  window.onresize = () => {
-    forEach(document.querySelectorAll('.side-card__content'), (index, elem) => {
-      truncate(elem, '.JS-truncate')
+  } else if (matchMedia(`screen and (min-width: ${ breakpoints.sm }px) and (max-width: ${ breakpoints.md - 1 }px)`).matches) {
+    truncateText(subStrLengths.sm)
+
+  } else if (matchMedia(`screen and (min-width: ${ breakpoints.md }px) and (max-width: ${ breakpoints.lg - 1 }px)`).matches) {
+    truncateText(subStrLengths.md)
+
+  } else if (matchMedia(`screen and (min-width: ${ breakpoints.lg }px)`).matches) {
+    truncateText(subStrLengths.lg)
+  }
+}
+
+const truncate = (() => {
+  var truncateElems = document.querySelectorAll(".JS-truncate")
+
+  for (let elem of truncateElems) {
+    var data = elem.getAttribute("data-truncate").replace(/'/g, '"')
+    data = JSON.parse(data)
+
+    truncateTextMQs(elem, {
+      xs: data.xs,
+      sm: data.sm,
+      md: data.md,
+      lg: data.lg
     })
   }
 })()
 
-export { truncateText }
+export { truncate }
