@@ -6,6 +6,7 @@ node_modules/
 .tmp/
 source/.assets/**
 !source/.assets/fonts
+!source/.assets/images
 
 .DS_Store
 .env
