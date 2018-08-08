@@ -14,7 +14,7 @@
 
   // @extend %e-bgc-opaque-1;
   @extend %e-mgn-t-md;
-  @include above(md) {
+  @include above(sm) {
     bottom: 50%;
 
     transform: translateY(50%);

@@ -44,10 +44,9 @@ entryData = local_data[:entry_data]
                 <span class="e-va-fix"><%= page[:meta_label] %></span>
               </span>
 
-              <h1 class="banner__title title-lg e-mgn-b-sm e-mgn-t-xs">
-                <span class="banner__title--xs"><%= truncate(page[:title], { num: 120 }) %></span>
-                <span class="banner__title--sm"><%= page[:title] %></span>
-              </h1>
+              <h1
+                class="banner__title title-lg e-mgn-b-sm e-mgn-t-xs JS-truncate"
+                data-truncate="{ 'xs': 120 }"><%= page[:title] %></h1>
 
               <%= partial "views/partials/btn",
                 locals: { local_data: {
