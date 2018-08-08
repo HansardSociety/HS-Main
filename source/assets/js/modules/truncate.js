@@ -11,7 +11,7 @@ const truncateTextMQs = (elem, subStrLengths = {}) => {
 
     if (text.length > subStr) {
       const visible = `${ text.substr(0, subStr).replace(/[^a-zA-Z0-9]*$/, "") }<span aria-hidden="true">…</span>`
-      const cut = `<span class="e-hidden"> ${ text.substr(subStr, text.length + 1) }</span>`
+      const cut = `<span class="e-hidden">${ text.substr(subStr, text.length + 1) }</span>`
 
       elem.innerHTML = visible + cut
     }
