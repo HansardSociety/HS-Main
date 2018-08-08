@@ -46,7 +46,7 @@ const panelCarousel = (function() {
 
         var flickityOptsCards = Object.assign({}, flickityOpts, {})
 
-        if (matchMedia("screen and (max-width: 959px)").matches) {
+        if (matchMedia("screen and (max-width: 599px)").matches) {
           var flickityOptsCards = Object.assign({}, flickityOpts, {
             cellAlign: "center"
           })

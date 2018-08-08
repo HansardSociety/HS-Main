@@ -49,46 +49,6 @@
   padding: 1rem 1rem 1rem .5rem;
 }
 
-.side-card__title {
-  // @extend %e-overflow-hidden;
-}
-
-.side-card__title-xs {
-  @include above(sm) {
-    @extend %e-display-none__sm;
-  }
-}
-
-.side-card__title-sm {
-  @extend %e-display-none;
-
-  @include above(sm) {
-    @extend %e-display-inline__sm;
-  }
-  @include above(md) {
-    @extend %e-display-none__md;
-  }
-}
-
-.side-card__title-md {
-  @extend %e-display-none;
-
-  @include above(md) {
-    @extend %e-display-inline__md;
-  }
-  @include above(lg) {
-    @extend %e-display-none__lg;
-  }
-}
-
-.side-card__title-lg {
-  @extend %e-display-none;
-
-  @include above(lg) {
-    @extend %e-display-inline__lg;
-  }
-}
-
 .side-card__actions {
   @extend %e-pad-t-xs;
 }
