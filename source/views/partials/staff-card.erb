@@ -34,7 +34,8 @@ biog = entryData[:biog]
         <strong class="e-col-grey">E.&nbsp;</strong>
         <a
           class="staff-card__link"
-          href="mailto:<%=  entryData[:email] %>"><%= entryData[:email] %></a></p>
+          href="mailto:<%=  entryData[:email] %>"
+          title="<%= "Email: " + entryData[:full_name] %>"><%= entryData[:email] %></a></p>
     <% end %>
 
     <div class="staff-card__actions">

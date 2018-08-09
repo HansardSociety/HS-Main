@@ -102,15 +102,15 @@ url = "https://hansardsociety.org.uk/"
                   <li class="e-mgn-t-md">
                     <a
                       class="link e-fz-lg"
-                      href="/<%= category %>"
-                      title="<%= category.capitalize %> | <%= siteData(:site_title) %>"><%= category.capitalize %></a>
+                      href="<%= internalURL(category) %>"
+                      title="<%= category.capitalize + " | " + siteData(:site_title) %>"><%= category.capitalize %></a>
                     <ul class="e-mgn-t-sm">
                       <% pages.sort_by{ |page| page[:title] }.each do |page| %>
                         <li>
                           <span class="label-xs e-col-greyscale-2"><%= page[:meta_label] %></span>
                           <p><a
                             class="link"
-                            href="/<%= page[:slug] %>"
+                            href="<%= internalURL(page[:slug]) %>"
                             title="<%= page[:title] %> | <%= siteData(:site_title) %>"><%= page[:title] %></a></p>
                         </li>
                       <% end %>
