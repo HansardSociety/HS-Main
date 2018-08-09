@@ -8,6 +8,7 @@ module Netlify
       file << "/blog/bridging-representative-and-direct-democracy-ireland's-citizens'-assemblies /blog/bridging-representative-and-direct-democracy-irelands-citizens-assemblies\n"
       file << "/newsletter https://www.hansardsociety.org.uk/#panel-0\n"
       file << "/resources/publications/* /publications/:splat\n"
+      file << "/* /about/404.html 404\n"
     end
   end
 
