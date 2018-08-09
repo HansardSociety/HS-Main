@@ -31,7 +31,9 @@ screen = local_data[:screen]
 
             <% if nav[:pages] && nav[:pages].length <= 1
               nav[:pages].each do |page| %>
-                <a href="<%= internalURL(page[:slug]) %>"><%= nav[:title] %></a>
+                <a
+                  href="<%= internalURL(page[:slug]) %>"
+                  title="<%= nav[:title] + " | " + siteData(:site_title) %>"><%= nav[:title] %></a>
 
             <% end; end; if nav[:pages] && nav[:pages].length > 1 %>
               <%= nav[:title] %>
@@ -65,7 +67,8 @@ screen = local_data[:screen]
                         <li class="e-pad-t-xs">
                           <a
                             class="title-sm link"
-                            href="<%= internalURL(page[:slug]) %>"><%= page[:title] %>&nbsp;»</a>
+                            href="<%= internalURL(page[:slug]) %>"
+                            title="<%= page[:title] + " | " + siteData(:site_title) %>"><%= page[:title] %>&nbsp;»</a>
                         </li>
 
                     <% end; end; if pagesWithSubCats
@@ -77,7 +80,8 @@ screen = local_data[:screen]
                               <li class="e-pad-t-xs">
                                 <a
                                   class="title-sm link"
-                                  href="<%= internalURL(page[:slug]) %>"><%= page[:title] %>&nbsp;»</a>
+                                  href="<%= internalURL(page[:slug]) %>"
+                                  title="<%= page[:title] + " | " + siteData(:site_title) %>"><%= page[:title] %>&nbsp;»</a>
                               </li>
                             <% end %>
                           </ul>
@@ -107,7 +111,8 @@ screen = local_data[:screen]
                 <li class="e-pad-t-xs">
                   <a
                     class="title-sm link"
-                    href="<%= internalURL(page[:slug]) %>"><%= page[:title] %>&nbsp;»</a>
+                    href="<%= internalURL(page[:slug]) %>"
+                    title="<%= page[:title] + " | " + siteData(:site_title) %>"><%= page[:title] %>&nbsp;»</a>
                 </li>
 
             <% end; end; if pagesWithSubCats
@@ -119,7 +124,8 @@ screen = local_data[:screen]
                       <li class="e-pad-t-xs">
                         <a
                           class="title-sm link"
-                          href="<%= internalURL(page[:slug]) %>"><%= page[:title] %>&nbsp;»</a>
+                          href="<%= internalURL(page[:slug]) %>"
+                          title="<%= page[:title] + " | " + siteData(:site_title) %>"><%= page[:title] %>&nbsp;»</a>
                       </li>
                     <% end %>
                   </ul>

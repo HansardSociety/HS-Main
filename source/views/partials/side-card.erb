@@ -70,8 +70,9 @@ sideCardAttrs = {
         <% if !isNonPage %>
           <h2 class="title-sm">
             <a
-              href="<%= internalURL(entryData[:slug]) %>"
               class="<%= isFeaturedCard ? "link-white" : "link" %> JS-truncate"
+              href="<%= internalURL(entryData[:slug]) %>"
+              title="<%= title + " | " + siteData(:site_title) %>"
               data-truncate="{ 'xs': 50, 'sm': 150, 'md': 65, 'lg': 90 }"><%= title %></a>
           </h2>
         <% else %>

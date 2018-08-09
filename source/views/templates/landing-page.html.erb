@@ -46,6 +46,14 @@
             entry_data: panel,
             data_type: :custom }} %>
 
+      <% end; if panel[:TYPE] == "panel_carousel_category" %>
+        <%= partial "views/partials/panel/carousel",
+          locals: { local_data: {
+            entry_data: panel,
+            data_type: :category_latest,
+            categories: panel[:category],
+            index: index }} %>
+
       <% end; if panel[:TYPE] == "panel_content" %>
         <%= partial "views/partials/panel/content",
           locals: { local_data: {

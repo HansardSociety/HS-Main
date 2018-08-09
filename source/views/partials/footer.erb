@@ -9,8 +9,8 @@
             <li class="e-pad-b-xs">
               <a
                 class="title-sm link-white"
-                href="/<%= page[:slug] %>"
-                title="<%= page[:title] %> | <% siteData(:site_title) %>"><%= page[:title] %></a>
+                href="<%= internalURL(page[:slug]) %>"
+                title="<%= page[:title] + " | " + siteData(:site_title) %>"><%= page[:title] %></a>
             </li>
           <% end %>
         </ul>
@@ -28,7 +28,7 @@
 
       <%# Copyright %>
       <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
-        <p class="e-fz-xs">Copyright © <%= Date.today.year %> <%= siteData(:site_title) %> • Charity No: 1091364 • Registration No: 4332105.</p>
+        <p class="e-fz-xs"><%= siteData(:copyright) %></p>
       </div>
     </div>
   </div>

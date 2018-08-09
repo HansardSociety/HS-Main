@@ -51,8 +51,11 @@ featuredCard = local_data[:featured]
       data-truncate="{ 'xs': 84, 'sm': 99, 'md': 134, 'lg': 99 }"><%= introduction %></p>
   </section>
   <% if category %>
-    <a href="<%= internalURL(entryData[:slug]) %>" class="main-card__link">
-      <span class="e-hidden">Go to: <%= title %></span>
+    <a
+      class="main-card__link"
+      href="<%= internalURL(entryData[:slug]) %>"
+      title="<%= title + " | " + siteData(:site_title) %>">
+      <span class="e-hidden"><%= title %></span>
     </a>
   <% end %>
 </article>
