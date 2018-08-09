@@ -22,7 +22,10 @@ category = partialData[:category]
           color: "green" } %>
     </span>
 
-    <a class="ext-link__text" href="<%= partialData[:url] %>">
+    <a
+      class="ext-link__text"
+      href="<%= partialData[:url] %>"
+      title="<%= partialData[:title] %>">
       <span class="link"><%= partialData[:title] %></span>
     </a>
   </h2>

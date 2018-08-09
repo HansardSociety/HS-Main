@@ -150,6 +150,7 @@ def sharedPageBase(pageType, ctx, data)
       ctx.date_time = dateTime(data)
     end
 
+    ctx.noindex = data.noindex
     ctx.blog_count = data.blog_count if data.blog_count
     ctx.tags = data.tags.map{ |tag| tag.gsub("'", "").parameterize } if data.tags
   end
@@ -495,6 +496,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.site_title = entry.site_title
     context.site_title_seo = entry.site_title_seo
     context.site_url = entry.site_url
+    context.copyright = entry.copyright
 
     context.newsletter_text = entry.newsletter_text
     context.newsletter_form = form(entry.newsletter_form)

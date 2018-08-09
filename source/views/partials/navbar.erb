@@ -43,7 +43,7 @@
               <a
                 class="title-sm e-col-greyscale-0"
                 href="<%= internalURL(page[:slug]) %>"
-                title="<%= nav[:title] + " - " + config[:SITE_TITLE] %>"><%= nav[:title] %></a>
+                title="<%= nav[:title] + " | " + siteData(:site_title) %>"><%= nav[:title] %></a>
 
             <% end; end; if nav[:external_url] %>
               <a
