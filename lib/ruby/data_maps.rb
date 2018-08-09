@@ -75,7 +75,7 @@ def media(data, opts = {})
   opts = defaults.merge(opts)
 
   mediaData = {
-    url: data.url,
+    url: "https:#{ data.url }",
     alt: data.description,
     title: (data.title if opts[:title]),
     focus: (opts[:focus].image_focus.parameterize if opts[:focus])
