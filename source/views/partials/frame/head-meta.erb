@@ -11,7 +11,7 @@ isPublication = @entry[:category] == "publications"
 
 # Titles
 if isHome
-  title = "#{ @entry[:title] } - #{ @entry[:seo_title_keywords] }"
+  title = "#{ siteData(:site_title_seo) }"
 elsif @entry[:seo_title]
   title = "#{ @entry[:seo_title] } | #{ siteData(:site_title) }"
 else
