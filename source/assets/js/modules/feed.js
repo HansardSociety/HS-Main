@@ -50,6 +50,14 @@ const infiniteFeed = (() => {
         scrollThreshold: false,
         status: feedStatus
       })
+
+      // Enable history for SEO
+      infScroll.on("load", function() {
+        var title = "Page " + infScroll.loadCount;
+        var url = "/blog/page-" + infScroll.loadCount;
+
+        history.pushState(null, title, url);
+      });
     }
   }
 })()
