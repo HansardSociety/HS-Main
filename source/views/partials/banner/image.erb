@@ -3,9 +3,13 @@ entryData = local_data[:entry_data]
 imageURL = entryData[:banner_image][:url]
 imageFocus = entryData[:banner_image][:focus]
 isLandingPage = entryData[:TYPE] == "landing_page"
+isChildPage = entryData[:TYPE] == "child_page"
 %>
 
-<div class= "banner__image <% "banner__image--" + imageFocus %>">
+<div
+  class= "banner__image <% "banner__image--" + imageFocus %>"
+  style="<%= "height: 100vh;" if isChildPage %>">
+
   <picture>
     <source
       media="(orientation: landscape)"
@@ -29,8 +33,10 @@ isLandingPage = entryData[:TYPE] == "landing_page"
                 "fit=fill&w=1080&h=1080&q=35&fl=progressive" %>&f=<%= imageFocus %> 1080w" />
 
     <img
+      class="b-lazy"
       alt="<%= entryData[:banner_image].alt %>"
-      src="<%= imageURL %>?f=<%= imageFocus %>" />
+      src="<%= assetsDir %>/images/placeholder__main-card.svg"
+      data-src="<%= imageURL %>?f=<%= imageFocus %>" />
 
   </picture>
 </div>

@@ -100,18 +100,24 @@ url = "https://hansardsociety.org.uk/"
               <ul>
                 <% pagesByCategory.sort.each do |category, pages| %>
                   <li class="e-mgn-t-md">
-                    <a class="link e-fz-lg" href="/<%= category %>"><%= category.capitalize %></a>
+                    <a
+                      class="link e-fz-lg"
+                      href="/<%= category %>"
+                      title="<%= category.capitalize %> | <%= siteData(:site_title) %>"><%= category.capitalize %></a>
                     <ul class="e-mgn-t-sm">
                       <% pages.sort_by{ |page| page[:title] }.each do |page| %>
                         <li>
                           <span class="label-xs e-col-greyscale-2"><%= page[:meta_label] %></span>
-                          <p><a class="link" href="/<%= page[:slug] %>"><%= page[:title] %></a></p>
+                          <p><a
+                            class="link"
+                            href="/<%= page[:slug] %>"
+                            title="<%= page[:title] %> | <%= siteData(:site_title) %>"><%= page[:title] %></a></p>
                         </li>
                       <% end %>
                     </ul>
                   </li>
                 <% end %>
-              <ul>
+              </ul>
             </div>
           <% end %>
           <%# END :: Site map %>

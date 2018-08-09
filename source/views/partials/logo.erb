@@ -1,11 +1,15 @@
-<a class="logo" href="/">
+<a
+  class="logo"
+  href="/"
+  title="Home | <%= siteData(:site_title) %>">
+
   <% data.hs.universal(0).each do |id, site| %>
     <img
-      alt="Hansard Society logo"
+      alt="<%= siteData(:site_title) %> logo"
       class="logo__image logo__image--mobile"
       src="<%= site.logo.mobile.url %>"/>
     <img
-      alt="Hansard Society logo"
+      alt="<%= siteData(:site_title) %> logo"
       class="logo__image logo__image--desktop"
       src="<%= site.logo.desktop.url %>"/>
   <% end %>

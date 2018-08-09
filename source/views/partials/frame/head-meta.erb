@@ -13,9 +13,9 @@ isPublication = @entry[:category] == "publications"
 if isHome
   title = "#{ @entry[:title] } - #{ @entry[:seo_title_keywords] }"
 elsif @entry[:seo_title]
-  title = "#{ @entry[:seo_title] } | Hansard Society"
+  title = "#{ @entry[:seo_title] } | #{ siteData(:site_title) }"
 else
-  title = "#{ @entry[:title] } | Hansard Society"
+  title = "#{ @entry[:title] } | #{ siteData(:site_title) }"
 end
 
 timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_time]
@@ -69,7 +69,7 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
 
   <% if @entry[:TYPE] == "home" %>
     "@type": "Organization",
-    "name": "Hansard Society",
+    "name": "<%= siteData(:site_title) %>",
     "url": "https://www.hansardsociety.org.uk",
     "logo": "https://www.hansardsociety.org.uk/assets/images/hansard-society-logo.png",
     "sameAs": [
@@ -94,11 +94,11 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
     "datePublished": "<%= timestamp %>",
     "author": {
       "@type": "<%= isPublication ? "Organization" : "Person" %>",
-      "name": "<%= @entry[:featured] && @entry[:featured][0][:full_name] ? @entry[:featured][0][:full_name] : "Hansard Society" %>"
+      "name": "<%= @entry[:featured] && @entry[:featured][0][:full_name] ? @entry[:featured][0][:full_name] : "#{ siteData(:site_title) }" %>"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Hansard Society",
+      "name": "<%= siteData(:site_title) %>",
       "logo": {
         "@type": "ImageObject",
         "url": "https://www.hansardsociety.org.uk/assets/images/hansard-society-logo-ld-article.png",
