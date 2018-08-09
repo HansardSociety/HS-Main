@@ -493,6 +493,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.TYPE = entry.content_type.id
     context.title = entry.title
     context.site_title = entry.site_title
+    context.site_title_seo = entry.site_title_seo
     context.site_url = entry.site_url
 
     context.newsletter_text = entry.newsletter_text
@@ -555,7 +556,6 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     sharedPageBase("homePage", context, entry)
     context.slug = "index"
-    context.seo_title_keywords = entry.seo_title_keywords
 
     if entry.featured_pages
       context.featured_pages = entry.featured_pages.map do |page|

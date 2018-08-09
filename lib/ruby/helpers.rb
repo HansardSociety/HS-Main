@@ -30,7 +30,7 @@ module CustomHelpers
   def internalURL(slug)
     isDev = config[:ENV] == "development"
 
-    "#{ siteData(:siteURL) }/#{ slug }#{ isDev ? ".html" : "" }"
+    "#{ siteData(:site_url) if !isDev }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
   end
 
   # Partial data
