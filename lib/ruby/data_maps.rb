@@ -497,6 +497,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.site_title_seo = entry.site_title_seo
     context.site_url = entry.site_url
     context.copyright = entry.copyright
+    context.default_banner = media(entry.default_banner)
 
     context.newsletter_text = entry.newsletter_text
     context.newsletter_form = form(entry.newsletter_form)

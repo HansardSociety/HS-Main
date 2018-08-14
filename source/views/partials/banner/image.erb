@@ -1,7 +1,9 @@
 <%
 entryData = local_data[:entry_data]
-imageURL = entryData[:banner_image][:url]
-imageFocus = entryData[:banner_image][:focus]
+imageSrc = entryData[:banner_image] ? entryData[:banner_image] : siteData(:default_banner)
+imageURL = imageSrc[:url]
+imageAlt = imageSrc[:alt]
+imageFocus = entryData[:banner_image] ? entryData[:banner_image][:focus] : "center"
 isLandingPage = entryData[:TYPE] == "landing_page"
 isChildPage = entryData[:TYPE] == "child_page"
 %>
@@ -34,7 +36,7 @@ isChildPage = entryData[:TYPE] == "child_page"
 
     <img
       class="b-lazy"
-      alt="<%= entryData[:banner_image].alt %>"
+      alt="<%= imageAlt %>"
       src="<%= assetsDir %>/images/placeholder__main-card.svg"
       data-src="<%= imageURL %>?f=<%= imageFocus %>" />
 
