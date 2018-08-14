@@ -10,7 +10,7 @@
     "data": "bundle exec middleman contentful",
     "data:live": "CONTENTFUL_ENV=live bundle exec middleman contentful",
     "data:preview": "CONTENTFUL_ENV=preview bundle exec middleman contentful",
-    "data:experimental": "CONTENTFUL_ENV=experimental bundle exec middleman contentful",
+    "data:preview:clean": "npm run clean && CONTENTFUL_ENV=preview bundle exec middleman contentful",
     "==================== GULP": "====================",
     "prepipe:prod": "gulp prod --GULP_ENV=production",
     "epipe:dev": "gulp --GULP_ENV=development",

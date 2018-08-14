@@ -121,21 +121,25 @@ def sharedPageBase(pageType, ctx, data)
   ctx.ID = data.sys[:id]
   ctx.TYPE = data.content_type.id
   ctx.title = data.title.gsub('"', "&quot;").rstrip
-  ctx.banner_image = media(data.banner_image, focus: data)
+  ctx.banner_image = media(data.banner_image, focus: data) if data.banner_image
   ctx.introduction = data.introduction.gsub('"', "&quot;")
 
   # Landing/ home page
-  if ["landingPage", "homePage"].include? pageType
+  if ["homePage", "landingPage", "themePage"].include? pageType
     ctx.subtitle = data.subtitle
+  end
+
+  # Child/ landing page/ theme page
+  if ["childPage", "landingPage", "themePage"].include? pageType
+    ctx.seo_title = data.seo_title
   end
 
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
-
+    ctx.slug = slug(data)
+    ctx.theme = data.theme.map{ |theme| theme.parameterize } if data.theme
     ctx.category = detachCategory(data.category)
     ctx.meta_label = metaLabel(data)
-    ctx.slug = slug(data)
-    ctx.seo_title = data.seo_title
 
     # Has sub-category
     if data.category.include? $marker
@@ -699,5 +703,17 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     if entry.tags
       context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize }
     end
+  end
+end
+
+###########################################################################
+##  =Theme page
+###########################################################################
+
+class ThemePageMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+    sharedPageBase("themePage", context, entry) # core page data
+    context.theme = entry.title.parameterize
+    context.slug = entry.slug
   end
 end

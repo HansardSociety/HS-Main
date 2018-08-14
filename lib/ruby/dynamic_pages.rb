@@ -33,6 +33,7 @@ module DynamicPages
     if Dir.exist?(config.data_dir)
       childPages = data.hs.child_page
       landingPages = data.hs.landing_page
+      themePages = data.hs.theme_page
 
       ##		=Core pages
       ########################################
@@ -40,6 +41,7 @@ module DynamicPages
       dynPageBase(data.hs.homepage, "home")
       dynPageBase(childPages, "child-page")
       dynPageBase(landingPages, "landing-page")
+      dynPageBase(themePages, "theme-page")
 
       ##		=Feed pages
       ########################################

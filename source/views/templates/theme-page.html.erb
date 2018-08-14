@@ -1,0 +1,8 @@
+<% @entry = entry_data %>
+
+<article>
+  <%= partial "views/partials/banner/landing-page",
+    locals: { local_data: {
+    entry_data: @entry }} %>
+  <%= partial "views/partials/panel/introduction" %>
+</article>

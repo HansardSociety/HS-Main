@@ -1,6 +1,6 @@
 <%
 introduction = @entry[:introduction] ? @entry[:introduction] : siteData(:site_title)
-imageURL = @entry[:banner_image][:url]
+imageURL = @entry[:banner_image] ? @entry[:banner_image][:url] : siteData(:default_banner)[:url]
 pageURL = "#{ siteData(:site_url) }/#{ @entry[:slug] }"
 headline = @entry[:title]
 
@@ -43,7 +43,7 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
 <meta content="@HansardSociety" name="twitter:site"/>
 <meta content="<%= headline %>" name="twitter:title"/>
 <meta content="<%= introduction %>" name="twitter:description"/>
-<meta content="https:<%= @entry[:banner_image].url %>" name="twitter:image"/>
+<meta content="https:<%= imageURL %>" name="twitter:image"/>
 
 <!--**********************************************
     =Facebook
@@ -87,7 +87,7 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
     "headline": "<%= headline %>",
     "image": {
       "@type": "ImageObject",
-      "url": "https:<%= imageURL %>?w=1920&h=1008&fit=crop",
+      "url": "<%= imageURL %>?w=1920&h=1008&fit=crop",
       "height": 1008,
       "width": 1920
     },
