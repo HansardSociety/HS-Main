@@ -25,12 +25,12 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
     =Core
 ***********************************************-->
 
-<meta content="IE=edge" http-equiv="X-UA-Compatible" />
-<meta charset="utf-8" />
-<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
 
 <% if config[:ENV] != "production" || @entry[:noindex] %>
-  <meta content="noindex" name="robots" />
+  <meta content="noindex" name="robots">
 <% end %>
 
 <title><%= title %></title>
@@ -39,29 +39,29 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
     =Twitter
 ***********************************************-->
 
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="@HansardSociety" name="twitter:site"/>
-<meta content="<%= headline %>" name="twitter:title"/>
-<meta content="<%= introduction %>" name="twitter:description"/>
-<meta content="<%= imageURL %>" name="twitter:image"/>
+<meta content="summary_large_image" name="twitter:card">
+<meta content="@HansardSociety" name="twitter:site">
+<meta content="<%= headline %>" name="twitter:title">
+<meta content="<%= introduction %>" name="twitter:description">
+<meta content="<%= imageURL %>" name="twitter:image">
 
 <!--**********************************************
     =Facebook
 ***********************************************-->
 
-<meta property="og:url" content="<%= pageURL %>"/>
-<meta property="og:type" content="article"/>
-<meta property="og:title" content="<%= headline %>"/>
-<meta property="og:description" content="<%= introduction %>"/>
-<meta property="og:image" content="<%= imageURL %>?w=1920&h=1008&fit=crop"/>
-<meta property="og:image:width" content="1920"/>
-<meta property="og:image:height" content="1008"/>
+<meta property="og:url" content="<%= pageURL %>">
+<meta property="og:type" content="article">
+<meta property="og:title" content="<%= headline %>">
+<meta property="og:description" content="<%= introduction %>">
+<meta property="og:image" content="<%= imageURL %>?w=1920&h=1008&fit=crop">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1008">
 
 <!--**********************************************
     =Structured data
 ***********************************************-->
 
-<meta name="description" content="<%= truncateHtml(introduction, { num: 500, elipsis: false }) %>"/>
+<meta name="description" content="<%= truncateHtml(introduction, { num: 500, elipsis: false }) %>">
 
 <script type="application/ld+json">
 {
