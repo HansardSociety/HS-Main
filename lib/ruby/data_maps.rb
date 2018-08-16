@@ -137,7 +137,7 @@ def sharedPageBase(pageType, ctx, data)
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
     ctx.slug = slug(data)
-    ctx.theme = data.theme.map{ |theme| theme.parameterize } if data.theme
+    ctx.theme = data.theme ? data.theme.map{ |theme| theme.parameterize } : ["none"]
     ctx.category = detachCategory(data.category)
     ctx.meta_label = metaLabel(data)
 
@@ -511,7 +511,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     ##		=Categories/sub-categories
     ########################################
 
-    context.categories = entry.categories
+    context.site_structure = entry.site_structure
 
     ##		=Social
     ########################################
@@ -714,6 +714,6 @@ class ThemePageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     sharedPageBase("themePage", context, entry) # core page data
     context.theme = entry.title.parameterize
-    context.slug = entry.slug
+    context.slug = "#{ entry.slug }/index"
   end
 end

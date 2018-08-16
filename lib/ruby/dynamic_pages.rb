@@ -1,4 +1,5 @@
 require "lib/ruby/config_helpers"
+require "yaml"
 
 include ConfigHelpers
 
@@ -47,8 +48,8 @@ module DynamicPages
       ########################################
 
       feedPagesData = (env == "dev" ? childPages : childPages.merge(landingPages))
-
       categoryLevels = [:category, :sub_category]
+
       categoryLevels.each do |catLev|
         feedPages(feedPagesData, catLev) do |catPages|
           catPages.each do |category, pages|
@@ -64,6 +65,21 @@ module DynamicPages
               proxyBase(url, viewTemplate, "fetch", paginatedPagesData)
             end
           end
+        end
+      end
+
+      ##		=Theme feed pages
+      ########################################
+
+      allPages = childPages.merge(landingPages)
+      siteSettings = YAML.load_file("data/hs/universal/5mkIBy6FCEk8GkOGKEQKi4.yaml")
+      themes = siteSettings[:site_structure][:themes]
+
+      themes.each do |theme|
+        matchedPages = allPages.select{|id, page| page[:theme] && page[:theme].any?{|themeName| [themeName].include?(theme)}}
+
+        matchedPages.each do |id, page|
+          puts "#{ theme } :::: #{ page[:title] } >> #{ page[:theme] }"
         end
       end
     end

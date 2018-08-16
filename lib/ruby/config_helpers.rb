@@ -1,5 +1,3 @@
-require "json"
-
 module ConfigHelpers
 
   def siteCategories(level)

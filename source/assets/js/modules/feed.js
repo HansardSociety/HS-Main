@@ -39,7 +39,7 @@ const infiniteFeed = (() => {
       function feedPagePath() {
         const slug = feedPages[this.loadCount]
 
-        if (slug) return `/${feedCategory.replace("::", "/") }/feed/${ slug }`
+        if (slug) return `/${ feedCategory.replace("::", "/") }/feed/${ slug }`
       }
 
       const infScroll = new InfiniteScroll(container, {
@@ -53,8 +53,9 @@ const infiniteFeed = (() => {
 
       // Enable history for SEO
       infScroll.on("load", function() {
-        var title = "Page " + infScroll.loadCount;
-        var url = "/blog/page-" + infScroll.loadCount;
+        var loadCount = infScroll.loadCount + (initialCount / 3)
+        var title = "Page " + loadCount
+        var url = `/${ feedCategory.replace("::", "/") }/feed/page-${ loadCount }`
 
         history.pushState(null, title, url);
       });
