@@ -35,6 +35,7 @@ module DynamicPages
       childPages = data.hs.child_page
       landingPages = data.hs.landing_page
       themePages = data.hs.theme_page
+      allMainPages = (env == "dev" ? childPages : childPages.merge(landingPages)) # FIX: landing pages not working in dev env
 
       ##		=Core pages
       ########################################
@@ -47,18 +48,15 @@ module DynamicPages
       ##		=Feed pages
       ########################################
 
-      feedPagesData = (env == "dev" ? childPages : childPages.merge(landingPages))
       categoryLevels = [:category, :sub_category]
 
       categoryLevels.each do |catLev|
-        feedPages(feedPagesData, catLev) do |catPages|
+        feedPages(allMainPages, catLev) do |catPages|
           catPages.each do |category, pages|
             paginatePages = pages.each_slice(3).to_a
 
             paginatePages.each_with_index do |paginatedPagesData, index|
-
               stub = paginatedPagesData.map{ |id, page| catLev == :sub_category ? "#{ page[:category] }/#{ page[:sub_category] }" : "#{ page[:category] }" }
-
               url = "/#{ stub[0] }/feed/page-#{ index + 1 }.html"
               viewTemplate = "/views/templates/feed-page.html"
 
@@ -71,15 +69,19 @@ module DynamicPages
       ##		=Theme feed pages
       ########################################
 
-      allPages = childPages.merge(landingPages)
       siteSettings = YAML.load_file("data/hs/universal/5mkIBy6FCEk8GkOGKEQKi4.yaml")
-      themes = siteSettings[:site_structure][:themes]
+      themes = siteSettings[:site_structure][:themes].to_a
 
       themes.each do |theme|
-        matchedPages = allPages.select{|id, page| page[:theme] && page[:theme].any?{|themeName| [themeName].include?(theme)}}
+        paginated = getThemePages(allMainPages, theme).each_slice(3).to_a
 
-        matchedPages.each do |id, page|
-          puts "#{ theme } :::: #{ page[:title] } >> #{ page[:theme] }"
+        paginated.each_with_index do |pageData, index|
+          proxyBase(
+            "#{ theme }/feed/page-#{ index + 1 }.html",
+            "/views/templates/feed-page.html",
+            "fetch",
+            pageData
+          )
         end
       end
     end

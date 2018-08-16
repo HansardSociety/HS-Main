@@ -1,21 +1,37 @@
 <%
 entryData = local_data[:entry_data]
+
+isThemePage = @entry[:TYPE] == "theme_page"
+
 tags = entryData[:tags]
-
 title = entryData[:title]
-
 bgc = entryData[:background_color]
 
 feedData = entryData[:feed]
 feedCategory = feedData[:category]
 feedSubCategory = feedData[:sub_category] if feedData[:sub_category]
 feedCount = feedData[:initial_count]
-
 feedDedupe = (feedData[:dedupe] && @entry[:latest_carousel] && !@entry[:tags])
 
 totalFeedPages = 0
-countFeedPages(feedCategory, { sub_cat: (feedSubCategory ? feedSubCategory : false) }) do |number|
-  totalFeedPages = number.to_i
+
+if isThemePage
+  feedPagesTheme = getThemePages(allChildLandingPages(), @entry[:theme])
+  feedPagesThemeShown = feedPagesTheme[0..5]
+  feedCount = 6
+  totalFeedPages = (feedPagesTheme.length / 3).ceil
+
+else
+  countFeedPages(feedCategory, { sub_cat: (feedSubCategory ? feedSubCategory : false) }) do |number|
+    totalFeedPages = number.to_i.ceil
+  end
+
+  feedPagesMain = latestContent({
+    num: (feedDedupe ? feedCount + latestCount : feedCount),
+    start: (feedDedupe ? latestCount : 0),
+    page_cats: (feedSubCategory ? [feedSubCategory] : feedCategory),
+    sub_cats: (feedSubCategory ? true : false)
+  })
 end
 %>
 
@@ -34,18 +50,21 @@ end
       data-feed-dedupe="<%= feedDedupe %>">
 
       <div class="feed__items">
-        <% latestCount = 6
-          latestContent(
-            yield: true,
-            num: (feedDedupe ? feedCount + latestCount : feedCount),
-            start: (feedDedupe ? latestCount : 0),
-            page_cats: (feedSubCategory ? [feedSubCategory] : feedCategory),
-            sub_cats: (feedSubCategory ? true : false)) do |page| %>
+        <% if isThemePage %>
+          <% feedPagesThemeShown.each do |id, page| %>
+            <%= partial "views/partials/feed-item",
+              locals: { local_data: {
+                entry_data: page,
+                context: "dynamic" }} %>
+          <% end %>
+        <% else %>
+          <% feedPagesMain.map do |page| %>
 
-          <%= partial "views/partials/feed-item",
-            locals: { local_data: {
-              entry_data: page,
-              context: "dynamic" }} %>
+            <%= partial "views/partials/feed-item",
+              locals: { local_data: {
+                entry_data: page,
+                context: "dynamic" }} %>
+          <% end %>
         <% end %>
       </div>
 

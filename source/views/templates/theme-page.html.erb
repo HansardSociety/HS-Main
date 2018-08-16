@@ -6,11 +6,24 @@
     entry_data: @entry }} %>
   <%= partial "views/partials/panel/introduction" %>
 
+  <%# Latest carousel %>
+  <%= partial "views/partials/panel/carousel",
+  locals: { local_data: {
+    entry_data: @entry,
+    context: :latest,
+    data_type: :latest_theme }} %>
 
-   <%= partial "views/partials/panel/carousel",
+  <%# Panel feed %>
+  <%= partial "views/partials/panel/feed",
     locals: { local_data: {
-      entry_data: @entry,
-      context: :latest,
-      data_type: :latest_theme }} %>
+      entry_data: {
+        title: "Browse all '#{ @entry[:title] }'",
+        background_color: "white",
+        feed: {
+          category: @entry[:theme],
+          initial_count: 3
+        }
+      }
+    }} %>
 
 </article>

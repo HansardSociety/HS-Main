@@ -28,4 +28,12 @@ module ConfigHelpers
 
     yield(selectedPages)
   end
+
+  def getThemePages(srcPages, themeName)
+    srcPages.select{|id, page|
+      page[:theme] && page[:theme].include?(themeName)
+    }.sort_by{|id, page|
+      - page[:date_time][:integer]
+    }
+  end
 end

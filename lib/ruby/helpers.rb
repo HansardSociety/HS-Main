@@ -83,6 +83,14 @@ module CustomHelpers
     end
   end
 
+  # All child and landing pages
+  def allChildLandingPages()
+    childPages = data.hs.child_page
+    landingPages = data.hs.landing_page
+
+    childPages.merge(landingPages)
+  end
+
   ###########################################################################
   ##		=Colors
   ###########################################################################
@@ -153,11 +161,7 @@ module CustomHelpers
     defaults = { sub_cat: false }
     opts = defaults.merge(opts)
 
-    childPages = data.hs.child_page
-    landingPages = data.hs.landing_page
-    allPages = childPages.merge(landingPages)
-
-    feedPages(allPages) do |catPages|
+    feedPages(allChildLandingPages()) do |catPages|
       getCategoryPages = catPages.select{ |category, pages| category == setCategory }
 
       getCategoryPages.each do |category, pages|
@@ -181,14 +185,10 @@ module CustomHelpers
   ###########################################################################
 
   def latestContent(opts = {})
-    childPages = data.hs.child_page
-    landingPages = data.hs.landing_page
-    allPages = childPages.merge(landingPages)
-
     defaults = {
       yield: false,
       start: 0,
-      num: allPages.length,
+      num: allChildLandingPages().length,
       page_cats: siteCategories(:top_main),
       sub_cats: false,
       dedupe_entry_id: false
@@ -204,7 +204,7 @@ module CustomHelpers
     isYield = opts[:yield]
 
     # Only include specified category/ sub-category and not page indices
-    allMainPages = allPages.select do |id, page|
+    allMainPages = allChildLandingPages().select do |id, page|
       category = isSubCats ? page[:sub_category] : page[:category]
 
       pageCategories.include?(category) && !page[:index_page]
