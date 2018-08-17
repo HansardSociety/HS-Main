@@ -6,6 +6,10 @@
 .btn {
   line-height: 1;
 
+  &:focus {
+    outline: none;
+  }
+
   @extend %e-align-cen;
   @extend %e-cursor-pointer;
   @extend %e-flex-inline-row-center;

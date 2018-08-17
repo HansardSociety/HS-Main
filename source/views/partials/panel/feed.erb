@@ -41,52 +41,60 @@ end
       <h3 class="title-lg e-col-green e-align-cen e-mgn-b-lg"><%= title %></h3>
     </div>
   <% end %>
-  <div class="panel__content panel__content--narrow">
+  <div class="panel__content panel__content--medium">
     <div
-      class="feed"
+      class="feed grid grid--lg grid--center"
       data-feed-category="<%= (feedSubCategory ? feedCategory + "::" + feedSubCategory : feedCategory) %>"
       data-feed-count="<%= feedCount %>"
       data-feed-total="<%= totalFeedPages <= 1 ? totalFeedPages : totalFeedPages + 1 %>"
       data-feed-dedupe="<%= feedDedupe %>">
 
-      <div class="feed__items">
-        <% if isThemePage %>
-          <% feedPagesThemeShown.each do |id, page| %>
-            <%= partial "views/partials/feed-item",
-              locals: { local_data: {
-                entry_data: page,
-                context: "dynamic" }} %>
-          <% end %>
-        <% else %>
-          <% feedPagesMain.map do |page| %>
+      <div class="grid__cell grid__cell--lg-above-sm-10 grid__cell--order-2">
+        <div class="feed__items">
+          <% if isThemePage %>
+            <% feedPagesThemeShown.each do |id, page| %>
+              <%= partial "views/partials/feed-item",
+                locals: { local_data: {
+                  entry_data: page,
+                  context: "dynamic" }} %>
+            <% end %>
+          <% else %>
+            <% feedPagesMain.map do |page| %>
 
-            <%= partial "views/partials/feed-item",
-              locals: { local_data: {
-                entry_data: page,
-                context: "dynamic" }} %>
+              <%= partial "views/partials/feed-item",
+                locals: { local_data: {
+                  entry_data: page,
+                  context: "dynamic" }} %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-
-      <div class="feed__status">
-        <div class="infinite-scroll-request e-col-green">
-          <%= partial "views/partials/icon",
-            locals: {
-              icon: "load-c",
-              size: "md" } %>
         </div>
-        <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
-        <span class="infinite-scroll-error label-sm e-col-mid-grey">&mdash; End &mdash;</span>
+
+        <div class="feed__status">
+          <div class="infinite-scroll-request e-col-green">
+            <%= partial "views/partials/icon",
+              locals: {
+                icon: "load-c",
+                size: "md" } %>
+          </div>
+          <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
+          <span class="infinite-scroll-error label-sm e-col-mid-grey">&mdash; End &mdash;</span>
+        </div>
+        <div class="feed__load">
+          <%= partial "views/partials/btn",
+            locals: { local_data: {
+              type: "link",
+              size: "md",
+              style: "secondary",
+              label: "Load more...",
+              label_size: "md" }} %>
+        </div>
       </div>
-      <div class="feed__load">
-        <%= partial "views/partials/btn",
-          locals: { local_data: {
-            type: "link",
-            size: "md",
-            style: "secondary",
-            label: "Load more...",
-            label_size: "md" }} %>
-      </div>
+
+      <aside class="grid__cell grid__cell--lg-above-sm-2">
+        <div class="feed__menu sticky">
+          HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO
+        </div>
+      </aside>
     </div>
   </div>
 </section>
