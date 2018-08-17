@@ -100,7 +100,7 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
       </div>
 
       <div class="carousel__actions">
-        <div class="carousel__prev">
+        <div class="carousel__prev" tabindex="1">
           <%= partial "views/partials/icon",
             locals: {
               icon: "chevron-left",
@@ -109,7 +109,7 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
 
           <span>Prev</span>
         </div>
-        <div class="carousel__next">
+        <div class="carousel__next" tabindex="1">
           <span>Next</span>
           <%= partial "views/partials/icon",
             locals: {

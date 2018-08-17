@@ -100,8 +100,14 @@
   @extend %e-trans-core;
   @extend %e-upper;
 
-  &:hover:not(.swiper-button-disabled) {
+  &:active:not(.swiper-button-disabled) {
     @extend %e-col-orange-2;
+  }
+
+  @include above(sm) {
+    &:hover:not(.swiper-button-disabled) {
+      color: Get($colorGroups, orange, 2);
+    }
   }
 
   &.swiper-button-disabled {
