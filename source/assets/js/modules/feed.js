@@ -17,11 +17,11 @@ const infiniteFeed = (() => {
     feedTotal = Number(feedTotal)
     feedPageNo = Number(feedPageNo)
 
-    if ((feedCount / 6) >= feedTotal) {
+    console.log(feedPageNo)
+
+    if ((feedPageNo + 1) >= feedTotal) {
       feedStatus.style.display = "none"
       feedLoad.style.display = "none"
-
-      console.log("YO")
 
     } else {
       // var initialPagesCount = feedCount / 6
@@ -38,7 +38,6 @@ const infiniteFeed = (() => {
 
       function feedPagePath() {
         const slug = feedPages[this.loadCount]
-        console.log(slug)
 
         if (slug) return `/${ feedCategory.replace("::", "/") }/feed/${ slug }`
       }
