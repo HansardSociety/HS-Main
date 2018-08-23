@@ -1,5 +1,57 @@
-<% @feed = entry_data.to_h
-  @feed.each do |id, feedItem| %>
-    <%= partial "views/partials/feed-item",
-      locals: { local_data: { entry_data: feedItem }} %>
-  <% end %>
+<%
+entryData = entry_data
+feedData = alt_data[:feed_data]
+%>
+
+<section class="panel e-bgc-greyscale-0">
+  <div class="panel__content panel__content--narrow">
+    <h3 class="title-lg e-col-green e-align-cen e-mgn-b-lg">Page <%= feedData[:feed_page] %></h3>
+  </div>
+  <div class="panel__content panel__content--medium">
+    <div
+      class="feed JS-feed grid grid--lg grid--center"
+      data-feed-category="<%= feedData[:feed_category] %>"
+      data-feed-count="6"
+      data-feed-total="<%= feedData[:feed_total] %>"
+      data-feed-page="<%= feedData[:feed_page] %>">
+
+      <div class="grid__cell grid__cell--lg-above-sm-10 grid__cell--order-2">
+        <div class="feed__items">
+            <% entryData.map do |id, page| %>
+              <%= partial "views/partials/feed-item",
+                locals: { local_data: {
+                  entry_data: page }} %>
+            <% end %>
+        </div>
+
+        <div class="feed__status">
+          <div class="infinite-scroll-request e-col-green">
+            <%= partial "views/partials/icon",
+              locals: {
+                icon: "load-c",
+                size: "md" } %>
+          </div>
+          <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
+          <span class="infinite-scroll-error label-sm e-col-mid-grey">Please reload the page</span>
+        </div>
+        <div class="feed__load">
+          <%= partial "views/partials/btn",
+            locals: { local_data: {
+              type: "link",
+              size: "md",
+              style: "secondary",
+              label: "Load more...",
+              label_size: "md" }} %>
+        </div>
+      </div>
+
+      <aside class="grid__cell grid__cell--lg-above-sm-2">
+        <div class="feed__menu">
+          <h3 class="title-sm">Jump to...</h3>
+          HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+

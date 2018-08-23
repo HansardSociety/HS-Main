@@ -456,9 +456,7 @@ def panels(ctx, data)
           category: detachCategory(panel.feed_category),
           sub_category: (
             detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker
-          ),
-          initial_count: panel.initial_count,
-          dedupe: panel.dedupe
+          )
         }.compact
       }
     end

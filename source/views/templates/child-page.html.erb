@@ -203,7 +203,7 @@ url = "https://hansardsociety.org.uk/"
             <% end %>
 
           <% else %>
-            <h2 class="side-title e-acc-brand-green-2-top e-pad-t-xs">Latest work</h2>
+            <h2 class="side-title e-acc-brand-green-2-top e-pad-t-xs">Top 3</h2>
             <% latestContent(
               yield: true,
               num: 3,
@@ -226,8 +226,9 @@ url = "https://hansardsociety.org.uk/"
           entry_data: @entry,
           context: :latest,
           data_type: :latest,
+          start_at: 3,
           dedupe_entry_id: @entry[:ID],
-          title: "More" }} %>
+          title: "Latest" }} %>
     </section>
   <% end %>
 </article>
