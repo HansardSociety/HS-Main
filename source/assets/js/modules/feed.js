@@ -24,7 +24,6 @@ const infiniteFeed = (() => {
       feedLoad.style.display = "none"
 
     } else {
-      // var initialPagesCount = feedCount / 6
       var initialPagesCount = feedPageNo
 
       feedTotal = feedTotal - 1
