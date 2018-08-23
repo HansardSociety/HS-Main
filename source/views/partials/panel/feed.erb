@@ -1,37 +1,74 @@
 <%
-entryData = local_data[:entry_data]
-
-isThemePage = @entry[:TYPE] == "theme_page"
-
-tags = entryData[:tags]
-title = entryData[:title]
-bgc = entryData[:background_color] ? panelBgc(entryData[:background_color]) : "e-bgc-greyscale-0"
-
-feedData = entryData[:feed]
-feedCategory = feedData[:category]
-feedSubCategory = feedData[:sub_category] if feedData[:sub_category]
-feedCount = 6
+isThemePage = @entry && @entry[:TYPE] == "theme_page"
+isLandingPage = @entry && @entry[:TYPE] == "landing_page"
 
 totalFeedPages = 0
+dataFeedCount = 6
+
+entryData = local_data[:entry_data]
+
+###########################################################################
+##		=Theme and landing pages
+###########################################################################
+
+if isThemePage || isLandingPage
+  title = entryData[:title]
+  bgc = entryData[:background_color] ? panelBgc(entryData[:background_color]) : "e-bgc-greyscale-0"
+
+  feedData = entryData[:feed]
+  feedCategory = feedData[:category]
+  feedSubCategory = feedData[:sub_category] if feedData[:sub_category]
+
+  dataFeedCategory = (feedSubCategory ? feedCategory + "::" + feedSubCategory : feedCategory)
+  dataFeedPage = 1
+end
+
+###########################################################################
+##		=Theme page
+###########################################################################
 
 if isThemePage
   feedPagesTheme = getThemePages(allChildLandingPages(), @entry[:theme])
   feedPagesThemeShown = feedPagesTheme[0..5]
   totalFeedPages = (feedPagesTheme.length / 6).ceil
 
-else
+  dataFeedTotal = (totalFeedPages <= 1 ? totalFeedPages : totalFeedPages + 1)
+
+# Landing page only
+elsif isLandingPage
   countFeedPages(feedCategory, { sub_cat: (feedSubCategory ? feedSubCategory : false) }) do |number|
     totalFeedPages = number.to_i.ceil
   end
 
+  dataFeedTotal = (totalFeedPages <= 1 ? totalFeedPages : totalFeedPages + 1)
+
   feedPagesMain = latestContent({
-    num: feedCount,
+    num: dataFeedCount,
     start: 0,
     page_cats: (feedSubCategory ? [feedSubCategory] : feedCategory),
     sub_cats: (feedSubCategory ? true : false)
   })
+
+###########################################################################
+##		=Feed page
+###########################################################################
+
+else
+  feedData = entryData
+  altFeedData = alt_data[:feed_data]
+
+  title = "Page #{ altFeedData[:feed_page] }"
+
+  dataFeedCategory = altFeedData[:feed_category]
+  dataFeedPage = altFeedData[:feed_page]
+  dataFeedTotal = altFeedData[:feed_total] + 1
 end
+
 %>
+
+<!--**********************************************
+    =Feed
+***********************************************-->
 
 <section class="panel <%= bgc %>">
   <% if title %>
@@ -42,13 +79,14 @@ end
   <div class="panel__content panel__content--medium">
     <div
       class="feed JS-feed grid grid--lg grid--center"
-      data-feed-category="<%= (feedSubCategory ? feedCategory + "::" + feedSubCategory : feedCategory) %>"
-      data-feed-count="<%= feedCount %>"
-      data-feed-total="<%= totalFeedPages <= 1 ? totalFeedPages : totalFeedPages + 1 %>"
-      data-feed-page="1">
+      data-feed-category="<%= dataFeedCategory %>"
+      data-feed-count="<%= dataFeedCount %>"
+      data-feed-total="<%= dataFeedTotal %>"
+      data-feed-page="<%= dataFeedPage %>">
 
       <div class="grid__cell grid__cell--lg-above-sm-10 grid__cell--order-2">
         <div class="feed__items">
+
           <% if isThemePage %>
             <% feedPagesThemeShown.each do |id, page| %>
               <%= partial "views/partials/feed-item",
@@ -56,13 +94,20 @@ end
                   entry_data: page,
                   context: "dynamic" }} %>
             <% end %>
-          <% else %>
-            <% feedPagesMain.map do |page| %>
 
+          <% elsif isLandingPage %>
+            <% feedPagesMain.map do |page| %>
               <%= partial "views/partials/feed-item",
                 locals: { local_data: {
                   entry_data: page,
                   context: "dynamic" }} %>
+            <% end %>
+
+          <% else %>
+            <% feedData.map do |id, page| %>
+              <%= partial "views/partials/feed-item",
+                locals: { local_data: {
+                  entry_data: page }} %>
             <% end %>
           <% end %>
         </div>
