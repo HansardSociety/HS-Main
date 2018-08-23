@@ -10,7 +10,7 @@ bgc = entryData[:background_color]
 feedData = entryData[:feed]
 feedCategory = feedData[:category]
 feedSubCategory = feedData[:sub_category] if feedData[:sub_category]
-feedCount = feedData[:initial_count]
+feedCount = 6
 feedDedupe = (feedData[:dedupe] && @entry[:latest_carousel] && !@entry[:tags])
 
 totalFeedPages = 0
@@ -19,7 +19,7 @@ if isThemePage
   feedPagesTheme = getThemePages(allChildLandingPages(), @entry[:theme])
   feedPagesThemeShown = feedPagesTheme[0..5]
   feedCount = 6
-  totalFeedPages = (feedPagesTheme.length / 3).ceil
+  totalFeedPages = (feedPagesTheme.length / 6).ceil
 
 else
   countFeedPages(feedCategory, { sub_cat: (feedSubCategory ? feedSubCategory : false) }) do |number|
@@ -77,7 +77,7 @@ end
                 size: "md" } %>
           </div>
           <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
-          <span class="infinite-scroll-error label-sm e-col-mid-grey">&mdash; End &mdash;</span>
+          <span class="infinite-scroll-error label-sm e-col-mid-grey">Please reload the page</span>
         </div>
         <div class="feed__load">
           <%= partial "views/partials/btn",
@@ -91,7 +91,8 @@ end
       </div>
 
       <aside class="grid__cell grid__cell--lg-above-sm-2">
-        <div class="feed__menu sticky">
+        <div class="feed__menu">
+          <h3 class="title-sm">Jump to...</h3>
           HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO
         </div>
       </aside>

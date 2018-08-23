@@ -17,14 +17,14 @@ const infiniteFeed = (() => {
 
     const dedupe = feed.getAttribute("data-feed-dedupe") == "true"
 
-    if ((initialCount / 3) >= feedTotal) {
+    if ((initialCount / 6) >= feedTotal) {
       feedStatus.style.display = "none"
       feedLoad.style.display = "none"
 
       console.log("YO")
 
     } else {
-      var initialPagesCount = initialCount / 3
+      var initialPagesCount = initialCount / 6
       if (dedupe) initialPagesCount = initialPagesCount + 2
 
       feedTotal = feedTotal - 1
@@ -53,7 +53,7 @@ const infiniteFeed = (() => {
 
       // Enable history for SEO
       infScroll.on("load", function() {
-        var loadCount = infScroll.loadCount + (initialCount / 3)
+        var loadCount = infScroll.loadCount + (initialCount / 6)
         var title = "Page " + loadCount
         var url = `/${ feedCategory.replace("::", "/") }/feed/page-${ loadCount }`
 

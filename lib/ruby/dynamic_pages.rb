@@ -53,7 +53,7 @@ module DynamicPages
       categoryLevels.each do |catLev|
         feedPages(allMainPages, catLev) do |catPages|
           catPages.each do |category, pages|
-            paginatePages = pages.each_slice(3).to_a
+            paginatePages = pages.each_slice(6).to_a
 
             paginatePages.each_with_index do |paginatedPagesData, index|
               stub = paginatedPagesData.map{ |id, page| catLev == :sub_category ? "#{ page[:category] }/#{ page[:sub_category] }" : "#{ page[:category] }" }
@@ -73,7 +73,7 @@ module DynamicPages
       themes = siteSettings[:site_structure][:themes].to_a
 
       themes.each do |theme|
-        paginated = getThemePages(allMainPages, theme).each_slice(3).to_a
+        paginated = getThemePages(allMainPages, theme).each_slice(6).to_a
 
         paginated.each_with_index do |pageData, index|
           proxyBase(

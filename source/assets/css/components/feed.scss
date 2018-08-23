@@ -20,3 +20,10 @@
 
   @extend %e-animate-spin;
 }
+
+.feed__menu {
+  top: 4rem;
+  bottom: 3rem;
+
+  @extend %e-position-sticky;
+}

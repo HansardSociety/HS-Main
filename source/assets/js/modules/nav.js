@@ -30,41 +30,41 @@ const shrinkNav = (() => {
   }, 400))
 })()
 
-const feedMenu = (() => {
+// const feedMenu = (() => {
 
-  const fakeContainer = (content) => `
-    <div class="panel JS-fake-container" style="width: 100vw;">
-      <div class="panel__content panel__content--medium">
-        <div class="grid grid--lg">
-          <div class="grid__cell grid__cell--lg-above-sm-2">${ content }</div>
-          <div class="grid__cell grid__cell--lg-above-sm-10"></div>
-        </div>
-      </div>
-    </div>`
+//   const fakeContainer = (content) => `
+//     <div class="panel JS-fake-container" style="width: 100vw;">
+//       <div class="panel__content panel__content--medium">
+//         <div class="grid grid--lg">
+//           <div class="grid__cell grid__cell--lg-above-sm-2">${ content }</div>
+//           <div class="grid__cell grid__cell--lg-above-sm-10"></div>
+//         </div>
+//       </div>
+//     </div>`
 
-  const watchElem = document.querySelector(".feed")
-  const sticky = document.querySelector(".sticky")
+//   const watchElem = document.querySelector(".feed")
+//   const sticky = document.querySelector(".sticky")
 
-  window.addEventListener("scroll", throttle(() => {
-    const watchElemCoords = watchElem.getBoundingClientRect()
+//   window.addEventListener("scroll", throttle(() => {
+//     const watchElemCoords = watchElem.getBoundingClientRect()
 
-    if (watchElemCoords.top < 0) {
-      if (!sticky.querySelector(".JS-fake-container")) {
-        sticky.classList.add("JS-active")
+//     if (watchElemCoords.top < 0) {
+//       if (!sticky.querySelector(".JS-fake-container")) {
+//         sticky.classList.add("JS-active")
 
-        const newElem = document.createElement("div")
-        newElem.innerHTML = fakeContainer("STICKY!! YAY!!")
-        sticky.appendChild(newElem)
-      }
+//         const newElem = document.createElement("div")
+//         newElem.innerHTML = fakeContainer("STICKY!! YAY!!")
+//         sticky.appendChild(newElem)
+//       }
 
-    } else {
-      sticky.classList.remove("JS-active")
-      // document.querySelector(".JS-fake-container").innerHTML = ""
-    }
+//     } else {
+//       sticky.classList.remove("JS-active")
+//       // document.querySelector(".JS-fake-container").innerHTML = ""
+//     }
 
-    console.log(watchElemCoords.top)
-  }, 0))
-})()
+//     console.log(watchElemCoords.top)
+//   }, 0))
+// })()
 
 
-export { shrinkNav, feedMenu }
+export { shrinkNav }

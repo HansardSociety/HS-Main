@@ -169,10 +169,10 @@ module CustomHelpers
         if opts[:sub_cat]
           getSubCatPages = pages.select{ |id, page| page.sub_category == opts[:sub_cat] }
           rejectIndices = getSubCatPages.reject{ |id, page| page.index_page == true }
-          paginated = rejectIndices.each_slice(3).to_a.length
+          paginated = rejectIndices.each_slice(6).to_a.length
         else
           rejectIndices = pages.reject{ |id, page| page.index_page == true }
-          paginated = rejectIndices.each_slice(3).to_a.length
+          paginated = rejectIndices.each_slice(6).to_a.length
         end
 
         yield("#{ paginated }")

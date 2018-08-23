@@ -231,7 +231,7 @@ $properties: (
   opacity:  (0, 1),
   origins:  (left, top, right, bottom),
   overflow: (auto, hidden, scroll),
-  position: (relative, absolute, fixed),
+  position: (relative, absolute, fixed, sticky),
 );
 
 /*		=Shadow
