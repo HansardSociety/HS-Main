@@ -12,7 +12,7 @@ feedData = alt_data[:feed_data]
       class="feed JS-feed grid grid--lg grid--center"
       data-feed-category="<%= feedData[:feed_category] %>"
       data-feed-count="6"
-      data-feed-total="<%= feedData[:feed_total] %>"
+      data-feed-total="<%= feedData[:feed_total] + 1 %>"
       data-feed-page="<%= feedData[:feed_page] %>">
 
       <div class="grid__cell grid__cell--lg-above-sm-10 grid__cell--order-2">

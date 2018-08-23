@@ -38,6 +38,7 @@ const infiniteFeed = (() => {
 
       function feedPagePath() {
         const slug = feedPages[this.loadCount]
+        console.log(slug)
 
         if (slug) return `/${ feedCategory.replace("::", "/") }/feed/${ slug }`
       }
