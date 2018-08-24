@@ -63,7 +63,6 @@ else
   dataFeedPage = altFeedData[:feed_page]
   dataFeedTotal = altFeedData[:feed_total] + 1
 end
-
 %>
 
 <!--**********************************************
@@ -84,7 +83,7 @@ end
       data-feed-total="<%= dataFeedTotal %>"
       data-feed-page="<%= dataFeedPage %>">
 
-      <div class="grid__cell grid__cell--lg-above-sm-10 grid__cell--order-2">
+      <div class="grid__cell grid__cell--lg-above-sm-9 grid__cell--order-2">
         <div class="feed__items">
 
           <% if isThemePage %>
@@ -133,10 +132,20 @@ end
         </div>
       </div>
 
-      <aside class="grid__cell grid__cell--lg-above-sm-2">
+      <aside class="grid__cell grid__cell--lg-above-sm-3">
         <div class="feed__menu">
-          <h3 class="title-sm">Jump to...</h3>
-          HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO
+          <h3 class="title-sm e-col-brand-green-2">Go to page</h3>
+          <ul class="feed__menu-items grid grid--xxs e-mgn-t-xs">
+            <% (1..(dataFeedTotal - 1)).each do |pgNo| %>
+              <li class="grid__cell grid__cell--xxs">
+                <a
+                  class="feed__menu--item <%= "JS-active" if dataFeedPage === pgNo %>"
+                  href="<%= internalURL("#{ dataFeedCategory.gsub("::", "/") }/feed/page-#{ pgNo }") %>">
+                  <%= pgNo %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
         </div>
       </aside>
     </div>

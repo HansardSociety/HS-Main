@@ -49,7 +49,7 @@ entryData = local_data[:entry_data]
                 locals: { local_data: {
                   type: "link", size: "md", style: "primary",
                   label: "Read more", label_size: "md",
-                  url: "/#{ page[:slug] }" }} %>
+                  url: internalURL(page[:slug]) }} %>
             </div>
           </div>
         </article>

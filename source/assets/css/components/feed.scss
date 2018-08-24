@@ -8,6 +8,9 @@
   @extend %e-animate-fade-in-load;
   @extend %e-mgn-t-md;
   @extend %e-mgn-auto-x;
+  @include above(sm) {
+    text-align: left;
+  }
 }
 
 .feed__status {
@@ -15,8 +18,8 @@
 }
 
 .feed__status .infinite-scroll-request > svg {
-  animation-iteration-count: infinite;
   animation-duration: 500ms;
+  animation-iteration-count: infinite;
 
   @extend %e-animate-spin;
 }
@@ -26,4 +29,29 @@
   bottom: 3rem;
 
   @extend %e-position-sticky;
+}
+
+.feed__menu--item {
+  width: 1.75rem;
+  font-size: .75rem;
+  border-radius: 1px;
+
+  @extend %e-align-cen;
+  @extend %e-bgc-greyscale-1;
+  @extend %e-col-brand-green-1;
+  @extend %e-display-block;
+  @extend %e-ff-prim-heavy;
+  @extend %e-trans-core;
+
+  &:hover {
+    @extend %e-bgc-brand-green-1;
+    @extend %e-col-greyscale-0;
+  }
+}
+
+.feed__menu--item.JS-active {
+  pointer-events: none;
+
+  @extend %e-bgc-brand-green-1;
+  @extend %e-col-greyscale-0;
 }
