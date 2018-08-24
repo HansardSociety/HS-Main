@@ -44,6 +44,7 @@
 
 .banner__content--lp {
   @extend %e-container--narrow;
+  @extend %e-mgn-t-md;
   @extend %e-pad-x-md;
   @include above(sm) {
     text-align: center;
@@ -122,5 +123,16 @@
 .carousel .banner__content--lp {
   @include below(md) {
     padding-bottom: 5rem;
+  }
+}
+
+/*		=JS
+  ========================================================================== */
+
+.JS-banner--semi {
+  height: calc(100vh - 8px);
+
+  @include above(sm) {
+    height: 82.5vh;
   }
 }

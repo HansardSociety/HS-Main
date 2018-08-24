@@ -6,9 +6,7 @@ safeTitle = CGI.escape(entryData[:title])
 url = "https://hansardsociety.org.uk/"
 %>
 
-<header
-  class="banner JS-banner--semi"
-  style="height: 85vh">
+<header class="banner JS-banner--semi">
 
   <%= partial "views/partials/banner/image",
     locals: { local_data: {
