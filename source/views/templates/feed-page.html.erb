@@ -1,8 +1,34 @@
 <%
 entryData = entry_data
 feedData = alt_data[:feed_data]
+
+title = "Title"
+
+if siteCategories(:top_all).include?(feedData[:feed_category])
+  siteCategories(:top_all).each do |cat|
+    if feedData[:feed_category] == cat
+      title = "#{ cat.capitalize }<br><span class='label-sm e-col-greyscale-0'>Page #{ feedData[:feed_page] }</span>"
+
+    end
+  end
+else
+  data.hs.theme_page.each do |id, page|
+    if feedData[:feed_category] == page[:theme]
+      title = "#{ page[:title] }<br><span class='label-sm e-col-greyscale-0'>Page #{ feedData[:feed_page] }</span>"
+    end
+  end
+end
 %>
 
+<%# Banner %>
+<%= partial "views/partials/banner/landing-page",
+  locals: { local_data: {
+    entry_data: {
+      title: title
+    }
+  }} %>
+
+<%# Feed %>
 <%= partial "views/partials/panel/feed",
   locals: { local_data: {
     entry_data: entryData,
