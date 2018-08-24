@@ -32,8 +32,8 @@
   }
 }
 
-.feed__menu--item,
-.feed__menu--item-disabled {
+.feed__menu-item,
+.feed__menu-item-disabled {
   width: 1.75rem;
   font-size: .75rem;
   border-radius: 1px;
@@ -46,19 +46,19 @@
   @extend %e-trans-core;
 }
 
-.feed__menu--item {
+.feed__menu-item {
   &:hover {
     @extend %e-bgc-brand-green-1;
     @extend %e-col-greyscale-0;
   }
 }
 
-.feed__menu--item.JS-active,
-.feed__menu--item.JS-disabled {
+.feed__menu-item.JS-active,
+.feed__menu-item.JS-disabled {
   pointer-events: none;
 }
 
-.feed__menu--item.JS-active {
+.feed__menu-item.JS-active {
   @extend %e-bgc-brand-green-1;
   @extend %e-col-greyscale-0;
 }

@@ -17,8 +17,6 @@ const infiniteFeed = (() => {
     feedTotal = Number(feedTotal)
     feedPageNo = Number(feedPageNo)
 
-    console.log(feedPageNo)
-
     if ((feedPageNo + 1) >= feedTotal) {
       feedStatus.style.display = "none"
       feedLoad.style.display = "none"
@@ -57,6 +55,19 @@ const infiniteFeed = (() => {
         var url = `/${ feedCategory.replace("::", "/") }/feed/page-${ loadCount }`
 
         history.pushState(null, title, url);
+
+        setTimeout(() => {
+          const feedItems = feed.querySelectorAll(".feed__menu-item")
+
+          for (let item of feedItems) {
+            if (item.classList.contains("JS-active")) {
+              item.classList.remove("JS-active")
+
+            } else if (item.innerText == loadCount) {
+              item.classList.add("JS-active")
+            }
+          }
+        }, 100);
       });
     }
   }

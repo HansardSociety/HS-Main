@@ -149,14 +149,14 @@ end
               <%# Elipsis prev %>
               <% if (pageNo == (dataFeedPage - pageRange)) && (dataFeedPage != (pages.first + pageRange)) %>
                 <li class="grid__cell grid__cell--xxs">
-                  <span class="feed__menu--item JS-disabled">…</span>
+                  <span class="feed__menu-item JS-disabled">…</span>
                 </li>
               <% end %>
 
               <%# Page number %>
               <li class="grid__cell grid__cell--xxs">
                 <a
-                  class="feed__menu--item <%= "JS-active" if dataFeedPage === pageNo %>"
+                  class="feed__menu-item <%= "JS-active" if dataFeedPage === pageNo %>"
                   href="<%= internalURL("#{ dataFeedCategory.gsub("::", "/") }/feed/page-#{ pageNo }") %>">
                   <%= pageNo %>
                 </a>
@@ -165,7 +165,7 @@ end
               <%# Elipsis next %>
               <% if (pageNo == (dataFeedPage + pageRange)) && (dataFeedPage != (pages.last - pageRange)) %>
                 <li class="grid__cell grid__cell--xxs">
-                  <span class="feed__menu--item JS-disabled">…</span>
+                  <span class="feed__menu-item JS-disabled">…</span>
                 </li>
               <% end %>
             <% end %>
