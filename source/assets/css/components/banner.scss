@@ -12,8 +12,6 @@
 .banner__inner--lp {
   bottom: 0;
 
-  // @extend %e-bgc-opaque-1;
-  @extend %e-mgn-t-md;
   @include above(sm) {
     bottom: 50%;
 
@@ -44,7 +42,7 @@
 
 .banner__content--lp {
   @extend %e-container--narrow;
-  @extend %e-mgn-t-md;
+  @extend %e-mgn-t-xl;
   @extend %e-pad-x-md;
   @include above(sm) {
     text-align: center;
@@ -129,10 +127,17 @@
 /*		=JS
   ========================================================================== */
 
-.JS-banner--semi {
-  height: calc(100vh - 8px);
-
+.JS-banner--semi,
+.JS-banner--full {
   @include above(sm) {
     height: 82.5vh;
   }
+}
+
+.JS-banner--semi {
+  height: calc(100vh - 8px);
+}
+
+.JS-banner--full {
+  height: 100vh;
 }

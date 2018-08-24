@@ -2,10 +2,7 @@
 entryData = local_data[:entry_data]
 %>
 
-<header
-  class="banner JS-banner--full"
-  style="height: 825vh;">
-
+<header class="banner JS-banner--full">
   <%= partial "views/partials/banner/image",
     locals: { local_data: {
       entry_data: entryData }} %>
@@ -14,7 +11,7 @@ entryData = local_data[:entry_data]
     <div class="banner__content banner__content--lp">
 
       <h1
-        class="banner__title title-lg JS-truncate"
+        class="banner__title title-xxl JS-truncate"
         data-truncate="{ 'xs': 120 }"><%= entryData[:title] %></h1>
 
       <p class="banner__strap e-mgn-t-xs"><%= entryData[:subtitle] %></p>
