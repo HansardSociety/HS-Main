@@ -28,7 +28,7 @@ module CustomHelpers
 
   # Internal URLs (for envs)
   def internalURL(slug)
-    isDev = config[:ENV] == "development"
+    isDev = config[:ENV] == "development" || config[:ENV] == "preview"
 
     "#{ siteData(:site_url) if !isDev }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
   end
