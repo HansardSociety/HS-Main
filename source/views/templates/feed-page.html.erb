@@ -2,19 +2,33 @@
 entryData = entry_data
 feedData = alt_data[:feed_data]
 
-title = "Title"
+title = "Page&nbsp;#{ feedData[:feed_page] }"
+bannerImgURL = siteData(:default_banner)[:url]
+bannerImgAlt = siteData(:default_banner)[:alt]
+bannerImgFocus = siteData(:default_banner)[:focus]
 
 if siteCategories(:top_all).include?(feedData[:feed_category])
   siteCategories(:top_all).each do |cat|
     if feedData[:feed_category] == cat
-      title = "#{ cat.capitalize } / Page #{ feedData[:feed_page] }"
+      title = "#{ cat.capitalize } / Page&nbsp;#{ feedData[:feed_page] }"
+    end
+  end
 
+  indexPages = data.hs.landing_page.reject{ |id, page| !page.index_page }
+  indexPages.each do |id, page|
+    if page.category == feedData[:feed_category]
+      bannerImgURL = page[:banner_image][:url]
+      bannerImgAlt = page[:banner_image][:alt]
+      bannerImgFocus = page[:banner_image][:focus]
     end
   end
 else
   data.hs.theme_page.each do |id, page|
     if feedData[:feed_category] == page[:theme]
-      title = "#{ page[:title] } / Page #{ feedData[:feed_page] }"
+      title = "#{ page[:title] } / Page&nbsp;#{ feedData[:feed_page] }"
+      bannerImgURL = page[:banner_image][:url]
+      bannerImgAlt = page[:banner_image][:alt]
+      bannerImgFocus = page[:banner_image][:focus]
     end
   end
 end
@@ -27,9 +41,9 @@ end
       TYPE: "landing_page",
       title: title,
       banner_image: {
-        url: "url",
-        alt: "alt",
-        focus: "center"
+        url: bannerImgURL,
+        alt: bannerImgAlt,
+        focus: bannerImgFocus
       }
     }
   }} %>
