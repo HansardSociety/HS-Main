@@ -5,7 +5,7 @@ feedData = alt_data[:feed_data]
 title = "Page&nbsp;#{ feedData[:feed_page] }"
 bannerImgURL = siteData(:default_banner)[:url]
 bannerImgAlt = siteData(:default_banner)[:alt]
-bannerImgFocus = siteData(:default_banner)[:focus]
+bannerImgFocus = "center"
 
 if siteCategories(:top_all).include?(feedData[:feed_category])
   siteCategories(:top_all).each do |cat|
@@ -16,10 +16,13 @@ if siteCategories(:top_all).include?(feedData[:feed_category])
 
   indexPages = data.hs.landing_page.reject{ |id, page| !page.index_page }
   indexPages.each do |id, page|
+
     if page.category == feedData[:feed_category]
+      title = "#{ page[:title] } / Page&nbsp;#{ feedData[:feed_page] }"
       bannerImgURL = page[:banner_image][:url]
       bannerImgAlt = page[:banner_image][:alt]
       bannerImgFocus = page[:banner_image][:focus]
+
     end
   end
 else
@@ -35,11 +38,12 @@ end
 %>
 
 <%# Banner %>
-<%= partial "views/partials/banner/landing-page",
+<%= partial "views/partials/banner/feed-page",
   locals: { local_data: {
     entry_data: {
       TYPE: "landing_page",
       title: title,
+      category: feedData[:feed_category],
       banner_image: {
         url: bannerImgURL,
         alt: bannerImgAlt,

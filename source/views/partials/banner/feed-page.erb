@@ -1,8 +1,14 @@
 <%
 entryData = local_data[:entry_data]
+
+accent = "e-acc-#{ catColor(entryData[:category]) }-2-bottom" if entryData[:category]
 %>
 
 <header class="banner JS-banner--full <%= accent %>">
+  <%= partial "views/partials/banner/image",
+    locals: { local_data: {
+      entry_data: entryData }} %>
+
   <div class="banner__inner banner__inner--lp">
     <div class="banner__content banner__content--lp">
       <h1 class="banner__title title-xxl JS-truncate"><%= entryData[:title] %></h1>
