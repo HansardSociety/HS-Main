@@ -27,7 +27,7 @@ if siteCategories(:top_all).include?(feedData[:feed_category])
   end
 else
   data.hs.theme_page.each do |id, page|
-    if feedData[:feed_category] == page[:theme]
+    if feedData[:feed_category] == page[:theme] && page[:banner_image]
       title = "#{ page[:title] } / Page&nbsp;#{ feedData[:feed_page] }"
       bannerImgURL = page[:banner_image][:url]
       bannerImgAlt = page[:banner_image][:alt]
