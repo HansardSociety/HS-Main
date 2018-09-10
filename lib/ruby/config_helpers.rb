@@ -1,5 +1,3 @@
-require "json"
-
 module ConfigHelpers
 
   def siteCategories(level)
@@ -29,5 +27,13 @@ module ConfigHelpers
     selectedPages = pagesByCategory.select{ |category, pages| categories.include? category }
 
     yield(selectedPages)
+  end
+
+  def getThemePages(srcPages, themeName)
+    srcPages.select{|id, page|
+      page[:theme] && page[:theme].include?(themeName)
+    }.sort_by{|id, page|
+      - page[:date_time][:integer]
+    }
   end
 end

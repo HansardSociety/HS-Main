@@ -1,5 +1,59 @@
-<% @feed = entry_data.to_h
-  @feed.each do |id, feedItem| %>
-    <%= partial "views/partials/feed-item",
-      locals: { local_data: { entry_data: feedItem }} %>
-  <% end %>
+<%
+entryData = entry_data
+feedData = alt_data[:feed_data]
+
+title = "Page&nbsp;#{ feedData[:feed_page] }"
+bannerImgURL = siteData(:default_banner)[:url]
+bannerImgAlt = siteData(:default_banner)[:alt]
+bannerImgFocus = "center"
+
+if siteCategories(:top_all).include?(feedData[:feed_category])
+  siteCategories(:top_all).each do |cat|
+    if feedData[:feed_category] == cat
+      title = "#{ cat.capitalize } / Page&nbsp;#{ feedData[:feed_page] }"
+    end
+  end
+
+  indexPages = data.hs.landing_page.reject{ |id, page| !page.index_page }
+  indexPages.each do |id, page|
+
+    if page.category == feedData[:feed_category]
+      title = "#{ page[:title] } / Page&nbsp;#{ feedData[:feed_page] }"
+      bannerImgURL = page[:banner_image][:url]
+      bannerImgAlt = page[:banner_image][:alt]
+      bannerImgFocus = page[:banner_image][:focus]
+
+    end
+  end
+else
+  data.hs.theme_page.each do |id, page|
+    if feedData[:feed_category] == page[:theme] && page[:banner_image]
+      title = "#{ page[:title] } / Page&nbsp;#{ feedData[:feed_page] }"
+      bannerImgURL = page[:banner_image][:url]
+      bannerImgAlt = page[:banner_image][:alt]
+      bannerImgFocus = page[:banner_image][:focus]
+    end
+  end
+end
+%>
+
+<%# Banner %>
+<%= partial "views/partials/banner/feed-page",
+  locals: { local_data: {
+    entry_data: {
+      TYPE: "landing_page",
+      title: title,
+      category: feedData[:feed_category],
+      banner_image: {
+        url: bannerImgURL,
+        alt: bannerImgAlt,
+        focus: bannerImgFocus
+      }
+    }
+  }} %>
+
+<%# Feed %>
+<%= partial "views/partials/panel/feed",
+  locals: { local_data: {
+    entry_data: entryData,
+    alt_feed_data: feedData }} %>

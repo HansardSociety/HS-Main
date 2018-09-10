@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!--**********************************************
+    =Core
+***********************************************-->
+
+<%# Base %>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+
+<%# No index? %>
+<% if config[:ENV] != "production" || @entry[:noindex] %>
+  <meta content="noindex" name="robots">
+<% end %>
+
+<%# Title %>
+<title></title>
+
+<%# Styles %>
+<% [config[:CSS_VENDOR], config[:CSS_APP]].each do |stylesheet| %>
+  <link rel="stylesheet" href="<%= assetsDir %><%= stylesheet %>"/>
+<% end %>
+
+<!--**********************************************
+    =SEO etc
+***********************************************-->
+
+<%# Twitter %>
+<meta content="summary_large_image" name="twitter:card">
+<meta content="@HansardSociety" name="twitter:site">
+<meta content="" name="twitter:title">
+<meta content="" name="twitter:description">
+<meta content="" name="twitter:image">
+
+<%# Facebook %>
+<meta property="og:url" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="?w=1920&h=1008&fit=crop">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1008">
+
+<%# Google %>
+<meta name="description" content="">
+
+</head>
+
+<!--**********************************************
+    =Body
+***********************************************-->
+
+<body class="JS-state-global">
+
+  <%# Main %>
+  <div class="site-container">
+    <%= partial "views/partials/navbar" %>
+    <main><%= yield %></main>
+    <%= partial "views/partials/footer" %>
+  </div>
+
+  <%# Scripts %>
+  <script src="<%= assetsDir %><%= config[:JS_VENDOR] %>"></script>
+  <script src="<%= assetsDir %><%= config[:JS_APP] %>"></script>
+</body>
+</html>

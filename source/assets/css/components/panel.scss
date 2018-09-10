@@ -1,7 +1,7 @@
 // Panels
 .panel {
   @extend %e-container;
-  @extend %e-overflow-hidden;
+  // @extend %e-overflow-hidden;
   @extend %e-pad-x-lg;
   @extend %e-position-relative;
 }

@@ -28,7 +28,7 @@ module CustomHelpers
 
   # Internal URLs (for envs)
   def internalURL(slug)
-    isDev = config[:ENV] == "development"
+    isDev = config[:ENV] == "development" || config[:ENV] == "preview"
 
     "#{ siteData(:site_url) if !isDev }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
   end
@@ -81,6 +81,14 @@ module CustomHelpers
     else
       text
     end
+  end
+
+  # All child and landing pages
+  def allChildLandingPages()
+    childPages = data.hs.child_page
+    landingPages = data.hs.landing_page
+
+    childPages.merge(landingPages)
   end
 
   ###########################################################################
@@ -153,11 +161,7 @@ module CustomHelpers
     defaults = { sub_cat: false }
     opts = defaults.merge(opts)
 
-    childPages = data.hs.child_page
-    landingPages = data.hs.landing_page
-    allPages = childPages.merge(landingPages)
-
-    feedPages(allPages) do |catPages|
+    feedPages(allChildLandingPages()) do |catPages|
       getCategoryPages = catPages.select{ |category, pages| category == setCategory }
 
       getCategoryPages.each do |category, pages|
@@ -165,10 +169,10 @@ module CustomHelpers
         if opts[:sub_cat]
           getSubCatPages = pages.select{ |id, page| page.sub_category == opts[:sub_cat] }
           rejectIndices = getSubCatPages.reject{ |id, page| page.index_page == true }
-          paginated = rejectIndices.each_slice(3).to_a.length
+          paginated = rejectIndices.each_slice(6).to_a.length
         else
           rejectIndices = pages.reject{ |id, page| page.index_page == true }
-          paginated = rejectIndices.each_slice(3).to_a.length
+          paginated = rejectIndices.each_slice(6).to_a.length
         end
 
         yield("#{ paginated }")
@@ -181,14 +185,10 @@ module CustomHelpers
   ###########################################################################
 
   def latestContent(opts = {})
-    childPages = data.hs.child_page
-    landingPages = data.hs.landing_page
-    allPages = childPages.merge(landingPages)
-
     defaults = {
       yield: false,
       start: 0,
-      num: allPages.length,
+      num: allChildLandingPages().length,
       page_cats: siteCategories(:top_main),
       sub_cats: false,
       dedupe_entry_id: false
@@ -204,7 +204,7 @@ module CustomHelpers
     isYield = opts[:yield]
 
     # Only include specified category/ sub-category and not page indices
-    allMainPages = allPages.select do |id, page|
+    allMainPages = allChildLandingPages().select do |id, page|
       category = isSubCats ? page[:sub_category] : page[:category]
 
       pageCategories.include?(category) && !page[:index_page]
@@ -227,67 +227,86 @@ module CustomHelpers
   ##		=Related content/ tagging by category
   ###########################################################################
 
-  def relatedContent(entryData, blogCount)
-
-    # Control number of blog posts
-    # Subtract 1 as data pulled from Contentful (starts at 1)
-    @blogCount = blogCount ? blogCount - 1 : 1
+  def relatedContent(entryData, opts = {})
 
     # Symbolize entry data to convert to regular hash
-    @entryData = convertToRegularHash(entryData)
+    entryData = convertToRegularHash(entryData)
 
     # Group and sort pages
-    @groupPagesByCategory = latestContent.group_by{ |val| val[:category] }
-    @orderCategories = siteCategories(:top_main)
-    @sortPagesByCategory = @groupPagesByCategory.sort_by{ |category, pages| @orderCategories.index(category) }
+    groupPagesByCategory = latestContent.group_by{ |val| val[:category] }
+    orderCategories = siteCategories(:top_main)
+    sortPagesByCategory = groupPagesByCategory.sort_by{ |category, pages| orderCategories.index(category) }
+
+    # Default options
+    defaults = {
+      blog_count: 2,
+      ignore_past_events: true,
+      page_count: 1,
+      tag_type: :tags,
+      yield_block: true
+    }
+    opts = defaults.merge(opts)
+
+    blogCount = opts[:blog_count] - 1 # subtract 1 as data pulled from Contentful (starts at 1)
+    ignorePastEvents = opts[:ignore_past_events] # remove events with registration dates older than time-now
+    pageCount = opts[:page_count]
+    tagType = opts[:tag_type] # tag type - ie. theme or tag
+    yieldBlock = opts[:yield_block]
 
     # Map organised pages
-    @sortPagesByCategory.map do |category, pages|
+    sortPagesByCategory.map do |category, pages|
 
       # Filter tagged pages
-      @pagesTagged = pages.select{ |page|
+      pagesTagged = pages.select{ |page|
 
         # Only include tagged pages
-        if page[:tags]
+        if page[tagType]
 
           # Get pages with at least one corresponding tag
-          @hasSameTags = page[:tags].any?{ |tags| @entryData[:tags].include? tags }
+          hasSameTags = page[tagType].any?{ |tags| entryData[tagType].include? tags }
 
-          @hasFeatured = @entryData[:featured]
+          hasFeatured = entryData[:featured]
 
           # Filter the entry page and pages that are included as featured items
-          @notThisPage = page[:ID] != @entryData[:ID]
-          @notFeaturedPage = !@entryData[:featured].any?{ |featPage|
+          notThisPage = page[:ID] != entryData[:ID]
+          notFeaturedPage = !entryData[:featured].any?{ |featPage|
              page[:ID].include? featPage[:ID]
-          } if @hasFeatured
+          } if hasFeatured
 
           # Check if pages has featured items...
-          if @hasFeatured
-            page if @hasSameTags && @notThisPage && @notFeaturedPage
+          if hasFeatured
+            page if hasSameTags && notThisPage && notFeaturedPage
           else
-            page if @hasSameTags && @notThisPage
+            page if hasSameTags && notThisPage
           end
         end
       }.compact
 
-      # Registration pages
-      @registrationPages = @pagesTagged.select{ |page|
-        @pageTypes = ["events"].include? page[:category]
-        @timeNow = Time.now.strftime("%s").to_i
-        @isInPast = (page[:date_time_alt] ? page[:date_time_alt][:integer] : page[:date_time][:integer]) >= @timeNow
+      # Overwrite pages count for :theme to include all 'tagged' theme pages
+      if tagType == :theme
+        blogCount = pagesTagged.length
+        pageCount = pagesTagged.length
+      end
 
-        @pageTypes && @isInPast
-      }[0..1]
+      # Registration pages
+      registrationPages = pagesTagged.select{ |page|
+        pageTypes = ["events"].include? page[:category]
+        timeNow = Time.now.strftime("%s").to_i
+
+        isInPast = (page[:date_time_alt] ? page[:date_time_alt][:integer] : page[:date_time][:integer]) >= timeNow
+
+        ignorePastEvents ? pageTypes && isInPast : pageTypes
+      }[0..pageCount]
 
       # Select pages by category and concatenate
-      @blogPages = @pagesTagged.select{ |page| page[:category] == "blog" }[0..@blogCount]
-      @otherPages = @pagesTagged.select{ |page|
+      blogPages = pagesTagged.select{ |page| page[:category] == "blog" }[0..blogCount]
+      otherPages = pagesTagged.select{ |page|
         ["insight", "projects", "publications"].include? page[:category]
-      }[0..1]
-      @concatPages = [@registrationPages, @blogPages, @otherPages].reduce([], :concat)
+      }[0..pageCount]
+      concatPages = [registrationPages, blogPages, otherPages].reduce([], :concat)
 
       # Output
-      @concatPages.map{ |page| yield page }
+      concatPages.map{ |page| yieldBlock ? yield(page) : page }
     end
   end
 end

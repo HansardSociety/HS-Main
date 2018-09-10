@@ -121,21 +121,25 @@ def sharedPageBase(pageType, ctx, data)
   ctx.ID = data.sys[:id]
   ctx.TYPE = data.content_type.id
   ctx.title = data.title.gsub('"', "&quot;").rstrip
-  ctx.banner_image = media(data.banner_image, focus: data)
+  ctx.banner_image = media(data.banner_image, focus: data) if data.banner_image
   ctx.introduction = data.introduction.gsub('"', "&quot;")
 
   # Landing/ home page
-  if ["landingPage", "homePage"].include? pageType
+  if ["homePage", "landingPage", "themePage"].include? pageType
     ctx.subtitle = data.subtitle
+  end
+
+  # Child/ landing page/ theme page
+  if ["childPage", "landingPage", "themePage"].include? pageType
+    ctx.seo_title = data.seo_title
   end
 
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
-
+    ctx.slug = slug(data)
+    ctx.theme = data.theme ? data.theme.map{ |theme| theme.parameterize } : ["none"]
     ctx.category = detachCategory(data.category)
     ctx.meta_label = metaLabel(data)
-    ctx.slug = slug(data)
-    ctx.seo_title = data.seo_title
 
     # Has sub-category
     if data.category.include? $marker
@@ -452,9 +456,7 @@ def panels(ctx, data)
           category: detachCategory(panel.feed_category),
           sub_category: (
             detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker
-          ),
-          initial_count: panel.initial_count,
-          dedupe: panel.dedupe
+          )
         }.compact
       }
     end
@@ -497,6 +499,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.site_title_seo = entry.site_title_seo
     context.site_url = entry.site_url
     context.copyright = entry.copyright
+    context.default_banner = media(entry.default_banner)
 
     context.newsletter_text = entry.newsletter_text
     context.newsletter_form = form(entry.newsletter_form)
@@ -506,7 +509,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     ##		=Categories/sub-categories
     ########################################
 
-    context.categories = entry.categories
+    context.site_structure = entry.site_structure
 
     ##		=Social
     ########################################
@@ -698,5 +701,17 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     if entry.tags
       context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize }
     end
+  end
+end
+
+###########################################################################
+##  =Theme page
+###########################################################################
+
+class ThemePageMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+    sharedPageBase("themePage", context, entry) # core page data
+    context.theme = entry.title.parameterize
+    context.slug = "#{ entry.slug }/index"
   end
 end

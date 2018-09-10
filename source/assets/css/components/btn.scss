@@ -6,6 +6,10 @@
 .btn {
   line-height: 1;
 
+  &:focus {
+    outline: none;
+  }
+
   @extend %e-align-cen;
   @extend %e-cursor-pointer;
   @extend %e-flex-inline-row-center;
@@ -32,8 +36,14 @@
   @extend %e-bgc-orange-2;
   @extend %e-col-greyscale-0;
 
-  &:hover {
+  &:active {
     @extend %e-bgc-orange-3;
+  }
+
+  @include above(sm) {
+    &:hover {
+      background-color: Get($colorGroups, orange, 3);
+    }
   }
 }
 
@@ -42,9 +52,16 @@
 
   @extend %e-col-orange-2;
 
-  &:hover {
+  &:active {
     @extend %e-bgc-orange-2;
     @extend %e-col-greyscale-0;
+  }
+
+  @include above(sm) {
+    &:hover {
+      background-color: Get($colorGroups, orange, 2);
+      color: Get($colorGroups, greyscale, 0);
+    }
   }
 }
 
@@ -68,8 +85,14 @@
   @extend %e-col-brand-green-2;
   @extend %e-trans-core;
 
-  &:hover {
+  &:active {
     @extend %e-col-orange-2;
+  }
+
+  @include above(sm) {
+    &:hover {
+      color: Get($colorGroups, orange, 2);
+    }
   }
 }
 

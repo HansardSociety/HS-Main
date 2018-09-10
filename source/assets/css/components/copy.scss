@@ -75,7 +75,9 @@ picture {
 }
 
 hr {
-  border-top: 1px solid Get($colorGroups, greyscale, 1);
+  border: 0;
+  height: 1px;
+  background-color: Get($colorGroups, greyscale, 1);
 
   @extend %e-mgn-x-md;
 }
