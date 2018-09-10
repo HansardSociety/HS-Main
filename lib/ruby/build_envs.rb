@@ -99,10 +99,6 @@ module BuildEnvs
         File.rename "build/prod/.redirects", "build/prod/_redirects"
         FileUtils.cp_r Dir.glob("source/assets/images/favicons/**"), "#{ @buildSrc }"
 
-        # Submit Algolia DB
-        system "node ./lib/js/_scripts"
-        # system "node ./lib/js/_scripts && rimraf #{ @buildSrc }/db"
-
         # Generate content CSV
         jsonDB = JSON.parse(File.open("#{ @buildSrc }/db/search.json").read)
         csvStr = CSV.generate do |csv|
@@ -111,6 +107,11 @@ module BuildEnvs
           end
         end
         File.open("#{ @buildSrc }/db/content.csv", "w+") { |f| f.write(csvStr) }
+      end
+
+      if MM_ENV == "preview"
+        # Submit Algolia DB
+        system "node ./lib/js/_scripts"
       end
 
       # http/2 headers
