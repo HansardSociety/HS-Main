@@ -137,7 +137,8 @@ def sharedPageBase(pageType, ctx, data)
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
     ctx.slug = slug(data)
-    ctx.theme = data.theme ? data.theme.map{ |theme| theme.parameterize } : ["none"]
+    ctx.theme = data.theme ? data.theme.reject{ |theme| theme.include?($marker) }.map{ |theme| theme.parameterize } : ["none"]
+    ctx.sub_theme = data.theme ? data.theme.reject{ |theme| !theme.include?($marker) }.map{ |theme| theme.parameterize } : ["none"]
     ctx.category = detachCategory(data.category)
     ctx.meta_label = metaLabel(data)
 
