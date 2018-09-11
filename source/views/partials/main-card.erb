@@ -6,8 +6,8 @@ imageURL = entryData[:banner_image][:url]
 imageFocus = entryData[:banner_image][:focus]
 imageAlt = entryData[:banner_image][:alt]
 
-title = entryData[:title]
-introduction = entryData[:introduction]
+title = markdownStrip(entryData[:title])
+introduction = markdownStrip(entryData[:introduction])
 metaLabel = entryData[:meta_label]
 labelAccent = "e-acc-#{ catColor(category) }-2"
 accent = "e-acc-#{ catColor(category) }-2-top"

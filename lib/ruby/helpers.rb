@@ -21,6 +21,11 @@ module CustomHelpers
     Kramdown::Document.new(text, { auto_ids: false }).to_html
   end
 
+  # Markdown strip HTML
+  def markdownStrip(data)
+    markdown(data).gsub(/<\/?[^>]*>/, "")
+  end
+
   # Global variables
   def siteData(var)
     convertToRegularHash(data.hs.universal).values[0][var]
