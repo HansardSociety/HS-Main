@@ -9,8 +9,18 @@ imageAlt = entryData[:banner_image][:alt]
 title = markdownStrip(entryData[:title])
 introduction = markdownStrip(entryData[:introduction])
 metaLabel = entryData[:meta_label]
-labelAccent = "e-acc-#{ catColor(category) }-2"
-accent = "e-acc-#{ catColor(category) }-2-top"
+url = internalURL(entryData[:slug])
+
+noIntro = entryData[:no_intro]
+
+if !entryData[:accents]
+  labelAccent = "e-acc-#{ catColor(category) }-2"
+  accent = "e-acc-#{ catColor(category) }-2-top"
+
+else
+  accent = "__PLACEHOLDER_ACCENT__"
+  labelAccent = "__PLACEHOLDER_LABEL__"
+end
 
 featuredCard = local_data[:featured]
 %>
@@ -45,15 +55,19 @@ featuredCard = local_data[:featured]
       </div>
     </div>
   </header>
-  <section class="main-card__introduction">
-    <p
-      class="JS-truncate"
-      data-truncate="{ 'xs': 84, 'sm': 99, 'md': 134, 'lg': 99 }"><%= introduction %></p>
-  </section>
+
+  <% if !noIntro %>
+    <section class="main-card__introduction">
+      <p
+        class="JS-truncate"
+        data-truncate="{ 'xs': 84, 'sm': 99, 'md': 134, 'lg': 99 }"><%= introduction %></p>
+    </section>
+  <% end %>
+
   <% if category %>
     <a
       class="main-card__link"
-      href="<%= internalURL(entryData[:slug]) %>"
+      href="<%= url %>"
       title="<%= title + " | " + siteData(:site_title) %>">
       <span class="e-hidden"><%= title %></span>
     </a>

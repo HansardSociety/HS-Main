@@ -1,0 +1,47 @@
+// Uses algolia classes
+
+.search {
+
+  .ais-search-box {
+    @extend %e-container;
+    @extend %e-container--narrow;
+    @extend %e-max-width-full;
+    @extend %e-mgn-auto-x;
+    @extend %e-mgn-t-md;
+    @extend %e-mgn-b-lg;
+    @extend %e-position-relative;
+    @extend %e-width-full;
+  }
+
+  .ais-search-box--input {
+    @extend .form__field;
+    @extend %e-pad-y-md;
+  }
+
+  .ais-search-box--magnifier,
+  .ais-search-box--reset {
+    top: 0.75rem;
+    fill: Get($colorGroups, greyscale, 2);
+
+    @extend %e-position-absolute;
+  }
+
+  .ais-search-box--magnifier {
+    left: 1.75rem;
+  }
+
+  .ais-search-box--reset {
+    right: 1.75rem;
+  }
+
+  .ais-hits {
+    @extend .grid;
+    @extend .grid--sm;
+    @extend .grid--center;
+  }
+
+  .ais-hits--item {
+    @extend .grid__cell;
+    @extend .grid__cell--md-above-md-4;
+  }
+}

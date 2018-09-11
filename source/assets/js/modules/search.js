@@ -1,9 +1,15 @@
 import instantSearch from "instantsearch.js/dist/instantsearch"
 
+function template(templateName) {
+  return document.querySelector(`#search-template-${templateName}`).innerHTML;
+}
+
 const algoliaSearch = (() =>
 
   // Need to initiate after DOM loaded to return "containers"
   document.addEventListener("DOMContentLoaded", function() {
+
+    const searchBlocks = document.querySelectorAll(".search")
 
     // Options
     const search = instantSearch({
@@ -11,28 +17,39 @@ const algoliaSearch = (() =>
       apiKey: "66a9759f27ae50a3c41abf7b82181a11",
       indexName: "Main_Search_DB",
       routing: true
-    });
+    })
 
-    // Search widget
-    search.addWidget(
-      instantSearch.widgets.searchBox({
-        container: "#search-box",
-        placeholder: "Search for pages"
-      })
-    );
+    for (let block of searchBlocks) {
 
-    // Hites widget
-    search.addWidget(
-      instantSearch.widgets.hits({
-        container: "#hits",
-        templates: {
-          empty: "No results",
-          item: "<em>Hit {{objectID}}</em>: {{{_highlightResult.name.value}}}"
-        }
-      })
-    );
+      // // Refinement widget
+      // search.addWidget(
+      //   instantsearch.widgets.refinementList({
+      //     container: "#refinement-list",
+      //     attributeName: "sub-themes"
+      //   })
+      // )
 
-    search.start();
+      // Search widget
+      search.addWidget(
+        instantSearch.widgets.searchBox({
+          container: block.querySelector(".JS-search-input"),
+          placeholder: "Search for pages"
+        })
+      )
+
+      // Hites widget
+      search.addWidget(
+        instantSearch.widgets.hits({
+          container: block.querySelector(".JS-search-results"),
+          templates: {
+            empty: "No results",
+            item: template("main-card")
+          }
+        })
+      )
+
+      search.start()
+    }
   })
 )()
 

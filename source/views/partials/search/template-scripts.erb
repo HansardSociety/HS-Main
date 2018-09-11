@@ -1,0 +1,20 @@
+<%# Main card %>
+<script id="search-template-main-card">
+  <%= partial "views/partials/main-card",
+    locals: { local_data: {
+      entry_data: {
+        title: "{{{title}}}",
+        category: "{{{brand-green}}}",
+        introduction: "{{{introduction}}}",
+        slug: "{{{slug}}}",
+        meta_label: "{{{meta_label}}}",
+        no_intro: true,
+        accents: true,
+        banner_image: {
+          url: "{{{image}}}",
+          alt: "{{{alt}}}",
+          focus: "{{{focus}}}"
+        },
+      }}} %>
+</script>
+

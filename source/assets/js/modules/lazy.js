@@ -9,9 +9,9 @@ const blazy = new Blazy()
   ========================================================================== */
 
 // Initiates blazy loading on click/ touch
-const blazyClicktivate = ({ trigger, nestedTargets, nestedElem }) => {
+const blazyClicktivate = ({ trigger, events, nestedTargets, nestedElem }) => {
   const allTriggerElems = document.querySelectorAll(trigger)
-  const allEvents = ["click", "touchstart"]
+  const allEvents = events
 
   for (let triggerElem of allTriggerElems) {
     for (let event of allEvents) {
@@ -48,6 +48,7 @@ const blazyClicktivate = ({ trigger, nestedTargets, nestedElem }) => {
 // Carousel
 const blazyCarousel = (() => blazyClicktivate({
   trigger: ".carousel",
+  events: ["click", "touchstart"],
   nestedTargets: true,
   nestedElem: "img"
 }))()
@@ -55,8 +56,17 @@ const blazyCarousel = (() => blazyClicktivate({
 // Modal iframes
 const blazyModalFrame = (() => blazyClicktivate({
   trigger: ".JS-lazy",
+  events: ["click", "touchstart"],
   nestedTargets: false
 }))()
 
+// Modal iframes
+const blazySearch = (() => blazyClicktivate({
+  trigger: ".search",
+  events: ["click", "touchstart"],
+  nestedTargets: true,
+  nestedElem: "img"
+}))()
 
-export { blazyCarousel, blazyModalFrame }
+
+export { blazyCarousel, blazyModalFrame, blazySearch }

@@ -1,12 +1,15 @@
 <%
 # panelData = local_data[:entry_data]
+# searchID = panelData[:search_id]
 %>
 
-<section class="panel panel--white">
-  <div class="panel__content panel__content--medium">
+<section class="panel e-bgc-greyscale-1">
+  <div class="panel__content panel__content--full">
     <h2 class="title-lg e-col-brand-green-1 e-align-cen e-mgn-b-sm">Search</h2>
-    <div id="search-box"></div>
-    <div id="hits"></div>
+    <div class="search">
+      <div class="search__input JS-search-input JS-lazy"></div>
+      <div class="search__filters JS-search-filters"></div>
+      <div class="search__results grid grid--sm JS-search-results"></div>
+    </div>
   </div>
 </section>
-

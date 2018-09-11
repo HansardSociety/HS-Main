@@ -6,14 +6,16 @@ allPages = childPages.merge(landingPages)
 db = allPages.map do |id, page|
   {
     "objectID": page.ID,
-    "title": page.title,
-    "date": "#{ page.date_time.day }/#{ page.date_time.month }/#{ page.date_time.year }",
+    "title": markdownStrip(page.title),
     "slug": page.slug,
     "category": page.category,
     "sub_category": (page.sub_category if page.sub_category),
-    "description": page.introduction,
-    "image": page.banner_image.url,
-    "tags": (page.tags.map{ |tag| tag } if page.tags)
+    "theme": page.theme,
+    "sub_theme": page.sub_theme,
+    "description": markdownStrip(page.introduction),
+    "date": page.date_time.integer,
+    "meta_label": (page.meta_label if page.meta_label),
+    "image": page.banner_image.url
   }
 end
 
