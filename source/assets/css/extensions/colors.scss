@@ -1,5 +1,10 @@
-/*		=Core BG colors
+/*		=Core colors
   ========================================================================== */
+
+%e-col-current,
+.e-col-current {
+  color: currentColor;
+}
 
 @each $colorName, $colorShades in $colorGroups {
   @each $shadeNum, $shadeHex in $colorShades {
@@ -26,10 +31,6 @@
 
 %e-bgc-opaque-3 {
   background-color: rgba(0, 0, 0, .7);
-}
-
-%e-col-current {
-  color: currentColor;
 }
 
 /*		=BG shapes
