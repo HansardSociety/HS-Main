@@ -58,31 +58,6 @@ $systemFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, A
 /*		=Colours
   ========================================================================== */
 
-$colors: (
-  primary: (
-    blue:          #236192,
-    brown:         #8f3237,
-    green:         #00685e,
-    light-blue:    #6ba4b8,
-    light-brown:   #ae8a79,
-    light-green:   #80967a,
-    orange:        #f57300,
-  ),
-  secondary: (
-    current:       currentColor,
-    dark-orange:   #dc6700,
-    overlay-black: rgba(0, 0, 0, .6),
-  ),
-  greyscale: (
-    white:         #fefefe,
-    light-grey :   #eff0f0,
-    mid-grey:      #a4a7ab,
-    grey:          #60666c,
-    dark-grey:     #333a42,
-    black:         #1d252d
-  )
-);
-
 $colorGroups: (
   brand-green: (
     1: #107A6F,

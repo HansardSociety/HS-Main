@@ -1,24 +1,6 @@
 /*		=Core BG colors
   ========================================================================== */
 
-@each $name, $color in Merge(
-  map-get($colors, primary),
-  map-get($colors, secondary),
-  map-get($colors, greyscale)) {
-
-  // Colors
-  .e-col-#{ $name },
-  %e-col-#{ $name } {
-    color: $color;
-  }
-
-  // Background colors
-  .e-bgc-#{ $name },
-  %e-bgc-#{ $name } {
-    background-color: $color;
-  }
-}
-
 @each $colorName, $colorShades in $colorGroups {
   @each $shadeNum, $shadeHex in $colorShades {
 
@@ -46,6 +28,9 @@
   background-color: rgba(0, 0, 0, .7);
 }
 
+%e-col-current {
+  color: currentColor;
+}
 
 /*		=BG shapes
   ========================================================================== */
