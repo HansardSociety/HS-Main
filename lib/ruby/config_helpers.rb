@@ -1,5 +1,8 @@
 module ConfigHelpers
 
+  ##		=Category levels
+  ########################################
+
   def siteCategories(level)
     categories = {
       top_all: ["about", "blog", "events", "insight", "legal", "projects", "publications"],
@@ -9,6 +12,9 @@ module ConfigHelpers
 
     categories[level]
   end
+
+  ##		=Feed pages
+  ########################################
 
   def feedPages(pagesData, categoryLev = :category)
     rejectIndices = pagesData.reject{ |id, page| page.index_page == true }
@@ -29,11 +35,34 @@ module ConfigHelpers
     yield(selectedPages)
   end
 
+  ##		=Theme pages
+  ########################################
+
   def getThemePages(srcPages, themeName)
     srcPages.select{|id, page|
       page[:theme] && page[:theme].include?(themeName)
     }.sort_by{|id, page|
       - page[:date_time][:integer]
     }
+  end
+
+  ##		=Set category colors
+  ########################################
+
+  def catColor(color)
+    category = color.parameterize.underscore.to_sym
+
+    colors = {
+      about: "brand-green",
+      blog: "purple",
+      events: "hot-pink",
+      insight: "sea-green",
+      legal: "slate-blue",
+      projects: "brand-green",
+      publications: "orange",
+      greyscale: "greyscale"
+    }
+
+    colors[category]
   end
 end
