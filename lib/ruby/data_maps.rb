@@ -505,12 +505,10 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.newsletter_text = entry.newsletter_text
     context.newsletter_form = form(entry.newsletter_form)
 
-    context.uncss_urls = entry.uncss_urls
-
     ##		=Categories/sub-categories
     ########################################
 
-    context.site_structure = entry.site_structure
+    context.site_config = entry.site_config
 
     ##		=Social
     ########################################

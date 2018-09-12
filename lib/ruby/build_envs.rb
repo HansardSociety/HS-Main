@@ -111,7 +111,7 @@ module BuildEnvs
 
       if MM_ENV == "preview"
         # Submit Algolia DB
-        system "node ./lib/js/_scripts"
+        system "node ./lib/js/_after-build"
       end
 
       # http/2 headers

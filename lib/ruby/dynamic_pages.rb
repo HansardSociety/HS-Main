@@ -89,7 +89,7 @@ module DynamicPages
       ########################################
 
       siteSettings = YAML.load_file("data/hs/universal/5mkIBy6FCEk8GkOGKEQKi4.yaml")
-      themes = siteSettings[:site_structure][:themes].to_a
+      themes = siteSettings[:site_config][:themes].to_a
 
       themes.each do |theme|
         paginated = getThemePages(allMainPages, theme).each_slice(6).to_a
