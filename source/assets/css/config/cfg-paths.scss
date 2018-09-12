@@ -1,0 +1,15 @@
+$path: (
+  assets: "/assets",
+  fonts: "/assets/fonts",
+  css: "/assets/css",
+  js: "/assets/js"
+) !default;
+
+@if ($env == "development") {
+  $path: (
+    assets: "/.assets",
+    fonts: "/.assets/fonts",
+    css: "/.assets/css",
+    js: "/.assets/js"
+  );
+}

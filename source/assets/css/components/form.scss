@@ -94,6 +94,10 @@
 
   @extend %e-ff-prim-roman;
   @extend %e-mgn-t-sm;
+
+  & > p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 /*		=Pages/ payment

@@ -5,7 +5,16 @@
 @import "./functions/string-replace";
 
 // Config
-@import "./config";
+@import "./config/cfg-paths"; // first
+@import "./config/cfg-box-model";
+@import "./config/cfg-btn";
+@import "./config/cfg-colors";
+@import "./config/cfg-columns";
+@import "./config/cfg-media-qs";
+@import "./config/cfg-motion";
+@import "./config/cfg-properties";
+@import "./config/cfg-shadow";
+@import "./config/cfg-type";
 
 // Mixins
 @import "./mixins/media-queries";
