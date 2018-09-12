@@ -13,13 +13,15 @@ url = internalURL(entryData[:slug])
 
 noIntro = entryData[:no_intro]
 
+# Standard classes
 if !entryData[:accents]
   labelAccent = "e-acc-#{ catColor(category) }-2"
   accent = "e-acc-#{ catColor(category) }-2-top"
 
+# Algolia placeholders
 else
-  accent = "__PLACEHOLDER_ACCENT__"
-  labelAccent = "__PLACEHOLDER_LABEL__"
+  accent = "e-acc-\{\{\{category\}\}\}-2-top"
+  labelAccent = "e-acc-\{\{\{category\}\}\}-2"
 end
 
 featuredCard = local_data[:featured]

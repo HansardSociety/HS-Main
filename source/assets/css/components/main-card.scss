@@ -45,6 +45,10 @@
     @extend %e-max-width-full;
     @extend %e-width-full;
   }
+
+  & > img.b-lazy {
+    @extend %e-animate-fade-in-load;
+  }
 }
 
 .main-card__title {
