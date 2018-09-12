@@ -16,6 +16,17 @@
   }
 }
 
+@each $category in $categoryColors {
+
+  .main-card--#{map-get($category, name)} {
+    @extend %e-acc-#{map-get($category, color)}-2-top;
+  }
+
+  .main-card__label--#{map-get($category, name)} {
+    @extend %e-acc-#{map-get($category, color)}-2;
+  }
+}
+
 .main-card__featured-icon {
   z-index: 1;
   top: .5rem;

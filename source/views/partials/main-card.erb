@@ -15,19 +15,25 @@ noIntro = entryData[:no_intro]
 
 # Standard classes
 if !entryData[:accents]
-  labelAccent = "e-acc-#{ catColor(category) }-2"
-  accent = "e-acc-#{ catColor(category) }-2-top"
 
-# Algolia placeholders
+  categoryColor = catColor(category)
+  accent = "e-acc-#{ categoryColor }-2-top"
+  labelAccent = "e-acc-#{ categoryColor }-2"
+
+# Algolia
 else
-  accent = "e-acc-\{\{\{category\}\}\}-2-top"
-  labelAccent = "e-acc-\{\{\{category\}\}\}-2"
+  categoryColor = "{{{category}}}"
+  accent = "main-card--{{{category}}}"
+  labelAccent = "main-card__label--{{{category}}}"
 end
 
 featuredCard = local_data[:featured]
 %>
 
-<article class="main-card <%= accent %>">
+<article
+  class="main-card <%= accent %>"
+  data-category="<%= categoryColor ? categoryColor : category %>">
+
   <% if featuredCard %>
     <span class="main-card__featured-icon">
       <%= partial 'views/partials/icon',

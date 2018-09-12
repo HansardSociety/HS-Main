@@ -45,24 +45,4 @@ module ConfigHelpers
       - page[:date_time][:integer]
     }
   end
-
-  ##		=Set category colors
-  ########################################
-
-  def catColor(color)
-    category = color.parameterize.underscore.to_sym
-
-    colors = {
-      about: "brand-green",
-      blog: "purple",
-      events: "hot-pink",
-      insight: "sea-green",
-      legal: "slate-blue",
-      projects: "brand-green",
-      publications: "orange",
-      greyscale: "greyscale"
-    }
-
-    colors[category]
-  end
 end

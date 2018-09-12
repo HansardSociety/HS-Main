@@ -26,6 +26,8 @@ const algoliaSearch = (() =>
       }
     })
 
+    // console.log(config["categories"])
+
     for (let block of searchBlocks) {
 
       // // Refinement widget
@@ -61,9 +63,11 @@ const algoliaSearch = (() =>
 
       // Lazy load images
       search.on("render", function () {
-        const images = block.querySelectorAll("img")
+        const cards = block.querySelectorAll(".main-card")
 
-        for (let img of images) {
+        for (let card of cards) {
+          const img = card.querySelector("img")
+
           if (img.classList.contains("b-loaded")) {
             // do nothing
           } else {
