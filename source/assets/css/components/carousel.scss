@@ -33,8 +33,8 @@
 .carousel__actions {
   justify-content: space-between;
 
-  width: 9.5rem;
-  margin-top: 1.75rem;
+  width: 7.5rem;
+  margin-top: 1rem;
 
   color: Get($colorGroups, brand-green, 2);
 
@@ -51,7 +51,7 @@
     content: "";
 
     opacity: .5;
-    border-left: 1px solid Get($colorGroups, white, 3);
+    border-left: 1px solid currentColor;
 
     @extend %e-absolute-center-xy;
   }
@@ -117,13 +117,13 @@
 }
 
 .carousel__prev > span {
-  padding-left: .25rem;
+  padding-left: .125rem;
 
   @extend %e-mgn-r-xs;
 }
 
 .carousel__next > span {
-  padding-right: .25rem;
+  padding-right: .125rem;
 
   @extend %e-mgn-l-xs;
 }
@@ -161,7 +161,7 @@
 
 .flickity-page-dots {
   z-index: 1;
-  bottom: -1rem;
+  bottom: -.5rem;
 
   & > .dot {
     width: 6px;
@@ -183,7 +183,7 @@
 // Banner override
 .banner {
   .flickity-page-dots {
-    bottom: -1.5rem;
+    bottom: 3rem;
 
     @include below(sm) {
       display: none;
@@ -191,9 +191,13 @@
 
     & > .dot {
       opacity: .5;
+
+      @extend %e-bgc-white-1;
     }
 
     & > .dot.is-selected {
+      opacity: 1;
+
       @extend %e-bgc-white-1;
     }
   }
