@@ -79,14 +79,13 @@
   border-radius: 1px;
 
   @extend %e-display-inline;
-  // @extend %e-pad-y-xs;
   @extend %e-pad-xxs;
 }
 
 // Side title
 .side-title {
   @extend .label-sm;
-  @extend %e-col-black-3;
+  @extend %e-col-white-3;
   @extend %e-mgn-b-sm;
   @extend %e-pad-t-xs;
   @extend %e-mgn-b-sm;
