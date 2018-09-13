@@ -30,14 +30,6 @@ const algoliaSearch = (() =>
 
     for (let block of searchBlocks) {
 
-      // // Refinement widget
-      // search.addWidget(
-      //   instantsearch.widgets.refinementList({
-      //     container: "#refinement-list",
-      //     attributeName: "sub-themes"
-      //   })
-      // )
-
       // Search widget
       search.addWidget(
         instantSearch.widgets.searchBox({
@@ -62,17 +54,17 @@ const algoliaSearch = (() =>
         })
       )
 
-      // Infinite search widget
-      // search.addWidget(
-      //   instantSearch.widgets.infiniteHits({
-      //     container: block.querySelector(".JS-search-load-more"),
-      //     templates: {
-      //       empty: "No results",
-      //       item: template("main-card")
-      //     }
-
-      //   })
-      // )
+      // Refinement widget
+      search.addWidget(
+        instantSearch.widgets.refinementList({
+          container: block.querySelector(".JS-search-filters"),
+          attributeName: "category",
+          operator: "and",
+          templates: {
+            header: "<h5>{{{category}}}</h5>"
+          }
+        })
+      )
 
       // Lazy load images
       search.on("render", function () {
