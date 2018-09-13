@@ -13,7 +13,7 @@ entryData = local_data[:entry_data]
 
 if isThemePage || isLandingPage
   title = entryData[:title]
-  bgc = entryData[:background_color] ? panelBgc(entryData[:background_color]) : "e-bgc-greyscale-0"
+  bgc = entryData[:background_color] ? panelBgc(entryData[:background_color]) : "e-bgc-white-1"
 
   feedData = entryData[:feed]
   feedCategory = feedData[:category]
@@ -71,7 +71,7 @@ end
   <% if title %>
     <div class="panel__content panel__content--narrow e-align-cen e-mgn-b-lg">
       <h2 class="title-lg e-col-brand-green-1"><%= title %></h2>
-      <p class="e-col-greyscale-2">By date (descending)</p>
+      <p class="e-col-black-3">By date (descending)</p>
     </div>
   <% end %>
   <div class="panel__content panel__content--wide">

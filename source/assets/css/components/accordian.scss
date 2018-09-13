@@ -1,6 +1,6 @@
 .accordian {
 
-  @extend %e-bgc-greyscale-1;
+  @extend %e-bgc-white-2;
   @extend %e-overflow-hidden;
   @extend %e-rad-slight;
 }
@@ -21,7 +21,7 @@
 }
 
 .accordian__content {
-  border-top: 1px solid Get($colorGroups, greyscale, 2)
+  border-top: 1px solid Get($colorGroups, white, 3)
 }
 
 .accordian__control {

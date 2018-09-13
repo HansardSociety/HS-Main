@@ -107,7 +107,7 @@ url = "https://hansardsociety.org.uk/"
                     <ul class="e-mgn-t-sm">
                       <% pages.sort_by{ |page| page[:title] }.each do |page| %>
                         <li>
-                          <span class="label-xs e-col-greyscale-2"><%= page[:meta_label] %></span>
+                          <span class="label-xs e-col-black-3"><%= page[:meta_label] %></span>
                           <p><a
                             class="link"
                             href="<%= internalURL(page[:slug]) %>"
@@ -142,7 +142,7 @@ url = "https://hansardsociety.org.uk/"
             <% if isBlogPage %>
               <% featured.reject{ |featured| featured[:TYPE] == "people" }.each_with_index do |featured, index| %>
                 <% if index == 0 %>
-                  <h2 class="side-title e-acc-greyscale-3-top">Featured</h2>
+                  <h2 class="side-title e-acc-black-2-top">Featured</h2>
                 <% end %>
                 <%= partial "views/partials/side-card",
                   locals: { local_data: {
@@ -153,7 +153,7 @@ url = "https://hansardsociety.org.uk/"
             <%# If not blog, add all featured items to the sidebar except
               # the first, which is featured alongside the intro text. %>
             <% elsif featured && featured.length > 1 %>
-              <h2 class="side-title e-acc-greyscale-3-top">Featured</h2>
+              <h2 class="side-title e-acc-black-2-top">Featured</h2>
               <% featured.drop(1).map do |featuredItem| %>
                 <% if !nonPages.include? featuredItem[:TYPE] %>
                   <%= partial "views/partials/side-card",
@@ -166,7 +166,7 @@ url = "https://hansardsociety.org.uk/"
 
             <%# External links %>
             <% if @entry[:external_links] %>
-              <h2 class="side-title e-acc-greyscale-2-top">Links</h2>
+              <h2 class="side-title e-acc-black-3-top">Links</h2>
               <% @entry[:external_links].map do |link| %>
                 <%= partial "views/partials/ext-link",
                   locals: { local_data: {
@@ -186,7 +186,7 @@ url = "https://hansardsociety.org.uk/"
           <% end %><%# END :: if isMainCategories %>
 
           <%# Newsletter signup %>
-          <div class="box e-bgc-brand-green-1 e-col-greyscale-0 e-mgn-t-md e-mgn-b-xs">
+          <div class="box e-bgc-brand-green-1 e-col-white-1 e-mgn-t-md e-mgn-b-xs">
             <%= partial "views/partials/signup-box",
               locals: { local_data: {
                 copy_size: "sm",

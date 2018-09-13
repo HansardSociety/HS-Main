@@ -21,7 +21,7 @@
   .ais-search-box--magnifier,
   .ais-search-box--reset {
     top: 0.75rem;
-    fill: Get($colorGroups, greyscale, 2);
+    fill: Get($colorGroups, white, 3);
 
     @extend %e-position-absolute;
   }

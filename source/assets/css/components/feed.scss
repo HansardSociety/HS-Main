@@ -39,7 +39,7 @@
   border-radius: 1px;
 
   @extend %e-align-cen;
-  @extend %e-bgc-greyscale-1;
+  @extend %e-bgc-white-2;
   @extend %e-col-brand-green-1;
   @extend %e-display-block;
   @extend %e-ff-prim-heavy;
@@ -49,7 +49,7 @@
 .feed__menu-item {
   &:hover {
     @extend %e-bgc-brand-green-1;
-    @extend %e-col-greyscale-0;
+    @extend %e-col-white-1;
   }
 }
 
@@ -60,5 +60,5 @@
 
 .feed__menu-item.JS-active {
   @extend %e-bgc-brand-green-1;
-  @extend %e-col-greyscale-0;
+  @extend %e-col-white-1;
 }

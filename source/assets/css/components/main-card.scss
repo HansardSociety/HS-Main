@@ -3,7 +3,7 @@
 
   text-align: left;
 
-  @extend %e-bgc-greyscale-0;
+  @extend %e-bgc-white-1;
   @extend %e-box-shad-z1;
   @extend %e-min-height-full;
   @extend %e-overflow-hidden;
@@ -32,7 +32,7 @@
   top: .5rem;
   right: .5rem;
 
-  @extend %e-col-greyscale-0;
+  @extend %e-col-white-1;
   @extend %e-position-absolute;
 }
 

@@ -1,13 +1,37 @@
+require "yaml"
+
 module ConfigHelpers
+
+  def siteConfig
+    YAML.load_file("data/hs/universal/5mkIBy6FCEk8GkOGKEQKi4.yaml")[:site_config]
+  end
 
   ##		=Category levels
   ########################################
 
   def siteCategories(level)
+
+    topCategoriesAll = []
+    siteConfig[:categories].map do |cat|
+      topCategoriesAll << cat[:name]
+    end
+
+    topCategoriesMain = []
+    siteConfig[:categories].select{|cat| cat[:enable_tagging]}.map do |cat|
+      topCategoriesMain << cat[:name]
+    end
+
+    subCategories = []
+    siteConfig[:categories].select{|cat| cat[:sub_categories]}.map do |cat|
+      cat[:sub_categories].map do |subCat|
+        subCategories << subCat
+      end
+    end
+
     categories = {
-      top_all: ["about", "blog", "events", "insight", "legal", "projects", "publications"],
-      top_main: ["events", "insight", "blog", "publications", "projects"],
-      sub: ["education", "training", "research"]
+      top_all: topCategoriesAll,
+      top_main: topCategoriesMain,
+      sub: subCategories
     }
 
     categories[level]

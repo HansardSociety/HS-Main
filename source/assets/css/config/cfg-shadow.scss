@@ -12,10 +12,10 @@ $shadow: (
   ),
   text: (
     z1: (
-      0 0 1rem rgba(10, 10, 10, .3)
+      0 0 1rem rgba(Get($colorGroups, black, 2), .3333)
     ),
     z3: (
-      0 0 1.125rem rgba(10, 10, 10, .45)
+      0 0 1rem rgba(Get($colorGroups, black, 1), .45)
     )
   )
 );

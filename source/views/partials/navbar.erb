@@ -41,20 +41,20 @@
             <% if nav[:pages] && nav[:pages].length <= 1
               nav[:pages].each do |page| %>
               <a
-                class="title-sm e-col-greyscale-0"
+                class="title-sm e-col-white-1"
                 href="<%= internalURL(page[:slug]) %>"
                 title="<%= nav[:title] + " | " + siteData(:site_title) %>"><%= nav[:title] %></a>
 
             <% end; end; if nav[:external_url] %>
               <a
-                class="e-col-greyscale-0"
+                class="e-col-white-1"
                 href="<%= nav[:external_url] %>"
                 rel="noopener"
                 target="_blank"
                 title="<%= nav[:title] %>"><%= nav[:title] %></a>
 
             <% end; if nav[:pages] && nav[:pages].length > 1 %>
-              <div class="e-col-greyscale-0">
+              <div class="e-col-white-1">
                 <%= partial "views/partials/btn",
                   locals: { local_data: {
                     type: "state",
@@ -79,7 +79,7 @@
           </li>
         <% end %>
       </ul>
-      <div class="e-col-greyscale-0">
+      <div class="e-col-white-1">
         <%= partial "views/partials/btn",
         locals: { local_data:{
           type: "state", size: "sm",

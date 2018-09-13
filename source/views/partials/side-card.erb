@@ -29,7 +29,7 @@ if imageBanner || imageProduct
 end
 
 # Colors
-asideBgc = image ? "e-bgc-brand-green-2" : "e-bgc-#{ catColor(pageCategory) }-2 e-col-greyscale-0"
+asideBgc = image ? "e-bgc-brand-green-2" : "e-bgc-#{ catColor(pageCategory) }-2 e-col-white-1"
 accentColor = catColor(isFeaturedRegistration ? pageCategory : category)
 accentClass = "e-acc-#{ accentColor }-2-left"
 
@@ -60,7 +60,7 @@ sideCardAttrs = {
     <div class="side-card__content">
       <% if !isFeaturedProduct && !isFeaturedRegistration %>
         <div class="side-card__label">
-          <span class="label-xs label-tag e-acc-<%= catColor(isFeaturedRegistration ? pageCategory : category) %>-2 e-col-greyscale-0">
+          <span class="label-xs label-tag e-acc-<%= catColor(isFeaturedRegistration ? pageCategory : category) %>-2 e-col-white-1">
             <span class="e-va-fix"><%= entryData[:meta_label] %></span>
           </span>
         </div>
@@ -77,13 +77,13 @@ sideCardAttrs = {
           </h2>
         <% else %>
           <h2
-            class="title-sm <%= isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" %> JS-truncate"
+            class="title-sm <%= isFeaturedCard ? "e-col-white-1" : "e-col-brand-green-2" %> JS-truncate"
             data-truncate="{ 'xs': 50, 'sm': 150, 'md': 65, 'lg': 90 }"><%= isFeaturedProduct ? title : entryData[:venue] %></h2>
         <% end %>
       </div>
 
       <% if isNonPage %>
-        <div class="side-card__actions <%= isFeaturedCard ? "e-col-greyscale-0" : "e-col-brand-green-2" %>">
+        <div class="side-card__actions <%= isFeaturedCard ? "e-col-white-1" : "e-col-brand-green-2" %>">
 
           <!--**********************************************
               =Product
