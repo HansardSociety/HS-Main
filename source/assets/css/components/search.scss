@@ -20,8 +20,8 @@
   .ais-search-box--magnifier,
   .ais-search-box--reset {
     top: 0.75rem;
-    fill: Get($colorGroups, white, 3);
 
+    fill: Get($colorGroups, white, 3);
     @extend %e-position-absolute;
   }
 
@@ -33,14 +33,56 @@
     right: 1.75rem;
   }
 
-  .ais-hits {
+  .ais-infinite-hits {
     @extend .grid;
     @extend .grid--sm;
     @extend .grid--center;
   }
 
-  .ais-hits--item {
+  .ais-infinite-hits--item {
     @extend .grid__cell;
     @extend .grid__cell--sm-above-md-4;
+  }
+
+  .ais-infinite-hits--showmore {
+    @extend %e-mgn-t-md;
+    @extend %e-align-cen;
+
+    & > .ais-infinite-hits--showmoreButton:not(:disabled) {
+      display: inherit;
+
+      @extend .btn;
+      @extend .btn--secondary;
+      @extend .btn--md;
+      @extend .btn__label;
+      @extend .btn__label--md;
+      @extend %e-align-cen;
+    }
+
+    & > .ais-infinite-hits--showmoreButton:disabled {
+      position: relative;
+
+      width: 0;
+      height: 0;
+
+      color: transparent;
+
+      @extend %e-position-relative;
+
+      &::before {
+        top: 0;
+        left: -2.5rem;
+
+        width: 5rem;
+
+        content: "— END —";
+
+        color: Get($colorGroups, black, 3);
+
+        @extend %e-display-block;
+        @extend %e-ff-prim-heavy;
+        @extend %e-position-relative;
+      }
+    }
   }
 }

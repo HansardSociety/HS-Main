@@ -109,26 +109,6 @@ end
             <% end %>
           <% end %>
         </div>
-
-        <div class="feed__status">
-          <div class="infinite-scroll-request e-col-green">
-            <%= partial "views/partials/icon",
-              locals: {
-                icon: "load-c",
-                size: "md" } %>
-          </div>
-          <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
-          <span class="infinite-scroll-error label-sm e-col-mid-grey">Please reload the page</span>
-        </div>
-        <div class="feed__load">
-          <%= partial "views/partials/btn",
-            locals: { local_data: {
-              type: "link",
-              size: "md",
-              style: "secondary",
-              label: "Load more...",
-              label_size: "md" }} %>
-        </div>
       </div>
 
       <% if dataFeedPage < dataFeedTotal %>
@@ -173,6 +153,29 @@ end
           </div>
         </aside>
       <% end %>
+
+      <div class="feed__footer">
+        <div class="feed__status">
+          <div class="infinite-scroll-request e-col-green">
+            <%= partial "views/partials/icon",
+              locals: {
+                icon: "load-c",
+                size: "md" } %>
+          </div>
+          <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
+          <span class="infinite-scroll-error label-sm e-col-mid-grey">Please reload the page</span>
+        </div>
+
+        <div class="feed__load">
+          <%= partial "views/partials/btn",
+            locals: { local_data: {
+              type: "link",
+              size: "md",
+              style: "secondary",
+              label: "Load more...",
+              label_size: "md" }} %>
+        </div>
+      </div>
     </div>
   </div>
 </section>

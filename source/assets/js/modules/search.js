@@ -50,16 +50,29 @@ const algoliaSearch = (() =>
         })
       )
 
-      // Hites widget
+      // Hits widget
       search.addWidget(
-        instantSearch.widgets.hits({
+        instantSearch.widgets.infiniteHits({
           container: block.querySelector(".JS-search-results"),
+          showMoreLabel: "Load more…",
           templates: {
             empty: "No results",
             item: template("main-card")
           }
         })
       )
+
+      // Infinite search widget
+      // search.addWidget(
+      //   instantSearch.widgets.infiniteHits({
+      //     container: block.querySelector(".JS-search-load-more"),
+      //     templates: {
+      //       empty: "No results",
+      //       item: template("main-card")
+      //     }
+
+      //   })
+      // )
 
       // Lazy load images
       search.on("render", function () {

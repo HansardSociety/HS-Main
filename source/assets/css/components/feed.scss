@@ -2,15 +2,18 @@
   // @extend %e-mgn-t-md;
 }
 
+.feed__footer {
+  order: 3;
+
+  @extend %e-width-full;
+}
+
 .feed__load,
 .feed__status {
   @extend %e-align-cen;
   @extend %e-animate-fade-in-load;
-  @extend %e-mgn-t-sm;
   @extend %e-mgn-auto-x;
-  @include above(sm) {
-    text-align: left;
-  }
+  @extend %e-mgn-t-sm;
 }
 
 .feed__status {
