@@ -186,7 +186,7 @@ url = "https://hansardsociety.org.uk/"
           <% end %><%# END :: if isMainCategories %>
 
           <%# Newsletter signup %>
-          <div class="box e-bgc-brand-green-1 e-col-white-1 e-mgn-t-md e-mgn-b-xs">
+          <div class="box e-bgc-brand-green-1 e-col-white-1 e-mgn-t-md">
             <%= partial "views/partials/signup-box",
               locals: { local_data: {
                 copy_size: "sm",
@@ -203,17 +203,19 @@ url = "https://hansardsociety.org.uk/"
             <% end %>
 
           <% else %>
-            <h2 class="side-title e-acc-brand-green-2-top e-pad-t-xs">Top 3</h2>
-            <% latestContent(
-              yield: true,
-              num: 3,
-              # page_cats: ["blog"],
-              dedupe_entry_id: @entry[:ID]
-            ) do |page| %>
-              <%= partial "views/partials/side-card",
-                locals: { local_data: {
-                  side_card_data: page }} %>
-            <% end %>
+            <div class="top-3">
+              <h2 class="side-title e-acc-brand-green-2-top e-pad-t-xs">Top 3</h2>
+              <% latestContent(
+                yield: true,
+                num: 3,
+                # page_cats: ["blog"],
+                dedupe_entry_id: @entry[:ID]
+              ) do |page| %>
+                <%= partial "views/partials/side-card",
+                  locals: { local_data: {
+                    side_card_data: page }} %>
+              <% end %>
+            </div>
           <% end %>
         </aside>
       </div>

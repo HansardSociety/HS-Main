@@ -69,6 +69,15 @@
   }
 }
 
+.navbar__right {
+  @include above(sm) {
+    padding: .25rem 1rem;
+
+    background-color: Get($colorGroups, brand-green, 2);
+    border-radius: Get($radii, slight)
+  }
+}
+
 .navbar__list,
 .navbar__item {
   @extend %e-display-none;
@@ -94,8 +103,8 @@
 
 .navbar.JS-active {
   border-top: none;
-
   // @extend %e-col-white-1;
+
   @include above('md') {
     height: 3.5rem;
 
@@ -115,8 +124,8 @@
   .navbar__inner {
     &::before {
       height: 3.5rem;
-
       // @extend %e-zidx-neg;
+
       @extend %e-box-shad-z1;
     }
   }
