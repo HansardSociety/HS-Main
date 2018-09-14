@@ -17,6 +17,7 @@ import "svgxuse"
   ========================================================================== */
 
 import "lodash/debounce"
+import "lodash/throttle"
 import "smooth-scroll"
 import "flickity"
 import "blazy"

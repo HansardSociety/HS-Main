@@ -1,4 +1,4 @@
-import debounce from "lodash/debounce"
+import throttle from "lodash/throttle"
 import { forEach, toggleClass } from "./core"
 
 const shrinkNav = (() => {
@@ -24,10 +24,10 @@ const shrinkNav = (() => {
 
   window.onload = windowPosition()
 
-  window.addEventListener("scroll", debounce(() => {
+  window.addEventListener("scroll", throttle(() => {
 
     windowPosition()
-  }, 100))
+  }, 400))
 })()
 
 // const feedMenu = (() => {

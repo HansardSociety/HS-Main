@@ -205,12 +205,7 @@ url = "https://hansardsociety.org.uk/"
           <% else %>
             <div class="top-3">
               <h2 class="side-title e-acc-brand-green-2-top e-pad-t-xs">Top 3</h2>
-              <% latestContent(
-                yield: true,
-                num: 3,
-                # page_cats: ["blog"],
-                dedupe_entry_id: @entry[:ID]
-              ) do |page| %>
+              <% data.hs.homepage(0).values[0].featured_pages[0..2].each do |page| %>
                 <%= partial "views/partials/side-card",
                   locals: { local_data: {
                     side_card_data: page }} %>
