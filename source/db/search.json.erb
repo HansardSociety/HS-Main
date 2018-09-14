@@ -1,7 +1,7 @@
 <%
 childPages = data.hs.child_page
 landingPages = data.hs.landing_page
-allPages = childPages.merge(landingPages)
+allPages = childPages.merge(landingPages).reject{|id, page| page.noindex}
 
 db = allPages.map do |id, page|
   {

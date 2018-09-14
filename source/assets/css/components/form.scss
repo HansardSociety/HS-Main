@@ -102,6 +102,26 @@
   }
 }
 
+/*		=Checkbox
+  ========================================================================== */
+
+.form__check {
+  cursor: pointer;
+}
+
+.form__check-input {
+  width: 1rem;
+  height: 1rem;
+
+  border: solid 2px Get($colorGroups, white, 3);
+  border-radius: .25rem;
+  margin-right: 0.125rem;
+
+  &:checked {
+    @extend %e-bgc-orange-2;
+  }
+}
+
 /*		=Pages/ payment
   ========================================================================== */
 

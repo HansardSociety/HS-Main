@@ -55,26 +55,26 @@ const algoliaSearch = (() =>
         }),
       )
 
-      // Refinement widget
+      // Refinement widget 1
       search.addWidget(
         instantSearch.widgets.refinementList({
           container: block.querySelector(".search__filters > .search__filter-1"),
           attributeName: "sub_theme",
           operator: "or",
           templates: {
-            header: "<h5>Sub-theme</h5>"
+            header: "<span>Sub-theme:</span>"
           },
         })
       )
 
-      // Refinement widget
+      // Refinement widget 2
       search.addWidget(
         instantSearch.widgets.refinementList({
           container: block.querySelector(".search__filters > .search__filter-2"),
           attributeName: "category",
           operator: "or",
           templates: {
-            header: "<h5>Category</h5>"
+            header: "<span>Category:</span>"
           },
         })
       )

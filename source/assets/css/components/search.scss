@@ -52,11 +52,52 @@
   .ais-refinement-list--header,
   .ais-refinement-list--body {
     @extend %e-display-inline-block;
+    @extend %e-mgn-t-xs;
+  }
+
+  .ais-refinement-list--header {
+    @extend %e-col-black-3;
+    @extend %e-mgn-r-xs;
+  }
+
+  .ais-refinement-list--list {
+    @extend .grid;
+    @extend .grid--xs;
   }
 
   .ais-refinement-list--item {
-    @extend .label-xs;
+    @extend .grid__cell;
     @extend %e-display-inline-block;
+  }
+
+  .ais-refinement-list--checkbox,
+  .ais-refinement-list--label {
+    @extend .form__check;
+  }
+
+  .ais-refinement-list--checkbox {
+    @extend .form__check-input;
+  }
+
+  .ais-refinement-list--label {
+    @extend .label-xs;
+  }
+
+  .ais-refinement-list--count {
+    @extend %e-col-orange-2;
+
+    &::before,
+    &::after {
+      @extend %e-display-inline;
+    }
+
+    &::before {
+      content: "("
+    }
+
+    &::after {
+      content: ")"
+    }
   }
 }
 
