@@ -564,6 +564,7 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
     if entry.featured_pages
       context.featured_pages = entry.featured_pages.map do |page|
         {
+          ID: page.sys[:id],
           title: page.title,
           meta_label: metaLabel(page),
           slug: slug(page),
