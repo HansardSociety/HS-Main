@@ -23,7 +23,8 @@ const algoliaSearch = (() =>
       routing: true,
       searchParameters: {
         hitsPerPage: 6
-      }
+      },
+      attributesForFaceting: ["category"]
     })
 
     // console.log(config["categories"])
@@ -33,8 +34,8 @@ const algoliaSearch = (() =>
       // Search widget
       search.addWidget(
         instantSearch.widgets.searchBox({
-          container: block.querySelector(".JS-search-input"),
-          placeholder: "Search for pages",
+          container: block.querySelector(".search__box"),
+          placeholder: "e.g. delegated legislation...",
           autofocus: false,
           queryHook: debounce((query, search) => {
             search(query)
@@ -45,24 +46,36 @@ const algoliaSearch = (() =>
       // Hits widget
       search.addWidget(
         instantSearch.widgets.infiniteHits({
-          container: block.querySelector(".JS-search-results"),
+          container: block.querySelector(".search__results"),
           showMoreLabel: "Load more…",
           templates: {
             empty: "No results",
             item: template("main-card")
-          }
+          },
+        }),
+      )
+
+      // Refinement widget
+      search.addWidget(
+        instantSearch.widgets.refinementList({
+          container: block.querySelector(".search__filters > .search__filter-1"),
+          attributeName: "sub_theme",
+          operator: "or",
+          templates: {
+            header: "<h5>Sub-theme</h5>"
+          },
         })
       )
 
       // Refinement widget
       search.addWidget(
         instantSearch.widgets.refinementList({
-          container: block.querySelector(".JS-search-filters"),
+          container: block.querySelector(".search__filters > .search__filter-2"),
           attributeName: "category",
-          operator: "and",
+          operator: "or",
           templates: {
-            header: "<h5>{{{category}}}</h5>"
-          }
+            header: "<h5>Category</h5>"
+          },
         })
       )
 
@@ -80,6 +93,8 @@ const algoliaSearch = (() =>
           }
         }
       })
+
+
 
       search.start()
     }

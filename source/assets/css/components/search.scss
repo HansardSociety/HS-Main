@@ -1,13 +1,18 @@
 // Uses algolia classes
 
-.search {
+.search {}
+
+/*		=Box
+  ========================================================================== */
+
+.search__box {
 
   .ais-search-box {
     @extend %e-container;
     @extend %e-container--narrow;
     @extend %e-max-width-full;
     @extend %e-mgn-auto-x;
-    @extend %e-mgn-b-md;
+    @extend %e-mgn-b-xs;
     @extend %e-position-relative;
     @extend %e-width-full;
   }
@@ -32,6 +37,33 @@
   .ais-search-box--reset {
     right: 1.75rem;
   }
+}
+
+/*		=Filters
+  ========================================================================== */
+
+.search__filters {
+  @extend %e-mgn-b-md;
+
+  .ais-refinement-list {
+    @extend %e-align-cen;
+  }
+
+  .ais-refinement-list--header,
+  .ais-refinement-list--body {
+    @extend %e-display-inline-block;
+  }
+
+  .ais-refinement-list--item {
+    @extend .label-xs;
+    @extend %e-display-inline-block;
+  }
+}
+
+/*		=Results
+  ========================================================================== */
+
+.search__results {
 
   .ais-infinite-hits {
     @extend .grid;

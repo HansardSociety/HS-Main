@@ -138,7 +138,8 @@ def sharedPageBase(pageType, ctx, data)
   if ["childPage", "landingPage"].include? pageType
     ctx.slug = slug(data)
     ctx.theme = data.theme ? data.theme.reject{ |theme| theme.include?($marker) }.map{ |theme| theme.parameterize } : ["none"]
-    ctx.sub_theme = data.theme ? data.theme.reject{ |theme| !theme.include?($marker) }.map{ |theme| theme.parameterize } : ["none"]
+    ctx.sub_theme = data.theme ? data.theme.reject{ |theme| !theme.include?($marker) }.map{ |theme| theme.split($marker)[1].parameterize } : ["none"]
+    ctx.sub_theme_nested = data.theme ? data.theme.reject{ |theme| !theme.include?($marker) }.map{ |theme| theme.parameterize } : ["none"]
     ctx.category = detachCategory(data.category)
     ctx.meta_label = metaLabel(data)
 
