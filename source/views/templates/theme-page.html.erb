@@ -14,7 +14,10 @@
     data_type: :latest_theme }} %>
 
   <%# Search %>
-  <%= partial "views/partials/panel/search" %>
+  <%= partial "views/partials/panel/search",
+    locals: { local_data: {
+      id: "search-theme"
+    }} %>
 
   <%# Panel feed %>
   <%= partial "views/partials/panel/feed",

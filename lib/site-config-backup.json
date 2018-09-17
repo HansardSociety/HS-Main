@@ -90,6 +90,13 @@
 			"dark": true,
 			"mono": false
 		},
+		"grey": {
+			"1": "#C0C0C0",
+			"2": "#B0B0B0",
+			"3": "#A9A9A9",
+			"dark": true,
+			"mono": true
+		},
 		"sea-green": {
 			"1": "#C9DDDD",
 			"2": "#97bbbb",

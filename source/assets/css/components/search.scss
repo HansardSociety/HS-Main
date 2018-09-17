@@ -26,7 +26,7 @@
   .ais-search-box--reset {
     top: 0.75rem;
 
-    fill: Get($colorGroups, white, 3);
+    fill: Get($colorGroups, grey, 1);
     @extend %e-position-absolute;
   }
 
@@ -43,7 +43,7 @@
   ========================================================================== */
 
 .search__filters {
-  @extend %e-mgn-b-md;
+  @extend %e-mgn-t-xs;
 
   .ais-refinement-list {
     @extend %e-align-cen;
@@ -56,7 +56,7 @@
   }
 
   .ais-refinement-list--header {
-    @extend %e-col-black-3;
+    @extend %e-col-grey-3;
     @extend %e-mgn-r-xs;
   }
 
@@ -150,8 +150,7 @@
 
         content: "— END —";
 
-        color: Get($colorGroups, black, 3);
-
+        @extend %e-col-grey-3;
         @extend %e-display-block;
         @extend %e-ff-prim-heavy;
         @extend %e-position-relative;
@@ -160,20 +159,72 @@
   }
 }
 
-/*		=Clear
+/*		=Sort
   ========================================================================== */
 
-.search__clear {
+.search__sort {
   left: 50%;
   transform: translateX(-50%);
 
   @extend %e-align-cen;
   @extend %e-display-inline-block;
+  @extend %e-mgn-x-sm;
+  @extend %e-position-relative;
+}
+
+.search__sort-select {
   @extend %e-mgn-t-xs;
+  @extend %e-position-relative;
+
+  & > div {
+    @extend %e-display-inline-block;
+  }
+
+  select {
+    border: 2px solid Get($colorGroups, white, 3) !important;
+    outline: none;
+    padding: .5rem 1rem .5rem .5rem;
+    width: 6rem;
+
+    @extend .label-xs;
+    @extend %e-rad-slight;
+  }
+
+  option {
+    text-transform: none;
+
+    @extend %e-ff-prim-roman;
+    @extend %e-fz-sm;
+  }
+}
+
+.search__sort-arrow {
+  position: absolute;
+  right: .5rem;
+  top: 2px;
+  z-index: -1;
+
+  svg {
+    width: 1rem;
+  }
+}
+
+/*		=Clear
+  ========================================================================== */
+
+.search__clear-inner {
+  left: 50%;
+  transform: translateX(-50%);
+
+  @extend %e-align-cen;
+  @extend %e-display-block;
   @extend %e-position-relative;
 }
 
 .search__clear-link {
   @extend .link;
   @extend .label-xs;
+  @extend %e-display-inline-block;
+  @extend %e-mgn-x-sm;
 }
+

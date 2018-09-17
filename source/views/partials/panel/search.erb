@@ -1,19 +1,37 @@
 <%
-# panelData = local_data[:entry_data]
-# searchID = panelData[:search_id]
+id = local_data[:id]
 %>
 
-<section class="panel e-bgc-white-2">
+<section id="<%= id %>" class="panel e-bgc-white-2">
   <div class="panel__content panel__content--full">
     <h2 class="title-lg e-col-brand-green-2 e-align-cen e-mgn-b-md">Search</h2>
-    <div class="search">
+    <div
+      class="search"
+      data-search-category="<%= @entry[:category].gsub("-", " ") if @entry[:category] %>"
+      data-search-sub-category="<%= @entry[:sub_category].gsub("-", " ") if @entry[:sub_category] %>"
+      data-search-theme="<%= @entry[:theme].gsub("-", " ") if @entry[:theme] %>"
+      data-search-sub-theme="<%= @entry[:sub_theme].gsub("-", " ") if @entry[:sub_theme] %>"
+    >
       <div class="search__box JS-lazy"></div>
       <div class="search__filters">
         <div class="search__filter-1"></div>
         <div class="search__filter-2"></div>
       </div>
+      <div class="search__sort">
+        <span class="e-col-grey-3">Sort by:&nbsp;</span>
+        <span class="search__sort-select"></span>
+        <span class="search__sort-arrow e-col-brand-green-2"><%= partial "views/partials/icon",
+            locals: {
+              icon: "chevron-down",
+              size: "xs" } %></span>
+      </div>
+      <div class="search__clear">
+        <div class="search__clear-inner"></div>
+      </div>
       <div class="search__results"></div>
-      <div class="search__clear"></div>
+      <div class="e-align-cen e-pad-sm">
+        <a href="#<%= id %>" class="link label-xs e-align-cen">Back to top</a>
+      </div>
     </div>
   </div>
 </section>
