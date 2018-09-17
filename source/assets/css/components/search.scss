@@ -159,3 +159,21 @@
     }
   }
 }
+
+/*		=Clear
+  ========================================================================== */
+
+.search__clear {
+  left: 50%;
+  transform: translateX(-50%);
+
+  @extend %e-align-cen;
+  @extend %e-display-inline-block;
+  @extend %e-mgn-t-xs;
+  @extend %e-position-relative;
+}
+
+.search__clear-link {
+  @extend .link;
+  @extend .label-xs;
+}

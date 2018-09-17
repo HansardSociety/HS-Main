@@ -79,6 +79,15 @@ const algoliaSearch = (() =>
         })
       )
 
+      search.addWidget(
+        instantSearch.widgets.clearAll({
+          container: block.querySelector(".search__clear"),
+          templates: {
+            link: "<span class='search__clear-link'>Clear search<span>"
+          }
+        })
+      )
+
       // Lazy load images
       search.on("render", function () {
         const cards = block.querySelectorAll(".main-card")
