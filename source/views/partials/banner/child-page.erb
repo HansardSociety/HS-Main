@@ -16,9 +16,7 @@ url = "https://hansardsociety.org.uk/"
     <div class="banner__content banner__content--cp">
       <div class="grid grid--md">
         <div class="grid__cell grid__cell--md-above-md-7">
-          <span class="label-xs label-tag e-acc-<%= catColor(entryData[:category]) %>-2 e-col-white-1">
-            <span class="e-va-fix"><%= entryData[:meta_label] %></span>
-          </span>
+          <span class="label-xs label-tag e-acc-<%= catColor(entryData[:category]) %>-2 e-col-white-1"><%= entryData[:meta_label] %></span>
           <h1
             class="banner__title title-lg e-mgn-t-xxs JS-truncate"
             data-truncate="{ 'xs': 120 }"><%= entryData[:title] %></h1>
