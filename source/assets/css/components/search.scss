@@ -164,6 +164,7 @@
 
 .search__sort {
   left: 50%;
+
   transform: translateX(-50%);
 
   @extend %e-align-cen;
@@ -181,10 +182,11 @@
   }
 
   select {
+    width: 6rem;
+    padding: .5rem 1rem .5rem .5rem;
+
     border: 2px solid Get($colorGroups, white, 3) !important;
     outline: none;
-    padding: .5rem 1rem .5rem .5rem;
-    width: 6rem;
 
     @extend .label-xs;
     @extend %e-rad-slight;
@@ -200,9 +202,9 @@
 
 .search__sort-arrow {
   position: absolute;
-  right: .5rem;
-  top: 2px;
   z-index: -1;
+  top: 1px;
+  right: .5rem;
 
   svg {
     width: 1rem;
@@ -214,6 +216,7 @@
 
 .search__clear-inner {
   left: 50%;
+
   transform: translateX(-50%);
 
   @extend %e-align-cen;

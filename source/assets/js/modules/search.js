@@ -19,12 +19,17 @@ const algoliaSearch = (() =>
     const search = instantSearch({
       appId: "AJC8ZDIWBJ",
       apiKey: "66a9759f27ae50a3c41abf7b82181a11",
-      indexName: "Main_Search_DB_By_Date",
+      indexName: "pages",
       routing: true,
       searchParameters: {
         hitsPerPage: 6
       },
-      attributesForFaceting: ["category", "sub_category", "theme", "sub_theme"]
+      attributesForFaceting: [
+        "theme",
+        "sub_theme",
+        "category",
+        "sub_category"
+      ]
     })
 
     for (let block of searchBlocks) {
@@ -32,10 +37,10 @@ const algoliaSearch = (() =>
       var searchFilters = ""
 
       if (!block.dataset.searchCategory) {
-        searchFilters = `theme:'${block.dataset.searchTheme}'`
+        searchFilters = `theme:'representation'`
       }
 
-      search.searchParameters.filters = searchFilters;
+      // search.searchParameters.filters = 'theme:"representation"';
 
       /*  =Core
        *****************************************/
@@ -67,18 +72,18 @@ const algoliaSearch = (() =>
       /*  =Refinement
        *****************************************/
 
-      // Refinement widget 1
-      search.addWidget(
-        instantSearch.widgets.refinementList({
-          container: block.querySelector(".search__filters > .search__filter-1"),
-          attributeName: "sub_theme",
-          sortBy: ["name:asc"],
-          operator: "or",
-          templates: {
-            header: "<span>Sub-theme:</span>"
-          },
-        })
-      )
+      // // Refinement widget 1
+      // search.addWidget(
+      //   instantSearch.widgets.refinementList({
+      //     container: block.querySelector(".search__filters > .search__filter-1"),
+      //     attributeName: "sub_theme",
+      //     sortBy: ["name:asc"],
+      //     operator: "or",
+      //     templates: {
+      //       header: "<span>Sub-theme:</span>"
+      //     },
+      //   })
+      // )
 
       // Refinement widget 2
       search.addWidget(
@@ -98,8 +103,8 @@ const algoliaSearch = (() =>
         instantSearch.widgets.sortBySelector({
           container: block.querySelector(".search__sort-select"),
           indices: [
-            { name: "Main_Search_DB_By_Date", label: "Date (desc)" },
-            { name: "Main_Search_DB", label: "Relevance" }
+            { name: "pages", label: "Relevance" },
+            { name: "pages_by_date", label: "Date (desc)" }
           ]
         })
       )
