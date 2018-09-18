@@ -20,32 +20,31 @@ const algoliaSearch = (() =>
       appId: "AJC8ZDIWBJ",
       apiKey: "66a9759f27ae50a3c41abf7b82181a11",
       indexName: "pages",
-      routing: true,
-      searchParameters: {
-        hitsPerPage: 6
-      },
-      attributesForFaceting: [
-        "theme",
-        "sub_theme",
-        "category",
-        "sub_category"
-      ]
+      routing: true
     })
 
     for (let block of searchBlocks) {
 
-      var searchFilters = ""
-      var pageTheme = ""
+      // var searchFilters = ""
+      // var pageTheme = ""
 
-      if (block.dataset.searchTheme) {
-        pageTheme = block.dataset.searchTheme
-        searchFilters = `theme:"${pageTheme}"`
-      }
+      // if (block.dataset.searchTheme) {
+      //   pageTheme = block.dataset.searchTheme
+      //   searchFilters = `theme:"${pageTheme}"`
+      // }
 
-      search.searchParameters.filters = searchFilters
+      // search.searchParameters.facetFilters = searchFilters
 
       /*  =Core
        *****************************************/
+
+      // Search widget
+      search.addWidget(
+        instantSearch.widgets.configure({
+          hitsPerPage: 6,
+          filters: "theme:representation"
+        })
+      )
 
       // Search widget
       search.addWidget(
@@ -79,17 +78,9 @@ const algoliaSearch = (() =>
         instantSearch.widgets.refinementList({
           container: block.querySelector(".search__filters > .search__filter-1"),
           attributeName: "sub_theme",
+          limit: 1,
           sortBy: ["name:asc"],
           operator: "or",
-          transformData: {
-            item: item => {
-              return item
-            }
-          },
-          transformItems: items => items.map(i => {
-            i.label = i.cssClasses
-            return i
-          }),
           templates: {
             header: "<span>Sub-theme:</span>",
             item: template("checkbox")
