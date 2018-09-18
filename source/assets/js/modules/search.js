@@ -63,7 +63,7 @@ const algoliaSearch = (() =>
           container: block.querySelector(".search__results"),
           showMoreLabel: "Load more…",
           templates: {
-            empty: "...",
+            empty: "",
             item: template("main-card")
           },
         }),
@@ -72,18 +72,18 @@ const algoliaSearch = (() =>
       /*  =Refinement
        *****************************************/
 
-      // // Refinement widget 1
-      // search.addWidget(
-      //   instantSearch.widgets.refinementList({
-      //     container: block.querySelector(".search__filters > .search__filter-1"),
-      //     attributeName: "sub_theme",
-      //     sortBy: ["name:asc"],
-      //     operator: "or",
-      //     templates: {
-      //       header: "<span>Sub-theme:</span>"
-      //     },
-      //   })
-      // )
+      // Refinement widget 1
+      search.addWidget(
+        instantSearch.widgets.refinementList({
+          container: block.querySelector(".search__filters > .search__filter-1"),
+          attributeName: "sub_theme",
+          sortBy: ["name:asc"],
+          operator: "or",
+          templates: {
+            header: "<span>Sub-theme:</span>"
+          },
+        })
+      )
 
       // Refinement widget 2
       search.addWidget(

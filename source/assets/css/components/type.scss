@@ -105,21 +105,21 @@
 }
 
 .link {
-  box-shadow: inset 0 -6px 0 rgba(Get($colorGroups, brand-green, 1), .1);
+  box-shadow: inset 0 -.3333em 0 rgba(Get($colorGroups, brand-green, 1), .15);
 
   @extend %e-col-brand-green-2;
 
   &:hover {
-    box-shadow: inset 0 -6px 0 rgba(Get($colorGroups, brand-green, 1), .66);
+    box-shadow: inset 0 -.3333em 0 rgba(Get($colorGroups, brand-green, 1), .66);
   }
 }
 
 .link-white {
-  box-shadow: inset 0 -6px 0 rgba(Get($colorGroups, white, 1), .1);
+  box-shadow: inset 0 -.3333em 0 rgba(Get($colorGroups, white, 1), .15);
 
   @extend %e-col-white-1;
 
   &:hover {
-    box-shadow: inset 0 -6px 0 rgba(Get($colorGroups, white, 1), .66);
+    box-shadow: inset 0 -.3333em 0 rgba(Get($colorGroups, white, 1), .66);
   }
 }

@@ -110,6 +110,15 @@
     @extend .grid;
     @extend .grid--sm;
     @extend .grid--center;
+
+    // &.ais-infinite-hits__empty {
+    //   left: 50%;
+
+    //   transform: translateX(-50%);
+
+    //   @extend %e-display-inline-block;
+    //   @extend %e-position-relative;
+    // }
   }
 
   .ais-infinite-hits--item {
@@ -118,43 +127,44 @@
   }
 
   .ais-infinite-hits--showmore {
-    @extend %e-mgn-t-md;
     @extend %e-align-cen;
+  }
 
-    & > .ais-infinite-hits--showmoreButton:not(:disabled) {
-      display: inherit;
+  .ais-infinite-hits--showmoreButton:not(:disabled) {
+    display: inherit;
 
-      @extend .btn;
-      @extend .btn--secondary;
-      @extend .btn--md;
-      @extend .btn__label;
-      @extend .btn__label--md;
-      @extend %e-align-cen;
-    }
+    @extend .btn;
+    @extend .btn--secondary;
+    @extend .btn--md;
+    @extend .btn__label;
+    @extend .btn__label--md;
+    @extend %e-align-cen;
+    @extend %e-mgn-t-md;
+  }
 
-    & > .ais-infinite-hits--showmoreButton:disabled {
-      position: relative;
+  .ais-infinite-hits--showmoreButton:disabled {
+    position: relative;
 
-      width: 0;
-      height: 0;
+    width: 0;
+    height: 0;
 
-      color: transparent;
+    color: transparent;
 
+    @extend %e-position-relative;
+    @extend %e-mgn-x-sm;
+
+    &::before {
+      top: 0;
+      left: -2.5rem;
+
+      width: 5rem;
+
+      content: "— END —";
+
+      @extend %e-col-grey-3;
+      @extend %e-display-block;
+      @extend %e-ff-prim-heavy;
       @extend %e-position-relative;
-
-      &::before {
-        top: 0;
-        left: -2.5rem;
-
-        width: 5rem;
-
-        content: "— END —";
-
-        @extend %e-col-grey-3;
-        @extend %e-display-block;
-        @extend %e-ff-prim-heavy;
-        @extend %e-position-relative;
-      }
     }
   }
 }
@@ -220,7 +230,7 @@
   transform: translateX(-50%);
 
   @extend %e-align-cen;
-  @extend %e-display-block;
+  @extend %e-display-inline-block;
   @extend %e-position-relative;
 }
 
