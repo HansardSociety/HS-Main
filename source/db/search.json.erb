@@ -12,7 +12,7 @@ db = allPages.map do |id, page|
     "sub_category": (page.sub_category.gsub("-", " ") if page.sub_category),
     "theme": page.theme.map{|theme| theme.gsub("-", " ")},
     "sub_theme": (page.sub_theme.map{|theme| theme.gsub("-", " ")} if page.sub_theme),
-    "sub_theme_orig": (page.sub_theme_orig.map{|theme| theme.downcase} if page.sub_theme_orig),
+    "sub_theme_orig": (page.sub_theme_orig if page.sub_theme_orig),
     "description": markdownStrip(page.introduction),
     "date": page.date_time.integer,
     "meta_label": (page.meta_label if page.meta_label),

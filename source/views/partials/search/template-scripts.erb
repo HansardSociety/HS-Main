@@ -18,3 +18,15 @@
       }}} %>
 </script>
 
+<%# Checkbox %>
+<script id="search-template-checkbox">
+  <%= partial "views/partials/form/checkbox",
+    locals: { local_data: {
+      algolia: true,
+      entry_data: {
+        value: "{{{label}}}",
+        meta: "{{{count}}}"
+      }
+    }} %>
+</script>
+

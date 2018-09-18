@@ -137,15 +137,33 @@ def sharedPageBase(pageType, ctx, data)
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
     ctx.slug = slug(data)
-    ctx.theme = data.theme ? data.theme.reject{ |theme| theme.include?($marker) }.map{ |theme| theme.parameterize } : ["none"]
-    ctx.sub_theme = data.theme ? data.theme.reject{ |theme| !theme.include?($marker) }.map{ |theme| theme.split($marker)[1].parameterize } : ["none"]
-    ctx.sub_theme_orig = data.theme ? data.theme.reject{ |theme| !theme.include?($marker) } : ["none"]
     ctx.category = detachCategory(data.category)
     ctx.meta_label = metaLabel(data)
 
     # Has sub-category
-    if data.category.include? $marker
+    if data.category.include?($marker)
       ctx.sub_category = detachCategory(data.category, { part: 1 })
+      ctx.sub_category_orig = data.category.downcase
+    end
+
+    # Theming
+    ctx.theme = []
+    ctx.sub_theme = []
+    ctx.sub_theme_orig = []
+
+    if data.theme
+      data.theme.map do |theme|
+        if theme.include?($marker)
+          ctx.sub_theme << theme.split($marker)[1].parameterize
+          ctx.sub_theme_orig << theme.downcase
+        else
+          ctx.theme << theme.parameterize
+        end
+      end
+    else
+      ctx.theme << "none"
+      ctx.sub_theme << "none"
+      ctx.sub_theme_orig << "none"
     end
 
     # Has alternative date/ time

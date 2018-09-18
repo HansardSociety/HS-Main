@@ -105,21 +105,33 @@
 /*		=Checkbox
   ========================================================================== */
 
-.form__check {
+.form__check,
+.form__check-label,
+.form__check-input {
   cursor: pointer;
 }
 
 .form__check-input {
   width: 1rem;
   height: 1rem;
+  margin-right: 0.125rem;
 
   border: solid 2px Get($colorGroups, white, 3);
   border-radius: .25rem;
-  margin-right: 0.125rem;
+
+  @extend %e-display-inline-block;
 
   &:checked {
     @extend %e-bgc-orange-2;
   }
+}
+
+.form__check-text {
+  @extend %e-col-black-2;
+}
+
+.form__check-meta {
+  @extend %e-col-orange-2;
 }
 
 /*		=Pages/ payment

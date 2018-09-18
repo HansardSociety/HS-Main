@@ -1,0 +1,23 @@
+<%
+  value = local_data[:entry_data][:value]
+  meta = local_data[:entry_data][:meta]
+  algolia = local_data[:algolia]
+
+  inputAttrs = {
+    class: "form__check-input",
+    value: value
+  }.merge(algolia ? {"{{#isRefined}}checked{{/isRefined}}": ""} : {})
+%>
+
+<div class="form__check">
+  <label class="form__check-label">
+
+    <%= input_tag("checkbox", inputAttrs) %>
+
+    <span class="form__check-text label-xs"><%= value %></span>
+
+    <% if meta %>
+      <span class="form__check-meta label-xs">(<%= meta %>)</span>
+    <% end %>
+  </label>
+</div>

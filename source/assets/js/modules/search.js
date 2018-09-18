@@ -35,12 +35,14 @@ const algoliaSearch = (() =>
     for (let block of searchBlocks) {
 
       var searchFilters = ""
+      var pageTheme = ""
 
-      if (!block.dataset.searchCategory) {
-        searchFilters = `theme:'representation'`
+      if (block.dataset.searchTheme) {
+        pageTheme = block.dataset.searchTheme
+        searchFilters = `theme:"${pageTheme}"`
       }
 
-      // search.searchParameters.filters = 'theme:"representation"';
+      search.searchParameters.filters = searchFilters
 
       /*  =Core
        *****************************************/
@@ -79,8 +81,18 @@ const algoliaSearch = (() =>
           attributeName: "sub_theme",
           sortBy: ["name:asc"],
           operator: "or",
+          transformData: {
+            item: item => {
+              return item
+            }
+          },
+          transformItems: items => items.map(i => {
+            i.label = i.cssClasses
+            return i
+          }),
           templates: {
-            header: "<span>Sub-theme:</span>"
+            header: "<span>Sub-theme:</span>",
+            item: template("checkbox")
           },
         })
       )
@@ -93,7 +105,8 @@ const algoliaSearch = (() =>
           sortBy: ["name:asc"],
           operator: "or",
           templates: {
-            header: "<span>Category:</span>"
+            header: "<span>Category:</span>",
+            item: template("checkbox")
           },
         })
       )
@@ -103,8 +116,13 @@ const algoliaSearch = (() =>
         instantSearch.widgets.sortBySelector({
           container: block.querySelector(".search__sort-select"),
           indices: [
-            { name: "pages", label: "Relevance" },
-            { name: "pages_by_date", label: "Date (desc)" }
+            {
+              name: "pages_by_date",
+              label: "Date (desc)"
+            }, {
+              name: "pages",
+              label: "Relevance"
+            }
           ]
         })
       )
