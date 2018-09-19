@@ -25,16 +25,25 @@ const algoliaSearch = (() =>
 
     for (let block of searchBlocks) {
 
-      /*  =Core
-       *****************************************/
+      /* =Core
+       ***************************************************************************/
 
-      const searchTheme = block.dataset.searchTheme
+      const searchFilter = block.dataset.searchFilter
+      const searchType = block.dataset.searchMainAttr
+      const isThemeSearch = searchType == "theme"
+      const isCategorySearch = searchType == "category"
+
+      var searchFilterParam = ""
+
+      // Search filter params
+      if (isThemeSearch) searchFilterParam = `theme.lvl0:"${searchFilter}"`
+      if (isCategorySearch) searchFilterParam = `category.lvl0:"${searchFilter}"`
 
       // Search widget
       search.addWidget(
         instantSearch.widgets.configure({
           hitsPerPage: 6,
-          filters: `theme.lvl0:"${searchTheme}"`
+          filters: searchFilterParam
         })
       )
 
@@ -62,47 +71,98 @@ const algoliaSearch = (() =>
         }),
       )
 
-      /*  =Refinement
+      /* =Refinement
+       ***************************************************************************/
+
+      /*  =Widget fn
        *****************************************/
 
-      // Refinement widget 1
-      search.addWidget(
-        instantSearch.widgets.refinementList({
-          container: block.querySelector(".search__filter-1"),
+      const refinementWidget = ({ container, attributeName, heading, transformItemData, transformItems }) => {
+        let opts = {
+          container,
+          attributeName,
+          heading,
+          transformItemData
+        }
+
+        const refinementListOpts = {
+          container: block.querySelector(opts.container),
+          attributeName: opts.attributeName,
+          sortBy: ["name:asc"],
+          operator: "or",
+          templates: {
+            header: `<span>${ opts.heading }:</span>`,
+            item: template("checkbox")
+          }
+        }
+
+        if (transformItemData) {
+          Object.assign(refinementListOpts, {
+            transformData: { item: opts.transformItemData }
+          })
+        }
+
+        if (transformItems) {
+          Object.assign(refinementListOpts, { transformItems })
+        }
+
+        search.addWidget(instantSearch.widgets.refinementList(refinementListOpts))
+      }
+
+      /*  =Theme search
+       *****************************************/
+
+      if (isThemeSearch) {
+
+        // Sub-themes
+        refinementWidget({
+          container: ".search__filter-1",
           attributeName: "theme.lvl1",
-          transformData: {
-            item: i => {
-              i.label = i.value.split(">").pop()
-              return i
-            }
+          heading: "Sub-theme",
+          transformItemData: i => {
+            i.label = i.value.split(">").pop()
+            return i
           },
           transformItems: items => items.filter(
-            i => i.value.includes(searchTheme)
-          ),
-          sortBy: ["name:asc"],
-          operator: "or",
-          templates: {
-            header: "<span>Sub-theme:</span>",
-            item: template("checkbox")
-          },
+            i => i.value.includes(searchFilter)
+          )
         })
-      )
 
-      // Refinement widget 2
-      search.addWidget(
-        instantSearch.widgets.refinementList({
-          container: block.querySelector(".search__filter-2"),
+        // Categories
+        refinementWidget({
+          container: ".search__filter-2",
           attributeName: "category.lvl0",
-          sortBy: ["name:asc"],
-          operator: "or",
-          templates: {
-            header: "<span>Category:</span>",
-            item: template("checkbox")
-          },
+          heading: "Category"
         })
-      )
+      }
 
-      // Sort
+      /*  =Category search
+       *****************************************/
+
+      if (isCategorySearch) {
+
+        // Sub-category
+        refinementWidget({
+          container: ".search__filter-1",
+          attributeName: "category.lvl1",
+          heading: "Category",
+          transformItemData: i => {
+            i.label = i.value.split(">").pop()
+            return i
+          }
+        })
+
+        // Themes
+        refinementWidget({
+          container: ".search__filter-2",
+          attributeName: "theme.lvl0",
+          heading: "Theme",
+        })
+      }
+
+      /* =Sorting
+       ***************************************************************************/
+
       search.addWidget(
         instantSearch.widgets.sortBySelector({
           container: block.querySelector(".search__sort-select"),
@@ -118,7 +178,9 @@ const algoliaSearch = (() =>
         })
       )
 
-      // Clear
+      /* =Clear
+       ***************************************************************************/
+
       search.addWidget(
         instantSearch.widgets.clearAll({
           container: block.querySelector(".search__clear-inner"),
@@ -129,8 +191,9 @@ const algoliaSearch = (() =>
         })
       )
 
-      /*  =Laxy load
-       *****************************************/
+
+      /* =Lazy-load images
+       ***************************************************************************/
 
       search.on("render", function (q) {
         const cards = block.querySelectorAll(".main-card")

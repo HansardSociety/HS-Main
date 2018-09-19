@@ -68,6 +68,14 @@
             entry_data: panel,
             index: index }} %>
 
+      <% end; # Search
+      if @entry[:ID] == "7leucnRfZmeKwOii6GmM0Y" %>
+        <%= partial "views/partials/panel/search",
+          locals: { local_data: {
+            id: "search-publications",
+            main_search_attr: "category"
+          }} %>
+
       <% end;
       if panel[:TYPE] == "panel_feed" %>
         <%= partial "views/partials/panel/feed",
