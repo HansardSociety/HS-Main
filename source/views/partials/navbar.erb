@@ -81,12 +81,28 @@
       </ul>
       <div class="e-col-white-1">
         <%= partial "views/partials/btn",
-        locals: { local_data:{
-          type: "state", size: "sm",
-          page: "no-scroll", exclusive: true,
-          icon: "android-search", icon_size: "sm",
-          aria_id: "activate-search",
-          aria_target_id: "search" }} %>
+          locals: { local_data: {
+            type: "state",
+            page: "no-scroll",
+            exclusive: true,
+            secondary_target: "navbar",
+            icon: "android-search",
+            icon_size: "sm",
+            aria_id: "activate-menu-desktop-search",
+            aria_target_id: "menu-desktop-search" }} %>
+
+        <div
+          id="menu-desktop-search"
+          class="menu JS-inactive menu--desktop">
+          <div class="menu__nav-bg"></div>
+          <div class="menu__container">
+            <%= partial "views/partials/panel/search",
+              locals: { local_data: {
+                id: "yes",
+                main_search_attr: "theme"
+              }} %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
