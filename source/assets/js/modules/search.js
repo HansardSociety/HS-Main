@@ -77,28 +77,29 @@ const algoliaSearch = (() =>
       /*  =Widget fn
        *****************************************/
 
-      const refinementWidget = ({ container, attributeName, heading, transformItemData, transformItems }) => {
-        let opts = {
+      const refinementWidget = opts => {
+        let {
           container,
           attributeName,
           heading,
-          transformItemData
-        }
+          transformItemData,
+          transformItems
+        } = opts
 
         const refinementListOpts = {
-          container: block.querySelector(opts.container),
-          attributeName: opts.attributeName,
+          container: block.querySelector(container),
+          attributeName: attributeName,
           sortBy: ["name:asc"],
           operator: "or",
           templates: {
-            header: `<span>${ opts.heading }:</span>`,
+            header: `<span>${ heading }:</span>`,
             item: template("checkbox")
           }
         }
 
         if (transformItemData) {
           Object.assign(refinementListOpts, {
-            transformData: { item: opts.transformItemData }
+            transformData: { item: transformItemData }
           })
         }
 
