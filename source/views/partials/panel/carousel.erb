@@ -74,7 +74,9 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
             </div>
 
         <% end; end; if dataType == :latest_theme
-          latestThemed = latestContent().select{ |page| page[:theme].any?{ |theme| theme.include?(entryData[:theme]) }}
+          latestThemed = latestContent().select{ |page|
+            page[:theme] && page[:theme].any?{ |theme| theme.include?(entryData[:theme]) }}
+
           latestThemed[0..4].map do |page| %>
             <div class="carousel__item carousel__item--card">
               <%= partial "views/partials/main-card",

@@ -25,24 +25,16 @@ const algoliaSearch = (() =>
 
     for (let block of searchBlocks) {
 
-      // var searchFilters = ""
-      // var pageTheme = ""
-
-      // if (block.dataset.searchTheme) {
-      //   pageTheme = block.dataset.searchTheme
-      //   searchFilters = `theme:"${pageTheme}"`
-      // }
-
-      // search.searchParameters.facetFilters = searchFilters
-
       /*  =Core
        *****************************************/
+
+      const searchTheme = block.dataset.searchTheme
 
       // Search widget
       search.addWidget(
         instantSearch.widgets.configure({
           hitsPerPage: 6,
-          filters: "theme:representation"
+          filters: `theme.lvl0:"${searchTheme}"`
         })
       )
 
@@ -76,9 +68,17 @@ const algoliaSearch = (() =>
       // Refinement widget 1
       search.addWidget(
         instantSearch.widgets.refinementList({
-          container: block.querySelector(".search__filters > .search__filter-1"),
-          attributeName: "sub_theme",
-          limit: 1,
+          container: block.querySelector(".search__filter-1"),
+          attributeName: "theme.lvl1",
+          transformData: {
+            item: i => {
+              i.label = i.value.split(">").pop()
+              return i
+            }
+          },
+          transformItems: items => items.filter(
+            i => i.value.includes(searchTheme)
+          ),
           sortBy: ["name:asc"],
           operator: "or",
           templates: {
@@ -91,8 +91,8 @@ const algoliaSearch = (() =>
       // Refinement widget 2
       search.addWidget(
         instantSearch.widgets.refinementList({
-          container: block.querySelector(".search__filters > .search__filter-2"),
-          attributeName: "category",
+          container: block.querySelector(".search__filter-2"),
+          attributeName: "category.lvl0",
           sortBy: ["name:asc"],
           operator: "or",
           templates: {
@@ -124,7 +124,7 @@ const algoliaSearch = (() =>
           container: block.querySelector(".search__clear-inner"),
           clearsQuery: true,
           templates: {
-            link: "<span class='search__clear-link'>Reset all<span>"
+            link: "<span class='search__clear-link'>Clear filters<span>"
           }
         })
       )

@@ -1,6 +1,6 @@
 require "uri"
 
-$marker = " > "
+$seperator = " > "
 
 ###########################################################################
 ##		=Detatch category
@@ -11,7 +11,7 @@ def detachCategory(data, opts = {})
   opts = defaults.merge(opts)
   part = opts[:part]
 
-  data.include?($marker) ? data.split($marker)[part].parameterize : data.parameterize
+  data.include?($seperator) ? data.split($seperator)[part].parameterize : data.parameterize
 end
 
 ###########################################################################
@@ -31,7 +31,7 @@ def slug(data)
   category = detachCategory(data.category)
   slug = data.slug
 
-  if data.category.include? $marker
+  if data.category.include? $seperator
     subCategory = detachCategory(data.category, { part: 1 })
 
     if indexPage
@@ -92,7 +92,7 @@ def metaLabel(data, opts = {})
 
   regData = opts[:reg_data]
 
-  hasSubcategory = data.category.include?($marker)
+  hasSubcategory = data.category.include?($seperator)
   hasNestedRegistration = data.featured && data.featured[0].content_type.id == "registration"
 
   category = detachCategory(data.category)
@@ -138,32 +138,30 @@ def sharedPageBase(pageType, ctx, data)
   if ["childPage", "landingPage"].include? pageType
     ctx.slug = slug(data)
     ctx.category = detachCategory(data.category)
+    ctx.category_orig = data.category.downcase
     ctx.meta_label = metaLabel(data)
 
     # Has sub-category
-    if data.category.include?($marker)
+    if data.category.include?($seperator)
       ctx.sub_category = detachCategory(data.category, { part: 1 })
-      ctx.sub_category_orig = data.category.downcase
     end
 
     # Theming
-    ctx.theme = []
-    ctx.sub_theme = []
-    ctx.sub_theme_orig = []
-
     if data.theme
+      ctx.theme = []
+      ctx.theme_orig = []
+
       data.theme.map do |theme|
-        if theme.include?($marker)
-          ctx.sub_theme << theme.split($marker)[1].parameterize
-          ctx.sub_theme_orig << theme.downcase
-        else
-          ctx.theme << theme.parameterize
+        ctx.theme << theme.parameterize if !theme.include?($seperator)
+        ctx.theme_orig << theme.downcase
+
+        if theme.include?($seperator)
+          subTheme = theme.split($seperator)[1].parameterize
+
+          ctx.sub_theme = []
+          ctx.sub_theme << subTheme if !ctx.sub_theme.include?(subTheme)
         end
       end
-    else
-      ctx.theme << "none"
-      ctx.sub_theme << "none"
-      ctx.sub_theme_orig << "none"
     end
 
     # Has alternative date/ time
@@ -245,7 +243,7 @@ def featuredData(data, opts = {})
       meta_label: metaLabel(data),
       slug: slug(data),
       category: (detachCategory(data.category) if data.category),
-      sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $marker),
+      sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $seperator),
       introduction: data.introduction,
       banner_image: media(data.banner_image, focus: data),
       product_image: (media(data.featured[0].image) if data.featured && data.featured[0].content_type.id == "product"),
@@ -475,7 +473,7 @@ def panels(ctx, data)
         feed: {
           category: detachCategory(panel.feed_category),
           sub_category: (
-            detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker
+            detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $seperator
           )
         }.compact
       }
@@ -588,7 +586,7 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
           meta_label: metaLabel(page),
           slug: slug(page),
           category: (detachCategory(page.category) if page.category),
-          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $marker),
+          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $seperator),
           introduction: page.introduction,
           banner_image: media(page.banner_image, focus: page),
           date_time: dateTime(page)
@@ -618,7 +616,7 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
           title: page.title.rstrip,
           slug: slug(page),
           category: detachCategory(page.category),
-          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $marker)
+          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $seperator)
         }.compact
       end
     end

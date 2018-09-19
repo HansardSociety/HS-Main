@@ -2,21 +2,44 @@
 childPages = data.hs.child_page
 landingPages = data.hs.landing_page
 allPages = childPages.merge(landingPages).reject{|id, page| page.noindex}
+seperator = " > "
 
 db = allPages.map do |id, page|
   {
-    "objectID": page.ID,
-    "title": markdownStrip(page.title),
-    "slug": page.slug,
-    "category": page.category.gsub("-", " "),
-    "sub_category": (page.sub_category.gsub("-", " ") if page.sub_category),
-    "theme": page.theme.map{|theme| theme.gsub("-", " ")},
-    "sub_theme": (page.sub_theme.map{|theme| theme.gsub("-", " ")} if page.sub_theme),
-    "sub_theme_orig": (page.sub_theme_orig if page.sub_theme_orig),
-    "description": markdownStrip(page.introduction),
-    "date": page.date_time.integer,
-    "meta_label": (page.meta_label if page.meta_label),
-    "image": page.banner_image.url
+    objectID: page.ID,
+    title: markdownStrip(page.title),
+    description: markdownStrip(page.introduction),
+    slug: page.slug,
+    date: page.date_time.integer,
+    meta_label: (page.meta_label if page.meta_label),
+    image: page.banner_image.url,
+    category: {
+      lvl0: (
+        page.category_orig.include?(seperator) ?
+          page.category_orig.split(seperator)[0] :
+          page.category_orig
+        ),
+      lvl1: (page.category_orig if page.category_orig.include?(seperator))
+    },
+    theme: (
+      if page.theme_orig
+        {
+          lvl0: (
+            lvl0 = page.theme_orig.map{|theme| theme if !theme.include?(seperator)}.compact
+            lvl0
+          ),
+          lvl1: (
+            lvl1 = page.theme_orig.map{|theme| theme if theme.include?(seperator)}.compact
+            lvl1.empty? ? [nil] : lvl1
+          )
+        }
+      else
+        {
+          lvl0: [nil],
+          lvl1: [nil]
+        }
+      end
+    )
   }
 end
 

@@ -22,17 +22,14 @@ if !entryData[:accents]
 
 # Algolia
 else
-  categoryColor = "{{{category}}}"
-  accent = "main-card--{{{category}}}"
-  labelAccent = "main-card__label--{{{category}}}"
+  accent = "main-card--#{ category }"
+  labelAccent = "main-card__label--#{ category }"
 end
 
 featuredCard = local_data[:featured]
 %>
 
-<article
-  class="main-card <%= accent %>"
-  data-category="<%= categoryColor ? categoryColor : category %>">
+<article class="main-card <%= accent %>">
 
   <% if featuredCard %>
     <span class="main-card__featured-icon">
