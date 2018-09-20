@@ -6,15 +6,13 @@
   padding-top: 3.5rem;
   padding-bottom: 3.5rem;
 
+  -ms-overflow-style: none;
   @extend %e-bgc-white-1;
   @extend %e-container;
+  @extend %e-col-black-2;
   @extend %e-height-full-vh;
   @extend %e-position-fixed;
   @extend %e-trans-transform;
-  // @include above(xs) {
-  //   @extend %e-display-none__md;
-  // }
-  -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
     display: none;
@@ -23,7 +21,6 @@
 
 .menu--mobile {
   // max-width: 30rem;
-
   transform: translateX(-100%);
 
   @extend %e-overflow-y-auto;

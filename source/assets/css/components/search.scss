@@ -180,10 +180,11 @@
 }
 
 .search__sort-arrow {
-  position: absolute;
   z-index: -1;
   top: 1px;
   right: .5rem;
+
+  @extend %e-position-absolute;
 
   svg {
     width: 1rem;

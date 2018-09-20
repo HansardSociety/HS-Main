@@ -1,6 +1,9 @@
 <%
-id = local_data[:id]
+panelID = local_data[:panel_id]
+searchID = local_data[:search_id]
 mainSearchAttr = local_data[:main_search_attr]
+bgcWhite = local_data[:bgc_white] ? local_data[:bgc_white] : "2"
+context = local_data[:context]
 
 searchFilter = ""
 if mainSearchAttr == "theme"
@@ -10,10 +13,17 @@ elsif mainSearchAttr == "category"
 end
 %>
 
-<section id="<%= id %>" class="panel e-bgc-white-2">
+<section
+  id="<%= panelID %>"
+  class="panel e-bgc-white-<%= bgcWhite %>">
   <div class="panel__content panel__content--full">
-    <h2 class="title-lg e-col-brand-green-2 e-align-cen e-mgn-b-md">Search</h2>
+
+    <% if context != "nav" %>
+      <h2 class="title-lg e-col-brand-green-2 e-align-cen e-mgn-b-md">Search</h2>
+    <% end %>
+
     <div
+      id="<%= searchID %>"
       class="search"
       data-search-main-attr="<%= mainSearchAttr %>"
       data-search-filter="<%= searchFilter %>">
@@ -36,7 +46,7 @@ end
       </div>
       <div class="search__results"></div>
       <div class="e-align-cen e-mgn-t-sm">
-        <a href="#<%= id %>" class="e-pad-xxs">
+        <a href="#<%= panelID %>" class="e-pad-xxs">
           <span class="link label-xs">Back to top</span>
         </a>
       </div>

@@ -8,211 +8,235 @@ function template(templateName) {
   return document.querySelector(`#search-template-${templateName}`).innerHTML;
 }
 
-const algoliaSearch = (() =>
+const algoliaSearch = (() => {
 
-  // Need to initiate after DOM loaded to return "containers"
-  document.addEventListener("DOMContentLoaded", function() {
+  const multiSearch = (search, block) => {
 
-    const searchBlocks = document.querySelectorAll(".search")
+    /* =Core
+    ***************************************************************************/
 
-    // Options
-    const search = instantSearch({
-      appId: "AJC8ZDIWBJ",
-      apiKey: "66a9759f27ae50a3c41abf7b82181a11",
-      indexName: "pages",
-      routing: true
-    })
+    const searchFilter = block.dataset.searchFilter
+    const searchType = block.dataset.searchMainAttr
+    const isThemeSearch = searchType == "theme"
+    const isCategorySearch = searchType == "category"
 
-    for (let block of searchBlocks) {
+    let searchFilterParam = ""
 
-      /* =Core
-       ***************************************************************************/
+    // Search filter params
+    if (isThemeSearch) searchFilterParam = `theme.lvl0:"${searchFilter}"`
+    if (isCategorySearch) searchFilterParam = `category.lvl0:"${searchFilter}"`
 
-      const searchFilter = block.dataset.searchFilter
-      const searchType = block.dataset.searchMainAttr
-      const isThemeSearch = searchType == "theme"
-      const isCategorySearch = searchType == "category"
+    // Search widget
+    search.addWidget(
+      instantSearch.widgets.configure({
+        hitsPerPage: 6,
+        filters: searchFilterParam
+      })
+    )
 
-      var searchFilterParam = ""
+    // Search widget
+    search.addWidget(
+      instantSearch.widgets.searchBox({
+        container: block.querySelector(".search__box"),
+        placeholder: "e.g. delegated legislation...",
+        autofocus: false,
+        queryHook: debounce((query, search) => {
+          search(query)
+        }, 600)
+      })
+    )
 
-      // Search filter params
-      if (isThemeSearch) searchFilterParam = `theme.lvl0:"${searchFilter}"`
-      if (isCategorySearch) searchFilterParam = `category.lvl0:"${searchFilter}"`
+    // Hits widget
+    search.addWidget(
+      instantSearch.widgets.infiniteHits({
+        container: block.querySelector(".search__results"),
+        showMoreLabel: "Load more…",
+        templates: {
+          empty: "",
+          item: template("main-card")
+        },
+      }),
+    )
 
-      // Search widget
-      search.addWidget(
-        instantSearch.widgets.configure({
-          hitsPerPage: 6,
-          filters: searchFilterParam
-        })
-      )
+    /* =Refinement
+    ***************************************************************************/
 
-      // Search widget
-      search.addWidget(
-        instantSearch.widgets.searchBox({
-          container: block.querySelector(".search__box"),
-          placeholder: "e.g. delegated legislation...",
-          autofocus: false,
-          queryHook: debounce((query, search) => {
-            search(query)
-          }, 600)
-        })
-      )
+    /*  =Widget fn
+    *****************************************/
 
-      // Hits widget
-      search.addWidget(
-        instantSearch.widgets.infiniteHits({
-          container: block.querySelector(".search__results"),
-          showMoreLabel: "Load more…",
-          templates: {
-            empty: "",
-            item: template("main-card")
-          },
-        }),
-      )
+    const refinementWidget = opts => {
+      let {
+        container,
+        attributeName,
+        heading,
+        transformItemData,
+        transformItems
+      } = opts
 
-      /* =Refinement
-       ***************************************************************************/
-
-      /*  =Widget fn
-       *****************************************/
-
-      const refinementWidget = opts => {
-        let {
-          container,
-          attributeName,
-          heading,
-          transformItemData,
-          transformItems
-        } = opts
-
-        const refinementListOpts = {
-          container: block.querySelector(container),
-          attributeName: attributeName,
-          sortBy: ["name:asc"],
-          operator: "or",
-          templates: {
-            header: `<span>${ heading }:</span>`,
-            item: template("checkbox")
-          }
+      const refinementListOpts = {
+        container: block.querySelector(container),
+        attributeName: attributeName,
+        sortBy: ["name:asc"],
+        operator: "or",
+        templates: {
+          header: `<span>${ heading }:</span>`,
+          item: template("checkbox")
         }
-
-        if (transformItemData) {
-          Object.assign(refinementListOpts, {
-            transformData: { item: transformItemData }
-          })
-        }
-
-        if (transformItems) {
-          Object.assign(refinementListOpts, { transformItems })
-        }
-
-        search.addWidget(instantSearch.widgets.refinementList(refinementListOpts))
       }
+
+      if (transformItemData) {
+        Object.assign(refinementListOpts, {
+          transformData: { item: transformItemData }
+        })
+      }
+
+      if (transformItems) {
+        Object.assign(refinementListOpts, { transformItems })
+      }
+
+      search.addWidget(instantSearch.widgets.refinementList(refinementListOpts))
+    }
+
+    if (isThemeSearch) {
 
       /*  =Theme search
-       *****************************************/
+      *****************************************/
 
-      if (isThemeSearch) {
+      // Sub-themes
+      refinementWidget({
+        container: ".search__filter-1",
+        attributeName: "theme.lvl1",
+        heading: "Sub-theme",
+        transformItemData: i => {
+          i.label = i.value.split(">").pop()
+          return i
+        },
+        transformItems: items => items.filter(
+          i => i.value.includes(searchFilter)
+        )
+      })
 
-        // Sub-themes
-        refinementWidget({
-          container: ".search__filter-1",
-          attributeName: "theme.lvl1",
-          heading: "Sub-theme",
-          transformItemData: i => {
-            i.label = i.value.split(">").pop()
-            return i
-          },
-          transformItems: items => items.filter(
-            i => i.value.includes(searchFilter)
-          )
-        })
+      // Categories
+      refinementWidget({
+        container: ".search__filter-2",
+        attributeName: "category.lvl0",
+        heading: "Category"
+      })
 
-        // Categories
-        refinementWidget({
-          container: ".search__filter-2",
-          attributeName: "category.lvl0",
-          heading: "Category"
-        })
-      }
+    } else if (isCategorySearch) {
 
       /*  =Category search
-       *****************************************/
+      *****************************************/
 
-      if (isCategorySearch) {
-
-        // Sub-category
-        refinementWidget({
-          container: ".search__filter-1",
-          attributeName: "category.lvl1",
-          heading: "Category",
-          transformItemData: i => {
-            i.label = i.value.split(">").pop()
-            return i
-          }
-        })
-
-        // Themes
-        refinementWidget({
-          container: ".search__filter-2",
-          attributeName: "theme.lvl0",
-          heading: "Theme",
-        })
-      }
-
-      /* =Sorting
-       ***************************************************************************/
-
-      search.addWidget(
-        instantSearch.widgets.sortBySelector({
-          container: block.querySelector(".search__sort-select"),
-          indices: [
-            {
-              name: "pages_by_date",
-              label: "Date (desc)"
-            }, {
-              name: "pages",
-              label: "Relevance"
-            }
-          ]
-        })
-      )
-
-      /* =Clear
-       ***************************************************************************/
-
-      search.addWidget(
-        instantSearch.widgets.clearAll({
-          container: block.querySelector(".search__clear-inner"),
-          clearsQuery: true,
-          templates: {
-            link: "<span class='search__clear-link'>Clear filters<span>"
-          }
-        })
-      )
-
-
-      /* =Lazy-load images
-       ***************************************************************************/
-
-      search.on("render", function (q) {
-        const cards = block.querySelectorAll(".main-card")
-
-        for (let card of cards) {
-          const img = card.querySelector("img")
-
-          if (img.classList.contains("b-loaded")) {
-            // do nothing
-          } else {
-            blazy.load(img);
-          }
+      // Sub-category
+      refinementWidget({
+        container: ".search__filter-1",
+        attributeName: "category.lvl1",
+        heading: "Category",
+        transformItemData: i => {
+          i.label = i.value.split(">").pop()
+          return i
         }
       })
 
-      search.start()
+      // Themes
+      refinementWidget({
+        container: ".search__filter-2",
+        attributeName: "theme.lvl0",
+        heading: "Theme",
+      })
+
+    } else {
+
+      /*  =All search
+      *****************************************/
+
+      // Theme
+      refinementWidget({
+        container: ".search__filter-1",
+        attributeName: "theme.lvl0",
+        heading: "Theme"
+      })
+
+      // Category
+      refinementWidget({
+        container: ".search__filter-2",
+        attributeName: "category.lvl0",
+        heading: "Category"
+      })
     }
+
+    /* =Sorting
+    ***************************************************************************/
+
+    search.addWidget(
+      instantSearch.widgets.sortBySelector({
+        container: block.querySelector(".search__sort-select"),
+        indices: [
+          {
+            name: "pages_by_date",
+            label: "Date (desc)"
+          }, {
+            name: "pages",
+            label: "Relevance"
+          }
+        ]
+      })
+    )
+
+    /* =Clear
+    ***************************************************************************/
+
+    search.addWidget(
+      instantSearch.widgets.clearAll({
+        container: block.querySelector(".search__clear-inner"),
+        clearsQuery: true,
+        templates: {
+          link: "<span class='search__clear-link'>Clear filters<span>"
+        }
+      })
+    )
+
+    /* =Lazy-load images
+    ***************************************************************************/
+
+    search.on("render", function (q) {
+      const cards = block.querySelectorAll(".main-card")
+
+      for (let card of cards) {
+        const img = card.querySelector("img")
+
+        if (img.classList.contains("b-loaded")) {
+          // do nothing
+        } else {
+          blazy.load(img);
+        }
+      }
+    })
+    search.start()
+  }
+
+  // Filtered search
+  const filteredSearch = instantSearch({
+    appId: "AJC8ZDIWBJ",
+    apiKey: "66a9759f27ae50a3c41abf7b82181a11",
+    indexName: "pages",
+    routing: true
   })
-)()
+
+  const siteSearch = instantSearch({
+    appId: "AJC8ZDIWBJ",
+    apiKey: "66a9759f27ae50a3c41abf7b82181a11",
+    indexName: "pages",
+    routing: true
+  })
+
+  // Need to initiate after DOM loaded to return "containers"
+  return document.addEventListener("DOMContentLoaded", function() {
+
+    multiSearch(filteredSearch, document.querySelector("#search-filtered-main"))
+    multiSearch(siteSearch, document.querySelector("#search-all-nav"))
+  })
+})()
 
 export { algoliaSearch }
