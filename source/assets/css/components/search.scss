@@ -19,23 +19,31 @@
 
   .ais-search-box--input {
     @extend .form__field;
-    @extend %e-pad-y-md;
+    @extend %e-pad-y-lg;
   }
 
   .ais-search-box--magnifier,
   .ais-search-box--reset {
-    top: 0.75rem;
+    top: 0.675rem;
 
-    fill: Get($colorGroups, grey, 1);
     @extend %e-position-absolute;
-  }
 
-  .ais-search-box--magnifier {
-    left: 1.75rem;
+    & > svg {
+      width: 1rem;
+      height: 1rem;
+
+      fill: Get($colorGroups, grey, 1);
+    }
   }
 
   .ais-search-box--reset {
-    right: 1.75rem;
+    right: 2rem;
+
+    @extend %e-cursor-pointer;
+  }
+
+  .ais-search-box--magnifier {
+    left: 2rem;
   }
 }
 
@@ -69,36 +77,6 @@
     @extend .grid__cell;
     @extend %e-display-inline-block;
   }
-
-  // .ais-refinement-list--checkbox,
-  // .ais-refinement-list--label {
-  //   @extend .form__check;
-  // }
-
-  // .ais-refinement-list--checkbox {
-  //   @extend .form__check-input;
-  // }
-
-  // .ais-refinement-list--label {
-  //   @extend .label-xs;
-  // }
-
-  // .ais-refinement-list--count {
-  //   @extend %e-col-orange-2;
-
-  //   &::before,
-  //   &::after {
-  //     @extend %e-display-inline;
-  //   }
-
-  //   &::before {
-  //     content: "("
-  //   }
-
-  //   &::after {
-  //     content: ")"
-  //   }
-  // }
 }
 
 /*		=Results
@@ -222,13 +200,13 @@
 
   @extend %e-align-cen;
   @extend %e-display-inline-block;
+  @extend %e-mgn-b-sm;
   @extend %e-position-relative;
 }
 
 .search__clear-link {
   @extend .link;
   @extend .label-xs;
-  @extend %e-display-inline-block;
-  @extend %e-mgn-x-sm;
+  @extend %e-display-inline;
 }
 
