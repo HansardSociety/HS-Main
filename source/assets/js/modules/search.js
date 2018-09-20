@@ -15,8 +15,8 @@ const algoliaSearch = (() => {
     /* =Core
     ***************************************************************************/
 
-    const searchFilter = block.dataset.searchFilter
     const searchType = block.dataset.searchMainAttr
+    const searchFilter = block.dataset.searchFilter
     const isThemeSearch = searchType == "theme"
     const isCategorySearch = searchType == "category"
 
@@ -234,8 +234,8 @@ const algoliaSearch = (() => {
   // Need to initiate after DOM loaded to return "containers"
   return document.addEventListener("DOMContentLoaded", function() {
 
-    multiSearch(filteredSearch, document.querySelector("#search-filtered-main"))
     multiSearch(siteSearch, document.querySelector("#search-all-nav"))
+    multiSearch(filteredSearch, document.querySelector("#search-filtered-main"))
   })
 })()
 
