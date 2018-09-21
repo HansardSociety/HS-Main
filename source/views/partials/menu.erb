@@ -62,7 +62,7 @@ screen = local_data[:screen]
                   pagesWithoutSubCats = pages.select{ |page| !page[:sub_category] } %>
 
                   <li class="menu__category menu__category--<%= category.parameterize %>">
-                    <span class="label-sm e-col-black-3 e-pad-t-xs"><%= category %></span>
+                    <div class="label-sm e-col-grey-3 e-pad-t-xs"><%= category %></div>
                     <ul class="e-mgn-b-md">
                       <% if pagesWithoutSubCats %>
                         <% pagesWithoutSubCats.each do |page| %>
@@ -77,7 +77,7 @@ screen = local_data[:screen]
                       <% if pagesWithSubCats %>
                         <% pagesWithSubCats.group_by(&:sub_category).each do |subCat, subCatPages| %>
                           <li>
-                            <span class="label-xs e-pad-t-sm e-col-black-3"><%= subCat %></span>
+                            <div class="label-xs e-pad-t-sm e-col-grey-3"><%= subCat %></span>
                             <ul>
                               <% subCatPages.each do |page| %>
                                 <li class="e-pad-t-xs">
@@ -112,7 +112,7 @@ screen = local_data[:screen]
           pagesWithoutSubCats = pages.select{ |page| !page[:sub_category] } %>
 
           <li class="menu__column e-pad-t-xs menu__column--<%= category.parameterize %>">
-            <span class="label-sm e-col-black-3"><%= category %></span>
+            <div class="label-sm e-col-grey-3"><%= category %></div>
             <ul>
 
               <% if pagesWithoutSubCats %>
@@ -128,7 +128,7 @@ screen = local_data[:screen]
               <% if pagesWithSubCats %>
                 <% pagesWithSubCats.group_by(&:sub_category).each do |subCat, subCatPages| %>
                   <li>
-                    <span class="label-xs e-pad-t-sm e-col-black-3"><%= subCat %></span>
+                    <div class="label-xs e-pad-t-sm e-col-grey-3"><%= subCat %></div>
                     <ul>
                       <% subCatPages.each do |page| %>
                         <li class="e-pad-t-xs">

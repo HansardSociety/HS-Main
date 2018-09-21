@@ -7,8 +7,8 @@ callsToAction = accordianData[:calls_to_action]
 
 <section class="accordian <%= "accordian--ctas" if callsToAction %>">
   <div class="accordian__header">
-    <h3 class="title-sm e-col-green"><%= title %></h3>
-    <div class="accordian__control e-col-green">
+    <h3 class="title-sm e-col-brand-green-2"><%= title %></h3>
+    <div class="accordian__control e-col-brand-green-2">
       <%= partial "views/partials/btn",
         locals: { local_data: {
           type: "state", size: "sm",
