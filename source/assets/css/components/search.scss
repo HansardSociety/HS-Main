@@ -1,4 +1,4 @@
-// Uses algolia classes
+// Classes added dynamically by Algolia
 
 .search {}
 
@@ -7,7 +7,11 @@
 
 .search__box {
 
-  .ais-search-box {
+  /**
+   * Need to nest selectors to override Algolia cascade
+  */
+
+  .search__box-inner {
     @extend %e-container;
     @extend %e-container--narrow;
     @extend %e-max-width-full;
@@ -17,13 +21,14 @@
     @extend %e-width-full;
   }
 
-  .ais-search-box--input {
+  .search__box-input {
     @extend .form__field;
     @extend %e-pad-y-lg;
   }
 
-  .ais-search-box--magnifier,
-  .ais-search-box--reset {
+
+  .search__box-magnifier,
+  .search__box-reset {
     top: 0.675rem;
 
     @extend %e-position-absolute;
@@ -36,13 +41,13 @@
     }
   }
 
-  .ais-search-box--reset {
+  .search__box-reset {
     right: 2rem;
 
     @extend %e-cursor-pointer;
   }
 
-  .ais-search-box--magnifier {
+  .search__box-magnifier {
     left: 2rem;
   }
 }
@@ -84,22 +89,22 @@
 
 .search__results {
 
-  .ais-infinite-hits {
+  .search__results-inner {
     @extend .grid;
     @extend .grid--sm;
     @extend .grid--center;
   }
 
-  .ais-infinite-hits--item {
+  .search__results-item {
     @extend .grid__cell;
     @extend .grid__cell--sm-above-md-4;
   }
 
-  .ais-infinite-hits--showmore {
+  .search__results-more {
     @extend %e-align-cen;
   }
 
-  .ais-infinite-hits--showmoreButton:not(:disabled) {
+  .search__results-more-btn:not(:disabled) {
     display: inherit;
 
     @extend .btn;
@@ -111,9 +116,7 @@
     @extend %e-mgn-t-md;
   }
 
-  .ais-infinite-hits--showmoreButton:disabled {
-    position: relative;
-
+  .search__results-more-btn:disabled {
     width: 0;
     height: 0;
 
@@ -152,7 +155,7 @@
   @extend %e-position-relative;
 }
 
-.search__sort-select {
+.search__sort-inner {
   @extend %e-mgn-t-xs;
   @extend %e-position-relative;
 
@@ -160,7 +163,7 @@
     @extend %e-display-inline-block;
   }
 
-  select {
+  .search__sort-select {
     width: 7rem;
     padding: .5rem 1rem .5rem .5rem;
 
@@ -171,7 +174,7 @@
     @extend %e-rad-slight;
   }
 
-  option {
+  .search__sort-item {
     text-transform: none;
 
     @extend %e-ff-prim-roman;
@@ -180,11 +183,11 @@
 }
 
 .search__sort-arrow {
-  z-index: -1;
   top: 1px;
   right: .5rem;
 
   @extend %e-position-absolute;
+  @extend %e-zidx-neg;
 
   svg {
     width: 1rem;

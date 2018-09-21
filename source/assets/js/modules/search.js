@@ -22,11 +22,13 @@ const algoliaSearch = (() => {
 
     let searchFilterParam = ""
 
-    // Search filter params
+    // Filter params
     if (isThemeSearch) searchFilterParam = `theme.lvl0:"${searchFilter}"`
     if (isCategorySearch) searchFilterParam = `category.lvl0:"${searchFilter}"`
 
-    // Search widget
+    /*  =Config
+     *****************************************/
+
     search.addWidget(
       instantSearch.widgets.configure({
         hitsPerPage: 6,
@@ -34,23 +36,47 @@ const algoliaSearch = (() => {
       })
     )
 
-    // Search widget
+    /*  =Search box
+     *****************************************/
+
     search.addWidget(
       instantSearch.widgets.searchBox({
         container: block.querySelector(".search__box"),
         placeholder: "e.g. delegated legislation...",
         autofocus: false,
+        cssClasses: {
+          root: "search__box-inner",
+          input: "search__box-input"
+        },
+        reset: {
+          cssClasses: { root: "search__box-reset" }
+        },
+        magnifier: {
+          cssClasses: { root: "search__box-magnifier" }
+        },
+        loadingIndicator: {
+          cssClasses: { root: "search__box-loading" }
+        },
         queryHook: debounce((query, search) => {
           search(query)
         }, 600)
       })
     )
 
-    // Hits widget
+    /*  =Hits
+     *****************************************/
+
     search.addWidget(
       instantSearch.widgets.infiniteHits({
         container: block.querySelector(".search__results"),
         showMoreLabel: "Load more…",
+        cssClasses: {
+          root: "search__results-inner",
+          empty: "search__results-empty",
+          item: "search__results-item",
+          showmore: "search__results-more",
+          showmoreButton: "search__results-more-btn"
+        },
         templates: {
           empty: "",
           item: template("main-card")
@@ -78,6 +104,18 @@ const algoliaSearch = (() => {
         attributeName: attributeName,
         sortBy: ["name:asc"],
         operator: "or",
+        cssClasses: {
+          root: "search__filter-root",
+          header: "search__filter-header",
+          body: "search__filter-body",
+          footer: "search__filter-footer",
+          list: "search__filter-list",
+          item: "search__filter-item",
+          active: "search__filter-active",
+          label: "search__filter-label",
+          checkbox: "search__filter-checkbox",
+          count: "search__filter-count"
+        },
         templates: {
           header: `<span>${ heading }:</span>`,
           item: template("checkbox")
@@ -171,7 +209,7 @@ const algoliaSearch = (() => {
 
     search.addWidget(
       instantSearch.widgets.sortBySelector({
-        container: block.querySelector(".search__sort-select"),
+        container: block.querySelector(".search__sort-inner"),
         indices: [
           {
             name: "pages_by_date",
@@ -180,7 +218,12 @@ const algoliaSearch = (() => {
             name: "pages",
             label: "Relevance"
           }
-        ]
+        ],
+        cssClasses: {
+          root: "search__sort-root",
+          select: "search__sort-select",
+          item: "search__sort-item"
+        }
       })
     )
 
