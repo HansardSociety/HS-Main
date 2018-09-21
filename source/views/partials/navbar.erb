@@ -54,7 +54,7 @@
                 title="<%= nav[:title] %>"><%= nav[:title] %></a>
 
             <% end; if nav[:pages] && nav[:pages].length > 1 %>
-              <div class="e-col-white-1">
+              <div class="e-col-white-1 navbar__btn-container">
                 <%= partial "views/partials/btn",
                   locals: { local_data: {
                     type: "state",
@@ -79,7 +79,7 @@
           </li>
         <% end %>
       </ul>
-      <div class="e-col-white-1">
+      <div class="e-col-white-1 navbar__btn-container">
         <%= partial "views/partials/btn",
           locals: { local_data: {
             type: "state",
