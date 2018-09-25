@@ -5,6 +5,12 @@ mainSearchAttr = local_data[:main_search_attr]
 bgcWhite = local_data[:bgc_white] ? local_data[:bgc_white] : "2"
 context = local_data[:context]
 
+if context == "site-search"
+  byline = "Search all pages"
+elsif context == "theme-search"
+  byline = "Search within ‘#{ @entry[:title] }’"
+end
+
 searchFilter = ""
 if mainSearchAttr == "theme"
   searchFilter = @entry[:theme].gsub("-", " ")
@@ -18,8 +24,8 @@ end
   class="panel e-bgc-white-<%= bgcWhite %>">
   <div class="panel__content panel__content--full">
 
-    <h2 class="title-lg e-col-brand-green-2 e-align-cen e-mgn-b-md">Search</h2>
-
+    <h2 class="title-lg e-col-brand-green-2 e-align-cen">Search</h2>
+    <p class="e-col-grey-3 e-align-cen e-mgn-b-md"><%= byline %></p>
     <div
       id="<%= searchID %>"
       class="search"
