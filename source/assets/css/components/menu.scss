@@ -7,6 +7,8 @@
   padding-bottom: 3.5rem;
 
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch; // smooth scrolling on iOS
+
   @extend %e-bgc-white-1;
   @extend %e-container;
   @extend %e-col-black-2;

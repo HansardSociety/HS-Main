@@ -88,7 +88,10 @@ module DynamicPages
       ##		=Theme feed pages
       ########################################
 
-      themes = siteConfig[:themes].to_a
+      themes = []
+      siteConfig[:themes].each do |theme|
+        themes << theme[:name]
+      end
 
       themes.each do |theme|
         paginated = getThemePages(allMainPages, theme).each_slice(6).to_a

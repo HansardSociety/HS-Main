@@ -1,13 +1,54 @@
 {
 	"themes": [
-		"brexit-and-parliament",
-		"representation",
-		"political-engagement",
-		"parliamentary-scrutiny",
-		"parliaments-and-international-development",
-		"making-better-law",
-		"governance-of-parliament",
-		"future-parliament"
+		{
+      "name": "brexit-and-parliament",
+      "sub_themes": [
+        "committee-scrutiny",
+        "legislation",
+        "trade-and-treaties"
+      ]
+    }, {
+      "name": "future-parliament",
+      "sub_themes": [
+        "digital",
+        "restoration-and-renewal",
+        "spaces-and-buildigs"
+      ]
+    }, {
+      "name": "governance-of-parliament",
+      "sub_themes": [
+        "operations",
+        "procedures"
+      ]
+    }, {
+      "name": "making-better-law",
+      "sub_themes": [
+        "delegated-legislation"
+      ]
+    }, {
+      "name": "parliaments-and-international-development",
+      "sub_themes": [
+
+      ]
+    }, {
+      "name": "parliamentary-scrutiny",
+      "sub_themes": [
+        "committee-scrutiny",
+        "financial-scrutiny"
+      ]
+    }, {
+      "name": "political-engagement",
+      "sub_themes": [
+        "communication"
+      ]
+    }, {
+      "name": "representation",
+      "sub_themes": [
+        "elections",
+        "political-parties",
+        "representatives"
+      ]
+    }
 	],
 	"categories": [
 		{
