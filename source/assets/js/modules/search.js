@@ -253,7 +253,9 @@ const algoliaSearch = (() => {
         if (img.classList.contains("b-loaded")) {
           // do nothing
         } else {
-          blazy.load(img);
+          setTimeout(() => {
+            blazy.load(img)
+          }, 400);
         }
       }
     })
