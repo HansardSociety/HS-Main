@@ -106,6 +106,29 @@
   }
 }
 
+.search__toggle-filters {
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  @extend %e-align-cen;
+  @extend %e-display-none;
+  @extend %e-cursor-pointer;
+  @extend %e-position-relative;
+
+  @include below(md) {
+    display: inline-block;
+
+    & + .search__filters {
+      display: none;
+    }
+
+    &.JS-on + .search__filters {
+      display: block;
+    }
+  }
+}
+
 /*		=Results
   ========================================================================== */
 
@@ -119,7 +142,7 @@
 
   .search__results-item {
     @extend .grid__cell;
-    @extend .grid__cell--sm-above-md-6;
+    @extend .grid__cell--sm-above-sm-6;
     @extend .grid__cell--sm-above-lg-4;
   }
 

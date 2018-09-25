@@ -1,3 +1,4 @@
+import  {toggleClass} from "./core"
 import instantSearch from "instantsearch.js/dist/instantsearch"
 import Blazy from "blazy"
 import debounce from "lodash/debounce"
@@ -84,7 +85,7 @@ const algoliaSearch = (() => {
       }),
     )
 
-    /* =Refinement
+    /* =Filters
     ***************************************************************************/
 
     /*  =Widget fn
@@ -256,8 +257,12 @@ const algoliaSearch = (() => {
         }
       }
     })
+
     search.start()
   }
+
+  /* =Init
+   ***************************************************************************/
 
   // Filtered search
   const filteredSearch = instantSearch({
@@ -282,4 +287,21 @@ const algoliaSearch = (() => {
   })
 })()
 
-export { algoliaSearch }
+
+/* =Toggle filters
+***************************************************************************/
+
+const toggleFilters = (() => {
+  for (let block of document.querySelectorAll(".search")) {
+    const filterToggle = block.querySelector(".search__toggle-filters")
+
+    filterToggle.addEventListener("click", function () {
+      toggleClass(this, "JS-on")
+
+      if (this.classList.contains("JS-on")) this.innerText = "Hide filters"
+      else this.innerText = "Show filters"
+    })
+  }
+})()
+
+export { algoliaSearch, toggleFilters }

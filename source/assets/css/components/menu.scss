@@ -20,7 +20,6 @@
 }
 
 .menu--mobile {
-  // max-width: 30rem;
   transform: translateX(-100%);
 
   @extend %e-overflow-y-auto;
@@ -33,12 +32,23 @@
 .menu--desktop {
   transform: translateY(-100%);
 
-  @extend %e-display-none;
   @extend %e-overflow-y-auto;
   @extend %e-trans-core;
   @extend %e-width-full-vw;
+  @extend %e-display-none;
+
   @include above(md) {
     @extend %e-display-block__md;
+  }
+}
+
+// reset default menu padding (cascade)
+.menu--search {
+  padding: 2rem 0 0;
+
+  @extend %e-display-block;
+  @include below(md) {
+    transform: translateX(100%);
   }
 }
 
