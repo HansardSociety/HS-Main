@@ -28,6 +28,10 @@
 }
 
 .feed__menu {
+  @include below(md) {
+    text-align: center;
+    justify-content: center;
+  }
   @include above(md) {
     top: 5rem;
     bottom: 3rem;

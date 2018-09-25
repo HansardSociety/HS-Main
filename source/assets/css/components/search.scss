@@ -23,7 +23,7 @@
 
   .search__box-input {
     @extend .form__field;
-    @extend %e-pad-y-lg;
+    @extend %e-pad-y-md;
   }
 
 
@@ -42,13 +42,13 @@
   }
 
   .search__box-reset {
-    right: 2rem;
+    right: 1.75rem;
 
     @extend %e-cursor-pointer;
   }
 
   .search__box-magnifier {
-    left: 2rem;
+    left: 1.75rem;
   }
 }
 
@@ -58,27 +58,34 @@
 .search__filters {
   @extend %e-mgn-t-xs;
 
-  .ais-refinement-list {
+  .search__filters-root {
     @extend %e-align-cen;
   }
 
-  .ais-refinement-list--header,
-  .ais-refinement-list--body {
+  .search__filters-header,
+  .search__filters-body {
     @extend %e-display-inline-block;
     @extend %e-mgn-t-xs;
   }
 
-  .ais-refinement-list--header {
+  .search__filters-header {
     @extend %e-col-grey-3;
     @extend %e-mgn-r-xs;
+    @include below(sm) {
+      display: block;
+      margin-bottom: -.5rem;
+    }
   }
 
-  .ais-refinement-list--list {
+  .search__filters-list {
     @extend .grid;
     @extend .grid--xs;
+    @include below(sm) {
+      justify-content: center;
+    }
   }
 
-  .ais-refinement-list--item {
+  .search__filters-item {
     @extend .grid__cell;
     @extend %e-display-inline-block;
   }
@@ -97,7 +104,8 @@
 
   .search__results-item {
     @extend .grid__cell;
-    @extend .grid__cell--sm-above-md-4;
+    @extend .grid__cell--sm-above-md-6;
+    @extend .grid__cell--sm-above-lg-4;
   }
 
   .search__results-more {

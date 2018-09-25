@@ -105,16 +105,16 @@ const algoliaSearch = (() => {
         sortBy: ["name:asc"],
         operator: "or",
         cssClasses: {
-          root: "search__filter-root",
-          header: "search__filter-header",
-          body: "search__filter-body",
-          footer: "search__filter-footer",
-          list: "search__filter-list",
-          item: "search__filter-item",
-          active: "search__filter-active",
-          label: "search__filter-label",
-          checkbox: "search__filter-checkbox",
-          count: "search__filter-count"
+          root: "search__filters-root",
+          header: "search__filters-header",
+          body: "search__filters-body",
+          footer: "search__filters-footer",
+          list: "search__filters-list",
+          item: "search__filters-item",
+          active: "search__filters-active",
+          label: "search__filters-label",
+          checkbox: "search__filters-checkbox",
+          count: "search__filters-count"
         },
         templates: {
           header: `<span>${ heading }:</span>`,
