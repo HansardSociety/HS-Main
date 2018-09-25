@@ -12,6 +12,9 @@
   */
 
   .search__box-inner {
+    padding-left: 0;
+    padding-right: 0;
+
     @extend %e-container;
     @extend %e-container--narrow;
     @extend %e-max-width-full;
@@ -42,13 +45,13 @@
   }
 
   .search__box-reset {
-    right: 1.75rem;
+    right: .75rem;
 
     @extend %e-cursor-pointer;
   }
 
   .search__box-magnifier {
-    left: 1.75rem;
+    left: .75rem;
   }
 }
 
@@ -57,10 +60,21 @@
 
 .search__filters {
   @extend %e-mgn-t-xs;
+  // @include below(sm) {
+  //   padding: 0.5rem;
+  //   border: .25rem solid Get($colorGroups, white, 3);
+  //   border-radius: .125rem;
+  // }
 
   .search__filters-root {
     @extend %e-align-cen;
   }
+
+  // .search__filters-header {
+  //   @include below(sm) {
+  //     margin-top: 0;
+  //   }
+  // }
 
   .search__filters-header,
   .search__filters-body {

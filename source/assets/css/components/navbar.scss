@@ -141,6 +141,9 @@
       &::before,
       &::after {
         @extend %e-absolute-center-y;
+        @include below(md) {
+          display: none;
+        }
       }
 
       &::before {
