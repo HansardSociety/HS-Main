@@ -12,8 +12,8 @@
   */
 
   .search__box-inner {
-    padding-left: 0;
     padding-right: 0;
+    padding-left: 0;
 
     @extend %e-container;
     @extend %e-container--narrow;
@@ -87,8 +87,9 @@
     @extend %e-mgn-r-xs;
     @include below(sm) {
       display: block;
-      margin-bottom: -.5rem;
+
       margin-right: 0;
+      margin-bottom: -.5rem;
     }
   }
 
@@ -115,7 +116,6 @@
   @extend %e-display-none;
   @extend %e-cursor-pointer;
   @extend %e-position-relative;
-
   @include below(md) {
     display: inline-block;
 
@@ -210,6 +210,8 @@
   }
 
   .search__sort-select {
+    overflow: auto;
+
     width: 7rem;
     padding: .5rem 1rem .5rem .5rem;
 
@@ -221,7 +223,7 @@
   }
 
   .search__sort-item {
-    text-transform: none;
+    text-transform: none !important;
 
     @extend %e-ff-prim-roman;
     @extend %e-fz-sm;
