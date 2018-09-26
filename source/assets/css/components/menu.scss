@@ -1,5 +1,5 @@
 .menu {
-  z-index: -2; // Make sure is behind nav__inner background
+  z-index: -1; // Make sure is behind nav__inner background
   top: 0;
   left: 0;
 
@@ -32,7 +32,7 @@
 }
 
 .menu--desktop {
-  transform: translateY(-100%);
+  transform: translateY(-110%);
 
   @extend %e-overflow-y-auto;
   @extend %e-trans-core;
@@ -49,6 +49,8 @@
   padding: 2rem 0 0;
 
   @extend %e-display-block;
+  // @extend %e-mgn-t-md;
+  @extend %e-overflow-hidden;
   @include below(md) {
     transform: translateX(100%);
   }

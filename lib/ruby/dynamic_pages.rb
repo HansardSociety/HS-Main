@@ -120,6 +120,10 @@ module DynamicPages
   ###########################################################################
 
   def dynamicCustomPages()
-    #...
+    proxy "/static/search.html",
+          "/views/static/search.html",
+          ignore: true,
+          layout: "iframe",
+          locals: { no_index: true }
   end
 end

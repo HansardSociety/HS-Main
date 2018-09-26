@@ -96,13 +96,14 @@
           class="menu JS-inactive menu--desktop menu--search">
           <div class="menu__nav-bg"></div>
           <div class="menu__container e-mgn-auto-x">
-              <%= partial "views/partials/panel/search",
-                locals: { local_data: {
-                  context: "site-search",
-                  panel_id: "panel-search-all-nav",
-                  search_id: "search-all-nav",
-                  bgc_white: "1"
-                }} %>
+            <iframe
+              src="/static/search.html"
+              frameborder="0"
+              scrolling="auto"
+              style="min-width: 100vw;
+                     min-height: 100vh;
+                     left: 0;
+                     position: absolute;"></iframe>
           </div>
         </div>
       </div>
