@@ -2,12 +2,13 @@
 
 isHomePage = entryData[:TYPE] == "home"
 isLandingPage = entryData[:TYPE] == "landing_page"
+isThemePage = entryData[:TYPE] == "theme_page"
 
-category = isHomePage ? "projects" : entryData[:category]
+category = (isHomePage || isThemePage) ? "projects" : entryData[:category]
 introduction = entryData[:introduction]
 
 color = catColor(category)
-bgcClass = colorProfile(:greyscale).include?(color) ? panelBgc(color) : panelBgc(color, { gradient: true })
+bgcClass = colorProfile(:mono).include?(color) ? panelBgc(color) : panelBgc(color, { gradient: true })
 %>
 
 <section class="panel <%= bgcClass %>">

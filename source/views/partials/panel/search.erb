@@ -1,0 +1,68 @@
+<%
+panelID = local_data[:panel_id]
+searchID = local_data[:search_id]
+mainSearchAttr = local_data[:main_search_attr]
+
+bgcWhite = local_data[:bgc_white] ? local_data[:bgc_white] : "2"
+context = local_data[:context]
+
+if context == "site-search"
+  title = "Site search"
+  byline = "Search all pages"
+elsif context == "theme-search"
+  title = "Theme search"
+  byline = "Search within ‘#{ @entry[:title] }’"
+elsif context == "category-search"
+  title = "#{ @entry[:title] } search"
+  byline = "Search within ‘#{ @entry[:title] }’"
+end
+
+searchFilter = ""
+if mainSearchAttr == "theme"
+  searchFilter = @entry[:theme].gsub("-", " ")
+elsif mainSearchAttr == "category"
+  searchFilter = @entry[:category].gsub("-", " ")
+end
+%>
+
+<section
+  id="<%= panelID %>"
+  class="panel e-bgc-white-<%= bgcWhite %>">
+  <div class="panel__content panel__content--full">
+
+    <h2 class="title-lg e-col-brand-green-2 e-align-cen"><%= title %></h2>
+    <p class="e-col-grey-3 e-align-cen e-mgn-b-md"><%= byline %></p>
+    <div
+      id="<%= searchID %>"
+      class="search"
+      data-search-main-attr="<%= mainSearchAttr %>"
+      data-search-filter="<%= searchFilter %>">
+
+      <div class="search__box JS-lazy"></div>
+      <span class="search__toggle-filters link label-xs">Show filters</span>
+      <div class="search__filters">
+        <div class="search__filter-1"></div>
+        <div class="search__filter-2"></div>
+      </div>
+      <div>
+        <div class="search__sort">
+          <span class="e-col-grey-3">Sort by:&nbsp;</span>
+          <span class="search__sort-inner"></span>
+          <span class="search__sort-arrow e-col-brand-green-2"><%= partial "views/partials/icon",
+              locals: {
+                icon: "chevron-down",
+                size: "xs" } %></span>
+        </div>
+      </div>
+      <div class="search__clear">
+        <div class="search__clear-inner"></div>
+      </div>
+      <div class="search__results"></div>
+      <div class="e-align-cen e-mgn-t-sm">
+        <a href="#<%= panelID %>" class="e-pad-xs">
+          <span class="link label-xs">Back to search</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

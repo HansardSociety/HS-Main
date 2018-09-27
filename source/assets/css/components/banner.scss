@@ -12,8 +12,6 @@
 .banner__inner--lp {
   bottom: 0;
 
-  // @extend %e-bgc-opaque-1;
-  @extend %e-mgn-t-md;
   @include above(sm) {
     bottom: 50%;
 
@@ -34,7 +32,7 @@
 
 .banner__content,
 .banner__title {
-  @extend %e-col-greyscale-0;
+  @extend %e-col-white-1;
 }
 
 .banner__content {
@@ -44,6 +42,7 @@
 
 .banner__content--lp {
   @extend %e-container--narrow;
+  @extend %e-mgn-t-xl;
   @extend %e-pad-x-md;
   @include above(sm) {
     text-align: center;
@@ -123,4 +122,22 @@
   @include below(md) {
     padding-bottom: 5rem;
   }
+}
+
+/*		=JS
+  ========================================================================== */
+
+.JS-banner--semi,
+.JS-banner--full {
+  @include above(sm) {
+    height: 82.5vh;
+  }
+}
+
+.JS-banner--semi {
+  height: calc(100vh - 8px);
+}
+
+.JS-banner--full {
+  height: 100vh;
 }

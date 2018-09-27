@@ -18,14 +18,14 @@
 }
 
 .image--light {
-  @extend %e-bgc-greyscale-0;
+  @extend %e-bgc-white-1;
   @extend %e-box-shad-z3;
 }
 
 .image--invert {
   opacity: .5;
 
-  @extend %e-bgc-greyscale-0;
+  @extend %e-bgc-white-1;
   @extend %e-pad-xs;
 }
 

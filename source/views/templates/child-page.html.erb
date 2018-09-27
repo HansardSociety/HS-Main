@@ -1,6 +1,6 @@
 <%
 @entry = entry_data
-blogCount = @entry[:blog_count]
+blogCount = @entry[:blog_count] ? @entry[:blog_count] : 2
 category = @entry[:category]
 copy = @entry[:copy]
 introduction = @entry[:introduction]
@@ -107,7 +107,7 @@ url = "https://hansardsociety.org.uk/"
                     <ul class="e-mgn-t-sm">
                       <% pages.sort_by{ |page| page[:title] }.each do |page| %>
                         <li>
-                          <span class="label-xs e-col-greyscale-2"><%= page[:meta_label] %></span>
+                          <span class="label-xs e-col-grey-3"><%= page[:meta_label] %></span>
                           <p><a
                             class="link"
                             href="<%= internalURL(page[:slug]) %>"
@@ -142,7 +142,7 @@ url = "https://hansardsociety.org.uk/"
             <% if isBlogPage %>
               <% featured.reject{ |featured| featured[:TYPE] == "people" }.each_with_index do |featured, index| %>
                 <% if index == 0 %>
-                  <h2 class="side-title e-acc-greyscale-3-top">Featured</h2>
+                  <h2 class="side-title e-acc-black-2-top">Featured</h2>
                 <% end %>
                 <%= partial "views/partials/side-card",
                   locals: { local_data: {
@@ -153,7 +153,7 @@ url = "https://hansardsociety.org.uk/"
             <%# If not blog, add all featured items to the sidebar except
               # the first, which is featured alongside the intro text. %>
             <% elsif featured && featured.length > 1 %>
-              <h2 class="side-title e-acc-greyscale-3-top">Featured</h2>
+              <h2 class="side-title e-acc-black-2-top">Featured</h2>
               <% featured.drop(1).map do |featuredItem| %>
                 <% if !nonPages.include? featuredItem[:TYPE] %>
                   <%= partial "views/partials/side-card",
@@ -166,7 +166,7 @@ url = "https://hansardsociety.org.uk/"
 
             <%# External links %>
             <% if @entry[:external_links] %>
-              <h2 class="side-title e-acc-greyscale-2-top">Links</h2>
+              <h2 class="side-title e-acc-black-3-top">Links</h2>
               <% @entry[:external_links].map do |link| %>
                 <%= partial "views/partials/ext-link",
                   locals: { local_data: {
@@ -177,13 +177,21 @@ url = "https://hansardsociety.org.uk/"
             <%# All tagged/ related content %>
             <% if @entry[:tags] %>
               <h2 class="side-title e-acc-brand-green-2-top">Related</h2>
-              <% relatedContent(@entry, blogCount) do |page| %>
+              <% relatedContent(@entry, { blog_count: blogCount }) do |page| %>
                 <%= partial "views/partials/side-card",
                   locals: { local_data: {
                     side_card_data: page }} %>
               <% end %>
             <% end %>
           <% end %><%# END :: if isMainCategories %>
+
+          <%# Newsletter signup %>
+          <div class="box e-bgc-brand-green-1 e-col-white-1 e-mgn-t-md">
+            <%= partial "views/partials/signup-box",
+              locals: { local_data: {
+                copy_size: "sm",
+                id: "modal-monthly-newsletter-subscription-side-bar" }} %>
+          </div>
 
           <%# Latest items for about pages %>
           <% if category == "about" %>
@@ -193,27 +201,18 @@ url = "https://hansardsociety.org.uk/"
                 locals: { local_data: {
                   side_card_data: page }} %>
             <% end %>
-          <% else %>
-            <h2 class="side-title e-acc-purple-2-top e-pad-t-xs">Latest blog</h2>
-            <% latestContent(
-              yield: true,
-              num: 3,
-              page_cats: ["blog"],
-              dedupe_entry_id: @entry[:ID]
-            ) do |page| %>
-              <%= partial "views/partials/side-card",
-                locals: { local_data: {
-                  side_card_data: page }} %>
-            <% end %>
-          <% end %>
 
-          <%# Newsletter signup %>
-          <div class="box e-bgc-brand-green-1 e-col-greyscale-0 e-mgn-t-md e-mgn-b-xs">
-            <%= partial "views/partials/signup-box",
-              locals: { local_data: {
-                copy_size: "sm",
-                id: "modal-monthly-newsletter-subscription-side-bar" }} %>
-          </div>
+          <% else %>
+            <div class="top-3">
+              <h2 class="side-title e-acc-brand-green-2-top e-pad-t-xs">Top 3</h2>
+              <% featuredPages = data.hs.homepage(0).values[0].featured_pages.reject{|page| page[:ID] == @entry[:ID] }
+                featuredPages[0..2].each do |page| %>
+                  <%= partial "views/partials/side-card",
+                    locals: { local_data: {
+                      side_card_data: page }} %>
+              <% end %>
+            </div>
+          <% end %>
         </aside>
       </div>
     </div>
@@ -225,8 +224,9 @@ url = "https://hansardsociety.org.uk/"
           entry_data: @entry,
           context: :latest,
           data_type: :latest,
+          start_at: 3,
           dedupe_entry_id: @entry[:ID],
-          title: "More" }} %>
+          title: "Latest" }} %>
     </section>
   <% end %>
 </article>

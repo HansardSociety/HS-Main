@@ -2,12 +2,18 @@
   // @extend %e-mgn-t-md;
 }
 
+.feed__footer {
+  order: 3;
+
+  @extend %e-width-full;
+}
+
 .feed__load,
 .feed__status {
   @extend %e-align-cen;
   @extend %e-animate-fade-in-load;
-  @extend %e-mgn-t-md;
   @extend %e-mgn-auto-x;
+  @extend %e-mgn-t-sm;
 }
 
 .feed__status {
@@ -15,8 +21,51 @@
 }
 
 .feed__status .infinite-scroll-request > svg {
-  animation-iteration-count: infinite;
   animation-duration: 500ms;
+  animation-iteration-count: infinite;
 
   @extend %e-animate-spin;
+}
+
+.feed__menu {
+  @include below(md) {
+    text-align: center;
+    justify-content: center;
+  }
+  @include above(md) {
+    top: 5rem;
+    bottom: 3rem;
+    position: sticky;
+  }
+}
+
+.feed__menu-item,
+.feed__menu-item-disabled {
+  width: 1.75rem;
+  font-size: .75rem;
+  border-radius: 1px;
+
+  @extend %e-align-cen;
+  @extend %e-bgc-white-2;
+  @extend %e-col-brand-green-1;
+  @extend %e-display-block;
+  @extend %e-ff-prim-heavy;
+  @extend %e-trans-core;
+}
+
+.feed__menu-item {
+  &:hover {
+    @extend %e-bgc-brand-green-1;
+    @extend %e-col-white-1;
+  }
+}
+
+.feed__menu-item.JS-active,
+.feed__menu-item.JS-disabled {
+  pointer-events: none;
+}
+
+.feed__menu-item.JS-active {
+  @extend %e-bgc-brand-green-1;
+  @extend %e-col-white-1;
 }

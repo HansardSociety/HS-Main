@@ -1,6 +1,6 @@
 require "uri"
 
-$marker = " > "
+$seperator = " > "
 
 ###########################################################################
 ##		=Detatch category
@@ -11,7 +11,7 @@ def detachCategory(data, opts = {})
   opts = defaults.merge(opts)
   part = opts[:part]
 
-  data.include?($marker) ? data.split($marker)[part].parameterize : data.parameterize
+  data.include?($seperator) ? data.split($seperator)[part].parameterize : data.parameterize
 end
 
 ###########################################################################
@@ -31,7 +31,7 @@ def slug(data)
   category = detachCategory(data.category)
   slug = data.slug
 
-  if data.category.include? $marker
+  if data.category.include? $seperator
     subCategory = detachCategory(data.category, { part: 1 })
 
     if indexPage
@@ -92,7 +92,7 @@ def metaLabel(data, opts = {})
 
   regData = opts[:reg_data]
 
-  hasSubcategory = data.category.include?($marker)
+  hasSubcategory = data.category.include?($seperator)
   hasNestedRegistration = data.featured && data.featured[0].content_type.id == "registration"
 
   category = detachCategory(data.category)
@@ -121,25 +121,47 @@ def sharedPageBase(pageType, ctx, data)
   ctx.ID = data.sys[:id]
   ctx.TYPE = data.content_type.id
   ctx.title = data.title.gsub('"', "&quot;").rstrip
-  ctx.banner_image = media(data.banner_image, focus: data)
+  ctx.banner_image = media(data.banner_image, focus: data) if data.banner_image
   ctx.introduction = data.introduction.gsub('"', "&quot;")
 
   # Landing/ home page
-  if ["landingPage", "homePage"].include? pageType
+  if ["homePage", "landingPage", "themePage"].include? pageType
     ctx.subtitle = data.subtitle
+  end
+
+  # Child/ landing page/ theme page
+  if ["childPage", "landingPage", "themePage"].include? pageType
+    ctx.seo_title = data.seo_title
   end
 
   # Child/ landing page
   if ["childPage", "landingPage"].include? pageType
-
-    ctx.category = detachCategory(data.category)
-    ctx.meta_label = metaLabel(data)
     ctx.slug = slug(data)
-    ctx.seo_title = data.seo_title
+    ctx.category = detachCategory(data.category)
+    ctx.category_orig = data.category.downcase
+    ctx.meta_label = metaLabel(data)
 
     # Has sub-category
-    if data.category.include? $marker
+    if data.category.include?($seperator)
       ctx.sub_category = detachCategory(data.category, { part: 1 })
+    end
+
+    # Theming
+    if data.theme
+      ctx.theme = []
+      ctx.theme_orig = []
+
+      data.theme.map do |theme|
+        ctx.theme << theme.parameterize if !theme.include?($seperator)
+        ctx.theme_orig << theme.downcase
+
+        if theme.include?($seperator)
+          subTheme = theme.split($seperator)[1].parameterize
+
+          ctx.sub_theme = []
+          ctx.sub_theme << subTheme if !ctx.sub_theme.include?(subTheme)
+        end
+      end
     end
 
     # Has alternative date/ time
@@ -221,7 +243,7 @@ def featuredData(data, opts = {})
       meta_label: metaLabel(data),
       slug: slug(data),
       category: (detachCategory(data.category) if data.category),
-      sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $marker),
+      sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $seperator),
       introduction: data.introduction,
       banner_image: media(data.banner_image, focus: data),
       product_image: (media(data.featured[0].image) if data.featured && data.featured[0].content_type.id == "product"),
@@ -451,10 +473,8 @@ def panels(ctx, data)
         feed: {
           category: detachCategory(panel.feed_category),
           sub_category: (
-            detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $marker
-          ),
-          initial_count: panel.initial_count,
-          dedupe: panel.dedupe
+            detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $seperator
+          )
         }.compact
       }
     end
@@ -497,16 +517,15 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.site_title_seo = entry.site_title_seo
     context.site_url = entry.site_url
     context.copyright = entry.copyright
+    context.default_banner = media(entry.default_banner)
 
     context.newsletter_text = entry.newsletter_text
     context.newsletter_form = form(entry.newsletter_form)
 
-    context.uncss_urls = entry.uncss_urls
-
     ##		=Categories/sub-categories
     ########################################
 
-    context.categories = entry.categories
+    context.site_config = entry.site_config
 
     ##		=Social
     ########################################
@@ -562,11 +581,12 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
     if entry.featured_pages
       context.featured_pages = entry.featured_pages.map do |page|
         {
+          ID: page.sys[:id],
           title: page.title,
           meta_label: metaLabel(page),
           slug: slug(page),
           category: (detachCategory(page.category) if page.category),
-          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $marker),
+          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $seperator),
           introduction: page.introduction,
           banner_image: media(page.banner_image, focus: page),
           date_time: dateTime(page)
@@ -596,7 +616,7 @@ class NavigationMap < ContentfulMiddleman::Mapper::Base
           title: page.title.rstrip,
           slug: slug(page),
           category: detachCategory(page.category),
-          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $marker)
+          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $seperator)
         }.compact
       end
     end
@@ -698,5 +718,17 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     if entry.tags
       context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize }
     end
+  end
+end
+
+###########################################################################
+##  =Theme page
+###########################################################################
+
+class ThemePageMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+    sharedPageBase("themePage", context, entry) # core page data
+    context.theme = entry.title.parameterize
+    context.slug = "#{ entry.slug }/index"
   end
 end

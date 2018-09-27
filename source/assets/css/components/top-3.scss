@@ -1,0 +1,8 @@
+.top-3 {
+  @extend %e-mgn-t-md;
+
+  @include above(lg) {
+    position: sticky;
+    top: 4.5rem;
+  }
+}

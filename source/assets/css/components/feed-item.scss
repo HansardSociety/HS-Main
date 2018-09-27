@@ -3,12 +3,11 @@
 
   @extend %e-animate-fade-in-load;
   @extend %e-flex-row-nowrap;
+  @extend %e-mgn-b-sm;
+  @extend %e-pad-b-sm;
 
-  &:not(:last-of-type) {
-    // border-bottom: 2px solid Get($colors, greyscale, light-grey);
-
-    @extend %e-mgn-b-sm;
-    @extend %e-pad-b-sm;
+  &:not(:last-child) {
+    border-bottom: 1px solid Get($colorGroups, white, 2);
   }
 }
 
@@ -18,7 +17,6 @@
 }
 
 .feed-item__img {
-
   width: 20%;
   padding-bottom: 20%;
 
@@ -29,8 +27,10 @@
   @extend %e-overflow-hidden;
   @extend %e-position-relative;
   @include above(sm) {
+    width: 15%;
     margin-top: 0;
     margin-right: 2rem;
+    padding-bottom: 15%;
   }
 }
 

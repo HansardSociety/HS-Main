@@ -2,10 +2,10 @@
 panelData = local_data[:entry_data]
 
 bgc = panelData[:background_color]
-bgcClass = colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
+bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
 
 title = panelData[:title]
-titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
+titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2" }"
 hasTitle = panelData[:show_title]
 
 image = panelData[:image]

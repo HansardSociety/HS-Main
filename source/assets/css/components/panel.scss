@@ -1,17 +1,35 @@
 // Panels
 .panel {
   @extend %e-container;
-  @extend %e-overflow-hidden;
+  // @extend %e-overflow-hidden;
   @extend %e-pad-x-lg;
   @extend %e-position-relative;
 }
+
+// .panel--bg-rotate {
+//   &::before {
+//     position: absolute;
+//     top: -2.5rem;
+//     left: 50%;
+
+//     display: block;
+
+//     width: 120vw;
+//     height: 10rem;
+
+//     content: "";
+//     transform: translateX(-50%) rotate(3deg);
+
+//     background-color: inherit;
+//   }
+// }
 
 .panel--bg-img {
   @extend %e-flex-row;
 }
 
 .panel--dark {
-  @extend %e-col-greyscale-0;
+  @extend %e-col-white-1;
 }
 
 .panel__content {

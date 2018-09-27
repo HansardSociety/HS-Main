@@ -39,7 +39,7 @@ iframe {
 > h5 {
   opacity: .5;
 
-  @extend %e-col-greyscale-3;
+  @extend %e-col-black-2;
 }
 
 > p > a,
@@ -61,7 +61,7 @@ img {
 
     font-size: .75rem;
 
-    @extend %e-col-greyscale-3;
+    @extend %e-col-black-2;
     @extend %e-display-block;
   }
 }
@@ -75,7 +75,9 @@ picture {
 }
 
 hr {
-  border-top: 1px solid Get($colorGroups, greyscale, 1);
+  border: 0;
+  height: 1px;
+  background-color: Get($colorGroups, white, 2);
 
   @extend %e-mgn-x-md;
 }
@@ -94,7 +96,7 @@ blockquote,
 
   border-left: .5rem solid Get($colorGroups, orange, 1) !important;
 
-  @extend %e-bgc-greyscale-1;
+  @extend %e-bgc-white-2;
   @extend %e-rad-slight;
 }
 

@@ -1,19 +1,45 @@
 <%
 childPages = data.hs.child_page
 landingPages = data.hs.landing_page
-allPages = childPages.merge(landingPages)
+allPages = childPages.merge(landingPages).reject{|id, page| page.noindex}
+seperator = " > "
 
 db = allPages.map do |id, page|
   {
-    "objectID": page.ID,
-    "title": page.title,
-    "date": "#{ page.date_time.day }/#{ page.date_time.month }/#{ page.date_time.year }",
-    "slug": page.slug,
-    "category": page.category,
-    "sub_category": (page.sub_category if page.sub_category),
-    "description": page.introduction,
-    "image": page.banner_image.url,
-    "tags": (page.tags.map{ |tag| tag } if page.tags)
+    objectID: page.ID,
+    title: markdownStrip(page.title),
+    description: markdownStrip(page.introduction),
+    slug: page.slug,
+    date: page.date_time.integer,
+    meta_label: (page.meta_label if page.meta_label),
+    image: page.banner_image.url,
+    category: {
+      lvl0: (
+        page.category_orig.include?(seperator) ?
+          page.category_orig.split(seperator)[0] :
+          page.category_orig
+        ),
+      lvl1: (page.category_orig if page.category_orig.include?(seperator))
+    },
+    theme: (
+      if page.theme_orig
+        {
+          lvl0: (
+            lvl0 = page.theme_orig.map{|theme| theme if !theme.include?(seperator)}.compact
+            lvl0
+          ),
+          lvl1: (
+            lvl1 = page.theme_orig.map{|theme| theme if theme.include?(seperator)}.compact
+            lvl1.empty? ? [nil] : lvl1
+          )
+        }
+      else
+        {
+          lvl0: [nil],
+          lvl1: [nil]
+        }
+      end
+    )
   }
 end
 

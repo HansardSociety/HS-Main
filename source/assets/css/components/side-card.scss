@@ -1,8 +1,12 @@
+.side-card {
+  @extend %e-position-relative;
+}
+
 .side-card,
 .side-card__inner,
 .side-card__aside,
 .side-card__content {
-  height: 9rem;
+  height: calc(6.75rem - 1px);
 }
 
 .side-card {
@@ -12,11 +16,11 @@
 }
 
 .side-card--related {
-  @extend %e-bgc-greyscale-1;
+  @extend %e-bgc-white-2;
 }
 
 .side-card--featured {
-  @extend %e-bgc-greyscale-3;
+  @extend %e-bgc-black-2;
 }
 
 .side-card__inner {
@@ -25,7 +29,7 @@
 }
 
 .side-card__aside {
-  width: 6.36rem; // side card image ratio
+  width: 85.5px; // side card image ratio
 
   @extend %e-flex-row-center;
   @extend %e-overflow-hidden;
@@ -33,20 +37,27 @@
 
   & > img {
     min-height: 1px; // Fix Safari height issues on lazy images
+    width: inherit;
 
     @extend %e-display-block;
-    @extend %e-height-full;
     @extend %e-img-filter;
+    @extend %e-width-full;
+    @extend %e-height-full;
   }
 }
 
 .side-card__label {
-  padding-bottom: .25em;
+  padding-bottom: .125em;
 }
 
 .side-card__content {
   flex: 1;
-  padding: 1rem 1rem 1rem .5rem;
+
+  padding: .5rem 1rem .5rem .5rem;
+}
+
+.side-card__title a {
+  @extend %e-hyphens;
 }
 
 .side-card__actions {

@@ -2,11 +2,12 @@
 entryData = local_data[:entry_data]
 
 # Locals
-blogCount = local_data[:blog_count]
+blogCount = local_data[:blog_count] ? local_data[:blog_count] : 2
 categories = local_data[:categories]
 dataType = local_data[:data_type]
 index = local_data[:index]
 dedupeEntry = local_data[:dedupe_entry_id]
+startAt = local_data[:start_at]
 
 # Context
 context = local_data[:context]
@@ -41,7 +42,7 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
                     featured: true }} %>
               </div>
 
-          <% end; end; relatedContent(entryData, blogCount) do |page| %>
+          <% end; end; relatedContent(entryData, { blog_count: blogCount }) do |page| %>
             <div class="carousel__item carousel__item--card">
               <%= partial "views/partials/main-card",
                 locals: { local_data: {
@@ -49,15 +50,34 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
             </div>
 
         <% end; end; if dataType == :latest
-          latestContent(yield: true, num: 6, dedupe_entry_id: (dedupeEntry ? dedupeEntry : false)) do |page| %>
+          latestContent({
+            yield: true,
+            num: 5,
+            dedupe_entry_id: (dedupeEntry ? dedupeEntry : false
+          )}) do |page| %>
             <div class="carousel__item carousel__item--card">
               <%= partial "views/partials/main-card",
                 locals: { local_data: {
                   entry_data: page }} %>
             </div>
 
-        <% end; end; if dataType == :category_latest
-          latestContent(yield: true, num: 6, page_cats: categories) do |page| %>
+        <% end; end; if dataType == :latest_category
+          latestContent({
+            yield: true,
+            num: 5,
+            page_cats: categories
+          }) do |page| %>
+            <div class="carousel__item carousel__item--card">
+              <%= partial "views/partials/main-card",
+                locals: { local_data: {
+                  entry_data: page }} %>
+            </div>
+
+        <% end; end; if dataType == :latest_theme
+          latestThemed = latestContent().select{ |page|
+            page[:theme] && page[:theme].any?{ |theme| theme.include?(entryData[:theme]) }}
+
+          latestThemed[0..4].map do |page| %>
             <div class="carousel__item carousel__item--card">
               <%= partial "views/partials/main-card",
                 locals: { local_data: {
@@ -83,21 +103,21 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
       </div>
 
       <div class="carousel__actions">
-        <div class="carousel__prev">
+        <div class="carousel__prev" tabindex="1">
           <%= partial "views/partials/icon",
             locals: {
               icon: "chevron-left",
-              size: "sm",
+              size: "xs",
               color: "green" } %>
 
           <span>Prev</span>
         </div>
-        <div class="carousel__next">
+        <div class="carousel__next" tabindex="1">
           <span>Next</span>
           <%= partial "views/partials/icon",
             locals: {
               icon: "chevron-right",
-              size: "sm",
+              size: "xs",
               color: "green" } %>
         </div>
       </div>

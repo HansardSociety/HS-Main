@@ -7,25 +7,29 @@
       locals: { local_data: {
       entry_data: @entry }} %>
 
-  <% end; if @entry[:introduction] && @entry[:show_introduction] %>
+  <% end;
+  if @entry[:introduction] && @entry[:show_introduction] %>
     <%= partial "views/partials/panel/introduction" %>
 
-  <% end; if @entry[:latest_carousel] && @entry[:tags] %>
+  <% end;
+  if @entry[:latest_carousel] && @entry[:tags] %>
     <%= partial "views/partials/panel/carousel",
     locals: { local_data: {
       entry_data: @entry,
       context: :latest,
       data_type: :related }} %>
 
-  <% end; if @entry[:latest_carousel] && !@entry[:tags] %>
+  <% end;
+  if @entry[:latest_carousel] && !@entry[:tags] %>
     <%= partial "views/partials/panel/carousel",
     locals: { local_data: {
       entry_data: @entry,
       context: :latest,
-      data_type: :category_latest,
+      data_type: :latest_category,
       categories: @entry[:category] }} %>
 
-  <% end; if @entry[:panels]
+  <% end;
+  if @entry[:panels]
     @entry[:panels].each_with_index do |panel, index|
 
       if panel[:TYPE] == "panel_accordians" %>
@@ -34,51 +38,71 @@
             entry_data: panel,
             index: index }} %>
 
-      <% end; if panel[:TYPE] == "panel_band" %>
+      <% end;
+      if panel[:TYPE] == "panel_band" %>
         <%= partial "views/partials/panel/band",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
 
-      <% end; if panel[:TYPE] == "panel_carousel" %>
+      <% end;
+      if panel[:TYPE] == "panel_carousel" %>
         <%= partial "views/partials/panel/carousel",
           locals: { local_data: {
             entry_data: panel,
             data_type: :custom }} %>
 
-      <% end; if panel[:TYPE] == "panel_carousel_category" %>
+      <% end;
+      if panel[:TYPE] == "panel_carousel_category" %>
         <%= partial "views/partials/panel/carousel",
           locals: { local_data: {
             entry_data: panel,
-            data_type: :category_latest,
+            data_type: :latest_category,
             categories: panel[:category],
             index: index }} %>
 
-      <% end; if panel[:TYPE] == "panel_content" %>
+      <% end;
+      if panel[:TYPE] == "panel_content" %>
         <%= partial "views/partials/panel/content",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
 
-      <% end; if panel[:TYPE] == "panel_feed" %>
+      <% end; # Search
+      if @entry[:ID] == "7leucnRfZmeKwOii6GmM0Y" %>
+        <%= partial "views/partials/panel/search",
+          locals: { local_data: {
+            context: "category-search",
+            panel_id: "panel-search-filtered-main",
+            search_id: "search-filtered-main",
+            main_search_attr: "category"
+          }} %>
+
+      <% end;
+      if panel[:TYPE] == "panel_feed" %>
         <%= partial "views/partials/panel/feed",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
 
-      <% end; if panel[:TYPE] == "panel_header" %>
+      <% end;
+      if panel[:TYPE] == "panel_header" %>
         <%= partial "views/partials/panel/header",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
 
-      <% end; if panel[:TYPE] == "panel_icons" %>
+      <% end;
+      if panel[:TYPE] == "panel_icons" %>
         <%= partial "views/partials/panel/icons",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
 
-  <% end; end; end; if @entry[:ID] == "6b4aZvjw3KUkO84UGkeYaI"
+      <% end;
+    end;
+  end;
+  if @entry[:ID] == "6b4aZvjw3KUkO84UGkeYaI"
     data.hs.people.each do |id, person|
       if person.employment
         @ctaID = (person[:full_name] + "-" + person[:ID]).parameterize %>
@@ -86,5 +110,7 @@
             locals: { local_data: {
               id: @ctaID,
               content: person.biog }} %>
-  <% end; end; end %>
+      <% end;
+    end;
+  end %>
 </article>

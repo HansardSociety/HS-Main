@@ -1,7 +1,7 @@
 import InfiniteScroll from "infinite-scroll"
 
 const infiniteFeed = (() => {
-  const feed = document.querySelector(".feed")
+  const feed = document.querySelector(".JS-feed")
 
   if (feed) {
     const container = feed.querySelector(".feed__items")
@@ -9,23 +9,20 @@ const infiniteFeed = (() => {
     const feedLoad = feed.querySelector(".feed__load")
 
     const feedCategory = feed.getAttribute("data-feed-category")
-    var initialCount = feed.getAttribute("data-feed-count")
+    var feedCount = feed.getAttribute("data-feed-count")
     var feedTotal = feed.getAttribute("data-feed-total")
+    var feedPageNo = feed.getAttribute("data-feed-page")
 
-    initialCount = Number(initialCount)
+    feedCount = Number(feedCount)
     feedTotal = Number(feedTotal)
+    feedPageNo = Number(feedPageNo)
 
-    const dedupe = feed.getAttribute("data-feed-dedupe") == "true"
-
-    if ((initialCount / 3) >= feedTotal) {
+    if ((feedPageNo + 1) >= feedTotal) {
       feedStatus.style.display = "none"
       feedLoad.style.display = "none"
 
-      console.log("YO")
-
     } else {
-      var initialPagesCount = initialCount / 3
-      if (dedupe) initialPagesCount = initialPagesCount + 2
+      var initialPagesCount = feedPageNo
 
       feedTotal = feedTotal - 1
 
@@ -39,7 +36,7 @@ const infiniteFeed = (() => {
       function feedPagePath() {
         const slug = feedPages[this.loadCount]
 
-        if (slug) return `/${feedCategory.replace("::", "/") }/feed/${ slug }`
+        if (slug) return `/${ feedCategory.replace("::", "/") }/feed/${ slug }`
       }
 
       const infScroll = new InfiniteScroll(container, {
@@ -52,11 +49,25 @@ const infiniteFeed = (() => {
       })
 
       // Enable history for SEO
-      infScroll.on("load", function() {
-        var title = "Page " + infScroll.loadCount;
-        var url = "/blog/page-" + infScroll.loadCount;
+      infScroll.on("load", function(i) {
+        var loadCount = infScroll.loadCount + feedPageNo
+        var title = "Page " + loadCount
+        var url = `/${ feedCategory.replace("::", "/") }/feed/page-${ loadCount }`
 
         history.pushState(null, title, url);
+
+        setTimeout(() => {
+          const feedItems = feed.querySelectorAll(".feed__menu-item")
+
+          for (let item of feedItems) {
+            if (item.classList.contains("JS-active")) {
+              item.classList.remove("JS-active")
+
+            } else if (item.innerText == loadCount) {
+              item.classList.add("JS-active")
+            }
+          }
+        }, 100);
       });
     }
   }

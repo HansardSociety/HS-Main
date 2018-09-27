@@ -2,13 +2,13 @@
   ========================================================================== */
 
 html {
-  vertical-align: middle;
+  vertical-align: baseline;
 
   line-height: Get($type, line-height);
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @extend %e-col-greyscale-3;
+  @extend %e-col-black-2;
   @extend %e-ff-prim-roman;
   @extend %e-fz-base;
 }
@@ -144,8 +144,8 @@ input[type=week] {}
 
 input[type=checkbox],
 input[type=radio] {
-  width: 13px;
-  height: 13px;
+  // width: 13px;
+  // height: 13px;
 }
 
 

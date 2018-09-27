@@ -6,6 +6,10 @@
 .btn {
   line-height: 1;
 
+  &:focus {
+    outline: none;
+  }
+
   @extend %e-align-cen;
   @extend %e-cursor-pointer;
   @extend %e-flex-inline-row-center;
@@ -30,10 +34,16 @@
 
 .btn--primary {
   @extend %e-bgc-orange-2;
-  @extend %e-col-greyscale-0;
+  @extend %e-col-white-1;
 
-  &:hover {
+  &:active {
     @extend %e-bgc-orange-3;
+  }
+
+  @include above(sm) {
+    &:hover {
+      background-color: Get($colorGroups, orange, 3);
+    }
   }
 }
 
@@ -42,9 +52,16 @@
 
   @extend %e-col-orange-2;
 
-  &:hover {
+  &:active {
     @extend %e-bgc-orange-2;
-    @extend %e-col-greyscale-0;
+    @extend %e-col-white-1;
+  }
+
+  @include above(sm) {
+    &:hover {
+      background-color: Get($colorGroups, orange, 2);
+      color: Get($colorGroups, white, 1);
+    }
   }
 }
 
@@ -56,7 +73,7 @@
 }
 
 .btn__text {
-  @extend %e-mgn-r-xs;
+  @extend %e-mgn-r-xxs;
 }
 
 .btn__icon,
@@ -68,8 +85,14 @@
   @extend %e-col-brand-green-2;
   @extend %e-trans-core;
 
-  &:hover {
+  &:active {
     @extend %e-col-orange-2;
+  }
+
+  @include above(sm) {
+    &:hover {
+      color: Get($colorGroups, orange, 2);
+    }
   }
 }
 
@@ -95,7 +118,7 @@
   width: 1.5rem;
   height: 2px;
 
-  @extend %e-bgc-greyscale-0;
+  @extend %e-bgc-white-1;
   @extend %e-position-absolute;
   @extend %e-trans-core;
 }

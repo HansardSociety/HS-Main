@@ -70,23 +70,22 @@
   }
 
   .cross-head-#{ $sizeKey } {
-    @extend %e-col-mid-grey;
+    @extend %e-col-black-3;
     @extend .label-#{ $sizeKey };
   }
 }
 
 .label-tag {
   border-radius: 1px;
+  padding: .125rem .25rem;
 
   @extend %e-display-inline;
-  // @extend %e-pad-y-xs;
-  @extend %e-pad-xxs;
 }
 
 // Side title
 .side-title {
   @extend .label-sm;
-  @extend %e-col-greyscale-2;
+  @extend %e-col-grey-3;
   @extend %e-mgn-b-sm;
   @extend %e-pad-t-xs;
   @extend %e-mgn-b-sm;
@@ -106,21 +105,21 @@
 }
 
 .link {
-  box-shadow:inset 0 -6px 0 rgba(Get($colorGroups, brand-green, 2), .1);
+  box-shadow: inset 0 -.35em 0 rgba(Get($colorGroups, brand-green, 1), .15);
 
-  @extend %e-col-green;
+  @extend %e-col-brand-green-2;
 
   &:hover {
-    box-shadow:inset 0 -6px 0 rgba(Get($colorGroups, brand-green, 2), .4);
+    box-shadow: inset 0 -.35em 0 rgba(Get($colorGroups, brand-green, 1), .66);
   }
 }
 
 .link-white {
-  box-shadow:inset 0 -6px 0 rgba(Get($colorGroups, greyscale, 0), .1);
+  box-shadow: inset 0 -.35em 0 rgba(Get($colorGroups, white, 1), .15);
 
-  @extend %e-col-greyscale-0;
+  @extend %e-col-white-1;
 
   &:hover {
-    box-shadow:inset 0 -6px 0 rgba(Get($colorGroups, greyscale, 0), .4);
+    box-shadow: inset 0 -.35em 0 rgba(Get($colorGroups, white, 1), .66);
   }
 }

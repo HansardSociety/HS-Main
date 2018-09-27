@@ -2,7 +2,7 @@
 panelData = local_data[:entry_data]
 
 bgc = panelData[:background_color]
-bgcClass = colorProfile(:greyscale).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
+bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
 
 image = panelData[:image]
 imageSize = panelData[:image_size]
@@ -13,7 +13,7 @@ isMediumImage = imageSize == "medium"
 isLargeImage = imageSize == "large"
 
 title = panelData[:title]
-titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-greyscale-0" : "e-col-brand-green-2" }"
+titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2" }"
 hasTitle = panelData[:show_title] != nil
 
 copy = panelData[:copy]
@@ -95,7 +95,7 @@ index = local_data[:index]
                   icons: [
                     "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
                     ]}} %>
-              <span class="grid__cell grid__cell--xxs e-col-greyscale-2"><small> Tweet this</small> </span>
+              <span class="grid__cell grid__cell--xxs e-col-black-3"><small> Tweet this</small> </span>
 
             <% end; if callsToAction
               callsToAction.each do |cta| %>

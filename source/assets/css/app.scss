@@ -5,7 +5,17 @@
 @import "./functions/string-replace";
 
 // Config
-@import "./config";
+@import "./config/cfg-paths"; // first
+@import "./config/cfg-box-model";
+@import "./config/cfg-btn";
+@import "./config/cfg-category-colors"; // created dynamically from Contentful data
+@import "./config/cfg-colors"; // created dynamically from Contentful data
+@import "./config/cfg-columns";
+@import "./config/cfg-media-qs";
+@import "./config/cfg-motion";
+@import "./config/cfg-properties";
+@import "./config/cfg-shadow";
+@import "./config/cfg-type";
 
 // Mixins
 @import "./mixins/media-queries";
@@ -77,7 +87,9 @@
 @import "./components/profile";
 @import "./components/quote";
 @import "./components/registration";
+@import "./components/search";
 @import "./components/side-card";
 @import "./components/site-container";
 @import "./components/social";
 @import "./components/staff-card";
+@import "./components/top-3";
