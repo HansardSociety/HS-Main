@@ -2,6 +2,17 @@
 
 .search {}
 
+.search-iframe {
+  top: 0;
+  left: 0;
+
+  min-width: 100vw;
+
+  @extend %e-pad-t-md;
+  @extend %e-min-height-full-vh;
+  @extend %e-position-absolute;
+}
+
 /*		=Box
   ========================================================================== */
 
@@ -223,7 +234,7 @@
   }
 
   .search__sort-item {
-    text-transform: none !important;
+    text-transform: capitalize !important;
 
     @extend %e-ff-prim-roman;
     @extend %e-fz-sm;
