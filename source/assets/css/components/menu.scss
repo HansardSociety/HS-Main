@@ -1,20 +1,20 @@
 .menu {
-  z-index: -2; // Make sure is behind nav__inner background
+  z-index: -1; // Make sure is behind nav__inner background
   top: 0;
   left: 0;
 
   padding-top: 3.5rem;
   padding-bottom: 3.5rem;
 
-  @extend %e-bgc-greyscale-0;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch; // smooth scrolling on iOS
+
+  @extend %e-bgc-white-1;
   @extend %e-container;
+  @extend %e-col-black-2;
   @extend %e-height-full-vh;
   @extend %e-position-fixed;
   @extend %e-trans-transform;
-  // @include above(xs) {
-  //   @extend %e-display-none__md;
-  // }
-  -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
     display: none;
@@ -22,8 +22,6 @@
 }
 
 .menu--mobile {
-  // max-width: 30rem;
-
   transform: translateX(-100%);
 
   @extend %e-overflow-y-auto;
@@ -34,14 +32,27 @@
 }
 
 .menu--desktop {
-  transform: translateY(-100%);
+  transform: translateY(-110%);
 
-  @extend %e-display-none;
   @extend %e-overflow-y-auto;
   @extend %e-trans-core;
   @extend %e-width-full-vw;
+  @extend %e-display-none;
+
   @include above(md) {
     @extend %e-display-block__md;
+  }
+}
+
+// reset default menu padding (cascade)
+.menu--search {
+  padding: 2rem 0 0;
+
+  @extend %e-display-block;
+  // @extend %e-mgn-t-md;
+  @extend %e-overflow-hidden;
+  @include below(md) {
+    transform: translateX(100%);
   }
 }
 
@@ -65,7 +76,7 @@
 
 .menu__category--outer {
   &:nth-of-type(1n + 2) {
-    border-top: 1px solid Get($colors, greyscale, dark-grey);
+    border-top: 1px solid Get($colorGroups, white, 3);
 
     @extend %e-pad-t-sm;
   }

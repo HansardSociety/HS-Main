@@ -19,7 +19,7 @@
 .content--paper {
   z-index: 1;
 
-  @extend %e-bgc-white;
+  @extend %e-bgc-white-1;
   @extend %e-box-shad-z1;
 }
 
@@ -37,7 +37,7 @@
     width: calc(100% + 2rem);
     height: 100%;
 
-    @extend %e-bgc-greyscale-1;
+    @extend %e-bgc-white-2;
     @extend %e-pseudo-elem;
   }
 }

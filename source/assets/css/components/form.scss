@@ -36,7 +36,7 @@
 .form__field,
 .form__field:valid,
 .form__field:valid.JS-error {
-  border: 2px solid Get($colorGroups, greyscale, 2) !important;
+  border: 2px solid Get($colorGroups, white, 3) !important;
 }
 
 .form__field {
@@ -52,19 +52,21 @@
   }
 }
 
+.form__label,
+.form__err {
+  margin-left: 8px;
+}
+
 .form__label {
   display: block !important;
 
   margin-bottom: 2px;
-  margin-left: 8px;
 
   @extend %e-mgn-t-xs;
   @extend %e-col-brand-green-1;
 }
 
 .form__err {
-  margin-left: 2px;
-
   color: red;
 
   @extend %e-display-none;
@@ -83,7 +85,7 @@
 
   opacity: 0;
 
-  @extend %e-bgc-greyscale-0;
+  @extend %e-bgc-white-1;
   @extend %e-height-full;
   @extend %e-trans-opacity;
   @extend %e-width-full;
@@ -94,6 +96,42 @@
 
   @extend %e-ff-prim-roman;
   @extend %e-mgn-t-sm;
+
+  & > p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/*		=Checkbox
+  ========================================================================== */
+
+.form__check,
+.form__check-label,
+.form__check-input {
+  cursor: pointer;
+}
+
+.form__check-input {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.125rem;
+
+  border: solid 2px Get($colorGroups, white, 3);
+  border-radius: .25rem;
+
+  @extend %e-display-inline-block;
+
+  &:checked {
+    @extend %e-bgc-orange-2;
+  }
+}
+
+.form__check-text {
+  @extend %e-col-black-2;
+}
+
+.form__check-meta {
+  @extend %e-col-orange-2;
 }
 
 /*		=Pages/ payment
@@ -123,7 +161,7 @@
 .form__head {
   font-size: .75rem;
 
-  @extend %e-bgc-greyscale-1;
+  @extend %e-bgc-white-2;
   @extend %e-mgn-b-sm;
   @extend %e-pad-sm;
   @extend %e-rad-slight;
@@ -142,7 +180,7 @@
   width: calc(100% / 3);
   height: inherit;
 
-  @extend %e-bgc-greyscale-0;
+  @extend %e-bgc-white-1;
   @extend %e-height-full;
   @extend %e-mgn-b-xs;
   @extend %e-pad-t-xs;
@@ -173,7 +211,7 @@
 
   line-height: 1;
 
-  @extend %e-col-greyscale-0;
+  @extend %e-col-white-1;
   @extend %e-bgc-brand-green-1;
   @extend %e-display-inline-block;
   @extend %e-mgn-t-xs;
@@ -213,7 +251,7 @@
 }
 
 .form__qty-remove {
-  border-right: 1px solid Get($colorGroups, greyscale, 2);
+  border-right: 1px solid Get($colorGroups, white, 3);
 }
 
 .form__actions {

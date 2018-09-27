@@ -28,7 +28,7 @@
 
   opacity: 0;
 
-  @extend %e-bgc-greyscale-3;
+  @extend %e-bgc-black-2;
   @extend %e-position-fixed;
 }
 
@@ -39,7 +39,7 @@
 
   @extend %e-absolute-center-xy;
   @extend %e-box-shad-z1;
-  @extend %e-bgc-white;
+  @extend %e-bgc-white-1;
   @extend %e-flex-row;
   @extend %e-overflow-y-hidden;
   @extend %e-width-full-vw;
@@ -70,7 +70,7 @@
   top: 0;
   left: 0;
 
-  @extend %e-bgc-light-grey;
+  @extend %e-bgc-white-2;
   @extend %e-position-absolute;
   @extend %e-width-full;
 }

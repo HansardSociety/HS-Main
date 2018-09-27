@@ -5,6 +5,10 @@
   @extend %e-flex-row;
 }
 
+.grid--inline {
+  @extend %e-flex-inline-row;
+}
+
 .grid--center {
   justify-content: center;
 }

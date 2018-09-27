@@ -21,6 +21,11 @@ module CustomHelpers
     Kramdown::Document.new(text, { auto_ids: false }).to_html
   end
 
+  # Markdown strip HTML
+  def markdownStrip(data)
+    markdown(data).gsub(/<\/?[^>]*>/, "")
+  end
+
   # Global variables
   def siteData(var)
     convertToRegularHash(data.hs.universal).values[0][var]
@@ -95,31 +100,46 @@ module CustomHelpers
   ##		=Colors
   ###########################################################################
 
-  def catColor(color)
-    category = color.parameterize.underscore.to_sym
-
-    colors = {
-      about: "brand-green",
-      blog: "purple",
-      events: "hot-pink",
-      insight: "sea-green",
-      legal: "slate-blue",
-      projects: "brand-green",
-      publications: "orange",
-      greyscale: "greyscale"
-    }
-
-    colors[category]
+  # Category colors
+  def catColor(setCategory)
+    getCat = siteData(:site_config)[:categories].select{ |category| category[:name] == setCategory }
+    getCat.map{ |category| category[:color] }[0]
   end
 
   # Color profile
   def colorProfile(color)
+
+    darkColors = []
+    siteConfig[:color_groups].select{|colName, colVals| colVals[:dark]}.map do |colName, colVals|
+      darkColors << "#{ colName }"
+    end
+
+    lightColors = []
+    siteConfig[:color_groups].select{|colName, colVals| !colVals[:dark]}.map do |colName, colVals|
+      lightColors << "#{ colName }" << "light-grey"
+    end
+
+    monoColors = []
+    siteConfig[:color_groups].select{|colName, colVals| colVals[:mono]}.map do |colName, colVals|
+      monoColors << "#{ colName }" << "light-grey"
+    end
+
+    lightMonoColors = []
+    siteConfig[:color_groups].select{|colName, colVals| colVals[:mono] && !colVals[:dark]}.map do |colName, colVals|
+      lightMonoColors << "#{ colName }" << "light-grey"
+    end
+
+    darkMonoColors = []
+    siteConfig[:color_groups].select{|colName, colVals| colVals[:mono] && colVals[:dark]}.map do |colName, colVals|
+      darkMonoColors << "#{ colName }"
+    end
+
     colors = {
-      dark: ["black", "brand-green", "dark-grey", "hot-pink", "orange", "purple", "slate-blue"],
-      light: ["light-grey", "sea-green", "white"],
-      greyscale: ["black", "dark-grey", "light-grey", "white"],
-      dark_greyscale: ["black", "dark-grey"],
-      light_greyscale: ["light-grey", "white"]
+      dark: darkColors,
+      light: lightColors,
+      mono: monoColors,
+      light_mono: lightMonoColors,
+      dark_mono: darkMonoColors
     }
 
     colors[color]
@@ -134,17 +154,22 @@ module CustomHelpers
 
     isDarkBgc = colorProfile(:dark).include?(bgc)
     isLightBgc = colorProfile(:light).include?(bgc)
-    isGreyscaleBgc = colorProfile(:greyscale).include?(bgc)
-    isDarkGreyscaleBgc = colorProfile(:dark_greyscale).include?(bgc)
-    isLightGreyscaleBgc = colorProfile(:light_greyscale).include?(bgc)
+    isMonoBgc = colorProfile(:mono).include?(bgc)
+    isDarkMonoBgc = colorProfile(:dark_mono).include?(bgc)
+    isLightMonoBgc = colorProfile(:light_mono).include?(bgc)
 
-    colWhite = "e-col-greyscale-0"
+    colWhite = "e-col-white-1"
 
-    if isGreyscaleBgc
-      if isDarkGreyscaleBgc
-       "#{ colWhite } #{ bgc == "black" ? "e-bgc-greyscale-3" : "e-bgc-greyscale-2" }"
+    bgcClass = isGradient ? "e-bg-grad-#{ bgc }" : "e-bgc-#{ bgc }-2"
+
+    "#{ colWhite if isDarkBgc } #{ bgcClass }"
+
+
+    if isMonoBgc
+      if isDarkMonoBgc
+       "#{ colWhite } #{ bgc == "black" ? "e-bgc-black-2" : "e-bgc-black-3" }"
       else
-        "#{ bgc == "white" ? "e-bgc-greyscale-0" : "e-bgc-greyscale-1" }"
+        "#{ bgc == "light-grey" ? "e-bgc-white-2" : "e-bgc-white-1" }"
       end
     else
       bgcClass = isGradient ? "e-bg-grad-#{ bgc }" : "e-bgc-#{ bgc }-1"

@@ -12,7 +12,7 @@
 %e-overlay-dark::after   { background-color: rgba(#000, .5); }
 
 %e-overlay-medium::after {
-  $color: Get($colorGroups, greyscale, 3);
+  $color: Get($colorGroups, black, 2);
 
   background: radial-gradient(ellipse at center 100%, rgba($color, .1) 0%, rgba($color, .5) 100%);
 }

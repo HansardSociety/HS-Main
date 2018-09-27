@@ -1,0 +1,32 @@
+<%# Main card %>
+<script id="search-template-main-card">
+  <%= partial "views/partials/main-card",
+    locals: { local_data: {
+      entry_data: {
+        title: "{{{title}}}",
+        category: "{{{category.lvl0}}}",
+        introduction: "{{{introduction}}}",
+        slug: "{{{slug}}}",
+        meta_label: "{{{meta_label}}}",
+        no_intro: true,
+        accents: true,
+        banner_image: {
+          url: "{{{image}}}",
+          alt: "{{{alt}}}",
+          focus: "{{{focus}}}"
+        },
+      }}} %>
+</script>
+
+<%# Checkbox %>
+<script id="search-template-checkbox">
+  <%= partial "views/partials/form/checkbox",
+    locals: { local_data: {
+      algolia: true,
+      entry_data: {
+        value: "{{{label}}}",
+        meta: "{{{count}}}"
+      }
+    }} %>
+</script>
+

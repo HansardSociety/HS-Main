@@ -41,20 +41,20 @@
             <% if nav[:pages] && nav[:pages].length <= 1
               nav[:pages].each do |page| %>
               <a
-                class="title-sm e-col-greyscale-0"
+                class="title-sm e-col-white-1"
                 href="<%= internalURL(page[:slug]) %>"
                 title="<%= nav[:title] + " | " + siteData(:site_title) %>"><%= nav[:title] %></a>
 
             <% end; end; if nav[:external_url] %>
               <a
-                class="e-col-greyscale-0"
+                class="e-col-white-1"
                 href="<%= nav[:external_url] %>"
                 rel="noopener"
                 target="_blank"
                 title="<%= nav[:title] %>"><%= nav[:title] %></a>
 
             <% end; if nav[:pages] && nav[:pages].length > 1 %>
-              <div class="e-col-greyscale-0">
+              <div class="e-col-white-1 navbar__btn-container">
                 <%= partial "views/partials/btn",
                   locals: { local_data: {
                     type: "state",
@@ -79,14 +79,33 @@
           </li>
         <% end %>
       </ul>
-      <div class="e-col-greyscale-0">
+      <div class="e-col-white-1 navbar__btn-container">
         <%= partial "views/partials/btn",
-        locals: { local_data:{
-          type: "state", size: "sm",
-          page: "no-scroll", exclusive: true,
-          icon: "android-search", icon_size: "sm",
-          aria_id: "activate-search",
-          aria_target_id: "search" }} %>
+          locals: { local_data: {
+            type: "state",
+            page: "no-scroll",
+            exclusive: true,
+            secondary_target: "navbar",
+            icon: "android-search",
+            icon_size: "sm",
+            aria_id: "activate-menu-desktop-search",
+            aria_target_id: "menu-desktop-search" }} %>
+
+        <div
+          id="menu-desktop-search"
+          class="menu JS-inactive menu--desktop menu--search">
+          <div class="menu__nav-bg"></div>
+          <div class="menu__container e-mgn-auto-x">
+            <iframe
+              src="/static/search.html"
+              frameborder="0"
+              scrolling="auto"
+              style="min-width: 100vw;
+                     min-height: 100vh;
+                     left: 0;
+                     position: absolute;"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </div>

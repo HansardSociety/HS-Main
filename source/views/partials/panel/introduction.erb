@@ -8,7 +8,7 @@ category = (isHomePage || isThemePage) ? "projects" : entryData[:category]
 introduction = entryData[:introduction]
 
 color = catColor(category)
-bgcClass = colorProfile(:greyscale).include?(color) ? panelBgc(color) : panelBgc(color, { gradient: true })
+bgcClass = colorProfile(:mono).include?(color) ? panelBgc(color) : panelBgc(color, { gradient: true })
 %>
 
 <section class="panel <%= bgcClass %>">

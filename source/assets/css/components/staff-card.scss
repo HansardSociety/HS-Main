@@ -7,7 +7,7 @@
   width: calc(100% - 3px); // allow vertical box shadow
   max-width: 25rem;
 
-  @extend %e-bgc-white;
+  @extend %e-bgc-white-1;
   @extend %e-box-shad-z1;
   @extend %e-acc-brand-green-2-top;
   @extend %e-mgn-auto-x;
@@ -16,7 +16,7 @@
 }
 
 .staff-card__header {
-  border-bottom: 1px solid Get($colors, greyscale, light-grey);
+  border-bottom: 1px solid Get($colorGroups, white, 2);
 
   @extend %e-pad-sm;
 
@@ -37,12 +37,12 @@
 }
 
 .staff-card__name {
-  @extend %e-col-green;
+  @extend %e-col-brand-green-2;
   @extend %e-fz-md;
 }
 
 .staff-card__role {
-  @extend %e-col-grey;
+  @extend %e-col-black-3;
   @extend %e-fz-sm;
 }
 

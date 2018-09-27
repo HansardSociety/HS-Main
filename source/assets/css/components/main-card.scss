@@ -3,7 +3,7 @@
 
   text-align: left;
 
-  @extend %e-bgc-white;
+  @extend %e-bgc-white-1;
   @extend %e-box-shad-z1;
   @extend %e-min-height-full;
   @extend %e-overflow-hidden;
@@ -16,12 +16,23 @@
   }
 }
 
+@each $category in $categoryColors {
+
+  .main-card--#{map-get($category, name)} {
+    @extend %e-acc-#{map-get($category, color)}-2-top;
+  }
+
+  .main-card__label--#{map-get($category, name)} {
+    @extend %e-acc-#{map-get($category, color)}-2;
+  }
+}
+
 .main-card__featured-icon {
   z-index: 1;
   top: .5rem;
   right: .5rem;
 
-  @extend %e-col-greyscale-0;
+  @extend %e-col-white-1;
   @extend %e-position-absolute;
 }
 
@@ -44,6 +55,10 @@
     @extend %e-trans-transform;
     @extend %e-max-width-full;
     @extend %e-width-full;
+  }
+
+  & > img.b-lazy {
+    @extend %e-animate-fade-in-load;
   }
 }
 

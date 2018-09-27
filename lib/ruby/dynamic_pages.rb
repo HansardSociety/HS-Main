@@ -88,8 +88,10 @@ module DynamicPages
       ##		=Theme feed pages
       ########################################
 
-      siteSettings = YAML.load_file("data/hs/universal/5mkIBy6FCEk8GkOGKEQKi4.yaml")
-      themes = siteSettings[:site_structure][:themes].to_a
+      themes = []
+      siteConfig[:themes].each do |theme|
+        themes << theme[:name]
+      end
 
       themes.each do |theme|
         paginated = getThemePages(allMainPages, theme).each_slice(6).to_a
@@ -118,6 +120,10 @@ module DynamicPages
   ###########################################################################
 
   def dynamicCustomPages()
-    #...
+    proxy "/static/search.html",
+          "/views/static/search.html",
+          ignore: true,
+          layout: "iframe",
+          locals: { no_index: true }
   end
 end

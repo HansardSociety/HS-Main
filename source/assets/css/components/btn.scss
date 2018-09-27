@@ -34,7 +34,7 @@
 
 .btn--primary {
   @extend %e-bgc-orange-2;
-  @extend %e-col-greyscale-0;
+  @extend %e-col-white-1;
 
   &:active {
     @extend %e-bgc-orange-3;
@@ -54,13 +54,13 @@
 
   &:active {
     @extend %e-bgc-orange-2;
-    @extend %e-col-greyscale-0;
+    @extend %e-col-white-1;
   }
 
   @include above(sm) {
     &:hover {
       background-color: Get($colorGroups, orange, 2);
-      color: Get($colorGroups, greyscale, 0);
+      color: Get($colorGroups, white, 1);
     }
   }
 }
@@ -73,7 +73,7 @@
 }
 
 .btn__text {
-  @extend %e-mgn-r-xs;
+  @extend %e-mgn-r-xxs;
 }
 
 .btn__icon,
@@ -118,7 +118,7 @@
   width: 1.5rem;
   height: 2px;
 
-  @extend %e-bgc-greyscale-0;
+  @extend %e-bgc-white-1;
   @extend %e-position-absolute;
   @extend %e-trans-core;
 }

@@ -1,0 +1,43 @@
+$easing: (
+  core: (ease-out .25s)
+);
+
+$transition: (
+  core: (all map-get($easing, core)),
+  height: (height map-get($easing, core)),
+  opacity: (opacity map-get($easing, core)),
+  transform: (transform map-get($easing, core))
+);
+
+$animate: (
+  fade-in-load: (
+    prop: opacity,
+    start: 0,
+    end: 1,
+    easing: ease-out 1s
+  ),
+  fade-in-opaque: (
+    prop: opacity,
+    start: 0,
+    end: .85,
+    easing: map-get($easing, core)
+  ),
+  slide-up-in: (
+    prop: transform,
+    start: translateY(100vh),
+    end: translateY(0),
+    easing: map-get($easing, core)
+  ),
+  slide-up-in-center: (
+    prop: transform,
+    start: translate3d(-50%, 100vh, 0),
+    end: translate3d(-50%, -50%, 0),
+    easing: map-get($easing, core)
+  ),
+  spin: (
+    prop: transform,
+    start: rotate(0deg),
+    end: rotate(360deg),
+    easing: ease-out 1s
+  )
+);

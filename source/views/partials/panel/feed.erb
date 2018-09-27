@@ -13,7 +13,7 @@ entryData = local_data[:entry_data]
 
 if isThemePage || isLandingPage
   title = entryData[:title]
-  bgc = entryData[:background_color] ? panelBgc(entryData[:background_color]) : "e-bgc-greyscale-0"
+  bgc = entryData[:background_color] ? panelBgc(entryData[:background_color]) : "e-bgc-white-1"
 
   feedData = entryData[:feed]
   feedCategory = feedData[:category]
@@ -69,8 +69,9 @@ end
 
 <section class="panel <%= bgc %>">
   <% if title %>
-    <div class="panel__content panel__content--narrow">
-      <h2 class="title-lg e-col-brand-green-1 e-align-cen e-mgn-b-lg"><%= title %></h2>
+    <div class="panel__content panel__content--narrow e-align-cen e-mgn-b-lg">
+      <h2 class="title-lg e-col-brand-green-2"><%= title %></h2>
+      <p class="e-col-grey-3">By date (descending)</p>
     </div>
   <% end %>
   <div class="panel__content panel__content--wide">
@@ -108,7 +109,54 @@ end
             <% end %>
           <% end %>
         </div>
+      </div>
 
+      <% if dataFeedPage < dataFeedTotal %>
+        <aside class="grid__cell grid__cell--fill grid__cell--md-above-md-3">
+          <div class="feed__menu grid grid--xs">
+            <h3 class="title-sm e-col-brand-green-2 grid__cell grid__cell--xs-12">Go to page</h3>
+            <div class="grid__cell">
+              <ul class="feed__menu-items grid grid--xxs">
+                <%
+                pages = (1..(dataFeedTotal - 1))
+                pageRange = 20
+
+                pagination = pages.reject{ |pageNo|
+                  ((pageNo < pages.last) && (pageNo > (dataFeedPage + pageRange))) ||
+                  ((pageNo > 1) && (pageNo < (dataFeedPage - pageRange))) }
+
+                pagination.each_with_index do |pageNo, index|
+                %>
+                  <%# Elipsis prev %>
+                  <% if (pageNo == (dataFeedPage - pageRange)) && (dataFeedPage != (pages.first + pageRange)) %>
+                    <li class="grid__cell grid__cell--xxs">
+                      <span class="feed__menu-item JS-disabled">…</span>
+                    </li>
+                  <% end %>
+
+                  <%# Page number %>
+                  <li class="grid__cell grid__cell--xxs">
+                    <a
+                      class="feed__menu-item <%= "JS-active" if dataFeedPage === pageNo %>"
+                      href="<%= internalURL("#{ dataFeedCategory.gsub("::", "/") }/feed/page-#{ pageNo }") %>">
+                      <%= pageNo %>
+                    </a>
+                  </li>
+
+                  <%# Elipsis next %>
+                  <% if (pageNo == (dataFeedPage + pageRange)) && (dataFeedPage != (pages.last - pageRange)) %>
+                    <li class="grid__cell grid__cell--xxs">
+                      <span class="feed__menu-item JS-disabled">…</span>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </aside>
+      <% end %>
+
+      <div class="feed__footer grid__cell grid__cell--fill">
         <div class="feed__status">
           <div class="infinite-scroll-request e-col-green">
             <%= partial "views/partials/icon",
@@ -119,6 +167,7 @@ end
           <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
           <span class="infinite-scroll-error label-sm e-col-mid-grey">Please reload the page</span>
         </div>
+
         <div class="feed__load">
           <%= partial "views/partials/btn",
             locals: { local_data: {
@@ -129,49 +178,6 @@ end
               label_size: "md" }} %>
         </div>
       </div>
-
-      <% if dataFeedPage < dataFeedTotal %>
-        <aside class="grid__cell grid__cell--fill grid__cell--md-above-md-3">
-          <div class="feed__menu">
-            <h3 class="title-sm e-col-brand-green-2">Go to page</h3>
-            <ul class="feed__menu-items grid grid--xxs e-mgn-t-xs">
-              <%
-              pages = (1..(dataFeedTotal - 1))
-              pageRange = 20
-
-              pagination = pages.reject{ |pageNo|
-                ((pageNo < pages.last) && (pageNo > (dataFeedPage + pageRange))) ||
-                ((pageNo > 1) && (pageNo < (dataFeedPage - pageRange))) }
-
-              pagination.each_with_index do |pageNo, index|
-              %>
-                <%# Elipsis prev %>
-                <% if (pageNo == (dataFeedPage - pageRange)) && (dataFeedPage != (pages.first + pageRange)) %>
-                  <li class="grid__cell grid__cell--xxs">
-                    <span class="feed__menu-item JS-disabled">…</span>
-                  </li>
-                <% end %>
-
-                <%# Page number %>
-                <li class="grid__cell grid__cell--xxs">
-                  <a
-                    class="feed__menu-item <%= "JS-active" if dataFeedPage === pageNo %>"
-                    href="<%= internalURL("#{ dataFeedCategory.gsub("::", "/") }/feed/page-#{ pageNo }") %>">
-                    <%= pageNo %>
-                  </a>
-                </li>
-
-                <%# Elipsis next %>
-                <% if (pageNo == (dataFeedPage + pageRange)) && (dataFeedPage != (pages.last - pageRange)) %>
-                  <li class="grid__cell grid__cell--xxs">
-                    <span class="feed__menu-item JS-disabled">…</span>
-                  </li>
-                <% end %>
-              <% end %>
-            </ul>
-          </div>
-        </aside>
-      <% end %>
     </div>
   </div>
 </section>

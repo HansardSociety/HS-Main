@@ -2,9 +2,14 @@
 featured = @entry[:featured]
 %>
 
+<%# Search templates %>
+<%= partial "views/partials/search/template-scripts" %>
+
+<%# Core JS %>
 <script src="<%= assetsDir %><%= config[:JS_VENDOR] %>"></script>
 <script src="<%= assetsDir %><%= config[:JS_APP] %>"></script>
 
+<%# Braintree JS %>
 <% if featured && featured.any? { |featured| featured.TYPE.include?("product") && featured.price > 0 } %>
   <script src="<%= assetsDir %><%= config[:JS_CHECKOUT] %>"></script>
 <% end %>

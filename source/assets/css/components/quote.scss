@@ -49,7 +49,7 @@
 
     transform: translateX(-50%);
 
-    border-top: 2px solid Get($colorGroups, greyscale, 2);
+    border-top: 2px solid Get($colorGroups, white, 3);
 
     @extend %e-pseudo-elem;
   }

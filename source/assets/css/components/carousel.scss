@@ -33,10 +33,11 @@
 .carousel__actions {
   justify-content: space-between;
 
-  width: 9.5rem;
-  margin-top: 1.75rem;
+  width: 7.5rem;
+  margin-top: 1rem;
 
-  @extend %e-col-green;
+  color: Get($colorGroups, brand-green, 2);
+
   @extend %e-flex-row;
   @extend %e-mgn-auto-x;
   @extend %e-position-relative;
@@ -50,17 +51,18 @@
     content: "";
 
     opacity: .5;
-    border-left: 1px solid Get($colorGroups, greyscale, 2);
+    border-left: 1px solid currentColor;
 
     @extend %e-absolute-center-xy;
   }
 }
 
 .carousel__actions--banner {
-  bottom: .5rem;
+  bottom: .25rem;
+
+  color: Get($colorGroups, white, 1);
 
   @extend %e-absolute-center-x;
-  @extend %e-col-greyscale-0;
   @include below(sm) {
     left: 0;
 
@@ -73,14 +75,14 @@
   &::before {
     z-index: -1;
 
-    width: calc(100% + 2rem);
-    height: calc(100% + 1.5rem);
-    margin-top: -.75rem;
-    margin-left: -1rem;
+    width: calc(100% + .5rem);
+    height: calc(100% + 1rem);
+    margin-top: -.5rem;
+    margin-left: -.25rem;
 
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    background-color: rgba(0, 0, 0, .33);
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    background-color: rgba(Get($colorGroups, black, 2), .5);
 
     @extend %e-pseudo-elem;
     @include below(md) {
@@ -99,15 +101,14 @@
   @extend %e-flex-row-center;
   @extend %e-trans-core;
   @extend %e-upper;
-
-  &:active:not(.swiper-button-disabled) {
-    @extend %e-col-orange-2;
-  }
-
   @include above(sm) {
     &:hover:not(.swiper-button-disabled) {
       color: Get($colorGroups, orange, 2);
     }
+  }
+
+  &:active:not(.swiper-button-disabled) {
+    @extend %e-col-orange-2;
   }
 
   &.swiper-button-disabled {
@@ -116,13 +117,13 @@
 }
 
 .carousel__prev > span {
-  padding-left: .25rem;
+  padding-left: .125rem;
 
   @extend %e-mgn-r-xs;
 }
 
 .carousel__next > span {
-  padding-right: .25rem;
+  padding-right: .125rem;
 
   @extend %e-mgn-l-xs;
 }
@@ -156,16 +157,16 @@
       left: .25rem;
     }
   }
+
+  // .flickity-viewport {
+  //   @include above(md) {
+  //     overflow: initial;
+  // }
 }
 
 .flickity-page-dots {
   z-index: 1;
-  bottom: -1rem;
-  // left: .25rem;
-
-  // @include below(sm) {
-  //   margin-left: -.75rem;
-  // }
+  bottom: -.5rem;
 
   & > .dot {
     width: 6px;
@@ -187,14 +188,22 @@
 // Banner override
 .banner {
   .flickity-page-dots {
-    bottom: -1.5rem;
+    bottom: 3rem;
 
     @include below(sm) {
       display: none;
     }
 
     & > .dot {
-      @extend %e-bgc-greyscale-0;
+      opacity: .5;
+
+      @extend %e-bgc-white-1;
+    }
+
+    & > .dot.is-selected {
+      opacity: 1;
+
+      @extend %e-bgc-white-1;
     }
   }
 }

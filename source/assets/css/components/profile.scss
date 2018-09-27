@@ -1,6 +1,6 @@
 .profile {
-  @extend %e-bgc-greyscale-3;
-  @extend %e-flex-row-center;
+  @extend %e-bgc-black-2;
+  @extend %e-flex-row;
   @extend %e-pad-sm;
   @extend %e-rad-slight;
   @extend %e-width-full;
@@ -28,6 +28,6 @@
 }
 
 .profile__actions {
-  @extend %e-mgn-t-sm;
+  @extend %e-mgn-t-xs;
   @extend %e-width-full;
 }

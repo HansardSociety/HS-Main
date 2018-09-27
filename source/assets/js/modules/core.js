@@ -6,8 +6,8 @@ const forEach = (array, cb, scope) => {
 }
 
 // Toggle class
-const toggleClass = (obj, className) => {
-  obj.classList.toggle(className);
+const toggleClass = (elem, className) => {
+  elem.classList.toggle(className);
 }
 
 export { forEach, toggleClass }

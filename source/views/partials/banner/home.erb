@@ -37,9 +37,7 @@ entryData = local_data[:entry_data]
           <div class="banner__inner banner__inner--lp">
             <div class="banner__content banner__content--lp">
 
-              <span class="label-xs label-tag e-acc-<%= catColor(page[:category]) %>-2">
-                <span class="e-va-fix"><%= page[:meta_label] %></span>
-              </span>
+              <span class="label-xs label-tag e-acc-<%= catColor(page[:category]) %>-2"><%= page[:meta_label] %></span>
 
               <h2
                 class="banner__title title-lg e-mgn-b-sm e-mgn-t-xs JS-truncate"
@@ -62,7 +60,7 @@ entryData = local_data[:entry_data]
         <%= partial "views/partials/icon",
           locals: {
             icon: "chevron-left",
-            size: "sm",
+            size: "xs",
             color: "green" } %>
 
         <span>Prev</span>
@@ -72,7 +70,7 @@ entryData = local_data[:entry_data]
         <%= partial "views/partials/icon",
           locals: {
             icon: "chevron-right",
-            size: "sm",
+            size: "xs",
             color: "green" } %>
       </div>
     </div>

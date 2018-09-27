@@ -1,62 +1,55 @@
 import Blazy from "blazy"
 
-/*    Blazy core
-  ========================================================================== */
+const lazyLoading = (() => {
 
-const blazy = new Blazy()
+  const blazy = new Blazy()
 
-/*		=Blazy 'clicktivate'
-  ========================================================================== */
+  /* =Blazy activate
+    ***************************************************************************/
 
-// Initiates blazy loading on click/ touch
-const blazyClicktivate = ({ trigger, nestedTargets, nestedElem }) => {
-  const allTriggerElems = document.querySelectorAll(trigger)
-  const allEvents = ["click", "touchstart"]
+  const blazyActivate = ({ trigger, events, nestedTargets, nestedElem }) => {
+    const allTriggerElems = document.querySelectorAll(trigger)
+    const allEvents = events
 
-  for (let triggerElem of allTriggerElems) {
-    for (let event of allEvents) {
+    for (let triggerElem of allTriggerElems) {
+      for (let event of allEvents) {
 
-      triggerElem.addEventListener(event, () => {
+        triggerElem.addEventListener(event, () => {
 
-        if (nestedTargets) {
-          const allTargetElems = triggerElem.querySelectorAll(nestedElem)
+          if (nestedTargets) {
+            const allTargetElems = triggerElem.querySelectorAll(nestedElem)
 
-          for (let targetElem of allTargetElems) {
+            for (let targetElem of allTargetElems) {
 
-            if (targetElem.classList.contains("b-loaded")) {
+              if (targetElem.classList.contains("b-loaded")) {
+                // do nothing
+              } else {
+                blazy.load(targetElem)
+              }
+            }
+          } else {
+            const idTarget = triggerElem.getAttribute("aria-controls")
+            const idTargetElem = document.querySelector(`#${ idTarget }`)
+            const lazyElem = document.querySelector(`#${ idTarget } .b-lazy`)
+
+            if (lazyElem.classList.contains("b-loaded")) {
               // do nothing
             } else {
-              blazy.load(targetElem)
+              blazy.load(lazyElem);
             }
           }
-        } else {
-          const idTarget = triggerElem.getAttribute("aria-controls")
-          const idTargetElem = document.querySelector(`#${ idTarget }`)
-          const lazyElem = document.querySelector(`#${ idTarget } .b-lazy`)
-
-          if (lazyElem.classList.contains("b-loaded")) {
-            // do nothing
-          } else {
-            blazy.load(lazyElem);
-          }
-        }
-      })
+        })
+      }
     }
   }
-}
 
-// Carousel
-const blazyCarousel = (() => blazyClicktivate({
-  trigger: ".carousel",
-  nestedTargets: true,
-  nestedElem: "img"
-}))()
+  // Carousel
+  blazyActivate({
+    trigger: ".carousel",
+    events: ["click", "touchstart"],
+    nestedTargets: true,
+    nestedElem: "img"
+  })
+})()
 
-// Modal iframes
-const blazyModalFrame = (() => blazyClicktivate({
-  trigger: ".JS-lazy",
-  nestedTargets: false
-}))()
-
-
-export { blazyCarousel, blazyModalFrame }
+export { lazyLoading }

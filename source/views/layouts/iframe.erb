@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="noindex" name="robots">
+<title></title>
+
+<% [config[:CSS_VENDOR], config[:CSS_APP]].each do |stylesheet| %>
+  <link rel="stylesheet" href="<%= assetsDir %><%= stylesheet %>"/>
+<% end %>
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch.min.css">
+
+<base target="_parent">
+
+</head>
+<body>
+  <%= yield %>
+  <%= partial "views/partials/search/template-scripts" %>
+  <script src="<%= assetsDir %><%= config[:JS_VENDOR] %>"></script>
+  <script src="<%= assetsDir %><%= config[:JS_APP] %>"></script>
+</body>
+</html>

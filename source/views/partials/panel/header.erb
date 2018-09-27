@@ -9,7 +9,7 @@ callsToAction = panelData[:calls_to_action]
 
 <section
   class="panel
-        <%= colorProfile(:greyscale).include?(bgc) ?
+        <%= colorProfile(:mono).include?(bgc) ?
             panelBgc(bgc) :
             panelBgc(bgc, { gradient: true }) %>">
 
