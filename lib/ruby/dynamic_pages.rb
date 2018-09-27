@@ -50,7 +50,7 @@ module DynamicPages
       dynPageBase(@app.data.hs.homepage, "home")
       dynPageBase(childPages, "child-page")
       dynPageBase(landingPages, "landing-page")
-      # dynPageBase(themePages, "theme-page")
+      # dynPageBase(themePages, "theme-page") # TODO::Theme
 
       ##		=Feed pages
       ########################################
@@ -85,6 +85,7 @@ module DynamicPages
         end
       end
 
+      # TODO::Theme
       # ##		=Theme feed pages
       # ########################################
 
