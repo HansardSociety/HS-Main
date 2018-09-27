@@ -12,6 +12,9 @@ if context == "site-search"
 elsif context == "theme-search"
   title = "Theme search"
   byline = "Search within ‘#{ @entry[:title] }’"
+elsif context == "category-search"
+  title = "#{ @entry[:title] } search"
+  byline = "Search within ‘#{ @entry[:title] }’"
 end
 
 searchFilter = ""

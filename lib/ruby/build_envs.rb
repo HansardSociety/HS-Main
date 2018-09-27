@@ -109,7 +109,7 @@ module BuildEnvs
         File.open("#{ @buildSrc }/db/content.csv", "w+") { |f| f.write(csvStr) }
       end
 
-      if MM_ENV == "preview"
+      if MM_ENV == "prod"
         # Submit Algolia DB
         system "node ./lib/js/_after-build"
       end

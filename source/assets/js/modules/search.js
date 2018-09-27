@@ -178,12 +178,12 @@ const algoliaSearch = (() => {
         }
       })
 
-      // Themes
-      refinementWidget({
-        container: ".search__filter-2",
-        attributeName: "theme.lvl0",
-        heading: "Theme",
-      })
+      // // Themes
+      // refinementWidget({
+      //   container: ".search__filter-2",
+      //   attributeName: "theme.lvl0",
+      //   heading: "Theme",
+      // })
 
     } else {
 
@@ -191,11 +191,11 @@ const algoliaSearch = (() => {
       *****************************************/
 
       // Theme
-      refinementWidget({
-        container: ".search__filter-1",
-        attributeName: "theme.lvl0",
-        heading: "Theme"
-      })
+      // refinementWidget({
+      //   container: ".search__filter-1",
+      //   attributeName: "theme.lvl0",
+      //   heading: "Theme"
+      // })
 
       // Category
       refinementWidget({
@@ -270,22 +270,24 @@ const algoliaSearch = (() => {
   const filteredSearch = instantSearch({
     appId: "AJC8ZDIWBJ",
     apiKey: "66a9759f27ae50a3c41abf7b82181a11",
-    indexName: "pages",
+    indexName: "pages_by_date",
     routing: true
   })
 
   const siteSearch = instantSearch({
     appId: "AJC8ZDIWBJ",
     apiKey: "66a9759f27ae50a3c41abf7b82181a11",
-    indexName: "pages",
+    indexName: "pages_by_date",
     routing: true
   })
 
   // Need to initiate after DOM loaded to return "containers"
   return document.addEventListener("DOMContentLoaded", function() {
+    const siteSearchContainer = document.querySelector("#search-all-nav")
+    const filteredSearchContainer = document.querySelector("#search-filtered-main")
 
-    multiSearch(siteSearch, document.querySelector("#search-all-nav"))
-    multiSearch(filteredSearch, document.querySelector("#search-filtered-main"))
+    if (siteSearchContainer) multiSearch(siteSearch, siteSearchContainer)
+    if (filteredSearchContainer) multiSearch(filteredSearch, filteredSearchContainer)
   })
 })()
 
