@@ -7,8 +7,17 @@ bannerImgURL = siteData(:default_banner)[:url]
 bannerImgAlt = siteData(:default_banner)[:alt]
 bannerImgFocus = "center"
 
-if siteCategories(:top_all).include?(feedData[:feed_category])
-  siteCategories(:top_all).each do |cat|
+hasTopCategories = siteCategories(:top_all).include?(feedData[:feed_category])
+hasSubCategories = siteCategories(:sub).include?(feedData[:feed_category])
+
+if hasTopCategories || hasSubCategories
+  if hasTopCategories
+    siteCategories = siteCategories(:top_all)
+  else
+    siteCategories = siteCategories(:sub)
+  end
+
+  siteCategories.each do |cat|
     if feedData[:feed_category] == cat
       title = "#{ cat.capitalize } / Page&nbsp;#{ feedData[:feed_page] }"
     end
