@@ -79,6 +79,7 @@
 
 .banner__strap {
   @extend .strap-md;
+  @extend %e-ff-prim-heavy;
   @extend %e-max-width-full;
   @include above(sm) {
     @extend %e-mgn-auto-x__sm;

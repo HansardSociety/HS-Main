@@ -1,4 +1,6 @@
-// Panels
+/*		=Parent/core
+  ========================================================================== */
+
 .panel {
   @extend %e-container;
   // @extend %e-overflow-hidden;
@@ -32,6 +34,9 @@
   @extend %e-col-white-1;
 }
 
+/*		=Content
+  ========================================================================== */
+
 .panel__content {
   @extend %e-mgn-auto-x;
   @extend %e-position-relative; // need pos to place over absolute bg image
@@ -53,15 +58,30 @@
   @extend %e-container--full;
 }
 
+/*		=Image
+  ========================================================================== */
+
 .panel__bg-img {
-  @extend %e-width-full;
+  @extend %e-container;
+  @extend %e-mgn-auto-x;
 
   & > img {
-    width: 45rem;
-
     @extend %e-display-block;
-    @extend %e-mgn-auto-x;
+    @extend %e-max-width-full;
+    @extend %e-mgn-t-md;
   }
+}
+
+.panel__bg-img--small {
+  @extend %e-container--narrow;
+}
+
+.panel__bg-img--medium {
+  @extend %e-container--medium;
+}
+
+.panel__bg-img--large {
+  @extend %e-container--full;
 }
 
 .panel__bg-img--ol {
@@ -86,14 +106,11 @@
 .panel__bg-img--no-ol {
   order: 2;
 
-  @extend %e-mgn-t-lg;
-
-  & > img {
-    max-width: 100%;
-
-    opacity: .95;
-  }
+  // @extend %e-mgn-t-lg;
 }
+
+/*		=Misc
+  ========================================================================== */
 
 .panel__pull {
   margin-top: -4rem;

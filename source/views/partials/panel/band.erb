@@ -3,11 +3,25 @@ panelData = local_data[:entry_data]
 
 bgc = panelData[:background_color]
 bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
+
 callsToAction = panelData[:calls_to_action]
 copy = panelData[:copy]
+imageSize = panelData[:image_size]
+isNoOverlap = panelData[:no_overlap]
+
 index = local_data[:index]
 
-isNoOverlap = panelData[:no_overlap]
+if imageSize == "small"
+  cfulImageWidth = "800"
+elsif imageSize == "medium"
+  cfulImageWidth = "1000"
+elsif imageSize == "large"
+  cfulImageWidth = "1500"
+elsif imageSize == "full-bleed"
+  cfulImageWidth = "2000"
+else
+  cfulImageWidth = "1000"
+end
 
 title = panelData[:title]
 titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
@@ -19,11 +33,14 @@ hasTitle = panelData[:show_title] != nil
   class="panel <%= "panel--bg-img" if panelData[:image] %> <%= bgcClass %>">
 
   <% if panelData[:image] %>
-    <div class="panel__bg-img <%= "panel__bg-img--" + (isNoOverlap ? "no-ol" : "ol") %>">
+    <div
+      class="panel__bg-img
+            panel__bg-img--<%= imageSize %>
+            <%= "panel__bg-img--" + (isNoOverlap ? "no-ol" : "ol") %>">
       <img
         class="panel__bg-img b-lazy"
-        src="<%= panelData[:image][:url] %>?fm=jpg&w=800&q=2"
-        data-src="<%= panelData[:image][:url] %>"
+        src="<%= panelData[:image][:url] %>?fm=jpg&w=<%= cfulImageWidth %>&q=20"
+        data-src="<%= panelData[:image][:url] %>?w=<%= cfulImageWidth %>"
         alt="<%= panelData[:image][:description] %>"/>
     </div>
   <% end %>

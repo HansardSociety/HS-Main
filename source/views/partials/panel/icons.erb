@@ -25,9 +25,9 @@ index = local_data[:index]
     <% if hasTitle%>
       <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
     <% end %>
-    <div class="grid grid--lg grid--center grid--middle">
+    <div class="grid grid--md grid--center grid--middle">
       <% panelData[:icons].each do |image| %>
-        <div class="grid__cell grid__cell--lg-above-md-2">
+        <div class="grid__cell grid__cell--md-above-md-2">
           <%= partial "views/partials/image",
             locals: { local_data: {
               image_data: image,

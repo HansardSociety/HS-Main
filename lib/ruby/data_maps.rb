@@ -378,6 +378,7 @@ def panels(ctx, data)
       calls_to_action: callsToAction(panel),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
       image: (media(panel.image) if defined?(panel.image) && panel.image != nil && (isPanelBand || isPanelContent)),
+      image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil && (isPanelBand || isPanelContent)),
       image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
       title: panel.title,
       show_title: (panel.show_title if isPanelBand || isPanelContent || isPanelFeed || isPanelIcons),
@@ -456,7 +457,6 @@ def panels(ctx, data)
           cta_id: targetID("expand", panel.title, panel),
           content: panel.show_more
         }.compact if panel.show_more),
-        image_size: panel.image_size.parameterize,
         image_border: panel.image_border,
         tweet: ({
           text: URI::encode(panel.copy.split("\n\n", 2)[0].slice(0..198) + (panel.copy.length > 198 ? "…" : "")),

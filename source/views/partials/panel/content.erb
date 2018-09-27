@@ -40,11 +40,11 @@ index = local_data[:index]
     <% end %>
 
     <div class="panel__content panel__content--full">
-      <div class="grid grid--lg grid--center">
+      <div class="grid grid--md grid--center">
         <div
           class="grid__cell
-                grid__cell--lg-<%= isLargeImage ? "10" : (isMediumImage ? "8" : "6") %>
-                grid__cell--lg-above-sm-<%= isLargeImage ? "5" : (isMediumImage ? "3" : "2") %>">
+                grid__cell--md-<%= isLargeImage ? "12" : (isMediumImage ? "8" : "6") %>
+                grid__cell--md-above-md-<%= isLargeImage ? "5" : (isMediumImage ? "3" : "2") %>">
 
           <%= partial "views/partials/image",
             locals: { local_data: {
@@ -53,7 +53,7 @@ index = local_data[:index]
               border: imageBorder }} %>
         </div>
 
-      <div class="grid__cell grid__cell--lg-above-sm-7">
+      <div class="grid__cell grid__cell--md-above-md-7">
         <% if hasTitle %>
           <h2 class="title-lg e-mgn-b-sm e-hide-below-sm <%= titleColor %>"><%= title %></h2>
         <% end %>

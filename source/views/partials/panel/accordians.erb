@@ -15,7 +15,7 @@ index = local_data[:index]
   <div class="panel__content panel__content--narrow e-mgn-t-md">
     <div class="grid grid--xs">
       <% panelData[:accordians].each do |accordian| %>
-        <div class="grid__cell grid__cell--fill grid__cell--xs-above-sm-6">
+        <div class="grid__cell grid__cell--xs-12 grid__cell--xs-above-sm-6">
           <%= partial 'views/partials/accordian',
             locals: { local_data: {
               accordian_data: accordian }} %>
