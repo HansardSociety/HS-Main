@@ -377,12 +377,18 @@ def panels(ctx, data)
       background_color: (panel.background_color.parameterize if !isPanelAccordians),
       calls_to_action: callsToAction(panel),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
-      image: (media(panel.image) if defined?(panel.image) && panel.image != nil && (isPanelBand || isPanelContent)),
-      image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil && (isPanelBand || isPanelContent)),
       image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
       title: panel.title,
       show_title: (panel.show_title if isPanelBand || isPanelContent || isPanelFeed || isPanelIcons),
     }.compact
+
+    if isPanelContent || isPanelBand
+      panelShared.merge({
+        image: (media(panel.image) if defined?(panel.image) && panel.image != nil),
+        image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil),
+        heading_level: (defined?(panel.heading_level) && panel.heading_level != nil ? panel.heading_level.parameterize : "level-2"),
+      }.compact)
+    end
 
     ##		=Accordions
     ########################################
@@ -406,7 +412,9 @@ def panels(ctx, data)
 
     if isPanelBand
       panelBand = {
-        no_overlap: panel.no_overlap
+        no_overlap: panel.no_overlap,
+        content_header: panel.content_header,
+        heading_level: panel.heading_level ? panel.heading_level.parameterize : "level-2"
       }
     end
 

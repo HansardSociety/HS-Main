@@ -38,7 +38,7 @@ hasTitle = panelData[:show_title] != nil
             panel__bg-img--<%= imageSize %>
             <%= "panel__bg-img--" + (isNoOverlap ? "no-ol" : "ol") %>">
       <img
-        class="panel__bg-img b-lazy"
+        class="b-lazy"
         src="<%= panelData[:image][:url] %>?fm=jpg&w=<%= cfulImageWidth %>&q=20"
         data-src="<%= panelData[:image][:url] %>?w=<%= cfulImageWidth %>"
         alt="<%= panelData[:image][:description] %>"/>

@@ -3,7 +3,7 @@ entryData = local_data[:entry_data]
 accent = "e-acc-#{ catColor(entryData[:category]) }-2-bottom" if entryData[:category]
 %>
 
-<header class="banner JS-banner--full <%= accent %>">
+<header class="banner JS-banner--full <%= accent if !entryData[:show_introduction] %>">
   <%= partial "views/partials/banner/image",
     locals: { local_data: {
       entry_data: entryData }} %>
@@ -19,7 +19,9 @@ accent = "e-acc-#{ catColor(entryData[:category]) }-2-bottom" if entryData[:cate
         class="banner__title title-xxl JS-truncate e-mgn-t-xs"
         data-truncate="{ 'xs': 120 }"><%= entryData[:title] %></h1>
 
-      <p class="banner__strap e-mgn-t-xs"><%= entryData[:subtitle] %></p>
+      <% if entryData[:subtitle] %>
+        <p class="banner__strap e-mgn-t-xs"><%= entryData[:subtitle] %></p>
+      <% end %>
 
       <% if entryData[:calls_to_action] != nil %>
         <div class="grid grid--xs grid--above-sm-center e-mgn-t-sm">

@@ -62,6 +62,8 @@
   ========================================================================== */
 
 .panel__bg-img {
+  padding: 0;
+
   @extend %e-container;
   @extend %e-mgn-auto-x;
 

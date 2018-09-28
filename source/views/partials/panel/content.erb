@@ -8,6 +8,7 @@ image = panelData[:image]
 imageSize = panelData[:image_size]
 imageBorder = panelData[:image_border]
 imageInvert = panelData[:image_invert]
+
 isSmallImage = imageSize == "small"
 isMediumImage = imageSize == "medium"
 isLargeImage = imageSize == "large"
@@ -33,14 +34,15 @@ index = local_data[:index]
   id="panel-<%= index %>"
   class="panel <%= bgcClass %>">
 
-    <% if hasTitle %>
-      <div class="panel__content panel__content--narrow e-hide-above-sm">
-        <h2 class="title-lg e-align-cen e-mgn-b-lg <%= titleColor %>"><%= title %></h2>
-      </div>
-    <% end %>
-
     <div class="panel__content panel__content--full">
       <div class="grid grid--md grid--center">
+
+        <% if hasTitle %>
+          <div class="grid__cell grid__cell--md--12 e-hide-above-sm">
+            <h2 class="title-lg <%= titleColor %>"><%= title %></h2>
+          </div>
+        <% end %>
+
         <div
           class="grid__cell
                 grid__cell--md-<%= isLargeImage ? "12" : (isMediumImage ? "8" : "6") %>
