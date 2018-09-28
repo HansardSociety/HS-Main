@@ -147,14 +147,14 @@
 
   .search__results-inner {
     @extend .grid;
-    @extend .grid--sm;
+    @extend .grid--xs;
     @extend .grid--center;
   }
 
   .search__results-item {
     @extend .grid__cell;
-    @extend .grid__cell--sm-above-sm-6;
-    @extend .grid__cell--sm-above-lg-4;
+    @extend .grid__cell--xs-above-xs-6;
+    @extend .grid__cell--xs-above-lg-4;
   }
 
   .search__results-more {
