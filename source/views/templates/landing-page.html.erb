@@ -6,70 +6,70 @@
     <%= partial "views/partials/banner/landing-page",
       locals: { local_data: {
       entry_data: @entry }} %>
+  <% end %>
 
-  <% end;
-  if @entry[:introduction] && @entry[:show_introduction] %>
+  <% if @entry[:introduction] && @entry[:show_introduction] %>
     <%= partial "views/partials/panel/introduction" %>
+  <% end %>
 
-  <% end;
-  if @entry[:latest_carousel] && @entry[:tags] %>
+  <% if @entry[:latest_carousel] && @entry[:tags] %>
     <%= partial "views/partials/panel/carousel",
     locals: { local_data: {
       entry_data: @entry,
       context: :latest,
       data_type: :related }} %>
+  <% end %>
 
-  <% end;
-  if @entry[:latest_carousel] && !@entry[:tags] %>
+  <% if @entry[:latest_carousel] && !@entry[:tags] %>
     <%= partial "views/partials/panel/carousel",
     locals: { local_data: {
       entry_data: @entry,
       context: :latest,
       data_type: :latest_category,
       categories: @entry[:category] }} %>
+  <% end %>
 
-  <% end;
-  if @entry[:panels]
-    @entry[:panels].each_with_index do |panel, index|
+  <% if @entry[:panels]
+    @entry[:panels].each_with_index do |panel, index| %>
 
-      if panel[:TYPE] == "panel_accordians" %>
+      <% if panel[:TYPE] == "panel_accordians" %>
         <%= partial "views/partials/panel/accordians",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
+      <% end %>
 
-      <% end;
-      if panel[:TYPE] == "panel_band" %>
+      <% if panel[:TYPE] == "panel_band" %>
         <%= partial "views/partials/panel/band",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
+      <% end %>
 
-      <% end;
-      if panel[:TYPE] == "panel_carousel" %>
+      <% if panel[:TYPE] == "panel_carousel" %>
         <%= partial "views/partials/panel/carousel",
           locals: { local_data: {
             entry_data: panel,
             data_type: :custom }} %>
+      <% end %>
 
-      <% end;
-      if panel[:TYPE] == "panel_carousel_category" %>
+      <% if panel[:TYPE] == "panel_carousel_category" %>
         <%= partial "views/partials/panel/carousel",
           locals: { local_data: {
             entry_data: panel,
             data_type: :latest_category,
             categories: panel[:category],
             index: index }} %>
+      <% end %>
 
-      <% end;
-      if panel[:TYPE] == "panel_content" %>
+      <% if panel[:TYPE] == "panel_content" %>
         <%= partial "views/partials/panel/content",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
+      <% end %>
 
-      <% end; # Search
-      if @entry[:ID] == "7leucnRfZmeKwOii6GmM0Y" %>
+      <% if @entry[:ID] == "7leucnRfZmeKwOii6GmM0Y" %>
         <%= partial "views/partials/panel/search",
           locals: { local_data: {
             context: "category-search",
@@ -77,32 +77,55 @@
             search_id: "search-filtered-main",
             main_search_attr: "category"
           }} %>
+      <% end %>
 
-      <% end;
-      if panel[:TYPE] == "panel_feed" %>
+      <% if panel[:TYPE] == "panel_feed" %>
         <%= partial "views/partials/panel/feed",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
+      <% end %>
 
-      <% end;
-      if panel[:TYPE] == "panel_header" %>
+      <% if panel[:TYPE] == "panel_header" %>
         <%= partial "views/partials/panel/header",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
+      <% end %>
 
-      <% end;
-      if panel[:TYPE] == "panel_icons" %>
+      <% if panel[:TYPE] == "panel_icons" %>
         <%= partial "views/partials/panel/icons",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
 
-      <% end;
-    end;
-  end;
-  if @entry[:ID] == "6b4aZvjw3KUkO84UGkeYaI"
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <!--**********************************************
+      =TEST
+  ***********************************************-->
+
+  <div class="panel">
+    <div class="panel__content panel__content--medium">
+
+      <div
+        id="chart-01"
+        class="ct-chart ct-perfect-fourth"></div>
+
+      <div
+        id="chart-02"
+        class="ct-chart ct-golden-section"></div>
+
+    </div>
+  </div>
+
+  <!--**********************************************
+      =END TEST
+  ***********************************************-->
+
+  <% if @entry[:ID] == "6b4aZvjw3KUkO84UGkeYaI"
     data.hs.people.each do |id, person|
       if person.employment
         @ctaID = (person[:full_name] + "-" + person[:ID]).parameterize %>
@@ -110,7 +133,7 @@
             locals: { local_data: {
               id: @ctaID,
               content: person.biog }} %>
-      <% end;
-    end;
-  end %>
+      <% end %>
+    <% end %>
+  <% end %>
 </article>

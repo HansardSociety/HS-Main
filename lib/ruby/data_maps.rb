@@ -383,7 +383,7 @@ def panels(ctx, data)
     }.compact
 
     if isPanelContent || isPanelBand
-      panelShared.merge({
+      panelShared.merge!({
         image: (media(panel.image) if defined?(panel.image) && panel.image != nil),
         image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil),
         heading_level: (defined?(panel.heading_level) && panel.heading_level != nil ? panel.heading_level.parameterize : "level-2"),
