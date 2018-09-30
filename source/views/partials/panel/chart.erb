@@ -1,0 +1,68 @@
+<%
+panelData = local_data[:entry_data]
+index = local_data[:index]
+
+bgc = panelData[:background_color]
+bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
+
+title = panelData[:title]
+titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2" }"
+caption = panelData[:caption]
+chartData = panelData[:chart_data]
+chartOptions = panelData[:chart_options]
+%>
+
+<section
+  id="panel-<%= index %>"
+  class="panel <%= bgcClass %>">
+
+  <div class="panel__content panel__content--wide">
+    <h2 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h2>
+
+    <div class="chart">
+      <div class="chart__container ct-chart"></div>
+      <div class="chart__legend"></div>
+      <script class="chart__template">
+        {
+          "data": {
+            "labels": ["8", "40", "800"],
+            "series": [
+              {
+                "name": "S1",
+                "data": [8],
+                "meta": "Meta 1"
+              },
+              {
+                "name": "S2",
+                "data": [40]
+              },
+              {
+                "name": "S2",
+                "data": [800]
+              }
+            ]
+          },
+          "options": {
+            "height": 200,
+            "fullWidth": true,
+            "horizontalBars": true,
+            "axisX": {
+              "onlyInteger": true,
+              "low": 0,
+              "high": 800,
+              "ticks": [0, 8, 48, 400, 800]
+            }
+          },
+          "plugins": {
+            "legend": [
+              "S1", "S2", "S3", "S4"
+            ]
+          },
+          "styles": {
+            "strokeWidth": "1rem"
+          }
+        }
+      </script>
+    </div>
+  </div>
+</section>

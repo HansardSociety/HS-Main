@@ -86,6 +86,13 @@
             index: index }} %>
       <% end %>
 
+      <% if panel[:TYPE] == "panel_chart" %>
+        <%= partial "views/partials/panel/chart",
+          locals: { local_data: {
+            entry_data: panel,
+            index: index }} %>
+      <% end %>
+
       <% if panel[:TYPE] == "panel_header" %>
         <%= partial "views/partials/panel/header",
           locals: { local_data: {
@@ -102,28 +109,6 @@
       <% end %>
     <% end %>
   <% end %>
-
-  <!--**********************************************
-      =TEST
-  ***********************************************-->
-
-  <div class="panel">
-    <div class="panel__content panel__content--medium">
-
-      <div
-        id="chart-01"
-        class="ct-chart ct-perfect-fourth"></div>
-
-      <div
-        id="chart-02"
-        class="ct-chart ct-golden-section"></div>
-
-    </div>
-  </div>
-
-  <!--**********************************************
-      =END TEST
-  ***********************************************-->
 
   <% if @entry[:ID] == "6b4aZvjw3KUkO84UGkeYaI"
     data.hs.people.each do |id, person|

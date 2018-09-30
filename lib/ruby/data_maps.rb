@@ -356,6 +356,7 @@ def panels(ctx, data)
     isPanelCarouselCategory = panel.content_type.id == "panel_carousel_category"
     isPanelContent = panel.content_type.id == "panel_content"
     isPanelFeed = panel.content_type.id == "panel_feed"
+    isPanelChart = panel.content_type.id == "panel_chart"
     isPanelHeader = panel.content_type.id == "panel_header"
     isPanelIcons = panel.content_type.id == "panel_icons"
 
@@ -365,6 +366,7 @@ def panels(ctx, data)
     panelCarouselCategory = {}
     panelContent = {}
     panelFeed = {}
+    panelChart = {}
     panelIcons = {}
 
     ##		=Core
@@ -375,7 +377,7 @@ def panels(ctx, data)
       ID: panel.sys[:id],
       TYPE: panel.content_type.id,
       background_color: (panel.background_color.parameterize if !isPanelAccordians),
-      calls_to_action: callsToAction(panel),
+      calls_to_action: (callsToAction(panel) if !isPanelChart),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
       image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
       title: panel.title,
@@ -487,6 +489,18 @@ def panels(ctx, data)
       }
     end
 
+    ##		=Graph
+    ########################################
+
+    if isPanelChart
+      panelChart = {
+        caption: panel.caption,
+        type: panel.chart_type,
+        chart_data: panel.chart_data[0].to_json.to_s,
+        chart_options: panel.chart_options[0].to_json.to_s
+      }
+    end
+
     ##		=Icons
     ########################################
 
@@ -507,6 +521,7 @@ def panels(ctx, data)
       **panelCarouselCustom,
       **panelContent,
       **panelFeed,
+      **panelChart,
       **panelIcons
     ).compact
   end
