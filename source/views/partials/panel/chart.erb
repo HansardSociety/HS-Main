@@ -10,7 +10,7 @@ chartOptions = panelData[:chart_options]
 
 <section
   id="panel-<%= index %>"
-  class="panel e-bgc-white-1">
+  class="panel e-bgc-white-2">
 
   <div class="panel__content panel__content--wide">
     <div class="chart">
@@ -20,7 +20,7 @@ chartOptions = panelData[:chart_options]
         <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
       </header>
 
-      <div class="chart__container">
+      <div class="chart__container" style="position: relative; height: 200px; width: 100%">
         <canvas class="chart__canvas"></canvas>
       </div>
       <div class="chart__legend"></div>
@@ -32,27 +32,24 @@ chartOptions = panelData[:chart_options]
               {
                 "label": "Affirmative procedure",
                 "data": [40],
-                "backgroundColor": "<%= siteData(:site_config)[:color_groups][:"brand-green"][:"2"] %>"
+                "backgroundColor": "red"
               },
               {
                 "label": "Negative procedure",
                 "data": [8],
-                "backgroundColor": "<%= siteData(:site_config)[:color_groups][:"grey"][:"2"] %>"
+                "backgroundColor": "blue"
               }
             ]
           },
           "options": {
-            "responsive": true,
-            "maintainAspectRatio": false,
             "scales": {
               "xAxes": [
                 {
-                  "type": "linear",
+                  "stacked": true,
                   "scaleLabel": {
                     "display": true,
                     "labelString": "Number of SIs"
                   },
-                  "stacked": true,
                   "ticks": {
                     "min": 0,
                     "max": 800,
@@ -62,7 +59,6 @@ chartOptions = panelData[:chart_options]
               ],
               "yAxes": [
                 {
-                  "type": "category",
                   "stacked": true
                 }
               ]
