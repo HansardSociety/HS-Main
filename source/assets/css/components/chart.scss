@@ -1,70 +1,15 @@
 .chart {
-
-  /***  =Override ct-chart defaults  ***/
-
-  svg:not(:root) {
-      overflow: visible;
-  }
+  @extend %e-bgc-white-2;
+  @extend %e-pad-sm;
+  @extend %e-rad-slight;
 }
 
-.chart__legend {
-  padding: 0;
+.chart__container {
+  @extend %e-position-relative;
+  @extend %e-width-full;
+}
 
-  @extend %e-container;
+.chart__header {
   @extend %e-container--narrow;
-  @extend %e-mgn-t-sm;
-  @extend %e-mgn-auto-x;
-}
-
-/*		=Plugins
-  ========================================================================== */
-
-/***  =Legend  ***/
-.ct-legend {
-
-  // New
-  @extend .grid;
-  @extend .grid--sm;
-  @extend .grid--center;
-
-  & > li {
-    @extend .grid__cell;
-  }
-
-  // Orig
-  position: relative;
-  z-index: 10;
-
-  li {
-      position: relative;
-      padding-left: 23px;
-      margin-bottom: 3px;
-  }
-
-  li:before {
-      width: 12px;
-      height: 12px;
-      position: absolute;
-      left: 0;
-      content: '';
-      border: 3px solid transparent;
-      border-radius: 2px;
-  }
-
-  li.inactive:before {
-      background: transparent;
-  }
-
-  &.ct-legend-inside {
-      position: absolute;
-      top: 0;
-      right: 0;
-  }
-
-  @for $i from 0 to length($ct-series-colors) {
-      .ct-series-#{$i}:before {
-          background-color: nth($ct-series-colors, $i + 1);
-          border-color: nth($ct-series-colors, $i + 1);
-      }
-  }
+  @extend %e-mgn-b-sm;
 }

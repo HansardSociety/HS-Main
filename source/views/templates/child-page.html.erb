@@ -107,7 +107,7 @@ url = "https://hansardsociety.org.uk/"
                     <ul class="e-mgn-t-sm">
                       <% pages.sort_by{ |page| page[:title] }.each do |page| %>
                         <li>
-                          <span class="label-xs e-col-grey-3"><%= page[:meta_label] %></span>
+                          <span class="label-xxs e-col-grey-3"><%= page[:meta_label] %></span>
                           <p><a
                             class="link"
                             href="<%= internalURL(page[:slug]) %>"

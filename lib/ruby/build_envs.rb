@@ -63,6 +63,7 @@ module BuildEnvs
     cssVendorHash = manifest_hash["vendor.css"]
     jsAppHash = manifest_hash["app.js"]
     jsCheckoutHash = manifest_hash["checkout.js"]
+    jsChartHash = manifest_hash["chart.js"]
     jsVendorHash = manifest_hash["vendor.js"]
 
     ##		=Vars
@@ -71,8 +72,9 @@ module BuildEnvs
     set :CSS_APP, "/#{ cssAppHash }"
     set :CSS_VENDOR, "/#{ cssVendorHash }"
     set :JS_APP, "/#{ jsAppHash }"
-    set :JS_VENDOR, "/#{ jsVendorHash }"
     set :JS_CHECKOUT, "/#{ jsCheckoutHash }"
+    set :JS_CHART, "/#{ jsChartHash }"
+    set :JS_VENDOR, "/#{ jsVendorHash }"
     set :build_dir, @buildSrc
 
     ##		=Post-processing
@@ -167,6 +169,7 @@ module BuildEnvs
       set :CSS_APP, "/app.css"
       set :CSS_VENDOR, "/vendor.css"
       set :JS_APP, "/app.js"
+      set :JS_CHART, "/chart.js"
       set :JS_CHECKOUT, "/checkout.js"
       set :JS_VENDOR, "/vendor.js"
     end

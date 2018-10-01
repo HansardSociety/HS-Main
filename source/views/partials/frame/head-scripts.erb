@@ -12,20 +12,7 @@ featured = @entry[:featured]
 <% end %>
 -->
 
-<!--**********************************************
-    =Google Analytics
-***********************************************-->
-
+<%# GA %>
 <% if config[:ENV] == "production" %>
   <%= siteData(:meta)[:analytics] %>
 <% end %>
-
-
-<!--**********************************************
-    =Algolia
-***********************************************-->
-
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch.min.css">

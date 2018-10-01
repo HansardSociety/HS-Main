@@ -1,4 +1,4 @@
-import  {toggleClass} from "./core"
+import {toggleClass} from "./core"
 import instantSearch from "instantsearch.js/dist/instantsearch"
 import Blazy from "blazy"
 import debounce from "lodash/debounce"

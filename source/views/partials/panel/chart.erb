@@ -2,11 +2,7 @@
 panelData = local_data[:entry_data]
 index = local_data[:index]
 
-bgc = panelData[:background_color]
-bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
-
 title = panelData[:title]
-titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2" }"
 caption = panelData[:caption]
 chartData = panelData[:chart_data]
 chartOptions = panelData[:chart_options]
@@ -14,52 +10,63 @@ chartOptions = panelData[:chart_options]
 
 <section
   id="panel-<%= index %>"
-  class="panel <%= bgcClass %>">
+  class="panel e-bgc-white-1">
 
   <div class="panel__content panel__content--wide">
-    <h2 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h2>
-
     <div class="chart">
-      <div class="chart__container ct-chart"></div>
+
+      <header class="chart__header">
+        <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= title %></h2>
+        <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
+      </header>
+
+      <div class="chart__container">
+        <canvas class="chart__canvas"></canvas>
+      </div>
       <div class="chart__legend"></div>
       <script class="chart__template">
         {
+          "type": "horizontalBar",
           "data": {
-            "labels": ["8", "40", "800"],
-            "series": [
+            "datasets": [
               {
-                "name": "S1",
+                "label": "Affirmative procedure",
+                "data": [40],
+                "backgroundColor": "<%= siteData(:site_config)[:color_groups][:"brand-green"][:"2"] %>"
+              },
+              {
+                "label": "Negative procedure",
                 "data": [8],
-                "meta": "Meta 1"
-              },
-              {
-                "name": "S2",
-                "data": [40]
-              },
-              {
-                "name": "S2",
-                "data": [800]
+                "backgroundColor": "<%= siteData(:site_config)[:color_groups][:"grey"][:"2"] %>"
               }
             ]
           },
           "options": {
-            "height": 200,
-            "fullWidth": true,
-            "horizontalBars": true,
-            "axisX": {
-              "onlyInteger": true,
-              "low": 0,
-              "high": 800,
-              "ticks": [0, 8, 48, 400, 800]
+            "responsive": true,
+            "maintainAspectRatio": false,
+            "scales": {
+              "xAxes": [
+                {
+                  "type": "linear",
+                  "scaleLabel": {
+                    "display": true,
+                    "labelString": "Number of SIs"
+                  },
+                  "stacked": true,
+                  "ticks": {
+                    "min": 0,
+                    "max": 800,
+                    "stepSize": 400
+                  }
+                }
+              ],
+              "yAxes": [
+                {
+                  "type": "category",
+                  "stacked": true
+                }
+              ]
             }
-          },
-          "plugins": {
-            "legend": [
-              "S1", "S2", "S3", "S4"
-            ]
-          },
-          "styles": {
-            "strokeWidth": "1rem"
           }
         }
       </script>

@@ -376,7 +376,7 @@ def panels(ctx, data)
     panelShared = {
       ID: panel.sys[:id],
       TYPE: panel.content_type.id,
-      background_color: (panel.background_color.parameterize if !isPanelAccordians),
+      background_color: (panel.background_color.parameterize if !isPanelAccordians && !isPanelChart),
       calls_to_action: (callsToAction(panel) if !isPanelChart),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
       image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
@@ -457,6 +457,20 @@ def panels(ctx, data)
       }.compact
     end
 
+    ##		=Chart
+    ########################################
+
+    if isPanelChart
+      panelChart = {
+        caption: panel.caption,
+        chart: {
+          type: panel.chart_type.parameterize,
+          data: panel.chart_data[0].to_json.to_s,
+          options: panel.chart_options[0].to_json.to_s
+        }
+      }
+    end
+
     ##		=Content
     ########################################
 
@@ -486,18 +500,6 @@ def panels(ctx, data)
             detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $seperator
           )
         }.compact
-      }
-    end
-
-    ##		=Graph
-    ########################################
-
-    if isPanelChart
-      panelChart = {
-        caption: panel.caption,
-        type: panel.chart_type,
-        chart_data: panel.chart_data[0].to_json.to_s,
-        chart_options: panel.chart_options[0].to_json.to_s
       }
     end
 

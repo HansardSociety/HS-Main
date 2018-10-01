@@ -34,6 +34,12 @@
   @extend %e-col-white-1;
 }
 
+.panel--intro {
+  @include above(sm) {
+    text-align: center;
+  }
+}
+
 /*		=Content
   ========================================================================== */
 

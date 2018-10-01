@@ -43,7 +43,7 @@
 .banner__content--lp {
   @extend %e-container--narrow;
   @extend %e-mgn-t-xl;
-  @extend %e-pad-x-md;
+  @extend %e-pad-x-lg;
   @include above(sm) {
     text-align: center;
   }
