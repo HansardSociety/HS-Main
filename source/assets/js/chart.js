@@ -10,16 +10,22 @@ import siteConfig from "./shared-config.json"
 // Colors
 const colors = siteConfig.color_groups
 const black = colors.black["1"]
+const lightGrey = colors["grey"]["1"]
 const grey = colors["grey"]["3"]
 const white = colors["white"]["1"]
+const offWhite = colors["white"]["2"]
 const brandGreen = colors["brand-green"]["2"]
 
 // Fonts
 const ff01 = "'Avenir-Roman', 'Helvetica', 'Arial', 'sans-serif'"
 const ff02 = "'Avenir-Heavy', 'Helvetica', 'Arial', 'sans-serif'"
 
+// Strokes
+const strokeWidth = 6
+
 // Sizes
 const rem100 = 18
+const rem150 = 18 * 1.5
 const rem75 = rem100 * .75
 const rem675 = rem100 * .675
 const rem50 = rem100 * .5
@@ -27,61 +33,61 @@ const rem50 = rem100 * .5
 /* =Global config
  ***************************************************************************/
 
-const cfg = Chart.defaults.global
+const cfg = Chart.defaults
 
 // Core
-cfg.defaultFontFamily = ff01;
-cfg.defaultFontSize = rem75;
-cfg.defaultFontColor = black;
+cfg.global.defaultFontFamily = ff01;
+cfg.global.defaultFontSize = rem675;
+cfg.global.defaultFontColor = black;
 
 // Elements
-cfg.elements.rectangle.backgroundColor = brandGreen
-cfg.elements.rectangle.borderColor = "transparent"
-cfg.elements.rectangle.borderWidth = 0
+cfg.global.elements.rectangle.backgroundColor = offWhite
 
 // Layout
-cfg.layout.padding = 0
+cfg.global.layout.padding = 0
 
 // Legend
-cfg.legend.labels.boxWidth = rem75
-cfg.legend.fontColor = grey
-cfg.legend.position = "bottom"
+cfg.global.legend.position = "bottom"
+cfg.global.legend.labels.boxWidth = rem150
 
 // Responsive
-cfg.responsive = true
-cfg.maintainAspectRatio = false
+cfg.global.responsive = true
+cfg.global.maintainAspectRatio = false
 
-/*  =Tooltips
- *****************************************/
+// Scale
+cfg.scale.gridLines.color = lightGrey
+cfg.scale.scaleLabel.fontColor = "red"
 
-cfg.tooltips.backgroundColor = black
-cfg.tooltips.bodySpacing = 4
-cfg.tooltips.caretSize = 0
-cfg.tooltips.cornerRadius = 8
-cfg.tooltips.xPadding = rem50
-cfg.tooltips.yPadding = rem50
-cfg.tooltips.multiKeyBackground = white
-cfg.tooltips.titleMarginBottom = rem50
-cfg.tooltips.bodyFontSize = rem675
-cfg.tooltips.bodyFontColor = white
+// Tooltips
+cfg.global.tooltips.backgroundColor = black
+cfg.global.tooltips.bodySpacing = 4
+cfg.global.tooltips.caretSize = 0
+cfg.global.tooltips.cornerRadius = 8
+cfg.global.tooltips.xPadding = rem50
+cfg.global.tooltips.yPadding = rem50
+cfg.global.tooltips.multiKeyBackground = white
+cfg.global.tooltips.titleMarginBottom = rem50
+cfg.global.tooltips.bodyFontSize = rem675
+cfg.global.tooltips.bodyFontColor = white
 
 /* =Scale defaults
  ***************************************************************************/
 
 // Linear
 Chart.scaleService.updateScaleDefaults("linear", {
-  beginaAtZero: true,
+  gridLines: {
+    drawTicks: true,
+    zeroLineWidth: 2
+  },
+  ticks: {
+    beginaAtZero: true,
+    fontColor: grey,
+  },
   scaleLabel: {
     fontColor: grey,
     fontFamily: ff02
   }
 });
-
-// console.log(cfg)
-
-/* =Callbacks
- ***************************************************************************/
-
 
 /* =Charts
  ***************************************************************************/
@@ -96,13 +102,15 @@ const renderCharts = () => {
     const data = chartObj.data
     const options = chartObj.options
 
-    /*  =User defined helpers
+    /*  =Core
      *****************************************/
 
-    // Options
     if (options.aspectRatio) options.maintainAspectRatio = true
 
-    // Create options tree
+    /*  =Options
+     *****************************************/
+
+    // Tooltips
     options.tooltips = {}
     options.tooltips.callbacks = {
       label: (items, data) => {
@@ -113,23 +121,20 @@ const renderCharts = () => {
         let item = chart.data.datasets[items.datasetIndex]
         return {
           borderColor: white,
-          borderWidth: 6,
           backgroundColor: item.backgroundColor
         }
       }
     }
 
-    // Data > Datasets
-    for (let set of data.datasets) {
+    options.borderSkipped = "left"
 
-      // if bgc is defined but border isn't, make them the same and override default border
-      if (set.backgroundColor && !set.borderColor) {
-        set.borderColor = set.backgroundColor
-        set.borderWidth = 0
-      }
+    /*  =Datasets
+     *****************************************/
+
+    for (let dataset of data.datasets) {
+      // dataset.borderWidth = strokeWidth
+      if (dataset.backgroundColor && !dataset.borderColor) dataset.borderColor = dataset.backgroundColor
     }
-
-    console.log(chartObj)
 
     new Chart(chartCanvas, chartObj)
   }
@@ -139,10 +144,9 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
 
 /**
  * TODOs:
- * [ ] Tooltip font size
+ * [x] Tooltip font size
  * [ ] Grid font size
  * [ ] Base grid-line style
- * [ ] Add axes IDs to datasets
  * [ ] Axes label color grey
  * [ ] Create common config templates
  * [ ] JSON GUI editor
