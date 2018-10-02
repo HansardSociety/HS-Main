@@ -12,7 +12,7 @@ chartOptions = panelData[:chart_options]
   id="panel-<%= index %>"
   class="panel e-bgc-white-2">
 
-  <div class="panel__content panel__content--wide">
+  <div class="panel__content panel__content--full">
     <div class="chart">
 
       <header class="chart__header">
@@ -23,6 +23,7 @@ chartOptions = panelData[:chart_options]
       <div class="chart__container">
         <canvas class="chart__canvas"></canvas>
       </div>
+
       <div class="chart__legend"></div>
       <script class="chart__template">
         {
@@ -32,14 +33,12 @@ chartOptions = panelData[:chart_options]
               {
                 "label": "Affirmative procedure",
                 "data": [40],
-                "backgroundColor": "rebeccapurple",
-                "fill": false
+                "backgroundColor": "rebeccapurple"
               },
               {
                 "label": "Negative procedure",
                 "data": [8],
-                "backgroundColor": "tan",
-                "fill": false
+                "backgroundColor": "tan"
               }
             ]
           },

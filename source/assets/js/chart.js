@@ -77,7 +77,24 @@ Chart.scaleService.updateScaleDefaults("linear", {
   }
 });
 
-console.log(cfg)
+// console.log(cfg)
+
+/* =Callbacks
+ ***************************************************************************/
+
+const tooltipLabel = (items, data) => {
+  console.log(data)
+  console.log(items)
+
+  let label = ""
+
+
+  // tooltipItems.forEach(tooltip => {
+  //   label += data.datasets[tooltip.datasetIndex].data[tooltip.index] + " HELLO"
+  // })
+
+  // return label
+}
 
 /* =Charts
  ***************************************************************************/
@@ -88,6 +105,7 @@ const renderCharts = () => {
   for (let ctx of elems) {
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
     const chartObj = JSON.parse(ctx.querySelector(".chart__template").innerHTML)
+
     const data = chartObj.data
     const options = chartObj.options
 
@@ -96,6 +114,11 @@ const renderCharts = () => {
 
     // Options
     if (options.aspectRatio) options.maintainAspectRatio = true
+
+    // Create options tree
+    options.tooltips = {}
+    options.tooltips.callbacks = {}
+    options.tooltips.callbacks.label = (items, data) => tooltipLabel(items, data)
 
     // Data > Datasets
     for (let set of data.datasets) {
@@ -107,7 +130,9 @@ const renderCharts = () => {
       }
     }
 
-    return new Chart(chartCanvas, chartObj)
+    console.log(chartObj)
+
+    new Chart(chartCanvas, chartObj)
   }
 }
 

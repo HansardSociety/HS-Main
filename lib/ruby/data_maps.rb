@@ -380,9 +380,14 @@ def panels(ctx, data)
       calls_to_action: (callsToAction(panel) if !isPanelChart),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
       image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
-      title: panel.title,
-      show_title: (panel.show_title if isPanelBand || isPanelContent || isPanelFeed || isPanelIcons),
+      title: panel.title
     }.compact
+
+    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed || isPanelIcons
+      panelShared.merge!({
+        show_title: panel.show_title
+      }.compact)
+    end
 
     if isPanelContent || isPanelBand
       panelShared.merge!({
@@ -461,15 +466,23 @@ def panels(ctx, data)
     ########################################
 
     if isPanelChart
-      panelChart = {
-        caption: panel.caption,
-        chart: {
-          type: panel.chart_type.parameterize,
-          data: panel.data[0].to_json.to_s,
-          options: panel.options[0].to_json.to_s,
-          width: (panel.width ? "#{ panel.width }px" : "100%"),
-          scaling: (panel.scaling ? panel.scaling.parameterize : "responsive")
+      def chartData(data)
+        {
+          ID: data.sys[:id],
+          TYPE: data.content_type.id,
+          title: data.title,
+          caption: data.caption,
+          chart_type: data.chart_type.parameterize,
+          data: data.data[0].to_json.to_s,
+          options: data.options[0].to_json.to_s,
+          width: (data.width ? "#{ data.width }px" : "100%"),
+          scaling: (data.scaling ? data.scaling.parameterize : "responsive")
         }
+      end
+
+      panelChart = {
+        charts_row_1: panel.charts_row_1.map{|chart| chartData(chart)},
+        charts_row_2: (panel.charts_row_2.map{|chart| chartData(chart)} if panel.charts_row_2)
       }
     end
 
