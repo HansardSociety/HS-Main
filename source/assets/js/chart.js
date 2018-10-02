@@ -36,8 +36,8 @@ cfg.defaultFontColor = black;
 
 // Elements
 cfg.elements.rectangle.backgroundColor = brandGreen
-cfg.elements.rectangle.borderColor = brandGreen
-cfg.elements.rectangle.borderWidth = 2
+cfg.elements.rectangle.borderColor = "transparent"
+cfg.elements.rectangle.borderWidth = 0
 
 // Layout
 cfg.layout.padding = 0
@@ -82,19 +82,6 @@ Chart.scaleService.updateScaleDefaults("linear", {
 /* =Callbacks
  ***************************************************************************/
 
-const tooltipLabel = (items, data) => {
-  console.log(data)
-  console.log(items)
-
-  let label = ""
-
-
-  // tooltipItems.forEach(tooltip => {
-  //   label += data.datasets[tooltip.datasetIndex].data[tooltip.index] + " HELLO"
-  // })
-
-  // return label
-}
 
 /* =Charts
  ***************************************************************************/
@@ -117,8 +104,20 @@ const renderCharts = () => {
 
     // Create options tree
     options.tooltips = {}
-    options.tooltips.callbacks = {}
-    options.tooltips.callbacks.label = (items, data) => tooltipLabel(items, data)
+    options.tooltips.callbacks = {
+      label: (items, data) => {
+        let item = data.datasets[items.datasetIndex]
+        return ` ${item.label} (${item.data[items.index]})`
+      },
+      labelColor: (items, chart) => {
+        let item = chart.data.datasets[items.datasetIndex]
+        return {
+          borderColor: white,
+          borderWidth: 6,
+          backgroundColor: item.backgroundColor
+        }
+      }
+    }
 
     // Data > Datasets
     for (let set of data.datasets) {
