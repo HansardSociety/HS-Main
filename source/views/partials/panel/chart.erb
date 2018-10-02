@@ -20,7 +20,7 @@ chartOptions = panelData[:chart_options]
         <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
       </header>
 
-      <div class="chart__container" style="position: relative; height: 200px; width: 100%">
+      <div class="chart__container">
         <canvas class="chart__canvas"></canvas>
       </div>
       <div class="chart__legend"></div>
@@ -32,22 +32,24 @@ chartOptions = panelData[:chart_options]
               {
                 "label": "Affirmative procedure",
                 "data": [40],
-                "backgroundColor": "red"
+                "backgroundColor": "rebeccapurple",
+                "fill": false
               },
               {
                 "label": "Negative procedure",
                 "data": [8],
-                "backgroundColor": "blue"
+                "backgroundColor": "tan",
+                "fill": false
               }
             ]
           },
           "options": {
+            "aspectRatio": 4,
             "scales": {
               "xAxes": [
                 {
                   "stacked": true,
                   "scaleLabel": {
-                    "display": true,
                     "labelString": "Number of SIs"
                   },
                   "ticks": {

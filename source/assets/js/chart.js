@@ -9,25 +9,19 @@ import siteConfig from "./shared-config.json"
 
 // Colors
 const colors = siteConfig.color_groups
-const black01 = colors.black["1"]
-const black02 = colors.black["2"]
-const black03 = colors.black["3"]
-const grey01 = colors["grey"]["1"]
-const grey02 = colors["grey"]["2"]
-const grey03 = colors["grey"]["3"]
-const purple = colors["purple"]["2"]
-const transparent = "rgba(0, 0, 0, 0)"
-const white01 = colors["white"]["1"]
-const white02 = colors["white"]["2"]
-const white03 = colors["white"]["3"]
+const black = colors.black["1"]
+const grey = colors["grey"]["3"]
+const white = colors["white"]["1"]
+const brandGreen = colors["brand-green"]["2"]
 
 // Fonts
-const ff01 = "'Avenir-Roman'"
-const ff02 = "'Avenir-Heavy'"
+const ff01 = "'Avenir-Roman', 'Helvetica', 'Arial', 'sans-serif'"
+const ff02 = "'Avenir-Heavy', 'Helvetica', 'Arial', 'sans-serif'"
 
 // Sizes
 const rem100 = 18
 const rem75 = rem100 * .75
+const rem675 = rem100 * .675
 const rem50 = rem100 * .5
 
 /* =Global config
@@ -38,36 +32,47 @@ const cfg = Chart.defaults.global
 // Core
 cfg.defaultFontFamily = ff01;
 cfg.defaultFontSize = rem75;
-cfg.defaultFontColor = black01;
+cfg.defaultFontColor = black;
 
 // Elements
-cfg.responsive = true
-cfg.maintainAspectRatio = false
+cfg.elements.rectangle.backgroundColor = brandGreen
+cfg.elements.rectangle.borderColor = brandGreen
+cfg.elements.rectangle.borderWidth = 2
 
 // Layout
 cfg.layout.padding = 0
 
 // Legend
 cfg.legend.labels.boxWidth = rem75
-cfg.legend.fontColor = grey03
+cfg.legend.fontColor = grey
 cfg.legend.position = "bottom"
 
-// Tootips
-cfg.tooltips.backgroundColor = black01
+// Responsive
+cfg.responsive = true
+cfg.maintainAspectRatio = false
+
+/*  =Tooltips
+ *****************************************/
+
+cfg.tooltips.backgroundColor = black
 cfg.tooltips.bodySpacing = 4
 cfg.tooltips.caretSize = 0
 cfg.tooltips.cornerRadius = 8
 cfg.tooltips.xPadding = rem50
 cfg.tooltips.yPadding = rem50
-cfg.tooltips.multiKeyBackground = white01
+cfg.tooltips.multiKeyBackground = white
 cfg.tooltips.titleMarginBottom = rem50
+cfg.tooltips.bodyFontSize = rem675
+cfg.tooltips.bodyFontColor = white
 
-/* =Defaults
+/* =Scale defaults
  ***************************************************************************/
 
+// Linear
 Chart.scaleService.updateScaleDefaults("linear", {
+  beginaAtZero: true,
   scaleLabel: {
-    fontColor: grey03,
+    fontColor: grey,
     fontFamily: ff02
   }
 });
@@ -82,9 +87,27 @@ const renderCharts = () => {
 
   for (let ctx of elems) {
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
-    const cfgChart = JSON.parse(ctx.querySelector(".chart__template").innerHTML)
+    const chartObj = JSON.parse(ctx.querySelector(".chart__template").innerHTML)
+    const data = chartObj.data
+    const options = chartObj.options
 
-    return new Chart(chartCanvas, cfgChart)
+    /*  =User defined helpers
+     *****************************************/
+
+    // Options
+    if (options.aspectRatio) options.maintainAspectRatio = true
+
+    // Data > Datasets
+    for (let set of data.datasets) {
+
+      // if bgc is defined but border isn't, make them the same and override default border
+      if (set.backgroundColor && !set.borderColor) {
+        set.borderColor = set.backgroundColor
+        set.borderWidth = 0
+      }
+    }
+
+    return new Chart(chartCanvas, chartObj)
   }
 }
 
@@ -92,6 +115,8 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
 
 /**
  * TODOs:
+ * [ ] Tooltip font size
+ * [ ] Grid font size
  * [ ] Base grid-line style
  * [ ] Add axes IDs to datasets
  * [ ] Axes label color grey

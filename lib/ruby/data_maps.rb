@@ -465,8 +465,10 @@ def panels(ctx, data)
         caption: panel.caption,
         chart: {
           type: panel.chart_type.parameterize,
-          data: panel.chart_data[0].to_json.to_s,
-          options: panel.chart_options[0].to_json.to_s
+          data: panel.data[0].to_json.to_s,
+          options: panel.options[0].to_json.to_s,
+          width: (panel.width ? "#{ panel.width }px" : "100%"),
+          scaling: (panel.scaling ? panel.scaling.parameterize : "responsive")
         }
       }
     end
