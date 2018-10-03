@@ -2,6 +2,8 @@ import Chart from "chart.js"
 import "chartjs-plugin-deferred"
 import "chartjs-plugin-annotation"
 
+import chroma from "chroma-js"
+
 import siteConfig from "./shared-config.json"
 
 /* =Settings
@@ -126,6 +128,7 @@ Chart.scaleService.updateScaleDefaults("linear", {
 /* =Helpers
  ***************************************************************************/
 
+// Hex to RGB
 function hexToRGB(hex, alpha) {
   var r = parseInt(hex.slice(1, 3), 16),
       g = parseInt(hex.slice(3, 5), 16),
@@ -229,7 +232,18 @@ const renderCharts = () => {
     /*  =Datasets
      *****************************************/
 
-    for (let dataset of data.datasets) {
+    const colorPalette = chroma
+      .scale(chartObj.colorPalette.range)
+      .mode('lch')
+      .colors(chartObj.colorPalette.length)
+
+    console.log(colorPalette)
+
+    data.datasets.forEach((dataset, index) => {
+      const datasetColorTheme = colorPalette[index]
+
+      if (!dataset.backgroundColor) dataset.backgroundColor = datasetColorTheme
+
       dataset.borderWidth = strokeWidth
 
       // If no border is defined add one to == bgc
@@ -252,7 +266,7 @@ const renderCharts = () => {
           dataset.backgroundColor = hexToRGB(dataset.backgroundColor, 0.125)
         }
       }
-    }
+    })
 
     /*  =Plugins
      *****************************************/
@@ -284,11 +298,12 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [x] Axes label color grey
  * [ ] Create common config templates
  * [ ] JSON GUI editor
- * [ ] Show scale label if specified
- * [ ] Position secondary axes
- * [ ] Vreate DO NOT AMEND JSON options
- * [ ] Border skipped
+ * [x] Show scale label if specified
+ * [x] Position secondary axes
+ * [ ] Create DO NOT AMEND JSON options
+ * [x] Border skipped
  * [ ] Avg line
  * [ ] Aut color palette
  * [ ] Labels plugin
+ * [ ]
  */

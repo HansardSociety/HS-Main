@@ -37,7 +37,6 @@ chartOptions = panelData[:chart_options]
                 "label": "Affirmative (monthly)",
                 "xAxisID": "x-monthly-sis",
                 "yAxisID": "y-monthly-sis",
-                "backgroundColor": "#000000",
                 "data": [
                   {
                     "x": "October",
@@ -70,8 +69,6 @@ chartOptions = panelData[:chart_options]
                 "label": "Negative (monthly)",
                 "xAxisID": "x-monthly-sis",
                 "yAxisID": "y-monthly-sis",
-                "backgroundColor": "#000000",
-                "fill": true,
                 "data": [
                   {
                     "x": "October",
@@ -104,16 +101,14 @@ chartOptions = panelData[:chart_options]
                 "label": "Affirmative (to date)",
                 "xAxisID": "x-total-sis",
                 "yAxisID": "y-total-sis",
-                "data": [40],
-                "backgroundColor": "rebeccapurple"
+                "data": [40]
               },
               {
                 "type": "horizontalBar",
                 "label": "Negative (to date)",
                 "xAxisID": "x-total-sis",
                 "yAxisID": "y-total-sis",
-                "data": [8],
-                "backgroundColor": "tan"
+                "data": [8]
               }
             ]
           },
@@ -167,6 +162,12 @@ chartOptions = panelData[:chart_options]
                 }
               ]
             }
+          },
+          "colorPalette": {
+            "range": [
+              "red", "blue", "orange"
+            ],
+            "length": 6
           }
         }
       </script>
