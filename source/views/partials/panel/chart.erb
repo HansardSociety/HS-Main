@@ -37,7 +37,7 @@ chartOptions = panelData[:chart_options]
                 "label": "Affirmative (monthly)",
                 "xAxisID": "x-monthly-sis",
                 "yAxisID": "y-monthly-sis",
-                "backgroundColor": "orange",
+                "backgroundColor": "#000000",
                 "data": [
                   {
                     "x": "October",
@@ -63,15 +63,15 @@ chartOptions = panelData[:chart_options]
                     "x": "March",
                     "y": 360
                   }
-                ],
-                "fill": false
+                ]
               },
               {
                 "type": "line",
                 "label": "Negative (monthly)",
                 "xAxisID": "x-monthly-sis",
                 "yAxisID": "y-monthly-sis",
-                "backgroundColor": "pink",
+                "backgroundColor": "#000000",
+                "fill": true,
                 "data": [
                   {
                     "x": "October",
@@ -97,8 +97,7 @@ chartOptions = panelData[:chart_options]
                     "x": "March",
                     "y": 60
                   }
-                ],
-                "fill": false
+                ]
               },
               {
                 "type": "horizontalBar",
@@ -144,7 +143,10 @@ chartOptions = panelData[:chart_options]
                     "January",
                     "February",
                     "March"
-                  ]
+                  ],
+                  "gridLines": {
+                    "color": "red"
+                  }
                 }
               ],
               "yAxes": [
@@ -154,6 +156,9 @@ chartOptions = panelData[:chart_options]
                 },
                 {
                   "id": "y-monthly-sis",
+                  "scaleLabel": {
+                    "labelString": "Number of SIs"
+                  },
                   "type": "linear",
                   "position": "right",
                   "ticks": {

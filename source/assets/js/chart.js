@@ -1,4 +1,7 @@
 import Chart from "chart.js"
+import "chartjs-plugin-deferred"
+import "chartjs-plugin-annotation"
+
 import siteConfig from "./shared-config.json"
 
 /* =Settings
@@ -45,13 +48,12 @@ cfg.defaultFontFamily = ff01;
 cfg.defaultFontSize = rem675;
 cfg.defaultFontColor = black;
 
-// Elements
-cfg.elements.rectangle.backgroundColor = offWhite
+// Animations
+cfg.animation.duration = 800
 
 // Interactions
 cfg.hover.mode = "nearest"
 cfg.hover.intersect = true
-cfg.hover.axis = "xy"
 
 // Layout
 cfg.layout.padding = 0
@@ -76,6 +78,15 @@ cfg.tooltips.borderColor = white
 cfg.tooltips.titleMarginBottom = rem50
 cfg.tooltips.bodyFontSize = rem675
 cfg.tooltips.bodyFontColor = white
+
+/* =Plugins
+ ***************************************************************************/
+
+cfg.plugins.deferred = {
+  enabled: true,
+  xOffset: "50%",
+  delay: 250
+}
 
 /*  =Points
  *****************************************/
@@ -112,6 +123,21 @@ Chart.scaleService.updateScaleDefaults("linear", {
   }
 });
 
+/* =Helpers
+ ***************************************************************************/
+
+function hexToRGB(hex, alpha) {
+  var r = parseInt(hex.slice(1, 3), 16),
+      g = parseInt(hex.slice(3, 5), 16),
+      b = parseInt(hex.slice(5, 7), 16);
+
+  if (alpha) {
+      return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+  } else {
+      return "rgb(" + r + ", " + g + ", " + b + ")";
+  }
+}
+
 /* =Charts
  ***************************************************************************/
 
@@ -126,13 +152,11 @@ const renderCharts = () => {
     const data = chartObj.data
     const options = chartObj.options
 
-    /*  =Core
-     *****************************************/
-
-    // if (options.aspectRatio) options.maintainAspectRatio = true
-
     /*  =Options
      *****************************************/
+
+    // Aspect ratio
+    if (options.aspectRatio) options.maintainAspectRatio = true
 
     // Tooltips
     options.tooltips = {}
@@ -158,11 +182,12 @@ const renderCharts = () => {
 
     /*  =Chart types
      *****************************************/
+
     const isHorizontalBar = type === "horizontalBar"
     const isLine = type === "line"
 
-    const gridLines = (axes, dashed) => {
-      axes.forEach(axis => {
+    if (isHorizontalBar || isLine) {
+      const gridLines = (axes, dashed) => axes.forEach(axis => {
         if (!axis.gridLines) {
           let gridCfg = {
             display: true,
@@ -173,11 +198,32 @@ const renderCharts = () => {
             : axis.gridLines = gridCfg
         }
       })
-    }
 
-    if (isHorizontalBar || isLine) {
       gridLines(options.scales.xAxes)
       gridLines(options.scales.yAxes, "dashed")
+    }
+
+    // Scales loop
+    if (options.scales) {
+      const scales = axes => axes.forEach((axis, index) => {
+
+        // Show/modify scaleLabel if defined
+        if (axis.scaleLabel && axis.scaleLabel.labelString) {
+          axis.scaleLabel.display = true
+          axis.scaleLabel.labelString = `← ${axis.scaleLabel.labelString} →`
+        }
+
+        // Unless defined, don't draw grid border for scales > 0
+        if (index >= 1 && axis.gridLines && !axis.gridLines.drawBorder) {
+          axis.gridLines.drawBorder = false
+
+        } else {
+          axis.gridLines.drawBorder = true
+        }
+      })
+
+      scales(options.scales.xAxes)
+      scales(options.scales.yAxes)
     }
 
     /*  =Datasets
@@ -191,13 +237,37 @@ const renderCharts = () => {
         dataset.borderColor = dataset.backgroundColor
       }
 
+      // Set dataset type defaults
       if (dataset.type && dataset.type === "line") {
         if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = white
         if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = white
         if (!dataset.pointRadius) dataset.pointRadius = 5
         if (!dataset.pointHoverRadius) dataset.pointHoverRadius = 7
         if (!dataset.pointHitRadius) dataset.pointHitRadius = 10
+
+        // Only set backgroundColor and/or fill
+        if (!dataset.fill) dataset.fill = false
+        else {
+          dataset.fill = true
+          dataset.backgroundColor = hexToRGB(dataset.backgroundColor, 0.125)
+        }
       }
+    }
+
+    /*  =Plugins
+     *****************************************/
+
+    options.annotation = {
+      annotations: [
+        {
+          type: "line",
+          mode: "horizontal",
+          scaleID: "y-monthly-sis",
+          value: 100,
+          borderColor: "red",
+          borderWidth: 2
+        }
+      ]
     }
 
     new Chart(chartCanvas, chartObj)
@@ -209,9 +279,9 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
 /**
  * TODOs:
  * [x] Tooltip font size
- * [ ] Grid font size
- * [ ] Base grid-line style
- * [ ] Axes label color grey
+ * [x] Grid font size
+ * [x] Base grid-line style
+ * [x] Axes label color grey
  * [ ] Create common config templates
  * [ ] JSON GUI editor
  * [ ] Show scale label if specified
