@@ -20,7 +20,9 @@ chartOptions = panelData[:chart_options]
         <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
       </header>
 
-      <div class="chart__container">
+      <div
+        class="chart__container"
+        style="width: 100%; height: 400px;">
         <canvas class="chart__canvas"></canvas>
       </div>
 
@@ -31,22 +33,96 @@ chartOptions = panelData[:chart_options]
           "data": {
             "datasets": [
               {
-                "label": "Affirmative procedure",
+                "type": "line",
+                "label": "Affirmative (monthly)",
+                "xAxisID": "x-monthly-sis",
+                "yAxisID": "y-monthly-sis",
+                "backgroundColor": "orange",
+                "data": [
+                  {
+                    "x": "October",
+                    "y": 4
+                  },
+                  {
+                    "x": "November",
+                    "y": 20
+                  },
+                  {
+                    "x": "December",
+                    "y": 73
+                  },
+                  {
+                    "x": "January",
+                    "y": 240
+                  },
+                  {
+                    "x": "February",
+                    "y": 220
+                  },
+                  {
+                    "x": "March",
+                    "y": 360
+                  }
+                ],
+                "fill": false
+              },
+              {
+                "type": "line",
+                "label": "Negative (monthly)",
+                "xAxisID": "x-monthly-sis",
+                "yAxisID": "y-monthly-sis",
+                "backgroundColor": "pink",
+                "data": [
+                  {
+                    "x": "October",
+                    "y": 1
+                  },
+                  {
+                    "x": "November",
+                    "y": 7
+                  },
+                  {
+                    "x": "December",
+                    "y": 15
+                  },
+                  {
+                    "x": "January",
+                    "y": 25
+                  },
+                  {
+                    "x": "February",
+                    "y": 8
+                  },
+                  {
+                    "x": "March",
+                    "y": 60
+                  }
+                ],
+                "fill": false
+              },
+              {
+                "type": "horizontalBar",
+                "label": "Affirmative (to date)",
+                "xAxisID": "x-total-sis",
+                "yAxisID": "y-total-sis",
                 "data": [40],
                 "backgroundColor": "rebeccapurple"
               },
               {
-                "label": "Negative procedure",
+                "type": "horizontalBar",
+                "label": "Negative (to date)",
+                "xAxisID": "x-total-sis",
+                "yAxisID": "y-total-sis",
                 "data": [8],
                 "backgroundColor": "tan"
               }
             ]
           },
           "options": {
-            "aspectRatio": 4,
             "scales": {
               "xAxes": [
                 {
+                  "id": "x-total-sis",
                   "stacked": true,
                   "scaleLabel": {
                     "labelString": "Number of SIs"
@@ -54,13 +130,35 @@ chartOptions = panelData[:chart_options]
                   "ticks": {
                     "min": 0,
                     "max": 800,
-                    "stepSize": 400
+                    "stepSize": 200
                   }
+                },
+                {
+                  "id": "x-monthly-sis",
+                  "type": "category",
+                  "position": "top",
+                  "labels": [
+                    "October",
+                    "November",
+                    "December",
+                    "January",
+                    "February",
+                    "March"
+                  ]
                 }
               ],
               "yAxes": [
                 {
+                  "id": "y-total-sis",
                   "stacked": true
+                },
+                {
+                  "id": "y-monthly-sis",
+                  "type": "linear",
+                  "position": "right",
+                  "ticks": {
+                    "stepSize": 25
+                  }
                 }
               ]
             }

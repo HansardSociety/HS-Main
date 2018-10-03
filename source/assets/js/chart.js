@@ -1,19 +1,23 @@
 import Chart from "chart.js"
 import siteConfig from "./shared-config.json"
 
-/*	=Settings
-  ========================================================================== */
+/* =Settings
+ ***************************************************************************/
 
-/*	=Styles
-  ---------------------------------------- */
+/*  =Styles
+ *****************************************/
 
 // Colors
 const colors = siteConfig.color_groups
-const black = colors.black["1"]
+
 const lightGrey = colors["grey"]["1"]
+const midGrey = colors["grey"]["1"]
 const grey = colors["grey"]["3"]
+const black = colors.black["1"]
+
 const white = colors["white"]["1"]
-const offWhite = colors["white"]["2"]
+const offWhite = colors["white"]["3"]
+
 const brandGreen = colors["brand-green"]["2"]
 
 // Fonts
@@ -21,7 +25,8 @@ const ff01 = "'Avenir-Roman', 'Helvetica', 'Arial', 'sans-serif'"
 const ff02 = "'Avenir-Heavy', 'Helvetica', 'Arial', 'sans-serif'"
 
 // Strokes
-const strokeWidth = 6
+const strokeWidth = 3
+const dashes = [6, 3]
 
 // Sizes
 const rem100 = 18
@@ -33,42 +38,61 @@ const rem50 = rem100 * .5
 /* =Global config
  ***************************************************************************/
 
-const cfg = Chart.defaults
+const cfg = Chart.defaults.global
 
 // Core
-cfg.global.defaultFontFamily = ff01;
-cfg.global.defaultFontSize = rem675;
-cfg.global.defaultFontColor = black;
+cfg.defaultFontFamily = ff01;
+cfg.defaultFontSize = rem675;
+cfg.defaultFontColor = black;
 
 // Elements
-cfg.global.elements.rectangle.backgroundColor = offWhite
+cfg.elements.rectangle.backgroundColor = offWhite
+
+// Interactions
+cfg.hover.mode = "nearest"
+cfg.hover.intersect = true
+cfg.hover.axis = "xy"
 
 // Layout
-cfg.global.layout.padding = 0
+cfg.layout.padding = 0
 
 // Legend
-cfg.global.legend.position = "bottom"
-cfg.global.legend.labels.boxWidth = rem150
+cfg.legend.position = "bottom"
+cfg.legend.labels.boxWidth = rem150
 
 // Responsive
-cfg.global.responsive = true
-cfg.global.maintainAspectRatio = false
-
-// Scale
-cfg.scale.gridLines.color = lightGrey
-cfg.scale.scaleLabel.fontColor = "red"
+cfg.responsive = true
+cfg.maintainAspectRatio = false
 
 // Tooltips
-cfg.global.tooltips.backgroundColor = black
-cfg.global.tooltips.bodySpacing = 4
-cfg.global.tooltips.caretSize = 0
-cfg.global.tooltips.cornerRadius = 8
-cfg.global.tooltips.xPadding = rem50
-cfg.global.tooltips.yPadding = rem50
-cfg.global.tooltips.multiKeyBackground = white
-cfg.global.tooltips.titleMarginBottom = rem50
-cfg.global.tooltips.bodyFontSize = rem675
-cfg.global.tooltips.bodyFontColor = white
+cfg.tooltips.backgroundColor = black
+cfg.tooltips.bodySpacing = 4
+cfg.tooltips.caretSize = 0
+cfg.tooltips.cornerRadius = 8
+cfg.tooltips.xPadding = rem50
+cfg.tooltips.yPadding = rem50
+cfg.tooltips.multiKeyBackground = white
+cfg.tooltips.borderColor = white
+cfg.tooltips.titleMarginBottom = rem50
+cfg.tooltips.bodyFontSize = rem675
+cfg.tooltips.bodyFontColor = white
+
+/*  =Points
+ *****************************************/
+
+// Point styles
+const pointStyles = [
+  "circle",
+  "cross",
+  "crossRot",
+  "dash",
+  "line",
+  "rect",
+  "rectRounded",
+  "rectRot",
+  "star",
+  "triangle"
+]
 
 /* =Scale defaults
  ***************************************************************************/
@@ -76,12 +100,11 @@ cfg.global.tooltips.bodyFontColor = white
 // Linear
 Chart.scaleService.updateScaleDefaults("linear", {
   gridLines: {
-    drawTicks: true,
-    zeroLineWidth: 2
+    color: midGrey,
+    zeroLineColor: midGrey
   },
   ticks: {
-    beginaAtZero: true,
-    fontColor: grey,
+    beginAtZero: true
   },
   scaleLabel: {
     fontColor: grey,
@@ -99,41 +122,82 @@ const renderCharts = () => {
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
     const chartObj = JSON.parse(ctx.querySelector(".chart__template").innerHTML)
 
+    const type = chartObj.type
     const data = chartObj.data
     const options = chartObj.options
 
     /*  =Core
      *****************************************/
 
-    if (options.aspectRatio) options.maintainAspectRatio = true
+    // if (options.aspectRatio) options.maintainAspectRatio = true
 
     /*  =Options
      *****************************************/
 
     // Tooltips
     options.tooltips = {}
+    options.tooltips.mode = "nearest"
+    options.tooltips.position = "nearest"
     options.tooltips.callbacks = {
+      title: () => {}, // hide title
       label: (items, data) => {
         let item = data.datasets[items.datasetIndex]
+
+        if (item.data[items.index].x) {
+          return ` ${item.label} (${item.data[items.index].x}: ${item.data[items.index].y})`
+        }
         return ` ${item.label} (${item.data[items.index]})`
       },
       labelColor: (items, chart) => {
         let item = chart.data.datasets[items.datasetIndex]
         return {
-          borderColor: white,
           backgroundColor: item.backgroundColor
         }
       }
     }
 
-    options.borderSkipped = "left"
+    /*  =Chart types
+     *****************************************/
+    const isHorizontalBar = type === "horizontalBar"
+    const isLine = type === "line"
+
+    const gridLines = (axes, dashed) => {
+      axes.forEach(axis => {
+        if (!axis.gridLines) {
+          let gridCfg = {
+            display: true,
+            color: offWhite
+          }
+          dashed === "dashed"
+            ? axis.gridLines = Object.assign({}, gridCfg, { borderDash: dashes })
+            : axis.gridLines = gridCfg
+        }
+      })
+    }
+
+    if (isHorizontalBar || isLine) {
+      gridLines(options.scales.xAxes)
+      gridLines(options.scales.yAxes, "dashed")
+    }
 
     /*  =Datasets
      *****************************************/
 
     for (let dataset of data.datasets) {
-      // dataset.borderWidth = strokeWidth
-      if (dataset.backgroundColor && !dataset.borderColor) dataset.borderColor = dataset.backgroundColor
+      dataset.borderWidth = strokeWidth
+
+      // If no border is defined add one to == bgc
+      if (dataset.backgroundColor && !dataset.borderColor) {
+        dataset.borderColor = dataset.backgroundColor
+      }
+
+      if (dataset.type && dataset.type === "line") {
+        if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = white
+        if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = white
+        if (!dataset.pointRadius) dataset.pointRadius = 5
+        if (!dataset.pointHoverRadius) dataset.pointHoverRadius = 7
+        if (!dataset.pointHitRadius) dataset.pointHitRadius = 10
+      }
     }
 
     new Chart(chartCanvas, chartObj)
@@ -150,4 +214,11 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Axes label color grey
  * [ ] Create common config templates
  * [ ] JSON GUI editor
+ * [ ] Show scale label if specified
+ * [ ] Position secondary axes
+ * [ ] Vreate DO NOT AMEND JSON options
+ * [ ] Border skipped
+ * [ ] Avg line
+ * [ ] Aut color palette
+ * [ ] Labels plugin
  */
