@@ -6,7 +6,7 @@ import debounce from "lodash/debounce"
 const blazy = new Blazy
 
 function template(templateName) {
-  return document.querySelector(`#search-template-${templateName}`).innerHTML;
+  return document.querySelector(`#search-template-${templateName}`).innerHTML.replace(/`/g, "");
 }
 
 const algoliaSearch = (() => {

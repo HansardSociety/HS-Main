@@ -43,48 +43,48 @@ const rem50 = rem100 * .5
 /* =Global config
  ***************************************************************************/
 
-const cfg = Chart.defaults.global
+const def = Chart.defaults.global
 
 // Core
-cfg.defaultFontFamily = ff01;
-cfg.defaultFontSize = rem675;
-cfg.defaultFontColor = black;
+def.defaultFontFamily = ff01;
+def.defaultFontSize = rem675;
+def.defaultFontColor = black;
 
 // Animations
-cfg.animation.duration = 800
+def.animation.duration = 800
 
 // Interactions
-cfg.hover.mode = "nearest"
-cfg.hover.intersect = true
+def.hover.mode = "nearest"
+def.hover.intersect = true
 
 // Layout
-cfg.layout.padding = 0
+def.layout.padding = 0
 
 // Legend
-cfg.legend.position = "bottom"
-cfg.legend.labels.boxWidth = rem150
+def.legend.position = "bottom"
+def.legend.labels.boxWidth = rem150
 
 // Responsive
-cfg.responsive = true
-cfg.maintainAspectRatio = false
+def.responsive = true
+def.maintainAspectRatio = false
 
 // Tooltips
-cfg.tooltips.backgroundColor = black
-cfg.tooltips.bodySpacing = 4
-cfg.tooltips.caretSize = 0
-cfg.tooltips.cornerRadius = 8
-cfg.tooltips.xPadding = rem50
-cfg.tooltips.yPadding = rem50
-cfg.tooltips.multiKeyBackground = white
-cfg.tooltips.borderColor = white
-cfg.tooltips.titleMarginBottom = rem50
-cfg.tooltips.bodyFontSize = rem675
-cfg.tooltips.bodyFontColor = white
+def.tooltips.backgroundColor = black
+def.tooltips.bodySpacing = 4
+def.tooltips.caretSize = 0
+def.tooltips.cornerRadius = 8
+def.tooltips.xPadding = rem50
+def.tooltips.yPadding = rem50
+def.tooltips.multiKeyBackground = white
+def.tooltips.borderColor = white
+def.tooltips.titleMarginBottom = rem50
+def.tooltips.bodyFontSize = rem675
+def.tooltips.bodyFontColor = white
 
 /* =Plugins
  ***************************************************************************/
 
-cfg.plugins.deferred = {
+def.plugins.deferred = {
   enabled: true,
   xOffset: "50%",
   delay: 250
@@ -149,11 +149,11 @@ const renderCharts = () => {
 
   for (let ctx of elems) {
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
-    const chartObj = JSON.parse(ctx.querySelector(".chart__template").innerHTML)
+    const chartConfig = JSON.parse(ctx.querySelector(".chart__config").innerHTML)
 
-    const type = chartObj.type
-    const data = chartObj.data
-    const options = chartObj.options
+    const type = chartConfig.type
+    const data = chartConfig.data
+    const options = chartConfig.options
 
     /*  =Options
      *****************************************/
@@ -233,9 +233,9 @@ const renderCharts = () => {
      *****************************************/
 
     const colorPalette = chroma
-      .scale(chartObj.colorPalette.range)
+      .scale(chartConfig.colorPalette.range)
       .mode('lch')
-      .colors(chartObj.colorPalette.length)
+      .colors(chartConfig.colorPalette.length)
 
     console.log(colorPalette)
 
@@ -284,7 +284,7 @@ const renderCharts = () => {
       ]
     }
 
-    new Chart(chartCanvas, chartObj)
+    new Chart(chartCanvas, chartConfig)
   }
 }
 
