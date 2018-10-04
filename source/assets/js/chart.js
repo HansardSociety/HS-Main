@@ -227,37 +227,71 @@ const renderCharts = () => {
     /*  =Datasets
      *****************************************/
 
-    // Darken light colors
-    const generateColors = palette => {
-      var colorPalette = []
+    // Brewer colors
+    const brewerColors = palette => {
+      var evenColors = []
+      var oddColors = []
 
       chroma.brewer[palette].forEach((hex, i) => {
-        if (i % 2) {
-          if (hex.match(/#f|#e/)) colorPalette.push(chroma(hex).darken(1).hex())
-          else colorPalette.push(hex)
-
-        } else {
-          if (hex.match(/#f|#e/)) colorPalette.unshift(chroma(hex).darken(1).hex())
-          else colorPalette.unshift(hex)
+        const modCol = col => {
+          if (col.match(/#f|#e/)) return chroma(col).darken(2).saturate(2).hex()
+          return chroma(col).saturate(1.5).hex()
         }
+
+        if (i % 2) evenColors.push(modCol(hex))
+        else oddColors.unshift(modCol(hex))
       })
 
-      return colorPalette
+      return evenColors.reverse().concat(oddColors)
     }
 
-    data.datasets.forEach((dataset, datasetIndex) => {
+    const colorScale = (palette, range = 7, randomize = "randomize") => {
+      var scale = []
+      var evenColors = []
+      var oddColors = []
 
-      var datasetColor = ""
-      chartConfig.colors.forEach(col => {
-        if (dataset.type === col.chartType) {
-          datasetColor = generateColors(col.palette)[datasetIndex]
-        }
+      let colors = chroma
+        .scale(palette)
+        .mode("lab")
+        .colors(range)
+
+      if (randomize === "randomize") {
+        colors.forEach((col, i) => {
+          if (i % 2) evenColors.push(col)
+          else oddColors.unshift(col)
+        })
+
+        evenColors.reverse().concat(oddColors)
+          .forEach(col => scale.push(col))
+
+      } else {
+        colors.forEach(col => scale.push(col))
+      }
+
+      return scale
+    }
+
+    if (chartConfig.colors) {
+      chartConfig.colors.forEach(color => {
+        let matchDataset = data.datasets.filter(ds => ds.type === color.chartType)
+
+        matchDataset.forEach((dataset, i) => {
+          if (!dataset.backgroundColor) {
+
+            // If colour range is set
+            if (Array.isArray(color.palette)) {
+              dataset.backgroundColor = colorScale(color.palette)[i]
+            } else {
+              dataset.backgroundColor = brewerColors(color.palette)[i]
+            }
+          }
+        })
       })
+    }
 
-      if (!dataset.backgroundColor) dataset.backgroundColor = datasetColor
+    data.datasets.forEach(dataset => {
 
       dataset.borderWidth = strokeWidth
-
       dataset.hoverBackgroundColor = dataset.backgroundColor
 
       // If no border is defined add one to == bgc
