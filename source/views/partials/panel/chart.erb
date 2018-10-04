@@ -1,11 +1,10 @@
 <%
+require "json"
 panelData = local_data[:entry_data]
 index = local_data[:index]
 
 title = panelData[:title]
 caption = panelData[:caption]
-chartData = panelData[:chart_data]
-chartOptions = panelData[:chart_options]
 %>
 
 <section
@@ -13,168 +12,35 @@ chartOptions = panelData[:chart_options]
   class="panel e-bgc-white-2">
 
   <div class="panel__content panel__content--full">
-    <div class="chart">
+    <% panelData[:charts_row_1].each_with_index do |chart, index| %>
+      <section
+        class="chart"
+        data-chart-id="<%= chart[:ID] %>">
 
-      <header class="chart__header">
-        <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= title %></h2>
-        <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
-      </header>
+        <header class="chart__header">
+          <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= title %></h2>
+          <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
+        </header>
 
-      <div
-        class="chart__container"
-        style="width: 100%; height: 400px;">
-        <canvas class="chart__canvas"></canvas>
-      </div>
+        <div
+          class="chart__container"
+          style="width: 100%; height: 400px;">
+          <canvas class="chart__canvas"></canvas>
+        </div>
 
-      <div class="chart__legend"></div>
-      <script class="chart__config" type="application/json">
-        {
-          "type": "horizontalBar",
-          "data": {
-            "datasets": [
-              {
-                "type": "line",
-                "label": "Affirmative (monthly)",
-                "xAxisID": "x-monthly-sis",
-                "yAxisID": "y-monthly-sis",
-                "data": [
-                  {
-                    "x": "October",
-                    "y": 4
-                  },
-                  {
-                    "x": "November",
-                    "y": 20
-                  },
-                  {
-                    "x": "December",
-                    "y": 73
-                  },
-                  {
-                    "x": "January",
-                    "y": 240
-                  },
-                  {
-                    "x": "February",
-                    "y": 220
-                  },
-                  {
-                    "x": "March",
-                    "y": 360
-                  }
-                ]
-              },
-              {
-                "type": "line",
-                "label": "Negative (monthly)",
-                "xAxisID": "x-monthly-sis",
-                "yAxisID": "y-monthly-sis",
-                "data": [
-                  {
-                    "x": "October",
-                    "y": 1
-                  },
-                  {
-                    "x": "November",
-                    "y": 7
-                  },
-                  {
-                    "x": "December",
-                    "y": 15
-                  },
-                  {
-                    "x": "January",
-                    "y": 25
-                  },
-                  {
-                    "x": "February",
-                    "y": 8
-                  },
-                  {
-                    "x": "March",
-                    "y": 60
-                  }
-                ]
-              },
-              {
-                "type": "horizontalBar",
-                "label": "Affirmative (to date)",
-                "xAxisID": "x-total-sis",
-                "yAxisID": "y-total-sis",
-                "data": [40]
-              },
-              {
-                "type": "horizontalBar",
-                "label": "Negative (to date)",
-                "xAxisID": "x-total-sis",
-                "yAxisID": "y-total-sis",
-                "data": [8]
-              }
-            ]
-          },
-          "options": {
-            "scales": {
-              "xAxes": [
-                {
-                  "id": "x-total-sis",
-                  "stacked": true,
-                  "scaleLabel": {
-                    "labelString": "Number of SIs"
-                  },
-                  "ticks": {
-                    "min": 0,
-                    "max": 800,
-                    "stepSize": 200
-                  }
-                },
-                {
-                  "id": "x-monthly-sis",
-                  "type": "category",
-                  "position": "top",
-                  "labels": [
-                    "October",
-                    "November",
-                    "December",
-                    "January",
-                    "February",
-                    "March"
-                  ],
-                  "gridLines": {
-                    "color": "red"
-                  }
-                }
-              ],
-              "yAxes": [
-                {
-                  "id": "y-total-sis",
-                  "stacked": true
-                },
-                {
-                  "id": "y-monthly-sis",
-                  "scaleLabel": {
-                    "labelString": "Number of SIs"
-                  },
-                  "type": "linear",
-                  "position": "right",
-                  "ticks": {
-                    "stepSize": 25
-                  }
-                }
-              ]
-            }
-          },
-          "colors": [
-            {
-              "chartType": "line",
-              "palette": "Spectral"
+        <div class="chart__legend"></div>
+
+        <script class="chart__config" type="application/json">
+          {
+            "type": "<%= chart[:chart_type] %>",
+            "data": {
+              "datasets": <%= chart[:chart_data] %>
             },
-            {
-              "chartType": "horizontalBar",
-              "palette": ["yellow", "navy"]
-            }
-          ]
-        }
-      </script>
-    </div>
+            "options": <%= chart[:chart_options] %>,
+            "colors": <%= chart[:chart_colors] %>
+          }
+        </script>
+      </section>
+    <% end %>
   </div>
 </section>

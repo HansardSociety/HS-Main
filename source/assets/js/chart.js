@@ -81,7 +81,7 @@ def.tooltips.titleMarginBottom = rem50
 def.tooltips.bodyFontSize = rem675
 def.tooltips.bodyFontColor = white
 
-/* =Plugins
+/* =Global plugins
  ***************************************************************************/
 
 def.plugins.deferred = {
@@ -110,8 +110,7 @@ const pointStyles = [
 /* =Scale defaults
  ***************************************************************************/
 
-// Linear
-Chart.scaleService.updateScaleDefaults("linear", {
+const scalesConfig = {
   gridLines: {
     color: midGrey,
     zeroLineColor: midGrey
@@ -123,7 +122,10 @@ Chart.scaleService.updateScaleDefaults("linear", {
     fontColor: grey,
     fontFamily: ff02
   }
-});
+}
+
+Chart.scaleService.updateScaleDefaults("linear", scalesConfig)
+Chart.scaleService.updateScaleDefaults("category", scalesConfig)
 
 /* =Helpers
  ***************************************************************************/
@@ -143,7 +145,9 @@ function hexToRGBA(hex, alpha) {
 const renderCharts = () => {
   const elems = document.querySelectorAll(".chart")
 
-  for (let ctx of elems) {
+  elems.forEach(ctx => {
+    const chartID = ctx.dataset.chartID
+    console.log(chartID)
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
     const chartConfig = JSON.parse(ctx.querySelector(".chart__config").innerHTML)
 
@@ -182,7 +186,7 @@ const renderCharts = () => {
     /*  =Chart types
      *****************************************/
 
-    const isBar = type === "basr"
+    const isBar = type === "bar"
     const isHorizontalBar = type === "horizontalBar"
     const isLine = type === "line"
 
@@ -227,17 +231,18 @@ const renderCharts = () => {
     /*  =Datasets
      *****************************************/
 
+    // Modify colours
+    const modCol = col => {
+      if (col.match(/#f|#e/)) return chroma(col).darken(2).saturate(2).hex()
+      return chroma(col).saturate(1.5).hex()
+    }
+
     // Brewer colors
     const brewerColors = palette => {
       var evenColors = []
       var oddColors = []
 
       chroma.brewer[palette].forEach((hex, i) => {
-        const modCol = col => {
-          if (col.match(/#f|#e/)) return chroma(col).darken(2).saturate(2).hex()
-          return chroma(col).saturate(1.5).hex()
-        }
-
         if (i % 2) evenColors.push(modCol(hex))
         else oddColors.unshift(modCol(hex))
       })
@@ -245,27 +250,37 @@ const renderCharts = () => {
       return evenColors.reverse().concat(oddColors)
     }
 
-    const colorScale = (palette, range = 7, randomize = "randomize") => {
+    const colorScale = (options) => {
+
+      // Defaults
+      let {
+        palette = [brandGreen, lightGrey],
+        order = "random",
+        range = 5,
+        colorStops = false
+      } = options
+
       var scale = []
       var evenColors = []
       var oddColors = []
 
       let colors = chroma
         .scale(palette)
+        .domain(colorStops ? colorStops : [0, 100])
         .mode("lab")
         .colors(range)
 
-      if (randomize === "randomize") {
+      if (order === "random") {
         colors.forEach((col, i) => {
-          if (i % 2) evenColors.push(col)
-          else oddColors.unshift(col)
+          if (i % 2) evenColors.push(chroma(col).saturate(1.5).hex())
+          else oddColors.unshift(chroma(col).saturate(1.5).hex())
         })
 
         evenColors.reverse().concat(oddColors)
-          .forEach(col => scale.push(col))
+          .forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
 
       } else {
-        colors.forEach(col => scale.push(col))
+        colors.forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
       }
 
       return scale
@@ -280,7 +295,13 @@ const renderCharts = () => {
 
             // If colour range is set
             if (Array.isArray(color.palette)) {
-              dataset.backgroundColor = colorScale(color.palette)[i]
+              let colorConfig = {}
+              if (color.palette) colorConfig.palette = color.palette
+              if (color.randomize) colorConfig.randomize = color.randomize
+              if (color.range) colorConfig.range = color.range
+              if (color.colorStops) colorConfig.colorStops = color.colorStops
+              dataset.backgroundColor = colorScale(colorConfig)[i]
+
             } else {
               dataset.backgroundColor = brewerColors(color.palette)[i]
             }
@@ -317,24 +338,29 @@ const renderCharts = () => {
       }
     })
 
-    /*  =Plugins
+    /*  =Local plugins
      *****************************************/
 
-    options.annotation = {
-      annotations: [
-        {
-          type: "line",
-          mode: "horizontal",
-          scaleID: "y-monthly-sis",
-          value: 100,
-          borderColor: "red",
-          borderWidth: 2
+    if (options.annotation) options.annotation = options.annotation
+    if (options.annotation.annotations) {
+      const annotations = options.annotation.annotations
+      annotations.forEach(annotation => {
+        if (annotation.label && annotation.label.content) {
+          annotation.label.enabled = true
+          annotation.label.backgroundColor = "black"
+          annotation.label.fontColor = white
+          annotation.label.fontFamily = ff01
+          annotation.label.fontSize = rem675
+          annotation.label.xPadding = rem50
+          annotation.label.yPadding = rem50
+          annotation.label.cornerRadius = 8
+          annotation.label.borderWidth = 0
         }
-      ]
+      })
     }
 
     new Chart(chartCanvas, chartConfig)
-  }
+  })
 }
 
 document.addEventListener("DOMContentLoaded", () => renderCharts())
@@ -354,5 +380,6 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Avg line
  * [ ] Aut color palette
  * [ ] Labels plugin
+ * [ ] Separate annotatio box on cful
  * [ ] MUST add dataset type to all nested datasets regardless - good practice
  */

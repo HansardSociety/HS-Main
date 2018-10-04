@@ -1,4 +1,5 @@
 require "uri"
+require "json"
 
 $seperator = " > "
 
@@ -472,11 +473,12 @@ def panels(ctx, data)
           TYPE: data.content_type.id,
           title: data.title,
           caption: data.caption,
-          chart_type: data.chart_type.parameterize,
-          data: data.data[0].to_json.to_s,
-          options: data.options[0].to_json.to_s,
-          width: (data.width ? "#{ data.width }px" : "100%"),
-          scaling: (data.scaling ? data.scaling.parameterize : "responsive")
+          chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
+          chart_data: data.data.to_json.to_s,
+          chart_options: data.options[0].to_json.to_s,
+          chart_colors: data.colors.to_json.to_s,
+          chart_width: (data.width ? "#{ data.width }px" : "100%"),
+          chart_scaling: (data.scaling ? data.scaling.parameterize : "responsive")
         }
       end
 
