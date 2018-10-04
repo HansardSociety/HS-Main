@@ -129,16 +129,12 @@ Chart.scaleService.updateScaleDefaults("linear", {
  ***************************************************************************/
 
 // Hex to RGB
-function hexToRGB(hex, alpha) {
+function hexToRGBA(hex, alpha) {
   var r = parseInt(hex.slice(1, 3), 16),
       g = parseInt(hex.slice(3, 5), 16),
       b = parseInt(hex.slice(5, 7), 16);
 
-  if (alpha) {
-      return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
-  } else {
-      return "rgb(" + r + ", " + g + ", " + b + ")";
-  }
+  return `rgba(${r}, ${g}, ${b}, ${alpha}`
 }
 
 /* =Charts
@@ -163,7 +159,7 @@ const renderCharts = () => {
 
     // Tooltips
     options.tooltips = {}
-    options.tooltips.mode = "nearest"
+    options.tooltips.mode = "x"
     options.tooltips.position = "nearest"
     options.tooltips.callbacks = {
       title: () => {}, // hide title
@@ -186,6 +182,7 @@ const renderCharts = () => {
     /*  =Chart types
      *****************************************/
 
+    const isBar = type === "basr"
     const isHorizontalBar = type === "horizontalBar"
     const isLine = type === "line"
 
@@ -201,7 +198,6 @@ const renderCharts = () => {
             : axis.gridLines = gridCfg
         }
       })
-
       gridLines(options.scales.xAxes)
       gridLines(options.scales.yAxes, "dashed")
     }
@@ -219,7 +215,6 @@ const renderCharts = () => {
         // Unless defined, don't draw grid border for scales > 0
         if (index >= 1 && axis.gridLines && !axis.gridLines.drawBorder) {
           axis.gridLines.drawBorder = false
-
         } else {
           axis.gridLines.drawBorder = true
         }
@@ -232,23 +227,43 @@ const renderCharts = () => {
     /*  =Datasets
      *****************************************/
 
-    const colorPalette = chroma
-      .scale(chartConfig.colorPalette.range)
-      .mode('lch')
-      .colors(chartConfig.colorPalette.length)
+    // Darken light colors
+    const generateColors = palette => {
+      var colorPalette = []
 
-    console.log(colorPalette)
+      chroma.brewer[palette].forEach((hex, i) => {
+        if (i % 2) {
+          if (hex.match(/#f|#e/)) colorPalette.push(chroma(hex).darken(1).hex())
+          else colorPalette.push(hex)
 
-    data.datasets.forEach((dataset, index) => {
-      const datasetColorTheme = colorPalette[index]
+        } else {
+          if (hex.match(/#f|#e/)) colorPalette.unshift(chroma(hex).darken(1).hex())
+          else colorPalette.unshift(hex)
+        }
+      })
 
-      if (!dataset.backgroundColor) dataset.backgroundColor = datasetColorTheme
+      return colorPalette
+    }
+
+    data.datasets.forEach((dataset, datasetIndex) => {
+
+      var datasetColor = ""
+      chartConfig.colors.forEach(col => {
+        if (dataset.type === col.chartType) {
+          datasetColor = generateColors(col.palette)[datasetIndex]
+        }
+      })
+
+      if (!dataset.backgroundColor) dataset.backgroundColor = datasetColor
 
       dataset.borderWidth = strokeWidth
+
+      dataset.hoverBackgroundColor = dataset.backgroundColor
 
       // If no border is defined add one to == bgc
       if (dataset.backgroundColor && !dataset.borderColor) {
         dataset.borderColor = dataset.backgroundColor
+        dataset.hoverBorderColor = dataset.backgroundColor
       }
 
       // Set dataset type defaults
@@ -263,7 +278,7 @@ const renderCharts = () => {
         if (!dataset.fill) dataset.fill = false
         else {
           dataset.fill = true
-          dataset.backgroundColor = hexToRGB(dataset.backgroundColor, 0.125)
+          dataset.backgroundColor = hexToRGBA(dataset.backgroundColor, 0.125)
         }
       }
     })
@@ -305,5 +320,5 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Avg line
  * [ ] Aut color palette
  * [ ] Labels plugin
- * [ ]
+ * [ ] MUST add dataset type to all nested datasets regardless - good practice
  */

@@ -29,6 +29,8 @@ const bannerHeight = (() => {
   if (bannerSemi) {
     bannerImg.style.height = `${ windowHeight }rem`
   }
+
+  console.log(`Aspect ratio = ${screen.width / screen.height}`)
 })()
 
 export { bannerHeight }
