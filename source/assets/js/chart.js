@@ -2,7 +2,7 @@ import Chart from "chart.js"
 
 import "chartjs-plugin-deferred"
 import "chartjs-plugin-annotation"
-import "chartjs-plugin-labels"
+import "chartjs-plugin-datalabels"
 
 import chroma from "chroma-js"
 import siteConfig from "./shared-config.json"
@@ -37,9 +37,11 @@ const dashes = [6, 3]
 // Sizes
 const rem100 = 18
 const rem150 = 18 * 1.5
-const rem75 = rem100 * .75
-const rem675 = rem100 * .675
-const rem50 = rem100 * .5
+const rem125 = 18 * 1.25
+const rem075 = rem100 * .75
+const rem0675 = rem100 * .675
+const rem050 = rem100 * .5
+const rem025 = rem100 * .25
 
 /* =Global config
  ***************************************************************************/
@@ -48,7 +50,7 @@ const def = Chart.defaults.global
 
 // Core
 def.defaultFontFamily = ff01;
-def.defaultFontSize = rem675;
+def.defaultFontSize = rem0675;
 def.defaultFontColor = black;
 
 // Animations
@@ -74,22 +76,30 @@ def.tooltips.backgroundColor = black
 def.tooltips.bodySpacing = 4
 def.tooltips.caretSize = 0
 def.tooltips.cornerRadius = 8
-def.tooltips.xPadding = rem50
-def.tooltips.yPadding = rem50
+def.tooltips.xPadding = rem050
+def.tooltips.yPadding = rem050
 def.tooltips.multiKeyBackground = white
 def.tooltips.borderColor = white
-def.tooltips.titleMarginBottom = rem50
-def.tooltips.bodyFontSize = rem675
+def.tooltips.titleMarginBottom = rem050
+def.tooltips.bodyFontSize = rem0675
 def.tooltips.bodyFontColor = white
 
 /* =Global plugins
  ***************************************************************************/
+
+/*  =Deferred
+ *****************************************/
 
 def.plugins.deferred = {
   enabled: true,
   xOffset: "50%",
   delay: 250
 }
+
+/*  =Data labels
+ *****************************************/
+
+def.plugins.datalabels = false
 
 /*  =Points
  *****************************************/
@@ -147,7 +157,6 @@ const renderCharts = () => {
   const elems = document.querySelectorAll(".chart")
 
   elems.forEach(ctx => {
-    const chartID = ctx.dataset.chartID
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
     const chartConfig = JSON.parse(ctx.querySelector(".chart__config").innerHTML)
 
@@ -311,12 +320,14 @@ const renderCharts = () => {
 
     if (chartConfig.colors) {
       chartConfig.colors.forEach(color => {
-        let matchDataset = data.datasets.filter(ds => ds.type === color.chartType)
+        let matchedDatasetColorID = data.datasets.filter(ds => ds.datasetColorID === color.datasetColorID)
 
-        matchDataset.forEach((dataset, i) => {
+        console.log(matchedDatasetColorID)
+
+        matchedDatasetColorID.forEach((dataset, i) => {
           if (!dataset.backgroundColor) {
 
-            // If colour range is set
+            // If custom colour palette array/range, else breweer...
             if (Array.isArray(color.palette)) {
               let colorConfig = {}
               if (color.palette) colorConfig.palette = color.palette
@@ -324,12 +335,23 @@ const renderCharts = () => {
               if (color.range) colorConfig.range = color.range
               if (color.colorStops) colorConfig.colorStops = color.colorStops
 
-              if (matchDataset.length > 1) dataset.backgroundColor = colorScale(colorConfig)[i]
-              else dataset.backgroundColor = colorScale(colorConfig)
+              if (matchedDatasetColorID.length > 1) {
+                if (isDoughnut) dataset.backgroundColor = colorScale(colorConfig)
+                else dataset.backgroundColor = colorScale(colorConfig)[i]
+
+              } else {
+                dataset.backgroundColor = colorScale(colorConfig)
+              }
 
             } else {
-              if (matchDataset.length > 1) dataset.backgroundColor = brewerColors(color.palette)[i]
-              else dataset.backgroundColor = brewerColors(color.palette)
+              if (matchedDatasetColorID.length > 1) {
+                if (isDoughnut) dataset.backgroundColor = brewerColors(color.palette)
+                else dataset.backgroundColor = brewerColors(color.palette)[i]
+
+              } else {
+                if (isDoughnut) dataset.backgroundColor = brewerColors(color.palette)
+                else dataset.backgroundColor = brewerColors(color.palette)[i]
+              }
             }
           }
         })
@@ -367,6 +389,9 @@ const renderCharts = () => {
     /*  =Local plugins
      *****************************************/
 
+    options.plugins = {}
+
+    // Annotations
     if (options.annotation) options.annotation = options.annotation
     if (options.annotation && options.annotation.annotations) {
       const annotations = options.annotation.annotations
@@ -377,13 +402,46 @@ const renderCharts = () => {
           annotation.label.fontColor = white
           annotation.label.fontWeight = "normal"
           annotation.label.fontFamily = ff01
-          annotation.label.fontSize = rem675
-          annotation.label.xPadding = rem50
-          annotation.label.yPadding = rem50
+          annotation.label.fontSize = rem0675
+          annotation.label.xPadding = rem050
+          annotation.label.yPadding = rem050
           annotation.label.cornerRadius = 8
           annotation.label.borderWidth = 0
         }
       })
+    }
+
+    // Data labels
+    if (isDoughnut) {
+      options.plugins.datalabels = {
+        display: true,
+        // display: function(context) {
+        //   var dataset = context.dataset;
+        //   var count = dataset.data.length;
+        //   var value = dataset.data[context.dataIndex];
+        //   console.log(value)
+        //   return value > count * 1.5;
+        // },
+        backgroundColor: function(context) {
+          return context.dataset.backgroundColor;
+        },
+        anchor: "end",
+        color: white,
+        borderColor: white,
+        borderRadius: 25,
+        borderWidth: strokeWidth,
+        font: {
+          size: rem075,
+          family: ff02
+        },
+        textAlign: "center",
+        padding: {
+          top: rem025,
+          right: rem050,
+          bottom: rem025,
+          left: rem050
+        }
+      }
     }
 
     new Chart(chartCanvas, chartConfig)
@@ -405,8 +463,8 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Create DO NOT AMEND JSON options
  * [x] Border skipped
  * [ ] Avg line
- * [ ] Aut color palette
- * [ ] Labels plugin
- * [ ] Separate annotatio box on cful
+ * [x] Aut color palette
+ * [x] Labels plugin
  * [ ] MUST add dataset type to all nested datasets regardless - good practice
+ * [ ] Cleanup color functions/palettes
  */
