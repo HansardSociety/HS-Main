@@ -229,7 +229,7 @@
     border: 2px solid Get($colorGroups, white, 3) !important;
     outline: none;
 
-    @extend .label-xs;
+    @extend .label-xxs;
     @extend %e-rad-slight;
   }
 
@@ -269,7 +269,7 @@
 
 .search__clear-link {
   @extend .link;
-  @extend .label-xs;
+  @extend .label-xxs;
   @extend %e-display-inline;
 }
 

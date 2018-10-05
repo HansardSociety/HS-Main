@@ -99,7 +99,7 @@ formPages = [{
         icon: "ios-cart",
         size: "xs" } %>
 
-    <h3 class="label-xs e-mgn-b-sm">Basket</h3>
+    <h3 class="label-xxs e-mgn-b-sm">Basket</h3>
   </div>
   <p class="form__head-product-name">
     <strong>Item:</strong>
@@ -151,7 +151,7 @@ formPages = [{
           </div>
 
         <% end; if page[:page] == "shipping" %>
-          <h3 class="label-xs e-col-brand-green-1">Postage and packaging rates</h3>
+          <h3 class="label-xxs e-col-brand-green-1">Postage and packaging rates</h3>
           <div class="e-fz-xs  e-mgn-b-sm">
             <p><strong>United Kindom: </strong><small>GBP</small> £5.00</p>
             <p><strong>International: </strong><small>GBP</small> £10.00</p>
@@ -160,7 +160,7 @@ formPages = [{
 
           <label
             for="<%= field[:id] %>"
-            class="form__label label-xs"><%= field[:label] %>
+            class="form__label label-xxs"><%= field[:label] %>
           </label>
 
           <% if field[:id] == "quantity" %>
@@ -217,7 +217,7 @@ formPages = [{
         page[:fields].each do |field|
 
           if field.class != Hash %>
-            <label class="form__label label-xs" for="<%= field %>">
+            <label class="form__label label-xxs" for="<%= field %>">
               <%= field.capitalize.gsub("-", " ") %>
             </label>
             <div class="form__field" id="<%= field %>"></div>
@@ -225,7 +225,7 @@ formPages = [{
           <% else %>
             <label
               for="<%= field[:id] %>"
-              class="form__label label-xs"><%= field[:label] %>
+              class="form__label label-xxs"><%= field[:label] %>
             </label>
             <input
               name="<%= field[:id] %>"

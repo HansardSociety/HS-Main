@@ -62,8 +62,8 @@
 
 @each $colorName, $colorShades in $colorGroups {
 
-  $color1: Get($colorShades, 1);
-  $color2: Get($colorShades, 2);
+  $color1: Get($colorShades, 2);
+  $color2: Get($colorShades, 3);
 
   .e-bg-grad-#{ $colorName } {
     background: $color2;

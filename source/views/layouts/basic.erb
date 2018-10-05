@@ -20,9 +20,9 @@
 <title></title>
 
 <%# Styles %>
-<% [config[:CSS_VENDOR], config[:CSS_APP]].each do |stylesheet| %>
-  <link rel="stylesheet" href="<%= assetsDir %><%= stylesheet %>"/>
-<% end %>
+<link rel="stylesheet" href="<%= assetsDir %><%= config[:CSS_VENDOR] %>">
+<link rel="stylesheet" href="<%= assetsDir %><%= config[:CSS_APP] %>">
+
 
 <!--**********************************************
     =SEO etc

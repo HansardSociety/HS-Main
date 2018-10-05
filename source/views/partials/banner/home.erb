@@ -5,7 +5,7 @@ entryData = local_data[:entry_data]
 <header class="banner JS-banner--full">
   <div class="carousel">
     <div class="carousel__inner carousel__inner--banner">
-      <div class="carousel__item carousel__item--banner" style="height: 87.5vh;">
+      <div class="carousel__item carousel__item--banner" style="height: 90vh;">
         <%= partial "views/partials/banner/image",
           locals: { local_data: {
             entry_data: entryData }} %>
@@ -37,7 +37,7 @@ entryData = local_data[:entry_data]
           <div class="banner__inner banner__inner--lp">
             <div class="banner__content banner__content--lp">
 
-              <span class="label-xs label-tag e-acc-<%= catColor(page[:category]) %>-2"><%= page[:meta_label] %></span>
+              <span class="label-xxs label-tag e-acc-<%= catColor(page[:category]) %>-2"><%= page[:meta_label] %></span>
 
               <h2
                 class="banner__title title-lg e-mgn-b-sm e-mgn-t-xs JS-truncate"

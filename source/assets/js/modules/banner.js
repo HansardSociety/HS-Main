@@ -7,28 +7,30 @@ const bannerHeight = (() => {
   const bannerHome = document.querySelectorAll(".JS-banner--full .carousel__item")
 
   if (matchMedia("screen and (min-width: 600px)").matches) {
-    var vhLg = windowHeight * .825
-    var vhMd = windowHeight * .825
+    var vhLg = Math.ceil((windowHeight * .9) / 18)
+    var vhMd = Math.ceil((windowHeight * .9) / 18)
 
   } else {
-    var vhLg = windowHeight
-    var vhMd = windowHeight - 8
+    var vhLg = Math.ceil(windowHeight / 18)
+    var vhMd = Math.ceil(windowHeight / 18)
   }
 
 
-  if (bannerFull) bannerFull.style.height = `${ vhLg }px`
-  if (bannerSemi) bannerSemi.style.height = `${ vhMd }px`
+  if (bannerFull) bannerFull.style.height = `${ vhLg }rem`
+  if (bannerSemi) bannerSemi.style.height = `${ vhLg }rem`
 
   // Home banner
   if (bannerHome) {
     for (let carouselItem of bannerHome) {
-      carouselItem.style.height = `${ vhLg }px`
+      carouselItem.style.height = `${ vhLg }rem`
     }
   }
 
   if (bannerSemi) {
     bannerImg.style.height = `${ windowHeight }px`
   }
+
+  console.log(`Aspect ratio = ${screen.width / screen.height}`)
 })()
 
 export { bannerHeight }

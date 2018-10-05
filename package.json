@@ -73,7 +73,12 @@
   "dependencies": {
     "blazy": "^1.8.2",
     "braintree-web": "^3.31.0",
-    "chartist": "^0.11.0",
+    "chart.js": "^2.7.2",
+    "chartjs-plugin-annotation": "^0.5.7",
+    "chartjs-plugin-datalabels": "^0.4.0",
+    "chartjs-plugin-deferred": "^1.0.1",
+    "chartjs-plugin-labels": "^1.1.0",
+    "chroma-js": "^1.4.0",
     "core-js": "^2.5.1",
     "flickity": "^2.0.10",
     "infinite-scroll": "^3.0.2",

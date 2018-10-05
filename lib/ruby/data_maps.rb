@@ -1,4 +1,5 @@
 require "uri"
+require "json"
 
 $seperator = " > "
 
@@ -356,6 +357,7 @@ def panels(ctx, data)
     isPanelCarouselCategory = panel.content_type.id == "panel_carousel_category"
     isPanelContent = panel.content_type.id == "panel_content"
     isPanelFeed = panel.content_type.id == "panel_feed"
+    isPanelChart = panel.content_type.id == "panel_chart"
     isPanelHeader = panel.content_type.id == "panel_header"
     isPanelIcons = panel.content_type.id == "panel_icons"
 
@@ -365,6 +367,7 @@ def panels(ctx, data)
     panelCarouselCategory = {}
     panelContent = {}
     panelFeed = {}
+    panelChart = {}
     panelIcons = {}
 
     ##		=Core
@@ -374,16 +377,21 @@ def panels(ctx, data)
     panelShared = {
       ID: panel.sys[:id],
       TYPE: panel.content_type.id,
-      background_color: (panel.background_color.parameterize if !isPanelAccordians),
-      calls_to_action: callsToAction(panel),
+      background_color: (panel.background_color.parameterize if !isPanelAccordians && !isPanelChart),
+      calls_to_action: (callsToAction(panel) if !isPanelChart),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
       image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
-      title: panel.title,
-      show_title: (panel.show_title if isPanelBand || isPanelContent || isPanelFeed || isPanelIcons),
+      title: panel.title
     }.compact
 
+    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed || isPanelIcons
+      panelShared.merge!({
+        show_title: panel.show_title
+      }.compact)
+    end
+
     if isPanelContent || isPanelBand
-      panelShared.merge({
+      panelShared.merge!({
         image: (media(panel.image) if defined?(panel.image) && panel.image != nil),
         image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil),
         heading_level: (defined?(panel.heading_level) && panel.heading_level != nil ? panel.heading_level.parameterize : "level-2"),
@@ -455,6 +463,31 @@ def panels(ctx, data)
       }.compact
     end
 
+    ##		=Chart
+    ########################################
+
+    if isPanelChart
+      def chartData(data)
+        {
+          ID: data.sys[:id],
+          TYPE: data.content_type.id,
+          title: data.title,
+          caption: data.caption,
+          chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
+          chart_data: data.data.to_json.to_s,
+          chart_options: data.options[0].to_json.to_s,
+          chart_colors: data.colors.to_json.to_s,
+          chart_width: (data.width ? "#{ data.width }px" : "100%"),
+          chart_scaling: (data.scaling ? data.scaling.parameterize : "responsive")
+        }
+      end
+
+      panelChart = {
+        charts_row_1: panel.charts_row_1.map{|chart| chartData(chart)},
+        charts_row_2: (panel.charts_row_2.map{|chart| chartData(chart)} if panel.charts_row_2)
+      }
+    end
+
     ##		=Content
     ########################################
 
@@ -507,6 +540,7 @@ def panels(ctx, data)
       **panelCarouselCustom,
       **panelContent,
       **panelFeed,
+      **panelChart,
       **panelIcons
     ).compact
   end

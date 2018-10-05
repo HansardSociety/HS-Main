@@ -1,4 +1,4 @@
-import  {toggleClass} from "./core"
+import {toggleClass} from "./core"
 import instantSearch from "instantsearch.js/dist/instantsearch"
 import Blazy from "blazy"
 import debounce from "lodash/debounce"
@@ -6,7 +6,7 @@ import debounce from "lodash/debounce"
 const blazy = new Blazy
 
 function template(templateName) {
-  return document.querySelector(`#search-template-${templateName}`).innerHTML;
+  return document.querySelector(`#search-template-${templateName}`).innerHTML.replace(/`/g, "");
 }
 
 const algoliaSearch = (() => {
