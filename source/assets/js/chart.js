@@ -1,7 +1,7 @@
 import Chart from "chart.js"
 
 import "chartjs-plugin-deferred"
-import "chartjs-plugin-labels"
+// import "chartjs-plugin-labels"
 import "chartjs-plugin-annotation"
 import "chartjs-plugin-datalabels"
 
@@ -186,7 +186,7 @@ const renderCharts = () => {
         palette = [brandGreen, lightGrey],
         order = "random",
         range = 5,
-        colorStops = false
+        padding = false
       } = options
 
       var scale = []
@@ -195,7 +195,8 @@ const renderCharts = () => {
 
       let colors = chroma
         .scale(palette)
-        .domain(colorStops ? colorStops : [0, 100])
+        .padding(padding ? padding: [0, 1])
+        .padding(.25, 1)
         .mode("lab")
         .colors(range)
 
@@ -214,52 +215,37 @@ const renderCharts = () => {
       return scale
     }
 
-    /*  =Dataset colors: Create
-     *****************************************/
+    data.datasets.forEach((dataset, datasetIndex) => {
+      const isDatasetDoughnut = dataset.type && dataset.type === "doughnut"
+      const isDatasetLine = dataset.type && dataset.type === "line"
 
-    if (chartConfig.colors) {
-      chartConfig.colors.forEach(color => {
-        let matchedDatasetColorID = data.datasets.filter(ds => ds.datasetColorID === color.datasetColorID)
+      /*  =Dataset: Set colors
+       *****************************************/
 
-        matchedDatasetColorID.forEach((dataset, i) => {
-          if (!dataset.backgroundColor) {
+      if (chartConfig.colors) {
+        chartConfig.colors.forEach(color => {
+          if (color.datasetColorID === dataset.datasetColorID) {
+            if (!dataset.backgroundColor) {
 
-            // If custom colour palette array/range, else breweer...
-            if (Array.isArray(color.palette)) {
-              let colorConfig = {}
-              if (color.palette) colorConfig.palette = color.palette
-              if (color.randomize) colorConfig.randomize = color.randomize
-              if (color.range) colorConfig.range = color.range
-              if (color.colorStops) colorConfig.colorStops = color.colorStops
+              // If custom colour palette array/range, else breweer...
+              if (color.palette.constructor === Array) {
+                let colorConfig = {}
+                if (color.palette) colorConfig.palette = color.palette
+                if (color.randomize) colorConfig.randomize = color.randomize
+                if (color.range) colorConfig.range = color.range
+                if (color.padding) colorConfig.colorStops = color.colorStops
+                dataset.backgroundColor = colorScale(colorConfig)[datasetIndex]
 
-              if (matchedDatasetColorID.length > 1) {
-                if (isDoughnut) dataset.backgroundColor = colorScale(colorConfig)
-                else dataset.backgroundColor = colorScale(colorConfig)[i]
-
+                console.log(colorConfig)
               } else {
-                dataset.backgroundColor = colorScale(colorConfig)
-              }
-
-            } else {
-              if (matchedDatasetColorID.length > 1) {
-                if (isDoughnut) dataset.backgroundColor = brewerColors(color.palette)
-                else dataset.backgroundColor = brewerColors(color.palette)[i]
-
-              } else {
-                if (isDoughnut) dataset.backgroundColor = brewerColors(color.palette)
-                else dataset.backgroundColor = brewerColors(color.palette)[i]
+                dataset.backgroundColor = brewerColors(color.palette)[datasetIndex]
               }
             }
           }
         })
-      })
-    }
+      }
 
-    data.datasets.forEach(dataset => {
-      const isDatasetDoughnut = dataset.type && dataset.type === "doughnut"
-      const isDatasetLine = dataset.type && dataset.type === "line"
-
-      /*  =Dataset: styles
+      /*  =Dataset: Apply colors
       *****************************************/
 
       dataset.borderWidth = strokeWidth
@@ -291,12 +277,6 @@ const renderCharts = () => {
           dataset.fill = true
           dataset.backgroundColor = hexToRGBA(dataset.backgroundColor, 0.125)
         }
-      }
-
-      /*  =Dataset: Plugins
-      *****************************************/
-
-      if (isDatasetDoughnut) {
       }
     })
 
@@ -359,30 +339,26 @@ const renderCharts = () => {
      *****************************************/
 
     if (isDoughnut) {
+      options.cutoutPercentage = 33.3333 // Cutout
 
-      // Legend
-      options.legend = false
-
-      // Cutout
-      options.cutoutPercentage = 25
-
-      // Tooltips: doughnut
+      // Tooltips: Doughnut
       options.tooltips.callbacks = {
         title: (item, data) => {
-          const dataset = data.datasets[item[0].datasetIndex]
-          return dataset.title
+          // const dataset = data.datasets[item[0].datasetIndex]
+          // return dataset.title
         },
         label: (item, data) => {
           const dataset = data.datasets[item.datasetIndex]
           const value = dataset.data[item.index]
-          const label = dataset.datasetLabels[item.index]
+          // const label = dataset.datasetLabels[item.index]
+          // console.log(dataset)
 
           var total = 0
           dataset.data.forEach(item => total += item)
 
           const percent = `${((value / total) * 100).toFixed(1)}`.replace(".0", "")
 
-          return ` ${label}: ${value} (${percent}%)`
+          return ` : ${value} (${percent}%)`
         }
       }
     }
@@ -471,8 +447,8 @@ const renderCharts = () => {
   })
 }
 
-// document.addEventListener("DOMContentLoaded", () => renderCharts())
-renderCharts()
+document.addEventListener("DOMContentLoaded", () => renderCharts())
+// renderCharts()
 /**
  * TODOs:
  * [x] Tooltip font size
@@ -492,4 +468,5 @@ renderCharts()
  * [ ] MUST add dataset type to all nested datasets regardless - good practice
  * [ ] Cleanup color functions/palettes
  * [ ] How to use section in post, eg. turn off legends
+ * [ ] Note: Padding always light to dark
  */
