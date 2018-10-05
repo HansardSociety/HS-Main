@@ -1,6 +1,7 @@
 import Chart from "chart.js"
 
 import "chartjs-plugin-deferred"
+import "chartjs-plugin-labels"
 import "chartjs-plugin-annotation"
 import "chartjs-plugin-datalabels"
 
@@ -96,27 +97,12 @@ def.plugins.deferred = {
   delay: 250
 }
 
-/*  =Data labels
+// def.plugins.labels = false
+
+/*  =Labels/ Data labels
  *****************************************/
 
 def.plugins.datalabels = false
-
-/*  =Points
- *****************************************/
-
-// Point styles
-const pointStyles = [
-  "circle",
-  "cross",
-  "crossRot",
-  "dash",
-  "line",
-  "rect",
-  "rectRounded",
-  "rectRot",
-  "star",
-  "triangle"
-]
 
 /* =Scale defaults
  ***************************************************************************/
@@ -155,8 +141,7 @@ function hexToRGBA(hex, alpha) {
 
 const renderCharts = () => {
   const elems = document.querySelectorAll(".chart")
-
-  elems.forEach(ctx => {
+  elems.forEach((ctx, ctxIndex) => {
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
     const chartConfig = JSON.parse(ctx.querySelector(".chart__config").innerHTML)
 
@@ -169,101 +154,13 @@ const renderCharts = () => {
     const isHorizontalBar = type === "horizontalBar"
     const isLine = type === "line"
 
-    /*  =Options
+    /* =Datasets
+     ***************************************************************************/
+
+    /*  =Dataset colors: helpers
      *****************************************/
 
-    // Aspect ratio
-    if (options && options.aspectRatio) options.maintainAspectRatio = true
-
-    // Tooltips
-    options.tooltips = {}
-    options.tooltips.mode = isDoughnut ? "nearest" : "x"
-    options.tooltips.position = "nearest"
-
-    // Tooltips: line, horizontalBar
-    if (isLine || isHorizontalBar) {
-      options.tooltips.callbacks = {
-        title: () => {}, // hide title
-        label: (items, data) => {
-          let item = data.datasets[items.datasetIndex]
-
-          if (item.data[items.index].x) {
-            return ` ${item.label} (${item.data[items.index].x}: ${item.data[items.index].y})`
-          }
-          return ` ${item.label} (${item.data[items.index]})`
-        },
-        labelColor: (items, chart) => {
-          let item = chart.data.datasets[items.datasetIndex]
-
-          return {
-            backgroundColor: item.backgroundColor
-          }
-        }
-      }
-    }
-
-    // Tooltips: doughnut
-    if (isDoughnut) {
-      options.tooltips.callbacks = {
-        label: (item, data) => {
-          const dataset = data.datasets[item.datasetIndex]
-          const label = data.labels[item.index]
-          const value = dataset.data[item.index]
-
-          var total = 0
-          dataset.data.forEach(item => total += item)
-          const percent = Math.round((value / total) * 100)
-
-          return ` ${label}: ${value} (${percent}%)`
-        }
-      }
-    }
-
-    /*  =Chart types
-     *****************************************/
-
-    if (isHorizontalBar || isLine) {
-      const gridLines = (axes, dashed) => axes.forEach(axis => {
-        if (!axis.gridLines) {
-          let gridCfg = {
-            display: true,
-            color: offWhite
-          }
-          dashed === "dashed"
-            ? axis.gridLines = Object.assign({}, gridCfg, { borderDash: dashes })
-            : axis.gridLines = gridCfg
-        }
-      })
-      gridLines(options.scales.xAxes)
-      gridLines(options.scales.yAxes, "dashed")
-    }
-
-    // Scales loop
-    if (options.scales) {
-      const scales = axes => axes.forEach((axis, index) => {
-
-        // Show/modify scaleLabel if defined
-        if (axis.scaleLabel && axis.scaleLabel.labelString) {
-          axis.scaleLabel.display = true
-          axis.scaleLabel.labelString = `← ${axis.scaleLabel.labelString} →`
-        }
-
-        // Unless defined, don't draw grid border for scales > 0
-        if (index >= 1 && axis.gridLines && !axis.gridLines.drawBorder) {
-          axis.gridLines.drawBorder = false
-        } else {
-          axis.gridLines.drawBorder = true
-        }
-      })
-
-      scales(options.scales.xAxes)
-      scales(options.scales.yAxes)
-    }
-
-    /*  =Datasets
-     *****************************************/
-
-    // Modify colours
+    // Modify colors
     const modCol = col => {
       if (col.match(/#f|#e/)) return chroma(col).darken(2).saturate(2).hex()
       return chroma(col).saturate(1.5).hex()
@@ -274,15 +171,15 @@ const renderCharts = () => {
       var evenColors = []
       var oddColors = []
 
-      chroma.brewer[palette].forEach((hex, i) => {
-        if (i % 2) evenColors.push(modCol(hex))
-        else oddColors.unshift(modCol(hex))
-      })
+      chroma.brewer[palette].forEach((hex, i) => i % 2
+        ? evenColors.push(modCol(hex))
+        : oddColors.unshift(modCol(hex)))
 
       return evenColors.reverse().concat(oddColors)
     }
 
-    const colorScale = (options) => {
+    // Color scale
+    const colorScale = options => {
 
       // Defaults
       let {
@@ -303,10 +200,9 @@ const renderCharts = () => {
         .colors(range)
 
       if (order === "random") {
-        colors.forEach((col, i) => {
-          if (i % 2) evenColors.push(chroma(col).saturate(1.5).hex())
-          else oddColors.unshift(chroma(col).saturate(1.5).hex())
-        })
+        colors.forEach((col, i) => i % 2
+          ? evenColors.push(chroma(col).saturate(1.5).hex())
+          : oddColors.unshift(chroma(col).saturate(1.5).hex()))
 
         evenColors.reverse().concat(oddColors)
           .forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
@@ -318,11 +214,12 @@ const renderCharts = () => {
       return scale
     }
 
+    /*  =Dataset colors: Create
+     *****************************************/
+
     if (chartConfig.colors) {
       chartConfig.colors.forEach(color => {
         let matchedDatasetColorID = data.datasets.filter(ds => ds.datasetColorID === color.datasetColorID)
-
-        console.log(matchedDatasetColorID)
 
         matchedDatasetColorID.forEach((dataset, i) => {
           if (!dataset.backgroundColor) {
@@ -359,18 +256,29 @@ const renderCharts = () => {
     }
 
     data.datasets.forEach(dataset => {
+      const isDatasetDoughnut = dataset.type && dataset.type === "doughnut"
+      const isDatasetLine = dataset.type && dataset.type === "line"
+
+      /*  =Dataset: styles
+      *****************************************/
 
       dataset.borderWidth = strokeWidth
       dataset.hoverBackgroundColor = dataset.backgroundColor
 
       // If no border is defined add one to == bgc
       if (dataset.backgroundColor && !dataset.borderColor) {
-        dataset.borderColor = dataset.backgroundColor
-        dataset.hoverBorderColor = dataset.backgroundColor
+        if (isDatasetDoughnut) {
+          dataset.borderColor = white
+          dataset.hoverBorderColor = white
+
+        } else {
+          dataset.borderColor = dataset.backgroundColor
+          dataset.hoverBorderColor = dataset.backgroundColor
+        }
       }
 
       // Set dataset type defaults
-      if (dataset.type && dataset.type === "line") {
+      if (isDatasetLine) {
         if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = white
         if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = white
         if (!dataset.pointRadius) dataset.pointRadius = 5
@@ -384,14 +292,134 @@ const renderCharts = () => {
           dataset.backgroundColor = hexToRGBA(dataset.backgroundColor, 0.125)
         }
       }
+
+      /*  =Dataset: Plugins
+      *****************************************/
+
+      if (isDatasetDoughnut) {
+      }
     })
 
-    /*  =Local plugins
+    /* =Options
+     ***************************************************************************/
+
+    // Aspect ratio
+    if (options && options.aspectRatio) options.maintainAspectRatio = true
+
+    /*  =Options: Tooltips
      *****************************************/
+
+    // General
+    options.tooltips = {}
+    options.tooltips.mode = isDoughnut ? "nearest" : "x"
+    options.tooltips.position = "average"
+
+    /*  =Options: Line / horizontal bar
+     *****************************************/
+
+    if (isLine || isHorizontalBar) {
+
+      // Tooltips
+      options.tooltips.callbacks = {
+        title: () => {}, // hide title
+        label: (items, data) => {
+          let item = data.datasets[items.datasetIndex]
+
+          if (item.data[items.index].x) {
+            return ` ${item.label} (${item.data[items.index].x}: ${item.data[items.index].y})`
+          }
+          return ` ${item.label} (${item.data[items.index]})`
+        },
+        labelColor: (items, chart) => {
+          let item = chart.data.datasets[items.datasetIndex]
+
+          return {
+            backgroundColor: item.backgroundColor
+          }
+        }
+      }
+
+      // Grid lines
+      const gridLines = (axes, dashed) => axes.forEach(axis => {
+        if (!axis.gridLines) {
+          let gridCfg = {
+            display: true,
+            color: offWhite
+          }
+          dashed === "dashed"
+            ? axis.gridLines = Object.assign({}, gridCfg, { borderDash: dashes })
+            : axis.gridLines = gridCfg
+        }
+      })
+      gridLines(options.scales.xAxes)
+      gridLines(options.scales.yAxes, "dashed")
+    }
+
+    /*  =Options: Doughnut
+     *****************************************/
+
+    if (isDoughnut) {
+
+      // Legend
+      options.legend = false
+
+      // Cutout
+      options.cutoutPercentage = 25
+
+      // Tooltips: doughnut
+      options.tooltips.callbacks = {
+        title: (item, data) => {
+          const dataset = data.datasets[item[0].datasetIndex]
+          return dataset.title
+        },
+        label: (item, data) => {
+          const dataset = data.datasets[item.datasetIndex]
+          const value = dataset.data[item.index]
+          const label = dataset.datasetLabels[item.index]
+
+          var total = 0
+          dataset.data.forEach(item => total += item)
+
+          const percent = `${((value / total) * 100).toFixed(1)}`.replace(".0", "")
+
+          return ` ${label}: ${value} (${percent}%)`
+        }
+      }
+    }
+
+    /*  =Options: Gridlines
+     *****************************************/
+
+    // Scales loop
+    if (options.scales) {
+      const scales = axes => axes.forEach((axis, index) => {
+
+        // Show/modify scaleLabel if defined
+        if (axis.scaleLabel && axis.scaleLabel.labelString) {
+          axis.scaleLabel.display = true
+          axis.scaleLabel.labelString = `← ${axis.scaleLabel.labelString} →`
+        }
+
+        // Unless defined, don't draw grid border for scales > 0
+        if (index >= 1 && axis.gridLines && !axis.gridLines.drawBorder) {
+          axis.gridLines.drawBorder = false
+        } else {
+          axis.gridLines.drawBorder = true
+        }
+      })
+
+      scales(options.scales.xAxes)
+      scales(options.scales.yAxes)
+    }
+
+    /* =Options: Plugins
+     ***************************************************************************/
 
     options.plugins = {}
 
-    // Annotations
+    /*  =Plugins: Annotation
+     *****************************************/
+
     if (options.annotation) options.annotation = options.annotation
     if (options.annotation && options.annotation.annotations) {
       const annotations = options.annotation.annotations
@@ -411,20 +439,15 @@ const renderCharts = () => {
       })
     }
 
-    // Data labels
+    /*  =Plugins: Doughnut
+     *****************************************/
+
     if (isDoughnut) {
+
+      // Data labels
       options.plugins.datalabels = {
         display: true,
-        // display: function(context) {
-        //   var dataset = context.dataset;
-        //   var count = dataset.data.length;
-        //   var value = dataset.data[context.dataIndex];
-        //   console.log(value)
-        //   return value > count * 1.5;
-        // },
-        backgroundColor: function(context) {
-          return context.dataset.backgroundColor;
-        },
+        backgroundColor: context => context.dataset.backgroundColor,
         anchor: "end",
         color: white,
         borderColor: white,
@@ -448,11 +471,12 @@ const renderCharts = () => {
   })
 }
 
-document.addEventListener("DOMContentLoaded", () => renderCharts())
-
+// document.addEventListener("DOMContentLoaded", () => renderCharts())
+renderCharts()
 /**
  * TODOs:
  * [x] Tooltip font size
+ * [ ] Rotate nner doughnut
  * [x] Grid font size
  * [x] Base grid-line style
  * [x] Axes label color grey
@@ -467,4 +491,5 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [x] Labels plugin
  * [ ] MUST add dataset type to all nested datasets regardless - good practice
  * [ ] Cleanup color functions/palettes
+ * [ ] How to use section in post, eg. turn off legends
  */
