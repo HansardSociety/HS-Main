@@ -8,10 +8,10 @@ switch = local_data[:switch] # Starts from on state (eg. close btn)
 
 # Text
 text = local_data[:text] # Links only
-label_on = local_data[:label_on]
-label_off = local_data[:label_off]
+labelOn = local_data[:label_on]
+labelOff = local_data[:label_off]
 label = local_data[:label] # Links only
-label_size = local_data[:label_size]
+labelSize = local_data[:label_size]
 url = local_data[:url]
 
 # Icon
@@ -23,11 +23,11 @@ animation = local_data[:animation]
 # State
 exclusive = local_data[:exclusive]
 page = local_data[:page]
-secondary_target = local_data[:secondary_target]
+secondaryTarget = local_data[:secondary_target]
 
 # Aria
-aria_id = local_data[:aria_id]
-aria_target_id = local_data[:aria_target_id]
+ariaId = local_data[:aria_id]
+ariaTargetId = local_data[:aria_target_id]
 
 # Misc
 product = local_data[:product]
@@ -42,6 +42,7 @@ btnClasses =
   #{ "btn--" + size if size }
   #{ "btn--" + style if style }
   #{ "btn--fill" if fill }
+  #{ "btn--more" if labelOff }
   #{ "e-col-current" if icon }
   #{ "JS-off" if type == "state" }
   #{ "JS-switch" if type == "state" && switch }
@@ -62,9 +63,9 @@ btnAttributes = {
   "class": "#{ btnClasses }",
   "href": (url if url),
   "type": (isLink ? nil : (form ? "submit" : "button")),
-  "aria-controls": (aria_target_id if aria_target_id),
+  "aria-controls": (ariaTargetId if ariaTargetId),
   "tabindex": "1",
-  "data-secondary-target": (secondary_target if secondary_target),
+  "data-secondary-target": (secondaryTarget if secondaryTarget),
 }.merge(productAttrs).compact
 %>
 
@@ -85,13 +86,13 @@ btnAttributes = {
             size: icon_size } %>
       </span>
 
-    <% end; if label_on %>
-      <span class="btn__label <%= "btn__label--" + label_size %>">
-        <%= label_on %>
+    <% end; if labelOn %>
+      <span class="btn__label <%= "btn__label--" + labelSize %>">
+        <%= labelOn %>
       </span>
 
     <% end; if ["link", "plain"].include?(type) && label %>
-      <span class="btn__label <%= "btn__label--" + label_size %>"><%= label %></span>
+      <span class="btn__label <%= "btn__label--" + labelSize %>"><%= label %></span>
     <% end %>
   </span>
 <% end %>

@@ -11,8 +11,8 @@ color = catColor(category)
 bgcClass = colorProfile(:mono).include?(color) ? panelBgc(color) : panelBgc(color, { gradient: true })
 %>
 
-<section class="panel <%= bgcClass %>">
-  <div class="panel__content panel__content--medium e-align-cen">
+<section class="panel panel--intro <%= bgcClass %>">
+  <div class="panel__content panel__content--medium">
     <%= markdown(introduction, "byline") %>
   </div>
 </section>

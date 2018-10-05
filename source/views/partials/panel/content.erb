@@ -8,6 +8,7 @@ image = panelData[:image]
 imageSize = panelData[:image_size]
 imageBorder = panelData[:image_border]
 imageInvert = panelData[:image_invert]
+
 isSmallImage = imageSize == "small"
 isMediumImage = imageSize == "medium"
 isLargeImage = imageSize == "large"
@@ -33,18 +34,19 @@ index = local_data[:index]
   id="panel-<%= index %>"
   class="panel <%= bgcClass %>">
 
-    <% if hasTitle %>
-      <div class="panel__content panel__content--narrow e-hide-above-sm">
-        <h2 class="title-lg e-align-cen e-mgn-b-lg <%= titleColor %>"><%= title %></h2>
-      </div>
-    <% end %>
-
     <div class="panel__content panel__content--full">
-      <div class="grid grid--lg grid--center">
+      <div class="grid grid--md grid--center">
+
+        <% if hasTitle %>
+          <div class="grid__cell grid__cell--md--12 e-hide-above-sm">
+            <h2 class="title-lg <%= titleColor %>"><%= title %></h2>
+          </div>
+        <% end %>
+
         <div
           class="grid__cell
-                grid__cell--lg-<%= isLargeImage ? "10" : (isMediumImage ? "8" : "6") %>
-                grid__cell--lg-above-sm-<%= isLargeImage ? "5" : (isMediumImage ? "3" : "2") %>">
+                grid__cell--md-<%= isLargeImage ? "12" : (isMediumImage ? "8" : "6") %>
+                grid__cell--md-above-md-<%= isLargeImage ? "5" : (isMediumImage ? "3" : "2") %>">
 
           <%= partial "views/partials/image",
             locals: { local_data: {
@@ -53,7 +55,7 @@ index = local_data[:index]
               border: imageBorder }} %>
         </div>
 
-      <div class="grid__cell grid__cell--lg-above-sm-7">
+      <div class="grid__cell grid__cell--md-above-md-7">
         <% if hasTitle %>
           <h2 class="title-lg e-mgn-b-sm e-hide-below-sm <%= titleColor %>"><%= title %></h2>
         <% end %>
@@ -83,7 +85,7 @@ index = local_data[:index]
                   locals: { local_data: {
                     type: "state",
                     size: "sm", style: "secondary",
-                    label_on: "Show more", label_off: "Show less",
+                    label_on: "Show more", label_off: true,
                     label_size: "sm",
                     aria_id: "activate-#{ showMoreCopy.cta_id }",
                     aria_target_id: showMoreCopy.cta_id }} %>

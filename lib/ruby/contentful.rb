@@ -20,13 +20,34 @@ module ContentfulConfig
       f.cda_query = { include: 6 }
       f.all_entries = true
       f.content_types = {
-        child_page: { mapper: ChildPageMap, id: "child_page" },
-        homepage: { mapper: HomeMap, id: "home" },
-        landing_page: { mapper: LandingPageMap, id: "landing_page" },
-        navigation: { mapper: NavigationMap, id: "navigation" },
-        people: { mapper: PeopleMap, id: "people" },
-        theme_page: { mapper: ThemePageMap, id: "theme_page" },
-        universal: { mapper: UniversalMap, id: "universal" }
+        child_page: {
+          mapper: ChildPageMap,
+          id: "child_page"
+        },
+        homepage: {
+          mapper: HomeMap,
+          id: "home"
+        },
+        landing_page: {
+          mapper: LandingPageMap,
+          id: "landing_page"
+        },
+        navigation: {
+          mapper: NavigationMap,
+          id: "navigation"
+        },
+        people: {
+          mapper: PeopleMap,
+          id: "people"
+        },
+        theme_page: {
+          mapper: ThemePageMap,
+          id: "theme_page"
+        },
+        universal: {
+          mapper: UniversalMap,
+          id: "universal"
+        }
       }
     end
   end

@@ -1,5 +1,5 @@
 <%# Main card %>
-<script id="search-template-main-card">
+<script id="search-template-main-card">`
   <%= partial "views/partials/main-card",
     locals: { local_data: {
       entry_data: {
@@ -16,10 +16,10 @@
           focus: "{{{focus}}}"
         },
       }}} %>
-</script>
+`</script>
 
 <%# Checkbox %>
-<script id="search-template-checkbox">
+<script id="search-template-checkbox">`
   <%= partial "views/partials/form/checkbox",
     locals: { local_data: {
       algolia: true,
@@ -28,5 +28,5 @@
         meta: "{{{count}}}"
       }
     }} %>
-</script>
+`</script>
 

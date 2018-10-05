@@ -1,4 +1,4 @@
-import  {toggleClass} from "./core"
+import {toggleClass} from "./core"
 import instantSearch from "instantsearch.js/dist/instantsearch"
 import Blazy from "blazy"
 import debounce from "lodash/debounce"
@@ -6,7 +6,7 @@ import debounce from "lodash/debounce"
 const blazy = new Blazy
 
 function template(templateName) {
-  return document.querySelector(`#search-template-${templateName}`).innerHTML;
+  return document.querySelector(`#search-template-${templateName}`).innerHTML.replace(/`/g, "");
 }
 
 const algoliaSearch = (() => {
@@ -250,13 +250,8 @@ const algoliaSearch = (() => {
       for (let card of cards) {
         const img = card.querySelector("img")
 
-        if (img.classList.contains("b-loaded")) {
-          // do nothing
-        } else {
-          setTimeout(() => {
-            blazy.load(img)
-          }, 400);
-        }
+        if (img.classList.contains("b-loaded")) false // do nothing
+        else blazy.load(img)
       }
     })
 
@@ -267,14 +262,7 @@ const algoliaSearch = (() => {
    ***************************************************************************/
 
   // Filtered search
-  const filteredSearch = instantSearch({
-    appId: "AJC8ZDIWBJ",
-    apiKey: "66a9759f27ae50a3c41abf7b82181a11",
-    indexName: "pages_by_date",
-    routing: true
-  })
-
-  const siteSearch = instantSearch({
+  const iSearch = instantSearch({
     appId: "AJC8ZDIWBJ",
     apiKey: "66a9759f27ae50a3c41abf7b82181a11",
     indexName: "pages_by_date",
@@ -286,8 +274,8 @@ const algoliaSearch = (() => {
     const siteSearchContainer = document.querySelector("#search-all-nav")
     const filteredSearchContainer = document.querySelector("#search-filtered-main")
 
-    if (siteSearchContainer) multiSearch(siteSearch, siteSearchContainer)
-    if (filteredSearchContainer) multiSearch(filteredSearch, filteredSearchContainer)
+    if (siteSearchContainer) multiSearch(iSearch, siteSearchContainer)
+    if (filteredSearchContainer) multiSearch(iSearch, filteredSearchContainer)
   })
 })()
 

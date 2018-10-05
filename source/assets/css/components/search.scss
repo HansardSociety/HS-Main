@@ -2,6 +2,17 @@
 
 .search {}
 
+.search-iframe {
+  top: 0;
+  left: 0;
+
+  min-width: 100vw;
+
+  @extend %e-pad-t-md;
+  @extend %e-min-height-full-vh;
+  @extend %e-position-absolute;
+}
+
 /*		=Box
   ========================================================================== */
 
@@ -136,14 +147,14 @@
 
   .search__results-inner {
     @extend .grid;
-    @extend .grid--sm;
+    @extend .grid--xs;
     @extend .grid--center;
   }
 
   .search__results-item {
     @extend .grid__cell;
-    @extend .grid__cell--sm-above-sm-6;
-    @extend .grid__cell--sm-above-lg-4;
+    @extend .grid__cell--xs-above-xs-6;
+    @extend .grid__cell--xs-above-lg-4;
   }
 
   .search__results-more {
@@ -218,12 +229,12 @@
     border: 2px solid Get($colorGroups, white, 3) !important;
     outline: none;
 
-    @extend .label-xs;
+    @extend .label-xxs;
     @extend %e-rad-slight;
   }
 
   .search__sort-item {
-    text-transform: none !important;
+    text-transform: capitalize !important;
 
     @extend %e-ff-prim-roman;
     @extend %e-fz-sm;
@@ -258,7 +269,7 @@
 
 .search__clear-link {
   @extend .link;
-  @extend .label-xs;
+  @extend .label-xxs;
   @extend %e-display-inline;
 }
 

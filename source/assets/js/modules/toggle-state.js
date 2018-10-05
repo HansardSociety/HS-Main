@@ -179,6 +179,13 @@ const toggleState = (() => {
     forEach(btns, function(index, btn) {
       btn.addEventListener("click", function() {
         changeState(this)
+
+        if (this.classList.contains("btn--more")) {
+          const btnLabel = this.querySelector(".btn__label")
+
+          if (this.classList.contains("JS-on")) btnLabel.innerText = "Show less"
+          else btnLabel.innerText = "Show more"
+        }
       })
     })
   }

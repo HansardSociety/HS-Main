@@ -42,8 +42,8 @@
 
 .banner__content--lp {
   @extend %e-container--narrow;
-  @extend %e-mgn-t-xl;
-  @extend %e-pad-x-md;
+  // @extend %e-mgn-t-md;
+  @extend %e-pad-x-lg;
   @include above(sm) {
     text-align: center;
   }
@@ -79,6 +79,7 @@
 
 .banner__strap {
   @extend .strap-md;
+  @extend %e-ff-prim-heavy;
   @extend %e-max-width-full;
   @include above(sm) {
     @extend %e-mgn-auto-x__sm;
@@ -130,7 +131,7 @@
 .JS-banner--semi,
 .JS-banner--full {
   @include above(sm) {
-    height: 82.5vh;
+    height: 90vh;
   }
 }
 

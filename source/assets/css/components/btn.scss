@@ -32,6 +32,8 @@
   @extend %e-width-full;
 }
 
+.btn--more {}
+
 .btn--primary {
   @extend %e-bgc-orange-2;
   @extend %e-col-white-1;
@@ -97,8 +99,7 @@
 }
 
 .btn__label {
-  font-size: .625rem;
-
+  @extend %e-fz-xxs;
   @extend %e-pad-y-sm;
   @extend %e-upper;
 }
