@@ -11,13 +11,13 @@ const bannerHeight = (() => {
     var vhMd = Math.ceil((windowHeight * .9) / 18)
 
   } else {
-    var vhLg = windowHeight
-    var vhMd = windowHeight - 8
+    var vhLg = Math.ceil(windowHeight / 18)
+    var vhMd = Math.ceil(windowHeight / 18)
   }
 
 
   if (bannerFull) bannerFull.style.height = `${ vhLg }rem`
-  if (bannerSemi) bannerSemi.style.height = `${ vhMd }rem`
+  if (bannerSemi) bannerSemi.style.height = `${ vhLg }rem`
 
   // Home banner
   if (bannerHome) {
@@ -27,7 +27,7 @@ const bannerHeight = (() => {
   }
 
   if (bannerSemi) {
-    bannerImg.style.height = `${ windowHeight }rem`
+    bannerImg.style.height = `${ windowHeight }px`
   }
 
   console.log(`Aspect ratio = ${screen.width / screen.height}`)

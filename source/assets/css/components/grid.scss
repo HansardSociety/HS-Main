@@ -30,6 +30,7 @@
   order: 1;
 
   @extend %e-position-relative;
+  @extend %e-max-width-full;
 }
 
 .grid__cell--end {

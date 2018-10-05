@@ -1,9 +1,10 @@
 import Chart from "chart.js"
+
 import "chartjs-plugin-deferred"
 import "chartjs-plugin-annotation"
+import "chartjs-plugin-labels"
 
 import chroma from "chroma-js"
-
 import siteConfig from "./shared-config.json"
 
 /* =Settings
@@ -147,7 +148,6 @@ const renderCharts = () => {
 
   elems.forEach(ctx => {
     const chartID = ctx.dataset.chartID
-    console.log(chartID)
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
     const chartConfig = JSON.parse(ctx.querySelector(".chart__config").innerHTML)
 
@@ -155,40 +155,63 @@ const renderCharts = () => {
     const data = chartConfig.data
     const options = chartConfig.options
 
+    const isBar = type === "bar"
+    const isDoughnut = type === "doughnut"
+    const isHorizontalBar = type === "horizontalBar"
+    const isLine = type === "line"
+
     /*  =Options
      *****************************************/
 
     // Aspect ratio
-    if (options.aspectRatio) options.maintainAspectRatio = true
+    if (options && options.aspectRatio) options.maintainAspectRatio = true
 
     // Tooltips
     options.tooltips = {}
-    options.tooltips.mode = "x"
+    options.tooltips.mode = isDoughnut ? "nearest" : "x"
     options.tooltips.position = "nearest"
-    options.tooltips.callbacks = {
-      title: () => {}, // hide title
-      label: (items, data) => {
-        let item = data.datasets[items.datasetIndex]
 
-        if (item.data[items.index].x) {
-          return ` ${item.label} (${item.data[items.index].x}: ${item.data[items.index].y})`
+    // Tooltips: line, horizontalBar
+    if (isLine || isHorizontalBar) {
+      options.tooltips.callbacks = {
+        title: () => {}, // hide title
+        label: (items, data) => {
+          let item = data.datasets[items.datasetIndex]
+
+          if (item.data[items.index].x) {
+            return ` ${item.label} (${item.data[items.index].x}: ${item.data[items.index].y})`
+          }
+          return ` ${item.label} (${item.data[items.index]})`
+        },
+        labelColor: (items, chart) => {
+          let item = chart.data.datasets[items.datasetIndex]
+
+          return {
+            backgroundColor: item.backgroundColor
+          }
         }
-        return ` ${item.label} (${item.data[items.index]})`
-      },
-      labelColor: (items, chart) => {
-        let item = chart.data.datasets[items.datasetIndex]
-        return {
-          backgroundColor: item.backgroundColor
+      }
+    }
+
+    // Tooltips: doughnut
+    if (isDoughnut) {
+      options.tooltips.callbacks = {
+        label: (item, data) => {
+          const dataset = data.datasets[item.datasetIndex]
+          const label = data.labels[item.index]
+          const value = dataset.data[item.index]
+
+          var total = 0
+          dataset.data.forEach(item => total += item)
+          const percent = Math.round((value / total) * 100)
+
+          return ` ${label}: ${value} (${percent}%)`
         }
       }
     }
 
     /*  =Chart types
      *****************************************/
-
-    const isBar = type === "bar"
-    const isHorizontalBar = type === "horizontalBar"
-    const isLine = type === "line"
 
     if (isHorizontalBar || isLine) {
       const gridLines = (axes, dashed) => axes.forEach(axis => {
@@ -300,10 +323,13 @@ const renderCharts = () => {
               if (color.randomize) colorConfig.randomize = color.randomize
               if (color.range) colorConfig.range = color.range
               if (color.colorStops) colorConfig.colorStops = color.colorStops
-              dataset.backgroundColor = colorScale(colorConfig)[i]
+
+              if (matchDataset.length > 1) dataset.backgroundColor = colorScale(colorConfig)[i]
+              else dataset.backgroundColor = colorScale(colorConfig)
 
             } else {
-              dataset.backgroundColor = brewerColors(color.palette)[i]
+              if (matchDataset.length > 1) dataset.backgroundColor = brewerColors(color.palette)[i]
+              else dataset.backgroundColor = brewerColors(color.palette)
             }
           }
         })
@@ -342,13 +368,14 @@ const renderCharts = () => {
      *****************************************/
 
     if (options.annotation) options.annotation = options.annotation
-    if (options.annotation.annotations) {
+    if (options.annotation && options.annotation.annotations) {
       const annotations = options.annotation.annotations
       annotations.forEach(annotation => {
         if (annotation.label && annotation.label.content) {
           annotation.label.enabled = true
-          annotation.label.backgroundColor = "black"
+          annotation.label.backgroundColor = black
           annotation.label.fontColor = white
+          annotation.label.fontWeight = "normal"
           annotation.label.fontFamily = ff01
           annotation.label.fontSize = rem675
           annotation.label.xPadding = rem50

@@ -5,42 +5,100 @@ index = local_data[:index]
 
 title = panelData[:title]
 caption = panelData[:caption]
+
+rowOneGridCellWidth = 12 / panelData[:charts_row_1].length
+
+if panelData[:charts_row_2]
+  rowTwoGridCellWidth = 12 / panelData[:charts_row_2].length
+end
 %>
 
 <section
   id="panel-<%= index %>"
   class="panel e-bgc-white-2">
 
+  <h2 class="title-lg e-col-brand-green-2 e-mgn-b-sm">Grid set title</h2>
+
   <div class="panel__content panel__content--full">
-    <% panelData[:charts_row_1].each_with_index do |chart, index| %>
-      <section
-        class="chart"
-        data-chart-id="<%= chart[:ID] %>">
+    <div class="grid grid--sm">
 
-        <header class="chart__header">
-          <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= title %></h2>
-          <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
-        </header>
+      <!--**********************************************
+          =Row 1
+      ***********************************************-->
 
-        <div
-          class="chart__container"
-          style="width: 100%; height: 400px;">
-          <canvas class="chart__canvas"></canvas>
+      <% panelData[:charts_row_1].each_with_index do |chart, index| %>
+        <div class="grid__cell grid__cell--sm-<%= rowOneGridCellWidth %>">
+          <section class="chart">
+
+            <header class="chart__header">
+              <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= chart[:title] %></h2>
+              <p class="e-fz-xs e-col-grey-3"><%= chart[:caption] %></p>
+            </header>
+
+            <div
+              class="chart__container"
+              style="width: 100%; height: 400px;">
+              <canvas class="chart__canvas"></canvas>
+            </div>
+            <script class="chart__config" type="application/json">
+              {
+                "type": "<%= chart[:chart_type] %>",
+                "data": {
+                  "datasets": <%= chart[:chart_data] %>
+                },
+                "options": <%= chart[:chart_options] %>,
+                "colors": <%= chart[:chart_colors] %>
+              }
+            </script>
+          </section>
         </div>
+      <% end %>
 
-        <div class="chart__legend"></div>
+      <!--**********************************************
+          =Row 2
+      ***********************************************-->
 
-        <script class="chart__config" type="application/json">
-          {
-            "type": "<%= chart[:chart_type] %>",
-            "data": {
-              "datasets": <%= chart[:chart_data] %>
-            },
-            "options": <%= chart[:chart_options] %>,
-            "colors": <%= chart[:chart_colors] %>
-          }
-        </script>
-      </section>
-    <% end %>
+      <div class="grid__cell grid__cell--sm-6">
+        <section class="chart">
+
+          <header class="chart__header">
+            <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= title %></h2>
+            <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
+          </header>
+
+          <div
+            class="chart__container"
+            style="width: 100%;">
+            <canvas class="chart__canvas"></canvas>
+          </div>
+          <script class="chart__config" type="application/json">
+            {
+              "type": "doughnut",
+              "data": {
+                "labels": [
+                  "Proposed negative",
+                  "Affirmative"
+                ],
+                "datasets": [
+                  {
+                    "type": "doughnut",
+                    "data": [31, 9]
+                  }
+                ]
+              },
+              "options": {
+                "aspectRatio": 1
+              },
+              "colors": [
+                {
+                  "palette": "Spectral",
+                  "chartType": "doughnut"
+                }
+              ]
+            }
+          </script>
+        </section>
+      </div>
+    </div>
   </div>
 </section>
