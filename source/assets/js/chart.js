@@ -1,7 +1,6 @@
 import Chart from "chart.js"
 
-import "chartjs-plugin-deferred"
-// import "chartjs-plugin-labels"
+import "chartjs-plugin-labels"
 import "chartjs-plugin-annotation"
 import "chartjs-plugin-datalabels"
 
@@ -91,13 +90,8 @@ def.tooltips.bodyFontColor = white
 /*  =Deferred
  *****************************************/
 
-def.plugins.deferred = {
-  enabled: true,
-  xOffset: "50%",
-  delay: 250
-}
-
-// def.plugins.labels = false
+def.plugins.deferred = false
+def.plugins.labels = false
 
 /*  =Labels/ Data labels
  *****************************************/
@@ -227,18 +221,22 @@ const renderCharts = () => {
           if (color.datasetColorID === dataset.datasetColorID) {
             if (!dataset.backgroundColor) {
 
-              // If custom colour palette array/range, else breweer...
+              // If custom colour palette array/range, else brewer...
               if (color.palette.constructor === Array) {
                 let colorConfig = {}
                 if (color.palette) colorConfig.palette = color.palette
                 if (color.randomize) colorConfig.randomize = color.randomize
                 if (color.range) colorConfig.range = color.range
                 if (color.padding) colorConfig.colorStops = color.colorStops
-                dataset.backgroundColor = colorScale(colorConfig)[datasetIndex]
 
-                console.log(colorConfig)
-              } else {
-                dataset.backgroundColor = brewerColors(color.palette)[datasetIndex]
+                isDatasetDoughnut
+                  ? dataset.backgroundColor = colorScale(colorConfig)
+                  : colorScale(colorConfig)[datasetIndex]
+
+              } else { // Brewer colors
+                isDatasetDoughnut
+                  ? dataset.backgroundColor = brewerColors(color.palette)
+                  : dataset.backgroundColor = brewerColors(color.palette)[datasetIndex]
               }
             }
           }
@@ -263,7 +261,7 @@ const renderCharts = () => {
         }
       }
 
-      // Set dataset type defaults
+      // Set dataset defaults
       if (isDatasetLine) {
         if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = white
         if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = white
@@ -420,10 +418,21 @@ const renderCharts = () => {
 
     if (isDoughnut) {
 
+      options.plugins.labels = {
+        render: "label",
+        arc: true
+      }
+
       // Data labels
       options.plugins.datalabels = {
-        display: true,
-        backgroundColor: context => context.dataset.backgroundColor,
+        display: context => {
+          console.log(context)
+          if (context.dataset.data[context.dataIndex] === 0) return false
+          else return true
+        },
+        backgroundColor: context => {
+          return context.dataset.backgroundColor
+        },
         anchor: "end",
         color: white,
         borderColor: white,
