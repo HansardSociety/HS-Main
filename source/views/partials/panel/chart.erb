@@ -7,7 +7,6 @@ title = panelData[:title]
 caption = panelData[:caption]
 
 rowOneGridCellWidth = 12 / panelData[:charts_row_1].length
-
 if panelData[:charts_row_2]
   rowTwoGridCellWidth = 12 / panelData[:charts_row_2].length
 end
@@ -48,7 +47,8 @@ end
               {
                 "type": "<%= chart[:chart_type] %>",
                 "data": {
-                  "datasets": <%= chart[:chart_data] %>
+                  "datasets": <%= chart[:chart_datasets] %>,
+                  "labels": <%= chart[:chart_labels] %>
                 },
                 "options": <%= chart[:chart_options] %>,
                 "colors": <%= chart[:chart_colors] %>
@@ -62,45 +62,81 @@ end
           =Row 2
       ***********************************************-->
 
-      <div class="grid__cell grid__cell--sm-6">
-        <section class="chart">
+      <% if panelData[:charts_row_2] %>
+        <% panelData[:charts_row_2].each_with_index do |chart, index| %>
+          <div class="grid__cell grid__cell--sm-4">
+            <section class="chart">
 
-          <header class="chart__header">
-            <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= title %></h2>
-            <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
-          </header>
+              <header class="chart__header">
+                <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= chart[:title] %></h2>
+                <p class="e-fz-xs e-col-grey-3"><%= chart[:caption] %></p>
+              </header>
 
-          <div
-            class="chart__container"
-            style="width: 100%;">
-            <canvas class="chart__canvas"></canvas>
+              <div
+                class="chart__container"
+                style="width: 100%;">
+                <canvas class="chart__canvas"></canvas>
+              </div>
+              <script class="chart__config" type="application/json">
+                {
+                  "type": "<%= chart[:chart_type] %>",
+                  "data": {
+                    "datasets": <%= chart[:chart_datasets] %>,
+                    "labels": <%= chart[:chart_labels] %>
+                  },
+                  "options": <%= chart[:chart_options] %>,
+                  "colors": <%= chart[:chart_colors] %>
+                }
+              </script>
+            </section>
           </div>
-          <script class="chart__config" type="application/json">
+        <% end %>
+      <% end %>
+
+          <div class="grid__cell grid__cell--sm-4">
+            <section class="chart">
+
+              <header class="chart__header">
+                <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs">Title</h2>
+                <p class="e-fz-xs e-col-grey-3">Caption</p>
+              </header>
+
+              <div
+                class="chart__container"
+                style="width: 100%;">
+                <canvas class="chart__canvas"></canvas>
+              </div>
+              <script class="chart__config" type="application/json">
+
 {
   "type": "doughnut",
   "data": {
     "labels": [
-      "Negative procedure",
-      "Affirmative procedure"
+      "EU(W) Act: Negative",
+      "EU(W) Act: Affirmative",
+      "Other: Negative",
+      "Other: Affirmative"
     ],
     "datasets": [
       {
         "type": "doughnut",
-        "label": "EU (Withdrawal) Act 2018",
         "data": [
           31,
-          9
+          9,
+          0,
+          0
         ],
         "datasetColorID": "doughnut-01"
       },
       {
         "type": "doughnut",
-        "label": "Other Acts of Parliament",
         "data": [
+          0,
+          0,
           5,
           3
         ],
-        "datasetColorID": "doughnut-01"
+        "datasetColorID": "doughnut-02"
       }
     ]
   },
@@ -109,14 +145,20 @@ end
   },
   "colors": [
     {
-      "palette": "Accent",
+      "palette": "Blues",
       "datasetColorID": "doughnut-01"
+    },
+    {
+      "palette": "Spectral",
+      "datasetColorID": "doughnut-02"
     }
   ]
 }
           </script>
-        </section>
-      </div>
+            </section>
+          </div>
     </div>
   </div>
 </section>
+
+

@@ -1,6 +1,5 @@
 .chart {
   @extend %e-bgc-white-1;
-  @extend %e-pad-sm;
   @extend %e-rad-slight;
   @extend %e-box-shad-z3;
 }
@@ -13,4 +12,5 @@
 .chart__header {
   @extend %e-container--narrow;
   @extend %e-mgn-b-sm;
+  @extend %e-pad-sm;
 }

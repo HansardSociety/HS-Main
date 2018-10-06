@@ -474,9 +474,10 @@ def panels(ctx, data)
           title: data.title,
           caption: data.caption,
           chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
-          chart_data: data.data.to_json.to_s,
-          chart_options: data.options[0].to_json.to_s,
-          chart_colors: data.colors.to_json.to_s,
+          chart_datasets: data.datasets.to_json.to_s, # Arr
+          chart_labels: (data.labels ? data.labels.to_json.to_s : "[]"), # Arr
+          chart_options: data.options.to_json.to_s, # Obj
+          chart_colors: data.colors.to_json.to_s, # Arr
           chart_width: (data.width ? "#{ data.width }px" : "100%"),
           chart_scaling: (data.scaling ? data.scaling.parameterize : "responsive")
         }

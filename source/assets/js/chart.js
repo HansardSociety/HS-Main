@@ -31,7 +31,7 @@ const ff01 = "'Avenir-Roman', 'Helvetica', 'Arial', 'sans-serif'"
 const ff02 = "'Avenir-Heavy', 'Helvetica', 'Arial', 'sans-serif'"
 
 // Strokes
-const strokeWidth = 3
+const strokeWidth = 2
 const dashes = [6, 3]
 
 // Sizes
@@ -146,6 +146,7 @@ const renderCharts = () => {
     const isBar = type === "bar"
     const isDoughnut = type === "doughnut"
     const isHorizontalBar = type === "horizontalBar"
+    const isPie = type === "pie"
     const isLine = type === "line"
 
     /* =Datasets
@@ -206,74 +207,88 @@ const renderCharts = () => {
       return scale
     }
 
-    data.datasets.forEach((dataset, datasetIndex) => {
-      const isDatasetDoughnut = dataset.type && dataset.type === "doughnut"
-      const isDatasetHorizontalBar = dataset.type && dataset.type === "horizontalBar"
-      const isDatasetLine = dataset.type && dataset.type === "line"
+    // const numberOfDatasets = data.datasets.length
+    // if (numberOfDatasets > 0 && isDoughnut) {
 
-      /*  =Dataset: Set colors
-       *****************************************/
+    // }
 
-      if (chartConfig.colors) {
-        chartConfig.colors.forEach(color => {
-          if (color.datasetColorID === dataset.datasetColorID) {
-            if (!dataset.backgroundColor) {
+    const setColors = (datasets, options) => {
+      let {
+        singleAxisNested
+      } = options
 
-              // If custom colour palette array/range, else brewer...
-              if (color.palette.constructor === Array) {
-                let colorConfig = {}
-                if (color.palette) colorConfig.palette = color.palette
-                if (color.randomize) colorConfig.randomize = color.randomize
-                if (color.range) colorConfig.range = color.range
+      datasets.forEach((dataset, datasetIndex) => {
+        const isDatasetDoughnut = dataset.type && dataset.type === "doughnut"
+        const isDatasetHorizontalBar = dataset.type && dataset.type === "horizontalBar"
+        const isDatasetLine = dataset.type && dataset.type === "line"
+        const isDatasetPie = dataset.type && dataset.type === "pie"
 
-                isDatasetDoughnut
-                  ? dataset.backgroundColor = colorScale(colorConfig)
-                  : dataset.backgroundColor = colorScale(colorConfig)[datasetIndex]
+        /*  =Dataset: Set colors
+        *****************************************/
 
-              } else { // Brewer colors
-                isDatasetDoughnut
-                  ? dataset.backgroundColor = brewerColors(color.palette)
-                  : dataset.backgroundColor = brewerColors(color.palette)[datasetIndex]
+        if (chartConfig.colors) {
+          chartConfig.colors.forEach(color => {
+            if (color.datasetColorID === dataset.datasetColorID) {
+              if (!dataset.backgroundColor) {
+
+                // If custom colour palette array/range, else brewer...
+                if (color.palette.constructor === Array) {
+                  let colorConfig = {}
+                  if (color.palette) colorConfig.palette = color.palette
+                  if (color.randomize) colorConfig.randomize = color.randomize
+                  if (color.range) colorConfig.range = color.range
+
+                  isDatasetDoughnut || isDatasetPie
+                    ? dataset.backgroundColor = colorScale(colorConfig)
+                    : dataset.backgroundColor = colorScale(colorConfig)[datasetIndex]
+
+                } else { // Brewer colors
+                  isDatasetDoughnut || isDatasetPie
+                    ? dataset.backgroundColor = brewerColors(color.palette)
+                    : dataset.backgroundColor = brewerColors(color.palette)[datasetIndex]
+                }
               }
             }
+          })
+        }
+
+        /*  =Dataset: Apply colors
+        *****************************************/
+
+        dataset.borderWidth = strokeWidth
+        dataset.hoverBackgroundColor = dataset.backgroundColor
+
+        // If no border is defined add one to == bgc
+        if (dataset.backgroundColor && !dataset.borderColor) {
+          if (isDatasetDoughnut || isDatasetPie) {
+            dataset.borderColor = white
+            dataset.hoverBorderColor = white
+
+          } else {
+            dataset.borderColor = dataset.backgroundColor
+            dataset.hoverBorderColor = dataset.backgroundColor
           }
-        })
-      }
-
-      /*  =Dataset: Apply colors
-      *****************************************/
-
-      dataset.borderWidth = strokeWidth
-      dataset.hoverBackgroundColor = dataset.backgroundColor
-
-      // If no border is defined add one to == bgc
-      if (dataset.backgroundColor && !dataset.borderColor) {
-        if (isDatasetDoughnut) {
-          dataset.borderColor = white
-          dataset.hoverBorderColor = white
-
-        } else {
-          dataset.borderColor = dataset.backgroundColor
-          dataset.hoverBorderColor = dataset.backgroundColor
         }
-      }
 
-      // Set dataset defaults
-      if (isDatasetLine) {
-        if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = white
-        if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = white
-        if (!dataset.pointRadius) dataset.pointRadius = 5
-        if (!dataset.pointHoverRadius) dataset.pointHoverRadius = 7
-        if (!dataset.pointHitRadius) dataset.pointHitRadius = 10
+        // Set dataset defaults
+        if (isDatasetLine) {
+          if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = white
+          if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = white
+          if (!dataset.pointRadius) dataset.pointRadius = 5
+          if (!dataset.pointHoverRadius) dataset.pointHoverRadius = 7
+          if (!dataset.pointHitRadius) dataset.pointHitRadius = 10
 
-        // Only set backgroundColor and/or fill
-        if (!dataset.fill) dataset.fill = false
-        else {
-          dataset.fill = true
-          dataset.backgroundColor = hexToRGBA(dataset.backgroundColor, 0.125)
+          // Only set backgroundColor and/or fill
+          if (!dataset.fill) dataset.fill = false
+          else {
+            dataset.fill = true
+            dataset.backgroundColor = hexToRGBA(dataset.backgroundColor, 0.125)
+          }
         }
-      }
-    })
+      })
+    }
+
+    setColors(data.datasets)
 
     /* =Options
      ***************************************************************************/
@@ -286,7 +301,7 @@ const renderCharts = () => {
 
     // General
     options.tooltips = {}
-    options.tooltips.mode = isDoughnut ? "nearest" : "x"
+    options.tooltips.mode = (isDoughnut || isPie) ? "nearest" : "x"
     options.tooltips.position = "average"
 
     /*  =Options: Line / horizontal bar
@@ -333,35 +348,32 @@ const renderCharts = () => {
     /*  =Options: Doughnut
      *****************************************/
 
-    if (isDoughnut) {
-
-      options.cutoutPercentage = 33.3333 // Cutout
-
+    if (isDoughnut || isPie) {
+      if (isDoughnut) options.cutoutPercentage = 25 // Cutout
       options.rotation = (-0.5 * Math.PI) * 180
 
       // Allow padding for labels overflow
       options.layout = {}
       options.layout.padding = {
-        top: 18,
-        right: 18,
-        bottom: 18,
-        left: 18
+        top: rem050,
+        right: rem050,
+        bottom: rem050,
+        left: rem050
       }
 
       // Tooltips: Doughnut
       options.tooltips.callbacks = {
         title: (item, data) => {
           const dataset = data.datasets[item[0].datasetIndex]
-          return dataset.label
+          if (dataset.label) return dataset.label
+          return false
         },
         label: (item, data) => {
           const dataset = data.datasets[item.datasetIndex]
           const value = dataset.data[item.index]
           const label = data.labels[item.index]
 
-          var total = 0
-          dataset.data.forEach(item => total += item)
-
+          let total = dataset.data.reduce((a, b) => a + b, 0)
           const percent = `${((value / total) * 100).toFixed(1)}`.replace(".0", "")
 
           return ` ${label}: ${value} (${percent}%)`
@@ -424,10 +436,16 @@ const renderCharts = () => {
     /*  =Plugins: Doughnut
      *****************************************/
 
-    if (isDoughnut) {
+    if (isDoughnut || isPie) {
       options.plugins.labels = {
-        render: context => `←  ${context.dataset.label}  →`,
-        arc: true,
+        render: "percentage",
+        // render: context => {
+        //   var label
+        //   if (context.dataset.label) label = `←  ${context.dataset.label}  →`
+        //   return label
+        // },
+        // arc: true,
+        // position: "outside  ",
         fontFamily: ff02,
         fontSize: rem075,
         fontColor: white,
@@ -443,13 +461,18 @@ const renderCharts = () => {
         backgroundColor: context => {
           return context.dataset.backgroundColor
         },
+        // formatter: (value, context) => {
+        //   var total = context.dataset.data.reduce((a, b) => a + b, 0)
+        //   value = `${((value / total) * 100).toFixed(1)}`.replace(".0", "")
+        //   return `%\n${value}`
+        // },
         anchor: "end",
         color: white,
         borderColor: white,
         borderRadius: 25,
         borderWidth: strokeWidth,
         font: {
-          size: rem075,
+          size: rem0675,
           family: ff02
         },
         textAlign: "center",
@@ -458,7 +481,8 @@ const renderCharts = () => {
           right: rem050,
           bottom: rem025,
           left: rem050
-        }
+        },
+        offset: 240
       }
     }
 
