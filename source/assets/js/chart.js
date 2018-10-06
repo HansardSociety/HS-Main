@@ -64,7 +64,7 @@ def.hover.intersect = true
 def.layout.padding = 0
 
 // Legend
-def.legend.position = "bottom"
+def.legend.position = "top"
 def.legend.labels.boxWidth = rem150
 
 // Responsive
@@ -179,8 +179,7 @@ const renderCharts = () => {
       let {
         palette = [brandGreen, lightGrey],
         order = "random",
-        range = 5,
-        padding = false
+        range = 5
       } = options
 
       var scale = []
@@ -189,8 +188,6 @@ const renderCharts = () => {
 
       let colors = chroma
         .scale(palette)
-        .padding(padding ? padding: [0, 1])
-        .padding(.25, 1)
         .mode("lab")
         .colors(range)
 
@@ -211,6 +208,7 @@ const renderCharts = () => {
 
     data.datasets.forEach((dataset, datasetIndex) => {
       const isDatasetDoughnut = dataset.type && dataset.type === "doughnut"
+      const isDatasetHorizontalBar = dataset.type && dataset.type === "horizontalBar"
       const isDatasetLine = dataset.type && dataset.type === "line"
 
       /*  =Dataset: Set colors
@@ -227,11 +225,10 @@ const renderCharts = () => {
                 if (color.palette) colorConfig.palette = color.palette
                 if (color.randomize) colorConfig.randomize = color.randomize
                 if (color.range) colorConfig.range = color.range
-                if (color.padding) colorConfig.colorStops = color.colorStops
 
                 isDatasetDoughnut
                   ? dataset.backgroundColor = colorScale(colorConfig)
-                  : colorScale(colorConfig)[datasetIndex]
+                  : dataset.backgroundColor = colorScale(colorConfig)[datasetIndex]
 
               } else { // Brewer colors
                 isDatasetDoughnut
@@ -337,26 +334,37 @@ const renderCharts = () => {
      *****************************************/
 
     if (isDoughnut) {
+
       options.cutoutPercentage = 33.3333 // Cutout
+
+      options.rotation = (-0.5 * Math.PI) * 180
+
+      // Allow padding for labels overflow
+      options.layout = {}
+      options.layout.padding = {
+        top: 18,
+        right: 18,
+        bottom: 18,
+        left: 18
+      }
 
       // Tooltips: Doughnut
       options.tooltips.callbacks = {
         title: (item, data) => {
-          // const dataset = data.datasets[item[0].datasetIndex]
-          // return dataset.title
+          const dataset = data.datasets[item[0].datasetIndex]
+          return dataset.label
         },
         label: (item, data) => {
           const dataset = data.datasets[item.datasetIndex]
           const value = dataset.data[item.index]
-          // const label = dataset.datasetLabels[item.index]
-          // console.log(dataset)
+          const label = data.labels[item.index]
 
           var total = 0
           dataset.data.forEach(item => total += item)
 
           const percent = `${((value / total) * 100).toFixed(1)}`.replace(".0", "")
 
-          return ` : ${value} (${percent}%)`
+          return ` ${label}: ${value} (${percent}%)`
         }
       }
     }
@@ -417,16 +425,18 @@ const renderCharts = () => {
      *****************************************/
 
     if (isDoughnut) {
-
       options.plugins.labels = {
-        render: "label",
-        arc: true
+        render: context => `←  ${context.dataset.label}  →`,
+        arc: true,
+        fontFamily: ff02,
+        fontSize: rem075,
+        fontColor: white,
+        textShadow: true
       }
 
       // Data labels
       options.plugins.datalabels = {
         display: context => {
-          console.log(context)
           if (context.dataset.data[context.dataIndex] === 0) return false
           else return true
         },
