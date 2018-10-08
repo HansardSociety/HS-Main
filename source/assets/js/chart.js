@@ -64,7 +64,7 @@ def.hover.intersect = true
 def.layout.padding = 0
 
 // Legend
-def.legend.position = "top"
+def.legend.position = "bottom"
 def.legend.labels.boxWidth = rem150
 
 // Responsive
@@ -216,45 +216,25 @@ const renderCharts = () => {
       *****************************************/
 
       if (chartConfig.customConfig && chartConfig.customConfig.colors) {
-
         for (let colorConfig of chartConfig.customConfig.colors) {
-
           if (!dataset.backgroundColor) {
-            if (colorConfig.datasetID.constructor === String) {
-              if (dataset.datasetID === colorConfig.datasetID) {
-                if (colorConfig.palette.constructor === String) {
-                  console.log(dataset.datasetID)
-                  dataset.backgroundColor = brewerColors(colorConfig.palette)
-                  break
-                } else {
-                  console.log(dataset.datasetID)
-                  dataset.backgroundColor = colorScale({
-                    palette: colorConfig.palette,
-                    order: "scale",
-                    range: 25
-                  })
-                  break
-                }
-              }
-            } else {
-              for (let [datasetIdIndex, datasetID] of colorConfig.datasetID.entries()) {
-                if (datasetID == dataset.datasetID) {
-                  if (isDatasetLine || isDatasetBar || isDatasetHorizontalBar) {
-                    if (colorConfig.palette.constructor === String) {
-                      dataset.backgroundColor = brewerColors(colorConfig.palette)[datasetIdIndex]
-                      break
-                    } else {
-                      dataset.backgroundColor = colorScale({ palette: colorConfig.palette })
-                      break
-                    }
+            for (let [datasetIdIndex, datasetID] of colorConfig.datasetIDs.entries()) {
+              if (datasetID == dataset.datasetID) {
+                if (isDatasetLine || isDatasetBar || isDatasetHorizontalBar) {
+                  if (colorConfig.palette.constructor === String) {
+                    dataset.backgroundColor = brewerColors(colorConfig.palette)[datasetIdIndex]
+                    break
                   } else {
-                    if (colorConfig.palette.constructor === String) {
-                      dataset.backgroundColor = brewerColors(colorConfig.palette)
-                      break
-                    } else {
-                      dataset.backgroundColor = colorScale(colorConfig.palette)
-                      break
-                    }
+                    dataset.backgroundColor = colorScale({ palette: colorConfig.palette })
+                    break
+                  }
+                } else {
+                  if (colorConfig.palette.constructor === String) {
+                    dataset.backgroundColor = brewerColors(colorConfig.palette)
+                    break
+                  } else {
+                    dataset.backgroundColor = colorScale(colorConfig.palette)
+                    break
                   }
                 }
               }
@@ -315,13 +295,6 @@ const renderCharts = () => {
      *****************************************/
 
     if (isLine || isHorizontalBar) {
-      options.layout = {}
-      options.layout.padding = {
-        top: rem100,
-        right: rem100,
-        bottom: rem100,
-        left: rem100
-      }
 
       // Tooltips
       options.tooltips.callbacks = {
@@ -581,6 +554,7 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Set chart__container width/height (contentful?)
  * [ ] Merge tooltips configs
  * [ ] Create all possible charts
+ * [ ] Auto-populate nested charts
  */
 
 /* =Schema

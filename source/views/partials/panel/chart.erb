@@ -29,31 +29,39 @@ end
           =Row 1
       ***********************************************-->
 
-      <% panelData[:charts_row_1].each_with_index do |chart, index| %>
+      <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
         <div class="grid__cell grid__cell--sm-<%= rowOneGridCellWidth %>">
-          <section class="chart">
-
-            <header class="chart__header">
-              <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= chart[:title] %></h2>
-              <p class="e-fz-xs e-col-grey-3"><%= chart[:caption] %></p>
-            </header>
-            <div
-              class="chart__container"
-              style="<%= "height: #{ chart[:chart_height] }px;" if chart[:chart_height] %>">
-              <canvas class="chart__canvas"></canvas>
-            </div>
-            <script class="chart__config" type="application/json">
-              {
-                "type": "<%= chart[:chart_type] %>",
-                "data": {
-                  "datasets": <%= chart[:chart_datasets] %>,
-                  "labels": <%= chart[:chart_labels] %>
-                },
-                "options": <%= chart[:chart_options] %>,
-                "customConfig": <%= chart[:chart_custom_config] %>
-              }
-            </script>
-          </section>
+          <% if panelEntry[:TYPE] == "chart" %>
+            <section class="chart">
+              <% if panelEntry[:show_header] %>
+                <header class="chart__header">
+                  <% if panelData[:show_title] %>
+                    <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                  <% else %>
+                    <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                  <% end %>
+                  <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
+                </header>
+              <% end %>
+              <div
+                class="chart__container"
+                style="width: 100%;
+                  <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                <canvas class="chart__canvas"></canvas>
+              </div>
+              <script class="chart__config" type="application/json">
+                {
+                  "type": "<%= panelEntry[:chart_type] %>",
+                  "data": {
+                    "datasets": <%= panelEntry[:chart_datasets] %>,
+                    "labels": <%= panelEntry[:chart_labels] %>
+                  },
+                  "options": <%= panelEntry[:chart_options] %>,
+                  "customConfig": <%= panelEntry[:chart_custom_config] %>
+                }
+              </script>
+            </section>
+          <% end %>
         </div>
       <% end %>
 
@@ -62,97 +70,42 @@ end
       ***********************************************-->
 
       <% if panelData[:charts_row_2] %>
-        <% panelData[:charts_row_2].each_with_index do |chart, index| %>
+        <% panelData[:charts_row_2].each_with_index do |panelEntry, index| %>
           <div class="grid__cell grid__cell--sm-<%= rowTwoGridCellWidth %>">
-            <section class="chart">
-
-              <header class="chart__header">
-                <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= chart[:title] %></h2>
-                <p class="e-fz-xs e-col-grey-3"><%= chart[:caption] %></p>
-              </header>
-
-              <div
-                class="chart__container"
-                style="<%= "height: #{ chart[:chart_height] }px;" if chart[:chart_height] %>">
-                <canvas class="chart__canvas"></canvas>
-              </div>
-              <script class="chart__config" type="application/json">
-                {
-                  "type": "<%= chart[:chart_type] %>",
-                  "data": {
-                    "datasets": <%= chart[:chart_datasets] %>,
-                    "labels": <%= chart[:chart_labels] %>
-                  },
-                  "options": <%= chart[:chart_options] %>,
-                  "customConfig": <%= chart[:chart_custom_config] %>
-                }
-              </script>
-            </section>
+            <% if panelEntry[:TYPE] == "chart" %>
+              <section class="chart">
+                <% if panelEntry[:show_header] %>
+                  <header class="chart__header">
+                    <% if panelData[:show_title] %>
+                      <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                    <% else %>
+                      <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                    <% end %>
+                    <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
+                  </header>
+                <% end %>
+                <div
+                  class="chart__container"
+                  style="width: 100%;
+                    <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                  <canvas class="chart__canvas"></canvas>
+                </div>
+                <script class="chart__config" type="application/json">
+                  {
+                    "type": "<%= panelEntry[:chart_type] %>",
+                    "data": {
+                      "datasets": <%= panelEntry[:chart_datasets] %>,
+                      "labels": <%= panelEntry[:chart_labels] %>
+                    },
+                    "options": <%= panelEntry[:chart_options] %>,
+                    "customConfig": <%= panelEntry[:chart_custom_config] %>
+                  }
+                </script>
+              </section>
+            <% end %>
           </div>
         <% end %>
       <% end %>
     </div>
   </div>
 </section>
-
-<div class="grid__cell grid__cell--sm-">
-  <section class="chart">
-    <div
-      class="chart__container"
-      style="height: 500px;">
-      <canvas class="chart__canvas"></canvas>
-    </div>
-    <script class="chart__config" type="application/json">
-{
-  "type": "horizontalBar",
-  "data": {
-    "datasets": [{
-      "type": "horizontalBar",
-      "label": "Departments",
-      "datasetID": "department-sis",
-      "data": [11, 7, 6, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1],
-      "yAxisID": "y-depts"
-    }]
-  },
-  "options": {
-    "legend": false,
-    "scales": {
-      "yAxes": [{
-        "id": "y-depts",
-        "type": "category",
-        "stacked": true,
-        "labels": [
-          "Department for Transport",
-          "Department for Business, Energy & Industrial Strategy",
-          "HM Treasury",
-          "Home Office",
-          "Department for Digital, Culture, Media & Sport",
-          "Department for Environment, Food & Rural Affairs",
-          "Department for Exiting the European Union",
-          "Cabinet Office",
-          "Department for International Trade",
-          "Ministry of Justice",
-          "Other (public bodies)",
-          "Northern Ireland Office",
-          "Department for Work & Pensions",
-          "HM Revenue & Customs"
-        ]
-      }],
-      "xAxes": [{
-        "id": "x-depts"
-      }]
-    }
-  },
-  "customConfig": {
-    "colors": [
-      {
-        "palette": ["green", "blue"],
-        "range": 25,
-        "datasetID": "department-sis"
-      }
-    ]
-  }
-}
-    </script>
-  </section>
-</div>
