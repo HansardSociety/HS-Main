@@ -2,67 +2,33 @@
   "type": "bar",
   "data": {
     "datasets": [{
+      "data": [11, 12, 13, 14, 15, 16, 17],
       "type": "bar",
       "label": "SIs via EU(W) Act",
-      "datasetID": "euwa-sis",
-      "data": [11, 12, 13, 14, 15, 16, 17],
-      "xAxisID": "weeks"
+      "xAxisID": "x-weeks",
+      "datasetID": "euwa-sis"
     }, {
+      "data": [1, 2, 3, 4, 5, 6, 7],
       "type": "bar",
       "label": "SIs via other Acts",
-      "data": [1, 2, 3, 4, 5, 6, 7],
-      "datasetID": "other-sis",
-      "xAxisID": "weeks"
-    }]
+      "xAxisID": "x-weeks",
+      "datasetID": "other-sis"
+    }],
+    "labels": []
   },
   "options": {
     "scales": {
       "xAxes": [{
-        "id": "weeks",
+        "id": "x-weeks",
         "type": "category",
-        "labels": [
-          "w/c 3 Sep",
-          "w/c 10 Sep",
-          "w/c 17 Sep",
-          "w/c 24 Sep",
-          "w/c 1 Oct",
-          "w/c 8 Oct",
-          "w/c 15 Oct"
-        ]
+        "labels": ["w/c 3 Sep", "w/c 10 Sep", "w/c 17 Sep", "w/c 24 Sep", "w/c 1 Oct", "w/c 8 Oct", "w/c 15 Oct"]
       }]
-    },
-    "annotation": {
-      "annotations": [
-        {
-          "mode": "horizontal",
-          "type": "line",
-          "label": {
-            "content": "SIs as of w/c 3-10-2018",
-            "xAdjust": -75,
-            "yAdjust": 20,
-            "position": "top"
-          },
-          "value": 50,
-          "scaleID": "weeks",
-          "borderDash": [
-            6,
-            3
-          ],
-          "borderColor": "red",
-          "borderWidth": 2
-        }
-      ]
     }
   },
   "customConfig": {
-    "colors": [
-      {
-        "palette": "Blues",
-        "datasetID": [
-          "euwa-sis",
-          "other-sis"
-        ]
-      }
-    ]
+    "colors": [{
+      "palette": "Blues",
+      "datasetIDs": ["euwa-sis", "other-sis"]
+    }]
   }
 }

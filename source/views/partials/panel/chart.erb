@@ -30,7 +30,7 @@ end
       ***********************************************-->
 
       <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
-        <div class="grid__cell grid__cell--sm-<%= rowOneGridCellWidth %>">
+        <div class="grid__cell grid__cell--sm-12 grid__cell--sm-above-sm-<%= rowOneGridCellWidth %>">
           <% if panelEntry[:TYPE] == "chart" %>
             <section class="chart">
               <% if panelEntry[:show_header] %>
@@ -71,7 +71,7 @@ end
 
       <% if panelData[:charts_row_2] %>
         <% panelData[:charts_row_2].each_with_index do |panelEntry, index| %>
-          <div class="grid__cell grid__cell--sm-<%= rowTwoGridCellWidth %>">
+          <div class="grid__cell grid__cell--sm-12 grid__cell--sm-above-sm-<%= rowTwoGridCellWidth %>">
             <% if panelEntry[:TYPE] == "chart" %>
               <section class="chart">
                 <% if panelEntry[:show_header] %>
@@ -109,3 +109,14 @@ end
     </div>
   </div>
 </section>
+
+<%# <section class="chart">
+<div
+  class="chart__container"
+  style="width: 100%; height: 400px;">
+  <canvas class="chart__canvas"></canvas>
+</div>
+<script class="chart__config" type="application/json">
+
+</script>
+</section> %>

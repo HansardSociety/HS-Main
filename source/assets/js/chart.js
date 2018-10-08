@@ -90,7 +90,6 @@ def.tooltips.bodyFontColor = white
 /*  =Deferred
  *****************************************/
 
-def.plugins.deferred = false
 def.plugins.labels = false
 
 /*  =Labels/ Data labels
@@ -157,20 +156,30 @@ const renderCharts = () => {
 
     // Modify colors
     const modCol = col => {
-      if (col.match(/#f|#e/)) return chroma(col).darken(2).saturate(2).hex()
+      if (col.match(/#f|#e/)) return chroma(col).darken(2).saturate(1.5).hex()
       return chroma(col).saturate(1.5).hex()
     }
 
     // Brewer colors
-    const brewerColors = palette => {
-      var evenColors = []
-      var oddColors = []
+    const brewerColors = options => {
+      let colors
+      let evenColors = []
+      let oddColors = []
+      let {
+        palette = "Spectral",
+        order = "shuffle"
+      } = options
 
-      chroma.brewer[palette].forEach((hex, i) => i % 2
-        ? evenColors.push(modCol(hex))
-        : oddColors.unshift(modCol(hex)))
+      if (order === "shuffle") {
+        chroma.brewer[palette].forEach((hex, i) => i % 2
+          ? evenColors.push(modCol(hex))
+          : oddColors.unshift(modCol(hex)))
+        colors = evenColors.reverse().concat(oddColors)
+      } else {
+        colors = chroma.brewer[palette]
+      }
 
-      return evenColors.reverse().concat(oddColors)
+      return colors
     }
 
     // Color scale
@@ -192,7 +201,7 @@ const renderCharts = () => {
         .mode("lab")
         .colors(range)
 
-      if (order = "scale") { // Scale
+      if (order === "scale") { // Scale
         colors.forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
       } else { // shuffle
         colors.forEach((col, i) => i % 2
@@ -204,6 +213,9 @@ const renderCharts = () => {
 
       return scale
     }
+
+    /*  =Datasets
+     *****************************************/
 
     for (let [datasetIndex, dataset] of data.datasets.entries()) {
       const isDatasetBar = dataset.type && dataset.type === "bar"
@@ -220,22 +232,28 @@ const renderCharts = () => {
           if (!dataset.backgroundColor) {
             for (let [datasetIdIndex, datasetID] of colorConfig.datasetIDs.entries()) {
               if (datasetID == dataset.datasetID) {
-                if (isDatasetLine || isDatasetBar || isDatasetHorizontalBar) {
-                  if (colorConfig.palette.constructor === String) {
-                    dataset.backgroundColor = brewerColors(colorConfig.palette)[datasetIdIndex]
-                    break
-                  } else {
-                    dataset.backgroundColor = colorScale({ palette: colorConfig.palette })
-                    break
-                  }
+                let selectColorPalette
+
+                if (colorConfig.palette.constructor === String) {
+                  selectColorPalette = brewerColors({
+                    palette: colorConfig.palette
+                  })
                 } else {
-                  if (colorConfig.palette.constructor === String) {
-                    dataset.backgroundColor = brewerColors(colorConfig.palette)
-                    break
-                  } else {
-                    dataset.backgroundColor = colorScale(colorConfig.palette)
-                    break
-                  }
+                  selectColorPalette = colorScale({
+                    palette: colorConfig.palette,
+                    range: colorConfig.range
+                  })
+                }
+
+                if (isDatasetBar || isDatasetHorizontalBar) {
+                  dataset.backgroundColor = selectColorPalette[datasetIdIndex]
+                  break
+
+                } else {
+                  const zerosInDataset = dataset.data.filter(i => i !== 0).length
+
+                  dataset.backgroundColor = selectColorPalette
+                  break
                 }
               }
             }
@@ -321,11 +339,11 @@ const renderCharts = () => {
             }
           }
 
-          console.log(
-            "****************** TOOLTIP LABEL ******************",
-            "\nITEM =>", item,
-            "\nDATA =>", data
-          )
+          // console.log(
+          //   "****************** TOOLTIP LABEL ******************",
+          //   "\nITEM =>", item,
+          //   "\nDATA =>", data
+          // )
 
           return tooltipText
         },
@@ -339,12 +357,12 @@ const renderCharts = () => {
           let datasetItem = chart.data.datasets[item.datasetIndex]
           let backgroundColor
 
-          console.log(
-            "****************** TOOLTIP LABEL COLOR ******************",
-            "\nITEM =>", item,
-            "\nDATA =>", data,
-            "\nDATASET ITEM =>", datasetItem.backgroundColor[item.index],
-          )
+          // console.log(
+          //   "****************** TOOLTIP LABEL COLOR ******************",
+          //   "\nITEM =>", item,
+          //   "\nDATA =>", data,
+          //   "\nDATASET ITEM =>", datasetItem.backgroundColor[item.index],
+          // )
 
           if (datasetItem.backgroundColor.constructor === String) {
             backgroundColor = datasetItem.backgroundColor
@@ -357,21 +375,6 @@ const renderCharts = () => {
           }
         }
       }
-
-      // Grid lines
-      const gridLines = (axes, dashed) => axes.forEach(axis => {
-        if (!axis.gridLines) {
-          let gridCfg = {
-            display: true,
-            color: offWhite
-          }
-          dashed === "dashed"
-            ? axis.gridLines = Object.assign({}, gridCfg, { borderDash: dashes })
-            : axis.gridLines = gridCfg
-        }
-      })
-      gridLines(options.scales.xAxes)
-      gridLines(options.scales.yAxes, "dashed")
     }
 
     /*  =Options: Doughnut
@@ -555,6 +558,7 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Merge tooltips configs
  * [ ] Create all possible charts
  * [ ] Auto-populate nested charts
+ * [ ] Nested doughnut must share color palette
  */
 
 /* =Schema
