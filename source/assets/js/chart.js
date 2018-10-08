@@ -319,14 +319,34 @@ const renderCharts = () => {
       options.tooltips.callbacks = {
         title: () => {}, // hide title
         label: (item, data) => {
+          const isDatasetBar = data.datasets[item.datasetIndex].type === "bar"
+          const isDatasetDoughnut = data.datasets[item.datasetIndex].type === "doughnut"
+          const isDatasetHorizontalBar = data.datasets[item.datasetIndex].type === "horizontalBar"
+          const isDatasetLine = data.datasets[item.datasetIndex].type === "line"
+          const isDatasetPie = data.datasets[item.datasetIndex].type === "pie"
+
           var tooltipText
 
+          if (isDatasetHorizontalBar && item.yLabel) {
+            tooltipText = item.yLabel
+
+          } else {
             let datasetItem = data.datasets[item.datasetIndex]
 
             if (datasetItem.data[item.index].x) {
-              return ` ${datasetItem.label} (${datasetItem.data[item.index].x}: ${datasetItem.data[item.index].y})`
+              tooltipText = ` ${datasetItem.label} (${datasetItem.data[item.index].x}: ${datasetItem.data[item.index].y})`
+            } {
+              tooltipText = ` ${datasetItem.label} (${datasetItem.data[item.index]})`
             }
-            return ` ${datasetItem.label} (${datasetItem.data[item.index]})`
+          }
+
+          console.log(
+            "****************** TOOLTIP ******************",
+            "\nITEM =>", item,
+            "\nDATA =>", data
+          )
+
+          return tooltipText
         },
         labelColor: (item, chart) => {
           let datasetItem = chart.data.datasets[item.datasetIndex]
@@ -507,7 +527,6 @@ const renderCharts = () => {
 }
 
 document.addEventListener("DOMContentLoaded", () => renderCharts())
-// renderCharts()
 
 /* =TODOs
  ***************************************************************************/
@@ -532,6 +551,7 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] How to use section in post, eg. turn off legends
  * [ ] Note: Padding always light to dark
  * [ ] Set chart__container width/height (contentful?)
+ * [ ] Merge tooltips configs
  */
 
 /* =Schema
