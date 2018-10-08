@@ -300,7 +300,7 @@ const renderCharts = () => {
 
     // General
     options.tooltips = {}
-    options.tooltips.mode = (isDoughnut || isPie) ? "nearest" : "x"
+    options.tooltips.mode = "nearest"
     options.tooltips.position = "average"
 
     /*  =Options: Line / horizontal bar
@@ -318,19 +318,21 @@ const renderCharts = () => {
       // Tooltips
       options.tooltips.callbacks = {
         title: () => {}, // hide title
-        label: (items, data) => {
-          let item = data.datasets[items.datasetIndex]
+        label: (item, data) => {
+          var tooltipText
 
-          if (item.data[items.index].x) {
-            return ` ${item.label} (${item.data[items.index].x}: ${item.data[items.index].y})`
-          }
-          return ` ${item.label} (${item.data[items.index]})`
+            let datasetItem = data.datasets[item.datasetIndex]
+
+            if (datasetItem.data[item.index].x) {
+              return ` ${datasetItem.label} (${datasetItem.data[item.index].x}: ${datasetItem.data[item.index].y})`
+            }
+            return ` ${datasetItem.label} (${datasetItem.data[item.index]})`
         },
-        labelColor: (items, chart) => {
-          let item = chart.data.datasets[items.datasetIndex]
+        labelColor: (item, chart) => {
+          let datasetItem = chart.data.datasets[item.datasetIndex]
 
           return {
-            backgroundColor: item.backgroundColor
+            backgroundColor: datasetItem.backgroundColor
           }
         }
       }
