@@ -192,16 +192,14 @@ const renderCharts = () => {
         .mode("lab")
         .colors(range)
 
-      if (order === "shuffle") {
+      if (order = "scale") { // Scale
+        colors.forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
+      } else { // shuffle
         colors.forEach((col, i) => i % 2
           ? evenColors.push(chroma(col).saturate(1.5).hex())
           : oddColors.unshift(chroma(col).saturate(1.5).hex()))
-
         evenColors.reverse().concat(oddColors)
           .forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
-
-      } else {
-        colors.forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
       }
 
       return scale
@@ -225,10 +223,16 @@ const renderCharts = () => {
             if (colorConfig.datasetID.constructor === String) {
               if (dataset.datasetID === colorConfig.datasetID) {
                 if (colorConfig.palette.constructor === String) {
+                  console.log(dataset.datasetID)
                   dataset.backgroundColor = brewerColors(colorConfig.palette)
                   break
                 } else {
-                  dataset.backgroundColor = colorScale(colorConfig.palette)
+                  console.log(dataset.datasetID)
+                  dataset.backgroundColor = colorScale({
+                    palette: colorConfig.palette,
+                    order: "scale",
+                    range: 25
+                  })
                   break
                 }
               }
@@ -240,7 +244,7 @@ const renderCharts = () => {
                       dataset.backgroundColor = brewerColors(colorConfig.palette)[datasetIdIndex]
                       break
                     } else {
-                      dataset.backgroundColor = colorScale(colorConfig.palette)[datasetIdIndex]
+                      dataset.backgroundColor = colorScale({ palette: colorConfig.palette })
                       break
                     }
                   } else {
@@ -270,7 +274,6 @@ const renderCharts = () => {
         if (isDatasetDoughnut || isDatasetPie) {
           dataset.borderColor = white
           dataset.hoverBorderColor = white
-
         } else {
           dataset.borderColor = dataset.backgroundColor
           dataset.hoverBorderColor = dataset.backgroundColor
@@ -279,7 +282,6 @@ const renderCharts = () => {
 
       // Set dataset defaults
       if (isDatasetLine) {
-        // dataset.fill = false
         if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = white
         if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = white
         if (!dataset.pointRadius) dataset.pointRadius = 5
@@ -362,6 +364,7 @@ const renderCharts = () => {
           const isDatasetPie = data.datasets[item.datasetIndex].type === "pie"
 
           let datasetItem = chart.data.datasets[item.datasetIndex]
+          let backgroundColor
 
           console.log(
             "****************** TOOLTIP LABEL COLOR ******************",
@@ -370,8 +373,14 @@ const renderCharts = () => {
             "\nDATASET ITEM =>", datasetItem.backgroundColor[item.index],
           )
 
+          if (datasetItem.backgroundColor.constructor === String) {
+            backgroundColor = datasetItem.backgroundColor
+          } else {
+            backgroundColor = datasetItem.backgroundColor[item.index]
+          }
+
           return {
-            backgroundColor: datasetItem.backgroundColor,
+            backgroundColor: backgroundColor,
           }
         }
       }
@@ -464,7 +473,7 @@ const renderCharts = () => {
     if (options.annotation) options.annotation = options.annotation
     if (options.annotation && options.annotation.annotations) {
       const annotations = options.annotation.annotations
-      console.log(annotations)
+
       annotations.forEach(annotation => {
         if (annotation.label && annotation.label.content) {
           annotation.label.enabled = true

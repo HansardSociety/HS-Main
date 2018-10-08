@@ -30,7 +30,7 @@ const bannerHeight = (() => {
     bannerImg.style.height = `${ windowHeight }px`
   }
 
-  console.log(`Aspect ratio = ${screen.width / screen.height}`)
+  // console.log(`Aspect ratio = ${screen.width / screen.height}`)
 })()
 
 export { bannerHeight }
