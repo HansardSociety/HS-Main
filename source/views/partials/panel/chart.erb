@@ -94,3 +94,64 @@ end
     </div>
   </div>
 </section>
+
+<div class="grid__cell grid__cell--sm-">
+  <section class="chart">
+    <div
+      class="chart__container"
+      style="height: 500px;">
+      <canvas class="chart__canvas"></canvas>
+    </div>
+    <script class="chart__config" type="application/json">
+{
+  "type": "horizontalBar",
+  "data": {
+    "datasets": [{
+      "type": "horizontalBar",
+      "label": "Departments",
+      "datasetID": "department-sis",
+      "data": [11, 7, 6, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1],
+      "yAxisID": "y-depts"
+    }]
+  },
+  "options": {
+    "legend": false,
+    "scales": {
+      "yAxes": [{
+        "id": "y-depts",
+        "type": "category",
+        "stacked": true,
+        "labels": [
+          "Department for Transport",
+          "Department for Business, Energy & Industrial Strategy",
+          "HM Treasury",
+          "Home Office",
+          "Department for Digital, Culture, Media & Sport",
+          "Department for Environment, Food & Rural Affairs",
+          "Department for Exiting the European Union",
+          "Cabinet Office",
+          "Department for International Trade",
+          "Ministry of Justice",
+          "Other (public bodies)",
+          "Northern Ireland Office",
+          "Department for Work & Pensions",
+          "HM Revenue & Customs"
+        ]
+      }],
+      "xAxes": [{
+        "id": "x-depts"
+      }]
+    }
+  },
+  "customConfig": {
+    "colors": [
+      {
+        "palette": "Spectral",
+        "datasetID": "ministerial-departments"
+      }
+    ]
+  }
+}
+    </script>
+  </section>
+</div>
