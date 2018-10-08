@@ -341,7 +341,7 @@ const renderCharts = () => {
           }
 
           console.log(
-            "****************** TOOLTIP ******************",
+            "****************** TOOLTIP LABEL ******************",
             "\nITEM =>", item,
             "\nDATA =>", data
           )
@@ -349,7 +349,20 @@ const renderCharts = () => {
           return tooltipText
         },
         labelColor: (item, chart) => {
+          const isDatasetBar = data.datasets[item.datasetIndex].type === "bar"
+          const isDatasetDoughnut = data.datasets[item.datasetIndex].type === "doughnut"
+          const isDatasetHorizontalBar = data.datasets[item.datasetIndex].type === "horizontalBar"
+          const isDatasetLine = data.datasets[item.datasetIndex].type === "line"
+          const isDatasetPie = data.datasets[item.datasetIndex].type === "pie"
+
           let datasetItem = chart.data.datasets[item.datasetIndex]
+
+          console.log(
+            "****************** TOOLTIP LABEL COLOR ******************",
+            "\nITEM =>", item,
+            "\nDATA =>", data,
+            "\nDATASET ITEM =>", datasetItem.backgroundColor[item.index],
+          )
 
           return {
             backgroundColor: datasetItem.backgroundColor
