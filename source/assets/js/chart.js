@@ -207,15 +207,6 @@ const renderCharts = () => {
       return scale
     }
 
-    const selectColorPalette = palette => {
-      var paletteType
-
-      if (palette.constructor === Array) paletteType = colorScale(palette)
-      else paletteType = brewerColors(palette)
-
-      return paletteType
-    }
-
     for (let [datasetIndex, dataset] of data.datasets.entries()) {
       const isDatasetBar = dataset.type && dataset.type === "bar"
       const isDatasetDoughnut = dataset.type && dataset.type === "doughnut"
@@ -233,18 +224,33 @@ const renderCharts = () => {
           if (!dataset.backgroundColor) {
             if (colorConfig.datasetID.constructor === String) {
               if (dataset.datasetID === colorConfig.datasetID) {
-                dataset.backgroundColor = selectColorPalette(colorConfig.palette)
-                break
+                if (colorConfig.palette.constructor === String) {
+                  dataset.backgroundColor = brewerColors(colorConfig.palette)
+                  break
+                } else {
+                  dataset.backgroundColor = colorScale(colorConfig.palette)
+                  break
+                }
               }
             } else {
               for (let [datasetIdIndex, datasetID] of colorConfig.datasetID.entries()) {
                 if (datasetID == dataset.datasetID) {
                   if (isDatasetLine || isDatasetBar || isDatasetHorizontalBar) {
-                    dataset.backgroundColor = selectColorPalette(colorConfig.palette)[datasetIdIndex]
-                    break
+                    if (colorConfig.palette.constructor === String) {
+                      dataset.backgroundColor = brewerColors(colorConfig.palette)[datasetIdIndex]
+                      break
+                    } else {
+                      dataset.backgroundColor = colorScale(colorConfig.palette)[datasetIdIndex]
+                      break
+                    }
                   } else {
-                    dataset.backgroundColor = selectColorPalette(colorConfig.palette)
-                    break
+                    if (colorConfig.palette.constructor === String) {
+                      dataset.backgroundColor = brewerColors(colorConfig.palette)
+                      break
+                    } else {
+                      dataset.backgroundColor = colorScale(colorConfig.palette)
+                      break
+                    }
                   }
                 }
               }
@@ -365,7 +371,7 @@ const renderCharts = () => {
           )
 
           return {
-            backgroundColor: datasetItem.backgroundColor
+            backgroundColor: datasetItem.backgroundColor,
           }
         }
       }
@@ -565,6 +571,7 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Note: Padding always light to dark
  * [ ] Set chart__container width/height (contentful?)
  * [ ] Merge tooltips configs
+ * [ ] Create all possible charts
  */
 
 /* =Schema
