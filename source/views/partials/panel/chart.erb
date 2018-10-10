@@ -7,7 +7,6 @@ title = panelData[:title]
 caption = panelData[:caption]
 
 rowOneGridCellWidth = 12 / panelData[:charts_row_1].length
-
 if panelData[:charts_row_2]
   rowTwoGridCellWidth = 12 / panelData[:charts_row_2].length
 end
@@ -24,37 +23,47 @@ end
   <% end %>
 
   <div class="panel__content panel__content--full">
-    <div class="grid grid--sm">
+    <div class="grid grid--md">
 
       <!--**********************************************
           =Row 1
       ***********************************************-->
 
-      <% panelData[:charts_row_1].each_with_index do |chart, index| %>
-        <div class="grid__cell grid__cell--sm-<%= rowOneGridCellWidth %>">
-          <section class="chart">
-
-            <header class="chart__header">
-              <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= chart[:title] %></h2>
-              <p class="e-fz-xs e-col-grey-3"><%= chart[:caption] %></p>
-            </header>
-
-            <div
-              class="chart__container"
-              style="width: 100%; height: 400px;">
-              <canvas class="chart__canvas"></canvas>
-            </div>
-            <script class="chart__config" type="application/json">
-              {
-                "type": "<%= chart[:chart_type] %>",
-                "data": {
-                  "datasets": <%= chart[:chart_data] %>
-                },
-                "options": <%= chart[:chart_options] %>,
-                "colors": <%= chart[:chart_colors] %>
-              }
-            </script>
-          </section>
+      <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
+        <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
+          <% if panelEntry[:TYPE] == "chart" %>
+            <section class="chart">
+              <% if panelEntry[:show_header] %>
+                <header class="chart__header">
+                  <% if panelData[:show_title] %>
+                    <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                  <% else %>
+                    <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                  <% end %>
+                  <% if panelData[:caption] %>
+                    <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
+                  <% end %>
+                </header>
+              <% end %>
+              <div
+                class="chart__container"
+                style="width: 100%;
+                  <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                <canvas class="chart__canvas"></canvas>
+              </div>
+              <script class="chart__config" type="application/json">
+                {
+                  "type": "<%= panelEntry[:chart_type] %>",
+                  "data": {
+                    "datasets": <%= panelEntry[:chart_datasets] %>,
+                    "labels": <%= panelEntry[:chart_labels] %>
+                  },
+                  "options": <%= panelEntry[:chart_options] %>,
+                  "customConfig": <%= panelEntry[:chart_custom_config] %>
+                }
+              </script>
+            </section>
+          <% end %>
         </div>
       <% end %>
 
@@ -62,60 +71,77 @@ end
           =Row 2
       ***********************************************-->
 
-      <div class="grid__cell grid__cell--sm-6">
-        <section class="chart">
-
-          <header class="chart__header">
-            <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= title %></h2>
-            <p class="e-fz-xs e-col-grey-3"><%= caption %></p>
-          </header>
-
-          <div
-            class="chart__container"
-            style="width: 100%;">
-            <canvas class="chart__canvas"></canvas>
-          </div>
-          <script class="chart__config" type="application/json">
-            {
-              "type": "doughnut",
-              "data": {
-                "labels": [
-                  "Proposed negative",
-                  "Affirmative"
-                ],
-                "datasets": [
+      <% if panelData[:charts_row_2] %>
+        <% panelData[:charts_row_2].each_with_index do |panelEntry, index| %>
+          <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
+            <% if panelEntry[:TYPE] == "chart" %>
+              <section class="chart">
+                <% if panelEntry[:show_header] %>
+                  <header class="chart__header">
+                    <% if panelData[:show_title] %>
+                      <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                    <% else %>
+                      <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                    <% end %>
+                    <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
+                  </header>
+                <% end %>
+                <div
+                  class="chart__container"
+                  style="width: 100%;
+                    <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                  <canvas class="chart__canvas"></canvas>
+                </div>
+                <script class="chart__config" type="application/json">
                   {
-                    "type": "doughnut",
-                    "data": [31, 9],
-                    "datasetColorID": "doughnut-01"
-                  },
-                  {
-                    "type": "doughnut",
-                    "data": [0, 0, 1, 1, 3, 7, 27],
-                    "datasetColorID": "doughnut-02"
+                    "type": "<%= panelEntry[:chart_type] %>",
+                    "data": {
+                      "datasets": <%= panelEntry[:chart_datasets] %>,
+                      "labels": <%= panelEntry[:chart_labels] %>
+                    },
+                    "options": <%= panelEntry[:chart_options] %>,
+                    "customConfig": <%= panelEntry[:chart_custom_config] %>
                   }
-                ]
-              },
-              "options": {
-                "aspectRatio": 1
-              },
-              "colors": [
-                {
-                  "palette": [
-                    "#df1b50",
-                    "#ffffff"
-                  ],
-                  "datasetColorID": "doughnut-01"
-                },
-                {
-                  "palette": "Spectral",
-                  "datasetColorID": "doughnut-02"
-                }
-              ]
-            }
-          </script>
-        </section>
-      </div>
+                </script>
+              </section>
+            <% elsif panelEntry[:TYPE] == "text_box" %>
+              <div class="text-box">
+                <% if panelEntry[:show_title] %>
+                  <% if panelData[:show_title] %>
+                    <h3 class="title-md e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                  <% else %>
+                    <h2 class="title-lg e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                  <% end %>
+                <% end %>
+                <div class="copy">
+                  <%= markdown(panelEntry[:copy]) %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </section>
+
+<%# <section class="chart">
+<div
+  class="chart__container"
+  style="width: 100%; height; width: 500px;">
+  <canvas class="chart__canvas"></canvas>
+</div>
+<script class="chart__config" type="application/json">
+
+{
+  "type": "doughnut",
+  "data": {
+    "datasets": [{"data":[36,14,0,0,0,0],"label":"All Brexit SIs","datasetID":"sis-all"},{"data":[0,0,31,9,0,0],"label":"Brexit Sis via EU(W)A","datasetID":"sis-euwa"},{"data":[0,0,0,0,5,3],"label":"Brexit SIs via Other Acts","datasetID":"sis-other"}],
+    "labels": ["All Acts: Negative","All Acts: Affirmative","EU(W)A: Negative","EU(W)A: Affirmative","Other Acts: Negative","Other Acts: Affirmative"]
+  },
+  "options": {"aspectRatio":1},
+  "customConfig": {"colors":[{"palette":"Spectral","datasetIDs":["sis-all","sis-euwa","sis-other"]}]}
+}
+
+</script>
+</section> %>
