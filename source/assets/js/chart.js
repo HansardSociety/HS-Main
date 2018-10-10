@@ -42,6 +42,7 @@ const rem075 = rem100 * .75
 const rem0675 = rem100 * .675
 const rem050 = rem100 * .5
 const rem025 = rem100 * .25
+const rem0125 = rem100 * .125
 
 /* =Global config
  ***************************************************************************/
@@ -64,7 +65,7 @@ def.hover.intersect = true
 def.layout.padding = 0
 
 // Legend
-def.legend.position = "bottom"
+def.legend.position = "top"
 def.legend.labels.boxWidth = rem150
 def.legend.labels.usePointStyle = true
 
@@ -218,7 +219,7 @@ const renderCharts = () => {
     /*  =Datasets
      *****************************************/
 
-    for (let [datasetIndex, dataset] of data.datasets.entries()) {
+    for (let dataset of data.datasets) {
       if (!dataset.type) dataset.type = chartConfig.type
       const isDatasetBar = dataset.type && dataset.type === "bar"
       const isDatasetDoughnut = dataset.type && dataset.type === "doughnut"
@@ -229,9 +230,11 @@ const renderCharts = () => {
       /*  =Dataset: Set colors
       *****************************************/
 
-      if (chartConfig.customConfig && chartConfig.customConfig.colors) {
+      const customConfig = chartConfig.customConfig
+
+      if (customConfig && customConfig.colors) {
         if (!dataset.backgroundColor) {
-          for (let colorConfig of chartConfig.customConfig.colors) {
+          for (let colorConfig of customConfig.colors) {
             for (let [datasetIdIndex, datasetID] of colorConfig.datasetIDs.entries()) {
               if (datasetID === dataset.datasetID) {
                 const isPaletteString = colorConfig.palette.constructor === String
@@ -265,8 +268,8 @@ const renderCharts = () => {
                   break
                 }
               }
-            }
-          }
+            } // END loop: => colorConfig.datasetIDs
+          } // END loop: customConfig.colors
         } else {
           dataset.backgroundColor = dataset.backgroundColor
         }
@@ -280,7 +283,10 @@ const renderCharts = () => {
 
       // If no border is defined add one to == bgc
       if (dataset.backgroundColor && !dataset.borderColor) {
-        if (isDatasetDoughnut || isDatasetPie) {
+        if (isDatasetDoughnut) {
+          dataset.borderColor = hexToRGBA(black, 0.8)
+          dataset.hoverBorderColor = hexToRGBA(black, 0.8)
+        } else if (isDatasetPie) {
           dataset.borderColor = white
           dataset.hoverBorderColor = white
         } else {
@@ -328,7 +334,7 @@ const renderCharts = () => {
         let title = false
         if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) title = datasetItem.label
         return title
-      },
+      }, // END: => callbacks
       label: (item, data) => {
         const datasetItem = data.datasets[item.datasetIndex]
         const isDatasetHorizontalBar = datasetItem.type === "horizontalBar"
@@ -359,7 +365,7 @@ const renderCharts = () => {
         }
 
         return tooltipText
-      },
+      }, // END: => label
       labelColor: (item, chart) => {
         const datasetItem = chart.data.datasets[item.datasetIndex]
         const isBgcString = datasetItem.backgroundColor.constructor === String
@@ -368,13 +374,16 @@ const renderCharts = () => {
         if (isBgcString) backgroundColor = datasetItem.backgroundColor
         else backgroundColor = datasetItem.backgroundColor[item.index]
         return { backgroundColor: backgroundColor }
-      }
-    }
+      } // END: => labelColor
+    } // END: options.tooltips.tooltips
 
     /*  =Misc
      *****************************************/
 
-    if (isDoughnut) options.cutoutPercentage = 25
+    if (isDoughnut) {
+      options.cutoutPercentage = 25
+      options.rotation = Math.PI * 2 * .5
+    }
 
     /* =Plugins
      ***************************************************************************/
@@ -402,18 +411,47 @@ const renderCharts = () => {
           annotation.label.borderWidth = 0
         }
       })
-    }
+    } // END: options.annotation
 
     /* =Labels
      ***************************************************************************/
 
-    options.plugins.labels = {
-      render: "percentage",
-      fontFamily: ff02,
-      fontSize: rem075,
-      fontColor: white,
-      textShadow: true
+    const isAnnotationConfig = (item, configKey, configVal) => {
+      let result = false
+      const runcheck = chartConfig.customConfig.annotations.filter(annotationConfig => {
+        return annotationConfig.datasetIDs.filter(id => {
+          return id === item.dataset.datasetID
+        }) && annotationConfig[configKey] === configVal
+      })
+      if (runcheck.length >= 1) result = true
+      return result
     }
+
+    options.plugins.labels = {
+      // textShadow: true,
+      fontFamily: ff02,
+      fontSize: isPie ? rem125 : rem0675,
+      fontColor: item => {
+        let color = white
+        if (isAnnotationConfig(item, "fontColor", "black")) color = black
+        return color
+      },
+      render: item => {
+        let labelText = ""
+        console.log(item)
+        // Annotations
+        if (chartConfig.customConfig.annotations) {
+          if (isAnnotationConfig(item, "type", "radialTitle") && item.index === 0) {
+            labelText = item.dataset.label
+          }
+          if (isAnnotationConfig(item, "type", "numericLabel")) labelText = item.value
+        }
+        return labelText
+      }
+    }
+
+    // TODO: Create dataset specific labels
+    if (isDoughnut) options.plugins.labels.arc = true
 
     /*  =Datalabels
      *****************************************/
@@ -422,28 +460,35 @@ const renderCharts = () => {
     options.plugins.datalabels = {
       display: context => {
         if (context.dataset.data[context.dataIndex] === 0) return false
-        else return true
+        return true
       },
-      backgroundColor: context => {
-        return context.dataset.backgroundColor
-      },
-      anchor: "center",
       align: "center",
       color: white,
       borderColor: white,
-      borderRadius: 25,
-      borderWidth: strokeWidth,
       font: {
         size: rem0675,
         family: ff02
       },
-      textAlign: "center",
-      padding: {
-        top: rem025,
-        right: rem050,
-        bottom: rem025,
-        left: rem050
+      formatter: (value, context) => {
+        if (isDoughnut || isPie) {
+          let total = context.dataset.data.reduce((a, b) => a + b, 0)
+          const pc = ((value / total) * 100).toFixed(1)
+          const pcStr = `${pc}`.replace(".0", "")
+          value = `${pcStr}%`
+        }
+        return value
       }
+    }
+
+    if (isDoughnut || isPie) {
+      options.plugins.datalabels.padding = isPie ? rem025 : rem0125
+      options.plugins.datalabels.borderColor = white
+      options.plugins.datalabels.backgroundColor = context => {
+        return context.dataset.backgroundColor
+      }
+      options.plugins.datalabels.anchor = "end"
+      options.plugins.datalabels.borderColor = white
+      options.plugins.datalabels.borderWidth = isPie ? 1 : 0
     }
 
     new Chart(chartCanvas, chartConfig)
@@ -457,12 +502,10 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
 
 /**
  * [x] Tooltip font size
- * [ ] Rotate nner doughnut
  * [x] Grid font size
  * [x] Base grid-line style
  * [x] Axes label color grey
  * [ ] Create common config templates
- * [ ] JSON GUI editor
  * [x] Show scale label if specified
  * [x] Position secondary axes
  * [ ] Create DO NOT AMEND JSON options
@@ -479,6 +522,8 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Create all possible charts
  * [ ] Auto-populate nested charts
  * [ ] Nested doughnut must share color palette
+ * [ ] Add min-width for eg. departments chart
+ * [ ] Create dataset-specific override of labels plugin
  */
 
 /* =Schema
@@ -494,4 +539,5 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  *      ]
  *   }
  * }
+ * radialTitle, value
  */

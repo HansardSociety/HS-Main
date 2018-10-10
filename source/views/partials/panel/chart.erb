@@ -10,6 +10,11 @@ rowOneGridCellWidth = 12 / panelData[:charts_row_1].length
 if panelData[:charts_row_2]
   rowTwoGridCellWidth = 12 / panelData[:charts_row_2].length
 end
+
+rowChartGridCellWidth = 12
+if panelData[:charts_row_1].length > 0
+  rowChartGridCellWidth = 5
+end
 %>
 
 <section
@@ -30,7 +35,7 @@ end
       ***********************************************-->
 
       <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
-        <div class="grid__cell grid__cell--sm-12 grid__cell--sm-above-sm-<%= rowOneGridCellWidth %>">
+        <div class="grid__cell grid__cell--sm-12 grid__cell--sm-above-sm-<%= rowChartGridCellWidth %>">
           <% if panelEntry[:TYPE] == "chart" %>
             <section class="chart">
               <% if panelEntry[:show_header] %>
@@ -71,7 +76,7 @@ end
 
       <% if panelData[:charts_row_2] %>
         <% panelData[:charts_row_2].each_with_index do |panelEntry, index| %>
-          <div class="grid__cell grid__cell--sm-12 grid__cell--sm-above-sm-<%= rowTwoGridCellWidth %>">
+          <div class="grid__cell grid__cell--sm-12 grid__cell--sm-above-sm-<%= rowChartGridCellWidth %>">
             <% if panelEntry[:TYPE] == "chart" %>
               <section class="chart">
                 <% if panelEntry[:show_header] %>
