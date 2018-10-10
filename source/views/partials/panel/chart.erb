@@ -14,7 +14,7 @@ end
 
 <section
   id="panel-<%= index %>"
-  class="panel e-bgc-white-2">
+  class="panel e-bgc-white-1">
 
   <% if panelData[:show_title] %>
     <header class="panel__content panel__content--narrow">
@@ -36,9 +36,9 @@ end
               <% if panelEntry[:show_header] %>
                 <header class="chart__header">
                   <% if panelData[:show_title] %>
-                    <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                    <h3 class="label-xxs e-col-brand-green-2"><%= panelEntry[:title] %></h3>
                   <% else %>
-                    <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                    <h2 class="label-xxs e-col-brand-green-2"><%= panelEntry[:title] %></h2>
                   <% end %>
                   <% if panelData[:caption] %>
                     <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
@@ -73,8 +73,10 @@ end
 
       <% if panelData[:charts_row_2] %>
         <% panelData[:charts_row_2].each_with_index do |panelEntry, index| %>
-          <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
-            <% if panelEntry[:TYPE] == "chart" %>
+
+          <%# Chart %>
+          <% if panelEntry[:TYPE] == "chart" %>
+            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
               <section class="chart">
                 <% if panelEntry[:show_header] %>
                   <header class="chart__header">
@@ -104,7 +106,11 @@ end
                   }
                 </script>
               </section>
-            <% elsif panelEntry[:TYPE] == "text_box" %>
+            </div>
+
+          <%# Text box %>
+          <% elsif panelEntry[:TYPE] == "text_box" %>
+            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
               <div class="text-box">
                 <% if panelEntry[:show_title] %>
                   <% if panelData[:show_title] %>
@@ -117,8 +123,8 @@ end
                   <%= markdown(panelEntry[:copy]) %>
                 </div>
               </div>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>

@@ -530,6 +530,7 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Add min-width for eg. departments chart
  * [ ] Create dataset-specific override of labels plugin
  * [ ] Make sure Brewer palettes have enough colours for large datasets
+ * [ ] Make both chart row HTML the same
  */
 
 /* =Schema

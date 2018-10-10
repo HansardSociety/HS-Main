@@ -514,7 +514,7 @@ def panels(ctx, data)
 
     if isPanelContent
       panelContent = {
-        copy_size: (panel.copy_size.parameterize if panel.copy_size),
+        copy_size: (panel.copy_size ? panel.copy_size.parameterize : "normal"),
         show_more: ({
           cta_id: targetID("expand", panel.title, panel),
           content: panel.show_more
