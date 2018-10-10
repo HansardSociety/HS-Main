@@ -1,8 +1,8 @@
 .chart {
   @extend %e-bgc-white-1;
-  @extend %e-pad-sm;
   @extend %e-rad-slight;
   @extend %e-box-shad-z3;
+  @extend %e-pad-sm;
 }
 
 .chart__container {

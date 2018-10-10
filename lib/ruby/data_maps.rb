@@ -467,24 +467,45 @@ def panels(ctx, data)
     ########################################
 
     if isPanelChart
-      def chartData(data)
-        {
+      def chartPanelData(data)
+        chartPanelData = {
           ID: data.sys[:id],
           TYPE: data.content_type.id,
           title: data.title,
-          caption: data.caption,
-          chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
-          chart_data: data.data.to_json.to_s,
-          chart_options: data.options[0].to_json.to_s,
-          chart_colors: data.colors.to_json.to_s,
-          chart_width: (data.width ? "#{ data.width }px" : "100%"),
-          chart_scaling: (data.scaling ? data.scaling.parameterize : "responsive")
         }
+
+        chartData = {}
+        textBoxData = {}
+
+        if data.content_type.id == "chart"
+          chartData = {
+            caption: data.caption,
+            show_header: data.show_header,
+            chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
+            chart_datasets: data.datasets.to_json.to_s, # Arr
+            chart_labels: (data.labels ? data.labels.to_json.to_s : "[]"), # Arr / optional
+            chart_options: data.options.to_json.to_s, # Obj
+            chart_custom_config: (data.custom_config ? data.custom_config.to_json.to_s : "{}"), # Obj / optional
+            chart_height: data.height
+          }
+        end
+
+        if data.content_type.id == "text_box"
+          textBoxData = {
+            copy: data.copy,
+            show_title: data.show_title
+          }
+        end
+
+        chartPanelData.merge(
+          **chartData,
+          **textBoxData
+        ).compact
       end
 
       panelChart = {
-        charts_row_1: panel.charts_row_1.map{|chart| chartData(chart)},
-        charts_row_2: (panel.charts_row_2.map{|chart| chartData(chart)} if panel.charts_row_2)
+        charts_row_1: panel.charts_row_1.map{|entry| chartPanelData(entry)},
+        charts_row_2: (panel.charts_row_2.map{|entry| chartPanelData(entry)} if panel.charts_row_2)
       }
     end
 
