@@ -325,18 +325,25 @@ const renderCharts = () => {
       align: "center",
       borderColor: white,
       font: {
-        size: rem075,
+        size: rem0675,
         family: ff02
       },
       formatter: (value, context) => {
         const isDatasetDoughnut = context.dataset.type === "doughnut"
         const isDatasetPie = context.dataset.type === "pie"
+        const isDatasetLine = context.dataset.type === "line"
+        const isDatasetBar = context.dataset.type === "bar"
+        const isDatasetHorizontalBar = context.dataset.type === "horizontalBar"
+
         let labelText = ""
 
         // Percentage
         if (isDatasetDoughnut || isDatasetPie) {
           const pcStr = calculatePercentage(context.dataset.data, value)
           labelText = `${pcStr}%`
+
+        } else if (isDatasetBar || isDatasetHorizontalBar) {
+          labelText = value
         }
 
         return labelText
@@ -467,6 +474,8 @@ const renderCharts = () => {
        *****************************************/
 
       dataset.datalabels = {}
+      dataset.datalabels.font = {}
+      dataset.datalabels.color = white
 
       if (isDatasetDoughnut && annotationConfig.type === "radialTitle") {
         dataset.datalabels.padding = rem0125
@@ -474,10 +483,14 @@ const renderCharts = () => {
           return context.dataset.backgroundColor
         }
         dataset.datalabels.anchor = "end"
-        dataset.datalabels.color = white
+        dataset.datalabels.font.size = rem0675
 
       } else if (isDatasetPie && annotationConfig.type === "percentageLabel") {
-        console.log(annotationConfig.type)
+        if (annotationConfig.fontSize === "large") dataset.datalabels.font.size = rem100
+        if (annotationConfig.color === "black") dataset.datalabels.color = black
+
+      } else {
+
       }
 
       /*  =Dataset: Apply colors
