@@ -251,18 +251,23 @@ const renderCharts = () => {
                   order: colorConfig.order,
                   range: colorConfig.range })
 
-                if (isDatasetBar || isDatasetHorizontalBar) {
-                  const isUniqueType = data.datasets.filter(i => i.type === dataset.type).length === 1
+                if (isDatasetBar || isDatasetHorizontalBar || isDatasetLine) {
 
-                  if (isUniqueType) {
-                    dataset.backgroundColor = selectColorPalette
-                    break
-                  } else {
-                    dataset.backgroundColor = selectColorPalette[datasetIdIndex]
-                    break
-                  }
+                  dataset.backgroundColor = selectColorPalette[datasetIdIndex]
+                  break
+
+                  // const isUniqueType = data.datasets.filter(i => i.type === dataset.type).length === 1
+                  // if (isUniqueType) {
+                  //   dataset.backgroundColor = selectColorPalette
+                  //   break
+                  // } else {
+                  //   dataset.backgroundColor = selectColorPalette[datasetIdIndex]
+                  //   break
+                  // }
                 } else {
                   const zerosInDataset = dataset.data.filter(i => i !== 0).length
+
+                  console.log(dataset.type, selectColorPalette)
 
                   dataset.backgroundColor = selectColorPalette
                   break
@@ -428,7 +433,6 @@ const renderCharts = () => {
     }
 
     options.plugins.labels = {
-      // textShadow: true,
       fontFamily: ff02,
       fontSize: isPie ? rem125 : rem0675,
       fontColor: item => {
@@ -438,7 +442,7 @@ const renderCharts = () => {
       },
       render: item => {
         let labelText = ""
-        console.log(item)
+
         // Annotations
         if (chartConfig.customConfig.annotations) {
           if (isAnnotationConfig(item, "type", "radialTitle") && item.index === 0) {
@@ -470,13 +474,14 @@ const renderCharts = () => {
         family: ff02
       },
       formatter: (value, context) => {
-        if (isDoughnut || isPie) {
+        if (context.dataset.type === "doughnut" || context.dataset.type === "pie") {
           let total = context.dataset.data.reduce((a, b) => a + b, 0)
           const pc = ((value / total) * 100).toFixed(1)
           const pcStr = `${pc}`.replace(".0", "")
-          value = `${pcStr}%`
+
+          return `${pcStr}%`
         }
-        return value
+        return ""
       }
     }
 
@@ -524,6 +529,7 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Nested doughnut must share color palette
  * [ ] Add min-width for eg. departments chart
  * [ ] Create dataset-specific override of labels plugin
+ * [ ] Make sure Brewer palettes have enough colours for large datasets
  */
 
 /* =Schema
