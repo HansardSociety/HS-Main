@@ -31,9 +31,7 @@ index = local_data[:index]
   <div class="panel__content panel__content--full">
 
     <% if panelData[:show_title] || panelData[:image] %>
-      <div class="grid grid--md grid--center
-        <%= "e-hide-above-sm" if !panelData[:image] %>">
-
+      <div class="grid grid--md grid--center <%= "e-hide-above-sm" if !panelData[:image] %>">
         <% if panelData[:show_title] %>
           <div class="grid__cell grid__cell--md--12 e-hide-above-sm">
             <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>

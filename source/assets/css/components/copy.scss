@@ -128,10 +128,15 @@ ol {
 
       padding-right: 1rem;
 
-      color: brand;
-
       font-weight: bold;
+
+      @extend %e-col-orange-2;
     }
+  }
+
+  li::before {
+    top: -.125rem;
+    @extend %e-position-relative;
   }
 }
 
@@ -149,7 +154,7 @@ li {
 
   > li {
     &::before{
-      content: counter(root-ul-counter, disc);
+      content: counter(root-ul-counter, square);
       counter-increment: root-ul-counter;
     }
 
@@ -158,7 +163,7 @@ li {
 
       > li {
         &::before {
-          content: counter(level-one-ul-counter, disc);
+          content: counter(level-one-ul-counter, square);
           counter-increment: level-one-ul-counter;
         }
 
@@ -167,7 +172,7 @@ li {
 
           > li {
             &::before {
-              content: counter(level-two-ul-counter, disc);
+              content: counter(level-two-ul-counter, square);
               counter-increment: level-two-ul-counter;
             }
           }

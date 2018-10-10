@@ -505,7 +505,8 @@ def panels(ctx, data)
 
       panelChart = {
         charts_row_1: panel.charts_row_1.map{|entry| chartPanelData(entry)},
-        charts_row_2: (panel.charts_row_2.map{|entry| chartPanelData(entry)} if panel.charts_row_2)
+        charts_row_2: (panel.charts_row_2.map{|entry| chartPanelData(entry)} if panel.charts_row_2),
+        rows_width: (panel.rows_width.parameterize if panel.rows_width)
       }
     end
 

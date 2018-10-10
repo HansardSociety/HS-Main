@@ -6,6 +6,15 @@ index = local_data[:index]
 title = panelData[:title]
 caption = panelData[:caption]
 
+rowsWidth = ""
+if panelData[:rows_width] == "narrow"
+  rowsWidth = "medium"
+elsif panelData[:rows_width] == "medium"
+  rowsWidth = "wide"
+else
+  rowsWidth = "full"
+end
+
 rowOneGridCellWidth = 12 / panelData[:charts_row_1].length
 if panelData[:charts_row_2]
   rowTwoGridCellWidth = 12 / panelData[:charts_row_2].length
@@ -17,12 +26,16 @@ end
   class="panel e-bgc-white-1">
 
   <% if panelData[:show_title] %>
-    <header class="panel__content panel__content--narrow">
-      <h2 class="title-lg e-col-brand-green-2 e-mgn-b-md"><%= panelData[:title] %></h2>
+    <header class="panel__content panel__content--full">
+      <div class="grid grid--sm grid--center">
+        <div class="grid__cell grid__cell--sm-12 grid__cell--sm-above-sm-7">
+          <h2 class="title-lg e-col-brand-green-2 e-mgn-b-md"><%= panelData[:title] %></h2>
+        </div>
+      </div>
     </header>
   <% end %>
 
-  <div class="panel__content panel__content--full">
+  <div class="panel__content panel__content--<%= rowsWidth %>">
     <div class="grid grid--md">
 
       <!--**********************************************
@@ -36,9 +49,9 @@ end
               <% if panelEntry[:show_header] %>
                 <header class="chart__header">
                   <% if panelData[:show_title] %>
-                    <h3 class="label-xxs e-col-brand-green-2"><%= panelEntry[:title] %></h3>
+                    <h3 class="title-xs e-col-brand-green-2"><%= panelEntry[:title] %></h3>
                   <% else %>
-                    <h2 class="label-xxs e-col-brand-green-2"><%= panelEntry[:title] %></h2>
+                    <h2 class="title-xs e-col-brand-green-2"><%= panelEntry[:title] %></h2>
                   <% end %>
                   <% if panelData[:caption] %>
                     <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
