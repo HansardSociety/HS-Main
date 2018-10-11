@@ -455,10 +455,12 @@ const renderCharts = () => {
                   range: colorConfig.range })
 
                 if (!colorConfig.incrementalColors && (isDatasetBar || isDatasetHorizontalBar || isDatasetLine)) {
+                  const hoverColor = chroma(selectColorPalette[datasetIdIndex]).darken(1)
                   dataset.backgroundColor = selectColorPalette[datasetIdIndex]
                   break
                 } else {
-                  const zerosInDataset = dataset.data.filter(i => i !== 0).length
+                  // const zerosInDataset = dataset.data.filter(i => i !== 0).length
+                  console.log(dataset)
                   dataset.backgroundColor = selectColorPalette
                   break
                 }
@@ -497,7 +499,6 @@ const renderCharts = () => {
       *****************************************/
 
       dataset.borderWidth = strokeWidth
-      dataset.hoverBackgroundColor = dataset.backgroundColor
 
       // If no border is defined add one to == bgc
       if (dataset.backgroundColor && !dataset.borderColor) {

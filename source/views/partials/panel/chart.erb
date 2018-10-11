@@ -144,7 +144,7 @@ end
   </div>
 </section>
 
-<%# <section class="chart">
+<section class="chart">
 <div
   class="chart__container"
   style="width: 100%; height; width: 500px;">
@@ -153,14 +153,30 @@ end
 <script class="chart__config" type="application/json">
 
 {
-  "type": "doughnut",
+  "type": "polarArea",
   "data": {
-    "datasets": [{"data":[36,14,0,0,0,0],"label":"All Brexit SIs","datasetID":"sis-all"},{"data":[0,0,31,9,0,0],"label":"Brexit Sis via EU(W)A","datasetID":"sis-euwa"},{"data":[0,0,0,0,5,3],"label":"Brexit SIs via Other Acts","datasetID":"sis-other"}],
-    "labels": ["All Acts: Negative","All Acts: Affirmative","EU(W)A: Negative","EU(W)A: Affirmative","Other Acts: Negative","Other Acts: Affirmative"]
+    "datasets": [{
+      "data": [28, 5, 27, 2, 5],
+      "backgroundColor": [
+        "blue", "green",
+        "yellow", "purple",
+        "grey"
+      ]
+    }],
+    "labels": [
+      "ESIC: SIs considered", "ESIC: SIs recommended",
+      "SLSC: SIs considered", "SLSC: SIs recommended",
+      "Total propsed negative"
+    ]
   },
-  "options": {"aspectRatio":1},
-  "customConfig": {"colors":[{"palette":"Spectral","datasetIDs":["sis-all","sis-euwa","sis-other"]}]}
+  "options": {
+    "aspectRatio": 1
+  },
+  "customConfig": {
+
+  }
 }
 
+
 </script>
-</section> %>
+</section>
