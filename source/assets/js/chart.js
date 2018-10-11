@@ -169,7 +169,6 @@ const renderCharts = () => {
      *****************************************/
 
     options.tooltips = {}
-    options.tooltips.mode = "nearest"
     options.tooltips.position = "nearest"
 
     options.tooltips.callbacks = {
@@ -220,6 +219,16 @@ const renderCharts = () => {
         return { backgroundColor: backgroundColor }
       } // END: => labelColor
     } // END: options.tooltips.tooltips
+
+    /*  =Scales
+     *****************************************/
+
+    if (isBar) {
+      if (options.scales.xAxes) {
+
+      }
+
+    }
 
     /*  =Misc
      *****************************************/
