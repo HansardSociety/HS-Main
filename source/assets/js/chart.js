@@ -409,13 +409,13 @@ const renderCharts = () => {
         .colors(range)
 
       if (order === "scale") { // Scale
-        colors.forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
+        colors.forEach(col => scale.push(chroma(col).saturate(1).hex()))
       } else { // shuffle
         colors.forEach((col, i) => i % 2
-          ? evenColors.push(chroma(col).saturate(1.5).hex())
-          : oddColors.unshift(chroma(col).saturate(1.5).hex()))
+          ? evenColors.push(chroma(col).saturate(1).hex())
+          : oddColors.unshift(chroma(col).saturate(1).hex()))
         evenColors.reverse().concat(oddColors)
-          .forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
+          .forEach(col => scale.push(chroma(col).saturate(1).hex()))
       }
 
       return scale
@@ -440,6 +440,10 @@ const renderCharts = () => {
       /*  =Dataset: Set colors
       *****************************************/
 
+      dataset.backgroundColor = dataset.backgroundColor
+      dataset.hoverBackgroundColor = dataset.backgroundColor
+      dataset.hoverBorderColor = dataset.backgroundColor
+
       if (customConfig && customConfig.colors) {
         if (!dataset.backgroundColor) {
           for (let colorConfig of customConfig.colors) {
@@ -460,11 +464,9 @@ const renderCharts = () => {
                   range: colorConfig.range })
 
                 if (!colorConfig.incrementalColors && (isDatasetBar || isDatasetHorizontalBar || isDatasetLine)) {
-                  const hoverColor = chroma(selectColorPalette[datasetIdIndex]).darken(1)
                   dataset.backgroundColor = selectColorPalette[datasetIdIndex]
                   break
                 } else {
-                  // const zerosInDataset = dataset.data.filter(i => i !== 0).length
                   dataset.backgroundColor = selectColorPalette
                   break
                 }
@@ -574,7 +576,9 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Make sure Brewer palettes have enough colours for large datasets
  * [ ] Make both chart row HTML the same
  * [ ] Chekc if getAnnotationConfig works on multiple annotation configs
+ * [ ] Parent char always takes priority on gridLine styles
  * [ ] Must set either BGC or custoConfig color for chart to render
+ * [ ]
  */
 
 /* =Schema
