@@ -1,4 +1,6 @@
 .chart {
+  border: 1px solid rgba(0,0,0,.05);
+
   @extend %e-bgc-white-1;
   @extend %e-rad-slight;
   @extend %e-box-shad-z3;

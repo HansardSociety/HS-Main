@@ -17,7 +17,7 @@ safeTitle = CGI.escape(@entry[:title])
 url = "https://hansardsociety.org.uk/"
 %>
 
-<article>
+<article id="IS_<%= category.upcase %>">
 
   <%= partial "views/partials/banner/child-page",
     locals: { local_data: { entry_data: @entry }} %>
