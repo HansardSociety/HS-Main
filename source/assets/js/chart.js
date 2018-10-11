@@ -225,7 +225,7 @@ const renderCharts = () => {
 
     if (isBar) {
       if (options.scales.xAxes) {
-
+        // =HERE
       }
 
     }
