@@ -329,19 +329,24 @@ const renderCharts = () => {
         family: ff02
       },
       formatter: (value, context) => {
-        const isDatasetDoughnut = context.dataset.type === "doughnut"
-        const isDatasetPie = context.dataset.type === "pie"
-        const isDatasetLine = context.dataset.type === "line"
         const isDatasetBar = context.dataset.type === "bar"
+        const isDatasetDoughnut = context.dataset.type === "doughnut"
         const isDatasetHorizontalBar = context.dataset.type === "horizontalBar"
+        const isDatasetLine = context.dataset.type === "line"
+        const isDatasetPie = context.dataset.type === "pie"
+        const isDatasetPolarArea = context.dataset.type === "polarArea"
 
         let labelText = ""
 
         // Percentage
         if (isDatasetDoughnut || isDatasetPie) {
           const pcStr = calculatePercentage(context.dataset.data, value)
-          labelText = `${pcStr}%`
 
+          if (getAnnotationConfig(context.dataset).type === "percentageValueLabel") {
+            labelText = `${pcStr}% (${value})`
+          } else {
+            labelText = `${pcStr}%`
+          }
         } else if (isDatasetBar || isDatasetHorizontalBar) {
           labelText = value
         }
@@ -460,7 +465,6 @@ const renderCharts = () => {
                   break
                 } else {
                   // const zerosInDataset = dataset.data.filter(i => i !== 0).length
-                  console.log(dataset)
                   dataset.backgroundColor = selectColorPalette
                   break
                 }
@@ -487,12 +491,14 @@ const renderCharts = () => {
         dataset.datalabels.anchor = "end"
         dataset.datalabels.font.size = rem0675
 
-      } else if (isDatasetPie && annotationConfig.type === "percentageLabel") {
+      } else if (isDatasetPie
+        && (annotationConfig.type === "percentageLabel"
+          || annotationConfig.type === "percentageValueLabel")) {
+
         if (annotationConfig.fontSize === "large") dataset.datalabels.font.size = rem100
+        if (annotationConfig.fontSize === "medium") dataset.datalabels.font.size = rem075
+        if (annotationConfig.fontSize === "small") dataset.datalabels.font.size = rem0675
         if (annotationConfig.color === "black") dataset.datalabels.color = black
-
-      } else {
-
       }
 
       /*  =Dataset: Apply colors
@@ -568,6 +574,7 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Make sure Brewer palettes have enough colours for large datasets
  * [ ] Make both chart row HTML the same
  * [ ] Chekc if getAnnotationConfig works on multiple annotation configs
+ * [ ] Must set either BGC or custoConfig color for chart to render
  */
 
 /* =Schema
@@ -585,4 +592,5 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * }
  * radialTitle, value
  * incrementalColors -> boolean
+ * percentageLabel, valueLabel, percentageValueLabel
  */
