@@ -1,6 +1,6 @@
 <% @entry = entry_data %>
 
-<article>
+<article id="IS_<%= @entry[:category].upcase %>" class="e-bcg-white-1">
 
   <% if @entry[:banner_image] %>
     <%= partial "views/partials/banner/landing-page",
@@ -120,5 +120,17 @@
               content: person.biog }} %>
       <% end %>
     <% end %>
+  <% end %>
+  <% if @entry[:category] == "blog" %>
+    <section class="e-mgn-t-lg">
+      <%= partial "views/partials/panel/carousel",
+        locals: { local_data: {
+          entry_data: @entry,
+          context: :latest,
+          data_type: :latest,
+          start_at: 3,
+          dedupe_entry_id: @entry[:ID],
+          title: "Latest" }} %>
+    </section>
   <% end %>
 </article>

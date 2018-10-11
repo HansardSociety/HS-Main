@@ -136,3 +136,15 @@
   @extend %e-pad-sm;
   @extend %e-rad-slight;
 }
+
+/*		=Page specific
+  ========================================================================== */
+
+// Create anel flow for long reads
+#IS_BLOG {
+  .panel.e-bgc-white-1 + .panel.e-bgc-white-1 {
+    background-color: transparent;
+
+    @extend %e-pad-x-md;
+  }
+}
