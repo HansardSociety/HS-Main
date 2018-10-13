@@ -1,6 +1,9 @@
 .chart {
   border: 1px solid rgba(0,0,0,.05);
 
+  overflow: auto;
+  max-width: 65rem; // same as .panel--full
+
   @extend %e-bgc-white-1;
   @extend %e-rad-slight;
   @extend %e-box-shad-z3;

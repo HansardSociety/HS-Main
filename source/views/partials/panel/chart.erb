@@ -62,7 +62,8 @@ end
                 <% end %>
                 <div
                   class="chart__container"
-                  style="width: 100%;
+                  style="
+                    <%= "width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
                     <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
                   <canvas class="chart__canvas"></canvas>
                 </div>
@@ -123,8 +124,10 @@ end
                 <% end %>
                 <div
                   class="chart__container"
-                  style="width: 100%;
+                  style="
+                    <%= "width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
                     <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+
                   <canvas class="chart__canvas"></canvas>
                 </div>
                 <script class="chart__config" type="application/json">

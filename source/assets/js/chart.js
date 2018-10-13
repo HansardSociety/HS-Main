@@ -459,18 +459,21 @@ const renderCharts = () => {
             for (let [datasetIdIndex, datasetID] of colorConfig.datasetIDs.entries()) {
               if (datasetID === dataset.datasetID) {
                 const isPaletteString = colorConfig.palette.constructor === String
-                const isPaletteStatic = colorConfig.palette === "static"
                 let selectColorPalette
 
                 if (isPaletteString) selectColorPalette = brewerColors({ // Brewer
                   palette: colorConfig.palette,
                   order: colorConfig.order })
-                else if (isPaletteStatic) // Static
-                  selectColorPalette = colorConfig.palette
-                else selectColorPalette = colorScale({ // Scale
-                  palette: colorConfig.palette,
-                  order: colorConfig.order,
-                  range: colorConfig.range })
+                else {
+                  if (colorConfig.order === "scale") {
+                    selectColorPalette = colorScale({ // Scale
+                      palette: colorConfig.palette,
+                      order: colorConfig.order,
+                      range: colorConfig.range })
+                  } else {
+                    selectColorPalette = colorConfig.palette
+                  }
+                }
 
                 if (!colorConfig.incrementalColors && (isDatasetBar || isDatasetHorizontalBar || isDatasetLine)) {
                   dataset.backgroundColor = selectColorPalette[datasetIdIndex]
