@@ -17,7 +17,7 @@ import siteConfig from "./shared-config.json"
 const colors = siteConfig.color_groups
 
 const lightGrey = colors["grey"]["1"]
-const midGrey = colors["grey"]["1"]
+const midGrey = colors["grey"]["2"]
 const grey = colors["grey"]["3"]
 const black = colors.black["1"]
 
@@ -110,8 +110,11 @@ def.plugins.datalabels = false
 
 const scalesConfig = {
   gridLines: {
-    color: midGrey,
-    zeroLineColor: midGrey
+    color: offWhite,
+    zeroLineColor: lightGrey,
+    lineWidth: 2,
+    borderDash: dashes,
+    tickMarkLength: 15
   },
   ticks: {
     beginAtZero: true
@@ -179,6 +182,10 @@ const renderCharts = () => {
     options.tooltips = {}
     options.tooltips.position = "nearest"
 
+    if (isBar) options.tooltips.mode = "x"
+    else if (isHorizontalBar) options.tooltips.mode = "y"
+    else options.tooltips.mode = "nearest"
+
     options.tooltips.callbacks = {
       title: (item, data) => {
         const datasetItem = data.datasets[item[0].datasetIndex]
@@ -195,24 +202,22 @@ const renderCharts = () => {
         const isDatasetPie = datasetItem.type === "pie"
         const isDatasetDoughnut = datasetItem.type === "doughnut"
 
+        const itemLabel = datasetItem.label
+        const value = datasetItem.data[item.index]
+
         var tooltipText
 
         if (isDatasetHorizontalBar && item.yLabel) { // Horizontal bar
-          tooltipText = ` ${item.yLabel}`
+          tooltipText = ` ${item.yLabel} (${value})`
 
         } else if (isDatasetDoughnut || isDatasetPie) { // Doughnut or Pie
-          const value = datasetItem.data[item.index]
           const label = data.labels[item.index]
           const pcStr = calculatePercentage(datasetItem.data, value)
-
           tooltipText = ` ${label}: ${value} (${pcStr}%)`
 
         } else { // Line
-          const itemLabel = datasetItem.label
-          const itemIndex = datasetItem.data[item.index]
-
-          if (datasetItem.data[item.index].x) tooltipText = ` ${itemLabel} (${itemIndex.x}: ${itemIndex.y})`
-          else tooltipText = ` ${itemLabel} (${itemIndex})`
+          if (value.x) tooltipText = ` ${itemLabel} (${value.x}: ${value.y})`
+          else tooltipText = ` ${itemLabel} (${value})`
         }
 
         return tooltipText
@@ -231,11 +236,32 @@ const renderCharts = () => {
     /*  =Scales
      *****************************************/
 
+    // Bar
     if (isBar) {
       if (options.scales.xAxes) {
-        // =HERE
+        options.scales.xAxes.forEach(axis => {
+          axis.gridLines = {}
+          axis.gridLines.lineWidth = 1
+          axis.gridLines.color = hexToRGBA(offWhite, 0.5)
+          axis.gridLines.borderDash = [1, 0]
+          axis.gridLines.display = true
+          // axis.gridLines.drawOnChartArea = false
+        })
       }
+    }
 
+    // Horizontal bar
+    if (isHorizontalBar) {
+      if (options.scales.yAxes) {
+        options.scales.yAxes.forEach(axis => {
+          axis.gridLines = {}
+          axis.gridLines.lineWidth = 1
+          axis.gridLines.color = hexToRGBA(offWhite, 0.5)
+          axis.gridLines.borderDash = [1, 0]
+          axis.gridLines.display = true
+          // axis.gridLines.drawOnChartArea = false
+        })
+      }
     }
 
     /*  =Misc
@@ -332,7 +358,9 @@ const renderCharts = () => {
               xScaleID: i.xAxisID,
               yScaleID: i.yAxisID,
               type: "box",
-              backgroundColor: hexToRGBA("#3dc438", 0.25)
+              backgroundColor: hexToRGBA("#3dc438", 0.25),
+              borderColor: "rgba(0, 0, 0, 0)",
+              borderWidth: 0
             }
 
             if (i.xPosition) {
