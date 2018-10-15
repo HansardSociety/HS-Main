@@ -1,0 +1,22 @@
+[
+  {
+    "data": [
+      28,
+      27,
+      55
+    ],
+    "label": "Considered",
+    "yAxisID": "y-committee",
+    "datasetID": "considered"
+  },
+  {
+    "data": [
+      5,
+      2,
+      7
+    ],
+    "label": "Recommended for upgrade",
+    "yAxisID": "y-committee",
+    "datasetID": "recommended"
+  }
+]

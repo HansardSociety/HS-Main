@@ -1,0 +1,16 @@
+{
+  "colors": [
+    {
+      "order": "scale",
+      "range": 15,
+      "palette": [
+        "#04655a",
+        "#80557d"
+      ],
+      "datasetIDs": [
+        "department-sis"
+      ],
+      "incrementalColors": true
+    }
+  ]
+}

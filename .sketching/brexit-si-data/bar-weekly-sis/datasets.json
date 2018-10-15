@@ -1,4 +1,5 @@
-[{
+[
+  {
     "data": [
       21,
       21,
@@ -14,37 +15,15 @@
       27,
       28,
       29,
-      30,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      30
     ],
     "type": "line",
     "label": "Target for week",
     "xAxisID": "x-sis-weekly",
     "yAxisID": "y-sis-number",
-    "datasetID": "target-sis"
+    "showLine": false,
+    "datasetID": "target-sis",
+    "pointStyle": "star"
   },
   {
     "data": [

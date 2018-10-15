@@ -1,0 +1,20 @@
+{
+  "colors": [
+    {
+      "palette": [
+        "#04655a"
+      ],
+      "datasetIDs": [
+        "total-sis-euwa"
+      ]
+    },
+    {
+      "palette": [
+        "#80557d"
+      ],
+      "datasetIDs": [
+        "total-sis-other"
+      ]
+    }
+  ]
+}

@@ -63,7 +63,7 @@ end
                 <div
                   class="chart__container"
                   style="
-                    <%= "width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
+                    <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
                     <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
                   <canvas class="chart__canvas"></canvas>
                 </div>
@@ -125,7 +125,7 @@ end
                 <div
                   class="chart__container"
                   style="
-                    <%= "width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
+                    <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
                     <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
 
                   <canvas class="chart__canvas"></canvas>

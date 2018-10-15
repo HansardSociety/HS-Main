@@ -1,0 +1,20 @@
+{
+  "colors": [
+    {
+      "palette": [
+        "#04655a"
+      ],
+      "datasetIDs": [
+        "brexit-sis"
+      ]
+    },
+    {
+      "palette": [
+        "#80557d"
+      ],
+      "datasetIDs": [
+        "target-sis"
+      ]
+    }
+  ]
+}
