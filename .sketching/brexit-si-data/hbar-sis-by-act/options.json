@@ -2,6 +2,7 @@
   "scales": {
     "xAxes": [
       {
+        "id": "x-number-of-sis",
         "ticks": {
           "max": 1000,
           "min": 0,

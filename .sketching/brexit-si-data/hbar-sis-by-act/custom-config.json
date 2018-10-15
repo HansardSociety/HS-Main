@@ -1,32 +1,32 @@
 {
-  "colors": [
-    {
-      "palette": [
-        "#04655a"
-      ],
-      "datasetIDs": [
-        "total-sis-euwa"
-      ]
-    },
-    {
-      "palette": [
-        "#80557d"
-      ],
-      "datasetIDs": [
-        "total-sis-other"
-      ]
-    }
-  ],
-  "annotations": [
-    {
-      "type": "axisLineVertical",
-      "axisID": "x-number-of-sis",
-      "position": 800
-    },
-    {
-      "type": "axisLineVertical",
-      "axisID": "x-number-of-sis",
-      "position": 1000
-    }
-  ]
+	"colors": [
+		{
+			"palette": [
+				"#04655a"
+			],
+			"datasetIDs": [
+				"total-sis-euwa"
+			]
+		},
+		{
+			"palette": [
+				"#80557d"
+			],
+			"datasetIDs": [
+				"total-sis-other"
+			]
+		}
+	],
+	"annotations": [
+		{
+			"type": "axisLineVertical",
+			"axisID": "x-number-of-sis",
+			"position": 800
+		},
+		{
+			"type": "axisLineVertical",
+			"axisID": "x-number-of-sis",
+			"position": 1000
+		}
+	]
 }
