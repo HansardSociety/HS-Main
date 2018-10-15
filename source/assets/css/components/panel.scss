@@ -144,7 +144,7 @@
 #IS_BLOG {
   .panel.e-bgc-white-1 + .panel.e-bgc-white-1 {
     background-color: transparent;
-
-    @extend %e-pad-x-md;
+    padding-top: 0;
+    // @extend %e-pad-x-md;
   }
 }

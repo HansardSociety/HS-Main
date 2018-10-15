@@ -1,0 +1,22 @@
+[
+  {
+    "data": [
+      11,
+      8,
+      6,
+      5,
+      5,
+      4,
+      3,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1
+    ],
+    "label": "Brexit SIs by department",
+    "datasetID": "department-sis"
+  }
+]

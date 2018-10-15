@@ -73,6 +73,12 @@ def.legend.labels.usePointStyle = true
 def.responsive = true
 def.maintainAspectRatio = false
 
+// Title
+def.title.display = true
+def.title.text = "Cite as: Hansard Society"
+def.title.position = "bottom"
+def.title.fontColor = midGrey
+
 // Tooltips
 def.tooltips.backgroundColor = black
 def.tooltips.bodySpacing = 4
@@ -150,6 +156,8 @@ const renderCharts = () => {
     const isPie = type === "pie"
     const isLine = type === "line"
 
+    const customAnnotations = chartConfig.customConfig.annotations
+
     /* =Options
      ***************************************************************************/
 
@@ -169,7 +177,6 @@ const renderCharts = () => {
      *****************************************/
 
     options.tooltips = {}
-    options.tooltips.mode = "nearest"
     options.tooltips.position = "nearest"
 
     options.tooltips.callbacks = {
@@ -221,6 +228,16 @@ const renderCharts = () => {
       } // END: => labelColor
     } // END: options.tooltips.tooltips
 
+    /*  =Scales
+     *****************************************/
+
+    if (isBar) {
+      if (options.scales.xAxes) {
+        // =HERE
+      }
+
+    }
+
     /*  =Misc
      *****************************************/
 
@@ -239,7 +256,7 @@ const renderCharts = () => {
 
     const isAnnotationConfig = (datasetItem, configKey, configVal) => {
       let result = false
-      const runcheck = chartConfig.customConfig.annotations.filter(annotationConfig => {
+      const runcheck = customAnnotations.filter(annotationConfig => {
         return annotationConfig.datasetIDs.filter(id => {
           return id === datasetItem.datasetID
         }) && annotationConfig[configKey] === configVal
@@ -251,11 +268,13 @@ const renderCharts = () => {
     const getAnnotationConfig = datasetItem => {
       let result = false
       let config
-      const runcheck = chartConfig.customConfig.annotations.filter(annotationConfig => {
+      const runcheck = customAnnotations.filter(annotationConfig => {
         config = annotationConfig
-        return annotationConfig.datasetIDs.filter(id => {
-          return id === datasetItem.datasetID
-        })
+        if (annotationConfig.datasetIDs) {
+          return annotationConfig.datasetIDs.filter(id => {
+            return id === datasetItem.datasetID
+          })
+        }
       })
       if (runcheck.length >= 1) result = config
       return result
@@ -264,25 +283,91 @@ const renderCharts = () => {
     /*  =Annotation
      *****************************************/
 
-    if (options.annotation) options.annotation = options.annotation
-    if (options.annotation && options.annotation.annotations) {
-      const annotations = options.annotation.annotations
+    options.annotation = {}
+    options.annotation.annotations = []
 
-      annotations.forEach(annotation => {
-        if (annotation.label && annotation.label.content) {
-          annotation.label.enabled = true
-          annotation.label.backgroundColor = black
-          annotation.label.fontColor = white
-          annotation.label.fontWeight = "normal"
-          annotation.label.fontFamily = ff01
-          annotation.label.fontSize = rem0675
-          annotation.label.xPadding = rem050
-          annotation.label.yPadding = rem050
-          annotation.label.cornerRadius = 8
-          annotation.label.borderWidth = 0
-        }
+    if (customAnnotations) {
+      let axesAnnotations = customAnnotations.filter(i => {
+        const isLineVertical = i.type === "axisLineVertical"
+        const isLineHorizontal = i.type === "axisLineHorizontal"
+        const isBox = i.type === "axisBox"
+
+        return isLineVertical || isLineHorizontal || isBox
       })
-    } // END: options.annotation
+
+      if (axesAnnotations && axesAnnotations.length >= 1) {
+        axesAnnotations.forEach(i => {
+          let config = {}
+          const isLineVertical = i.type === "axisLineVertical"
+          const isLineHorizontal = i.type === "axisLineHorizontal"
+          const isBox = i.type === "axisBox"
+
+          if (isLineVertical || isLineHorizontal) {
+            config = {
+              scaleID: i.axisID,
+              type: "line",
+              value: i.position,
+              mode: i.type === "axisLineVertical" ? "vertical" : "horizontal",
+              borderColor: "#e22828",
+              borderWidth: 2,
+              borderDash: dashes,
+            }
+
+            if (i.label) {
+              config.label = i.label
+              config.label.enabled = true,
+              config.label.fontSize = rem0675,
+              config.label.fontFamily = ff01,
+              config.label.fontStyle = "normal",
+              config.label.xPadding = rem025,
+              config.label.yPadding = rem0125,
+              config.label.backgroundColor = black,
+              config.label.cornerRadius = 2
+              config.label.borderWidth = 0
+            }
+            console.log(config)
+
+          } else if (isBox) {
+            config = {
+              xScaleID: i.xAxisID,
+              yScaleID: i.yAxisID,
+              type: "box",
+              backgroundColor: hexToRGBA("#3dc438", 0.25)
+            }
+
+            if (i.xPosition) {
+              config.xMin = i.xPosition[0]
+              config.xMax = i.xPosition[1]
+            }
+
+            if (i.yPosition) {
+              // FINISH
+            }
+          }
+
+          options.annotation.annotations.push(config)
+        })
+      }
+    }
+
+    // if (options.annotation && options.annotation.annotations) {
+    //   const annotations = options.annotation.annotations
+
+    //   annotations.forEach(annotation => {
+    //     if (annotation.label && annotation.label.content) {
+    //       annotation.label.enabled = true
+    //       annotation.label.backgroundColor = black
+    //       annotation.label.fontColor = white
+    //       annotation.label.fontWeight = "normal"
+    //       annotation.label.fontFamily = ff01
+    //       annotation.label.fontSize = rem0675
+    //       annotation.label.xPadding = rem050
+    //       annotation.label.yPadding = rem050
+    //       annotation.label.cornerRadius = 8
+    //       annotation.label.borderWidth = 0
+    //     }
+    //   })
+    // } // END: options.annotation
 
     /*  =Labels
      *****************************************/
@@ -302,7 +387,7 @@ const renderCharts = () => {
           let labelText = ""
 
           // Annotations
-          if (chartConfig.customConfig.annotations) {
+          if (customAnnotations) {
             if (isAnnotationConfig(item.dataset, "type", "radialTitle") && item.index === 0) {
               labelText = `${item.dataset.label}`
             }
@@ -409,13 +494,13 @@ const renderCharts = () => {
         .colors(range)
 
       if (order === "scale") { // Scale
-        colors.forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
+        colors.forEach(col => scale.push(chroma(col).saturate(1).hex()))
       } else { // shuffle
         colors.forEach((col, i) => i % 2
-          ? evenColors.push(chroma(col).saturate(1.5).hex())
-          : oddColors.unshift(chroma(col).saturate(1.5).hex()))
+          ? evenColors.push(chroma(col).saturate(1).hex())
+          : oddColors.unshift(chroma(col).saturate(1).hex()))
         evenColors.reverse().concat(oddColors)
-          .forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
+          .forEach(col => scale.push(chroma(col).saturate(1).hex()))
       }
 
       return scale
@@ -440,31 +525,36 @@ const renderCharts = () => {
       /*  =Dataset: Set colors
       *****************************************/
 
+      dataset.backgroundColor = dataset.backgroundColor
+      dataset.hoverBackgroundColor = dataset.backgroundColor
+      dataset.hoverBorderColor = dataset.backgroundColor
+
       if (customConfig && customConfig.colors) {
         if (!dataset.backgroundColor) {
           for (let colorConfig of customConfig.colors) {
             for (let [datasetIdIndex, datasetID] of colorConfig.datasetIDs.entries()) {
               if (datasetID === dataset.datasetID) {
                 const isPaletteString = colorConfig.palette.constructor === String
-                const isPaletteStatic = colorConfig.palette === "static"
                 let selectColorPalette
 
                 if (isPaletteString) selectColorPalette = brewerColors({ // Brewer
                   palette: colorConfig.palette,
                   order: colorConfig.order })
-                else if (isPaletteStatic) // Static
-                  selectColorPalette = colorConfig.palette
-                else selectColorPalette = colorScale({ // Scale
-                  palette: colorConfig.palette,
-                  order: colorConfig.order,
-                  range: colorConfig.range })
+                else {
+                  if (colorConfig.order === "scale") {
+                    selectColorPalette = colorScale({ // Scale
+                      palette: colorConfig.palette,
+                      order: colorConfig.order,
+                      range: colorConfig.range })
+                  } else {
+                    selectColorPalette = colorConfig.palette
+                  }
+                }
 
                 if (!colorConfig.incrementalColors && (isDatasetBar || isDatasetHorizontalBar || isDatasetLine)) {
-                  const hoverColor = chroma(selectColorPalette[datasetIdIndex]).darken(1)
                   dataset.backgroundColor = selectColorPalette[datasetIdIndex]
                   break
                 } else {
-                  // const zerosInDataset = dataset.data.filter(i => i !== 0).length
                   dataset.backgroundColor = selectColorPalette
                   break
                 }
@@ -574,7 +664,9 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Make sure Brewer palettes have enough colours for large datasets
  * [ ] Make both chart row HTML the same
  * [ ] Chekc if getAnnotationConfig works on multiple annotation configs
+ * [ ] Parent char always takes priority on gridLine styles
  * [ ] Must set either BGC or custoConfig color for chart to render
+ * [ ]
  */
 
 /* =Schema

@@ -1,0 +1,14 @@
+{
+  "colors": [
+    {
+      "palette": [
+        "#04655a",
+        "#80557d"
+      ],
+      "datasetIDs": [
+        "considered",
+        "recommended"
+      ]
+    }
+  ]
+}

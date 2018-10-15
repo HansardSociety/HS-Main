@@ -42,42 +42,63 @@ end
           =Row 1
       ***********************************************-->
 
-      <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
-        <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
+
+      <% if panelData[:charts_row_1] %>
+        <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
+
+          <%# Chart %>
           <% if panelEntry[:TYPE] == "chart" %>
-            <section class="chart">
-              <% if panelEntry[:show_header] %>
-                <header class="chart__header">
-                  <% if panelData[:show_title] %>
-                    <h3 class="title-xs e-col-brand-green-2"><%= panelEntry[:title] %></h3>
-                  <% else %>
-                    <h2 class="title-xs e-col-brand-green-2"><%= panelEntry[:title] %></h2>
-                  <% end %>
-                  <% if panelData[:caption] %>
+            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
+              <section class="chart">
+                <% if panelEntry[:show_header] %>
+                  <header class="chart__header">
+                    <% if panelData[:show_title] %>
+                      <h3 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                    <% else %>
+                      <h2 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                    <% end %>
                     <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
+                  </header>
+                <% end %>
+                <div
+                  class="chart__container"
+                  style="
+                    <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
+                    <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                  <canvas class="chart__canvas"></canvas>
+                </div>
+                <script class="chart__config" type="application/json">
+                  {
+                    "type": "<%= panelEntry[:chart_type] %>",
+                    "data": {
+                      "datasets": <%= panelEntry[:chart_datasets] %>,
+                      "labels": <%= panelEntry[:chart_labels] %>
+                    },
+                    "options": <%= panelEntry[:chart_options] %>,
+                    "customConfig": <%= panelEntry[:chart_custom_config] %>
+                  }
+                </script>
+              </section>
+            </div>
+
+          <%# Text box %>
+          <% elsif panelEntry[:TYPE] == "text_box" %>
+            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
+              <div class="text-box">
+                <% if panelEntry[:show_title] %>
+                  <% if panelData[:show_title] %>
+                    <h3 class="title-md e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                  <% else %>
+                    <h2 class="title-lg e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
                   <% end %>
-                </header>
-              <% end %>
-              <div
-                class="chart__container"
-                style="width: 100%;
-                  <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
-                <canvas class="chart__canvas"></canvas>
+                <% end %>
+                <div class="copy">
+                  <%= markdown(panelEntry[:copy]) %>
+                </div>
               </div>
-              <script class="chart__config" type="application/json">
-                {
-                  "type": "<%= panelEntry[:chart_type] %>",
-                  "data": {
-                    "datasets": <%= panelEntry[:chart_datasets] %>,
-                    "labels": <%= panelEntry[:chart_labels] %>
-                  },
-                  "options": <%= panelEntry[:chart_options] %>,
-                  "customConfig": <%= panelEntry[:chart_custom_config] %>
-                }
-              </script>
-            </section>
+            </div>
           <% end %>
-        </div>
+        <% end %>
       <% end %>
 
       <!--**********************************************
@@ -98,13 +119,15 @@ end
                     <% else %>
                       <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
                     <% end %>
-                    <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
+                    <p class="e-fz-xs e-col-black-1"><%= panelEntry[:caption] %></p>
                   </header>
                 <% end %>
                 <div
                   class="chart__container"
-                  style="width: 100%;
+                  style="
+                    <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
                     <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+
                   <canvas class="chart__canvas"></canvas>
                 </div>
                 <script class="chart__config" type="application/json">
@@ -147,43 +170,119 @@ end
 <%# <section class="chart">
 <div
   class="chart__container"
-  style="width: 100%; height; width: 500px;">
+  style="width: 100%; min-height: 300px;">
   <canvas class="chart__canvas"></canvas>
 </div>
 <script class="chart__config" type="application/json">
-
-
 {
   "type": "horizontalBar",
   "data": {
-    "datasets": [{
-      "data": [28, 27],
-      "label": "Considered",
-      "yAxisID": "y-committee"
-    }, {
-      "data": [5, 2],
-      "label": "Recommended for upgrade",
-      "yAxisID": "y-committee"
-    }]
+    "datasets": [
+      {
+        "data": [
+          45
+        ],
+        "label": "EU (Withdrawal) Act 2018",
+        "datasetID": "total-sis-euwa"
+      },
+      {
+        "data": [
+          8
+        ],
+        "label": "Other Acts of Parliament",
+        "datasetID": "total-sis-other"
+      }
+    ],
+    "labels": []
   },
   "options": {
     "scales": {
+      "xAxes": [
+        {
+          "id": "x-number-of-sis",
+          "ticks": {
+            "max": 1000,
+            "min": 0,
+            "stepSize": 50
+          },
+          "stacked": true,
+          "scaleLabel": {
+            "labelString": "Number of SIs"
+          }
+        }
+      ],
       "yAxes": [
         {
-          "id": "y-committee",
-          "type": "category",
-          "labels": [
-            "ESIC",
-            "SLSC"
-          ]
+          "id": "y-axis",
+          "stacked": true,
+          "barPercentage": 0.75
         }
       ]
     }
   },
   "customConfig": {
-
+    "colors": [
+      {
+        "palette": [
+          "#04655a"
+        ],
+        "datasetIDs": [
+          "total-sis-euwa"
+        ]
+      },
+      {
+        "palette": [
+          "#80557d"
+        ],
+        "datasetIDs": [
+          "total-sis-other"
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "type": "axisBox",
+        "xAxisID": "x-number-of-sis",
+        "yAxisID": "y-axis",
+        "xPosition": [
+          800,
+          1000
+        ]
+      },
+      {
+        "type": "axisLineVertical",
+        "axisID": "x-number-of-sis",
+        "position": 400,
+        "label": {
+          "content": "No deal",
+          "position": "left",
+          "xAdjust": -30
+        }
+      },
+      {
+        "type": "axisLineVertical",
+        "axisID": "x-number-of-sis",
+        "position": 800,
+        "label": {
+          "content": "Min SIs",
+          "position": "left",
+          "xAdjust": -30
+        }
+      },
+      {
+        "type": "axisLineVertical",
+        "axisID": "x-number-of-sis",
+        "position": 1000,
+        "label": {
+          "content": "Max SIs",
+          "position": "left",
+          "xAdjust": -30
+        }
+      }
+    ]
   }
 }
+
 
 </script>
 </section> %>

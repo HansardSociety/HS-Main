@@ -486,6 +486,7 @@ def panels(ctx, data)
             chart_labels: (data.labels ? data.labels.to_json.to_s : "[]"), # Arr / optional
             chart_options: data.options.to_json.to_s, # Obj
             chart_custom_config: (data.custom_config ? data.custom_config.to_json.to_s : "{}"), # Obj / optional
+            chart_width: data.width,
             chart_height: data.height
           }
         end

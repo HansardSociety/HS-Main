@@ -1,0 +1,25 @@
+{
+  "colors": [
+    {
+      "palette": [
+        "#04655a",
+        "#80557d"
+      ],
+      "datasetIDs": [
+        "sis-euwa",
+        "sis-other"
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "type": "radialTitle",
+      "fontSize": "small",
+      "fontColor": "white",
+      "datasetIDs": [
+        "sis-euwa",
+        "sis-other"
+      ]
+    }
+  ]
+}

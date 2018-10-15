@@ -1,0 +1,24 @@
+{
+  "scales": {
+    "xAxes": [
+      {
+        "id": "x-number-of-sis",
+        "ticks": {
+          "max": 1000,
+          "min": 0,
+          "stepSize": 50
+        },
+        "stacked": true,
+        "scaleLabel": {
+          "labelString": "Number of SIs"
+        }
+      }
+    ],
+    "yAxes": [
+      {
+        "stacked": true,
+        "barPercentage": 0.75
+      }
+    ]
+  }
+}
