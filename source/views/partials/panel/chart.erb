@@ -170,43 +170,90 @@ end
 <%# <section class="chart">
 <div
   class="chart__container"
-  style="width: 100%; height; width: 500px;">
+  style="width: 100%;">
   <canvas class="chart__canvas"></canvas>
 </div>
 <script class="chart__config" type="application/json">
 
-
 {
   "type": "horizontalBar",
   "data": {
-    "datasets": [{
-      "data": [28, 27],
-      "label": "Considered",
-      "yAxisID": "y-committee"
-    }, {
-      "data": [5, 2],
-      "label": "Recommended for upgrade",
-      "yAxisID": "y-committee"
-    }]
+    "datasets": [
+      {
+        "data": [
+          45
+        ],
+        "label": "EU (Withdrawal) Act 2018",
+        "datasetID": "total-sis-euwa"
+      },
+      {
+        "data": [
+          8
+        ],
+        "label": "Other Acts of Parliament",
+        "datasetID": "total-sis-other"
+      }
+    ],
+    "labels": []
   },
   "options": {
     "scales": {
+      "xAxes": [
+        {
+          "id": "x-number-of-sis",
+          "ticks": {
+            "max": 1000,
+            "min": 0,
+            "stepSize": 50
+          },
+          "stacked": true,
+          "scaleLabel": {
+            "labelString": "Number of SIs"
+          }
+        }
+      ],
       "yAxes": [
         {
-          "id": "y-committee",
-          "type": "category",
-          "labels": [
-            "ESIC",
-            "SLSC"
-          ]
+          "stacked": true,
+          "barPercentage": 0.75
         }
       ]
     }
   },
   "customConfig": {
-
+    "colors": [
+      {
+        "palette": [
+          "#04655a"
+        ],
+        "datasetIDs": [
+          "total-sis-euwa"
+        ]
+      },
+      {
+        "palette": [
+          "#80557d"
+        ],
+        "datasetIDs": [
+          "total-sis-other"
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "type": "axisLineVertical",
+        "axisID": "x-number-of-sis",
+        "position": 800
+      },
+      {
+        "type": "axisLineVertical",
+        "axisID": "x-number-of-sis",
+        "position": 1000
+      }
+    ]
   }
 }
+
 
 </script>
 </section> %>

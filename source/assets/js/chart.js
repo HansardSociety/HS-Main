@@ -73,6 +73,12 @@ def.legend.labels.usePointStyle = true
 def.responsive = true
 def.maintainAspectRatio = false
 
+// Title
+def.title.display = true
+def.title.text = "Cite as: Hansard Society"
+def.title.position = "bottom"
+def.title.fontColor = midGrey
+
 // Tooltips
 def.tooltips.backgroundColor = black
 def.tooltips.bodySpacing = 4
@@ -149,6 +155,8 @@ const renderCharts = () => {
     const isHorizontalBar = type === "horizontalBar"
     const isPie = type === "pie"
     const isLine = type === "line"
+
+    const customAnnotations = chartConfig.customConfig.annotations
 
     /* =Options
      ***************************************************************************/
@@ -248,7 +256,7 @@ const renderCharts = () => {
 
     const isAnnotationConfig = (datasetItem, configKey, configVal) => {
       let result = false
-      const runcheck = chartConfig.customConfig.annotations.filter(annotationConfig => {
+      const runcheck = customAnnotations.filter(annotationConfig => {
         return annotationConfig.datasetIDs.filter(id => {
           return id === datasetItem.datasetID
         }) && annotationConfig[configKey] === configVal
@@ -260,11 +268,13 @@ const renderCharts = () => {
     const getAnnotationConfig = datasetItem => {
       let result = false
       let config
-      const runcheck = chartConfig.customConfig.annotations.filter(annotationConfig => {
+      const runcheck = customAnnotations.filter(annotationConfig => {
         config = annotationConfig
-        return annotationConfig.datasetIDs.filter(id => {
-          return id === datasetItem.datasetID
-        })
+        if (annotationConfig.datasetIDs) {
+          return annotationConfig.datasetIDs.filter(id => {
+            return id === datasetItem.datasetID
+          })
+        }
       })
       if (runcheck.length >= 1) result = config
       return result
@@ -273,25 +283,61 @@ const renderCharts = () => {
     /*  =Annotation
      *****************************************/
 
-    if (options.annotation) options.annotation = options.annotation
-    if (options.annotation && options.annotation.annotations) {
-      const annotations = options.annotation.annotations
+    options.annotation = {}
+    options.annotation.annotations = []
 
-      annotations.forEach(annotation => {
-        if (annotation.label && annotation.label.content) {
-          annotation.label.enabled = true
-          annotation.label.backgroundColor = black
-          annotation.label.fontColor = white
-          annotation.label.fontWeight = "normal"
-          annotation.label.fontFamily = ff01
-          annotation.label.fontSize = rem0675
-          annotation.label.xPadding = rem050
-          annotation.label.yPadding = rem050
-          annotation.label.cornerRadius = 8
-          annotation.label.borderWidth = 0
-        }
+    if (customAnnotations) {
+      let axesAnnotations = customAnnotations.filter(i => {
+        const conditions = i.type === "axisLineVertical"
+
+        return conditions
       })
-    } // END: options.annotation
+
+      if (axesAnnotations && axesAnnotations.length >= 1) {
+        axesAnnotations.forEach(i => {
+          let config = ""
+
+          if (i.type === (
+            "axisLineVertical"
+            || "axisLineHorizontal"
+          )) {
+
+            config = {
+              scaleID: i.axisID,
+              type: "line",
+              value: i.position,
+              mode: i.type === "axisLineVertical" ? "vertical" : "horizontal",
+              borderColor: "#e22828",
+              borderWidth: 2,
+              borderDash: dashes
+            }
+          }
+
+          options.annotation.annotations.push(config)
+        })
+      }
+
+      console.log(chartConfig.options, chartConfig.customConfig)
+    }
+
+    // if (options.annotation && options.annotation.annotations) {
+    //   const annotations = options.annotation.annotations
+
+    //   annotations.forEach(annotation => {
+    //     if (annotation.label && annotation.label.content) {
+    //       annotation.label.enabled = true
+    //       annotation.label.backgroundColor = black
+    //       annotation.label.fontColor = white
+    //       annotation.label.fontWeight = "normal"
+    //       annotation.label.fontFamily = ff01
+    //       annotation.label.fontSize = rem0675
+    //       annotation.label.xPadding = rem050
+    //       annotation.label.yPadding = rem050
+    //       annotation.label.cornerRadius = 8
+    //       annotation.label.borderWidth = 0
+    //     }
+    //   })
+    // } // END: options.annotation
 
     /*  =Labels
      *****************************************/
@@ -311,7 +357,7 @@ const renderCharts = () => {
           let labelText = ""
 
           // Annotations
-          if (chartConfig.customConfig.annotations) {
+          if (customAnnotations) {
             if (isAnnotationConfig(item.dataset, "type", "radialTitle") && item.index === 0) {
               labelText = `${item.dataset.label}`
             }

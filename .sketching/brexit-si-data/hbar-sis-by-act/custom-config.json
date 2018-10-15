@@ -16,5 +16,17 @@
         "total-sis-other"
       ]
     }
+  ],
+  "annotations": [
+    {
+      "type": "axisLineVertical",
+      "axisID": "x-number-of-sis",
+      "position": 800
+    },
+    {
+      "type": "axisLineVertical",
+      "axisID": "x-number-of-sis",
+      "position": 1000
+    }
   ]
 }
