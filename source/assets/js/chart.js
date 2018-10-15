@@ -288,20 +288,21 @@ const renderCharts = () => {
 
     if (customAnnotations) {
       let axesAnnotations = customAnnotations.filter(i => {
-        const conditions = i.type === "axisLineVertical"
+        const isLineVertical = i.type === "axisLineVertical"
+        const isLineHorizontal = i.type === "axisLineHorizontal"
+        const isBox = i.type === "axisBox"
 
-        return conditions
+        return isLineVertical || isLineHorizontal || isBox
       })
 
       if (axesAnnotations && axesAnnotations.length >= 1) {
         axesAnnotations.forEach(i => {
-          let config = ""
+          let config = {}
+          const isLineVertical = i.type === "axisLineVertical"
+          const isLineHorizontal = i.type === "axisLineHorizontal"
+          const isBox = i.type === "axisBox"
 
-          if (i.type === (
-            "axisLineVertical"
-            || "axisLineHorizontal"
-          )) {
-
+          if (isLineVertical || isLineHorizontal) {
             config = {
               scaleID: i.axisID,
               type: "line",
@@ -309,15 +310,44 @@ const renderCharts = () => {
               mode: i.type === "axisLineVertical" ? "vertical" : "horizontal",
               borderColor: "#e22828",
               borderWidth: 2,
-              borderDash: dashes
+              borderDash: dashes,
+            }
+
+            if (i.label) {
+              config.label = i.label
+              config.label.enabled = true,
+              config.label.fontSize = rem0675,
+              config.label.fontFamily = ff01,
+              config.label.fontStyle = "normal",
+              config.label.xPadding = rem025,
+              config.label.yPadding = rem0125,
+              config.label.backgroundColor = black,
+              config.label.cornerRadius = 2
+              config.label.borderWidth = 0
+            }
+            console.log(config)
+
+          } else if (isBox) {
+            config = {
+              xScaleID: i.xAxisID,
+              yScaleID: i.yAxisID,
+              type: "box",
+              backgroundColor: hexToRGBA("#3dc438", 0.25)
+            }
+
+            if (i.xPosition) {
+              config.xMin = i.xPosition[0]
+              config.xMax = i.xPosition[1]
+            }
+
+            if (i.yPosition) {
+              // FINISH
             }
           }
 
           options.annotation.annotations.push(config)
         })
       }
-
-      console.log(chartConfig.options, chartConfig.customConfig)
     }
 
     // if (options.annotation && options.annotation.annotations) {

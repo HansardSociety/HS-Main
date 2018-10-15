@@ -170,11 +170,10 @@ end
 <%# <section class="chart">
 <div
   class="chart__container"
-  style="width: 100%;">
+  style="width: 100%; min-height: 300px;">
   <canvas class="chart__canvas"></canvas>
 </div>
 <script class="chart__config" type="application/json">
-
 {
   "type": "horizontalBar",
   "data": {
@@ -214,6 +213,7 @@ end
       ],
       "yAxes": [
         {
+          "id": "y-axis",
           "stacked": true,
           "barPercentage": 0.75
         }
@@ -241,14 +241,43 @@ end
     ],
     "annotations": [
       {
-        "type": "axisLineVertical",
-        "axisID": "x-number-of-sis",
-        "position": 800
+        "type": "axisBox",
+        "xAxisID": "x-number-of-sis",
+        "yAxisID": "y-axis",
+        "xPosition": [
+          800,
+          1000
+        ]
       },
       {
         "type": "axisLineVertical",
         "axisID": "x-number-of-sis",
-        "position": 1000
+        "position": 400,
+        "label": {
+          "content": "No deal",
+          "position": "left",
+          "xAdjust": -30
+        }
+      },
+      {
+        "type": "axisLineVertical",
+        "axisID": "x-number-of-sis",
+        "position": 800,
+        "label": {
+          "content": "Min SIs",
+          "position": "left",
+          "xAdjust": -30
+        }
+      },
+      {
+        "type": "axisLineVertical",
+        "axisID": "x-number-of-sis",
+        "position": 1000,
+        "label": {
+          "content": "Max SIs",
+          "position": "left",
+          "xAdjust": -30
+        }
       }
     ]
   }
