@@ -9,9 +9,18 @@
   @extend %e-box-shad-z3;
 }
 
+.chart--full-height {
+  @extend %e-height-full;
+}
+
 .chart__header {
   @extend %e-bgc-white-2;
   @extend %e-pad-xs;
+  @extend %e-width-full;
+}
+
+.chart__header-inner {
+  max-width: 52rem; // same as wide panel
 }
 
 .chart__container {

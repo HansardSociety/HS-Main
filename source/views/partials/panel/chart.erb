@@ -49,22 +49,26 @@ end
           <%# Chart %>
           <% if panelEntry[:TYPE] == "chart" %>
             <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
-              <section class="chart">
+              <section class="chart chart--full-height">
                 <% if panelEntry[:show_header] %>
-                  <header class="chart__header">
-                    <% if panelData[:show_title] %>
-                      <h3 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
-                    <% else %>
-                      <h2 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
-                    <% end %>
-                    <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
+                  <header
+                    class="chart__header"
+                    style="<%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>">
+                    <div class="chart__header-inner">
+                      <% if panelData[:show_title] %>
+                        <h3 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                      <% else %>
+                        <h2 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                      <% end %>
+                      <p class="e-fz-xs e-col-grey-3"><%= panelEntry[:caption] %></p>
+                    </div>
                   </header>
                 <% end %>
                 <div
                   class="chart__container"
                   style="
                     <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
-                    <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                    <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
                   <canvas class="chart__canvas"></canvas>
                 </div>
                 <script class="chart__config" type="application/json">
@@ -83,7 +87,7 @@ end
 
           <%# Text box %>
           <% elsif panelEntry[:TYPE] == "text_box" %>
-            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
+            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
               <div class="text-box">
                 <% if panelEntry[:show_title] %>
                   <% if panelData[:show_title] %>
@@ -111,23 +115,26 @@ end
           <%# Chart %>
           <% if panelEntry[:TYPE] == "chart" %>
             <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
-              <section class="chart">
+              <section class="chart chart--full-height">
                 <% if panelEntry[:show_header] %>
-                  <header class="chart__header">
-                    <% if panelData[:show_title] %>
-                      <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
-                    <% else %>
-                      <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
-                    <% end %>
-                    <p class="e-fz-xs e-col-black-1"><%= panelEntry[:caption] %></p>
+                  <header
+                    class="chart__header"
+                    style="<%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>">
+                    <div class="chart__header-inner">
+                      <% if panelData[:show_title] %>
+                        <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                      <% else %>
+                        <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                      <% end %>
+                      <p class="e-fz-xs e-col-black-1"><%= panelEntry[:caption] %></p>
+                    </div>
                   </header>
                 <% end %>
                 <div
                   class="chart__container"
                   style="
                     <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
-                    <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
-
+                    <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
                   <canvas class="chart__canvas"></canvas>
                 </div>
                 <script class="chart__config" type="application/json">
@@ -167,7 +174,7 @@ end
   </div>
 </section>
 
-<%# <section class="chart">
+<%# <section class="chart chart--full-height">
 <div
   class="chart__container"
   style="width: 100%; min-height: 300px;">
