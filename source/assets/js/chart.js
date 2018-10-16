@@ -245,7 +245,6 @@ const renderCharts = () => {
           axis.gridLines.color = hexToRGBA(offWhite, 0.5)
           axis.gridLines.borderDash = [1, 0]
           axis.gridLines.display = true
-          // axis.gridLines.drawOnChartArea = false
         })
       }
     }
@@ -259,17 +258,31 @@ const renderCharts = () => {
           axis.gridLines.color = hexToRGBA(offWhite, 0.5)
           axis.gridLines.borderDash = [1, 0]
           axis.gridLines.display = true
-          // axis.gridLines.drawOnChartArea = false
         })
       }
+    }
+
+    // Dont skip ticks
+    if (options.scales && options.scales.xAxes) {
+      const categoryAxes = options.scales.xAxes.filter(i => i.type === "category")
+      if (categoryAxes.length >= 1) categoryAxes.forEach(axis => {
+        if (axis.ticks) {
+          axis.ticks.autoSkip = false
+        } else {
+          axis.ticks = {}
+          axis.ticks.autoSkip = false
+        }
+
+        console.log(axis)
+      })
     }
 
     /*  =Misc
      *****************************************/
 
     if (isDoughnut) {
-      options.cutoutPercentage = 10
-      options.rotation = Math.PI * 2 * .5
+      options.cutoutPercentage = 20
+      // options.rotation = Math.PI * 2 * .5
     }
 
     /* =Plugins
@@ -351,7 +364,6 @@ const renderCharts = () => {
               config.label.cornerRadius = 2
               config.label.borderWidth = 0
             }
-            console.log(config)
 
           } else if (isBox) {
             config = {
