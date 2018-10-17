@@ -724,6 +724,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     sharedPageBase("landingPage", context, entry) # core page data
     context.show_introduction = entry.show_introduction
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
+    context.share_buttons = entry.share_buttons
 
     # Check if set as index of category/ sub-category
     if entry.index_page
