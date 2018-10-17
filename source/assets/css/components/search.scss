@@ -119,16 +119,11 @@
 }
 
 .search__toggle-filters {
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  @extend %e-align-cen;
   @extend %e-display-none;
   @extend %e-cursor-pointer;
   @extend %e-position-relative;
   @include below(md) {
-    display: inline-block;
+    display: inline;
 
     & + .search__filters {
       display: none;
