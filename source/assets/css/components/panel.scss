@@ -2,6 +2,8 @@
   ========================================================================== */
 
 .panel {
+  overflow-x: hidden;
+
   @extend %e-container;
   // @extend %e-overflow-hidden;
   @extend %e-pad-x-lg;
