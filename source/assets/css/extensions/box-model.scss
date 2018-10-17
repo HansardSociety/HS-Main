@@ -156,5 +156,6 @@
 @each $shadowKey, $shadowVal in map-get($shadow, box) {
   %e-box-shad-#{ $shadowKey } {
     box-shadow: $shadowVal;
+    border: 1px solid rgba(0, 0, 0, .05);
   }
 }

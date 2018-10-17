@@ -1,6 +1,6 @@
 <% @entry = entry_data %>
 
-<article id="IS_<%= @entry[:category].upcase %>" class="e-bcg-white-1">
+<article id="<%= @entry[:category].upcase %>_PAGE" class="e-bcg-white-1">
 
   <% if @entry[:banner_image] %>
     <%= partial "views/partials/banner/landing-page",
