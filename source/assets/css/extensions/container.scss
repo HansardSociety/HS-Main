@@ -7,23 +7,28 @@
 }
 
 %e-container {
+  @extend %e-max-width-full;
   @extend %e-pad-y-sm;
 }
 
+%e-container--extra-narrow {
+  width: 25rem;
+}
+
 %e-container--narrow {
-  max-width: 35rem;
+  width: 35rem;
 }
 
 %e-container--medium {
-  max-width: 45rem;
+  width: 45rem;
 }
 
 %e-container--wide {
-  max-width: 52rem;
+  width: 55rem;
 }
 
 %e-container--full {
-  max-width: 65rem;
+  width: 65rem;
 }
 
 %e-container--full-bleed {

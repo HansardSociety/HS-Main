@@ -2,12 +2,16 @@
   ========================================================================== */
 
 .panel {
-  overflow-x: hidden;
+  justify-content: center;
 
   @extend %e-container;
-  // @extend %e-overflow-hidden;
+  @extend %e-flex-row;
   @extend %e-pad-x-lg;
   @extend %e-position-relative;
+}
+
+.panel--no-overflow-x {
+  overflow-x: hidden;
 }
 
 // .panel--bg-rotate {
@@ -46,8 +50,12 @@
   ========================================================================== */
 
 .panel__content {
-  @extend %e-mgn-auto-x;
+  // @extend %e-mgn-auto-x;
   @extend %e-position-relative; // need pos to place over absolute bg image
+}
+
+.panel__content--extra-narrow {
+  @extend %e-container--extra-narrow;
 }
 
 .panel__content--narrow {

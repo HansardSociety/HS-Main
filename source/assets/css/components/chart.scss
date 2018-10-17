@@ -26,3 +26,9 @@
   @extend %e-width-full;
   @extend %e-pad-sm;
 }
+
+.chart__citation {
+  @extend %e-fz-xxs;
+  @extend %e-pad-xs;
+  @extend %e-col-grey-3;
+}
