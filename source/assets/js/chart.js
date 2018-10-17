@@ -17,7 +17,7 @@ import siteConfig from "./shared-config.json"
 const colors = siteConfig.color_groups
 
 const lightGrey = colors["grey"]["1"]
-const midGrey = colors["grey"]["1"]
+const midGrey = colors["grey"]["2"]
 const grey = colors["grey"]["3"]
 const black = colors.black["1"]
 
@@ -73,6 +73,12 @@ def.legend.labels.usePointStyle = true
 def.responsive = true
 def.maintainAspectRatio = false
 
+// Title
+def.title.display = false
+def.title.text = "Cite as: Hansard Society"
+def.title.position = "bottom"
+def.title.fontColor = midGrey
+
 // Tooltips
 def.tooltips.backgroundColor = black
 def.tooltips.bodySpacing = 4
@@ -104,8 +110,11 @@ def.plugins.datalabels = false
 
 const scalesConfig = {
   gridLines: {
-    color: midGrey,
-    zeroLineColor: midGrey
+    color: offWhite,
+    zeroLineColor: lightGrey,
+    lineWidth: 2,
+    borderDash: dashes,
+    tickMarkLength: 15
   },
   ticks: {
     beginAtZero: true
@@ -150,6 +159,8 @@ const renderCharts = () => {
     const isPie = type === "pie"
     const isLine = type === "line"
 
+    const customAnnotations = chartConfig.customConfig.annotations
+
     /* =Options
      ***************************************************************************/
 
@@ -169,8 +180,11 @@ const renderCharts = () => {
      *****************************************/
 
     options.tooltips = {}
-    options.tooltips.mode = "nearest"
     options.tooltips.position = "nearest"
+
+    if (isBar) options.tooltips.mode = "x"
+    else if (isHorizontalBar) options.tooltips.mode = "y"
+    else options.tooltips.mode = "nearest"
 
     options.tooltips.callbacks = {
       title: (item, data) => {
@@ -188,24 +202,22 @@ const renderCharts = () => {
         const isDatasetPie = datasetItem.type === "pie"
         const isDatasetDoughnut = datasetItem.type === "doughnut"
 
+        const itemLabel = datasetItem.label
+        const value = datasetItem.data[item.index]
+
         var tooltipText
 
         if (isDatasetHorizontalBar && item.yLabel) { // Horizontal bar
-          tooltipText = ` ${item.yLabel}`
+          tooltipText = ` ${item.yLabel} (${value})`
 
         } else if (isDatasetDoughnut || isDatasetPie) { // Doughnut or Pie
-          const value = datasetItem.data[item.index]
           const label = data.labels[item.index]
           const pcStr = calculatePercentage(datasetItem.data, value)
-
           tooltipText = ` ${label}: ${value} (${pcStr}%)`
 
         } else { // Line
-          const itemLabel = datasetItem.label
-          const itemIndex = datasetItem.data[item.index]
-
-          if (datasetItem.data[item.index].x) tooltipText = ` ${itemLabel} (${itemIndex.x}: ${itemIndex.y})`
-          else tooltipText = ` ${itemLabel} (${itemIndex})`
+          if (value.x) tooltipText = ` ${itemLabel} (${value.x}: ${value.y})`
+          else tooltipText = ` ${itemLabel} (${value})`
         }
 
         return tooltipText
@@ -221,12 +233,70 @@ const renderCharts = () => {
       } // END: => labelColor
     } // END: options.tooltips.tooltips
 
+    /*  =Scales
+     *****************************************/
+
+    // X axes
+    if (options.scales && options.scales.xAxes) {
+
+      options.scales.xAxes.forEach(axis => {
+
+        // Scale label
+        if (axis.scaleLabel && axis.scaleLabel.labelString) {
+          axis.scaleLabel.display = true
+          axis.scaleLabel.labelString = `↤ ${axis.scaleLabel.labelString} ↦`
+        }
+
+        // Bar
+        if (isBar) {
+          axis.gridLines = {}
+          axis.gridLines.lineWidth = 1
+          axis.gridLines.color = hexToRGBA(offWhite, 0.5)
+          axis.gridLines.borderDash = [1, 0]
+          axis.gridLines.display = true
+        }
+      })
+
+      // Don't skip ticks
+      const categoryAxes = options.scales.xAxes.filter(i => i.type === "category")
+      if (categoryAxes.length >= 1) categoryAxes.forEach(axis => {
+        if (axis.ticks) {
+          axis.ticks.autoSkip = false
+        } else {
+          axis.ticks = {}
+          axis.ticks.autoSkip = false
+        }
+      })
+    }
+
+    // Y axes
+    if (options.scales && options.scales.yAxes) {
+
+      options.scales.yAxes.forEach(axis => {
+
+        // Scale label
+        if (axis.scaleLabel && axis.scaleLabel.labelString) {
+          axis.scaleLabel.display = true
+          axis.scaleLabel.labelString = `↤ ${axis.scaleLabel.labelString} ↦`
+        }
+
+        // Horizontal bar
+        if (isHorizontalBar) {
+          axis.gridLines = {}
+          axis.gridLines.lineWidth = 1
+          axis.gridLines.color = hexToRGBA(offWhite, 0.5)
+          axis.gridLines.borderDash = [1, 0]
+          axis.gridLines.display = true
+        }
+      })
+    }
+
     /*  =Misc
      *****************************************/
 
     if (isDoughnut) {
-      options.cutoutPercentage = 10
-      options.rotation = Math.PI * 2 * .5
+      options.cutoutPercentage = 40
+      // options.rotation = Math.PI * 2 * .5
     }
 
     /* =Plugins
@@ -239,7 +309,7 @@ const renderCharts = () => {
 
     const isAnnotationConfig = (datasetItem, configKey, configVal) => {
       let result = false
-      const runcheck = chartConfig.customConfig.annotations.filter(annotationConfig => {
+      const runcheck = customAnnotations.filter(annotationConfig => {
         return annotationConfig.datasetIDs.filter(id => {
           return id === datasetItem.datasetID
         }) && annotationConfig[configKey] === configVal
@@ -251,11 +321,13 @@ const renderCharts = () => {
     const getAnnotationConfig = datasetItem => {
       let result = false
       let config
-      const runcheck = chartConfig.customConfig.annotations.filter(annotationConfig => {
+      const runcheck = customAnnotations.filter(annotationConfig => {
         config = annotationConfig
-        return annotationConfig.datasetIDs.filter(id => {
-          return id === datasetItem.datasetID
-        })
+        if (annotationConfig.datasetIDs) {
+          return annotationConfig.datasetIDs.filter(id => {
+            return id === datasetItem.datasetID
+          })
+        }
       })
       if (runcheck.length >= 1) result = config
       return result
@@ -264,25 +336,73 @@ const renderCharts = () => {
     /*  =Annotation
      *****************************************/
 
-    if (options.annotation) options.annotation = options.annotation
-    if (options.annotation && options.annotation.annotations) {
-      const annotations = options.annotation.annotations
+    options.annotation = {}
+    options.annotation.annotations = []
 
-      annotations.forEach(annotation => {
-        if (annotation.label && annotation.label.content) {
-          annotation.label.enabled = true
-          annotation.label.backgroundColor = black
-          annotation.label.fontColor = white
-          annotation.label.fontWeight = "normal"
-          annotation.label.fontFamily = ff01
-          annotation.label.fontSize = rem0675
-          annotation.label.xPadding = rem050
-          annotation.label.yPadding = rem050
-          annotation.label.cornerRadius = 8
-          annotation.label.borderWidth = 0
-        }
+    if (customAnnotations) {
+      let axesAnnotations = customAnnotations.filter(i => {
+        const isLineVertical = i.type === "axisLineVertical"
+        const isLineHorizontal = i.type === "axisLineHorizontal"
+        const isBox = i.type === "axisBox"
+
+        return isLineVertical || isLineHorizontal || isBox
       })
-    } // END: options.annotation
+
+      if (axesAnnotations && axesAnnotations.length >= 1) {
+        axesAnnotations.forEach(i => {
+          let config = {}
+          const isLineVertical = i.type === "axisLineVertical"
+          const isLineHorizontal = i.type === "axisLineHorizontal"
+          const isBox = i.type === "axisBox"
+
+          if (isLineVertical || isLineHorizontal) {
+            config = {
+              scaleID: i.axisID,
+              type: "line",
+              value: i.position,
+              mode: i.type === "axisLineVertical" ? "vertical" : "horizontal",
+              borderColor: "#e22828",
+              borderWidth: 2,
+              borderDash: dashes,
+            }
+
+            if (i.label) {
+              config.label = i.label
+              config.label.enabled = true,
+              config.label.fontSize = rem0675,
+              config.label.fontFamily = ff01,
+              config.label.fontStyle = "normal",
+              config.label.xPadding = rem025,
+              config.label.yPadding = rem0125,
+              config.label.backgroundColor = black,
+              config.label.cornerRadius = 2
+              config.label.borderWidth = 0
+            }
+
+          } else if (isBox) {
+            config = {
+              xScaleID: i.xAxisID,
+              yScaleID: i.yAxisID,
+              type: "box",
+              backgroundColor: hexToRGBA("#3dc438", 0.125),
+              borderColor: "rgba(0, 0, 0, 0)",
+              borderWidth: 0
+            }
+
+            if (i.xPosition) {
+              config.xMin = i.xPosition[0]
+              config.xMax = i.xPosition[1]
+            }
+
+            if (i.yPosition) {
+              // FINISH
+            }
+          }
+
+          options.annotation.annotations.push(config)
+        })
+      }
+    }
 
     /*  =Labels
      *****************************************/
@@ -302,7 +422,7 @@ const renderCharts = () => {
           let labelText = ""
 
           // Annotations
-          if (chartConfig.customConfig.annotations) {
+          if (customAnnotations) {
             if (isAnnotationConfig(item.dataset, "type", "radialTitle") && item.index === 0) {
               labelText = `${item.dataset.label}`
             }
@@ -409,13 +529,13 @@ const renderCharts = () => {
         .colors(range)
 
       if (order === "scale") { // Scale
-        colors.forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
+        colors.forEach(col => scale.push(chroma(col).saturate(1).hex()))
       } else { // shuffle
         colors.forEach((col, i) => i % 2
-          ? evenColors.push(chroma(col).saturate(1.5).hex())
-          : oddColors.unshift(chroma(col).saturate(1.5).hex()))
+          ? evenColors.push(chroma(col).saturate(1).hex())
+          : oddColors.unshift(chroma(col).saturate(1).hex()))
         evenColors.reverse().concat(oddColors)
-          .forEach(col => scale.push(chroma(col).saturate(1.5).hex()))
+          .forEach(col => scale.push(chroma(col).saturate(1).hex()))
       }
 
       return scale
@@ -440,31 +560,36 @@ const renderCharts = () => {
       /*  =Dataset: Set colors
       *****************************************/
 
+      dataset.backgroundColor = dataset.backgroundColor
+      dataset.hoverBackgroundColor = dataset.backgroundColor
+      dataset.hoverBorderColor = dataset.backgroundColor
+
       if (customConfig && customConfig.colors) {
         if (!dataset.backgroundColor) {
           for (let colorConfig of customConfig.colors) {
             for (let [datasetIdIndex, datasetID] of colorConfig.datasetIDs.entries()) {
               if (datasetID === dataset.datasetID) {
                 const isPaletteString = colorConfig.palette.constructor === String
-                const isPaletteStatic = colorConfig.palette === "static"
                 let selectColorPalette
 
                 if (isPaletteString) selectColorPalette = brewerColors({ // Brewer
                   palette: colorConfig.palette,
                   order: colorConfig.order })
-                else if (isPaletteStatic) // Static
-                  selectColorPalette = colorConfig.palette
-                else selectColorPalette = colorScale({ // Scale
-                  palette: colorConfig.palette,
-                  order: colorConfig.order,
-                  range: colorConfig.range })
+                else {
+                  if (colorConfig.order === "scale") {
+                    selectColorPalette = colorScale({ // Scale
+                      palette: colorConfig.palette,
+                      order: colorConfig.order,
+                      range: colorConfig.range })
+                  } else {
+                    selectColorPalette = colorConfig.palette
+                  }
+                }
 
                 if (!colorConfig.incrementalColors && (isDatasetBar || isDatasetHorizontalBar || isDatasetLine)) {
-                  const hoverColor = chroma(selectColorPalette[datasetIdIndex]).darken(1)
                   dataset.backgroundColor = selectColorPalette[datasetIdIndex]
                   break
                 } else {
-                  // const zerosInDataset = dataset.data.filter(i => i !== 0).length
                   dataset.backgroundColor = selectColorPalette
                   break
                 }
@@ -508,11 +633,7 @@ const renderCharts = () => {
 
       // If no border is defined add one to == bgc
       if (dataset.backgroundColor && !dataset.borderColor) {
-        if (isDatasetDoughnut) {
-          dataset.borderColor = hexToRGBA(black, 0.8)
-          dataset.hoverBorderColor = hexToRGBA(black, 0.8)
-          dataset.borderWidth = strokeWidth
-        } else if (isDatasetPie) {
+        if (isDatasetPie || isDatasetDoughnut) {
           dataset.borderColor = white
           dataset.hoverBorderColor = white
         } else {
@@ -574,7 +695,9 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Make sure Brewer palettes have enough colours for large datasets
  * [ ] Make both chart row HTML the same
  * [ ] Chekc if getAnnotationConfig works on multiple annotation configs
+ * [ ] Parent char always takes priority on gridLine styles
  * [ ] Must set either BGC or custoConfig color for chart to render
+ * [ ]
  */
 
 /* =Schema

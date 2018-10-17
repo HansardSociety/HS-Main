@@ -1,6 +1,7 @@
 <%
 entryData = local_data[:entry_data]
 accent = "e-acc-#{ catColor(entryData[:category]) }-2-bottom" if entryData[:category]
+safeTitle = CGI.escape(entryData[:title])
 %>
 
 <header class="banner JS-banner--full <%= accent if !entryData[:show_introduction] %>">
@@ -52,6 +53,17 @@ accent = "e-acc-#{ catColor(entryData[:category]) }-2-bottom" if entryData[:cate
               <% end %>
             </div>
           <% end %>
+        </div>
+      <% end %>
+      <% if @entry[:category] == "blog" %>
+        <div class="grid grid--xxs grid--center e-pad-t-sm">
+          <%= partial "views/partials/social",
+            locals: { local_data: {
+              icons: [
+                "https://twitter.com/intent/tweet?text=#{ safeTitle }&url=#{ siteData(:site_url) }/#{ entryData[:slug] }&via=HansardSociety&related=HansardSociety",
+                "https://facebook.com/sharer.php?u=#{ siteData(:site_url) }/#{ entryData[:slug] }",
+                "https://www.linkedin.com/shareArticle?mini=true&url=#{ siteData(:site_url) }/#{ entryData[:slug] }&title=#{ safeTitle }&source=hansardsociety.org.uk"
+              ]}} %>
         </div>
       <% end %>
     </div>

@@ -27,13 +27,11 @@ index = local_data[:index]
 <section
   id="panel-<%= index %>"
   class="panel <%= bgcClass %>">
-
   <div class="panel__content panel__content--full">
-
-    <% if panelData[:show_title] || panelData[:image] %>
-      <div class="grid grid--md grid--center <%= "e-hide-above-sm" if !panelData[:image] %>">
+    <div class="grid grid--md grid--center">
+      <% if panelData[:show_title] || panelData[:image] %>
         <% if panelData[:show_title] %>
-          <div class="grid__cell grid__cell--md--12 e-hide-above-sm">
+          <div class="grid__cell grid__cell--md--12 e-hide-above-md">
             <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
           </div>
         <% end %>
@@ -48,13 +46,11 @@ index = local_data[:index]
                 border: panelData[:image_border] }} %>
           </div>
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
 
-    <div class="grid grid--md grid--center">
-      <div class="grid__cell grid__cell--md-above-md-7">
+      <div class="grid__cell grid__cell--md-above-sm-11 grid__cell--md-above-md-7">
         <% if panelData[:show_title] %>
-          <h2 class="title-lg e-mgn-b-sm e-hide-below-sm <%= titleColor %>"><%= panelData[:title] %></h2>
+          <h2 class="title-lg e-mgn-b-md e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h2>
         <% end %>
 
         <div class="copy">
