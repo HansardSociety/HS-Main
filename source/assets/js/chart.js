@@ -74,7 +74,7 @@ def.responsive = true
 def.maintainAspectRatio = false
 
 // Title
-def.title.display = true
+def.title.display = false
 def.title.text = "Cite as: Hansard Society"
 def.title.position = "bottom"
 def.title.fontColor = midGrey
@@ -236,34 +236,28 @@ const renderCharts = () => {
     /*  =Scales
      *****************************************/
 
-    // Bar
-    if (isBar) {
-      if (options.scales.xAxes) {
-        options.scales.xAxes.forEach(axis => {
-          axis.gridLines = {}
-          axis.gridLines.lineWidth = 1
-          axis.gridLines.color = hexToRGBA(offWhite, 0.5)
-          axis.gridLines.borderDash = [1, 0]
-          axis.gridLines.display = true
-        })
-      }
-    }
-
-    // Horizontal bar
-    if (isHorizontalBar) {
-      if (options.scales.yAxes) {
-        options.scales.yAxes.forEach(axis => {
-          axis.gridLines = {}
-          axis.gridLines.lineWidth = 1
-          axis.gridLines.color = hexToRGBA(offWhite, 0.5)
-          axis.gridLines.borderDash = [1, 0]
-          axis.gridLines.display = true
-        })
-      }
-    }
-
-    // Dont skip ticks
+    // X axes
     if (options.scales && options.scales.xAxes) {
+
+      options.scales.xAxes.forEach(axis => {
+
+        // Scale label
+        if (axis.scaleLabel && axis.scaleLabel.labelString) {
+          axis.scaleLabel.display = true
+          axis.scaleLabel.labelString = `↤ ${axis.scaleLabel.labelString} ↦`
+        }
+
+        // Bar
+        if (isBar) {
+          axis.gridLines = {}
+          axis.gridLines.lineWidth = 1
+          axis.gridLines.color = hexToRGBA(offWhite, 0.5)
+          axis.gridLines.borderDash = [1, 0]
+          axis.gridLines.display = true
+        }
+      })
+
+      // Don't skip ticks
       const categoryAxes = options.scales.xAxes.filter(i => i.type === "category")
       if (categoryAxes.length >= 1) categoryAxes.forEach(axis => {
         if (axis.ticks) {
@@ -272,8 +266,28 @@ const renderCharts = () => {
           axis.ticks = {}
           axis.ticks.autoSkip = false
         }
+      })
+    }
 
-        console.log(axis)
+    // Y axes
+    if (options.scales && options.scales.yAxes) {
+
+      options.scales.yAxes.forEach(axis => {
+
+        // Scale label
+        if (axis.scaleLabel && axis.scaleLabel.labelString) {
+          axis.scaleLabel.display = true
+          axis.scaleLabel.labelString = `↤ ${axis.scaleLabel.labelString} ↦`
+        }
+
+        // Horizontal bar
+        if (isHorizontalBar) {
+          axis.gridLines = {}
+          axis.gridLines.lineWidth = 1
+          axis.gridLines.color = hexToRGBA(offWhite, 0.5)
+          axis.gridLines.borderDash = [1, 0]
+          axis.gridLines.display = true
+        }
       })
     }
 
@@ -281,7 +295,7 @@ const renderCharts = () => {
      *****************************************/
 
     if (isDoughnut) {
-      options.cutoutPercentage = 20
+      options.cutoutPercentage = 40
       // options.rotation = Math.PI * 2 * .5
     }
 
@@ -370,7 +384,7 @@ const renderCharts = () => {
               xScaleID: i.xAxisID,
               yScaleID: i.yAxisID,
               type: "box",
-              backgroundColor: hexToRGBA("#3dc438", 0.25),
+              backgroundColor: hexToRGBA("#3dc438", 0.125),
               borderColor: "rgba(0, 0, 0, 0)",
               borderWidth: 0
             }
@@ -389,25 +403,6 @@ const renderCharts = () => {
         })
       }
     }
-
-    // if (options.annotation && options.annotation.annotations) {
-    //   const annotations = options.annotation.annotations
-
-    //   annotations.forEach(annotation => {
-    //     if (annotation.label && annotation.label.content) {
-    //       annotation.label.enabled = true
-    //       annotation.label.backgroundColor = black
-    //       annotation.label.fontColor = white
-    //       annotation.label.fontWeight = "normal"
-    //       annotation.label.fontFamily = ff01
-    //       annotation.label.fontSize = rem0675
-    //       annotation.label.xPadding = rem050
-    //       annotation.label.yPadding = rem050
-    //       annotation.label.cornerRadius = 8
-    //       annotation.label.borderWidth = 0
-    //     }
-    //   })
-    // } // END: options.annotation
 
     /*  =Labels
      *****************************************/
@@ -638,11 +633,7 @@ const renderCharts = () => {
 
       // If no border is defined add one to == bgc
       if (dataset.backgroundColor && !dataset.borderColor) {
-        if (isDatasetDoughnut) {
-          dataset.borderColor = hexToRGBA(black, 0.8)
-          dataset.hoverBorderColor = hexToRGBA(black, 0.8)
-          dataset.borderWidth = strokeWidth
-        } else if (isDatasetPie) {
+        if (isDatasetPie || isDatasetDoughnut) {
           dataset.borderColor = white
           dataset.hoverBorderColor = white
         } else {

@@ -487,7 +487,8 @@ def panels(ctx, data)
             chart_options: data.options.to_json.to_s, # Obj
             chart_custom_config: (data.custom_config ? data.custom_config.to_json.to_s : "{}"), # Obj / optional
             chart_width: data.width,
-            chart_height: data.height
+            chart_height: data.height,
+            citation: data.citation
           }
         end
 
@@ -723,6 +724,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     sharedPageBase("landingPage", context, entry) # core page data
     context.show_introduction = entry.show_introduction
     context.latest_carousel = entry.latest_carousel # latest related cards carousel
+    context.share_buttons = entry.share_buttons
 
     # Check if set as index of category/ sub-category
     if entry.index_page
