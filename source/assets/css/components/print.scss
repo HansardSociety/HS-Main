@@ -1,0 +1,69 @@
+@media print {
+
+  /*		=Core
+    ========================================================================== */
+
+  .site-container {
+    & > *:not(#Main) {
+      display: none !important;
+    }
+  }
+
+  .print__hide {
+    display: none !important;
+  }
+
+  /*		=Child page
+    ========================================================================== */
+
+  .print--child-page {
+
+    /***  =Banner  ***/
+
+    .banner {
+      z-index: 1;
+
+      h1 {
+        color: Get($colorGroups, brand-green, 2) !important;
+        box-shadow: 0 !important;
+      }
+    }
+
+    .banner__image {
+      position: relative !important;
+
+      &::after {
+        display: none;
+      }
+
+      & > img {
+        position: relative !important;
+        width: 100% !important;
+      }
+    }
+
+    /***  =Copy  ***/
+
+    .copy {
+      overflow: visible !important;
+
+      height: auto !important;
+      margin-bottom: 5rem;
+
+      page-break-inside: avoid !important;
+      page-break-before: always !important;
+
+      & ~ * {
+        display: none !important;
+      }
+    }
+
+    .grid__cell--expand::after {
+      display: none;
+    }
+
+    .grid__expand-btn {
+      display: none !important;
+    }
+  }
+}

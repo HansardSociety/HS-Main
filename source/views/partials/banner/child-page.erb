@@ -20,7 +20,7 @@ safeTitle = CGI.escape(entryData[:title])
             class="banner__title title-lg e-mgn-t-xxs JS-truncate"
             data-truncate="{ 'xs': 120 }"><%= entryData[:title] %></h1>
         </div>
-        <div class="grid__cell grid__cell--md-above-md-5 grid__cell--end">
+        <div class="grid__cell grid__cell--md-above-md-5 grid__cell--end print__hide">
           <div class="grid grid--xxs grid--middle">
             <div class="grid__cell grid__cell--xxs-12 label-xxs">Share this</div>
             <%= partial "views/partials/social",

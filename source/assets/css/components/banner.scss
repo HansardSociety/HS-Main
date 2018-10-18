@@ -134,17 +134,18 @@
 /*		=JS
   ========================================================================== */
 
-.JS-banner--semi,
-.JS-banner--full {
-  @include above(sm) {
-    height: 90vh;
-  }
-}
-
 .JS-banner--semi {
   height: calc(100vh - 8px);
+
+  @include above(sm) {
+    height: calc(90vh - 8px);
+  }
 }
 
 .JS-banner--full {
   height: 100vh;
+
+  @include above(sm) {
+    height: 90vh;
+  }
 }
