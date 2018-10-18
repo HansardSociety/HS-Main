@@ -25,7 +25,7 @@ safeTitle = CGI.escape(entryData[:title])
       <% end %>
 
       <% if entryData[:calls_to_action] != nil %>
-        <div class="grid grid--xs grid--above-sm-center e-mgn-t-sm">
+        <div class="grid grid--xs grid--above-sm-center e-mgn-t-sm print__hide">
           <% entryData[:calls_to_action].each do |cta| %>
             <div class="grid__cell">
 
@@ -56,7 +56,7 @@ safeTitle = CGI.escape(entryData[:title])
         </div>
       <% end %>
       <% if @entry[:share_buttons] %>
-        <div class="banner__social grid grid--xxs e-pad-t-sm">
+        <div class="banner__social grid grid--xxs e-pad-t-sm print__hide">
           <%= partial "views/partials/social",
             locals: { local_data: {
               icons: [

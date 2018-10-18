@@ -1,0 +1,72 @@
+.print__show {
+  display: none;
+}
+
+@media print {
+
+  /*		=Core
+    ========================================================================== */
+
+  .site-container {
+    & > *:not(#Main) {
+      display: none !important;
+    }
+  }
+
+  .print__hide {
+    display: none !important;
+  }
+
+  .print__show {
+    display: block !important;
+  }
+
+  /*		=Banner
+    ========================================================================== */
+
+  .banner {
+    height: 20rem !important;
+    max-height: 20rem !important;
+    min-height: 20rem !important;
+
+    h1 {
+      color: Get($colorGroups, brand-green, 2) !important;
+      box-shadow: 0 !important;
+    }
+  }
+
+  /*		=Copy
+    ========================================================================== */
+
+  .copy {
+    overflow: visible !important;
+
+    height: auto !important;
+    margin-bottom: 5rem;
+
+    page-break-inside: avoid !important;
+    page-break-before: always !important;
+
+    & ~ * {
+      display: none !important;
+    }
+  }
+
+  .grid__cell--expand::after {
+    display: none;
+  }
+
+  .grid__expand-btn {
+    display: none !important;
+  }
+
+  /*		=Canvas
+    ========================================================================== */
+
+  .chart {
+    & * {
+      max-width: calc(100vw - 1rem) !important;
+      height: unset !important;
+    }
+  }
+}
