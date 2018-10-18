@@ -8,16 +8,12 @@ const bannerHeight = (() => {
 
   if (matchMedia("screen and (min-width: 600px)").matches) {
     var vhLg = Math.ceil(windowHeight * .9)
-    var vhMd = Math.ceil(windowHeight * .9)
-
   } else {
     var vhLg = Math.ceil(windowHeight)
-    var vhMd = Math.ceil(windowHeight)
   }
 
-
   if (bannerFull) bannerFull.style.height = `${ vhLg }px`
-  if (bannerSemi) bannerSemi.style.height = `${ vhLg }px`
+  if (bannerSemi) bannerSemi.style.height = `${ vhLg - 8 }px`
 
   // Home banner
   if (bannerHome) {
