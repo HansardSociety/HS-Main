@@ -119,6 +119,12 @@
   right: 0;
 }
 
+.banner__social {
+  @include above(sm) {
+    justify-content: center;
+  }
+}
+
 .carousel .banner__content--lp {
   @include below(md) {
     padding-bottom: 5rem;
@@ -139,6 +145,6 @@
   height: calc(100vh - 8px);
 }
 
-// .JS-banner--full {
-//   height: 100vh;
-// }
+.JS-banner--full {
+  height: 100vh;
+}

@@ -55,8 +55,8 @@ safeTitle = CGI.escape(entryData[:title])
           <% end %>
         </div>
       <% end %>
-      <% if @entry[:category] == "blog" %>
-        <div class="grid grid--xxs grid--center e-pad-t-sm">
+      <% if @entry[:share_buttons] %>
+        <div class="banner__social grid grid--xxs e-pad-t-sm">
           <%= partial "views/partials/social",
             locals: { local_data: {
               icons: [
