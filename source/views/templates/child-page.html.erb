@@ -17,7 +17,9 @@ safeTitle = CGI.escape(@entry[:title])
 url = "https://hansardsociety.org.uk/"
 %>
 
-<article id="IS_<%= category.upcase %>">
+<article
+  id="IS_<%= category.upcase %>"
+  class="print print--child-page">
 
   <%= partial "views/partials/banner/child-page",
     locals: { local_data: { entry_data: @entry }} %>
@@ -26,7 +28,7 @@ url = "https://hansardsociety.org.uk/"
 
     <%# Page intro/ featured item %>
     <div class="content__header">
-      <div class=" grid grid--md grid--center">
+      <div class="grid grid--md grid--center">
 
         <%# Introduction %>
         <section
@@ -38,7 +40,7 @@ url = "https://hansardsociety.org.uk/"
 
         <%# Featured side content %>
         <aside
-          class="grid__cell grid__cell--md-above-md-5 grid__cell--fill
+          class="grid__cell grid__cell--md-above-md-5 grid__cell--fill print__hide
                 <%= "grid__cell--order-1 grid__cell--above-md-order-2" if isReverseHeaderCats %>">
 
           <%# Entry has featured content %>
@@ -67,7 +69,7 @@ url = "https://hansardsociety.org.uk/"
 
     <%# Main content %>
     <div class="content__section">
-      <div class=" grid grid--md grid--center">
+      <div class="grid grid--md grid--center">
         <section
           id="expand"
           class="grid__cell grid__cell--md-above-md-7 grid__cell--expand grid__cell--fill JS-inactive copy">
@@ -77,8 +79,8 @@ url = "https://hansardsociety.org.uk/"
 
           <% if isMainCategories %>
             <hr>
-            <h2 class="title-sm">Enjoy reading this? Please consider sharing it</h2>
-            <div class="grid grid--xxs grid--middle e-mgn-b-sm">
+            <h2 class="title-sm print__hide">Enjoy reading this? Please consider sharing it</h2>
+            <div class="grid grid--xxs grid--middle e-mgn-b-sm print__hide">
               <%= partial "views/partials/social",
                 locals: { local_data: {
                   icons: [
@@ -123,7 +125,7 @@ url = "https://hansardsociety.org.uk/"
           <%# END :: Site map %>
 
           <%# Expand button %>
-          <div class="grid__expand-btn">
+          <div class="grid__expand-btn print__hide">
             <%= partial "views/partials/btn",
               locals: { local_data: {
                 type: "state", size: "md", style: "secondary", fill: true,
@@ -133,7 +135,7 @@ url = "https://hansardsociety.org.uk/"
         </section>
 
         <%# Side content %>
-        <aside class="grid__cell grid__cell--md-above-md-5 grid__cell--fill">
+        <aside class="grid__cell grid__cell--md-above-md-5 grid__cell--fill print__hide">
 
           <%# Side cards %>
           <% if isMainCategories %>
@@ -218,7 +220,7 @@ url = "https://hansardsociety.org.uk/"
     </div>
   </div>
   <% if isMainCategories %>
-    <section class="panel__pull">
+    <section class="panel__pull print__hide">
       <%= partial "views/partials/panel/carousel",
         locals: { local_data: {
           entry_data: @entry,

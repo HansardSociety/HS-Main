@@ -127,7 +127,7 @@ end
                   style="
                     <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
                     <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
-                  <canvas class="chart__canvas"></canvas>
+                  <canvas class="chart__canvas print__hide"></canvas>
                 </div>
                 <div class="chart__citation"><%= panelEntry[:citation] %></div>
                 <script class="chart__config" type="application/json">
@@ -171,7 +171,7 @@ end
 <div
   class="chart__container"
   style="width: 100%; min-height: 300px;">
-  <canvas class="chart__canvas"></canvas>
+  <canvas class="chart__canvas print__hide"></canvas>
 </div>
 <script class="chart__config" type="application/json">
 {
