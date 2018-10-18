@@ -1,6 +1,6 @@
 .chart {
   overflow-x: auto;
-  // max-width: 65rem; // same as .panel--full
+  max-width: 65rem; // same as full
 
   @extend %e-bgc-white-1;
   @extend %e-rad-slight;
