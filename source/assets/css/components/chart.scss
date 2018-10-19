@@ -1,14 +1,18 @@
 .chart {
   overflow-x: auto;
-  max-width: 65rem; // same as full
 
+  max-width: calc(100vw - 2rem);
+
+  @include above(sm) {
+    max-width: 65rem;
+  }
   @extend %e-bgc-white-1;
   @extend %e-rad-slight;
   @extend %e-box-shad-z3;
 }
 
 .chart--full-height {
-  @extend %e-height-full;
+  // @extend %e-height-full;
 }
 
 .chart__header {
