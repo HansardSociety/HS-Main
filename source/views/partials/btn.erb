@@ -87,10 +87,8 @@ btnAttributes = {
       </span>
 
     <% end; if labelOn %>
-      <span class="btn__label <%= "btn__label--" + labelSize %>">
-        <%= labelOn %>
-      </span>
-
+      <span class="btn__label btn__label--on <%= "btn__label--" + labelSize %>"><%= labelOn %></span>
+      <span class="btn__label btn__label--off <%= "btn__label--" + labelSize %>"><%= labelOff %></span>
     <% end; if ["link", "plain"].include?(type) && label %>
       <span class="btn__label <%= "btn__label--" + labelSize %>"><%= label %></span>
     <% end %>

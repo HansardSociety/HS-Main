@@ -165,4 +165,20 @@
   .btn__icon--rotate {
     transform: rotate(180deg);
   }
+
+  .btn__label--on {
+    @extend %e-display-block;
+  }
+  .btn__label--off {
+    @extend %e-display-none;
+  }
+}
+
+.btn.JS-off {
+  .btn__label--on {
+    @extend %e-display-none;
+  }
+  .btn__label--off {
+    @extend %e-display-block;
+  }
 }
