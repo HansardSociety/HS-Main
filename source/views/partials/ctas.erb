@@ -29,7 +29,8 @@ btnSize = local_data[:btn_size] ? local_data[:btn_size] : "md"
       locals: { local_data: {
         type: "state",
         size: btnSize, style: "primary",
-        label_on: btnText,
+        label_off: btnText,
+        label_on: "Close",
         label_size: btnSize,
         page: "no-scroll", switch: true,
         aria_id: "activate-#{ modalID }",
