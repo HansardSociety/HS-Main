@@ -77,7 +77,7 @@ screen = local_data[:screen]
                       <% if pagesWithSubCats %>
                         <% pagesWithSubCats.group_by(&:sub_category).each do |subCat, subCatPages| %>
                           <li>
-                            <div class="label-xxs e-pad-t-sm e-col-grey-3"><%= subCat %></span>
+                            <div class="label-xxs e-pad-t-sm e-col-grey-3"><%= subCat %></div>
                             <ul>
                               <% subCatPages.each do |page| %>
                                 <li class="e-pad-t-xs">
