@@ -45,7 +45,7 @@ safeTitle = CGI.escape(entryData[:title])
                   locals: { local_data: {
                     type: "state",
                     size: "md", style: "primary",
-                    label_on: btnText, label_off: "Close",
+                    label_on: "Close", label_off: btnText,
                     label_size: "md",
                     page: "no-scroll", switch: true,
                     aria_id: "activate-#{ modalID }",
