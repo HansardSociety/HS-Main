@@ -133,10 +133,14 @@ ol {
   }
 
   li::before {
-    top: -.125rem;
     @extend %e-position-relative;
   }
 }
+
+ul li::before {
+  top: -.125rem;
+}
+
 
 li {
   padding-top: .25em;
