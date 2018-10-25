@@ -18,7 +18,7 @@ module CustomHelpers
   def markdown(data, type="paragraph")
     text = type == "byline" ? data.gsub(/(\n|\n\n)/, " ") + "\n{: .strap-md }" : data
 
-    Kramdown::Document.new(text, { auto_ids: false }).to_html
+    Kramdown::Document.new(text).to_html
   end
 
   # Markdown strip HTML

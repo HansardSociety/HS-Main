@@ -32,7 +32,9 @@ index = local_data[:index]
       <% if panelData[:show_title] || panelData[:image] %>
         <% if panelData[:show_title] %>
           <div class="grid__cell grid__cell--md-12 e-hide-above-md">
-            <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
+            <h2
+              id="<%= panelData[:title].parameterize %>"
+              class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
           </div>
         <% end %>
         <% if panelData[:image] %>
@@ -50,7 +52,9 @@ index = local_data[:index]
 
       <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-11 grid__cell--md-above-md-7">
         <% if panelData[:show_title] %>
-          <h2 class="title-lg e-mgn-b-md e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h2>
+          <h2
+            id="<%= panelData[:title].parameterize %>"
+            class="title-lg e-mgn-b-md e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h2>
         <% end %>
 
         <div class="copy">

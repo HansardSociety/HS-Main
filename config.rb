@@ -19,7 +19,7 @@ Dotenv.load
 
 helpers CustomHelpers # helpers
 set :markdown_engine, :kramdown # Kramdown
-Slim::Engine.set_options sort_attrs: false # Slim
+# Slim::Engine.set_options sort_attrs: false
 
 ###########################################################################
 ##		=Build
