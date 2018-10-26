@@ -12,6 +12,10 @@
   @extend %e-overflow-hidden;
 }
 
+.e-hidden {
+  margin-top: -4rem; // enable scroll offset
+}
+
 @each $breakpointKey, $breakpointVal in $breakpoints {
   @include above($breakpointKey) {
     .e-hide-above-#{ $breakpointKey } {

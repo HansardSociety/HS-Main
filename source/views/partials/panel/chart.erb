@@ -15,14 +15,16 @@ end
 <section
   id="panel-<%= index %>"
   class="panel panel--no-overflow-x e-bgc-white-1">
+  <span
+    id="<%= panelData[:title].parameterize %>"
+    class="e-hidden"
+    aria-hidden="true"></span>
 
   <% if panelData[:show_title] %>
     <header class="panel__content panel__content--full">
       <div class="grid grid--md grid--center">
         <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
-          <h2
-            id="<%= panelData[:title].parameterize %>"
-            class="title-lg e-col-brand-green-2 e-mgn-b-md"><%= panelData[:title] %></h2>
+          <h2 class="title-lg e-col-brand-green-2 e-mgn-b-md"><%= panelData[:title] %></h2>
         </div>
       </div>
     </header>
