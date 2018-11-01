@@ -77,7 +77,7 @@ sideCardAttrs = {
         <% else %>
           <h2
             class="title-sm <%= isFeaturedCard ? "e-col-white-1" : "e-col-brand-green-2" %> JS-truncate"
-            data-truncate="{ 'xs': 45, 'sm': 140, 'md': 50, 'lg': 60 }"><%= isFeaturedProduct ? "#{ entryData[:price] > 0 ? "Buy" : "Download" } '#{ title }'" : entryData[:venue] %></h2>
+            data-truncate="{ 'xs': 45, 'sm': 140, 'md': 50, 'lg': 60 }"><%= isFeaturedProduct ? title : entryData[:venue] %></h2>
         <% end %>
       </div>
 
@@ -104,7 +104,7 @@ sideCardAttrs = {
 
             # Checkout
             if entryData[:price] > 0
-              checkoutID = "checkout-#{ entryData[:title].parameterize }"  %>
+              checkoutID = "checkout-#{ entryData[:meta_title].parameterize }"  %>
 
               <%= partial "views/partials/btn",
                 locals: { local_data: {
