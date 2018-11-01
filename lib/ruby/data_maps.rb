@@ -257,7 +257,6 @@ def featuredData(data, opts = {})
 
   if isProduct
     featuredProductData = {
-      meta_title: data.meta_title,
       title: data.title,
       meta_label: metaLabel(parentData),
       product_id: data.product_id,
