@@ -20,153 +20,155 @@ end
     class="e-hidden"
     aria-hidden="true"></span>
 
-  <% if panelData[:show_title] %>
-    <header class="panel__content panel__content--full">
-      <div class="grid grid--md grid--center">
-        <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
-          <h2 class="title-lg e-col-brand-green-2 e-mgn-b-md"><%= panelData[:title] %></h2>
+  <div class="panel__inner">
+    <% if panelData[:show_title] %>
+      <header class="panel__content panel__content--full">
+        <div class="grid grid--md grid--center">
+          <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
+            <h2 class="title-lg e-col-brand-green-2 e-mgn-b-md"><%= panelData[:title] %></h2>
+          </div>
         </div>
+      </header>
+    <% end %>
+
+    <div class="panel__content panel__content--<%= panelData[:rows_width] %>">
+      <div class="grid grid--md">
+
+        <!--**********************************************
+            =Row 1
+        ***********************************************-->
+
+
+        <% if panelData[:charts_row_1] %>
+          <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
+
+            <%# Chart %>
+            <% if panelEntry[:TYPE] == "chart" %>
+              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
+                <section class="chart chart--full-height">
+                  <% if panelEntry[:show_header] %>
+                    <header
+                      class="chart__header"
+                      style="<%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>">
+                      <div class="chart__header-inner">
+                        <% if panelData[:show_title] %>
+                          <h3 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                        <% else %>
+                          <h2 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                        <% end %>
+                        <p class="e-fz-xs e-col-black-1"><%= panelEntry[:caption] %></p>
+                      </div>
+                    </header>
+                  <% end %>
+                  <div
+                    class="chart__container"
+                    style="
+                      <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
+                      <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                    <canvas class="chart__canvas"></canvas>
+                  </div>
+                  <div class="chart__citation"><%= panelEntry[:citation] %></div>
+                  <script class="chart__config" type="application/json">
+                    {
+                      "type": "<%= panelEntry[:chart_type] %>",
+                      "data": {
+                        "datasets": <%= panelEntry[:chart_datasets] %>,
+                        "labels": <%= panelEntry[:chart_labels] %>
+                      },
+                      "options": <%= panelEntry[:chart_options] %>,
+                      "customConfig": <%= panelEntry[:chart_custom_config] %>
+                    }
+                  </script>
+                </section>
+              </div>
+
+            <%# Text box %>
+            <% elsif panelEntry[:TYPE] == "text_box" %>
+              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
+                <div class="text-box">
+                  <% if panelEntry[:show_title] %>
+                    <% if panelData[:show_title] %>
+                      <h3 class="title-md e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                    <% else %>
+                      <h2 class="title-lg e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                    <% end %>
+                  <% end %>
+                  <div class="copy">
+                    <%= markdown(panelEntry[:copy]) %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <!--**********************************************
+            =Row 2
+        ***********************************************-->
+
+        <% if panelData[:charts_row_2] %>
+          <% panelData[:charts_row_2].each_with_index do |panelEntry, index| %>
+
+            <%# Chart %>
+            <% if panelEntry[:TYPE] == "chart" %>
+              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
+                <section class="chart chart--full-height">
+                  <% if panelEntry[:show_header] %>
+                    <header
+                      class="chart__header"
+                      style="<%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>">
+                      <div class="chart__header-inner">
+                        <% if panelData[:show_title] %>
+                          <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                        <% else %>
+                          <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                        <% end %>
+                        <p class="e-fz-xs e-col-black-1"><%= panelEntry[:caption] %></p>
+                      </div>
+                    </header>
+                  <% end %>
+                  <div
+                    class="chart__container"
+                    style="
+                      <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
+                      <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                    <canvas class="chart__canvas print__hide"></canvas>
+                  </div>
+                  <div class="chart__citation"><%= panelEntry[:citation] %></div>
+                  <script class="chart__config" type="application/json">
+                    {
+                      "type": "<%= panelEntry[:chart_type] %>",
+                      "data": {
+                        "datasets": <%= panelEntry[:chart_datasets] %>,
+                        "labels": <%= panelEntry[:chart_labels] %>
+                      },
+                      "options": <%= panelEntry[:chart_options] %>,
+                      "customConfig": <%= panelEntry[:chart_custom_config] %>
+                    }
+                  </script>
+                </section>
+              </div>
+
+            <%# Text box %>
+            <% elsif panelEntry[:TYPE] == "text_box" %>
+              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
+                <div class="text-box">
+                  <% if panelEntry[:show_title] %>
+                    <% if panelData[:show_title] %>
+                      <h3 class="title-md e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
+                    <% else %>
+                      <h2 class="title-lg e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                    <% end %>
+                  <% end %>
+                  <div class="copy">
+                    <%= markdown(panelEntry[:copy]) %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
-    </header>
-  <% end %>
-
-  <div class="panel__content panel__content--<%= panelData[:rows_width] %>">
-    <div class="grid grid--md">
-
-      <!--**********************************************
-          =Row 1
-      ***********************************************-->
-
-
-      <% if panelData[:charts_row_1] %>
-        <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
-
-          <%# Chart %>
-          <% if panelEntry[:TYPE] == "chart" %>
-            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
-              <section class="chart chart--full-height">
-                <% if panelEntry[:show_header] %>
-                  <header
-                    class="chart__header"
-                    style="<%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>">
-                    <div class="chart__header-inner">
-                      <% if panelData[:show_title] %>
-                        <h3 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
-                      <% else %>
-                        <h2 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
-                      <% end %>
-                      <p class="e-fz-xs e-col-black-1"><%= panelEntry[:caption] %></p>
-                    </div>
-                  </header>
-                <% end %>
-                <div
-                  class="chart__container"
-                  style="
-                    <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
-                    <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
-                  <canvas class="chart__canvas"></canvas>
-                </div>
-                <div class="chart__citation"><%= panelEntry[:citation] %></div>
-                <script class="chart__config" type="application/json">
-                  {
-                    "type": "<%= panelEntry[:chart_type] %>",
-                    "data": {
-                      "datasets": <%= panelEntry[:chart_datasets] %>,
-                      "labels": <%= panelEntry[:chart_labels] %>
-                    },
-                    "options": <%= panelEntry[:chart_options] %>,
-                    "customConfig": <%= panelEntry[:chart_custom_config] %>
-                  }
-                </script>
-              </section>
-            </div>
-
-          <%# Text box %>
-          <% elsif panelEntry[:TYPE] == "text_box" %>
-            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
-              <div class="text-box">
-                <% if panelEntry[:show_title] %>
-                  <% if panelData[:show_title] %>
-                    <h3 class="title-md e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
-                  <% else %>
-                    <h2 class="title-lg e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
-                  <% end %>
-                <% end %>
-                <div class="copy">
-                  <%= markdown(panelEntry[:copy]) %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-      <% end %>
-
-      <!--**********************************************
-          =Row 2
-      ***********************************************-->
-
-      <% if panelData[:charts_row_2] %>
-        <% panelData[:charts_row_2].each_with_index do |panelEntry, index| %>
-
-          <%# Chart %>
-          <% if panelEntry[:TYPE] == "chart" %>
-            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
-              <section class="chart chart--full-height">
-                <% if panelEntry[:show_header] %>
-                  <header
-                    class="chart__header"
-                    style="<%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>">
-                    <div class="chart__header-inner">
-                      <% if panelData[:show_title] %>
-                        <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
-                      <% else %>
-                        <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
-                      <% end %>
-                      <p class="e-fz-xs e-col-black-1"><%= panelEntry[:caption] %></p>
-                    </div>
-                  </header>
-                <% end %>
-                <div
-                  class="chart__container"
-                  style="
-                    <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
-                    <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
-                  <canvas class="chart__canvas print__hide"></canvas>
-                </div>
-                <div class="chart__citation"><%= panelEntry[:citation] %></div>
-                <script class="chart__config" type="application/json">
-                  {
-                    "type": "<%= panelEntry[:chart_type] %>",
-                    "data": {
-                      "datasets": <%= panelEntry[:chart_datasets] %>,
-                      "labels": <%= panelEntry[:chart_labels] %>
-                    },
-                    "options": <%= panelEntry[:chart_options] %>,
-                    "customConfig": <%= panelEntry[:chart_custom_config] %>
-                  }
-                </script>
-              </section>
-            </div>
-
-          <%# Text box %>
-          <% elsif panelEntry[:TYPE] == "text_box" %>
-            <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
-              <div class="text-box">
-                <% if panelEntry[:show_title] %>
-                  <% if panelData[:show_title] %>
-                    <h3 class="title-md e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
-                  <% else %>
-                    <h2 class="title-lg e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
-                  <% end %>
-                <% end %>
-                <div class="copy">
-                  <%= markdown(panelEntry[:copy]) %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-      <% end %>
     </div>
   </div>
 </section>

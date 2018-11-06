@@ -74,108 +74,110 @@ end
       <p class="e-col-grey-3">By date (descending)</p>
     </div>
   <% end %>
-  <div class="panel__content panel__content--wide">
-    <div
-      class="feed JS-feed grid grid--md grid--center"
-      data-feed-category="<%= dataFeedCategory %>"
-      data-feed-count="<%= dataFeedCount %>"
-      data-feed-total="<%= dataFeedTotal %>"
-      data-feed-page="<%= dataFeedPage %>">
+  <div class="panel__inner">
+    <div class="panel__content panel__content--wide">
+      <div
+        class="feed JS-feed grid grid--md grid--center"
+        data-feed-category="<%= dataFeedCategory %>"
+        data-feed-count="<%= dataFeedCount %>"
+        data-feed-total="<%= dataFeedTotal %>"
+        data-feed-page="<%= dataFeedPage %>">
 
-      <div class="grid__cell <% dataFeedPage < dataFeedTotal ? "grid__cell--fill" : "grid__cell--center" %> grid__cell--md-above-md-9 grid__cell--above-md-order-2">
-        <div class="feed__items">
+        <div class="grid__cell <% dataFeedPage < dataFeedTotal ? "grid__cell--fill" : "grid__cell--center" %> grid__cell--md-above-md-9 grid__cell--above-md-order-2">
+          <div class="feed__items">
 
-          <% if isThemePage %>
-            <% feedPagesThemeShown.each do |id, page| %>
-              <%= partial "views/partials/feed-item",
-                locals: { local_data: {
-                  entry_data: page,
-                  context: "dynamic" }} %>
+            <% if isThemePage %>
+              <% feedPagesThemeShown.each do |id, page| %>
+                <%= partial "views/partials/feed-item",
+                  locals: { local_data: {
+                    entry_data: page,
+                    context: "dynamic" }} %>
+              <% end %>
+
+            <% elsif isLandingPage %>
+              <% feedPagesMain.map do |page| %>
+                <%= partial "views/partials/feed-item",
+                  locals: { local_data: {
+                    entry_data: page,
+                    context: "dynamic" }} %>
+              <% end %>
+
+            <% else %>
+              <% feedData.map do |id, page| %>
+                <%= partial "views/partials/feed-item",
+                  locals: { local_data: {
+                    entry_data: page }} %>
+              <% end %>
             <% end %>
-
-          <% elsif isLandingPage %>
-            <% feedPagesMain.map do |page| %>
-              <%= partial "views/partials/feed-item",
-                locals: { local_data: {
-                  entry_data: page,
-                  context: "dynamic" }} %>
-            <% end %>
-
-          <% else %>
-            <% feedData.map do |id, page| %>
-              <%= partial "views/partials/feed-item",
-                locals: { local_data: {
-                  entry_data: page }} %>
-            <% end %>
-          <% end %>
+          </div>
         </div>
-      </div>
 
-      <% if dataFeedPage < dataFeedTotal %>
-        <aside class="grid__cell grid__cell--fill grid__cell--md-above-md-3">
-          <div class="feed__menu grid grid--xs">
-            <h3 class="title-sm e-col-brand-green-2 grid__cell grid__cell--xs-12">Go to page</h3>
-            <div class="grid__cell">
-              <ul class="feed__menu-items grid grid--xxs">
-                <%
-                pages = (1..(dataFeedTotal - 1))
-                pageRange = 20
+        <% if dataFeedPage < dataFeedTotal %>
+          <aside class="grid__cell grid__cell--fill grid__cell--md-above-md-3">
+            <div class="feed__menu grid grid--xs">
+              <h3 class="title-sm e-col-brand-green-2 grid__cell grid__cell--xs-12">Go to page</h3>
+              <div class="grid__cell">
+                <ul class="feed__menu-items grid grid--xxs">
+                  <%
+                  pages = (1..(dataFeedTotal - 1))
+                  pageRange = 20
 
-                pagination = pages.reject{ |pageNo|
-                  ((pageNo < pages.last) && (pageNo > (dataFeedPage + pageRange))) ||
-                  ((pageNo > 1) && (pageNo < (dataFeedPage - pageRange))) }
+                  pagination = pages.reject{ |pageNo|
+                    ((pageNo < pages.last) && (pageNo > (dataFeedPage + pageRange))) ||
+                    ((pageNo > 1) && (pageNo < (dataFeedPage - pageRange))) }
 
-                pagination.each_with_index do |pageNo, index|
-                %>
-                  <%# Elipsis prev %>
-                  <% if (pageNo == (dataFeedPage - pageRange)) && (dataFeedPage != (pages.first + pageRange)) %>
+                  pagination.each_with_index do |pageNo, index|
+                  %>
+                    <%# Elipsis prev %>
+                    <% if (pageNo == (dataFeedPage - pageRange)) && (dataFeedPage != (pages.first + pageRange)) %>
+                      <li class="grid__cell grid__cell--xxs">
+                        <span class="feed__menu-item JS-disabled">…</span>
+                      </li>
+                    <% end %>
+
+                    <%# Page number %>
                     <li class="grid__cell grid__cell--xxs">
-                      <span class="feed__menu-item JS-disabled">…</span>
+                      <a
+                        class="feed__menu-item <%= "JS-active" if dataFeedPage === pageNo %>"
+                        href="<%= internalURL("#{ dataFeedCategory.gsub("::", "/") }/feed/page-#{ pageNo }") %>">
+                        <%= pageNo %>
+                      </a>
                     </li>
-                  <% end %>
 
-                  <%# Page number %>
-                  <li class="grid__cell grid__cell--xxs">
-                    <a
-                      class="feed__menu-item <%= "JS-active" if dataFeedPage === pageNo %>"
-                      href="<%= internalURL("#{ dataFeedCategory.gsub("::", "/") }/feed/page-#{ pageNo }") %>">
-                      <%= pageNo %>
-                    </a>
-                  </li>
-
-                  <%# Elipsis next %>
-                  <% if (pageNo == (dataFeedPage + pageRange)) && (dataFeedPage != (pages.last - pageRange)) %>
-                    <li class="grid__cell grid__cell--xxs">
-                      <span class="feed__menu-item JS-disabled">…</span>
-                    </li>
+                    <%# Elipsis next %>
+                    <% if (pageNo == (dataFeedPage + pageRange)) && (dataFeedPage != (pages.last - pageRange)) %>
+                      <li class="grid__cell grid__cell--xxs">
+                        <span class="feed__menu-item JS-disabled">…</span>
+                      </li>
+                    <% end %>
                   <% end %>
-                <% end %>
-              </ul>
+                </ul>
+              </div>
             </div>
-          </div>
-        </aside>
-      <% end %>
+          </aside>
+        <% end %>
 
-      <div class="feed__footer grid__cell grid__cell--fill">
-        <div class="feed__status">
-          <div class="infinite-scroll-request e-col-green">
-            <%= partial "views/partials/icon",
-              locals: {
-                icon: "load-c",
-                size: "md" } %>
+        <div class="feed__footer grid__cell grid__cell--fill">
+          <div class="feed__status">
+            <div class="infinite-scroll-request e-col-green">
+              <%= partial "views/partials/icon",
+                locals: {
+                  icon: "load-c",
+                  size: "md" } %>
+            </div>
+            <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
+            <span class="infinite-scroll-error label-sm e-col-mid-grey">Please reload the page</span>
           </div>
-          <span class="infinite-scroll-last label-sm e-col-mid-grey">&mdash; End &mdash;</span>
-          <span class="infinite-scroll-error label-sm e-col-mid-grey">Please reload the page</span>
-        </div>
 
-        <div class="feed__load">
-          <%= partial "views/partials/btn",
-            locals: { local_data: {
-              type: "link",
-              size: "md",
-              style: "secondary",
-              label: "Load more...",
-              label_size: "md" }} %>
+          <div class="feed__load">
+            <%= partial "views/partials/btn",
+              locals: { local_data: {
+                type: "link",
+                size: "md",
+                style: "secondary",
+                label: "Load more...",
+                label_size: "md" }} %>
+          </div>
         </div>
       </div>
     </div>

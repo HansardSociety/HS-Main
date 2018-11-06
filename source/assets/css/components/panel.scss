@@ -2,10 +2,7 @@
   ========================================================================== */
 
 .panel {
-  justify-content: center;
-
   @extend %e-container;
-  @extend %e-flex-row;
   @extend %e-pad-x-lg;
   @extend %e-position-relative;
 }
@@ -32,8 +29,8 @@
 //   }
 // }
 
-.panel--bg-img {
-  @extend %e-flex-row;
+.panel__inner--bg-img {
+  // @extend %e-flex-row;
 }
 
 .panel--dark {
@@ -46,10 +43,22 @@
   }
 }
 
+/*		=Inner
+  ========================================================================== */
+
+.panel__inner {
+  justify-content: center;
+
+  @extend %e-container--full;
+  @extend %e-flex-row;
+  @extend %e-mgn-auto-x;
+}
+
 /*		=Content
   ========================================================================== */
 
 .panel__content {
+
   // @extend %e-mgn-auto-x;
   @extend %e-position-relative; // need pos to place over absolute bg image
 }

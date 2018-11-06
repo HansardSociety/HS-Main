@@ -30,36 +30,38 @@ hasTitle = panelData[:show_title] != nil
 
 <section
   id="panel-<%= index %>"
-  class="panel <%= "panel--bg-img" if panelData[:image] %> <%= bgcClass %>">
+  class="panel <%= bgcClass %>">
 
-  <% if panelData[:image] %>
-    <div
-      class="panel__bg-img
-            panel__bg-img--<%= imageSize %>
-            <%= "panel__bg-img--" + (isNoOverlap ? "no-ol" : "ol") %>">
-      <img
-        class="b-lazy"
-        src="<%= panelData[:image][:url] %>?fm=jpg&w=<%= cfulImageWidth %>&q=20"
-        data-src="<%= panelData[:image][:url] %>?w=<%= cfulImageWidth %>"
-        alt="<%= panelData[:image][:description] %>"/>
-    </div>
-  <% end %>
-
-  <div class="panel__content panel__content--narrow">
-    <% if hasTitle %>
-      <h2 class="title-lg e-align-cen e-mgn-b-sm <%= titleColor %>"><%= title %></h2>
-
-    <% end; if copy %>
-      <p class="strap-md e-align-cen e-mgn-b-sm"><%= panelData[:copy] %></p>
-
-    <% end; if callsToAction %>
-      <div class="grid grid--xs grid--center">
-        <% callsToAction.each do |cta| %>
-          <%= partial "views/partials/ctas",
-            locals: { local_data: {
-              entry_data: cta }} %>
-        <% end %>
+  <div class="panel__inner <%= "panel__inner--bg-img" if panelData[:image] %>">
+    <% if panelData[:image] %>
+      <div
+        class="panel__bg-img
+              panel__bg-img--<%= imageSize %>
+              <%= "panel__bg-img--" + (isNoOverlap ? "no-ol" : "ol") %>">
+        <img
+          class="b-lazy"
+          src="<%= panelData[:image][:url] %>?fm=jpg&w=<%= cfulImageWidth %>&q=20"
+          data-src="<%= panelData[:image][:url] %>?w=<%= cfulImageWidth %>"
+          alt="<%= panelData[:image][:description] %>"/>
       </div>
     <% end %>
+
+    <div class="panel__content panel__content--narrow">
+      <% if hasTitle %>
+        <h2 class="title-lg e-align-cen e-mgn-b-sm <%= titleColor %>"><%= title %></h2>
+
+      <% end; if copy %>
+        <p class="strap-md e-align-cen e-mgn-b-sm"><%= panelData[:copy] %></p>
+
+      <% end; if callsToAction %>
+        <div class="grid grid--xs grid--center">
+          <% callsToAction.each do |cta| %>
+            <%= partial "views/partials/ctas",
+              locals: { local_data: {
+                entry_data: cta }} %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </section>

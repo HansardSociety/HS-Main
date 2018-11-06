@@ -13,21 +13,23 @@ callsToAction = panelData[:calls_to_action]
             panelBgc(bgc) :
             panelBgc(bgc, { gradient: true }) %>">
 
-  <div class="panel__content panel__content--narrow">
-    <h3 class="<%= "e-col-brand-green-2" if colorProfile(:light).include?(bgc) %> title-xl e-align-cen"><%= title %></h3>
-  </div>
-
-  <% if callsToAction %>
-    <div class="panel__content panel__content--narrow e-mgn-t-md">
-      <div class="grid grid--xs grid--center">
-        <% callsToAction.each do |cta| %>
-          <div class="grid__cell">
-            <%= partial "views/partials/ctas",
-              locals: { local_data: {
-                entry_data: cta }} %>
-          </div>
-        <% end %>
-      </div>
+  <div class="panel__inner">
+    <div class="panel__content panel__content--narrow">
+      <h3 class="<%= "e-col-brand-green-2" if colorProfile(:light).include?(bgc) %> title-xl e-align-cen"><%= title %></h3>
     </div>
-  <% end %>
+
+    <% if callsToAction %>
+      <div class="panel__content panel__content--narrow e-mgn-t-md">
+        <div class="grid grid--xs grid--center">
+          <% callsToAction.each do |cta| %>
+            <div class="grid__cell">
+              <%= partial "views/partials/ctas",
+                locals: { local_data: {
+                  entry_data: cta }} %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </section>

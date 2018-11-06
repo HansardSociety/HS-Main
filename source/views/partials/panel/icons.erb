@@ -21,20 +21,22 @@ index = local_data[:index]
   id="panel-<%= index %>"
   class="panel <%= bgcClass %>">
 
-  <div class="panel__content panel__content--wide">
-    <% if hasTitle%>
-      <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
-    <% end %>
-    <div class="grid grid--md grid--center grid--middle">
-      <% panelData[:icons].each do |image| %>
-        <div class="grid__cell grid__cell--md-above-md-2">
-          <%= partial "views/partials/image",
-            locals: { local_data: {
-              image_data: image,
-              invert: imageInvert,
-              icon: true }} %>
-        </div>
+  <div class="panel__inner">
+    <div class="panel__content panel__content--wide">
+      <% if hasTitle%>
+        <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
       <% end %>
+      <div class="grid grid--md grid--center grid--middle">
+        <% panelData[:icons].each do |image| %>
+          <div class="grid__cell grid__cell--md-above-md-2">
+            <%= partial "views/partials/image",
+              locals: { local_data: {
+                image_data: image,
+                invert: imageInvert,
+                icon: true }} %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </section>
