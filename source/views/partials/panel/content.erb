@@ -32,84 +32,86 @@ index = local_data[:index]
     class="e-hidden"
     aria-hidden="true">Panel anchor</span>
 
-  <div class="panel__content panel__content--full">
-    <div class="grid grid--md grid--center">
-      <% if panelData[:show_title] || panelData[:image] %>
-        <% if panelData[:show_title] %>
-          <div class="grid__cell grid__cell--md-12 e-hide-above-md">
-            <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
-          </div>
-        <% end %>
-        <% if panelData[:image] %>
-          <div class="grid__cell
-            grid__cell--md-<%= isLargeImage ? "12" : (isMediumImage ? "8" : "6") %>
-            grid__cell--md-above-md-<%= isLargeImage ? "5" : (isMediumImage ? "3" : "2") %>">
-            <%= partial "views/partials/image",
-              locals: { local_data: {
-                image_data: panelData[:image],
-                invert: panelData[:image_invert],
-                border: panelData[:image_border] }} %>
-          </div>
-        <% end %>
-      <% end %>
-
-      <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-11 grid__cell--md-above-md-7">
-        <% if panelData[:show_title] %>
-          <h2 class="title-lg e-mgn-b-md e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h2>
-        <% end %>
-
-        <div class="copy">
-          <%=
-            if isCopyXl || isCopyLg
-              paraElem = isCopyXl ? '<p class="e-fz-lg"' : '<p class="e-fz-md"'
-              markdown(panelData[:copy]).sub("<p", paraElem)
-            else
-              markdown(panelData[:copy])
-            end
-          %>
-        </div>
-
-        <% if panelData[:show_more] %>
-          <%= partial "views/partials/expand",
-            locals: { local_data: {
-              id: showMoreCopy.cta_id,
-              content: showMoreCopy.content }} %>
-        <% end %>
-
-        <% if panelData[:show_more] || panelData[:calls_to_action] || panelData[:tweet] %>
-          <div class="grid grid--xs">
-            <% if panelData[:show_more] %>
-              <div class="grid__cell">
-                <%= partial "views/partials/btn",
-                  locals: { local_data: {
-                    type: "state",
-                    size: "sm", style: "secondary",
-                    label_on: "Show less", label_off: "Show more",
-                    label_size: "sm",
-                    aria_id: "activate-#{ showMoreCopy.cta_id }",
-                    aria_target_id: showMoreCopy.cta_id }} %>
-              </div>
-            <% end %>
-
-            <% if panelData[:tweet] %>
-              <%= partial "views/partials/social",
+  <div class="panel__inner">
+    <div class="panel__content panel__content--full">
+      <div class="grid grid--md grid--center">
+        <% if panelData[:show_title] || panelData[:image] %>
+          <% if panelData[:show_title] %>
+            <div class="grid__cell grid__cell--md-12 e-hide-above-md">
+              <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
+            </div>
+          <% end %>
+          <% if panelData[:image] %>
+            <div class="grid__cell
+              grid__cell--md-<%= isLargeImage ? "12" : (isMediumImage ? "8" : "6") %>
+              grid__cell--md-above-md-<%= isLargeImage ? "5" : (isMediumImage ? "3" : "2") %>">
+              <%= partial "views/partials/image",
                 locals: { local_data: {
-                  icons: [
-                    "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
-                    ]}} %>
-              <span class="grid__cell grid__cell--xxs e-col-black-3"><small> Tweet this</small> </span>
-            <% end %>
-
-            <% if panelData[:calls_to_action] %>
-              <% panelData[:calls_to_action].each do |cta| %>
-                <%= partial "views/partials/ctas",
-                  locals: { local_data: {
-                    entry_data: cta,
-                    btn_size: "sm" }} %>
-              <% end %>
-            <% end %>
-          </div>
+                  image_data: panelData[:image],
+                  invert: panelData[:image_invert],
+                  border: panelData[:image_border] }} %>
+            </div>
+          <% end %>
         <% end %>
+
+        <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-11 grid__cell--md-above-md-7">
+          <% if panelData[:show_title] %>
+            <h2 class="title-lg e-mgn-b-md e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h2>
+          <% end %>
+
+          <div class="copy">
+            <%=
+              if isCopyXl || isCopyLg
+                paraElem = isCopyXl ? '<p class="e-fz-lg"' : '<p class="e-fz-md"'
+                markdown(panelData[:copy]).sub("<p", paraElem)
+              else
+                markdown(panelData[:copy])
+              end
+            %>
+          </div>
+
+          <% if panelData[:show_more] %>
+            <%= partial "views/partials/expand",
+              locals: { local_data: {
+                id: showMoreCopy.cta_id,
+                content: showMoreCopy.content }} %>
+          <% end %>
+
+          <% if panelData[:show_more] || panelData[:calls_to_action] || panelData[:tweet] %>
+            <div class="grid grid--xs">
+              <% if panelData[:show_more] %>
+                <div class="grid__cell">
+                  <%= partial "views/partials/btn",
+                    locals: { local_data: {
+                      type: "state",
+                      size: "sm", style: "secondary",
+                      label_on: "Show less", label_off: "Show more",
+                      label_size: "sm",
+                      aria_id: "activate-#{ showMoreCopy.cta_id }",
+                      aria_target_id: showMoreCopy.cta_id }} %>
+                </div>
+              <% end %>
+
+              <% if panelData[:tweet] %>
+                <%= partial "views/partials/social",
+                  locals: { local_data: {
+                    icons: [
+                      "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
+                      ]}} %>
+                <span class="grid__cell grid__cell--xxs e-col-black-3"><small> Tweet this</small> </span>
+              <% end %>
+
+              <% if panelData[:calls_to_action] %>
+                <% panelData[:calls_to_action].each do |cta| %>
+                  <%= partial "views/partials/ctas",
+                    locals: { local_data: {
+                      entry_data: cta,
+                      btn_size: "sm" }} %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

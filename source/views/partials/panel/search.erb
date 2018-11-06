@@ -28,45 +28,48 @@ end
 <section
   id="<%= panelID %>"
   class="panel e-bgc-white-<%= bgcWhite %>">
-  <div class="panel__content panel__content--full">
 
-    <h2 class="title-lg e-col-brand-green-2 e-align-cen"><%= title %></h2>
-    <p class="e-col-grey-3 e-align-cen e-mgn-b-md"><%= byline %></p>
-    <div
-      id="<%= searchID %>"
-      class="search"
-      data-search-main-attr="<%= mainSearchAttr %>"
-      data-search-filter="<%= searchFilter %>">
+  <div class="panell__inner">
+    <div class="panel__content panel__content--full">
 
-      <div class="search__box JS-lazy"></div>
-      <div class="e-align-cen">
-        <span class="search__toggle-filters link label-xxs">Show filters</span>
-        <div class="search__filters">
-          <div class="search__filter-1"></div>
-          <div class="search__filter-2"></div>
+      <h2 class="title-lg e-col-brand-green-2 e-align-cen"><%= title %></h2>
+      <p class="e-col-grey-3 e-align-cen e-mgn-b-md"><%= byline %></p>
+      <div
+        id="<%= searchID %>"
+        class="search"
+        data-search-main-attr="<%= mainSearchAttr %>"
+        data-search-filter="<%= searchFilter %>">
+
+        <div class="search__box JS-lazy"></div>
+        <div class="e-align-cen">
+          <span class="search__toggle-filters link label-xxs">Show filters</span>
+          <div class="search__filters">
+            <div class="search__filter-1"></div>
+            <div class="search__filter-2"></div>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="search__sort">
-          <span class="e-col-grey-3">Sort by:&nbsp;</span>
-          <span class="search__sort-inner"></span>
-          <span class="search__sort-arrow e-col-brand-green-2"><%= partial "views/partials/icon",
-              locals: {
-                icon: "chevron-down",
-                size: "xs" } %></span>
+        <div>
+          <div class="search__sort">
+            <span class="e-col-grey-3">Sort by:&nbsp;</span>
+            <span class="search__sort-inner"></span>
+            <span class="search__sort-arrow e-col-brand-green-2"><%= partial "views/partials/icon",
+                locals: {
+                  icon: "chevron-down",
+                  size: "xs" } %></span>
+          </div>
         </div>
-      </div>
-      <div class="search__clear">
-        <div class="search__clear-inner"></div>
-      </div>
-      <div class="search__results"></div>
-      <div class="e-align-cen e-mgn-t-sm">
-        <a
-          href="#<%= panelID %>"
-          class="e-pad-xs"
-          target="_self"> <%# Override `base` elem _parent %>
-          <span class="link label-xxs">Back to search</span>
-        </a>
+        <div class="search__clear">
+          <div class="search__clear-inner"></div>
+        </div>
+        <div class="search__results"></div>
+        <div class="e-align-cen e-mgn-t-sm">
+          <a
+            href="#<%= panelID %>"
+            class="e-pad-xs"
+            target="_self"> <%# Override `base` elem _parent %>
+            <span class="link label-xxs">Back to search</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>

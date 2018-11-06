@@ -6,21 +6,23 @@ index = local_data[:index]
 <div
   id="panel-<%= index %>"
   class="panel e-bg-grad-brand-green e-col-white-1">
-  <div class="panel__content panel__content--narrow e-align-cen">
-    <h3 class="title-lg e-mgn-b-md"><%= panelData[:title] %></h3>
-    <% if panelData.copy %>
-      <%= markdown(panelData[:copy], 'byline') %>
-    <% end %>
-  </div>
-  <div class="panel__content panel__content--narrow e-mgn-t-md">
-    <div class="grid grid--xs">
-      <% panelData[:accordians].each do |accordian| %>
-        <div class="grid__cell grid__cell--xs-12 grid__cell--xs-above-sm-6">
-          <%= partial 'views/partials/accordian',
-            locals: { local_data: {
-              accordian_data: accordian }} %>
-        </div>
+  <div class="panel__inner">
+    <div class="panel__content panel__content--narrow e-align-cen">
+      <h3 class="title-lg e-mgn-b-md"><%= panelData[:title] %></h3>
+      <% if panelData.copy %>
+        <%= markdown(panelData[:copy], 'byline') %>
       <% end %>
+    </div>
+    <div class="panel__content panel__content--narrow e-mgn-t-md">
+      <div class="grid grid--xs">
+        <% panelData[:accordians].each do |accordian| %>
+          <div class="grid__cell grid__cell--xs-12 grid__cell--xs-above-sm-6">
+            <%= partial 'views/partials/accordian',
+              locals: { local_data: {
+                accordian_data: accordian }} %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
