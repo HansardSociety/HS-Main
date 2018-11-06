@@ -1,34 +1,36 @@
 <footer class="panel e-bgc-brand-green-2 e-col-white-1">
-  <div class="panel__content panel__content--full">
-    <div class="grid grid--md grid--full">
+  <div class="panel__inner">
+    <div class="panel__content panel__content--full">
+      <div class="grid grid--md grid--full">
 
-      <%# Pages %>
-      <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
-        <ul>
-          <% siteData(:footer_pages).each do |page| %>
-            <li class="e-pad-b-xs">
-              <a
-                class="title-sm link-white"
-                href="<%= internalURL(page[:slug]) %>"
-                title="<%= page[:title] + " | " + siteData(:site_title) %>"><%= page[:title] %></a>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+        <%# Pages %>
+        <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
+          <ul>
+            <% siteData(:footer_pages).each do |page| %>
+              <li class="e-pad-b-xs">
+                <a
+                  class="title-sm link-white"
+                  href="<%= internalURL(page[:slug]) %>"
+                  title="<%= page[:title] + " | " + siteData(:site_title) %>"><%= page[:title] %></a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
 
-      <%# Newsletter %>
-      <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
-        <%= partial "views/partials/signup-box",
-          locals: { local_data: {
-            bgc: "dark",
-            copy_size: "sm",
-            id: "modal-monthly-newsletter-subscription-footer"
-        }} %>
-      </div>
+        <%# Newsletter %>
+        <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
+          <%= partial "views/partials/signup-box",
+            locals: { local_data: {
+              bgc: "dark",
+              copy_size: "sm",
+              id: "modal-monthly-newsletter-subscription-footer"
+          }} %>
+        </div>
 
-      <%# Copyright %>
-      <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
-        <p class="e-fz-xs"><%= siteData(:copyright) %></p>
+        <%# Copyright %>
+        <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
+          <p class="e-fz-xs"><%= siteData(:copyright) %></p>
+        </div>
       </div>
     </div>
   </div>
