@@ -4,8 +4,10 @@ feedData = local_data[:entry_data]
 context = local_data[:context]
 isDynamic = context == "dynamic"
 
-imgURL = "#{ feedData[:banner_image][:url] }?fit=fill&w=300&h=300&f=#{ feedData[:banner_image][:focus] }&q=50&fl=progressive"
-imgAlt = feedData[:banner_image][:alt]
+bannerImage = feedData[:banner_image] ? feedData[:banner_image] : siteData(:default_banner)
+
+imgURL = "#{ bannerImage[:banner_image][:url] }?fit=fill&w=300&h=300&f=#{ bannerImage[:banner_image][:focus] }&q=50&fl=progressive"
+imgAlt = bannerImage[:banner_image][:alt]
 
 if isDynamic == true
   imgAttrs = {
