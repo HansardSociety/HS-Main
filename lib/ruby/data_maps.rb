@@ -181,7 +181,7 @@ def sharedPageBase(pageType, ctx, data)
 
     ctx.noindex = data.noindex
     ctx.blog_count = data.blog_count if data.blog_count
-    ctx.tags = data.tags.map{ |tag| tag.gsub("'", "").parameterize } if data.tags
+    ctx.tags = data.theme.map{ |tag| tag.gsub("'", "").parameterize } if data.theme
   end
 end
 
@@ -753,9 +753,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     end
 
     # Tagging
-    if entry.tags
-      context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize }
-    end
+    # context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize } if entry.theme
   end
 end
 
@@ -789,9 +787,9 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     end
 
     # Tags
-    if entry.tags
-      context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize }
-    end
+    # if entry.theme
+    #   context.tags = entry.theme.map{ |tag| tag.gsub("'", "").parameterize }
+    # end
   end
 end
 
