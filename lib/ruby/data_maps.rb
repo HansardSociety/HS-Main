@@ -107,7 +107,13 @@ def metaLabel(data, opts = {})
     if hasNestedRegistration
       "#{ baseLabel } / #{ dateTime(data.featured[0])[:date] }"
     else
-      category == "blog" ? "#{ baseLabel } / #{ dateTime(data)[:date] }" : "#{ baseLabel }"
+      if category == "blog"
+        "#{ baseLabel } / #{ dateTime(data)[:date] }"
+      elsif category == "publications"
+        "#{ baseLabel } / #{ dateTime(data)[:year] }"
+      else
+        "#{ baseLabel }"
+      end
     end
   end
 end
