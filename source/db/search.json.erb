@@ -12,7 +12,7 @@ db = allPages.map do |id, page|
     slug: page.slug,
     date: page.date_time.integer,
     meta_label: (page.meta_label if page.meta_label),
-    image: page.banner_image.url,
+    image: (page.banner_image ? page.banner_image.url : siteData(:default_banner)),
     category: {
       lvl0: (
         page.category_orig.include?(seperator) ?
