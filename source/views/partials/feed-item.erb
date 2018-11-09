@@ -6,8 +6,8 @@ isDynamic = context == "dynamic"
 
 bannerImage = feedData[:banner_image] ? feedData[:banner_image] : siteData(:default_banner)
 
-imgURL = "#{ bannerImage[:banner_image][:url] }?fit=fill&w=300&h=300&f=#{ bannerImage[:banner_image][:focus] }&q=50&fl=progressive"
-imgAlt = bannerImage[:banner_image][:alt]
+imgURL = "#{ bannerImage[:url] }?fit=fill&w=300&h=300&f=#{ bannerImage[:focus] }&q=50&fl=progressive"
+imgAlt = bannerImage[:alt]
 
 if isDynamic == true
   imgAttrs = {
