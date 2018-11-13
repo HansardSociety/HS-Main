@@ -180,7 +180,6 @@ url = "https://hansardsociety.org.uk/"
             <% if @entry[:tags] %>
               <h2 class="side-title e-acc-brand-green-2-top">Related</h2>
               <% relatedContent(@entry, { blog_count: blogCount }) do |page| %>
-                <small><%=page[:tags]%></small>
                 <%= partial "views/partials/side-card",
                   locals: { local_data: {
                     side_card_data: page }} %>
