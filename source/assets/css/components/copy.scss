@@ -46,6 +46,8 @@ iframe {
 > p > a,
 > p > strong > a,
 > p > em > a,
+> ul > li > p > a,
+> ol > li > p > a,
 > ul > li > a,
 > ol > li > a {
   @extend .link;
