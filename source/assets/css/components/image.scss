@@ -3,12 +3,15 @@
 
   transform: translateX(-50%);
 
-  @extend %e-display-inline-block;
-  @extend %e-mgn-t-xs;
+  @extend %e-display-block;
   @extend %e-overflow-hidden;
   @extend %e-position-relative;
   @extend %e-rad-slight;
   @extend %e-width-full;
+}
+
+.image--circle {
+  @extend %e-rad-circ;
 }
 
 .image--icon {
@@ -36,30 +39,28 @@
 
     background-color: transparent;
 
-    filter: brightness(0) invert(1);
+    img {
+      filter: brightness(0) invert(1);
+    }
   }
 }
 
 .image__img {
   left: 50%;
 
-  order: 2;
-
   max-width: 100%;
   max-height: inherit;
-  // width: inherit;
 
   transform: translateX(-50%);
 
   @extend %e-display-block;
   @extend %e-position-relative;
+  @extend %e-img-filter;
 }
 
 .image__caption {
-  order: 1;
-
-  width: calc(100% + 2rem);
-  margin: 0 -1rem 1rem;
-
+  @extend %e-align-cen;
+  @extend %e-mgn-t-sm;
   @extend %e-pad-xs;
+  @extend %e-width-full;
 }

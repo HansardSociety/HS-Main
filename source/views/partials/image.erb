@@ -4,27 +4,40 @@ imageData = local_data[:image_data]
 border = local_data[:border]
 invert = local_data[:invert]
 icon = local_data[:icon]
+circle = local_data[:circle]
+caption = local_data[:caption]
 
 url = imageData[:url]
 alt = imageData[:alt]
 focus = imageData[:focus]
-caption = imageData[:caption]
+
+if circle
+  imgW = "500"
+  imgH = "500"
+else
+  imgW = "563"
+  imgH = "317"
+end
 %>
 
-<figure
-  class="image
-        <%= "e-pad-sm" if border || border == nil %>
-        <%= invert ? "image--invert" : "image--light" %>
-        <%= "image--icon" if icon %>">
+<figure>
+  <div
+    class="image
+      <%= "e-pad-sm" if border %>
+      <%= invert ? "image--invert" : "image--light" %>
+      <%= "image--icon" if icon %>
+      <%= "image--circle" if circle %>">
 
-  <img
-    class="image__img"
-    alt="<%= alt %>"
-    src="<%= url + (focus ? "?fit=fill&w=563&h=317&f=" + focus : "") %>"/>
+    <img
+      class="image__img"
+      alt="<%= alt %>"
+      src="<%= url + (focus ? "?fit=fill&w=#{ imgW }&h=#{ imgH }&f=" + focus : "") %>"/>
+  </div>
 
-  <% if caption == true %>
+  <% if caption %>
     <figcaption class="image__caption label-xxs">
-      <%= alt %>
+      <%= caption %>
     </figcaption>
   <% end %>
 </figure>
+

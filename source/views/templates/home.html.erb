@@ -2,12 +2,15 @@
 
 <article>
 
+  <%# Banner %>
   <%= partial "views/partials/banner/home",
     locals: { local_data: { entry_data: @entry }} %>
 
+  <%# Introduction/mission %>
   <%= partial "views/partials/panel/introduction",
     locals: { entry_data: @entry } %>
 
+  <%# 'Latest' carousel %>
   <%= partial "views/partials/panel/carousel",
     locals: { local_data: {
       entry_data: @entry,
@@ -15,29 +18,46 @@
       data_type: :latest,
       title: "Latest" }} %>
 
+  <%= partial "views/partials/panel/icons",
+    locals: { local_data: {
+      entry_data: {
+        title: "Themes",
+        background_color: "white",
+        show_title: true,
+        image_invert: false,
+        icons: :pages
+    }}} %>
+
+  <%# Custom panels %>
   <% if @entry[:panels]
     @entry[:panels].each_with_index do |panel, index|
-      bgc = panel.background_color
-      isLightBgc = ["light-grey", "sea-green", "white"].include?(bgc)
+      bgc = panel.background_color %>
 
-      if panel[:TYPE] == "panel_band" %>
+      <%# Band panel %>
+      <% if panel[:TYPE] == "panel_band" %>
         <%= partial "views/partials/panel/band",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
+      <% end %>
 
-      <% end; if panel[:TYPE] == "panel_carousel_category" %>
+      <%# Category panel %>
+      <% if panel[:TYPE] == "panel_carousel_category" %>
         <%= partial "views/partials/panel/carousel",
           locals: { local_data: {
             entry_data: panel,
             data_type: :latest_category,
             categories: panel[:category],
             index: index }} %>
+      <% end %>
 
-      <% end; if panel[:TYPE] == "panel_content" %>
+      <%# Content panel %>
+      <% if panel[:TYPE] == "panel_content" %>
         <%= partial "views/partials/panel/content",
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
-  <% end; end; end %>
+      <% end %>
+    <% end %>
+  <% end %>
 </article>

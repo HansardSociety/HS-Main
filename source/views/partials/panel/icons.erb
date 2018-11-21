@@ -8,33 +8,53 @@ title = panelData[:title]
 titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2" }"
 hasTitle = panelData[:show_title]
 
-image = panelData[:image]
-imageSize = panelData[:image_size]
 imageInvert = panelData[:image_invert]
-
 copy = panelData[:copy]
-
 index = local_data[:index]
+# image = panelData[:image]
+# imageSize = panelData[:image_size]
 %>
 
 <section
-  id="panel-<%= index %>"
+  id="<%= "panel-#{ index }" if index %>"
   class="panel <%= bgcClass %>">
-
   <div class="panel__inner">
     <div class="panel__content panel__content--wide">
       <% if hasTitle%>
         <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
       <% end %>
       <div class="grid grid--md grid--center grid--middle">
-        <% panelData[:icons].each do |image| %>
-          <div class="grid__cell grid__cell--md-above-md-2">
-            <%= partial "views/partials/image",
-              locals: { local_data: {
-                image_data: image,
-                invert: imageInvert,
-                icon: true }} %>
-          </div>
+
+        <%# Pages %>
+        <% if panelData[:icons] == :pages %>
+          <% data.hs.theme_page.each do |id, theme|
+            bannerImage = theme[:banner_image] ? theme[:banner_image] : siteData(:default_banner) %>
+
+            <div class="grid__cell grid__cell--md-above-md-3">
+              <%= partial "views/partials/image",
+                locals: { local_data: {
+                  circle: true,
+                  caption: theme[:title],
+                  image_data: {
+                    url: bannerImage[:url],
+                    alt: bannerImage[:alt],
+                    focus: "center"
+                  }
+              }} %>
+            </div>
+          <% end %>
+
+        <%# Icons %>
+        <% else %>
+          <% panelData[:icons].each do |image| %>
+            <div class="grid__cell grid__cell--md-above-md-2">
+              <%= partial "views/partials/image",
+                locals: { local_data: {
+                  image_data: image,
+                  invert: imageInvert,
+                  icon: true }} %>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>
