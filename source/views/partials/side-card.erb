@@ -21,12 +21,12 @@ title = entryData[:title]
 imageBanner = entryData[:banner_image]
 imageProduct = entryData[:image]
 imageLinkedProduct = entryData[:product_image] ? entryData[:product_image] : (entryData[:featured][0][:image] if entryData[:featured] && entryData[:featured][0][:TYPE] == "product")
-# if imageBanner || imageProduct
+if imageBanner || imageProduct
   image = imageLinkedProduct ? imageLinkedProduct : (imageBanner ? imageBanner : imageProduct)
   imageURL = image[:url]
   imageAlt = image[:alt]
   cfulSuffix = "?fit=fill&w=171&h=242#{ "&f=" + image[:focus] if image[:focus] }&q=35&fl=progressive"
-# end
+end
 
 # Colors
 asideBgc = image ? "e-bgc-brand-green-2" : "e-bgc-#{ catColor(pageCategory) }-2 e-col-white-1"
