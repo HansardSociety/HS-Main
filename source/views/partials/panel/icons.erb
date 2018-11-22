@@ -23,22 +23,24 @@ index = local_data[:index]
       <% if hasTitle%>
         <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
       <% end %>
-      <div class="grid grid--md grid--center grid--middle">
+      <div class="grid grid--md grid--center">
 
         <%# Pages %>
         <% if panelData[:icons] == :pages %>
-          <% data.hs.theme_page.each do |id, theme|
-            bannerImage = theme[:banner_image] ? theme[:banner_image] : siteData(:default_banner) %>
+          <% data.hs.theme_page.sort_by{|id, theme| theme[:title] }.each do |id, theme|
+            bannerImage = theme[:banner_image] ? theme[:banner_image] : siteData(:default_banner)#
+            bannerImageFocus = theme[:banner_image] ? theme[:banner_image][:focus] : "center" %>
 
-            <div class="grid__cell grid__cell--md-above-md-2">
+            <div class="grid__cell grid__cell--md-6 grid__cell--md-above-xs-4 grid__cell--md-above-sm-3 grid__cell--md-above-md-2">
               <%= partial "views/partials/image",
                 locals: { local_data: {
                   circle: true,
                   caption: theme[:title],
+                  link: internalURL(theme[:slug]),
                   image_data: {
                     url: bannerImage[:url],
                     alt: bannerImage[:alt],
-                    focus: "center"
+                    focus: bannerImageFocus
                   }
               }} %>
             </div>

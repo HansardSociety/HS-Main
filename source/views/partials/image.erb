@@ -18,25 +18,36 @@ else
   imgW = "563"
   imgH = "317"
 end
+
+link = local_data[:link]
 %>
 
-<figure>
+<figure class="image <%= "image--link" if link %>">
   <div
-    class="image
+    class="image__wrapper
       <%= "e-pad-sm" if border %>
-      <%= invert ? "image--invert" : "image--light" %>
-      <%= "image--icon" if icon %>
-      <%= "image--circle" if circle %>">
+      <%= invert ? "image__wrapper--invert" : "image__wrapper--light" %>
+      <%= "image__wrapper--icon" if icon %>
+      <%= "image__wrapper--circle" if circle %>">
 
     <img
       class="image__img"
       alt="<%= alt %>"
-      src="<%= url + (focus ? "?fit=fill&w=#{ imgW }&h=#{ imgH }&f=" + focus : "") %>"/>
+      src="<%= url + (focus ? "?fit=fill&w=#{ imgW }&h=#{ imgH }&f=" + focus : "") %>">
   </div>
 
   <% if caption %>
-    <figcaption class="image__caption label-xxs">
-      <%= caption %>
+    <figcaption class="image__caption">
+      <h3 class="label-xxs e-col-brand-green-2"><%= caption %></h3>
+
+      <% if link %>
+        <a
+          class="cover-link"
+          href="<%= link %>"
+          title="<%= caption + " | " + siteData(:site_title) %>">
+          <span class="e-hidden"><%= caption %></span>
+        </a>
+      <% end %>
     </figcaption>
   <% end %>
 </figure>
