@@ -30,7 +30,7 @@ index = local_data[:index]
           <% data.hs.theme_page.each do |id, theme|
             bannerImage = theme[:banner_image] ? theme[:banner_image] : siteData(:default_banner) %>
 
-            <div class="grid__cell grid__cell--md-above-md-3">
+            <div class="grid__cell grid__cell--md-above-md-2">
               <%= partial "views/partials/image",
                 locals: { local_data: {
                   circle: true,
