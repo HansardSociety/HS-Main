@@ -1,54 +1,59 @@
 {
 	"themes": [
 		{
-      "name": "brexit-and-parliament",
-      "sub_themes": [
-        "committee-scrutiny",
-        "legislation",
-        "trade-and-treaties"
-      ]
-    }, {
-      "name": "future-parliament",
-      "sub_themes": [
-        "digital",
-        "restoration-and-renewal",
-        "spaces-and-buildigs"
-      ]
-    }, {
-      "name": "governance-of-parliament",
-      "sub_themes": [
-        "operations",
-        "procedures"
-      ]
-    }, {
-      "name": "making-better-law",
-      "sub_themes": [
-        "delegated-legislation"
-      ]
-    }, {
-      "name": "parliaments-and-international-development",
-      "sub_themes": [
-
-      ]
-    }, {
-      "name": "parliamentary-scrutiny",
-      "sub_themes": [
-        "committee-scrutiny",
-        "financial-scrutiny"
-      ]
-    }, {
-      "name": "political-engagement",
-      "sub_themes": [
-        "communication"
-      ]
-    }, {
-      "name": "representation",
-      "sub_themes": [
-        "elections",
-        "political-parties",
-        "representatives"
-      ]
-    }
+			"name": "brexit-and-parliament",
+			"sub_themes": [
+				"committee-scrutiny",
+				"legislation",
+				"trade-and-treaties"
+			]
+		},
+		{
+			"name": "future-parliament",
+			"sub_themes": [
+				"digital",
+				"restoration-and-renewal",
+				"spaces-and-buildigs"
+			]
+		},
+		{
+			"name": "governance-of-parliament",
+			"sub_themes": [
+				"operations",
+				"procedures"
+			]
+		},
+		{
+			"name": "making-better-law",
+			"sub_themes": [
+				"delegated-legislation"
+			]
+		},
+		{
+			"name": "parliaments-and-international-development",
+			"sub_themes": []
+		},
+		{
+			"name": "parliamentary-scrutiny",
+			"sub_themes": [
+				"committee-scrutiny",
+				"financial-scrutiny"
+			]
+		},
+		{
+			"name": "political-engagement",
+			"sub_themes": [
+				"communication"
+			]
+		},
+		{
+			"name": "representation",
+			"sub_themes": [
+				"elections",
+				"political-parties",
+				"representatives"
+			]
+		}
 	],
 	"categories": [
 		{
@@ -98,24 +103,32 @@
 			"enable_tagging": true,
 			"sub_categories": [
 				"briefings",
-				"research"
+				"reports",
+        "submissions"
 			]
 		}
 	],
 	"color_groups": {
-		"brand-green": {
-			"1": "#107A6F",
-			"2": "#04655a",
-			"3": "#004F47",
+		"grey": {
+			"1": "#C0C0C0",
+			"2": "#B0B0B0",
+			"3": "#A9A9A9",
 			"dark": true,
-			"mono": false
+			"mono": true
 		},
-		"hot-pink": {
-			"1": "#E84470",
-			"2": "#df1b50",
-			"3": "#B70535",
+		"black": {
+			"1": "#0d0d0d",
+			"2": "#171717",
+			"3": "#262626",
 			"dark": true,
-			"mono": false
+			"mono": true
+		},
+		"white": {
+			"1": "#FFFFFF",
+			"2": "#F2F2F2",
+			"3": "#d9d9d9",
+			"dark": false,
+			"mono": true
 		},
 		"orange": {
 			"1": "#FE755F",
@@ -131,12 +144,12 @@
 			"dark": true,
 			"mono": false
 		},
-		"grey": {
-			"1": "#C0C0C0",
-			"2": "#B0B0B0",
-			"3": "#A9A9A9",
+		"hot-pink": {
+			"1": "#E84470",
+			"2": "#df1b50",
+			"3": "#B70535",
 			"dark": true,
-			"mono": true
+			"mono": false
 		},
 		"sea-green": {
 			"1": "#C9DDDD",
@@ -152,19 +165,12 @@
 			"dark": true,
 			"mono": false
 		},
-		"black": {
-			"1": "#0d0d0d",
-			"2": "#171717",
-			"3": "#262626",
+		"brand-green": {
+			"1": "#107A6F",
+			"2": "#04655a",
+			"3": "#004F47",
 			"dark": true,
-			"mono": true
-		},
-		"white": {
-			"1": "#FFFFFF",
-			"2": "#F2F2F2",
-			"3": "#d9d9d9",
-			"dark": false,
-			"mono": true
+			"mono": false
 		}
 	}
 }

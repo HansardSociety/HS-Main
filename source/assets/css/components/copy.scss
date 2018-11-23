@@ -49,7 +49,9 @@ iframe {
 > ul > li > p > a,
 > ol > li > p > a,
 > ul > li > a,
-> ol > li > a {
+> ol > li > a,
+.footnotes a,
+sup > a {
   @extend .link;
   @extend %e-ff-prim-roman;
 }
@@ -209,6 +211,7 @@ li {
 }
 
 /* Ordered */
+.footnotes > ol,
 > ol {
   counter-reset: root-ul-counter;
 

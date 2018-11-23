@@ -14,6 +14,7 @@
     <%= partial "views/partials/panel/introduction" %>
   <% end %>
 
+  <%# 'Latest' carousel (related) %>
   <% if @entry[:latest_carousel] && @entry[:tags] %>
     <%= partial "views/partials/panel/carousel",
     locals: { local_data: {
@@ -22,6 +23,7 @@
       data_type: :related }} %>
   <% end %>
 
+  <%# 'Latest' carousel (category) %>
   <% if @entry[:latest_carousel] && !@entry[:tags] %>
     <%= partial "views/partials/panel/carousel",
     locals: { local_data: {
@@ -31,6 +33,7 @@
       categories: @entry[:category] }} %>
   <% end %>
 
+  <%# Custom panels %>
   <% if @entry[:panels]
     @entry[:panels].each_with_index do |panel, index| %>
 
@@ -107,11 +110,11 @@
           locals: { local_data: {
             entry_data: panel,
             index: index }} %>
-
       <% end %>
     <% end %>
   <% end %>
 
+  <%# 'Our people' biogs %>
   <% if @entry[:ID] == "6b4aZvjw3KUkO84UGkeYaI"
     data.hs.people.each do |id, person|
       if person.employment
@@ -123,6 +126,8 @@
       <% end %>
     <% end %>
   <% end %>
+
+  <%# Show 'Latest' carousel if blog %>
   <% if @entry[:category] == "blog" && !@entry[:index_page] %>
     <%= partial "views/partials/panel/carousel",
       locals: { local_data: {

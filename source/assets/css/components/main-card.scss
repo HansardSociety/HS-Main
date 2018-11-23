@@ -12,7 +12,7 @@
   @extend %e-width-full;
 
   &:hover img {
-    transform: scale(1.05);
+    transform: scale(1.1);
   }
 }
 
@@ -99,13 +99,4 @@
   line-height: 1.3333;
 
   @extend %e-width-full;
-}
-
-.main-card__link {
-  top: 0;
-  left: 0;
-
-  @extend %e-position-absolute;
-  @extend %e-width-full;
-  @extend %e-height-full;
 }
