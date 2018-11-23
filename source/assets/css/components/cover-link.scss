@@ -1,0 +1,8 @@
+.cover-link {
+  top: 0;
+  left: 0;
+
+  @extend %e-position-absolute;
+  @extend %e-width-full;
+  @extend %e-height-full;
+}

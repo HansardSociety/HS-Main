@@ -315,7 +315,7 @@ module CustomHelpers
 
       # Registration pages
       registrationPages = pagesTagged.select{ |page|
-        pageTypes = ["events"].include? page[:category]
+        pageTypes = page[:date_time_alt]
         timeNow = Time.now.strftime("%s").to_i
 
         isInPast = (page[:date_time_alt] ? page[:date_time_alt][:integer] : page[:date_time][:integer]) >= timeNow
@@ -326,7 +326,7 @@ module CustomHelpers
       # Select pages by category and concatenate
       blogPages = pagesTagged.select{ |page| page[:category] == "blog" }[0..blogCount]
       otherPages = pagesTagged.select{ |page|
-        ["insight", "projects", "publications"].include? page[:category]
+        page[:category] != "blog" && !page[:date_time_alt]
       }[0..pageCount]
       concatPages = [registrationPages, blogPages, otherPages].reduce([], :concat)
 

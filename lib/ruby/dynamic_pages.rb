@@ -50,7 +50,7 @@ module DynamicPages
       dynPageBase(@app.data.hs.homepage, "home")
       dynPageBase(childPages, "child-page")
       dynPageBase(landingPages, "landing-page")
-      # dynPageBase(themePages, "theme-page") # TODO::Theme
+      dynPageBase(themePages, "theme-page")
 
       ##		=Feed pages
       ########################################
@@ -85,34 +85,33 @@ module DynamicPages
         end
       end
 
-      # TODO::Theme
-      # ##		=Theme feed pages
-      # ########################################
+      ##		=Theme feed pages
+      ########################################
 
-      # themes = []
-      # siteConfig[:themes].each do |theme|
-      #   themes << theme[:name]
-      # end
+      themes = []
+      siteConfig[:themes].each do |theme|
+        themes << theme[:name]
+      end
 
-      # themes.each do |theme|
-      #   paginated = getThemePages(allMainPages, theme).each_slice(6).to_a
+      themes.each do |theme|
+        paginated = getThemePages(allMainPages, theme).each_slice(6).to_a
 
-      #   paginated.each_with_index do |pagesData, index|
-      #     proxyBase(
-      #       "#{ theme }/feed/page-#{ index + 1 }.html",
-      #       "/views/templates/feed-page.html",
-      #       "basic",
-      #       pagesData,
-      #       {
-      #         feed_data: {
-      #           feed_page: (index + 1),
-      #           feed_category: theme,
-      #           feed_total: paginated.length
-      #         }
-      #       }
-      #     )
-      #   end
-      # end
+        paginated.each_with_index do |pagesData, index|
+          proxyBase(
+            "#{ theme }/feed/page-#{ index + 1 }.html",
+            "/views/templates/feed-page.html",
+            "basic",
+            pagesData,
+            {
+              feed_data: {
+                feed_page: (index + 1),
+                feed_category: theme,
+                feed_total: paginated.length
+              }
+            }
+          )
+        end
+      end
     end
   end
 

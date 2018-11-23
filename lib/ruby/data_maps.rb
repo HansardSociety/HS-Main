@@ -79,7 +79,7 @@ def media(data, opts = {})
     url: "https:#{ data.url }",
     alt: data.description,
     title: (data.title if opts[:title]),
-    focus: (opts[:focus].image_focus.parameterize if opts[:focus])
+    focus: (opts[:focus] ? opts[:focus].image_focus.parameterize : "center")
   }.compact
 end
 
@@ -107,7 +107,13 @@ def metaLabel(data, opts = {})
     if hasNestedRegistration
       "#{ baseLabel } / #{ dateTime(data.featured[0])[:date] }"
     else
-      category == "blog" ? "#{ baseLabel } / #{ dateTime(data)[:date] }" : "#{ baseLabel }"
+      if category == "blog"
+        "#{ baseLabel } / #{ dateTime(data)[:date] }"
+      elsif category == "publications"
+        "#{ baseLabel } / #{ dateTime(data)[:year] }"
+      else
+        "#{ baseLabel }"
+      end
     end
   end
 end
@@ -175,7 +181,7 @@ def sharedPageBase(pageType, ctx, data)
 
     ctx.noindex = data.noindex
     ctx.blog_count = data.blog_count if data.blog_count
-    ctx.tags = data.tags.map{ |tag| tag.gsub("'", "").parameterize } if data.tags
+    ctx.tags = data.theme.map{ |tag| tag.gsub("'", "").parameterize } if data.theme
   end
 end
 
@@ -747,9 +753,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     end
 
     # Tagging
-    if entry.tags
-      context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize }
-    end
+    # context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize } if entry.theme
   end
 end
 
@@ -783,9 +787,9 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     end
 
     # Tags
-    if entry.tags
-      context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize }
-    end
+    # if entry.theme
+    #   context.tags = entry.theme.map{ |tag| tag.gsub("'", "").parameterize }
+    # end
   end
 end
 

@@ -4,27 +4,51 @@ imageData = local_data[:image_data]
 border = local_data[:border]
 invert = local_data[:invert]
 icon = local_data[:icon]
+circle = local_data[:circle]
+caption = local_data[:caption]
 
 url = imageData[:url]
 alt = imageData[:alt]
 focus = imageData[:focus]
-caption = imageData[:caption]
+
+if circle
+  imgW = "500"
+  imgH = "500"
+else
+  imgW = "563"
+  imgH = "317"
+end
+
+link = local_data[:link]
 %>
 
-<figure
-  class="image
-        <%= "e-pad-sm" if border || border == nil %>
-        <%= invert ? "image--invert" : "image--light" %>
-        <%= "image--icon" if icon %>">
+<figure class="image <%= "image--link" if link %>">
+  <div
+    class="image__wrapper
+      <%= "e-pad-sm" if border %>
+      <%= invert ? "image__wrapper--invert" : "image__wrapper--light" %>
+      <%= "image__wrapper--icon" if icon %>
+      <%= "image__wrapper--circle" if circle %>">
 
-  <img
-    class="image__img"
-    alt="<%= alt %>"
-    src="<%= url + (focus ? "?fit=fill&w=563&h=317&f=" + focus : "") %>"/>
+    <img
+      class="image__img"
+      alt="<%= alt %>"
+      src="<%= url + (focus ? "?fit=fill&w=#{ imgW }&h=#{ imgH }&f=" + focus : "") %>">
+  </div>
 
-  <% if caption == true %>
-    <figcaption class="image__caption label-xxs">
-      <%= alt %>
+  <% if caption %>
+    <figcaption class="image__caption">
+      <h3 class="label-xxs e-col-brand-green-2"><%= caption %></h3>
+
+      <% if link %>
+        <a
+          class="cover-link"
+          href="<%= link %>"
+          title="<%= caption + " | " + siteData(:site_title) %>">
+          <span class="e-hidden"><%= caption %></span>
+        </a>
+      <% end %>
     </figcaption>
   <% end %>
 </figure>
+
