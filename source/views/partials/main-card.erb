@@ -2,9 +2,11 @@
 entryData = local_data[:entry_data]
 category = entryData[:category]
 
-imageURL = entryData[:banner_image][:url]
-imageFocus = entryData[:banner_image][:focus]
-imageAlt = entryData[:banner_image][:alt]
+bannerImage = entryData[:banner_image] ? entryData[:banner_image] : siteData(:default_banner)
+
+imageURL = bannerImage[:url]
+imageFocus = bannerImage[:focus]
+imageAlt = bannerImage[:alt]
 
 title = markdownStrip(entryData[:title])
 introduction = markdownStrip(entryData[:introduction])
