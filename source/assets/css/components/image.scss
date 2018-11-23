@@ -7,6 +7,11 @@
 }
 
 .image--link {
+  @extend %e-bgc-white-1;
+  @extend %e-box-shad-z1;
+  @extend %e-height-full;
+  @extend %e-pad-sm;
+  @extend %e-rad-slight;
 
   .image__img {
     transform: scale(1) translateZ(0) perspective(1px);

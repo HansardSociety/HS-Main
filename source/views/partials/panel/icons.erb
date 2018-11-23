@@ -23,7 +23,7 @@ index = local_data[:index]
       <% if hasTitle%>
         <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
       <% end %>
-      <div class="grid grid--md grid--center">
+      <div class="grid grid--sm grid--center">
 
         <%# Pages %>
         <% if panelData[:icons] == :pages %>
@@ -31,7 +31,7 @@ index = local_data[:index]
             bannerImage = theme[:banner_image] ? theme[:banner_image] : siteData(:default_banner)#
             bannerImageFocus = theme[:banner_image] ? theme[:banner_image][:focus] : "center" %>
 
-            <div class="grid__cell grid__cell--md-6 grid__cell--md-above-xs-4 grid__cell--md-above-sm-3 grid__cell--md-above-md-2">
+            <div class="grid__cell grid__cell--sm-6 grid__cell--sm-above-xs-5 grid__cell--sm-above-sm-4 grid__cell--sm-above-md-3">
               <%= partial "views/partials/image",
                 locals: { local_data: {
                   circle: true,
