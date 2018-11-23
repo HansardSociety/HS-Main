@@ -29,9 +29,9 @@ if imageBanner || imageProduct
 end
 
 # Colors
-asideBgc = image ? "e-bgc-brand-green-2" : "e-bgc-#{ catColor(pageCategory) }-2 e-col-white-1"
 accentColor = catColor(isFeaturedRegistration ? pageCategory : category)
 accentClass = "e-acc-#{ accentColor }-2-left"
+asideBgc = image ? "e-bgc-brand-green-2" : "e-bgc-#{ accentColor }-2 e-col-white-1"
 
 # Container element
 sideCardTag = isNonPage ? "section" : "article"
