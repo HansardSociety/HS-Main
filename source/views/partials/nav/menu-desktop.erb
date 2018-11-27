@@ -1,0 +1,15 @@
+<%
+id = local_data[:id]
+navItems = local_data[:nav_items]
+%>
+
+<div
+  id="<%= id %>"
+  class="menu JS-inactive menu--desktop">
+  <div class="menu__nav-bg"></div>
+  <ul class="grid grid--md">
+    <% if navItems && navItems.pages %>
+      <h1>HELLO!!</h1>
+    <% end %>
+  </ul>
+</div>
