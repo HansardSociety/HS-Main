@@ -267,11 +267,11 @@ li {
   }
 }
 
-// Offset anchor to accommodate for fixed navigation
-[id] {
-  padding-top: 4rem;
-  margin-top: -4rem;
+.footnotes {
+  [id] {
+    padding-top: 4rem;
+    margin-top: -4rem;
+  }
 }
-
 
 } // END .copy
