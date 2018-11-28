@@ -1,15 +1,14 @@
+require "lib/ruby/config_helpers"
+
 module Netlify
 
   # Redirects
   def redirects()
     File.open("source/.redirects", "w+") do |file|
-      file << "/home /\n"
-      file << "/audit /research/audit-of-political-engagement\n"
-      file << "/publications/briefings/brexit-parliament's-five-transition-tasks /publications/briefings/brexit-parliaments-five-transition-tasks\n"
-      file << "/blog/bridging-representative-and-direct-democracy-ireland's-citizens'-assemblies /blog/bridging-representative-and-direct-democracy-irelands-citizens-assemblies\n"
-      file << "/newsletter https://www.hansardsociety.org.uk/about/newsletter\n"
-      file << "/resources/publications/* /publications/:splat\n"
-      file << "/* /about/404.html 404\n"
+      universalData[:redirects].each do |redirect|
+        redirectStr = "#{ redirect["from"] } #{ redirect["to"] } #{ redirect["protocol"] if redirect["protocol"] }"
+        file << "#{ redirectStr.rstrip }\n"
+      end
     end
   end
 

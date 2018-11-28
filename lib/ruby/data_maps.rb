@@ -600,6 +600,11 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
 
     context.site_config = entry.site_config
 
+    ##		=Redirects
+    ########################################
+
+    context.redirects = entry.redirects
+
     ##		=Social
     ########################################
 
@@ -674,13 +679,14 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
 end
 
 ###########################################################################
-##  =Navigation
+##  =Navbar
 ###########################################################################
 
-class NavigationMap < ContentfulMiddleman::Mapper::Base
+class NavbarMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
 
     context.title = entry.title.rstrip
+    context.order = entry.order
 
     # Site pages
     if entry.pages

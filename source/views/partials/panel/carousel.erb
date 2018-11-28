@@ -33,24 +33,36 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
     <div class="panel__content panel__content--full">
       <div class="carousel carousel--cards">
         <div class="carousel__inner">
-          <% if dataType == :related
-            if entryData[:featured]
-              entryData[:featured].map do |page| %>
+
+          <!--**********************************************
+              =Related
+          ***********************************************-->
+
+          <% if dataType == :related %>
+            <% if entryData[:featured] %>
+              <% entryData[:featured].map do |page| %>
                 <div class="carousel__item carousel__item--card">
                   <%= partial "views/partials/main-card",
                     locals: { local_data: {
                       entry_data: page,
                       featured: true }} %>
                 </div>
-
-            <% end; end; relatedContent(entryData, { blog_count: blogCount }) do |page| %>
+              <% end %>
+            <% end %>
+            <% relatedContent(entryData, { blog_count: blogCount }) do |page| %>
               <div class="carousel__item carousel__item--card">
                 <%= partial "views/partials/main-card",
                   locals: { local_data: {
                     entry_data: page }} %>
               </div>
+            <% end %>
+          <% end %>
 
-          <% end; end; if dataType == :latest
+          <!--**********************************************
+              =Latest (all)
+          ***********************************************-->
+
+          <% if dataType == :latest
             latestContent({
               yield: true,
               num: 5,
@@ -61,8 +73,14 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
                   locals: { local_data: {
                     entry_data: page }} %>
               </div>
+            <% end;
+          <% end %>
 
-          <% end; end; if dataType == :latest_category
+          <!--**********************************************
+              =Latest (category)
+          ***********************************************-->
+
+          <% if dataType == :latest_category
             latestContent({
               yield: true,
               num: 5,
@@ -73,35 +91,53 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
                   locals: { local_data: {
                     entry_data: page }} %>
               </div>
+            <% end %>
+          <% end %>
 
-          <% end; end; if dataType == :latest_theme
-            latestThemed = latestContent().select{ |page|
-              page[:theme] && page[:theme].any?{ |theme| theme.include?(entryData[:theme]) }}
+          <!--**********************************************
+              =Latest (theme)
+          ***********************************************-->
 
+          <% if dataType == :latest_theme %>
+            <% latestThemed = latestContent().select{ |page| page[:theme] && page[:theme].any?{ |theme| theme.include?(entryData[:theme]) }}
             latestThemed[0..4].map do |page| %>
               <div class="carousel__item carousel__item--card">
                 <%= partial "views/partials/main-card",
                   locals: { local_data: {
                     entry_data: page }} %>
               </div>
+            <% end %>
+          <% end %>
 
-          <% end; end; if dataType == :custom
-            entryData[:carousel].map do |item|
-              if item[:TYPE] == "people" %>
+          <!--**********************************************
+              =Custom
+          ***********************************************-->
+
+          <% if dataType == :custom %>
+            <% entryData[:carousel].map do |item| %>
+
+              <% if item[:TYPE] == "people" %>
                 <div class="carousel__item carousel__item--card">
                   <%= partial "views/partials/staff-card",
                     locals: { local_data: {
                       entry_data: item[:profile] }} %>
-
                 </div>
-              <% end; if item[:TYPE] == "quote" %>
+              <% end %>
+
+              <% if item[:TYPE] == "quote" %>
                 <div class="carousel__item">
                   <%= partial "views/partials/quote",
                     locals: { local_data: {
                       entry_data: item[:quote] }} %>
                 </div>
-          <% end; end; end %>
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
+
+        <!--**********************************************
+            =Actions
+        ***********************************************-->
 
         <div class="carousel__actions">
           <div class="carousel__prev" tabindex="1">
