@@ -502,7 +502,8 @@ def panels(ctx, data)
         if data.content_type.id == "text_box"
           textBoxData = {
             copy: data.copy,
-            show_title: data.show_title
+            show_title: data.show_title,
+            calls_to_action: callsToAction(data)
           }
         end
 
@@ -592,7 +593,6 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.copyright = entry.copyright
     context.default_banner = media(entry.default_banner)
 
-    context.newsletter_text = entry.newsletter_text
     context.newsletter_form = form(entry.newsletter_form)
 
     ##		=Categories/sub-categories
@@ -688,21 +688,78 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
     context.title = entry.title.rstrip
     context.order = entry.order
 
-    # Site pages
-    if entry.pages
-      context.pages = entry.pages.map do |page|
-        {
-          title: page.title.rstrip,
-          slug: slug(page),
-          category: detachCategory(page.category),
-          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $seperator)
-        }.compact
-      end
-    end
-
     # External pages
     if entry.url
       context.external_url = entry.url
+    end
+
+    # Column 1 items
+    if entry.items_col_1
+      context.items_col_1 = entry.items_col_1.map do |item|
+        shared = {
+          ID: item.sys[:id],
+          TYPE: item.content_type.id,
+          title: item.title
+        }
+
+        # Child/landing page
+        if ["child_page", "landing_page"].include?(item.content_type.id)
+          {
+            slug: slug(item),
+            category: detachCategory(item.category),
+            sub_category: (detachCategory(item.category, { part: 1 }) if item.category.include? $seperator)
+          }.merge(shared)
+
+        # Theme page
+        elsif item.content_type.id == "theme_page"
+          {
+            slug: item.slug
+          }.merge(shared)
+
+        # Text box
+        elsif item.content_type.id == "text_box"
+          {
+            copy: item.copy,
+            show_title: item.show_title,
+            calls_to_action: callsToAction(item)
+          }.merge(shared)
+        end
+      end
+    end
+
+
+    # Column 2 items
+    if entry.items_col_2
+      context.items_col_2 = entry.items_col_2.map do |item|
+        shared = {
+          ID: item.sys[:id],
+          TYPE: item.content_type.id,
+          title: item.title
+        }
+
+        # Child/landing page
+        if ["child_page", "landing_page"].include?(item.content_type.id)
+          {
+            slug: slug(item),
+            category: detachCategory(item.category),
+            sub_category: (detachCategory(item.category, { part: 1 }) if item.category.include? $seperator)
+          }.merge(shared)
+
+        # Theme page
+        elsif item.content_type.id == "theme_page"
+          {
+            slug: item.slug
+          }.merge(shared)
+
+        # Text box
+        elsif item.content_type.id == "text_box"
+          {
+            copy: item.copy,
+            show_title: item.show_title,
+            calls_to_action: callsToAction(item)
+          }.merge(shared)
+        end
+      end
     end
   end
 end
@@ -757,9 +814,6 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     if entry.panels
       panels(context, entry)
     end
-
-    # Tagging
-    # context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize } if entry.theme
   end
 end
 
@@ -791,11 +845,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         }
       end
     end
-
-    # Tags
-    # if entry.theme
-    #   context.tags = entry.theme.map{ |tag| tag.gsub("'", "").parameterize }
-    # end
   end
 end
 
