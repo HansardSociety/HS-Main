@@ -713,7 +713,8 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
         # Theme page
         elsif item.content_type.id == "theme_page"
           {
-            slug: item.slug
+            slug: item.slug,
+            category: "_THEME_"
           }.merge(shared)
 
         # Text box
@@ -748,7 +749,8 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
         # Theme page
         elsif item.content_type.id == "theme_page"
           {
-            slug: item.slug
+            slug: item.slug,
+            category: "_THEME_"
           }.merge(shared)
 
         # Text box

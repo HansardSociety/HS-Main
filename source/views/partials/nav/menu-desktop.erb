@@ -1,15 +1,57 @@
 <%
 id = local_data[:id]
-navItems = local_data[:nav_items]
+menuData = local_data[:nav_items]
+
+colOneItems = menuData[:items_col_1]
+colTwoItems = menuData[:items_col_2]
+
+if colOneItems
+  colOneItemsByCategory = colOneItems.group_by{|item| item[:category]}
+end
+
+if colTwoItems
+  colTwoItemsByCategory = colTwoItems.group_by{|item| item[:category]}
+end
 %>
 
 <div
   id="<%= id %>"
   class="menu JS-inactive menu--desktop">
   <div class="menu__nav-bg"></div>
-  <ul class="grid grid--md">
-    <% if navItems && navItems.pages %>
-      <h1>HELLO!!</h1>
-    <% end %>
-  </ul>
+  <div class="panel">
+    <div class="panel__inner">
+      <div class="panel__content panel__content--full">
+        <ul class="grid grid--md">
+          <% if menuData[:items_col_1] && menuData[:items_col_2] %>
+            <% if colOneItems %>
+              <li class="grid__cell grid__cell--md-6">
+                <% colOneItemsByCategory.each do |cat, items| %>
+                  <% catTitle = cat == "_THEME_" ? "Themes" : cat %>
+                  <h2 class="label-sm e-col-grey-2"><%= catTitle %></h2>
+                  <ul>
+                    <% items.each do |item| %>
+                      <li><a href=""><%= item[:title] %></a></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </li>
+            <% end %>
+            <% if colTwoItems %>
+              <li class="grid__cell grid__cell--md-6">
+                <% colTwoItemsByCategory.each do |cat, items| %>
+                  <% catTitle = cat == "_THEME_" ? "Themes" : cat %>
+                  <h2 class="label-sm e-col-grey-2"><%= catTitle %></h2>
+                  <ul>
+                    <% items.each do |item| %>
+                      <li><a href=""><%= item[:title] %></a></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
