@@ -21,29 +21,71 @@ end
   <div class="panel">
     <div class="panel__inner">
       <div class="panel__content panel__content--full">
+        <h2 class="title-lg e-col-brand-green-1 e-align-cen"><%= menuData[:title] %></h2>
         <ul class="grid grid--md">
-          <% if menuData[:items_col_1] && menuData[:items_col_2] %>
+          <% if colOneItems || colTwoItems %>
+
+            <%# Column 1 %>
             <% if colOneItems %>
               <li class="grid__cell grid__cell--md-6">
                 <% colOneItemsByCategory.each do |cat, items| %>
-                  <% catTitle = cat == "_THEME_" ? "Themes" : cat %>
-                  <h2 class="label-sm e-col-grey-2"><%= catTitle %></h2>
+                  <% isTheme = cat == "_THEME_" %>
+                  <% isTextBox = cat == "_TEXT_BOX_" %>
+                  <% catTitle = isTheme ? "Themes" : cat %>
+
+                  <% if !isTextBox %>
+                    <h3 class="label-sm e-mgn-t-md e-pad-t-xxs e-mgn-b-xs e-col-grey-2 e-acc-<%= cat == "_THEME_" ? "brand-green" : catColor(cat) %>-2-top">
+                      <%= catTitle %>
+                    </h3>
+                  <% end %>
                   <ul>
-                    <% items.each do |item| %>
-                      <li><a href=""><%= item[:title] %></a></li>
+                    <% if menuData[:sub_cat_group_1] %>
+                      <% items.group_by{|i| i[:sub_category]}.each do |subCat, scItems| %>
+                        <% if subCat.length > 0 %>
+                          <h3 class="menu__sub-cat e-mgn-t-sm label-xxs e-col-grey-2">
+                            <%= subCat.gsub("-", " ") %>
+                          </h3>
+                        <% end %>
+                        <% scItems.each do |scItem| %>
+                          <li class="menu__item">
+                            <a class="menu__link" href="<%= scItem[:slug] %>"><%= scItem[:title] %></a>
+                          </li>
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                      <% items.each do |item| %>
+                        <li class="menu__item">
+                          <a class="menu__link" href="<%= item[:slug] %>"><%= item[:title] %></a>
+                        </li>
+                      <% end %>
                     <% end %>
                   </ul>
                 <% end %>
               </li>
             <% end %>
+
+            <%# Column 2 %>
             <% if colTwoItems %>
               <li class="grid__cell grid__cell--md-6">
                 <% colTwoItemsByCategory.each do |cat, items| %>
-                  <% catTitle = cat == "_THEME_" ? "Themes" : cat %>
-                  <h2 class="label-sm e-col-grey-2"><%= catTitle %></h2>
+                  <% isTheme = cat == "_THEME_" %>
+                  <% isTextBox = cat == "_TEXT_BOX_" %>
+                  <% catTitle = isTheme ? "Themes" : cat %>
+
+                  <% if !isTextBox %>
+                    <h3 class="label-sm e-pad-t-xxs e-mgn-t-md e-mgn-b-sm e-col-grey-2 e-acc-<%= cat == "_THEME_" ? "brand-green" : catColor(cat) %>-2-top">
+                      <%= catTitle %>
+                    </h3>
+                  <% end %>
                   <ul>
-                    <% items.each do |item| %>
-                      <li><a href=""><%= item[:title] %></a></li>
+                    <% if menuData[:sub_cat_group] %>
+
+                    <% else %>
+                      <% items.each do |item| %>
+                        <li class="menu__item">
+                          <a class="menu__link" href="<%= item[:slug] %>">
+                        <%= item[:title] %></a></li>
+                      <% end %>
                     <% end %>
                   </ul>
                 <% end %>

@@ -687,6 +687,8 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
 
     context.title = entry.title.rstrip
     context.order = entry.order
+    context.sub_cat_group_1 = entry.sub_cat_group_1
+    context.sub_cat_group_2 = entry.sub_cat_group_2
 
     # External pages
     if entry.url
@@ -722,16 +724,18 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
           {
             copy: item.copy,
             show_title: item.show_title,
-            calls_to_action: callsToAction(item)
+            calls_to_action: callsToAction(item),
+            category: "_TEXT_BOX_"
           }.merge(shared)
         end
       end
     end
 
-
     # Column 2 items
     if entry.items_col_2
       context.items_col_2 = entry.items_col_2.map do |item|
+
+        # Shared
         shared = {
           ID: item.sys[:id],
           TYPE: item.content_type.id,
@@ -758,7 +762,8 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
           {
             copy: item.copy,
             show_title: item.show_title,
-            calls_to_action: callsToAction(item)
+            calls_to_action: callsToAction(item),
+            category: "_TEXT_BOX_"
           }.merge(shared)
         end
       end
