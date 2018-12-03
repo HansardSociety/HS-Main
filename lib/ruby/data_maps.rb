@@ -762,7 +762,7 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
           {
             copy: item.copy,
             show_title: item.show_title,
-            calls_to_action: callsToAction(item),
+            call_to_action: callsToAction([item]),
             category: "_TEXT_BOX_"
           }.merge(shared)
         end

@@ -39,25 +39,33 @@ end
                     </h3>
                   <% end %>
                   <ul>
-                    <% if menuData[:sub_cat_group_1] %>
-                      <% items.group_by{|i| i[:sub_category]}.each do |subCat, scItems| %>
-                        <% if subCat.length > 0 %>
-                          <h3 class="menu__sub-cat e-mgn-t-sm label-xxs e-col-grey-2">
-                            <%= subCat.gsub("-", " ") %>
-                          </h3>
+
+                    <%# Pages %>
+                    <% if !isTextBox %>
+                      <% if menuData[:sub_cat_group_1] %>
+                        <% items.group_by{|i| i[:sub_category]}.each do |subCat, scItems| %>
+                          <% if subCat.length > 0 %>
+                            <h3 class="menu__sub-cat e-mgn-t-sm label-xxs e-col-grey-2">
+                              <%= subCat.gsub("-", " ") %>
+                            </h3>
+                          <% end %>
+                          <% scItems.each do |scItem| %>
+                            <li class="menu__item">
+                              <a class="menu__link" href="<%= scItem[:slug] %>"><%= scItem[:title] %></a>
+                            </li>
+                          <% end %>
                         <% end %>
-                        <% scItems.each do |scItem| %>
+                      <% else %>
+                        <% items.each do |item| %>
                           <li class="menu__item">
-                            <a class="menu__link" href="<%= scItem[:slug] %>"><%= scItem[:title] %></a>
+                            <a class="menu__link" href="<%= item[:slug] %>"><%= item[:title] %></a>
                           </li>
                         <% end %>
                       <% end %>
+
+                    <%# Text box %>
                     <% else %>
-                      <% items.each do |item| %>
-                        <li class="menu__item">
-                          <a class="menu__link" href="<%= item[:slug] %>"><%= item[:title] %></a>
-                        </li>
-                      <% end %>
+
                     <% end %>
                   </ul>
                 <% end %>
@@ -73,24 +81,65 @@ end
                   <% catTitle = isTheme ? "Themes" : cat %>
 
                   <% if !isTextBox %>
-                    <h3 class="label-sm e-pad-t-xxs e-mgn-t-md e-mgn-b-sm e-col-grey-2 e-acc-<%= cat == "_THEME_" ? "brand-green" : catColor(cat) %>-2-top">
+                    <h3 class="label-sm e-mgn-t-md e-pad-t-xxs e-mgn-b-xs e-col-grey-2 e-acc-<%= cat == "_THEME_" ? "brand-green" : catColor(cat) %>-2-top">
                       <%= catTitle %>
                     </h3>
                   <% end %>
                   <ul>
-                    <% if menuData[:sub_cat_group] %>
 
+                    <%# Pages %>
+                    <% if !isTextBox %>
+                      <% if menuData[:sub_cat_group_1] %>
+                        <% items.group_by{|i| i[:sub_category]}.each do |subCat, scItems| %>
+                          <% if subCat.length > 0 %>
+                            <h3 class="menu__sub-cat e-mgn-t-sm label-xxs e-col-grey-2">
+                              <%= subCat.gsub("-", " ") %>
+                            </h3>
+                          <% end %>
+                          <% scItems.each do |scItem| %>
+                            <li class="menu__item">
+                              <a class="menu__link" href="<%= scItem[:slug] %>"><%= scItem[:title] %></a>
+                            </li>
+                          <% end %>
+                        <% end %>
+                      <% else %>
+                        <% items.each do |item| %>
+                          <li class="menu__item">
+                            <a class="menu__link" href="<%= item[:slug] %>"><%= item[:title] %></a>
+                          </li>
+                        <% end %>
+                      <% end %>
+
+                    <%# Text box %>
                     <% else %>
-                      <% items.each do |item| %>
-                        <li class="menu__item">
-                          <a class="menu__link" href="<%= item[:slug] %>">
-                        <%= item[:title] %></a></li>
+                      <% items.each do |textBox| %>
+                        <% modalID = "#{ textBox[:title].parameterize }-#{ textBox[:ID] }" %>
+                        <div class="signup e-mgn-t-md e-pad-sm e-bgc-white-2">
+                          <h2 class="title-md e-col-brand-green-1"><%= textBox[:title] %></h2>
+                          <p class="e-mgn-t-xs"><%= textBox[:copy] %></p>
+                          <div class="e-mgn-t-xs">
+                            <%= partial "views/partials/btn",
+                              locals: { local_data: {
+                                type: "state",
+                                size: "md",
+                                style: "primary",
+                                label_on: "Close",
+                                label_off: "Subscribe",
+                                label_size: "md",
+                                page: "no-scroll",
+                                switch: true,
+                                aria_id: "activate-#{ modalID }",
+                                aria_target_id: modalID
+                            }} %>
+                          </div>
+                        </div>
                       <% end %>
                     <% end %>
                   </ul>
                 <% end %>
               </li>
             <% end %>
+
           <% end %>
         </ul>
       </div>

@@ -91,6 +91,12 @@
 
 .menu__sub-cat {
   border-top: 1px solid Get($colorGroups, white, 3);
+
+  @extend %e-mgn-b-xxs;
+}
+
+.signup {
+  @extend %e-rad-slight;
 }
 
 // .menu__container--columns {
