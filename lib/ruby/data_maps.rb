@@ -329,27 +329,35 @@ end
 ##		=Calls to action
 ###########################################################################
 
+def ctaData(cta)
+  isDownload = cta.content_type.id == "cta_download"
+  isModal = cta.content_type.id == "cta_modal"
+  isPage = cta.content_type.id == "cta_page"
+
+  {
+    ID: cta.sys[:id],
+    TYPE: cta.content_type.id,
+    title: cta.title,
+    button_text: cta.button_text,
+    file: (media(cta.file, title: true) if isDownload),
+    page_slug: (slug(cta.page) if isPage),
+    modal: ({
+      cta_id: targetID("modal", cta.title, cta),
+      content: (cta.modal if cta.modal),
+      form: (form(cta.form) if cta.form)
+    }.compact if isModal)
+  }.compact
+end
+
 def callsToAction(data)
 
-  ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta|
-    isDownload = cta.content_type.id == "cta_download"
-    isModal = cta.content_type.id == "cta_modal"
-    isPage = cta.content_type.id == "cta_page"
-
-    {
-      ID: cta.sys[:id],
-      TYPE: cta.content_type.id,
-      title: cta.title,
-      button_text: cta.button_text,
-      file: (media(cta.file, title: true) if isDownload),
-      page_slug: (slug(cta.page) if isPage),
-      modal: ({
-        cta_id: targetID("modal", cta.title, cta),
-        content: (cta.modal if cta.modal),
-        form: (form(cta.form) if cta.form)
-      }.compact if isModal)
-    }.compact
-  end : nil)
+  if defined?(data.calls_to_action) && data.calls_to_action
+    data.calls_to_action.map do |cta|
+      ctaData(cta)
+    end
+  elsif defined?(data.call_to_action) && data.call_to_action
+    ctaData(data.call_to_action)
+  end
 end
 
 ###########################################################################
@@ -762,7 +770,7 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
           {
             copy: item.copy,
             show_title: item.show_title,
-            call_to_action: callsToAction([item]),
+            call_to_action: callsToAction(item),
             category: "_TEXT_BOX_"
           }.merge(shared)
         end
