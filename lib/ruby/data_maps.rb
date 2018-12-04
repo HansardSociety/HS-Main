@@ -110,7 +110,7 @@ def metaLabel(data, opts = {})
       if category == "blog"
         "#{ baseLabel } / #{ dateTime(data)[:date] }"
       elsif category == "publications"
-        "#{ baseLabel }#{ " / " + dateTime(data)[:year] if data.slug.include?("/index") }"
+        "#{ baseLabel }#{ " / " + dateTime(data)[:year] if data.content_type.id != "landing_page" || (data.content_type.id == "landing_page" && !data.index_page) }"
       else
         "#{ baseLabel }"
       end
