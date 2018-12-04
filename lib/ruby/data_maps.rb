@@ -110,7 +110,7 @@ def metaLabel(data, opts = {})
       if category == "blog"
         "#{ baseLabel } / #{ dateTime(data)[:date] }"
       elsif category == "publications"
-        "#{ baseLabel } / #{ dateTime(data)[:year] }"
+        "#{ baseLabel }#{ " / " + dateTime(data)[:year] if data.slug.include?("/index") }"
       else
         "#{ baseLabel }"
       end
@@ -732,7 +732,7 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
           {
             copy: item.copy,
             show_title: item.show_title,
-            calls_to_action: callsToAction(item),
+            call_to_action: (callsToAction(item) if item.call_to_action),
             category: "_TEXT_BOX_"
           }.merge(shared)
         end

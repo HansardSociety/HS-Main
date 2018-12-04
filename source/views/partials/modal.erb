@@ -4,6 +4,7 @@ content = local_data[:content]
 id = local_data[:id]
 form = local_data[:form]
 size = local_data[:size]
+noScroll = local_data[:no_scroll] ? false : true
 
 isYield = local_data[:yield]
 %>
@@ -28,7 +29,7 @@ isYield = local_data[:yield]
             icon: "close-round",
             icon_size: "xs",
             icon_color: "green",
-            page: "no-scroll",
+            page: noScroll,
             aria_target_id: id }} %>
       </div>
     </div>

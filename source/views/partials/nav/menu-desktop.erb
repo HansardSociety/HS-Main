@@ -51,21 +51,53 @@ end
                           <% end %>
                           <% scItems.each do |scItem| %>
                             <li class="menu__item">
-                              <a class="menu__link" href="<%= scItem[:slug] %>"><%= scItem[:title] %></a>
+                              <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>"><%= scItem[:title] %></a>
                             </li>
                           <% end %>
                         <% end %>
                       <% else %>
                         <% items.each do |item| %>
                           <li class="menu__item">
-                            <a class="menu__link" href="<%= item[:slug] %>"><%= item[:title] %></a>
+                            <a class="menu__link" href="<%= internalURL(item[:slug]) %>"><%= item[:title] %></a>
                           </li>
                         <% end %>
                       <% end %>
 
                     <%# Text box %>
                     <% else %>
+                      <div class="e-mgn-t-md">
+                        <% items.each do |textBox| %>
+                          <% modalID = "#{ textBox[:title].parameterize }-#{ textBox[:ID] }" %>
+                          <% formData = textBox[:call_to_action][:modal][:form] %>
 
+                          <div class="signup e-pad-sm e-mgn-b-xs e-bgc-white-2">
+                            <h2 class="title-md e-col-brand-green-1"><%= textBox[:title] %></h2>
+                            <p class="e-mgn-t-xs"><%= textBox[:copy] %></p>
+                            <div class="e-mgn-t-xs">
+                              <%= partial "views/partials/btn",
+                                locals: { local_data: {
+                                  type: "state",
+                                  size: "md",
+                                  style: "primary",
+                                  label_on: "Close",
+                                  label_off: "Subscribe",
+                                  label_size: "md",
+                                  switch: true,
+                                  aria_id: "activate-#{ modalID }",
+                                  aria_target_id: modalID
+                              }} %>
+                              <%= partial "views/partials/modal",
+                                locals: { local_data: {
+                                  id: modalID,
+                                  content: false,
+                                  form: formData,
+                                  size: "narrow",
+                                  no_scroll: false
+                              }} %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
                     <% end %>
                   </ul>
                 <% end %>
@@ -98,48 +130,58 @@ end
                           <% end %>
                           <% scItems.each do |scItem| %>
                             <li class="menu__item">
-                              <a class="menu__link" href="<%= scItem[:slug] %>"><%= scItem[:title] %></a>
+                              <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>"><%= scItem[:title] %></a>
                             </li>
                           <% end %>
                         <% end %>
                       <% else %>
                         <% items.each do |item| %>
                           <li class="menu__item">
-                            <a class="menu__link" href="<%= item[:slug] %>"><%= item[:title] %></a>
+                            <a class="menu__link" href="<%= internalURL(item[:slug]) %>"><%= item[:title] %></a>
                           </li>
                         <% end %>
                       <% end %>
 
                     <%# Text box %>
                     <% else %>
-                      <% items.each do |textBox| %>
-                        <% modalID = "#{ textBox[:title].parameterize }-#{ textBox[:ID] }" %>
-                        <div class="signup e-mgn-t-md e-pad-sm e-bgc-white-2">
-                          <h2 class="title-md e-col-brand-green-1"><%= textBox[:title] %></h2>
-                          <p class="e-mgn-t-xs"><%= textBox[:copy] %></p>
-                          <div class="e-mgn-t-xs">
-                            <%= partial "views/partials/btn",
-                              locals: { local_data: {
-                                type: "state",
-                                size: "md",
-                                style: "primary",
-                                label_on: "Close",
-                                label_off: "Subscribe",
-                                label_size: "md",
-                                page: "no-scroll",
-                                switch: true,
-                                aria_id: "activate-#{ modalID }",
-                                aria_target_id: modalID
-                            }} %>
+                      <div class="e-mgn-t-md">
+                        <% items.each do |textBox| %>
+                          <% modalID = "#{ textBox[:title].parameterize }-#{ textBox[:ID] }" %>
+                          <% formData = textBox[:call_to_action][:modal][:form] %>
+
+                          <div class="signup e-pad-sm e-mgn-b-xs e-bgc-white-2">
+                            <h2 class="title-md e-col-brand-green-1"><%= textBox[:title] %></h2>
+                            <p class="e-mgn-t-xs"><%= textBox[:copy] %></p>
+                            <div class="e-mgn-t-xs">
+                              <%= partial "views/partials/btn",
+                                locals: { local_data: {
+                                  type: "state",
+                                  size: "md",
+                                  style: "primary",
+                                  label_on: "Close",
+                                  label_off: "Subscribe",
+                                  label_size: "md",
+                                  switch: true,
+                                  aria_id: "activate-#{ modalID }",
+                                  aria_target_id: modalID
+                              }} %>
+                              <%= partial "views/partials/modal",
+                                locals: { local_data: {
+                                  id: modalID,
+                                  content: false,
+                                  form: formData,
+                                  size: "narrow",
+                                  no_scroll: false
+                              }} %>
+                            </div>
                           </div>
-                        </div>
-                      <% end %>
+                        <% end %>
+                      </div>
                     <% end %>
                   </ul>
                 <% end %>
               </li>
             <% end %>
-
           <% end %>
         </ul>
       </div>
