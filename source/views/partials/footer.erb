@@ -19,12 +19,33 @@
 
         <%# Newsletter %>
         <div class="grid__cell grid__cell--fill grid__cell--md-above-md-4 e-pad-t-sm e-acc-brand-green-1-top">
-          <%= partial "views/partials/signup-box",
-            locals: { local_data: {
-              bgc: "dark",
-              copy_size: "sm",
-              id: "modal-monthly-newsletter-subscription-footer"
-          }} %>
+          <% mainNewsletter = siteData(:main_newsletter) %>
+          <% modalID = "#{ mainNewsletter[:title].parameterize }-footer" %>
+
+          <h2 class="title-md e-col-white-1"><%= mainNewsletter[:title] %></h2>
+          <p class="e-col-white-1 e-mgn-t-xs"><%= mainNewsletter[:copy] %></p>
+          <div class="e-mgn-t-xs">
+            <%= partial "views/partials/btn",
+              locals: { local_data: {
+                type: "state",
+                size: "md",
+                style: "primary",
+                label_on: "Close",
+                label_off: "Subscribe",
+                label_size: "md",
+                page: "no-scroll",
+                switch: true,
+                aria_id: "activate-#{ modalID }",
+                aria_target_id: modalID
+            }} %>
+            <%= partial "views/partials/modal",
+              locals: { local_data: {
+                id: modalID,
+                content: false,
+                form: mainNewsletter[:call_to_action][:modal][:form],
+                size: "narrow"
+            }} %>
+          </div>
         </div>
 
         <%# Copyright %>

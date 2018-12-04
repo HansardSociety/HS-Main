@@ -5,7 +5,7 @@ module Netlify
   # Redirects
   def redirects()
     File.open("source/.redirects", "w+") do |file|
-      universalData[:redirects].each do |redirect|
+      universalData[:url_redirects].each do |redirect|
         redirectStr = "#{ redirect["from"] } #{ redirect["to"] } #{ redirect["protocol"] if redirect["protocol"] }"
         file << "#{ redirectStr.rstrip }\n"
       end

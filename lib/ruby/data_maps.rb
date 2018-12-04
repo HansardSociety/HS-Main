@@ -601,7 +601,14 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.copyright = entry.copyright
     context.default_banner = media(entry.default_banner)
 
-    context.newsletter_form = form(entry.newsletter_form)
+    ##		=Newsletter
+    ########################################
+
+    context.main_newsletter = {
+      title: entry.main_newsletter.title,
+      copy: entry.main_newsletter.copy,
+      call_to_action: (callsToAction(entry.main_newsletter) if entry.main_newsletter.call_to_action),
+    }
 
     ##		=Categories/sub-categories
     ########################################
@@ -611,7 +618,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     ##		=Redirects
     ########################################
 
-    context.redirects = entry.redirects
+    context.url_redirects = entry.redirects
 
     ##		=Social
     ########################################
