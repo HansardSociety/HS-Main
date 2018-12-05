@@ -94,7 +94,7 @@ def metaLabel(data, opts = {})
   regData = opts[:reg_data]
 
   hasSubcategory = data.category.include?($seperator)
-  hasNestedRegistration = data.featured && data.featured[0].content_type.id == "registration"
+  hasNestedRegistration = data.content_type.id == "child_page" && data.featured && data.featured[0].content_type.id == "registration"
 
   category = detachCategory(data.category)
   subCategory = detachCategory(data.category, { part: 1 }) if hasSubcategory
@@ -172,7 +172,7 @@ def sharedPageBase(pageType, ctx, data)
     end
 
     # Has alternative date/ time
-    if data.featured && data.featured[0].content_type.id == "registration"
+    if pageType == "childPage" && data.featured && data.featured[0].content_type.id == "registration"
       ctx.date_time = dateTime(data.featured[0])
       ctx.date_time_alt = dateTime(data.featured[0])
     else
@@ -253,7 +253,7 @@ def featuredData(data, opts = {})
       sub_category: (detachCategory(data.category, { part: 1 }) if data.category.include? $seperator),
       introduction: data.introduction,
       banner_image: media(data.banner_image, focus: data),
-      product_image: (media(data.featured[0].image) if data.featured && data.featured[0].content_type.id == "product"),
+      product_image: (media(data.featured[0].image) if data.content_type.id == "child_page" && data.featured && data.featured[0].content_type.id == "product"),
       date_time: dateTime(data)
     }.compact
   end
@@ -839,11 +839,6 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     # Call(s) to action
     if entry.calls_to_action
       context.calls_to_action = callsToAction(entry)
-    end
-
-    # Featured content
-    if entry.featured
-      context.featured = entry.featured.map{ |featured| featuredData(featured) }
     end
 
     if entry.panels

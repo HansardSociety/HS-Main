@@ -19,6 +19,8 @@ bgcClass = isLatestContext ? "e-bg-shapes" : panelBgc(entryData[:background_colo
 isLightBgc = colorProfile(:light).include?(bgc)
 
 title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : entryData[:title])
+
+hasLink = local_data[:link]
 %>
 
 <section
@@ -26,9 +28,13 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
   class="panel <%= bgcClass %>">
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">
-      <h2
-        class="title-lg e-align-cen e-mgn-b-md
-              <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>"><%= title %></h2>
+      <h2 class="title-lg e-align-cen e-mgn-b-md <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>">
+        <% if hasLink %>
+          <a href="/<%= categories %>" class="link"><%= title %>&nbsp;&rarr;</a>
+        <% else %>
+          <%= title %>
+        <% end %>
+      </h2>
     </div>
     <div class="panel__content panel__content--full">
       <div class="carousel carousel--cards">
@@ -39,16 +45,6 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
           ***********************************************-->
 
           <% if dataType == :related %>
-            <% if entryData[:featured] %>
-              <% entryData[:featured].map do |page| %>
-                <div class="carousel__item carousel__item--card">
-                  <%= partial "views/partials/main-card",
-                    locals: { local_data: {
-                      entry_data: page,
-                      featured: true }} %>
-                </div>
-              <% end %>
-            <% end %>
             <% relatedContent(entryData, { blog_count: blogCount }) do |page| %>
               <div class="carousel__item carousel__item--card">
                 <%= partial "views/partials/main-card",

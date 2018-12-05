@@ -31,7 +31,7 @@ const panelCarousel = (function() {
      * Initiate Flickity on window load to prevent iOS
      * setting height of item too early.
      */
-    window.addEventListener("load", function() {
+    document.addEventListener("DOMContentLoaded", function() {
 
       if (carouselHome) {
 
