@@ -80,8 +80,8 @@
   }
 
   &::after {
-    content: "»";
-    left: calc(100% - 1rem);
+    content: "→";
+    left: calc(100% - 2rem);
     top: 49%;
     transform: translateY(-50%);
 
