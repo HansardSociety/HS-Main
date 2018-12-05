@@ -1,17 +1,21 @@
 <%
-@order_nav = [ "Our work", "About", "Blog", "Events", "Scholars" ]
-@sort_nav = data[:hs].navigation.sort_by{ |k, v| @order_nav.index(v[:title]) }
+navSorted = data[:hs].navbar.sort_by{ |id, nav| nav.order }
 %>
 
 <nav class="navbar JS-inactive" id="navbar">
   <div class="navbar__inner">
+
+    <!--**********************************************
+        =Left
+    ***********************************************-->
+
     <div class="navbar__left">
 
       <%= partial "views/partials/menu",
         locals: { local_data: {
           id: "menu-mobile",
           screen: "mobile",
-          nav_items: @sort_nav }} %>
+          nav_items: navSorted }} %>
 
       <%= partial "views/partials/btn",
         locals: { local_data: {
@@ -26,36 +30,59 @@
           aria_target_id: "menu-mobile" }} %>
     </div>
 
+    <!--**********************************************
+        =Centre/Logo
+    ***********************************************-->
+
     <div class="navbar__center">
       <%= partial "views/partials/logo" %>
     </div>
 
+    <!--**********************************************
+        =Right
+    ***********************************************-->
+
     <div class="navbar__right">
       <ul class="navbar__list">
-        <% @sort_nav.each do |id, nav|
-          @menu_desktop_id_base = "menu-desktop-" + nav[:title].parameterize %>
+        <% navSorted.each do |id, nav| %>
+          <% menuDesktopBaseID = "menu-desktop-" + nav[:title].parameterize %>
+          <%
+          if nav[:items_col_1] && nav[:items_col_2]
+            navColumnsItems = [nav[:items_col_1].flatten, nav[:items_col_2].flatten].reduce([], :concat)
+          elsif nav[:items_col_1]
+            navColumnsItems = nav[:items_col_1].flatten
+          else
+            navColumnsItems = false
+          end %>
 
           <li
-            class="navbar__item title-sm
-            <%= "navbar__item--solo" if (nav[:pages] && nav[:pages].length <= 1) || nav[:external_url] %>">
+            class="navbar__item
+            <%= "navbar__item--solo" if (navColumnsItems && navColumnsItems.length <= 1) || nav[:external_url] %>">
 
-            <% if nav[:pages] && nav[:pages].length <= 1
-              nav[:pages].each do |page| %>
+            <%# Single internal page %>
+            <% if navColumnsItems && navColumnsItems.length <= 1
+              nav[:items_col_1].each do |page| %>
               <a
                 class="title-sm e-col-white-1"
                 href="<%= internalURL(page[:slug]) %>"
                 title="<%= nav[:title] + " | " + siteData(:site_title) %>"><%= nav[:title] %></a>
+              <% end %>
+            <% end %>
 
-            <% end; end; if nav[:external_url] %>
+            <%# External URL %>
+            <% if nav[:external_url] %>
               <a
-                class="e-col-white-1"
+                class="title-sm e-col-white-1"
                 href="<%= nav[:external_url] %>"
                 rel="noopener"
                 target="_blank"
                 title="<%= nav[:title] %>"><%= nav[:title] %></a>
+            <% end %>
 
-            <% end; if nav[:pages] && nav[:pages].length > 1 %>
+            <%# Menu %>
+            <% if navColumnsItems && navColumnsItems.length > 1 %>
               <div class="e-col-white-1 navbar__btn-container">
+
                 <%= partial "views/partials/btn",
                   locals: { local_data: {
                     type: "state",
@@ -67,19 +94,19 @@
                     text: nav[:title],
                     text_size: "sm",
                     animation: "rotate",
-                    aria_id: "activate-#{ @menu_desktop_id_base }",
-                    aria_target_id: @menu_desktop_id_base }} %>
+                    aria_id: "activate-#{ menuDesktopBaseID }",
+                    aria_target_id: menuDesktopBaseID }} %>
               </div>
             <% end %>
 
-            <%= partial "views/partials/menu",
+            <%= partial "views/partials/nav/menu-desktop",
               locals: { local_data: {
-                id: @menu_desktop_id_base,
-                screen: "desktop",
+                id: menuDesktopBaseID,
                 nav_items: nav }} %>
           </li>
         <% end %>
       </ul>
+
       <div class="e-col-white-1 navbar__btn-container">
         <%= partial "views/partials/btn",
           locals: { local_data: {

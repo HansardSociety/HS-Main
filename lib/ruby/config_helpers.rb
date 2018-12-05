@@ -2,8 +2,12 @@ require "yaml"
 
 module ConfigHelpers
 
+  def universalData
+    YAML.load_file("data/hs/universal/5mkIBy6FCEk8GkOGKEQKi4.yaml")
+  end
+
   def siteConfig
-    YAML.load_file("data/hs/universal/5mkIBy6FCEk8GkOGKEQKi4.yaml")[:site_config]
+    universalData[:site_config]
   end
 
   ##		=Category levels

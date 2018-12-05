@@ -5,6 +5,8 @@ id = local_data[:id]
 form = local_data[:form]
 size = local_data[:size]
 
+noScroll = local_data[:no_scroll] ? local_data[:no_scroll] : "no-scroll"
+
 isYield = local_data[:yield]
 %>
 
@@ -15,7 +17,7 @@ isYield = local_data[:yield]
 
   <div
     aria-controls="<%= id %>"
-    class="modal__overlay JS-off JS-switch JS-no-scroll"></div>
+    class="modal__overlay JS-off JS-switch <%= "JS-no-scroll" if noScroll == "no-scroll" %>"></div>
 
   <div class="modal__inner <%= "modal__inner--" + size if size %>">
     <div class="modal__header">
@@ -28,7 +30,7 @@ isYield = local_data[:yield]
             icon: "close-round",
             icon_size: "xs",
             icon_color: "green",
-            page: "no-scroll",
+            page: noScroll,
             aria_target_id: id }} %>
       </div>
     </div>

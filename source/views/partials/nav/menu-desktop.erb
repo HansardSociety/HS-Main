@@ -1,0 +1,190 @@
+<%
+id = local_data[:id]
+menuData = local_data[:nav_items]
+
+colOneItems = menuData[:items_col_1]
+colTwoItems = menuData[:items_col_2]
+
+if colOneItems
+  colOneItemsByCategory = colOneItems.group_by{|item| item[:category]}
+end
+
+if colTwoItems
+  colTwoItemsByCategory = colTwoItems.group_by{|item| item[:category]}
+end
+%>
+
+<div
+  id="<%= id %>"
+  class="menu JS-inactive menu--desktop">
+  <div class="menu__nav-bg"></div>
+  <div class="panel">
+    <div class="panel__inner">
+      <div class="panel__content panel__content--full">
+        <h2 class="title-lg e-col-brand-green-1 e-align-cen"><%= menuData[:title] %></h2>
+        <ul class="grid grid--md">
+          <% if colOneItems || colTwoItems %>
+
+            <%# Column 1 %>
+            <% if colOneItems %>
+              <li class="grid__cell grid__cell--md-6">
+                <% colOneItemsByCategory.each do |cat, items| %>
+                  <% isTheme = cat == "_THEME_" %>
+                  <% isTextBox = cat == "_TEXT_BOX_" %>
+                  <% catTitle = isTheme ? "Themes" : cat %>
+
+                  <% if !isTextBox %>
+                    <h3 class="label-sm e-mgn-t-md e-pad-t-xxs e-mgn-b-xs e-col-grey-2 e-acc-<%= cat == "_THEME_" ? "brand-green" : catColor(cat) %>-2-top">
+                      <%= catTitle %>
+                    </h3>
+                  <% end %>
+                  <ul>
+
+                    <%# Pages %>
+                    <% if !isTextBox %>
+                      <% if menuData[:sub_cat_group_1] %>
+                        <% items.group_by{|i| i[:sub_category]}.each do |subCat, scItems| %>
+                          <% if subCat.length > 0 %>
+                            <h3 class="menu__sub-cat e-mgn-t-sm label-xxs e-col-grey-2">
+                              <%= subCat.gsub("-", " ") %>
+                            </h3>
+                          <% end %>
+                          <% scItems.each do |scItem| %>
+                            <li class="menu__item">
+                              <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>"><%= scItem[:title] %></a>
+                            </li>
+                          <% end %>
+                        <% end %>
+                      <% else %>
+                        <% items.each do |item| %>
+                          <li class="menu__item">
+                            <a class="menu__link" href="<%= internalURL(item[:slug]) %>"><%= item[:title] %></a>
+                          </li>
+                        <% end %>
+                      <% end %>
+
+                    <%# Text box %>
+                    <% else %>
+                      <div class="e-mgn-t-md">
+                        <% items.each do |textBox| %>
+                          <% modalID = "#{ textBox[:title].parameterize }-#{ textBox[:ID] }" %>
+                          <% formData = textBox[:call_to_action][:modal][:form] %>
+
+                          <div class="signup e-pad-sm e-mgn-b-xs e-bgc-white-2">
+                            <h2 class="title-md e-col-brand-green-1"><%= textBox[:title] %></h2>
+                            <p class="e-mgn-t-xs"><%= textBox[:copy] %></p>
+                            <div class="e-mgn-t-xs">
+                              <%= partial "views/partials/btn",
+                                locals: { local_data: {
+                                  type: "state",
+                                  size: "md",
+                                  style: "primary",
+                                  label_on: "Close",
+                                  label_off: "Subscribe",
+                                  label_size: "md",
+                                  switch: true,
+                                  aria_id: "activate-#{ modalID }",
+                                  aria_target_id: modalID
+                              }} %>
+                              <%= partial "views/partials/modal",
+                                locals: { local_data: {
+                                  id: modalID,
+                                  content: false,
+                                  form: formData,
+                                  size: "narrow",
+                                  no_scroll: "off"
+                              }} %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </li>
+            <% end %>
+
+            <%# Column 2 %>
+            <% if colTwoItems %>
+              <li class="grid__cell grid__cell--md-6">
+                <% colTwoItemsByCategory.each do |cat, items| %>
+                  <% isTheme = cat == "_THEME_" %>
+                  <% isTextBox = cat == "_TEXT_BOX_" %>
+                  <% catTitle = isTheme ? "Themes" : cat %>
+
+                  <% if !isTextBox %>
+                    <h3 class="label-sm e-mgn-t-md e-pad-t-xxs e-mgn-b-xs e-col-grey-2 e-acc-<%= cat == "_THEME_" ? "brand-green" : catColor(cat) %>-2-top">
+                      <%= catTitle %>
+                    </h3>
+                  <% end %>
+                  <ul>
+
+                    <%# Pages %>
+                    <% if !isTextBox %>
+                      <% if menuData[:sub_cat_group_1] %>
+                        <% items.group_by{|i| i[:sub_category]}.each do |subCat, scItems| %>
+                          <% if subCat.length > 0 %>
+                            <h3 class="menu__sub-cat e-mgn-t-sm label-xxs e-col-grey-2">
+                              <%= subCat.gsub("-", " ") %>
+                            </h3>
+                          <% end %>
+                          <% scItems.each do |scItem| %>
+                            <li class="menu__item">
+                              <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>"><%= scItem[:title] %></a>
+                            </li>
+                          <% end %>
+                        <% end %>
+                      <% else %>
+                        <% items.each do |item| %>
+                          <li class="menu__item">
+                            <a class="menu__link" href="<%= internalURL(item[:slug]) %>"><%= item[:title] %></a>
+                          </li>
+                        <% end %>
+                      <% end %>
+
+                    <%# Text box %>
+                    <% else %>
+                      <div class="e-mgn-t-md">
+                        <% items.each do |textBox| %>
+                          <% modalID = "#{ textBox[:title].parameterize }-menu-desktop" %>
+                          <% formData = textBox[:call_to_action][:modal][:form] %>
+
+                          <div class="signup e-pad-sm e-mgn-b-xs e-bgc-white-2">
+                            <h2 class="title-md e-col-brand-green-1"><%= textBox[:title] %></h2>
+                            <p class="e-mgn-t-xs"><%= textBox[:copy] %></p>
+                            <div class="e-mgn-t-xs">
+                              <%= partial "views/partials/btn",
+                                locals: { local_data: {
+                                  type: "state",
+                                  size: "md",
+                                  style: "primary",
+                                  label_on: "Close",
+                                  label_off: "Subscribe",
+                                  label_size: "md",
+                                  switch: true,
+                                  aria_id: "activate-#{ modalID }",
+                                  aria_target_id: modalID
+                              }} %>
+                              <%= partial "views/partials/modal",
+                                locals: { local_data: {
+                                  id: modalID,
+                                  content: false,
+                                  form: formData,
+                                  size: "narrow",
+                                  no_scroll: "off"
+                              }} %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

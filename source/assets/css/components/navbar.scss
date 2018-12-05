@@ -157,6 +157,12 @@
         border: 2px solid Get($colorGroups, white, 1);
 
         @extend .label-xxs;
+        @extend %e-trans-core;
+
+        &:hover {
+          @extend %e-col-brand-green-2;
+          @extend %e-bgc-white-1;
+        }
       }
 
       &::after {

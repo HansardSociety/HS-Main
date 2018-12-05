@@ -83,6 +83,14 @@
 			]
 		},
 		{
+			"name": "services",
+			"color": "sea-green",
+			"enable_tagging": true,
+			"sub_categories": [
+				"training"
+			]
+		},
+		{
 			"name": "legal",
 			"color": "slate-blue",
 			"enable_tagging": false,
@@ -104,7 +112,7 @@
 			"sub_categories": [
 				"briefings",
 				"reports",
-        "submissions"
+				"submissions"
 			]
 		}
 	],
