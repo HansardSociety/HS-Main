@@ -182,17 +182,41 @@ url = "https://hansardsociety.org.uk/"
               <% relatedContent(@entry, { blog_count: blogCount }) do |page| %>
                 <%= partial "views/partials/side-card",
                   locals: { local_data: {
-                    side_card_data: page }} %>
+                    side_card_data: page
+                }} %>
               <% end %>
             <% end %>
           <% end %><%# END :: if isMainCategories %>
 
           <%# Newsletter signup %>
-          <div class="box e-bgc-brand-green-1 e-col-white-1 e-mgn-t-md">
-            <%= partial "views/partials/signup-box",
-              locals: { local_data: {
-                copy_size: "sm",
-                id: "modal-monthly-newsletter-subscription-side-bar" }} %>
+          <div class="signup e-pad-sm e-mgn-t-md e-bgc-brand-green-1">
+            <% mainNewsletter = siteData(:main_newsletter) %>
+            <% modalID = "#{ mainNewsletter[:title].parameterize }-sidebar" %>
+
+            <h2 class="title-md e-col-white-1"><%= mainNewsletter[:title] %></h2>
+            <p class="e-col-white-1 e-mgn-t-xs"><%= mainNewsletter[:copy] %></p>
+            <div class="e-mgn-t-xs">
+              <%= partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "state",
+                  size: "md",
+                  style: "primary",
+                  label_on: "Close",
+                  label_off: "Subscribe",
+                  label_size: "md",
+                  page: "no-scroll",
+                  switch: true,
+                  aria_id: "activate-#{ modalID }",
+                  aria_target_id: modalID
+              }} %>
+              <%= partial "views/partials/modal",
+                locals: { local_data: {
+                  id: modalID,
+                  content: false,
+                  form: mainNewsletter[:call_to_action][:modal][:form],
+                  size: "narrow"
+              }} %>
+            </div>
           </div>
 
           <%# Latest items for about pages %>

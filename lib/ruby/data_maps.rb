@@ -110,7 +110,7 @@ def metaLabel(data, opts = {})
       if category == "blog"
         "#{ baseLabel } / #{ dateTime(data)[:date] }"
       elsif category == "publications"
-        "#{ baseLabel } / #{ dateTime(data)[:year] }"
+        "#{ baseLabel }#{ " / " + dateTime(data)[:year] if data.content_type.id != "landing_page" || (data.content_type.id == "landing_page" && !data.index_page) }"
       else
         "#{ baseLabel }"
       end
@@ -329,27 +329,35 @@ end
 ##		=Calls to action
 ###########################################################################
 
+def ctaData(cta)
+  isDownload = cta.content_type.id == "cta_download"
+  isModal = cta.content_type.id == "cta_modal"
+  isPage = cta.content_type.id == "cta_page"
+
+  {
+    ID: cta.sys[:id],
+    TYPE: cta.content_type.id,
+    title: cta.title,
+    button_text: cta.button_text,
+    file: (media(cta.file, title: true) if isDownload),
+    page_slug: (slug(cta.page) if isPage),
+    modal: ({
+      cta_id: targetID("modal", cta.title, cta),
+      content: (cta.modal if cta.modal),
+      form: (form(cta.form) if cta.form)
+    }.compact if isModal)
+  }.compact
+end
+
 def callsToAction(data)
 
-  ctaData = (defined?(data.calls_to_action) && data.calls_to_action ? data.calls_to_action.map do |cta|
-    isDownload = cta.content_type.id == "cta_download"
-    isModal = cta.content_type.id == "cta_modal"
-    isPage = cta.content_type.id == "cta_page"
-
-    {
-      ID: cta.sys[:id],
-      TYPE: cta.content_type.id,
-      title: cta.title,
-      button_text: cta.button_text,
-      file: (media(cta.file, title: true) if isDownload),
-      page_slug: (slug(cta.page) if isPage),
-      modal: ({
-        cta_id: targetID("modal", cta.title, cta),
-        content: (cta.modal if cta.modal),
-        form: (form(cta.form) if cta.form)
-      }.compact if isModal)
-    }.compact
-  end : nil)
+  if defined?(data.calls_to_action) && data.calls_to_action
+    data.calls_to_action.map do |cta|
+      ctaData(cta)
+    end
+  elsif defined?(data.call_to_action) && data.call_to_action
+    ctaData(data.call_to_action)
+  end
 end
 
 ###########################################################################
@@ -439,6 +447,8 @@ def panels(ctx, data)
     if isPanelCarouselCustom
       panelCarouselCustom = {
         carousel: panel.items.map do |item|
+          isLandingPage = item.content_type.id == "landing_page"
+          isChildPage = item.content_type.id == "child_page"
           isPeople = item.content_type.id == "people"
           isQuote = item.content_type.id == "quote"
 
@@ -455,7 +465,18 @@ def panels(ctx, data)
                 url: item.logo.url,
                 description: item.logo.description
               }.compact if item.logo)
-            }.compact if isQuote)
+            }.compact if isQuote),
+            page: ({
+              ID: item.sys[:id],
+              TYPE: item.content_type.id,
+              title: item.title.gsub('"', "&quot;").rstrip,
+              banner_image: (media(item.banner_image, focus: item) if item.banner_image),
+              introduction: item.introduction.gsub('"', "&quot;"),
+              slug: slug(item),
+              category: detachCategory(item.category),
+              category_orig: item.category.downcase,
+              meta_label: metaLabel(item)
+            } if isChildPage || isLandingPage)
           }.compact
         end
       }
@@ -502,7 +523,8 @@ def panels(ctx, data)
         if data.content_type.id == "text_box"
           textBoxData = {
             copy: data.copy,
-            show_title: data.show_title
+            show_title: data.show_title,
+            calls_to_action: callsToAction(data)
           }
         end
 
@@ -592,13 +614,24 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.copyright = entry.copyright
     context.default_banner = media(entry.default_banner)
 
-    context.newsletter_text = entry.newsletter_text
-    context.newsletter_form = form(entry.newsletter_form)
+    ##		=Newsletter
+    ########################################
+
+    context.main_newsletter = {
+      title: entry.main_newsletter.title,
+      copy: entry.main_newsletter.copy,
+      call_to_action: (callsToAction(entry.main_newsletter) if entry.main_newsletter.call_to_action),
+    }
 
     ##		=Categories/sub-categories
     ########################################
 
     context.site_config = entry.site_config
+
+    ##		=Redirects
+    ########################################
+
+    context.url_redirects = entry.redirects
 
     ##		=Social
     ########################################
@@ -674,29 +707,94 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
 end
 
 ###########################################################################
-##  =Navigation
+##  =Navbar
 ###########################################################################
 
-class NavigationMap < ContentfulMiddleman::Mapper::Base
+class NavbarMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
 
     context.title = entry.title.rstrip
-
-    # Site pages
-    if entry.pages
-      context.pages = entry.pages.map do |page|
-        {
-          title: page.title.rstrip,
-          slug: slug(page),
-          category: detachCategory(page.category),
-          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $seperator)
-        }.compact
-      end
-    end
+    context.order = entry.order
+    context.sub_cat_group_1 = entry.sub_cat_group_1
+    context.sub_cat_group_2 = entry.sub_cat_group_2
 
     # External pages
     if entry.url
       context.external_url = entry.url
+    end
+
+    # Column 1 items
+    if entry.items_col_1
+      context.items_col_1 = entry.items_col_1.map do |item|
+        shared = {
+          ID: item.sys[:id],
+          TYPE: item.content_type.id,
+          title: item.title
+        }
+
+        # Child/landing page
+        if ["child_page", "landing_page"].include?(item.content_type.id)
+          {
+            slug: slug(item),
+            category: detachCategory(item.category),
+            sub_category: (detachCategory(item.category, { part: 1 }) if item.category.include? $seperator)
+          }.merge(shared)
+
+        # Theme page
+        elsif item.content_type.id == "theme_page"
+          {
+            slug: item.slug,
+            category: "_THEME_"
+          }.merge(shared)
+
+        # Text box
+        elsif item.content_type.id == "text_box"
+          {
+            copy: item.copy,
+            show_title: item.show_title,
+            call_to_action: (callsToAction(item) if item.call_to_action),
+            category: "_TEXT_BOX_"
+          }.merge(shared)
+        end
+      end
+    end
+
+    # Column 2 items
+    if entry.items_col_2
+      context.items_col_2 = entry.items_col_2.map do |item|
+
+        # Shared
+        shared = {
+          ID: item.sys[:id],
+          TYPE: item.content_type.id,
+          title: item.title
+        }
+
+        # Child/landing page
+        if ["child_page", "landing_page"].include?(item.content_type.id)
+          {
+            slug: slug(item),
+            category: detachCategory(item.category),
+            sub_category: (detachCategory(item.category, { part: 1 }) if item.category.include? $seperator)
+          }.merge(shared)
+
+        # Theme page
+        elsif item.content_type.id == "theme_page"
+          {
+            slug: item.slug,
+            category: "_THEME_"
+          }.merge(shared)
+
+        # Text box
+        elsif item.content_type.id == "text_box"
+          {
+            copy: item.copy,
+            show_title: item.show_title,
+            call_to_action: callsToAction(item),
+            category: "_TEXT_BOX_"
+          }.merge(shared)
+        end
+      end
     end
   end
 end
@@ -751,9 +849,6 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
     if entry.panels
       panels(context, entry)
     end
-
-    # Tagging
-    # context.tags = entry.tags.map{ |tag| tag.gsub("'", "").parameterize } if entry.theme
   end
 end
 
@@ -785,11 +880,6 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
         }
       end
     end
-
-    # Tags
-    # if entry.theme
-    #   context.tags = entry.theme.map{ |tag| tag.gsub("'", "").parameterize }
-    # end
   end
 end
 

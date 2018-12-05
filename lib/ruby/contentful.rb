@@ -32,9 +32,9 @@ module ContentfulConfig
           mapper: LandingPageMap,
           id: "landing_page"
         },
-        navigation: {
-          mapper: NavigationMap,
-          id: "navigation"
+        navbar: {
+          mapper: NavbarMap,
+          id: "navbar"
         },
         people: {
           mapper: PeopleMap,

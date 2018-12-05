@@ -3,11 +3,9 @@ bgc = local_data[:bgc]
 copySize = local_data[:copy_size]
 formData = siteData(:newsletter_form)
 modalID = local_data[:id]
-titleClasses = "title-#{ copySize == "md" ? "lg" : "md" } e-mgn-b-#{ copySize == "md" ? "md" : "sm" } #{ "e-col-brand-green-1" if bgc == "light" }"
 %>
 
-<h2 class="<%= titleClasses %>">Join our newsletter</h2>
-<p class="e-mgn-b-sm strap-<%= copySize %>"><%= siteData(:newsletter_text) %></p>
+<h2 class="title-sm <%= "e-col-brand-green-1" if bgc == "light" %>">Join our newsletter</h2>
 
 <%= partial "views/partials/btn",
   locals: { local_data: {
