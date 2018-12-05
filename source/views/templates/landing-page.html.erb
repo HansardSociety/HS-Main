@@ -74,8 +74,8 @@
             index: index }} %>
       <% end %>
 
-      <%# Publications page %>
-      <% if @entry[:ID] == "7leucnRfZmeKwOii6GmM0Y" %>
+      <%# Publications and sub-cats pages %>
+      <% if @entry[:category] == "publications" && @entry[:index_page] && !@entry[:sub_category] %>
         <%= partial "views/partials/panel/search",
           locals: { local_data: {
             context: "category-search",

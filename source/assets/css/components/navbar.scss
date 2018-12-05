@@ -147,13 +147,13 @@
       }
 
       &::before {
-        left: -4.5rem;
+        left: -5.5rem;
 
-        padding: .5rem;
+        padding: .5rem 1rem;
 
         content: "close";
 
-        border-radius: 4px;
+        border-radius: .5rem;
         border: 2px solid Get($colorGroups, white, 1);
 
         @extend .label-xxs;
