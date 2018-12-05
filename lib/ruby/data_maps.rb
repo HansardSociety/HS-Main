@@ -447,6 +447,8 @@ def panels(ctx, data)
     if isPanelCarouselCustom
       panelCarouselCustom = {
         carousel: panel.items.map do |item|
+          isLandingPage = item.content_type.id == "landing_page"
+          isChildPage = item.content_type.id == "child_page"
           isPeople = item.content_type.id == "people"
           isQuote = item.content_type.id == "quote"
 
@@ -463,7 +465,18 @@ def panels(ctx, data)
                 url: item.logo.url,
                 description: item.logo.description
               }.compact if item.logo)
-            }.compact if isQuote)
+            }.compact if isQuote),
+            page: ({
+              ID: item.sys[:id],
+              TYPE: item.content_type.id,
+              title: item.title.gsub('"', "&quot;").rstrip,
+              banner_image: (media(item.banner_image, focus: item) if item.banner_image),
+              introduction: item.introduction.gsub('"', "&quot;"),
+              slug: slug(item),
+              category: detachCategory(item.category),
+              category_orig: item.category.downcase,
+              meta_label: metaLabel(item)
+            } if isChildPage || isLandingPage)
           }.compact
         end
       }

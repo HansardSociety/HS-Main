@@ -131,6 +131,14 @@ title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : 
                       entry_data: item[:quote] }} %>
                 </div>
               <% end %>
+
+              <% if ["landing_page", "child_page"].include?(item[:TYPE]) %>
+                <div class="carousel__item carousel__item--card">
+                  <%= partial "views/partials/main-card",
+                    locals: { local_data: {
+                      entry_data: item[:page] }} %>
+                </div>
+              <% end %>
             <% end %>
           <% end %>
         </div>
