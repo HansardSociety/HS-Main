@@ -13,11 +13,11 @@
   @extend %e-align-cen;
   @extend %e-animate-fade-in-load;
   @extend %e-mgn-auto-x;
-  @extend %e-mgn-t-sm;
 }
 
 .feed__status {
-  display: none;
+  @extend %e-display-none;
+  @extend %e-mgn-b-sm;
 }
 
 .feed__status .infinite-scroll-request > svg {
