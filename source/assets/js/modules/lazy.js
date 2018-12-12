@@ -50,6 +50,14 @@ const lazyLoading = (() => {
     nestedTargets: true,
     nestedElem: "img"
   })
+
+  // iFrame
+  blazyActivate({
+    trigger: ".navbar__btn-container",
+    events: ["click", "touchstart"],
+    nestedTargets: true,
+    nestedElem: "iframe"
+  })
 })()
 
 export { lazyLoading }
