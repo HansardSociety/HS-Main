@@ -20,19 +20,21 @@ var flickityOpts = {
 const panelCarousel = (function() {
   const allCarouselContainers = document.querySelectorAll(".carousel")
 
-  /**
-   * Initiate Flickity on window load to prevent iOS
-   * setting height of item too early.
-   */
+  for (let carouselContainer of allCarouselContainers) {
 
-  document.addEventListener("DOMContentLoaded", function() {
+    const carousel = carouselContainer.querySelector(".carousel__inner")
+    const carouselHome = carouselContainer.querySelector(".carousel__inner.carousel__inner--banner")
+    const actions = carouselContainer.querySelector(".carousel__actions")
+    const prevBtn = actions.querySelector(".carousel__prev")
+    const nextBtn = actions.querySelector(".carousel__next")
 
-    for (let carouselContainer of allCarouselContainers) {
-      const carousel = carouselContainer.querySelector(".carousel__inner")
-      const carouselHome = carouselContainer.querySelector(".carousel__inner.carousel__inner--banner")
-      const actions = carouselContainer.querySelector(".carousel__actions")
-      const prevBtn = actions.querySelector(".carousel__prev")
-      const nextBtn = actions.querySelector(".carousel__next")
+    /**
+     * Initiate Flickity on window load to prevent iOS
+     * setting height of item too early.
+     */
+
+    document.addEventListener("DOMContentLoaded", function() {
+
 
       if (carouselHome) {
 
@@ -76,8 +78,8 @@ const panelCarousel = (function() {
         flickity.next()
         flickity.pausePlayer()
       })
-    }
-  })
+    })
+  }
 })()
 
 export { panelCarousel }
