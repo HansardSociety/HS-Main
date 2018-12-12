@@ -53,7 +53,7 @@ const lazyLoading = (() => {
 
   // iFrame
   blazyActivate({
-    trigger: ".navbar__btn-container",
+    trigger: ".JS-site-search",
     events: ["click", "touchstart"],
     nestedTargets: true,
     nestedElem: "iframe"
