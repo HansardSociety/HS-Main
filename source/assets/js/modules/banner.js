@@ -19,6 +19,9 @@ const bannerHeight = (() => {
   if (bannerHome) {
     for (let carouselItem of bannerHome) {
       carouselItem.style.height = `${ vhLg }px`
+      setTimeout(() => {
+        carouselItem.style.opacity = "1"
+      }, 200);
     }
   }
 

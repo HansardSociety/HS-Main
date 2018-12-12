@@ -28,12 +28,11 @@ entryData = local_data[:entry_data]
         </div>
       </div>
 
-      <% entryData[:featured_pages].each do |page| %>
-        <article class="carousel__item carousel__item--banner" style="height: 100vh;">
+      <% entryData[:featured_pages].each_with_index do |page, index| %>
+        <article class="carousel__item carousel__item--banner" style="height: 100vh; opacity: 0;">
           <%= partial "views/partials/banner/image",
             locals: { local_data: {
               entry_data: page }} %>
-
           <div class="banner__inner banner__inner--lp">
             <div class="banner__content banner__content--lp">
 
