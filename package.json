@@ -9,6 +9,7 @@
     "==================== DATA": "====================",
     "data": "bundle exec middleman contentful",
     "data:live": "CONTENTFUL_ENV=live bundle exec middleman contentful",
+    "data:live:clean": "npm run clean && CONTENTFUL_ENV=live bundle exec middleman contentful",
     "data:preview": "CONTENTFUL_ENV=preview bundle exec middleman contentful",
     "data:preview:clean": "npm run clean && CONTENTFUL_ENV=preview bundle exec middleman contentful",
     "==================== SCRIPTS": "====================",
