@@ -1,0 +1,61 @@
+<%
+id = local_data[:id]
+navSorted = local_data[:nav_items]
+%>
+
+<div id="<%= id %>"
+  class="menu JS-inactive menu--mobile">
+  <div class="menu__nav-bg"></div>
+  <ul class="e-pad-sm">
+    <% navSorted.each do |id, nav| %>
+      <% if nav[:items_col_1] && nav[:items_col_2]
+        navColumnsItems = [nav[:items_col_1].flatten, nav[:items_col_2].flatten].reduce([], :concat)
+      elsif nav[:items_col_1]
+        navColumnsItems = nav[:items_col_1].flatten
+      else
+        navColumnsItems = false
+      end %>
+
+      <li>
+
+        <%# Single internal page %>
+        <% if navColumnsItems && navColumnsItems.length <= 1
+          nav[:items_col_1].each do |page| %>
+            <a
+              class="title-md e-col-brand-green-1"
+              href="<%= internalURL(page[:slug]) %>"
+              title="<%= nav[:title] + " | " + siteData(:site_title) %>"><%= nav[:title] %></a>
+          <% end %>
+        <% end %>
+
+        <%# External URL %>
+        <% if nav[:external_url] %>
+          <a
+            class="title-md e-col-brand-green-1"
+            href="<%= nav[:external_url] %>"
+            rel="noopener"
+            target="_blank"
+            title="<%= nav[:title] %>"><%= nav[:title] %></a>
+        <% end %>
+
+        <%# Menu %>
+        <% if navColumnsItems && navColumnsItems.length > 1 %>
+          <div class="dropdown">
+            <div class="title-md e-col-brand-green-1"><%= nav[:title] %></div>
+            <div class="dropdown__control">
+              <%= partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "state",
+                  size: "sm",
+                  icon: "chevron-down",
+                  icon_size: "xs",
+                  animation: "rotate",
+                  aria_id: "activate-menu-dropdown-#{ nav[:title].parameterize }",
+                  aria_target_id: "menu-dropdown-#{ nav[:title].parameterize }" }} %>
+            </div>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
