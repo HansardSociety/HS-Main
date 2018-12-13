@@ -7,9 +7,10 @@ const lazyLoading = (() => {
   /* =Blazy activate
     ***************************************************************************/
 
-  const blazyActivate = ({ trigger, events, nestedTargets, nestedElem }) => {
+  const blazyActivate = ({ trigger, events, nestedTargets, nestedElem, delay }) => {
     const allTriggerElems = document.querySelectorAll(trigger)
     const allEvents = events
+    const timeout = delay ? delay : 0
 
     for (let triggerElem of allTriggerElems) {
       for (let event of allEvents) {
@@ -24,7 +25,9 @@ const lazyLoading = (() => {
               if (targetElem.classList.contains("b-loaded")) {
                 // do nothing
               } else {
-                blazy.load(targetElem)
+                setTimeout(() => {
+                  blazy.load(targetElem)
+                }, timeout);
               }
             }
           } else {
@@ -56,7 +59,8 @@ const lazyLoading = (() => {
     trigger: ".JS-site-search",
     events: ["click", "touchstart"],
     nestedTargets: true,
-    nestedElem: "iframe"
+    nestedElem: "iframe",
+    delay: 200
   })
 })()
 
