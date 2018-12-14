@@ -1,0 +1,154 @@
+<%
+id = local_data[:id]
+navSorted = local_data[:nav_items]
+
+%>
+
+<div id="<%= id %>"
+  class="menu JS-inactive menu--mobile">
+  <div class="menu__nav-bg"></div>
+  <ul class="e-pad-sm">
+    <% navSorted.each do |id, nav| %>
+      <%
+      colOneItems = nav[:items_col_1]
+      colTwoItems = nav[:items_col_2]
+
+      if colOneItems && colTwoItems
+        navColumnsItems = [colOneItems.flatten, colTwoItems.flatten].reduce([], :concat)
+      elsif colOneItems
+        navColumnsItems = colOneItems.flatten
+      else
+        navColumnsItems = false
+      end
+
+      if colOneItems
+        colOneItemsByCategory = colOneItems.group_by{|item| item[:category]}
+      end
+
+      if colTwoItems
+        colTwoItemsByCategory = colTwoItems.group_by{|item| item[:category]}
+      end
+      %>
+
+      <li>
+
+        <%# Single internal page %>
+        <% if navColumnsItems && navColumnsItems.length <= 1
+          colOneItems.each do |page| %>
+            <a
+              class="title-md e-col-brand-green-1"
+              href="<%= internalURL(page[:slug]) %>"
+              title="<%= nav[:title] + " | " + siteData(:site_title) %>"><%= nav[:title] %></a>
+          <% end %>
+        <% end %>
+
+        <%# External URL %>
+        <% if nav[:external_url] %>
+          <a
+            class="title-md e-col-brand-green-1"
+            href="<%= nav[:external_url] %>"
+            rel="noopener"
+            target="_blank"
+            title="<%= nav[:title] %>"><%= nav[:title] %></a>
+        <% end %>
+
+        <%# Menu %>
+        <% if navColumnsItems && navColumnsItems.length > 1 %>
+          <div class="dropdown">
+            <div class="title-md e-col-brand-green-1"><%= nav[:title] %></div>
+            <div class="dropdown__control e-col-brand-green-1">
+              <%= partial "views/partials/btn",
+                locals: { local_data: {
+                  type: "state",
+                  size: "sm",
+                  icon: "chevron-down",
+                  icon_size: "xs",
+                  animation: "rotate",
+                  aria_id: "activate-menu-dropdown-#{ nav[:title].parameterize }",
+                  aria_target_id: "menu-dropdown-#{ nav[:title].parameterize }" }} %>
+            </div>
+            <ul
+              id="menu-dropdown-<%= nav[:title].parameterize %>"
+              class="dropdown__content JS-inactive">
+
+              <% colOneItemsByCategory.each do |cat, items| %>
+                <% isTheme = cat == "_THEME_" %>
+                <% isTextBox = cat == "_TEXT_BOX_" %>
+                <% catTitle = isTheme ? "Themes" : cat %>
+
+                <%# Title %>
+                <% if !isTextBox %>
+                  <h3 class="label-sm e-mgn-t-md e-pad-t-xxs e-mgn-b-xs e-col-grey-2 e-acc-<%= cat == "_THEME_" ? "brand-green" : catColor(cat) %>-2-top">
+                    <%= catTitle %>
+                  </h3>
+                <% end %>
+
+                <%# Pages %>
+                <% if !isTextBox %>
+                  <% if nav[:sub_cat_group_1] %>
+                    <% items.group_by{|i| i[:sub_category]}.each do |subCat, scItems| %>
+                      <% if subCat.length > 0 %>
+                        <h3 class="menu__sub-cat e-mgn-t-sm label-xxs e-col-grey-2">
+                          <%= subCat.gsub("-", " ") %>
+                        </h3>
+                      <% end %>
+                      <% scItems.each do |scItem| %>
+                        <li class="menu__item">
+                          <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>"><%= scItem[:title] %></a>
+                        </li>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <% items.each do |item| %>
+                      <li class="menu__item">
+                        <a class="menu__link" href="<%= internalURL(item[:slug]) %>"><%= item[:title] %></a>
+                      </li>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+
+
+              <% colTwoItemsByCategory.each do |cat, items| %>
+                <% isTheme = cat == "_THEME_" %>
+                <% isTextBox = cat == "_TEXT_BOX_" %>
+                <% catTitle = isTheme ? "Themes" : cat %>
+
+                <%# Title %>
+                <% if !isTextBox %>
+                  <h3 class="label-sm e-mgn-t-md e-pad-t-xxs e-mgn-b-xs e-col-grey-2 e-acc-<%= cat == "_THEME_" ? "brand-green" : catColor(cat) %>-2-top">
+                    <%= catTitle %>
+                  </h3>
+                <% end %>
+
+                <%# Pages %>
+                <% if !isTextBox %>
+                  <% if nav[:sub_cat_group_1] %>
+                    <% items.group_by{|i| i[:sub_category]}.each do |subCat, scItems| %>
+                      <% if subCat.length > 0 %>
+                        <h3 class="menu__sub-cat e-mgn-t-sm label-xxs e-col-grey-2">
+                          <%= subCat.gsub("-", " ") %>
+                        </h3>
+                      <% end %>
+                      <% scItems.each do |scItem| %>
+                        <li class="menu__item">
+                          <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>"><%= scItem[:title] %></a>
+                        </li>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <% items.each do |item| %>
+                      <li class="menu__item">
+                        <a class="menu__link" href="<%= internalURL(item[:slug]) %>"><%= item[:title] %></a>
+                      </li>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

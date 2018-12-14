@@ -68,7 +68,7 @@ const panelCarousel = (function() {
       }
 
       carousel.classList.add("JS-loaded")
-      carousel.style.height = `${ maxHeight + 4 }px`
+      carousel.style.minHeight = `${ maxHeight + 4 }px`
 
       prevBtn.addEventListener("click", () => {
         flickity.previous()

@@ -10,11 +10,11 @@ navSorted = data[:hs].navbar.sort_by{ |id, nav| nav.order }
     ***********************************************-->
 
     <div class="navbar__left">
+      <% menuMobileBaseID = "menu-mobile" %>
 
-      <%= partial "views/partials/menu",
+      <%= partial "views/partials/nav/menu-mobile",
         locals: { local_data: {
-          id: "menu-mobile",
-          screen: "mobile",
+          id: menuMobileBaseID,
           nav_items: navSorted }} %>
 
       <%= partial "views/partials/btn",
@@ -26,8 +26,8 @@ navSorted = data[:hs].navbar.sort_by{ |id, nav| nav.order }
           secondary_target: "navbar",
           icon: "menu",
           icon_size: "md",
-          aria_id: "activate-menu-mobile",
-          aria_target_id: "menu-mobile" }} %>
+          aria_id: "activate-#{ menuMobileBaseID }",
+          aria_target_id: menuMobileBaseID }} %>
     </div>
 
     <!--**********************************************
@@ -46,6 +46,7 @@ navSorted = data[:hs].navbar.sort_by{ |id, nav| nav.order }
       <ul class="navbar__list">
         <% navSorted.each do |id, nav| %>
           <% menuDesktopBaseID = "menu-desktop-" + nav[:title].parameterize %>
+
           <%
           if nav[:items_col_1] && nav[:items_col_2]
             navColumnsItems = [nav[:items_col_1].flatten, nav[:items_col_2].flatten].reduce([], :concat)
@@ -53,7 +54,8 @@ navSorted = data[:hs].navbar.sort_by{ |id, nav| nav.order }
             navColumnsItems = nav[:items_col_1].flatten
           else
             navColumnsItems = false
-          end %>
+          end
+          %>
 
           <li
             class="navbar__item
