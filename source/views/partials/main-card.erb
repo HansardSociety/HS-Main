@@ -14,6 +14,7 @@ metaLabel = entryData[:meta_label]
 url = internalURL(entryData[:slug])
 
 noIntro = entryData[:no_intro]
+disableLazy = entryData[:disable_lazy]
 
 # Standard classes
 if !entryData[:accents]
@@ -45,12 +46,17 @@ featuredCard = local_data[:featured]
 
   <header class="main-card__header e-col-white-1">
     <div class="main-card__image">
-      <img
-        class="b-lazy"
-        src="<%= assetsDir %>/images/placeholder__main-card.svg"
-        data-src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=50&fl=progressive"
-        alt="<%= imageAlt %>">
-
+      <% if !disableLazy %>
+        <img
+          class="b-lazy"
+          src="<%= assetsDir %>/images/placeholder__main-card.svg"
+          data-src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=50&fl=progressive"
+          alt="<%= imageAlt %>">
+      <% else %>
+        <img
+          src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=50&fl=progressive"
+          alt="<%= imageAlt %>">
+      <% end %>
       <div class="main-card__title">
         <span class="label-xxs label-tag <%= labelAccent %>"><%= metaLabel %></span>
         <h2

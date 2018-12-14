@@ -8,9 +8,17 @@
 
   min-width: 100vw;
 
-  @extend %e-pad-t-md;
+  opacity: 0;
+
   @extend %e-min-height-full-vh;
+  @extend %e-pad-t-md;
   @extend %e-position-absolute;
+  @extend %e-trans-opacity;
+
+  &.b-loaded {
+    opacity: 1;
+    @extend %e-trans-opacity;
+  }
 }
 
 /*		=Box
