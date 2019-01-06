@@ -11,6 +11,7 @@ db = allPages.map do |id, page|
     description: markdownStrip(page.introduction).gsub(/(\n|‘|’)/, ""),
     slug: page.slug,
     date: page.date_time.integer,
+    date_human: "#{ page.date_time.day }/#{ page.date_time.month }/#{ page.date_time.year }",
     meta_label: (page.meta_label if page.meta_label),
     image: (page.banner_image ? page.banner_image.url : siteData(:default_banner)),
     category: {
