@@ -71,7 +71,6 @@ sideCardAttrs = {
             <a
               class="<%= isFeaturedCard ? "link-white" : "link" %> JS-truncate"
               href="<%= internalURL(entryData[:slug]) %>"
-              title="<%= title + " | " + siteData(:site_title) %>"
               data-truncate="{ 'xs': 55, 'sm': 100, 'md': 60, 'lg': 95 }"><%= title %></a>
           </h2>
         <% else %>
