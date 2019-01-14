@@ -4,6 +4,7 @@ module Netlify
   def redirects()
     File.open("source/.redirects", "w+") do |file|
       file << "/home /\n"
+      file << "/media /about/contact/contact-us\n"
       file << "/audit /research/audit-of-political-engagement\n"
       file << "/blog/bridging-representative-and-direct-democracy-ireland's-citizens'-assemblies /blog/bridging-representative-and-direct-democracy-irelands-citizens-assemblies\n"
       file << "/newsletter https://www.hansardsociety.org.uk/about/newsletter\n"
