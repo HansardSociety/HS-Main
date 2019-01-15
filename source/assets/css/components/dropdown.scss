@@ -3,15 +3,17 @@
   @extend %e-position-relative;
 }
 
+
 .dropdown__title--inline {
   padding-right: 1.75rem;
 }
 
 .dropdown__control {
+  top: .825rem;
   right: 0;
 
-  @extend %e-cursor-pointer;
   @extend %e-absolute-center-y;
+  @extend %e-cursor-pointer;
 }
 
 .dropdown__content {
@@ -29,4 +31,5 @@
   width: inherit;
 
   @extend %e-overflow-auto;
+  @extend %e-pad-b-md;
 }
