@@ -64,6 +64,12 @@
   @extend %e-mgn-b-xxs;
 }
 
+.menu__item--mobile {
+  border-bottom: 1px solid Get($colorGroups, white, 3);
+
+  @extend %e-pad-b-xxs;
+}
+
 .menu__link {
   @extend %e-bgc-brand-green-1;
   @extend %e-display-block;
@@ -71,6 +77,7 @@
   @extend %e-ff-prim-roman;
   @extend %e-pad-x-xs;
   @extend %e-pad-y-xs;
+  @extend %e-pad-r-md;
   @extend %e-position-relative;
   @extend %e-rad-slight;
   @extend %e-trans-core;
@@ -98,52 +105,6 @@
 .signup {
   @extend %e-rad-slight;
 }
-
-// .menu__container--columns {
-//   flex-flow: row nowrap;
-
-//   @extend %e-display-flex;
-//   @extend %e-mgn-auto-x;
-// }
-
-// .menu__category {
-//   @extend %e-mgn-t-sm;
-//   @extend %e-mgn-b-sm;
-//   // @extend %e-rad-slight;
-// }
-
-// .menu__category--outer {
-//   &:nth-of-type(1n + 2) {
-//     border-top: 1px solid Get($colorGroups, white, 3);
-
-//     @extend %e-pad-t-sm;
-//   }
-// }
-
-// .menu__column {
-//   flex: 0 30%;
-
-//   @extend %e-mgn-t-md;
-//   // @extend %e-rad-slight;
-
-//   &:nth-child(1n + 2) {
-//     @extend %e-mgn-l-md;
-//   }
-// }
-
-// // Accents
-// .menu__column--projects,
-// .menu__category--projects { @extend %e-acc-brand-green-2-top; }
-// .menu__column--about,
-// .menu__category--about { @extend %e-acc-brand-green-2-top; }
-// .menu__column--legal,
-// .menu__category--legal { @extend %e-acc-slate-blue-2-top; }
-// .menu__column--publications,
-// .menu__category--publications { @extend %e-acc-orange-2-top; }
-// .menu__column--publications,
-// .menu__category--publications { @extend %e-acc-orange-2-top; }
-// .menu__column--insight,
-// .menu__category--insight { @extend %e-acc-sea-green-2-top; }
 
 /*		=Behaviour
   ========================================================================== */
