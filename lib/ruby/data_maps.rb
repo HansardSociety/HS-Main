@@ -611,6 +611,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.site_title = entry.site_title
     context.site_title_seo = entry.site_title_seo
     context.site_url = entry.site_url
+    context.test_site_url = entry.test_site_url
     context.copyright = entry.copyright
     context.default_banner = media(entry.default_banner)
 
@@ -743,7 +744,7 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
         # Theme page
         elsif item.content_type.id == "theme_page"
           {
-            slug: item.slug,
+            slug: slug(item),
             category: "_THEME_"
           }.merge(shared)
 
@@ -781,7 +782,7 @@ class NavbarMap < ContentfulMiddleman::Mapper::Base
         # Theme page
         elsif item.content_type.id == "theme_page"
           {
-            slug: item.slug,
+            slug: slug(item),
             category: "_THEME_"
           }.merge(shared)
 
