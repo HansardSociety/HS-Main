@@ -7,8 +7,8 @@ introduction = @entry[:introduction]
 featured = @entry[:featured]
 
 isMainCategories = siteCategories(:top_main).include? category
-isReverseHeaderCats = ["blog", "events", "publications"].include? category
-isBlogPage = category == "blog"
+isReverseHeaderCats = ["blog", "events", "publications"].include?(category)
+isAuthoredPage = ["blog", "media"].include?(category)
 
 nonPages = ["people", "product", "registration"]
 
@@ -45,7 +45,7 @@ url = "https://hansardsociety.org.uk/"
 
           <%# Entry has featured content %>
           <% if featured %>
-            <% if isBlogPage %>
+            <% if isAuthoredPage %>
               <% featured.map do |featured| %>
                 <% if featured[:TYPE] == "people" %>
                   <%= partial "views/partials/profile",
@@ -141,7 +141,7 @@ url = "https://hansardsociety.org.uk/"
           <% if isMainCategories %>
 
             <%# If blog, add all non-author featured content to sidebar %>
-            <% if isBlogPage %>
+            <% if isAuthoredPage %>
               <% featured.reject{ |featured| featured[:TYPE] == "people" }.each_with_index do |featured, index| %>
                 <% if index == 0 %>
                   <h2 class="side-title e-acc-black-2-top">Featured</h2>
