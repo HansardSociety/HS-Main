@@ -9,15 +9,14 @@
   min-width: 100vw;
 
   opacity: 0;
+  transition: opacity ease-in-out 2s;
 
   @extend %e-min-height-full-vh;
   @extend %e-pad-t-md;
   @extend %e-position-absolute;
-  @extend %e-trans-opacity;
 
   &.b-loaded {
     opacity: 1;
-    @extend %e-trans-opacity;
   }
 }
 

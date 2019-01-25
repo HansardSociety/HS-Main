@@ -79,7 +79,7 @@ def media(data, opts = {})
     url: "https:#{ data.url }",
     alt: data.description,
     title: (data.title if opts[:title]),
-    focus: (opts[:focus] ? opts[:focus].image_focus.parameterize : "center")
+    focus: (opts[:focus] && opts[:focus].image_focus ? opts[:focus].image_focus.parameterize : "center")
   }.compact
 end
 
@@ -99,7 +99,7 @@ def metaLabel(data, opts = {})
   category = detachCategory(data.category)
   subCategory = detachCategory(data.category, { part: 1 }) if hasSubcategory
 
-  baseLabel = "#{ category }#{ " / " + subCategory if hasSubcategory }"
+  baseLabel = "#{ category }#{ " / " + subCategory if hasSubcategory }".gsub("-", " ")
 
   if regData
     "#{ baseLabel } / #{ dateTime(regData)[:date] }"
