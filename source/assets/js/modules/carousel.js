@@ -33,8 +33,7 @@ const panelCarousel = (function() {
      * setting height of item too early.
      */
 
-    document.addEventListener("DOMContentLoaded", function() {
-
+    window.addEventListener("load", function() {
 
       if (carouselHome) {
 
@@ -46,7 +45,6 @@ const panelCarousel = (function() {
         var flickity = new Flickity(carouselHome, flickityOptsHome)
 
       } else {
-
         var flickityOptsCards = Object.assign({}, flickityOpts, {})
 
         if (matchMedia("screen and (max-width: 599px)").matches) {
@@ -62,10 +60,11 @@ const panelCarousel = (function() {
 
       var maxHeight = 0
       for (let item of allItems) {
-        var thisHeight = item.clientHeight
+        var thisHeight = item.offsetHeight
 
         if (thisHeight > maxHeight) maxHeight = thisHeight
       }
+      // console.log(maxHeight)
 
       carousel.classList.add("JS-loaded")
       carousel.style.minHeight = `${ maxHeight + 4 }px`

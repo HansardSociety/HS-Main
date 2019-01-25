@@ -9,14 +9,29 @@
   min-width: 100vw;
 
   opacity: 0;
-  transition: opacity ease-in-out 2s;
 
   @extend %e-min-height-full-vh;
   @extend %e-pad-t-md;
   @extend %e-position-absolute;
+  @extend %e-trans-opacity;
 
-  &.b-loaded {
+  & + .search-loading {
+    @extend %e-absolute-center-xy;
+
+    & svg {
+      animation-duration: 500ms;
+      animation-iteration-count: infinite;
+
+      @extend %e-animate-spin;
+    }
+  }
+
+  &.JS-loaded {
     opacity: 1;
+
+    & + .search-loading {
+      @extend %e-display-none;
+    }
   }
 }
 
