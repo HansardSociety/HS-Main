@@ -83,7 +83,7 @@
     "chartjs-plugin-labels": "^1.1.0",
     "chroma-js": "^1.4.0",
     "core-js": "^2.5.1",
-    "flickity": "^2.0.10",
+    "flickity": "^2.1.2",
     "infinite-scroll": "^3.0.2",
     "instantsearch.js": "^2.10.2",
     "lodash": "^4.17.5",
