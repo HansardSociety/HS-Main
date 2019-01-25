@@ -129,7 +129,13 @@ navSorted = data[:hs].navbar.sort_by{ |id, nav| nav.order }
             <iframe
               class="search-iframe"
               data-src="/static/search.html"
-              frameborder="0">Loading...</iframe>
+              frameborder="0"></iframe>
+            <div class="search-loading e-col-brand-green-1" aria-hidden="true">
+              <%= partial "views/partials/icon",
+                locals: {
+                  icon: "load-c",
+                  size: "lg" } %>
+            </div>
           </div>
         </div>
       </div>
