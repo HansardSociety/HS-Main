@@ -3,55 +3,71 @@
 		{
 			"name": "brexit-and-parliament",
 			"sub_themes": [
-				"committee-scrutiny",
+				"devolution-and-inter-parliamentary-relations",
 				"legislation",
-				"trade-and-treaties"
+				"scrutiny",
+				"treaty-making"
 			]
 		},
 		{
 			"name": "future-parliament",
 			"sub_themes": [
-				"digital",
-				"restoration-and-renewal",
-				"spaces-and-buildigs"
+				"culture-and-behaviour",
+				"democratic-space",
+				"digital-democracy",
+				"laboratory-for-reform",
+				"parliament-square"
 			]
 		},
 		{
 			"name": "governance-of-parliament",
 			"sub_themes": [
-				"operations",
-				"procedures"
+				"administration",
+				"culture-and-behaviour",
+				"privilege",
+				"procedure",
+				"resources"
 			]
 		},
 		{
 			"name": "making-better-law",
 			"sub_themes": [
-				"delegated-legislation"
+				"delegated-legislation",
+				"private-members-bills",
+				"public-bills"
 			]
 		},
 		{
-			"name": "parliaments-and-international-development",
-			"sub_themes": []
+			"name": "parliaments-around-the-world",
+			"sub_themes": [
+				"global-research-network-for-parliaments-and-people",
+				"lessons-from-abroad",
+				"parliamentary-strengthening"
+			]
 		},
 		{
 			"name": "parliamentary-scrutiny",
 			"sub_themes": [
 				"committee-scrutiny",
-				"financial-scrutiny"
+				"financial-scrutiny",
+				"legislative-scrutiny",
+				"prime-ministers-questions"
 			]
 		},
 		{
 			"name": "political-engagement",
 			"sub_themes": [
-				"communication"
+				"public-attitudes-to-politics",
+				"communication-of-parliamentary-democracy",
+				"public-participation"
 			]
 		},
 		{
 			"name": "representation",
 			"sub_themes": [
+				"the-role-of-mps",
 				"elections",
-				"political-parties",
-				"representatives"
+				"political-parties"
 			]
 		}
 	],
@@ -60,7 +76,13 @@
 			"name": "about",
 			"color": "brand-green",
 			"enable_tagging": false,
-			"sub_categories": false
+			"sub_categories": [
+				"careers",
+				"contact",
+				"legal",
+				"subscribe",
+				"who-we-are"
+			]
 		},
 		{
 			"name": "blog",
@@ -83,18 +105,19 @@
 			]
 		},
 		{
-			"name": "services",
-			"color": "sea-green",
+			"name": "journal",
+			"color": "brand-green",
 			"enable_tagging": true,
-			"sub_categories": [
-				"training"
-			]
+			"sub_categories": false
 		},
 		{
-			"name": "legal",
-			"color": "slate-blue",
-			"enable_tagging": false,
-			"sub_categories": false
+			"name": "media",
+			"color": "brand-green",
+			"enable_tagging": true,
+			"sub_categories": [
+				"announcements",
+				"coverage"
+			]
 		},
 		{
 			"name": "projects",
