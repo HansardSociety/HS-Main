@@ -1,4 +1,8 @@
 <head>
+  <%# GA %>
+  <% if config[:ENV] == "production" %>
+    <%= siteData(:meta)[:analytics] %>
+  <% end %>
   <%= partial "views/partials/frame/head-meta" %>
   <%= partial "views/partials/frame/head-stylesheets" %>
   <%= partial "views/partials/frame/head-scripts" %>
