@@ -14,6 +14,12 @@ db = allPages.map do |id, page|
     date_human: "#{ page.date_time.day }/#{ page.date_time.month }/#{ page.date_time.year }",
     meta_label: (page.meta_label if page.meta_label),
     image: (page.banner_image ? page.banner_image.url : siteData(:default_banner)),
+    category_human: (
+      page.category_orig.include?(seperator) ?
+        page.category_orig.split(seperator)[0] :
+        page.category_orig
+    ),
+    theme_human: page.theme_orig,
     category: {
       lvl0: (
         page.category_orig.include?(seperator) ?
