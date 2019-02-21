@@ -31,7 +31,7 @@ link = local_data[:link]
       <%= "image__wrapper--circle" if circle %>">
 
     <img
-      class="image__img"
+      class="image__img <%= "image__img--filter" if icon %>"
       alt="<%= alt %>"
       src="<%= url + (focus ? "?fit=fill&w=#{ imgW }&h=#{ imgH }&f=" + focus : "") %>">
   </div>
