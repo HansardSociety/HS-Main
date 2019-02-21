@@ -21,7 +21,7 @@ twitter = profileData[:twitter]
       src="<%= photo[:url] %>?fit=fill&w=324&h=324">
   </div>
   <div class="profile__main">
-    <h1 class="title-sm e-col-white-1"><%= fullName %></h1>
+    <h2 class="title-sm e-col-white-1"><%= fullName %></h2>
     <p class="strap-xs e-col-white-1"><%= role + (organisation ? ", #{ organisation }" : "") %></p>
 
     <% if (biog || twitter || linkedIn) && actions != false %>
@@ -43,12 +43,14 @@ twitter = profileData[:twitter]
               <%= partial "views/partials/modal",
                 locals: { local_data: {
                   id: ctaID,
-                  content: biog }} %>
+                  content: biog,
+                  title: fullName,
+                  social: [email, twitter, linkedIn] }} %>
             </div>
           <% end %>
           <%= partial "views/partials/social",
             locals: { local_data: {
-              icons: [email, twitter, linkedIn] }} %>
+              icons: [twitter] }} %>
         </div>
       </div>
     <% end %>

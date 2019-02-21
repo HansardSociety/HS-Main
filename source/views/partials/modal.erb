@@ -4,6 +4,8 @@ content = local_data[:content]
 id = local_data[:id]
 form = local_data[:form]
 size = local_data[:size]
+social = local_data[:social]
+title = local_data[:title]
 
 noScroll = local_data[:no_scroll] ? local_data[:no_scroll] : "no-scroll"
 
@@ -45,6 +47,16 @@ isYield = local_data[:yield]
         <%= yield %>
 
       <% end; if content %>
+        <% if title %>
+          <h2 class="title-sm e-col-brand-green-1"><%= title %></h2>
+        <% end %>
+        <% if !social.all? {|i| i == nil }  %>
+          <div class="grid grid--xxs e-mgn-b-sm">
+            <%= partial "views/partials/social",
+              locals: { local_data: {
+                icons: social }} %>
+          </div>
+        <% end %>
         <%= markdown(content) %>
 
       <% end; if form %>
