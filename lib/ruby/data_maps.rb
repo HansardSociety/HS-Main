@@ -147,6 +147,7 @@ def sharedPageBase(pageType, ctx, data)
     ctx.category = detachCategory(data.category)
     ctx.category_orig = data.category.downcase
     ctx.meta_label = metaLabel(data)
+    ctx.keywords = data.keywords
 
     # Has sub-category
     if data.category.include?($seperator)

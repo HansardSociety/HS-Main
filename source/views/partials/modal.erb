@@ -50,7 +50,7 @@ isYield = local_data[:yield]
         <% if title %>
           <h2 class="title-sm e-col-brand-green-1"><%= title %></h2>
         <% end %>
-        <% if !social.all? {|i| i == nil }  %>
+        <% if social && !social.all? {|i| i == nil }  %>
           <div class="grid grid--xxs e-mgn-b-sm">
             <%= partial "views/partials/social",
               locals: { local_data: {
