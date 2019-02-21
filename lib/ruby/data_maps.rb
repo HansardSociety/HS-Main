@@ -147,6 +147,7 @@ def sharedPageBase(pageType, ctx, data)
     ctx.category = detachCategory(data.category)
     ctx.category_orig = data.category.downcase
     ctx.meta_label = metaLabel(data)
+    ctx.keywords = data.keywords
 
     # Has sub-category
     if data.category.include?($seperator)
@@ -857,6 +858,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     sharedPageBase("childPage", context, entry) # core page data
 
     context.copy = entry.copy # main copy
+    context.canonical_link = entry.canonical_link
 
     # Featured
     if entry.featured

@@ -17,6 +17,12 @@ category = entryData[:category] ? entryData[:category].gsub("-", " ") : pageCate
 dateTime = entryData[:date_time]
 title = entryData[:title]
 
+metaLabel = entryData[:meta_label]
+if metaLabel.split("/").length >= 3
+  baseCat = metaLabel.split("/")[0]
+  metaLabel = baseCat.length > 6 ? "#{baseCat[0..6]}… / #{metaLabel.split("/")[1]} / #{metaLabel.split("/")[2]}" : baseCat
+end
+
 # Images
 imageBanner = entryData[:banner_image]
 imageProduct = entryData[:image]
@@ -61,7 +67,7 @@ sideCardAttrs = {
     <div class="side-card__content">
       <% if !isFeaturedProduct && !isFeaturedRegistration %>
         <div class="side-card__label">
-          <span class="label-xxs label-tag e-acc-<%= catColor(isFeaturedRegistration ? pageCategory : category) %>-2 e-col-white-1"><%= entryData[:meta_label] %></span>
+          <span class="label-xxs label-tag e-acc-<%= catColor(isFeaturedRegistration ? pageCategory : category) %>-2 e-col-white-1"><%= metaLabel %></span>
         </div>
       <% end %>
       <div class="side-card__title">

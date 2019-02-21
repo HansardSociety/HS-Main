@@ -1,8 +1,4 @@
 .image {
-  // left: 50%;
-
-  // transform: translateX(-50%);
-
   @extend %e-position-relative;
 }
 
@@ -69,16 +65,16 @@
 }
 
 .image__img {
-  // left: 50%;
+  left: 50%;
 
   max-width: 100%;
   max-height: inherit;
 
-  // transform: translateX(-50%);
+  transform: translateX(-50%);
 
   @extend %e-display-block;
   @extend %e-position-relative;
-  @extend %e-img-filter;
+  // @extend %e-img-filter;
 }
 
 .image__caption {
