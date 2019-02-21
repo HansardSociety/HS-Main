@@ -26,7 +26,9 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
 ***********************************************-->
 
 <% if config[:ENV] == "production" %>
-  <link rel="canonical" href="<%= pageURL %>">
+  <link
+    rel="canonical"
+    href="<%= @entry[:TYPE] === "child_page" && @entry[:canonical_link] ? @entry[:canonical_link] :  pageURL %>">
 <% end %>
 
 <meta content="IE=edge" http-equiv="X-UA-Compatible">
