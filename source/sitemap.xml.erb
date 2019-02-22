@@ -1,0 +1,17 @@
+<%
+allPages = [
+  *data.hs.child_page,
+  *data.hs.landing_page,
+  *data.hs.theme_page,
+  *data.hs.homepage
+].reject{|category, page| page[:noindex]}
+%>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <% allPages.each do |category, page| %>
+  <% url = "https://www.hansardsociety.org.uk/#{page[:slug]}".gsub(/\/index$/, "") %>
+    <url>
+      <loc><%= url %></loc>
+    </url>
+  <% end %>
+</urlset>
