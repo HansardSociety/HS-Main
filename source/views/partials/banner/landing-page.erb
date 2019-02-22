@@ -12,9 +12,11 @@ safeTitle = CGI.escape(entryData[:title])
   <div class="banner__inner banner__inner--lp">
     <div class="banner__content banner__content--lp">
 
-      <span class="label-xxs label-tag e-acc-<%= catColor(entryData[:category]) %>-2 e-col-white-1">
-        <%= entryData[:meta_label] %>
-      </span>
+      <% if !entryData[:index_page] %>
+        <span class="label-xxs label-tag e-acc-<%= catColor(entryData[:category]) %>-2 e-col-white-1">
+          <%= entryData[:meta_label] %>
+        </span>
+      <% end %>
 
       <h1
         class="banner__title title-<%= @entry[:category] == "blog" ? "xl" : "xxl" %> JS-truncate e-mgn-t-xs"
