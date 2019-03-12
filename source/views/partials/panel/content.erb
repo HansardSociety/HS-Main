@@ -6,6 +6,7 @@ bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { g
 
 
 titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2" }"
+headingLevel = panelData[:heading_level]
 
 imageSize = panelData[:image_size]
 isSmallImage = imageSize == "small"
@@ -38,17 +39,21 @@ index = local_data[:index]
         <% if panelData[:show_title] || panelData[:image] %>
           <% if panelData[:show_title] %>
             <div class="grid__cell grid__cell--md-12 e-hide-above-md">
-              <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
+              <% if headingLevel == "level-3" %>
+                <h3 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h3>
+              <% else %>
+                <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
+              <% end %>
             </div>
           <% end %>
           <% if panelData[:image] %>
             <div class="grid__cell
               grid__cell--md-<%= isLargeImage ? "12" : (isMediumImage ? "8" : "6") %>
+              grid__cell--md-above-sm-<%= isLargeImage ? "8" : (isMediumImage ? "4" : "2") %>
               grid__cell--md-above-md-<%= isLargeImage ? "5" : (isMediumImage ? "3" : "2") %>">
               <%= partial "views/partials/image",
                 locals: { local_data: {
                   image_data: panelData[:image],
-                  invert: panelData[:image_invert],
                   border: panelData[:image_border] }} %>
             </div>
           <% end %>
@@ -56,7 +61,11 @@ index = local_data[:index]
 
         <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-11 grid__cell--md-above-md-7">
           <% if panelData[:show_title] %>
-            <h2 class="title-lg e-mgn-b-sm e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h2>
+            <% if headingLevel == "level-3" %>
+              <h3 class="title-lg e-mgn-b-sm e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h3>
+            <% else %>
+              <h2 class="title-lg e-mgn-b-sm e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h2>
+            <% end %>
           <% end %>
 
           <div class="copy">

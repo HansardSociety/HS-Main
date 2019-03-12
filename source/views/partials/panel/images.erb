@@ -7,12 +7,10 @@ bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { g
 title = panelData[:title]
 titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2" }"
 hasTitle = panelData[:show_title]
+headingLevel = panelData[:heading_level]
 
-imageInvert = panelData[:image_invert]
 copy = panelData[:copy]
 index = local_data[:index]
-# image = panelData[:image]
-# imageSize = panelData[:image_size]
 %>
 
 <section
@@ -21,7 +19,11 @@ index = local_data[:index]
   <div class="panel__inner">
     <div class="panel__content panel__content--wide">
       <% if hasTitle%>
-        <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
+        <% if headingLevel == "level-3" %>
+          <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
+        <% else %>
+          <h2 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h2>
+        <% end %>
       <% end %>
       <div class="grid grid--sm grid--center">
 
@@ -47,14 +49,14 @@ index = local_data[:index]
             </div>
           <% end %>
 
-        <%# Icons %>
+        <%# Images %>
         <% else %>
-          <% panelData[:icons].each do |image| %>
+          <% panelData[:images].each do |image| %>
             <div class="grid__cell grid__cell--md-above-md-2">
               <%= partial "views/partials/image",
                 locals: { local_data: {
                   image_data: image,
-                  invert: imageInvert,
+                  circle: true,
                   icon: true }} %>
             </div>
           <% end %>
