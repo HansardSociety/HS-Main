@@ -1,0 +1,12 @@
+<%
+branch = ""
+if config[:ENV] == "production"
+  branch = "prod"
+else
+  branch = "preview"
+end
+%>
+[build]
+  command = "npm run <%= branch %>:deploy"
+  publish = "build/<%= branch %>"
+  functions = "lib/lambda"
