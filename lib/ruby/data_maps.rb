@@ -369,6 +369,21 @@ def callsToAction(data)
 end
 
 ###########################################################################
+## =Text box
+###########################################################################
+
+def textBox(data)
+  {
+    title: textBox.title,
+    show_title: textBox.show_title,
+    copy: data.copy,
+    image: (media(textBox.image) if textBox.image),
+    image_border: textBox.image_border,
+    calls_to_action: callsToAction(data)
+  }.compact
+end
+
+###########################################################################
 ## =Panels
 ###########################################################################
 
@@ -382,7 +397,7 @@ def panels(ctx, data)
     isPanelContent = panel.content_type.id == "panel_content"
     isPanelFeed = panel.content_type.id == "panel_feed"
     isPanelHeader = panel.content_type.id == "panel_header"
-    isPanelImages = panel.content_type.id == "panel_icons"
+    isPanelTextBoxes = panel.content_type.id == "panel_text_boxes"
 
     panelAccordians = {}
     panelBand = {}
@@ -391,7 +406,7 @@ def panels(ctx, data)
     panelChart = {}
     panelContent = {}
     panelFeed = {}
-    panelImages = {}
+    panelTextBoxes = {}
 
     ## =Core
     ########################################
@@ -401,32 +416,34 @@ def panels(ctx, data)
       ID: panel.sys[:id],
       TYPE: panel.content_type.id,
       background_color: panel.background_color.parameterize,
-      calls_to_action: (callsToAction(panel) if !isPanelChart),
-      copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
+      calls_to_action: (callsToAction(panel) if !isPanelChart && !isPanelTextBoxes),
       title: panel.title
     }.compact
 
-    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed || isPanelImages
+    if isPanelBand || isPanelAccordians || isPanelContent
+      panelShared.merge!({
+        copy: panel.copy
+      }.compact)
+    end
+
+    if isPanelBand || isPanelContent
+      panelShared.merge!({
+        image: (media(panel.image) if defined?(panel.image) && panel.image != nil),
+        image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil),
+        heading_level: (defined?(panel.heading_level) && panel.heading_level != nil ? panel.heading_level.parameterize : "level-2"),
+      }.compact)
+    end
+
+    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed || isPanelTextBoxes
       panelShared.merge!({
         show_title: panel.show_title
       }.compact)
     end
 
-    if isPanelContent || isPanelBand || isPanelImages
+    if isPanelTextBoxes
       panelShared.merge!({
-        image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil)
-      }.compact)
-    end
-
-    if isPanelContent || isPanelBand
-      panelShared.merge!({
-        image: (media(panel.image) if defined?(panel.image) && panel.image != nil),
-      }.compact)
-    end
-
-    if isPanelContent || isPanelBand || isPanelImages
-      panelShared.merge!({
-        heading_level: (defined?(panel.heading_level) && panel.heading_level != nil ? panel.heading_level.parameterize : "level-2"),
+        container_size: panel.container_size,
+        text_boxes: panel.text_boxes.map{|tb| textBox(tb)}
       }.compact)
     end
 
@@ -514,7 +531,6 @@ def panels(ctx, data)
         chartPanelData = {
           ID: data.sys[:id],
           TYPE: data.content_type.id,
-          title: data.title,
         }
 
         chartData = {}
@@ -522,6 +538,7 @@ def panels(ctx, data)
 
         if data.content_type.id == "chart"
           chartData = {
+            title: data.title,
             caption: data.caption,
             show_header: data.show_header,
             chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
@@ -536,11 +553,7 @@ def panels(ctx, data)
         end
 
         if data.content_type.id == "text_box"
-          textBoxData = {
-            copy: data.copy,
-            show_title: data.show_title,
-            calls_to_action: callsToAction(data)
-          }
+          textBoxData = textBox(data)
         end
 
         chartPanelData.merge(
