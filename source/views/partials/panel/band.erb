@@ -1,5 +1,6 @@
 <%
 panelData = local_data[:entry_data]
+flow = local_data[:flow]
 
 bgc = panelData[:background_color]
 bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
@@ -31,7 +32,7 @@ end
 
 <section
   id="panel-<%= index %>"
-  class="panel <%= bgcClass %>">
+  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
 
   <div class="panel__inner <%= "panel__inner--bg-img" if panelData[:image] %>">
     <% if panelData[:image] %>

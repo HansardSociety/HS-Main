@@ -1,8 +1,19 @@
 .copy {
 @extend %e-position-relative;
 
+// Ensure margin on first text elem in expand
+&.expand {
+  > p, > h1, > h2, > h3, > h4, > h5, > h6, ul {
+    &:first-child {
+      @extend %e-mgn-t-sm;
+    }
+  }
+}
+
 > p, > h1, > h2, > h3, > h4, > h5, > h6, ul {
-  @extend %e-mgn-b-sm;
+  &:not(:last-child) {
+    @extend %e-mgn-b-sm;
+  }
 }
 
 > h1, > h2, > h3, > h4, > h5, > h6 {

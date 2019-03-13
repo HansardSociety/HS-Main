@@ -11,6 +11,10 @@
   overflow-x: hidden;
 }
 
+.panel--flow {
+  padding-top: 0;
+}
+
 // .panel--bg-rotate {
 //   &::before {
 //     position: absolute;
@@ -40,22 +44,6 @@
 .panel--intro {
   @include above(sm) {
     text-align: center;
-  }
-}
-
-/* =Header
-==========================================================================*/
-
-.panel--header {
-  &::after {
-    bottom: 0;
-
-    width: 5rem;
-
-    content: "";
-
-    @extend %e-absolute-center-x;
-    @extend %e-acc-orange-1-bottom;
   }
 }
 
@@ -169,17 +157,4 @@
 .box {
   @extend %e-pad-sm;
   @extend %e-rad-slight;
-}
-
-/* =Page specific
-========================================================================== */
-
-// Create panel flow for long reads
-#BLOG_PAGE {
-  .panel.e-bgc-white-1 + .panel.e-bgc-white-1 {
-    padding-top: 0;
-
-    background-color: transparent;
-    // @extend %e-pad-x-md;
-  }
 }

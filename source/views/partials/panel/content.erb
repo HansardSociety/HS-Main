@@ -1,5 +1,6 @@
 <%
 panelData = local_data[:entry_data]
+flow = local_data[:flow]
 
 bgc = panelData[:background_color]
 bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
@@ -24,8 +25,7 @@ callsToAction = panelData[:calls_to_action]
 
 index = local_data[:index]
 %>
-
-<section class="panel <%= bgcClass %>">
+<section class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <span
     id="panel-<%= index %>"
     class="e-hidden"
@@ -85,37 +85,39 @@ index = local_data[:index]
           <% end %>
 
           <% if panelData[:show_more] || panelData[:calls_to_action] || panelData[:tweet] %>
-            <div class="grid grid--xs">
-              <% if panelData[:show_more] %>
-                <div class="grid__cell">
-                  <%= partial "views/partials/btn",
-                    locals: { local_data: {
-                      type: "state",
-                      size: "sm", style: "secondary",
-                      label_on: "Show less", label_off: "Show more",
-                      label_size: "sm",
-                      aria_id: "activate-#{ showMoreCopy.cta_id }",
-                      aria_target_id: showMoreCopy.cta_id }} %>
-                </div>
-              <% end %>
-
-              <% if panelData[:tweet] %>
-                <%= partial "views/partials/social",
-                  locals: { local_data: {
-                    icons: [
-                      "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
-                      ]}} %>
-                <span class="grid__cell grid__cell--xxs e-col-black-3"><small> Tweet this</small> </span>
-              <% end %>
-
-              <% if panelData[:calls_to_action] %>
-                <% panelData[:calls_to_action].each do |cta| %>
-                  <%= partial "views/partials/ctas",
-                    locals: { local_data: {
-                      entry_data: cta,
-                      btn_size: "sm" }} %>
+            <div class="e-mgn-t-sm">
+              <div class="grid grid--xs">
+                <% if panelData[:show_more] %>
+                  <div class="grid__cell">
+                    <%= partial "views/partials/btn",
+                      locals: { local_data: {
+                        type: "state",
+                        size: "sm", style: "secondary",
+                        label_on: "Show less", label_off: "Show more",
+                        label_size: "sm",
+                        aria_id: "activate-#{ showMoreCopy.cta_id }",
+                        aria_target_id: showMoreCopy.cta_id }} %>
+                  </div>
                 <% end %>
-              <% end %>
+
+                <% if panelData[:tweet] %>
+                  <%= partial "views/partials/social",
+                    locals: { local_data: {
+                      icons: [
+                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
+                        ]}} %>
+                  <span class="grid__cell grid__cell--xxs e-col-black-3"><small> Tweet this</small> </span>
+                <% end %>
+
+                <% if panelData[:calls_to_action] %>
+                  <% panelData[:calls_to_action].each do |cta| %>
+                    <%= partial "views/partials/ctas",
+                      locals: { local_data: {
+                        entry_data: cta,
+                        btn_size: "sm" }} %>
+                  <% end %>
+                <% end %>
+              </div>
             </div>
           <% end %>
         </div>

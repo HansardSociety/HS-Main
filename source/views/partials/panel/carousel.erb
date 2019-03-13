@@ -1,5 +1,6 @@
 <%
 entryData = local_data[:entry_data]
+flow = local_data[:flow]
 
 # Locals
 blogCount = local_data[:blog_count] ? local_data[:blog_count] : 2
@@ -25,7 +26,7 @@ hasLink = local_data[:link]
 
 <section
   id="panel-<%= isLatestContext ? "latest" : index %>"
-  class="panel <%= bgcClass %>">
+  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">
       <h2 class="title-lg e-align-cen e-mgn-b-md <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>">

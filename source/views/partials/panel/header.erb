@@ -1,6 +1,7 @@
 <%
 panelData = local_data[:entry_data]
 index = local_data[:index]
+flow = local_data[:flow]
 
 bgc = panelData[:background_color]
 title = panelData[:title]
@@ -8,12 +9,12 @@ copy = panelData[:copy]
 callsToAction = panelData[:calls_to_action]
 %>
 
-<section
+<div
   id="<%= "panel-#{index}" if index %>"
-  class="panel panel--header
-        <%= colorProfile(:mono).include?(bgc) ?
-            panelBgc(bgc) :
-            panelBgc(bgc, { gradient: true }) %>">
+  class="panel <%= "panel--flow" if flow %>
+    <%= colorProfile(:mono).include?(bgc) ?
+        panelBgc(bgc) :
+        panelBgc(bgc, { gradient: true }) %>">
 
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">
@@ -34,4 +35,4 @@ callsToAction = panelData[:calls_to_action]
       </div>
     <% end %>
   </div>
-</section>
+</div>

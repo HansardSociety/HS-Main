@@ -400,7 +400,7 @@ def panels(ctx, data)
     panelShared = {
       ID: panel.sys[:id],
       TYPE: panel.content_type.id,
-      background_color: (panel.background_color.parameterize if !isPanelChart),
+      background_color: panel.background_color.parameterize,
       calls_to_action: (callsToAction(panel) if !isPanelChart),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
       title: panel.title

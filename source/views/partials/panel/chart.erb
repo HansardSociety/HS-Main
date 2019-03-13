@@ -2,8 +2,13 @@
 require "json"
 panelData = local_data[:entry_data]
 index = local_data[:index]
+flow = local_data[:flow]
+
+bgc = panelData[:background_color]
+bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
 
 title = panelData[:title]
+titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
 caption = panelData[:caption]
 
 rowOneGridCellWidth = 12 / panelData[:charts_row_1].length
@@ -14,7 +19,7 @@ end
 
 <section
   id="panel-<%= index %>"
-  class="panel panel--no-overflow-x e-bgc-white-1">
+  class="panel <%= "panel--flow" if flow %> panel--no-overflow-x <%= bgcClass %>">
   <span
     id="<%= panelData[:title].parameterize %>"
     class="e-hidden"
@@ -25,7 +30,7 @@ end
       <header class="panel__content panel__content--full">
         <div class="grid grid--md grid--center">
           <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
-            <h2 class="title-lg e-col-brand-green-2 e-mgn-b-md"><%= panelData[:title] %></h2>
+            <h2 class="title-lg <%= titleColor %> e-mgn-b-md"><%= panelData[:title] %></h2>
           </div>
         </div>
       </header>
