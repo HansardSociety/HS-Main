@@ -9,6 +9,11 @@ copy = panelData[:copy]
 imageSize = panelData[:image_size] ? panelData[:image_size] : "medium"
 isNoOverlap = panelData[:no_overlap]
 
+title = panelData[:title]
+titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
+hasTitle = panelData[:show_title]
+headingLevel = panelData[:heading_level]
+
 index = local_data[:index]
 
 if imageSize == "small"
@@ -22,11 +27,6 @@ elsif imageSize == "full-bleed"
 else
   cfulImageWidth = "1000"
 end
-
-title = panelData[:title]
-titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
-hasTitle = panelData[:show_title]
-headingLevel = panelData[:heading_level]
 %>
 
 <section

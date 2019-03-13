@@ -1,14 +1,18 @@
 <%
 panelData = local_data[:entry_data]
 index = local_data[:index]
+
+bgc = panelData[:background_color]
+bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
+titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
 %>
 
 <div
   id="panel-<%= index %>"
-  class="panel e-bg-grad-brand-green e-col-white-1">
+  class="panel <%= bgcClass %>">
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow e-align-cen">
-      <h3 class="title-lg e-mgn-b-md"><%= panelData[:title] %></h3>
+      <h3 class="title-lg e-mgn-b-md <%= titleColor %>"><%= panelData[:title] %></h3>
       <% if panelData.copy %>
         <%= markdown(panelData[:copy], 'byline') %>
       <% end %>

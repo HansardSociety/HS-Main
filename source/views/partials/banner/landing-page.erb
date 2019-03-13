@@ -15,7 +15,7 @@ isThemePage = @entry[:TYPE] == "theme_page"
 
       <% if !entryData[:index_page] %>
         <% if isThemePage %>
-          <span class="label-xxs label-tag e-acc-brand-green-2 e-col-white-1">Theme</span>
+          <span class="label-xxs label-tag e-acc-brand-green-2 e-col-white-1">Themes</span>
         <% else %>
           <span class="label-xxs label-tag e-acc-<%= catColor(entryData[:category]) %>-2 e-col-white-1">
             <%= entryData[:meta_label] %>
