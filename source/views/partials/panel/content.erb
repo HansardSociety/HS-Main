@@ -25,11 +25,9 @@ callsToAction = panelData[:calls_to_action]
 index = local_data[:index]
 %>
 
-<section
-  id="panel-<%= index %>"
-  class="panel <%= bgcClass %>">
+<section class="panel <%= bgcClass %>">
   <span
-    id="<%= panelData[:title].parameterize %>"
+    id="panel-<%= index %>"
     class="e-hidden"
     aria-hidden="true">Panel anchor</span>
 
