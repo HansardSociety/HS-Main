@@ -2,7 +2,6 @@
 imageData = local_data[:image_data]
 
 border = local_data[:border]
-invert = local_data[:invert]
 icon = local_data[:icon]
 circle = local_data[:circle]
 caption = local_data[:caption]
@@ -25,9 +24,8 @@ link = local_data[:link]
 
 <figure class="image <%= "image--link" if link %>">
   <div
-    class="image__wrapper
+    class="image__wrapper image__wrapper--light
       <%= "e-pad-sm" if border %>
-      <%= invert ? "image__wrapper--invert" : "image__wrapper--light" %>
       <%= "image__wrapper--icon" if icon %>
       <%= "image__wrapper--circle" if circle %>">
 
@@ -46,7 +44,7 @@ link = local_data[:link]
           class="cover-link"
           href="<%= link %>"
           title="<%= caption + " | " + siteData(:site_title) %>">
-          <span class="e-hidden"><%= caption %></span>
+          <span class="e-hidden">Go to: <%= caption %></span>
         </a>
       <% end %>
     </figcaption>

@@ -31,12 +31,13 @@ safeTitle = CGI.escape(entryData[:title])
           <% entryData[:calls_to_action].each do |cta| %>
             <div class="grid__cell">
 
-              <% if cta[:TYPE] == "cta_download" %>
+              <% if ["cta_download", "cta_page"].include?(cta[:TYPE])  %>
+                <% url = cta[:TYPE] == "cta_download" ? cta[:file][:url] : "#{siteData(:site_url)}/#{cta[:page_slug]}" %>
                 <%= partial "views/partials/btn",
                   locals: { local_data: {
                     type: "link", size: "md", style: "primary",
                     label: cta.button_text, label_size: "md",
-                    url: cta[:file][:url] }} %>
+                    url: url }} %>
 
               <% end; if cta[:TYPE] == "cta_modal"
                 modalID = cta[:modal][:cta_id]

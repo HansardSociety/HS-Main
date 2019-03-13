@@ -4,7 +4,7 @@ require "json"
 $seperator = " > "
 
 ###########################################################################
-##		=Detatch category
+## =Detatch category
 ###########################################################################
 
 def detachCategory(data, opts = {})
@@ -16,7 +16,7 @@ def detachCategory(data, opts = {})
 end
 
 ###########################################################################
-##		=Target ID
+## =Target ID
 ###########################################################################
 
 def targetID(type, dataTitle, dataID)
@@ -24,33 +24,39 @@ def targetID(type, dataTitle, dataID)
 end
 
 ###########################################################################
-##		=Slug
+## =Slug
 ###########################################################################
 
 def slug(data)
+  isThemePage = data.content_type.id == "theme_page"
   indexPage = data.content_type.id == "landing_page" ? data.index_page : false
-  category = detachCategory(data.category)
   slug = data.slug
 
-  if data.category.include? $seperator
-    subCategory = detachCategory(data.category, { part: 1 })
+  if !isThemePage
+    category = detachCategory(data.category)
 
-    if indexPage
-      "#{ category }/#{ subCategory }/index"
+    if data.category.include? $seperator
+      subCategory = detachCategory(data.category, { part: 1 })
+
+      if indexPage
+        "#{ category }/#{ subCategory }/index"
+      else
+        "#{ category }/#{ subCategory }/#{ slug }"
+      end
     else
-      "#{ category }/#{ subCategory }/#{ slug }"
+      if indexPage
+        "#{ category }/index"
+      else
+        "#{ category }/#{ slug }"
+      end
     end
   else
-    if indexPage
-      "#{ category }/index"
-    else
-      "#{ category }/#{ slug }"
-    end
+    "#{ slug }"
   end
 end
 
 ###########################################################################
-##		=Date/ time
+## =Date/ time
 ###########################################################################
 
 def dateTime(data)
@@ -65,7 +71,7 @@ def dateTime(data)
 end
 
 ###########################################################################
-##		=Media data
+## =Media data
 ###########################################################################
 
 def media(data, opts = {})
@@ -84,7 +90,7 @@ def media(data, opts = {})
 end
 
 ###########################################################################
-##		=Meta label
+## =Meta label
 ###########################################################################
 
 def metaLabel(data, opts = {})
@@ -119,7 +125,7 @@ def metaLabel(data, opts = {})
 end
 
 ###########################################################################
-##		=Shared page data
+## =Shared page data
 ###########################################################################
 
 def sharedPageBase(pageType, ctx, data)
@@ -187,7 +193,7 @@ def sharedPageBase(pageType, ctx, data)
 end
 
 ###########################################################################
-##		=Profile data
+## =Profile data
 ###########################################################################
 
 def profile(data)
@@ -209,7 +215,7 @@ def profile(data)
 end
 
 ###########################################################################
-##		=Featured data
+## =Featured data
 ###########################################################################
 
 def featuredData(data, opts = {})
@@ -227,7 +233,7 @@ def featuredData(data, opts = {})
   featuredProductData = {}
   featuredRegistrationData = {}
 
-  ##		=Core
+  ## =Core
   ########################################
 
   featuredCoreData = {
@@ -235,14 +241,14 @@ def featuredData(data, opts = {})
     TYPE: data.content_type.id
   }
 
-  ##		=People
+  ## =People
   ########################################
 
   if isPeople
     featuredAuthorData = profile(data)
   end
 
-  ##		=Page
+  ## =Page
   ########################################
 
   if isPage
@@ -259,7 +265,7 @@ def featuredData(data, opts = {})
     }.compact
   end
 
-  ##		=Product
+  ## =Product
   ########################################
 
   if isProduct
@@ -278,7 +284,7 @@ def featuredData(data, opts = {})
     }.compact
   end
 
-  ##		=Registration
+  ## =Registration
   ########################################
 
   if isRegistration
@@ -306,7 +312,7 @@ def featuredData(data, opts = {})
 end
 
 ###########################################################################
-##		=Form
+## =Form
 ###########################################################################
 
 def form(data)
@@ -327,7 +333,7 @@ def form(data)
 end
 
 ###########################################################################
-##		=Calls to action
+## =Calls to action
 ###########################################################################
 
 def ctaData(cta)
@@ -342,6 +348,7 @@ def ctaData(cta)
     button_text: cta.button_text,
     file: (media(cta.file, title: true) if isDownload),
     page_slug: (slug(cta.page) if isPage),
+    page_slug_anchor: (cta.url_anchor if isPage && cta.url_anchor),
     modal: ({
       cta_id: targetID("modal", cta.title, cta),
       content: (cta.modal if cta.modal),
@@ -362,7 +369,7 @@ def callsToAction(data)
 end
 
 ###########################################################################
-##		=Panels
+## =Panels
 ###########################################################################
 
 def panels(ctx, data)
@@ -371,22 +378,22 @@ def panels(ctx, data)
     isPanelBand = panel.content_type.id == "panel_band"
     isPanelCarouselCustom = panel.content_type.id == "panel_carousel"
     isPanelCarouselCategory = panel.content_type.id == "panel_carousel_category"
+    isPanelChart = panel.content_type.id == "panel_chart"
     isPanelContent = panel.content_type.id == "panel_content"
     isPanelFeed = panel.content_type.id == "panel_feed"
-    isPanelChart = panel.content_type.id == "panel_chart"
     isPanelHeader = panel.content_type.id == "panel_header"
-    isPanelIcons = panel.content_type.id == "panel_icons"
+    isPanelImages = panel.content_type.id == "panel_icons"
 
     panelAccordians = {}
     panelBand = {}
     panelCarouselCustom = {}
     panelCarouselCategory = {}
+    panelChart = {}
     panelContent = {}
     panelFeed = {}
-    panelChart = {}
-    panelIcons = {}
+    panelImages = {}
 
-    ##		=Core
+    ## =Core
     ########################################
 
     # Contains all panel_header fields too
@@ -396,25 +403,34 @@ def panels(ctx, data)
       background_color: (panel.background_color.parameterize if !isPanelAccordians && !isPanelChart),
       calls_to_action: (callsToAction(panel) if !isPanelChart),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
-      image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
       title: panel.title
     }.compact
 
-    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed || isPanelIcons
+    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed || isPanelImages
       panelShared.merge!({
         show_title: panel.show_title
+      }.compact)
+    end
+
+    if isPanelContent || isPanelBand || isPanelImages
+      panelShared.merge!({
+        image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil)
       }.compact)
     end
 
     if isPanelContent || isPanelBand
       panelShared.merge!({
         image: (media(panel.image) if defined?(panel.image) && panel.image != nil),
-        image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil),
+      }.compact)
+    end
+
+    if isPanelContent || isPanelBand || isPanelImages
+      panelShared.merge!({
         heading_level: (defined?(panel.heading_level) && panel.heading_level != nil ? panel.heading_level.parameterize : "level-2"),
       }.compact)
     end
 
-    ##		=Accordions
+    ## =Accordions
     ########################################
 
     if isPanelAccordians
@@ -431,18 +447,16 @@ def panels(ctx, data)
       }
     end
 
-    ##		=Band
+    ## =Band
     ########################################
 
     if isPanelBand
       panelBand = {
-        no_overlap: panel.no_overlap,
-        content_header: panel.content_header,
-        heading_level: panel.heading_level ? panel.heading_level.parameterize : "level-2"
+        no_overlap: panel.no_overlap
       }
     end
 
-    ##		=Carousel (custom)
+    ## =Carousel (custom)
     ########################################
 
     if isPanelCarouselCustom
@@ -483,7 +497,7 @@ def panels(ctx, data)
       }
     end
 
-    ##		=Carousel (category)
+    ## =Carousel (category)
     ########################################
 
     if isPanelCarouselCategory
@@ -492,7 +506,7 @@ def panels(ctx, data)
       }.compact
     end
 
-    ##		=Chart
+    ## =Chart
     ########################################
 
     if isPanelChart
@@ -542,7 +556,7 @@ def panels(ctx, data)
       }
     end
 
-    ##		=Content
+    ## =Content
     ########################################
 
     if isPanelContent
@@ -560,7 +574,7 @@ def panels(ctx, data)
       }
     end
 
-    ##		=Feed
+    ## =Feed
     ########################################
 
     if isPanelFeed
@@ -574,17 +588,17 @@ def panels(ctx, data)
       }
     end
 
-    ##		=Icons
+    ## =Images
     ########################################
 
-    if isPanelIcons
-      panelIcons = {
-        show_descriptions: panel.show_descriptions,
-        icons: panel.icons.map{ |icon| media(icon) }
-      }
+    if isPanelImages
+      panelImages = {
+        images: panel.images.map{ |image| media(image) },
+        show_descriptions: panel.show_descriptions
+      }.compact
     end
 
-    ##		=Merge panels
+    ## =Merge panels
     ########################################
 
     panelShared.merge(
@@ -595,7 +609,7 @@ def panels(ctx, data)
       **panelContent,
       **panelFeed,
       **panelChart,
-      **panelIcons
+      **panelImages
     ).compact
   end
 end
@@ -616,7 +630,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.copyright = entry.copyright
     context.default_banner = media(entry.default_banner)
 
-    ##		=Newsletter
+    ## =Newsletter
     ########################################
 
     context.main_newsletter = {
@@ -625,24 +639,24 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
       call_to_action: (callsToAction(entry.main_newsletter) if entry.main_newsletter.call_to_action),
     }
 
-    ##		=Categories/sub-categories
+    ## =Categories/sub-categories
     ########################################
 
     context.site_config = entry.site_config
 
-    ##		=Redirects
+    ## =Redirects
     ########################################
 
     context.url_redirects = entry.redirects
 
-    ##		=Social
+    ## =Social
     ########################################
 
     context.twitter = entry.twitter
     context.linkedin = entry.linkedin
     context.facebook = entry.facebook
 
-    ##		=Checkout
+    ## =Checkout
     ########################################
 
     context.checkout_shipping = {
@@ -664,7 +678,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
       analytics: entry.meta_analytics
     }
 
-    ##		=Footer pages
+    ## =Footer pages
     ########################################
 
     context.footer_pages = entry.footer_pages.map do |page|
