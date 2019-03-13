@@ -80,8 +80,9 @@ picture {
 }
 
 hr {
-  border: 0;
   height: 1px;
+
+  border: 0;
   background-color: Get($colorGroups, white, 2);
 
   @extend %e-mgn-x-md;
@@ -128,7 +129,10 @@ ol {
     &::before {
       display: table-cell;
 
-      padding-right: 1rem;
+      width: 2rem;
+      padding-right: .5rem;
+
+      text-align: right;
 
       font-weight: bold;
 
@@ -269,8 +273,8 @@ li {
 
 .footnotes {
   [id] {
-    padding-top: 4rem;
     margin-top: -4rem;
+    padding-top: 4rem;
   }
 }
 
