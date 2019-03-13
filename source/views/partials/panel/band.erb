@@ -6,7 +6,7 @@ bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { g
 
 callsToAction = panelData[:calls_to_action]
 copy = panelData[:copy]
-imageSize = panelData[:image_size]
+imageSize = panelData[:image_size] ? panelData[:image_size] : "medium"
 isNoOverlap = panelData[:no_overlap]
 
 index = local_data[:index]
@@ -25,7 +25,8 @@ end
 
 title = panelData[:title]
 titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
-hasTitle = panelData[:show_title] != nil
+hasTitle = panelData[:show_title]
+headingLevel = panelData[:heading_level]
 %>
 
 <section
@@ -48,8 +49,11 @@ hasTitle = panelData[:show_title] != nil
 
     <div class="panel__content panel__content--narrow">
       <% if hasTitle %>
-        <h2 class="title-lg e-align-cen e-mgn-b-sm <%= titleColor %>"><%= title %></h2>
-
+        <% if headingLevel == "level-3" %>
+          <h3 class="title-lg e-align-cen e-mgn-b-sm <%= titleColor %>"><%= title %></h3>
+        <% else %>
+          <h2 class="title-lg e-align-cen e-mgn-b-sm <%= titleColor %>"><%= title %></h2>
+        <% end %>
       <% end; if copy %>
         <p class="strap-md e-align-cen e-mgn-b-sm"><%= panelData[:copy] %></p>
 
