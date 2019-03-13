@@ -2,6 +2,7 @@
 entryData = local_data[:entry_data]
 accent = "e-acc-#{ catColor(entryData[:category]) }-2-bottom" if entryData[:category]
 safeTitle = CGI.escape(entryData[:title])
+isThemePage = @entry[:TYPE] == "theme_page"
 %>
 
 <header class="banner JS-banner--full <%= accent if !entryData[:show_introduction] %>">
@@ -13,9 +14,13 @@ safeTitle = CGI.escape(entryData[:title])
     <div class="banner__content banner__content--lp">
 
       <% if !entryData[:index_page] %>
-        <span class="label-xxs label-tag e-acc-<%= catColor(entryData[:category]) %>-2 e-col-white-1">
-          <%= entryData[:meta_label] %>
-        </span>
+        <% if isThemePage %>
+          <span class="label-xxs label-tag e-acc-brand-green-2 e-col-white-1">Theme</span>
+        <% else %>
+          <span class="label-xxs label-tag e-acc-<%= catColor(entryData[:category]) %>-2 e-col-white-1">
+            <%= entryData[:meta_label] %>
+          </span>
+        <% end %>
       <% end %>
 
       <h1

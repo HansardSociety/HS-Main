@@ -1,5 +1,6 @@
 <%
 panelData = local_data[:entry_data]
+index = local_data[:index]
 
 bgc = panelData[:background_color]
 title = panelData[:title]
@@ -8,6 +9,7 @@ callsToAction = panelData[:calls_to_action]
 %>
 
 <section
+  id="<%= "panel-#{index}" if index %>"
   class="panel panel--header
         <%= colorProfile(:mono).include?(bgc) ?
             panelBgc(bgc) :

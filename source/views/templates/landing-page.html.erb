@@ -2,7 +2,7 @@
 
 <article
   id="<%= @entry[:category].upcase %>_PAGE"
-  class="e-bcg-white-1 print print--landing-page">
+  class="e-bgc-white-1 print print--landing-page">
 
   <% if @entry[:banner_image] %>
     <%= partial "views/partials/banner/landing-page",
@@ -55,7 +55,8 @@
         <%= partial "views/partials/panel/carousel",
           locals: { local_data: {
             entry_data: panel,
-            data_type: :custom }} %>
+            data_type: :custom,
+            index: index }} %>
       <% end %>
 
       <% if panel[:TYPE] == "panel_carousel_category" %>

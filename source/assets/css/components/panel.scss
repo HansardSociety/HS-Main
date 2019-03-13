@@ -48,9 +48,12 @@
 
 .panel--header {
   &::after {
-    content: "";
-    width: 5rem;
     bottom: 0;
+
+    width: 5rem;
+
+    content: "";
+
     @extend %e-absolute-center-x;
     @extend %e-acc-orange-1-bottom;
   }
@@ -71,7 +74,6 @@
 ========================================================================== */
 
 .panel__content {
-
   // @extend %e-mgn-auto-x;
   @extend %e-position-relative; // need pos to place over absolute bg image
 }
@@ -172,11 +174,12 @@
 /* =Page specific
 ========================================================================== */
 
-// Create anel flow for long reads
+// Create panel flow for long reads
 #BLOG_PAGE {
   .panel.e-bgc-white-1 + .panel.e-bgc-white-1 {
-    background-color: transparent;
     padding-top: 0;
+
+    background-color: transparent;
     // @extend %e-pad-x-md;
   }
 }
