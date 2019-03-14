@@ -374,11 +374,11 @@ end
 
 def textBox(data)
   {
-    title: textBox.title,
-    show_title: textBox.show_title,
+    title: data.title,
+    show_title: data.show_title,
     copy: data.copy,
-    image: (media(textBox.image) if textBox.image),
-    image_border: textBox.image_border,
+    image: (media(data.image) if data.image),
+    image_border: data.image_border,
     calls_to_action: callsToAction(data)
   }.compact
 end
@@ -418,7 +418,7 @@ def panels(ctx, data)
       background_color: panel.background_color.parameterize,
       calls_to_action: (callsToAction(panel) if !isPanelChart && !isPanelTextBoxes),
       title: panel.title,
-      heading_level: (panel.heading_level ? panel.heading_level.parameterize : "level-2")
+      heading_level: ((panel.heading_level ? panel.heading_level.parameterize : "level-2") if !isPanelHeader)
     }.compact
 
     if isPanelAccordians || isPanelBand || isPanelContent
@@ -863,6 +863,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       context.calls_to_action = callsToAction(entry)
     end
 
+    # Panels
     if entry.panels
       panels(context, entry)
     end

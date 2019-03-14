@@ -9,11 +9,6 @@ bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { g
 titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2" }"
 headingLevel = panelData[:heading_level]
 
-imageSize = panelData[:image_size]
-isSmallImage = imageSize == "small"
-isMediumImage = imageSize == "medium"
-isLargeImage = imageSize == "large"
-
 copySize = panelData[:copy_size]
 isCopyLg = copySize == "large"
 isCopyXl = copySize == "extra-large"
@@ -24,6 +19,11 @@ tweet = panelData[:tweet]
 callsToAction = panelData[:calls_to_action]
 
 index = local_data[:index]
+
+imgURL = ""
+if panelData[:image]
+  imgURL = "#{ bannerImage[:url] }?fit=fill&w=300&h=300&f=#{ bannerImage[:focus] }&q=50&fl=progressive"
+end
 %>
 <section class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <span
@@ -45,14 +45,15 @@ index = local_data[:index]
             </div>
           <% end %>
           <% if panelData[:image] %>
-            <div class="grid__cell
-              grid__cell--md-<%= isLargeImage ? "12" : (isMediumImage ? "8" : "6") %>
-              grid__cell--md-above-sm-<%= isLargeImage ? "8" : (isMediumImage ? "4" : "3") %>
-              grid__cell--md-above-md-<%= isLargeImage ? "5" : (isMediumImage ? "3" : "2") %>">
-              <%= partial "views/partials/image",
-                locals: { local_data: {
-                  image_data: panelData[:image],
-                  border: panelData[:image_border] }} %>
+            <%# =TODO :: Set cell sizing at breakpoints %>
+            <div class="grid__cell">
+              <figure>
+                <img
+                  class="b-lazy"
+                  src=""
+                  data-src="<% panelData[:image][:url] %>"
+                  alt="<% panelData[:image][:alt] %>">
+              </figure>
             </div>
           <% end %>
         <% end %>

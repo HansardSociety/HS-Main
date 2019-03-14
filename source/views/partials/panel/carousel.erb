@@ -1,5 +1,5 @@
 <%
-entryData = local_data[:entry_data]
+panelData = local_data[:entry_data]
 flow = local_data[:flow]
 
 # Locals
@@ -15,11 +15,11 @@ context = local_data[:context]
 isLatestContext = context == :latest
 
 # BGC
-bgc = entryData[:background_color]
-bgcClass = isLatestContext ? "e-bg-shapes" : panelBgc(entryData[:background_color])
+bgc = panelData[:background_color]
+bgcClass = isLatestContext ? "e-bg-shapes" : panelBgc(panelData[:background_color])
 isLightBgc = colorProfile(:light).include?(bgc)
 
-title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : entryData[:title])
+title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : panelData[:title])
 headingLevel = panelData[:heading_level]
 
 hasLink = local_data[:link]
@@ -57,7 +57,7 @@ hasLink = local_data[:link]
           ***********************************************-->
 
           <% if dataType == :related %>
-            <% relatedContent(entryData, { blog_count: blogCount }) do |page| %>
+            <% relatedContent(panelData, { blog_count: blogCount }) do |page| %>
               <div class="carousel__item carousel__item--card">
                 <%= partial "views/partials/main-card",
                   locals: { local_data: {
@@ -107,7 +107,7 @@ hasLink = local_data[:link]
           ***********************************************-->
 
           <% if dataType == :latest_theme %>
-            <% latestThemed = latestContent().select{ |page| page[:theme] && page[:theme].any?{ |theme| theme.include?(entryData[:theme]) }}
+            <% latestThemed = latestContent().select{ |page| page[:theme] && page[:theme].any?{ |theme| theme.include?(panelData[:theme]) }}
             latestThemed[0..4].map do |page| %>
               <div class="carousel__item carousel__item--card">
                 <%= partial "views/partials/main-card",
@@ -122,7 +122,7 @@ hasLink = local_data[:link]
           ***********************************************-->
 
           <% if dataType == :custom %>
-            <% entryData[:carousel].map do |item| %>
+            <% panelData[:carousel].map do |item| %>
 
               <% if item[:TYPE] == "people" %>
                 <div class="carousel__item carousel__item--card">

@@ -123,8 +123,8 @@
             flow: createFlowPanel }} %>
       <% end %>
 
-      <% if panel[:TYPE] == "panel_icons" %>
-        <%= partial "views/partials/panel/images",
+      <% if panel[:TYPE] == "panel_text_boxes" %>
+        <%= partial "views/partials/panel/text_boxes",
           locals: { local_data: {
             entry_data: panel,
             index: index,
