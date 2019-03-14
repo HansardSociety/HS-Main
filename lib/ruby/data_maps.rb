@@ -422,7 +422,7 @@ def panels(ctx, data)
     if isPanelBand
       panelBand = {
         no_overlap: panel.no_overlap,
-        content_header: panel.content_header,
+        # content_header: panel.content_header,
         heading_level: panel.heading_level ? panel.heading_level.parameterize : "level-2"
       }
     end
