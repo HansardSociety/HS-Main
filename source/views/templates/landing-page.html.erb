@@ -102,13 +102,6 @@
             index: index }} %>
       <% end %>
 
-      <% if panel[:TYPE] == "panel_icons" %>
-        <%= partial "views/partials/panel/icons",
-          locals: { local_data: {
-            entry_data: panel,
-            index: index }} %>
-
-      <% end %>
     <% end %>
   <% end %>
 

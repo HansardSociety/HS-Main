@@ -48,7 +48,7 @@ index = local_data[:index]
               <%= partial "views/partials/image",
                 locals: { local_data: {
                   image_data: panelData[:image],
-                  invert: panelData[:image_invert],
+                  invert: false,
                   border: panelData[:image_border] }} %>
             </div>
           <% end %>

@@ -360,7 +360,6 @@ def panels(ctx, data)
     isPanelFeed = panel.content_type.id == "panel_feed"
     isPanelChart = panel.content_type.id == "panel_chart"
     isPanelHeader = panel.content_type.id == "panel_header"
-    isPanelIcons = panel.content_type.id == "panel_icons"
 
     panelAccordians = {}
     panelBand = {}
@@ -369,7 +368,6 @@ def panels(ctx, data)
     panelContent = {}
     panelFeed = {}
     panelChart = {}
-    panelIcons = {}
 
     ##		=Core
     ########################################
@@ -381,11 +379,10 @@ def panels(ctx, data)
       background_color: (panel.background_color.parameterize if !isPanelAccordians && !isPanelChart),
       calls_to_action: (callsToAction(panel) if !isPanelChart),
       copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
-      image_invert: (panel.image_invert if isPanelContent || isPanelIcons),
       title: panel.title
     }.compact
 
-    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed || isPanelIcons
+    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed
       panelShared.merge!({
         show_title: panel.show_title
       }.compact)
@@ -545,16 +542,6 @@ def panels(ctx, data)
       }
     end
 
-    ##		=Icons
-    ########################################
-
-    if isPanelIcons
-      panelIcons = {
-        show_descriptions: panel.show_descriptions,
-        icons: panel.icons.map{ |icon| media(icon) }
-      }
-    end
-
     ##		=Merge panels
     ########################################
 
@@ -565,8 +552,7 @@ def panels(ctx, data)
       **panelCarouselCustom,
       **panelContent,
       **panelFeed,
-      **panelChart,
-      **panelIcons
+      **panelChart
     ).compact
   end
 end
