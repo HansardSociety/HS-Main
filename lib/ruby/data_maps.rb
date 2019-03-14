@@ -417,10 +417,11 @@ def panels(ctx, data)
       TYPE: panel.content_type.id,
       background_color: panel.background_color.parameterize,
       calls_to_action: (callsToAction(panel) if !isPanelChart && !isPanelTextBoxes),
-      title: panel.title
+      title: panel.title,
+      heading_level: (panel.heading_level ? panel.heading_level.parameterize : "level-2")
     }.compact
 
-    if isPanelBand || isPanelAccordians || isPanelContent
+    if isPanelAccordians || isPanelBand || isPanelContent
       panelShared.merge!({
         copy: panel.copy
       }.compact)
@@ -428,22 +429,13 @@ def panels(ctx, data)
 
     if isPanelBand || isPanelContent
       panelShared.merge!({
-        image: (media(panel.image) if defined?(panel.image) && panel.image != nil),
-        image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil),
-        heading_level: (defined?(panel.heading_level) && panel.heading_level != nil ? panel.heading_level.parameterize : "level-2"),
+        image: (media(panel.image) if panel.image),
       }.compact)
     end
 
-    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed || isPanelTextBoxes
+    if isPanelBand || isPanelChart || isPanelContent || isPanelFeed || isPanelTextBoxes
       panelShared.merge!({
         show_title: panel.show_title
-      }.compact)
-    end
-
-    if isPanelTextBoxes
-      panelShared.merge!({
-        container_size: panel.container_size,
-        text_boxes: panel.text_boxes.map{|tb| textBox(tb)}
       }.compact)
     end
 
@@ -469,6 +461,7 @@ def panels(ctx, data)
 
     if isPanelBand
       panelBand = {
+        image_size: (panel.image_size.parameterize if panel.image_size),
         no_overlap: panel.no_overlap
       }
     end
@@ -601,14 +594,14 @@ def panels(ctx, data)
       }
     end
 
-    ## =Images
+    ## =Text boxes
     ########################################
 
-    if isPanelImages
-      panelImages = {
-        images: panel.images.map{ |image| media(image) },
-        show_descriptions: panel.show_descriptions
-      }.compact
+    if isPanelTextBoxes
+      panelShared.merge!({
+        container_size: panel.container_size,
+        text_boxes: panel.text_boxes.map{|tb| textBox(tb)}
+      }.compact)
     end
 
     ## =Merge panels
@@ -622,7 +615,7 @@ def panels(ctx, data)
       **panelContent,
       **panelFeed,
       **panelChart,
-      **panelImages
+      **panelTextBoxes
     ).compact
   end
 end

@@ -15,6 +15,7 @@ entryData = local_data[:entry_data]
 
 if isThemePage || isLandingPage
   title = entryData[:title]
+  headingLevel = panelData[:heading_level]
   bgc = entryData[:background_color] ? panelBgc(entryData[:background_color]) : "e-bgc-white-1"
 
   feedData = entryData[:feed]
@@ -73,7 +74,11 @@ end
   <div class="panel__inner">
     <% if title %>
       <div class="panel__content panel__content--narrow e-align-cen e-mgn-b-lg">
-        <h2 class="title-lg e-col-brand-green-2"><%= title %></h2>
+        <% if headingLevel == "level-3" %>
+          <h3 class="title-lg e-col-brand-green-2"><%= title %></h3>
+        <% else %>
+          <h2 class="title-lg e-col-brand-green-2"><%= title %></h2>
+        <% end %>
         <p class="e-col-grey-3">By date (descending)</p>
       </div>
     <% end %>

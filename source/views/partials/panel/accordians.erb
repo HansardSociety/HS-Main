@@ -6,6 +6,7 @@ flow = local_data[:flow]
 bgc = panelData[:background_color]
 bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
 titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
+headingLevel = panelData[:heading_level]
 %>
 
 <div
@@ -13,7 +14,11 @@ titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-
   class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow e-align-cen">
-      <h3 class="title-lg e-mgn-b-md <%= titleColor %>"><%= panelData[:title] %></h3>
+      <% if headingLevel == "level-3" %>
+        <h3 class="title-lg e-mgn-b-md <%= titleColor %>"><%= panelData[:title] %></h3>
+      <% else %>
+        <h2 class="title-lg e-mgn-b-md <%= titleColor %>"><%= panelData[:title] %></h2>
+      <% end %>
       <% if panelData.copy %>
         <%= markdown(panelData[:copy], 'byline') %>
       <% end %>
