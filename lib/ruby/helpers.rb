@@ -148,7 +148,7 @@ module CustomHelpers
   end
 
   # Panel BGCs
-  def panelBgc(bgc, opts = {})
+  def contentBgc(bgc, opts = {})
     defaults = { gradient: false }
     opts = defaults.merge(opts)
 
@@ -162,7 +162,7 @@ module CustomHelpers
 
     colWhite = "e-col-white-1"
 
-    bgcClass = isGradient ? "e-bg-grad-#{ bgc }" : "e-bgc-#{ bgc }-2"
+    bgcClass = isGradient ? "e-bg-grad-#{ bgc }" : "e-bgc-#{ bgc }-1"
 
     "#{ colWhite if isDarkBgc } #{ bgcClass }"
 

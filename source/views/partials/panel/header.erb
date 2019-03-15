@@ -13,8 +13,8 @@ callsToAction = panelData[:calls_to_action]
   id="<%= "panel-#{index}" if index %>"
   class="panel <%= "panel--flow" if flow %>
     <%= colorProfile(:mono).include?(bgc) ?
-        panelBgc(bgc) :
-        panelBgc(bgc, { gradient: true }) %>">
+        contentBgc(bgc) :
+        contentBgc(bgc, { gradient: true }) %>">
 
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">

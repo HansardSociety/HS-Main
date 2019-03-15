@@ -376,7 +376,9 @@ def textBox(data)
   {
     title: data.title,
     show_title: data.show_title,
+    background_color: data.background_color.parameterize,
     copy: data.copy,
+    copy_size: (data.copy_size ? data.copy_size.parameterize : "normal"),
     image: (media(data.image) if data.image),
     image_border: data.image_border,
     calls_to_action: callsToAction(data)
@@ -600,7 +602,7 @@ def panels(ctx, data)
 
     if isPanelTextBoxes
       panelShared.merge!({
-        container_size: panel.container_size,
+        container_size: panel.container_size.parameterize,
         text_boxes: panel.text_boxes.map{|tb| textBox(tb)}
       }.compact)
     end

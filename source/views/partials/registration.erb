@@ -1,8 +1,8 @@
 <%
-@registration_data = local_data[:registration_data]
-@embed_code = @registration_data[:embed_code]
+registrationData = local_data[:registration_data]
+embedCode = registrationData[:embed_code]
 %>
 
 <div class="embed-code">
-  <%= markdown(@embed_code) %>
+  <%= markdown(embedCode) %>
 </div>

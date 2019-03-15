@@ -16,7 +16,7 @@ panelData = local_data[:entry_data]
 if isThemePage || isLandingPage
   title = panelData[:title]
   headingLevel = panelData[:heading_level]
-  bgc = panelData[:background_color] ? panelBgc(panelData[:background_color]) : "e-bgc-white-1"
+  bgc = panelData[:background_color] ? contentBgc(panelData[:background_color]) : "e-bgc-white-1"
 
   feedData = panelData[:feed]
   feedCategory = feedData[:category]
