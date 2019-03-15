@@ -1,0 +1,63 @@
+<%
+panelData = local_data[:entry_data]
+flow = local_data[:flow]
+index = local_data[:index]
+
+bgc = panelData[:background_color]
+bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc, { gradient: true })
+
+title = panelData[:title]
+titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
+hasTitle = panelData[:show_title]
+headingLevel = panelData[:heading_level]
+
+copy = panelData[:copy]
+
+containerSize = panelData[:container_size]
+fullBleed = false
+cellClassBaseSm = "grid__cell--sm-above"
+cellClassBaseMd = "grid__cell--md-above"
+if containerSize == "small"
+  colSpanResClassSm = "#{cellClassBaseSm}-sm-6"
+  colSpanResClassMd = "#{cellClassBaseMd}-md-3"
+elsif containerSize == "medium"
+  colSpanResClassSm = "#{cellClassBaseSm}-md-6"
+  colSpanResClassMd = "#{cellClassBaseMd}-lg-4"
+elsif containerSize == "large"
+  colSpanResClassSm = "#{cellClassBaseSm}-lg-12"
+  colSpanResClassMd = "#{cellClassBaseMd}-lg-6"
+elsif containerSize == "full-bleed"
+  colSpanResClassSm = "#{cellClassBaseSm}-xl-12"
+  colSpanResClassMd = "#{cellClassBaseMd}-xl-12"
+end
+
+textBoxes = panelData[:text_boxes]
+%>
+
+<section
+  id="panel-<%= index %>"
+  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
+
+  <div class="panel__inner">
+    <div class="panel__content panel__content--full">
+      <% if hasTitle %>
+        <% if headingLevel == "level-3" %>
+          <h3 class="title-lg e-align-cen  e-mgn-b-md <%= titleColor %>"><%= title %></h3>
+        <% else %>
+          <h2 class="title-lg e-align-cen  e-mgn-b-md <%= titleColor %>"><%= title %></h2>
+        <% end %>
+      <% end %>
+      <div class="grid grid--sm grid--center">
+        <% textBoxes.each do |textBoxData| %>
+          <div class="grid__cell grid__cell--sm-12 <%= colSpanResClassSm %> <%= colSpanResClassMd %>">
+            <%= partial "views/partials/text-box",
+              locals: {
+                local_data: textBoxData,
+                fullBleed: fullBleed
+              } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

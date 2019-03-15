@@ -1,0 +1,36 @@
+<section
+  id="panel-themes"
+  class="panel e-bgc-white-2">
+  <div class="panel__inner">
+    <div class="panel__content panel__content--wide">
+      <h2 class="title-lg e-mgn-b-md e-align-cen e-col-brand-green-1">Themes</h2>
+      <div class="grid grid--sm grid--center">
+        <% data.hs.theme_page.sort_by{|id, theme| theme[:title] }.each do |id, theme|
+          bannerImage = theme[:banner_image] ? theme[:banner_image] : siteData(:default_banner)
+          bannerImageFocus = theme[:banner_image] ? theme[:banner_image][:focus] : "center" %>
+
+          <div class="grid__cell grid__cell--sm-6 grid__cell--sm-above-xs-5 grid__cell--sm-above-sm-4 grid__cell--sm-above-md-3">
+            <figure class="image image--link">
+              <div class="image__wrapper image__wrapper--circle image__wrapper--light">
+                <img
+                  class="image__img image__img--filter b-lazy"
+                  src="<%= "#{assetsDir}/images/placeholder__100x100.svg" %>"
+                  data-src="<%= "#{bannerImage[:url]}?f=#{bannerImageFocus}&fit=fill&w=400&h=400&q=80"%>"
+                  alt="<%= bannerImage[:alt] %>">
+              </div>
+              <figcaption class="label label-xxs e-mgn-t-xs e-col-brand-green-1 e-align-cen">
+                <%= theme[:title] %>
+                <a
+                  class="cover-link"
+                  href="<%= internalURL(theme[:slug]) %>"
+                  title="<%= theme[:title] + " | " + siteData(:site_title) %>">
+                  <span class="e-hidden">Go to: <%= theme[:title] %></span>
+                </a>
+              <figcaption>
+            </figure>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

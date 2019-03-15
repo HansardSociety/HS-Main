@@ -1,8 +1,19 @@
 .copy {
 @extend %e-position-relative;
 
+// Ensure margin on first text elem in expand
+&.expand {
+  > p, > h1, > h2, > h3, > h4, > h5, > h6, ul {
+    &:first-child {
+      @extend %e-mgn-t-sm;
+    }
+  }
+}
+
 > p, > h1, > h2, > h3, > h4, > h5, > h6, ul {
-  @extend %e-mgn-b-sm;
+  &:not(:last-child) {
+    @extend %e-mgn-b-sm;
+  }
 }
 
 > h1, > h2, > h3, > h4, > h5, > h6 {
@@ -80,8 +91,9 @@ picture {
 }
 
 hr {
-  border: 0;
   height: 1px;
+
+  border: 0;
   background-color: Get($colorGroups, white, 2);
 
   @extend %e-mgn-x-md;
@@ -128,7 +140,10 @@ ol {
     &::before {
       display: table-cell;
 
-      padding-right: 1rem;
+      width: 2rem;
+      padding-right: .5rem;
+
+      text-align: right;
 
       font-weight: bold;
 
@@ -269,8 +284,8 @@ li {
 
 .footnotes {
   [id] {
-    padding-top: 4rem;
     margin-top: -4rem;
+    padding-top: 4rem;
   }
 }
 
