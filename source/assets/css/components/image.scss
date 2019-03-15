@@ -44,26 +44,6 @@
   @extend %e-box-shad-z3;
 }
 
-.image__wrapper--invert {
-  opacity: .5;
-
-  @extend %e-bgc-white-1;
-  @extend %e-pad-xs;
-}
-
-@supports (filter: invert(1)) {
-
-  .image__wrapper--invert {
-    padding: 0;
-
-    background-color: transparent;
-
-    img {
-      filter: brightness(0) invert(1);
-    }
-  }
-}
-
 .image__img {
   max-width: 100%;
   max-height: inherit;
@@ -75,11 +55,4 @@
 
 .image__img--filter {
   @extend %e-img-filter;
-}
-
-.image__caption {
-  @extend %e-align-cen;
-  @extend %e-mgn-t-xs;
-  @extend %e-pad-xs;
-  @extend %e-width-full;
 }

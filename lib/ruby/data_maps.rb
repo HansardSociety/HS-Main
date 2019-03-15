@@ -369,6 +369,23 @@ def callsToAction(data)
 end
 
 ###########################################################################
+## =Text box
+###########################################################################
+
+def textBox(data)
+  {
+    title: data.title,
+    show_title: data.show_title,
+    background_color: data.background_color.parameterize,
+    copy: data.copy,
+    copy_size: (data.copy_size ? data.copy_size.parameterize : "normal"),
+    image: (media(data.image) if data.image),
+    image_border: data.image_border,
+    calls_to_action: callsToAction(data)
+  }.compact
+end
+
+###########################################################################
 ## =Panels
 ###########################################################################
 
@@ -382,7 +399,7 @@ def panels(ctx, data)
     isPanelContent = panel.content_type.id == "panel_content"
     isPanelFeed = panel.content_type.id == "panel_feed"
     isPanelHeader = panel.content_type.id == "panel_header"
-    isPanelImages = panel.content_type.id == "panel_icons"
+    isPanelTextBoxes = panel.content_type.id == "panel_text_boxes"
 
     panelAccordians = {}
     panelBand = {}
@@ -391,7 +408,7 @@ def panels(ctx, data)
     panelChart = {}
     panelContent = {}
     panelFeed = {}
-    panelImages = {}
+    panelTextBoxes = {}
 
     ## =Core
     ########################################
@@ -400,33 +417,27 @@ def panels(ctx, data)
     panelShared = {
       ID: panel.sys[:id],
       TYPE: panel.content_type.id,
-      background_color: (panel.background_color.parameterize if !isPanelAccordians && !isPanelChart),
-      calls_to_action: (callsToAction(panel) if !isPanelChart),
-      copy: (panel.copy if isPanelBand || isPanelContent || isPanelAccordians),
-      title: panel.title
+      background_color: panel.background_color.parameterize,
+      calls_to_action: (callsToAction(panel) if !isPanelChart && !isPanelTextBoxes),
+      title: panel.title,
+      heading_level: ((panel.heading_level ? panel.heading_level.parameterize : "level-2") if !isPanelHeader)
     }.compact
 
-    if isPanelBand || isPanelContent || isPanelChart || isPanelFeed || isPanelImages
+    if isPanelAccordians || isPanelBand || isPanelContent
+      panelShared.merge!({
+        copy: panel.copy
+      }.compact)
+    end
+
+    if isPanelBand || isPanelContent
+      panelShared.merge!({
+        image: (media(panel.image) if panel.image),
+      }.compact)
+    end
+
+    if isPanelBand || isPanelChart || isPanelContent || isPanelFeed || isPanelTextBoxes
       panelShared.merge!({
         show_title: panel.show_title
-      }.compact)
-    end
-
-    if isPanelContent || isPanelBand || isPanelImages
-      panelShared.merge!({
-        image_size: (panel.image_size.parameterize if defined?(panel.image_size) && panel.image_size != nil)
-      }.compact)
-    end
-
-    if isPanelContent || isPanelBand
-      panelShared.merge!({
-        image: (media(panel.image) if defined?(panel.image) && panel.image != nil),
-      }.compact)
-    end
-
-    if isPanelContent || isPanelBand || isPanelImages
-      panelShared.merge!({
-        heading_level: (defined?(panel.heading_level) && panel.heading_level != nil ? panel.heading_level.parameterize : "level-2"),
       }.compact)
     end
 
@@ -452,6 +463,7 @@ def panels(ctx, data)
 
     if isPanelBand
       panelBand = {
+        image_size: (panel.image_size.parameterize if panel.image_size),
         no_overlap: panel.no_overlap
       }
     end
@@ -514,7 +526,6 @@ def panels(ctx, data)
         chartPanelData = {
           ID: data.sys[:id],
           TYPE: data.content_type.id,
-          title: data.title,
         }
 
         chartData = {}
@@ -522,6 +533,7 @@ def panels(ctx, data)
 
         if data.content_type.id == "chart"
           chartData = {
+            title: data.title,
             caption: data.caption,
             show_header: data.show_header,
             chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
@@ -536,11 +548,7 @@ def panels(ctx, data)
         end
 
         if data.content_type.id == "text_box"
-          textBoxData = {
-            copy: data.copy,
-            show_title: data.show_title,
-            calls_to_action: callsToAction(data)
-          }
+          textBoxData = textBox(data)
         end
 
         chartPanelData.merge(
@@ -567,6 +575,7 @@ def panels(ctx, data)
           content: panel.show_more
         }.compact if panel.show_more),
         image_border: panel.image_border,
+        image_shrink: panel.image_shrink,
         tweet: ({
           text: URI::encode(panel.copy.split("\n\n", 2)[0].slice(0..198) + (panel.copy.length > 198 ? "…" : "")),
           media: panel.tweet_media
@@ -588,14 +597,14 @@ def panels(ctx, data)
       }
     end
 
-    ## =Images
+    ## =Text boxes
     ########################################
 
-    if isPanelImages
-      panelImages = {
-        images: panel.images.map{ |image| media(image) },
-        show_descriptions: panel.show_descriptions
-      }.compact
+    if isPanelTextBoxes
+      panelShared.merge!({
+        container_size: panel.container_size.parameterize,
+        text_boxes: panel.text_boxes.map{|tb| textBox(tb)}
+      }.compact)
     end
 
     ## =Merge panels
@@ -609,7 +618,7 @@ def panels(ctx, data)
       **panelContent,
       **panelFeed,
       **panelChart,
-      **panelImages
+      **panelTextBoxes
     ).compact
   end
 end
@@ -857,6 +866,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
       context.calls_to_action = callsToAction(entry)
     end
 
+    # Panels
     if entry.panels
       panels(context, entry)
     end

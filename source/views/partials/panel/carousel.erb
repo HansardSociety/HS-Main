@@ -1,5 +1,6 @@
 <%
-entryData = local_data[:entry_data]
+panelData = local_data[:entry_data]
+flow = local_data[:flow]
 
 # Locals
 blogCount = local_data[:blog_count] ? local_data[:blog_count] : 2
@@ -14,27 +15,38 @@ context = local_data[:context]
 isLatestContext = context == :latest
 
 # BGC
-bgc = entryData[:background_color]
-bgcClass = isLatestContext ? "e-bg-shapes" : panelBgc(entryData[:background_color])
+bgc = panelData[:background_color]
+bgcClass = isLatestContext ? "e-bg-shapes" : contentBgc(panelData[:background_color])
 isLightBgc = colorProfile(:light).include?(bgc)
 
-title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : entryData[:title])
+title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : panelData[:title])
+headingLevel = panelData[:heading_level]
 
 hasLink = local_data[:link]
 %>
 
 <section
   id="panel-<%= isLatestContext ? "latest" : index %>"
-  class="panel <%= bgcClass %>">
+  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">
-      <h2 class="title-lg e-align-cen e-mgn-b-md <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>">
-        <% if hasLink %>
-          <a href="/<%= categories %>" class="link"><%= title %>&nbsp;&rarr;</a>
-        <% else %>
-          <%= title %>
-        <% end %>
-      </h2>
+      <% if headingLevel == "level-3" %>
+        <h3 class="title-lg e-align-cen e-mgn-b-md <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>">
+          <% if hasLink %>
+            <a href="/<%= categories %>" class="link"><%= title %>&nbsp;&rarr;</a>
+          <% else %>
+            <%= title %>
+          <% end %>
+        </h3>
+      <% else %>
+        <h2 class="title-lg e-align-cen e-mgn-b-md <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>">
+          <% if hasLink %>
+            <a href="/<%= categories %>" class="link"><%= title %>&nbsp;&rarr;</a>
+          <% else %>
+            <%= title %>
+          <% end %>
+        </h2>
+      <% end %>
     </div>
     <div class="panel__content panel__content--full">
       <div class="carousel carousel--cards">
@@ -45,7 +57,7 @@ hasLink = local_data[:link]
           ***********************************************-->
 
           <% if dataType == :related %>
-            <% relatedContent(entryData, { blog_count: blogCount }) do |page| %>
+            <% relatedContent(panelData, { blog_count: blogCount }) do |page| %>
               <div class="carousel__item carousel__item--card">
                 <%= partial "views/partials/main-card",
                   locals: { local_data: {
@@ -95,7 +107,7 @@ hasLink = local_data[:link]
           ***********************************************-->
 
           <% if dataType == :latest_theme %>
-            <% latestThemed = latestContent().select{ |page| page[:theme] && page[:theme].any?{ |theme| theme.include?(entryData[:theme]) }}
+            <% latestThemed = latestContent().select{ |page| page[:theme] && page[:theme].any?{ |theme| theme.include?(panelData[:theme]) }}
             latestThemed[0..4].map do |page| %>
               <div class="carousel__item carousel__item--card">
                 <%= partial "views/partials/main-card",
@@ -110,7 +122,7 @@ hasLink = local_data[:link]
           ***********************************************-->
 
           <% if dataType == :custom %>
-            <% entryData[:carousel].map do |item| %>
+            <% panelData[:carousel].map do |item| %>
 
               <% if item[:TYPE] == "people" %>
                 <div class="carousel__item carousel__item--card">

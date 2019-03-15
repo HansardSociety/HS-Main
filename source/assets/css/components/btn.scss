@@ -35,11 +35,11 @@
 .btn--more {}
 
 .btn--primary {
-  @extend %e-bgc-orange-2;
+  @extend %e-bgc-orange-1;
   @extend %e-col-white-1;
 
   &:active {
-    @extend %e-bgc-orange-3;
+    @extend %e-bgc-orange-2;
   }
 
   @include above(sm) {

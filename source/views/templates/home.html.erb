@@ -18,14 +18,7 @@
       data_type: :latest,
       title: "Latest" }} %>
 
-  <%= partial "views/partials/panel/images",
-    locals: { local_data: {
-      entry_data: {
-        title: "Themes",
-        background_color: "light-grey",
-        show_title: true,
-        icons: :pages
-    }}} %>
+  <%= partial "views/partials/panel/theme-cards" %>
 
   <%# Custom panels %>
   <% if @entry[:panels]

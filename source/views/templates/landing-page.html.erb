@@ -2,7 +2,7 @@
 
 <article
   id="<%= @entry[:category].upcase %>_PAGE"
-  class="e-bcg-white-1 print print--landing-page">
+  class="e-bgc-white-1 print print--landing-page">
 
   <% if @entry[:banner_image] %>
     <%= partial "views/partials/banner/landing-page",
@@ -36,26 +36,38 @@
   <%# Custom panels %>
   <% if @entry[:panels]
     @entry[:panels].each_with_index do |panel, index| %>
+      <% # Create flow class
+        panelBGC = panel[:background_color]
+        prevPanelBGC = @entry[:panels][index - 1][:background_color]
+        createFlowPanel = false
+        if panelBGC == prevPanelBGC && index != 0
+          createFlowPanel = true
+        end
+      %>
 
       <% if panel[:TYPE] == "panel_accordians" %>
         <%= partial "views/partials/panel/accordians",
           locals: { local_data: {
             entry_data: panel,
-            index: index }} %>
+            index: index,
+            flow: createFlowPanel }} %>
       <% end %>
 
       <% if panel[:TYPE] == "panel_band" %>
         <%= partial "views/partials/panel/band",
           locals: { local_data: {
             entry_data: panel,
-            index: index }} %>
+            index: index,
+            flow: createFlowPanel }} %>
       <% end %>
 
       <% if panel[:TYPE] == "panel_carousel" %>
         <%= partial "views/partials/panel/carousel",
           locals: { local_data: {
             entry_data: panel,
-            data_type: :custom }} %>
+            data_type: :custom,
+            index: index,
+            flow: createFlowPanel }} %>
       <% end %>
 
       <% if panel[:TYPE] == "panel_carousel_category" %>
@@ -64,14 +76,16 @@
             entry_data: panel,
             data_type: :latest_category,
             categories: panel[:category],
-            index: index }} %>
+            index: index,
+            flow: createFlowPanel }} %>
       <% end %>
 
       <% if panel[:TYPE] == "panel_content" %>
         <%= partial "views/partials/panel/content",
           locals: { local_data: {
             entry_data: panel,
-            index: index }} %>
+            index: index,
+            flow: createFlowPanel }} %>
       <% end %>
 
       <%# Publications and sub-cats pages %>
@@ -89,28 +103,32 @@
         <%= partial "views/partials/panel/feed",
           locals: { local_data: {
             entry_data: panel,
-            index: index }} %>
+            index: index,
+            flow: createFlowPanel }} %>
       <% end %>
 
       <% if panel[:TYPE] == "panel_chart" %>
         <%= partial "views/partials/panel/chart",
           locals: { local_data: {
             entry_data: panel,
-            index: index }} %>
+            index: index,
+            flow: createFlowPanel }} %>
       <% end %>
 
       <% if panel[:TYPE] == "panel_header" %>
         <%= partial "views/partials/panel/header",
           locals: { local_data: {
             entry_data: panel,
-            index: index }} %>
+            index: index,
+            flow: createFlowPanel }} %>
       <% end %>
 
-      <% if panel[:TYPE] == "panel_icons" %>
-        <%= partial "views/partials/panel/images",
+      <% if panel[:TYPE] == "panel_text_boxes" %>
+        <%= partial "views/partials/panel/text-boxes",
           locals: { local_data: {
             entry_data: panel,
-            index: index }} %>
+            index: index,
+            flow: createFlowPanel }} %>
       <% end %>
     <% end %>
   <% end %>

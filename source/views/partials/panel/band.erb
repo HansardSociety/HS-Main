@@ -1,13 +1,19 @@
 <%
 panelData = local_data[:entry_data]
+flow = local_data[:flow]
 
 bgc = panelData[:background_color]
-bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { gradient: true })
+bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc, { gradient: true })
 
 callsToAction = panelData[:calls_to_action]
 copy = panelData[:copy]
 imageSize = panelData[:image_size] ? panelData[:image_size] : "medium"
 isNoOverlap = panelData[:no_overlap]
+
+title = panelData[:title]
+titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
+hasTitle = panelData[:show_title]
+headingLevel = panelData[:heading_level]
 
 index = local_data[:index]
 
@@ -22,16 +28,11 @@ elsif imageSize == "full-bleed"
 else
   cfulImageWidth = "1000"
 end
-
-title = panelData[:title]
-titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
-hasTitle = panelData[:show_title]
-headingLevel = panelData[:heading_level]
 %>
 
-<section
+<aside
   id="panel-<%= index %>"
-  class="panel <%= bgcClass %>">
+  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
 
   <div class="panel__inner <%= "panel__inner--bg-img" if panelData[:image] %>">
     <% if panelData[:image] %>
@@ -47,7 +48,7 @@ headingLevel = panelData[:heading_level]
       </div>
     <% end %>
 
-    <div class="panel__content panel__content--narrow">
+    <div class="panel__content panel__content--medium">
       <% if hasTitle %>
         <% if headingLevel == "level-3" %>
           <h3 class="title-lg e-align-cen e-mgn-b-sm <%= titleColor %>"><%= title %></h3>
@@ -68,4 +69,4 @@ headingLevel = panelData[:heading_level]
       <% end %>
     </div>
   </div>
-</section>
+</aside>

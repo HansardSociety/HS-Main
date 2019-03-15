@@ -67,7 +67,8 @@
 .menu__item--mobile {
   border-bottom: 1px solid Get($colorGroups, white, 3);
 
-  @extend %e-pad-b-xxs;
+  @extend %e-mgn-b-xs;
+  @extend %e-pad-b-xs;
 }
 
 .menu__link {

@@ -1,5 +1,5 @@
-/*		=Parent/core
-  ========================================================================== */
+/* =Parent/core
+========================================================================== */
 
 .panel {
   @extend %e-container;
@@ -9,6 +9,10 @@
 
 .panel--no-overflow-x {
   overflow-x: hidden;
+}
+
+.panel--flow {
+  padding-top: 0;
 }
 
 // .panel--bg-rotate {
@@ -43,8 +47,8 @@
   }
 }
 
-/*		=Inner
-  ========================================================================== */
+/* =Inner
+========================================================================== */
 
 .panel__inner {
   justify-content: center;
@@ -54,11 +58,10 @@
   @extend %e-mgn-auto-x;
 }
 
-/*		=Content
-  ========================================================================== */
+/* =Content
+========================================================================== */
 
 .panel__content {
-
   // @extend %e-mgn-auto-x;
   @extend %e-position-relative; // need pos to place over absolute bg image
 }
@@ -83,8 +86,8 @@
   @extend %e-container--full;
 }
 
-/*		=Image
-  ========================================================================== */
+/* =Image
+========================================================================== */
 
 .panel__bg-img {
   padding: 0;
@@ -136,8 +139,8 @@
   // @extend %e-mgn-t-lg;
 }
 
-/*		=Misc
-  ========================================================================== */
+/* =Misc
+========================================================================== */
 
 .panel__pull {
   margin-top: -4rem;
@@ -154,16 +157,4 @@
 .box {
   @extend %e-pad-sm;
   @extend %e-rad-slight;
-}
-
-/*		=Page specific
-  ========================================================================== */
-
-// Create anel flow for long reads
-#BLOG_PAGE {
-  .panel.e-bgc-white-1 + .panel.e-bgc-white-1 {
-    background-color: transparent;
-    padding-top: 0;
-    // @extend %e-pad-x-md;
-  }
 }
