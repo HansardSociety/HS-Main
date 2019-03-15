@@ -38,7 +38,7 @@ const panelCarousel = (function() {
       if (carouselHome) {
 
         var flickityOptsHome = Object.assign({}, flickityOpts, {
-          autoPlay: 4000,
+          autoPlay: 8000,
           pauseAutoPlayOnHover: false
         })
 
