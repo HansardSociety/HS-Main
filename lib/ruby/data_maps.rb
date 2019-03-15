@@ -573,6 +573,7 @@ def panels(ctx, data)
           content: panel.show_more
         }.compact if panel.show_more),
         image_border: panel.image_border,
+        image_shrink: panel.image_shrink,
         tweet: ({
           text: URI::encode(panel.copy.split("\n\n", 2)[0].slice(0..198) + (panel.copy.length > 198 ? "…" : "")),
           media: panel.tweet_media

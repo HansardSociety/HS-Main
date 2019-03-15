@@ -50,7 +50,7 @@
     @extend %e-display-block;
     @extend %e-fix-webkit-blur;
     @extend %e-img-filter;
-    @extend %e-overlay-medium;
+    // @extend %e-overlay-dark;
     @extend %e-position-relative;
     @extend %e-trans-transform;
     @extend %e-max-width-full;
@@ -63,7 +63,9 @@
 }
 
 .main-card__title {
-  @extend %e-bgc-opaque-3;
+  // @extend %e-bgc-opaque-3;
+  @extend %e-txt-shad-slight;
+
   @extend %e-display-table; // fixes text v-align in chrome
   @extend %e-position-absolute;
 

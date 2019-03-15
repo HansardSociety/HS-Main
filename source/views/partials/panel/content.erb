@@ -19,11 +19,6 @@ tweet = panelData[:tweet]
 callsToAction = panelData[:calls_to_action]
 
 index = local_data[:index]
-
-imgURL = ""
-if panelData[:image]
-  imgURL = "#{ bannerImage[:url] }?fit=fill&w=300&h=300&f=#{ bannerImage[:focus] }&q=50&fl=progressive"
-end
 %>
 <section class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <span
@@ -45,20 +40,25 @@ end
             </div>
           <% end %>
           <% if panelData[:image] %>
-            <%# =TODO :: Set cell sizing at breakpoints %>
-            <div class="grid__cell">
-              <figure>
-                <img
-                  class="b-lazy"
-                  src=""
-                  data-src="<% panelData[:image][:url] %>"
-                  alt="<% panelData[:image][:alt] %>">
+            <% imgClasses = "grid__cell--md-12 grid__cell--md-above-md-5 e-align-cen" %>
+            <% if panelData[:image_shrink]
+              imgClasses = "grid__cell--auto"
+            end %>
+            <div class="grid__cell <%= imgClasses %>">
+              <figure class="image">
+                <div class="image__wrapper image__wrapper--light <%= "e-pad-sm" if panelData[:image_border] %>">
+                  <img
+                    class="b-lazy"
+                    src="<%= panelData[:image][:url] %>"
+                    data-src="<% panelData[:image][:url] %>"
+                    alt="<% panelData[:image][:alt] %>">
+                </div>
               </figure>
             </div>
           <% end %>
         <% end %>
 
-        <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-11 grid__cell--md-above-md-7">
+        <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
           <% if panelData[:show_title] %>
             <% if headingLevel == "level-3" %>
               <h3 class="title-lg e-mgn-b-sm e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h3>

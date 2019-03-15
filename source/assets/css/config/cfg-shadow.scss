@@ -19,7 +19,7 @@ $shadow: (
       0 0 1rem rgba(Get($colorGroups, black, 2), .3333)
     ),
     z3: (
-      0 8px 8.896px rgba(Get($colorGroups, black, 2), .1), 0 -2px 1px rgba(Get($colorGroups, black, 2), .4)
+      0 8px 8.896px rgba(0,0,0,.2), 0 -2px 1px rgba(0,0,0,.3333)
     )
   )
 );

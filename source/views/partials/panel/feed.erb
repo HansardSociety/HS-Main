@@ -7,18 +7,18 @@ flow = local_data[:flow]
 totalFeedPages = 0
 dataFeedCount = 6
 
-entryData = local_data[:entry_data]
+panelData = local_data[:entry_data]
 
 ###########################################################################
 ##		=Theme and landing pages
 ###########################################################################
 
 if isThemePage || isLandingPage
-  title = entryData[:title]
+  title = panelData[:title]
   headingLevel = panelData[:heading_level]
-  bgc = entryData[:background_color] ? panelBgc(entryData[:background_color]) : "e-bgc-white-1"
+  bgc = panelData[:background_color] ? panelBgc(panelData[:background_color]) : "e-bgc-white-1"
 
-  feedData = entryData[:feed]
+  feedData = panelData[:feed]
   feedCategory = feedData[:category]
   feedSubCategory = feedData[:sub_category] if feedData[:sub_category]
 
@@ -57,7 +57,7 @@ elsif isLandingPage
 ###########################################################################
 
 else
-  feedData = entryData
+  feedData = panelData
   altFeedData = alt_data[:feed_data]
 
   dataFeedCategory = altFeedData[:feed_category]
