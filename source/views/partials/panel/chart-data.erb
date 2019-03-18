@@ -1,0 +1,74 @@
+<%
+chartData = local_data[:chart_data]
+isDev = true
+%>
+<script class="chart__config" type="application/json">
+<% if isDev %>
+{
+  "type": "line",
+  "data": {
+    "datasets": [{
+      "data": [60, 63, 61, 61, 62, 64, 69, 64, 67, 68, 64, 68, 63, 65, 67, 72],
+      "type": "line",
+      "label": "Could be improved quite a lot / a great deal",
+      "xAxisID": "x-audit",
+      "yAxisID": "y-percentage",
+      "datasetID": "positive"
+    }, {
+      "data": [36, 34, 34, 33, 32, 33, 28, 31, 24, 27, 33, 26, 33, 31, 29, 25],
+      "type": "line",
+      "label": "Could not be improved / improved in small ways",
+      "xAxisID": "x-audit",
+      "yAxisID": "y-percentage",
+      "datasetID": "negative"
+    }],
+    "labels": []
+  },
+  "options": {
+    "legend": {
+      "position": "top"
+    },
+    "scales": {
+      "xAxes": [{
+        "id": "x-audit",
+        "type": "category",
+        "labels": ["Audit 1", "Audit 2", "Audit 3", "Audit 4", "Audit 5", "Audit 6", "Audit 7", "Audit 8", "Audit 9", "Audit 10", "Audit 11", "Audit 12", "Audit 13", "Audit 14", "Audit 15", "Audit 16"],
+        "scaleLabel": {
+          "labelString": "Audit edition (2004 - 2019)"
+        }
+      }],
+      "yAxes": [{
+        "id": "y-percentage",
+        "ticks": {
+          "max": 100,
+          "min": 0,
+          "stepSize": 10
+        },
+        "scaleLabel": {
+          "labelString": "Percentage of respondents"
+        }
+      }]
+    }
+  },
+  "customConfig": {
+    "colors": [{
+      "palette": ["#04655a"],
+      "datasetIDs": ["positive"]
+    }, {
+      "palette": ["#80557d"],
+      "datasetIDs": ["negative"]
+    }]
+  }
+}
+<% else %>
+{
+  "type": "<%= chartData[:chart_type] %>",
+  "data": {
+    "datasets": <%= chartData[:chart_datasets] %>,
+    "labels": <%= chartData[:chart_labels] %>
+  },
+  "options": <%= chartData[:chart_options] %>,
+  "customConfig": <%= chartData[:chart_custom_config] %>
+}
+<% end %>
+</script>
