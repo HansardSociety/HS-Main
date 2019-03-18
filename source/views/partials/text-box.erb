@@ -1,5 +1,7 @@
 <%
-textBoxData = local_data
+textBoxData = local_data[:text_box_data]
+align = local_data[:align]
+fullBleed = local_data[:full_bleed]
 
 # Color profiles
 bgc = textBoxData[:background_color]
@@ -13,32 +15,41 @@ copy = textBoxData[:copy]
 copySize = textBoxData[:copy_size]
 image = textBoxData[:image]
 imageBorder = textBoxData[:image_border]
+inlineHeader = textBoxData[:inline_header]
 cta = textBoxData[:call_to_action]
 
 if copySize == "normal"
   copySizeClass = "e-fz-sm"
+  titleSizeClass = "title-sm"
 elsif copySize == "large"
   copySizeClass = "e-fz-md"
+  titleSizeClass = "title-md"
 elsif copySize == "extra-large"
   copySizeClass = "e-fz-lg"
+  titleSizeClass = "title-lg"
+end
+
+alignClass = ""
+if align
+  alignClass = "text-box--#{align}"
 end
 %>
-<section class="text-box <%= bgcClass %>">
+<section class="text-box <%= alignClass %> <%= bgcClass %>">
   <% if showTitle || image %>
-    <div class="text-box__header">
+    <div class="text-box__header <%= "text-box__header--inline" if inlineHeader %>">
       <% if image %>
-        <figure class="text-box__img <%= "e-pad-sm" if imageBorder %>">
+        <figure class="text-box__img <%= "text-box__img-with-border" if imageBorder %>">
           <img
             src="<%= image[:url] %>"
             alt="<%= image[:alt] %>">
         </figure>
       <% end %>
       <% if showTitle %>
-        <h3 class="title-sm <%= titleColor %>"><% title %></h3>
+        <h3 class="<%= titleSizeClass %> <%= titleColor %>"><%= title %></h3>
       <% end %>
     </div>
   <% end %>
-  <div class="text-box__content">
+  <div class="text-box__content <%= "text-box__content-with-head" if showTitle || image %>">
     <p class="<%= copySizeClass %>"><%= copy %></p>
   </div>
 </section>

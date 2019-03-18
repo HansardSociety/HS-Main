@@ -63,13 +63,10 @@
 }
 
 .main-card__title {
-  // @extend %e-bgc-opaque-3;
-  @extend %e-txt-shad-slight;
-
   @extend %e-display-table; // fixes text v-align in chrome
   @extend %e-position-absolute;
 
-  & > h1 {
+  & > h2 {
     @extend %e-txt-shad-slight;
   }
 }

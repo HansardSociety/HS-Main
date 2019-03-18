@@ -4,7 +4,7 @@ flow = local_data[:flow]
 index = local_data[:index]
 
 bgc = panelData[:background_color]
-bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc, { gradient: true })
+bgcClass = contentBgc(bgc)
 
 title = panelData[:title]
 titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
@@ -51,10 +51,10 @@ textBoxes = panelData[:text_boxes]
         <% textBoxes.each do |textBoxData| %>
           <div class="grid__cell grid__cell--sm-12 <%= colSpanResClassSm %> <%= colSpanResClassMd %>">
             <%= partial "views/partials/text-box",
-              locals: {
-                local_data: textBoxData,
+              locals: { local_data: {
+                text_box_data: textBoxData,
                 fullBleed: fullBleed
-              } %>
+            }} %>
           </div>
         <% end %>
       </div>
