@@ -5,7 +5,7 @@ index = local_data[:index]
 flow = local_data[:flow]
 
 bgc = panelData[:background_color]
-bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc, { gradient: true })
+bgcClass = contentBgc(bgc)
 
 title = panelData[:title]
 titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
@@ -41,7 +41,7 @@ end
       </header>
     <% end %>
 
-    <div class="panel__content panel__content--<%= panelData[:rows_width] %>">
+    <div class="panel__content panel__content--<%= panelData[:rows_width] ? panelData[:rows_width] : "full" %>">
       <div class="grid grid--md">
 
         <!--**********************************************
@@ -87,18 +87,11 @@ end
             <%# Text box %>
             <% elsif panelEntry[:TYPE] == "text_box" %>
               <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
-                <div class="text-box">
-                  <% if panelEntry[:show_title] %>
-                    <% if panelData[:show_title] %>
-                      <h3 class="title-md e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
-                    <% else %>
-                      <h2 class="title-lg e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
-                    <% end %>
-                  <% end %>
-                  <div class="copy">
-                    <%= markdown(panelEntry[:copy]) %>
-                  </div>
-                </div>
+                <%= partial "views/partials/text-box",
+                  locals: { local_data: {
+                    text_box_data: panelEntry,
+                    align: "center"
+                }} %>
               </div>
             <% end %>
           <% end %>
@@ -137,36 +130,20 @@ end
                     <canvas class="chart__canvas print__hide"></canvas>
                   </div>
                   <div class="chart__citation"><%= panelEntry[:citation] %></div>
-                  <script class="chart__config" type="application/json">
-                    {
-                      "type": "<%= panelEntry[:chart_type] %>",
-                      "data": {
-                        "datasets": <%= panelEntry[:chart_datasets] %>,
-                        "labels": <%= panelEntry[:chart_labels] %>
-                      },
-                      "options": <%= panelEntry[:chart_options] %>,
-                      "customConfig": <%= panelEntry[:chart_custom_config] %>
-                    }
-                  </script>
+                  <%= partial "views/partials/panel/chart-data",
+                    locals: { local_data: {
+                      chart_data: panelEntry }} %>
                 </section>
               </div>
 
             <%# Text box %>
             <% elsif panelEntry[:TYPE] == "text_box" %>
               <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
-                <div class="text-box">
-                  <% if panelEntry[:show_title] %>
-                    <% if panelData[:show_title] %>
-                      <h3 class="title-md e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
-                    <% else %>
-                      <h2 class="title-lg e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
-                    <% end %>
-                  <% end %>
-                  <div class="copy">
-                    <%= markdown(panelEntry[:copy]) %>
-                  </div>
-                </div>
-              </div>
+                <%= partial "views/partials/text-box",
+                  locals: { local_data: {
+                    text_box_data: panelEntry,
+                    align: "center"
+                }} %>
             <% end %>
           <% end %>
         <% end %>

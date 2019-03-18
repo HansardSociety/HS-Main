@@ -1,5 +1,7 @@
 <%
-textBoxData = local_data
+textBoxData = local_data[:text_box_data]
+align = local_data[:align]
+fullBleed = local_data[:full_bleed]
 
 # Color profiles
 bgc = textBoxData[:background_color]
@@ -26,8 +28,13 @@ elsif copySize == "extra-large"
   copySizeClass = "e-fz-lg"
   titleSizeClass = "title-lg"
 end
+
+alignClass = ""
+if align
+  alignClass = "text-box--#{align}"
+end
 %>
-<section class="text-box <%= bgcClass %>">
+<section class="text-box <%= alignClass %> <%= bgcClass %>">
   <% if showTitle || image %>
     <div class="text-box__header <%= "text-box__header--inline" if inlineHeader %>">
       <% if image %>
