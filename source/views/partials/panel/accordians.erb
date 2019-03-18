@@ -4,7 +4,7 @@ index = local_data[:index]
 flow = local_data[:flow]
 
 bgc = panelData[:background_color]
-bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc, { gradient: true })
+bgcClass = contentBgc(bgc)
 titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
 headingLevel = panelData[:heading_level]
 %>

@@ -162,7 +162,7 @@ module CustomHelpers
 
     colWhite = "e-col-white-1"
 
-    bgcClass = isGradient ? "e-bg-grad-#{ bgc }" : "e-bgc-#{ bgc }-1"
+    bgcClass = isGradient ? "e-bg-grad-#{ bgc }" : "e-bgc-#{ bgc }-2"
 
     "#{ colWhite if isDarkBgc } #{ bgcClass }"
 
@@ -174,7 +174,7 @@ module CustomHelpers
         "#{ bgc == "light-grey" ? "e-bgc-white-2" : "e-bgc-white-1" }"
       end
     else
-      bgcClass = isGradient ? "e-bg-grad-#{ bgc }" : "e-bgc-#{ bgc }-1"
+      bgcClass = isGradient ? "e-bg-grad-#{ bgc }" : "e-bgc-#{ bgc }-2"
 
       "#{ colWhite if isDarkBgc } #{ bgcClass }"
     end

@@ -4,6 +4,8 @@ index = local_data[:index]
 flow = local_data[:flow]
 
 bgc = panelData[:background_color]
+bgcClass = contentBgc(bgc)
+
 title = panelData[:title]
 copy = panelData[:copy]
 callsToAction = panelData[:calls_to_action]
@@ -11,11 +13,7 @@ callsToAction = panelData[:calls_to_action]
 
 <div
   id="<%= "panel-#{index}" if index %>"
-  class="panel <%= "panel--flow" if flow %>
-    <%= colorProfile(:mono).include?(bgc) ?
-        contentBgc(bgc) :
-        contentBgc(bgc, { gradient: true }) %>">
-
+  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">
       <h2 class="<%= "e-col-brand-green-2" if colorProfile(:light).include?(bgc) %> title-xl e-align-cen"><%= title %></h2>

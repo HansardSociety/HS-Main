@@ -6,9 +6,10 @@
   @include above(sm) {
     max-width: 65rem;
   }
+  @extend %e-bdr-lightest;
   @extend %e-bgc-white-1;
+  @extend %e-box-shad-z1;
   @extend %e-rad-slight;
-  @extend %e-box-shad-z3;
 }
 
 .chart--full-height {

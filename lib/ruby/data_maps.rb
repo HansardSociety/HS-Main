@@ -381,6 +381,7 @@ def textBox(data)
     copy_size: (data.copy_size ? data.copy_size.parameterize : "normal"),
     image: (media(data.image) if data.image),
     image_border: data.image_border,
+    inline_header: data.inline_header,
     calls_to_action: callsToAction(data)
   }.compact
 end
