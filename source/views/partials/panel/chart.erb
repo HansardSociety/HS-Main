@@ -86,7 +86,7 @@ end
 
             <%# Text box %>
             <% elsif panelEntry[:TYPE] == "text_box" %>
-              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
+              <div class="grid__cell grid__cell--center grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
                 <%= partial "views/partials/text-box",
                   locals: { local_data: {
                     text_box_data: panelEntry,
