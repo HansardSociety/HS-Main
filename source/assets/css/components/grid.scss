@@ -37,6 +37,10 @@
   align-self: flex-end;
 }
 
+.grid__cell--center {
+  align-self: center;
+}
+
 .grid__cell--auto {
   flex-basis: auto;
 }

@@ -15,20 +15,19 @@ copy = panelData[:copy]
 
 containerSize = panelData[:container_size]
 fullBleed = false
-cellClassBaseSm = "grid__cell--sm-above"
-cellClassBaseMd = "grid__cell--md-above"
+cellClassBase = "grid__cell--sm-above"
 if containerSize == "small"
-  colSpanResClassSm = "#{cellClassBaseSm}-sm-6"
-  colSpanResClassMd = "#{cellClassBaseMd}-md-3"
+  colSpanResClassSm = "#{cellClassBase}-sm-6"
+  colSpanResClassMd = "#{cellClassBase}-md-3"
 elsif containerSize == "medium"
-  colSpanResClassSm = "#{cellClassBaseSm}-md-6"
-  colSpanResClassMd = "#{cellClassBaseMd}-lg-4"
+  colSpanResClassSm = "#{cellClassBase}-md-6"
+  colSpanResClassMd = "#{cellClassBase}-lg-4"
 elsif containerSize == "large"
-  colSpanResClassSm = "#{cellClassBaseSm}-lg-12"
-  colSpanResClassMd = "#{cellClassBaseMd}-lg-6"
+  colSpanResClassSm = "#{cellClassBase}-lg-12"
+  colSpanResClassMd = "#{cellClassBase}-lg-6"
 elsif containerSize == "full-bleed"
-  colSpanResClassSm = "#{cellClassBaseSm}-xl-12"
-  colSpanResClassMd = "#{cellClassBaseMd}-xl-12"
+  colSpanResClassSm = "#{cellClassBase}-xl-12"
+  colSpanResClassMd = "#{cellClassBase}-xl-12"
 end
 
 textBoxes = panelData[:text_boxes]
