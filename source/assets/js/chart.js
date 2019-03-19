@@ -616,7 +616,7 @@ const renderCharts = () => {
         dataset.datalabels.anchor = "end"
         dataset.datalabels.font.size = rem0675
 
-      } else if (isDatasetPie
+      } else if (isDatasetDoughnut || isDatasetPie
         && (annotationConfig.type === "percentageLabel"
           || annotationConfig.type === "percentageValueLabel")) {
 
@@ -693,10 +693,10 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * [ ] Add min-width for eg. departments chart
  * [ ] Create dataset-specific override of labels plugin
  * [ ] Make sure Brewer palettes have enough colours for large datasets
- * [ ] Make both chart row HTML the same
- * [ ] Chekc if getAnnotationConfig works on multiple annotation configs
- * [ ] Parent char always takes priority on gridLine styles
- * [ ] Must set either BGC or custoConfig color for chart to render
+ * [x] Make both chart row HTML the same
+ * [ ] Check if getAnnotationConfig works on multiple annotation configs
+ * [ ] Parent chart always takes priority on gridLine styles
+ * [ ] Must set either BGC or customConfig color for chart to render
  * [ ]
  */
 

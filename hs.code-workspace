@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "lib"
+		},
+		{
+			"path": "source\\assets\\css"
+		},
+		{
+			"path": "source\\assets\\js"
+		},
+		{
+			"path": "source\\views"
+		}
+	],
+	"settings": {}
+}
