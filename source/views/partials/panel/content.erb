@@ -48,7 +48,7 @@ index = local_data[:index]
               <figure class="image">
                 <div class="image__wrapper image__wrapper--light <%= "e-pad-sm" if panelData[:image_border] %>">
                   <img
-                    class="b-lazy"
+                    class="image__img b-lazy"
                     src="<%= panelData[:image][:url] %>"
                     data-src="<% panelData[:image][:url] %>"
                     alt="<% panelData[:image][:alt] %>">
@@ -67,7 +67,7 @@ index = local_data[:index]
             <% end %>
           <% end %>
 
-          <div class="copy">
+          <div class="copy <%= "copy--invert" if colorProfile(:dark).include?(bgc) %>">
             <%=
               if isCopyXl || isCopyLg
                 paraElem = isCopyXl ? '<p class="e-fz-lg"' : '<p class="e-fz-md"'
@@ -107,7 +107,7 @@ index = local_data[:index]
                       icons: [
                         "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
                         ]}} %>
-                  <span class="grid__cell grid__cell--xxs e-col-black-3"><small> Tweet this</small> </span>
+                  <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
                 <% end %>
 
                 <% if panelData[:calls_to_action] %>

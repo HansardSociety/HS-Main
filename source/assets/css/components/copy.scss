@@ -290,3 +290,17 @@ li {
 }
 
 } // END .copy
+
+.copy.copy--invert {
+  > p > a,
+  > p > strong > a,
+  > p > em > a,
+  > ul > li > p > a,
+  > ol > li > p > a,
+  > ul > li > a,
+  > ol > li > a,
+  .footnotes a,
+  sup > a {
+    @extend .link-white;
+  }
+}
