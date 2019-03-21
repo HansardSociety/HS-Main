@@ -36,20 +36,28 @@ end
 %>
 <section class="text-box <%= alignClass %> <%= bgcClass %>">
   <% if showTitle || image %>
-    <div class="text-box__header <%= "text-box__header--inline" if inlineHeader %>">
+    <div class="text-box__header <%= "grid grid--xs grid--middle" if inlineHeader %>">
       <% if image %>
-        <figure class="text-box__img <%= "text-box__img-with-border" if imageBorder %>">
+        <figure class="
+          text-box__img
+          <%= imageBorder && !inlineHeader ?
+            "e-pad-sm" :
+            (imageBorder && inlineHeader ?
+              "e-pad-x-xs e-pad-l-sm" :
+              "") %>
+          <%= "grid__cell grid__cell--xs" if inlineHeader %>">
           <img
+            class="text-box__img"
             src="<%= image[:url] %>"
             alt="<%= image[:alt] %>">
         </figure>
       <% end %>
       <% if showTitle %>
-        <h3 class="<%= titleSizeClass %> <%= titleColor %>"><%= title %></h3>
+        <h3 class="<%= titleSizeClass %> <%= titleColor %> <%= "grid__cell grid__cell--xs" if inlineHeader %>"><%= title %></h3>
       <% end %>
     </div>
   <% end %>
   <div class="text-box__content <%= "text-box__content-with-head" if showTitle || image %>">
-    <p class="<%= copySizeClass %>"><%= copy %></p>
+    <%= markdown(copy).sub("<p", "<p class=#{copySizeClass}") %>
   </div>
 </section>
