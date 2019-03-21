@@ -75,7 +75,7 @@ end
                     style="
                       <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
                       <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
-                    <canvas class="chart__canvas"></canvas>
+                    <canvas class="chart__canvas" style="max-width:100%!important;"></canvas>
                   </div>
                   <div class="chart__citation"><%= panelEntry[:citation] %></div>
                   <%= partial "views/partials/panel/chart-data",
