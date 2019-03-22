@@ -182,7 +182,7 @@ const renderCharts = () => {
     options.tooltips = {}
     options.tooltips.position = "nearest"
 
-    if (isBar) options.tooltips.mode = "x"
+    if (isBar || isLine) options.tooltips.mode = "x"
     else if (isHorizontalBar) options.tooltips.mode = "y"
     else options.tooltips.mode = "nearest"
 
