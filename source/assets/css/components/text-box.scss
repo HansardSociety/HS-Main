@@ -19,23 +19,18 @@
 
 .text-box__header--inline {
   @extend %e-flex-row-center;
-
-  & > .text-box__img-with-border {
-    @extend %e-pad-r-xs;
-  }
-}
-
-.text-box__img-with-border {
-  @extend %e-pad-r-sm;
-  @extend %e-pad-l-sm;
-  @extend %e-pad-t-sm;
-  @extend %e-pad-b-xs;
 }
 
 .text-box__content {
+  max-width: 35rem;
+
   @extend %e-pad-sm;
 }
 
 .text-box__content-with-head {
   padding-top: 0.5rem;
+}
+
+.text-box__img {
+  @extend %e-display-block;
 }

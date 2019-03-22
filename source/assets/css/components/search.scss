@@ -171,7 +171,8 @@
   .search__results-item {
     @extend .grid__cell;
     @extend .grid__cell--xs-above-xs-6;
-    @extend .grid__cell--xs-above-lg-4;
+    @extend .grid__cell--xs-above-md-4;
+    @extend .grid__cell--xs-above-lg-3;
   }
 
   .search__results-more {
