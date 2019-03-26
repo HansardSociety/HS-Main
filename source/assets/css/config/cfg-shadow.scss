@@ -2,12 +2,16 @@
 $shadow: (
   box: (
     z1: (
-      0 .125rem 1rem -0.125rem rgba(10, 10, 10, .1),
-      0 1rem 1rem -0.75rem rgba(10, 10, 10, .2)
+      0 3px 6px rgba(0,0,0,0.075),
+      0 3px 6px rgba(0,0,0,0.1)
+    ),
+    z2: (
+      0 14px 28px rgba(0,0,0,0.075),
+      0 10px 10px rgba(0,0,0,0.1)
     ),
     z3: (
-      1px 0 10px 1px rgba(10, 10, 10, .05),
-      0 3rem 3rem -1rem rgba(10, 10, 10, .1)
+      0 19px 38px rgba(0,0,0,0.075),
+      0 15px 12px rgba(0,0,0,0.1)
     )
   ),
   text: (
