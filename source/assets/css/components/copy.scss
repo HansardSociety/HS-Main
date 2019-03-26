@@ -139,27 +139,20 @@ ol {
 
     &::before {
       display: table-cell;
+      top: -.125rem;
 
-      width: 2rem;
+      width: 1.5rem;
       padding-right: .5rem;
 
-      text-align: right;
-
-      font-weight: bold;
+      text-align: left;
+      font-size: .75rem;
 
       @extend %e-col-orange-2;
+      @extend %e-ff-prim-heavy;
+      @extend %e-position-relative;
     }
   }
-
-  li::before {
-    @extend %e-position-relative;
-  }
 }
-
-ul li::before {
-  top: -.125rem;
-}
-
 
 li {
   padding-top: .25em;
@@ -206,7 +199,7 @@ li {
 
       > li {
         &::before {
-          content: counter(level-one-ol-counter, decimal) ".";
+          content: counter(level-one-ol-counter, decimal-leading-zero) ".";
           counter-increment: level-one-ol-counter;
         }
 
@@ -232,7 +225,7 @@ li {
 
   > li {
     &::before {
-      content: counter(root-ul-counter, decimal) ".";
+      content: counter(root-ul-counter, decimal-leading-zero) ".";
       counter-increment: root-ul-counter;
     }
 
@@ -263,7 +256,7 @@ li {
 
       > li {
         &::before {
-          content: counter(level-one-ol-counter, decimal);
+          content: counter(level-one-ol-counter, decimal-leading-zero);
           counter-increment: level-one-ol-counter;
         }
 

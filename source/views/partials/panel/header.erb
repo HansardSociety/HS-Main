@@ -1,7 +1,6 @@
 <%
 panelData = local_data[:entry_data]
 index = local_data[:index]
-flow = local_data[:flow]
 
 bgc = panelData[:background_color]
 bgcClass = contentBgc(bgc)
@@ -13,7 +12,7 @@ callsToAction = panelData[:calls_to_action]
 
 <div
   id="<%= "panel-#{index}" if index %>"
-  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
+  class="panel panel--header <%= bgcClass %> e-box-shad-z1">
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">
       <h2 class="<%= "e-col-brand-green-2" if colorProfile(:light).include?(bgc) %> title-xl e-align-cen"><%= title %></h2>

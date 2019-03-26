@@ -11,27 +11,15 @@
   overflow-x: hidden;
 }
 
+.panel--header {
+  z-index: 1;
+
+  @extend %e-box-shad-z1;
+}
+
 .panel--flow {
   padding-top: 0;
 }
-
-// .panel--bg-rotate {
-//   &::before {
-//     position: absolute;
-//     top: -2.5rem;
-//     left: 50%;
-
-//     display: block;
-
-//     width: 120vw;
-//     height: 10rem;
-
-//     content: "";
-//     transform: translateX(-50%) rotate(3deg);
-
-//     background-color: inherit;
-//   }
-// }
 
 .panel__inner--bg-img {
   // @extend %e-flex-row;

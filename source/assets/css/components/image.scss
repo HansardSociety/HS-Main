@@ -4,7 +4,7 @@
 
 .image--link {
   @extend %e-bgc-white-1;
-  @extend %e-box-shad-z1;
+  @extend %e-box-shad-z2;
   @extend %e-height-full;
   @extend %e-pad-sm;
   @extend %e-rad-slight;
@@ -41,7 +41,7 @@
 
 .image__wrapper--light {
   @extend %e-bgc-white-1;
-  @extend %e-box-shad-z3;
+  @extend %e-box-shad-z1;
 }
 
 .image__img {
