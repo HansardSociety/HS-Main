@@ -7,7 +7,7 @@ bgcClass = colorProfile(:mono).include?(bgc) ? panelBgc(bgc) : panelBgc(bgc, { g
 callsToAction = panelData[:calls_to_action]
 copy = panelData[:copy]
 imageSize = panelData[:image_size]
-isNoOverlap = panelData[:no_overlap]
+isNoOverlap = !panelData[:overlap]
 
 index = local_data[:index]
 
