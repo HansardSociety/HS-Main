@@ -42,7 +42,6 @@
 
 .banner__content--lp {
   @extend %e-container--narrow;
-  // @extend %e-mgn-t-md;
   @extend %e-pad-x-lg;
   @include above(sm) {
     text-align: center;
@@ -50,13 +49,8 @@
 }
 
 .banner__content--cp {
-  // @extend %e-bgc-opaque-3;
   @extend %e-container--full;
   @extend %e-pad-x-sm;
-  // @include above(sm) {
-  //   border-top-left-radius: map-get($radii, slight);
-  //   border-top-right-radius: map-get($radii, slight);
-  // }
 }
 
 .banner__title,

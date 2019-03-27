@@ -19,28 +19,6 @@
   @extend %e-max-width-full;
 }
 
-%e-container--narrow {
-  width: 35rem;
-}
-
-%e-container--medium {
-  width: 45rem;
-}
-
-%e-container--wide {
-  width: 55rem;
-}
-
-%e-container--full {
-  width: 65rem;
-}
-
-%e-container--full-bleed {
-  min-width: 100vw;
-  max-width: 100vw;
-}
-
-
 %e-container--extra-narrow {
   width: 25rem;
 }

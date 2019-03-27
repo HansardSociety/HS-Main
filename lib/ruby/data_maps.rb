@@ -465,7 +465,7 @@ def panels(ctx, data)
     if isPanelBand
       panelBand = {
         image_size: (panel.image_size.parameterize if panel.image_size),
-        no_overlap: panel.no_overlap
+        overlap: panel.overlap
       }
     end
 

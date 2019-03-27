@@ -14,7 +14,6 @@ headingLevel = panelData[:heading_level]
 copy = panelData[:copy]
 
 containerSize = panelData[:container_size]
-fullBleed = false
 cellClassBase = "grid__cell--sm-above"
 if containerSize == "small"
   colSpanResClassSm = "#{cellClassBase}-sm-6"
@@ -25,9 +24,6 @@ elsif containerSize == "medium"
 elsif containerSize == "large"
   colSpanResClassSm = "#{cellClassBase}-lg-12"
   colSpanResClassMd = "#{cellClassBase}-lg-6"
-elsif containerSize == "full-bleed"
-  colSpanResClassSm = "#{cellClassBase}-xl-12"
-  colSpanResClassMd = "#{cellClassBase}-xl-12"
 end
 
 textBoxes = panelData[:text_boxes]
@@ -51,8 +47,7 @@ textBoxes = panelData[:text_boxes]
           <div class="grid__cell grid__cell--sm-12 <%= colSpanResClassSm %> <%= colSpanResClassMd %>">
             <%= partial "views/partials/text-box",
               locals: { local_data: {
-                text_box_data: textBoxData,
-                fullBleed: fullBleed
+                text_box_data: textBoxData
             }} %>
           </div>
         <% end %>
