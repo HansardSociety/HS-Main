@@ -5,11 +5,25 @@ bgc = panelData[:background_color]
 bgcClass = contentBgc(bgc)
 
 callsToAction = panelData[:calls_to_action]
+
 copy = panelData[:copy]
+
+copySize = panelData[:copy_size]
+isCopyMd = copySize == "medium"
+isCopyLg = copySize == "large"
+isCopyXl = copySize == "extra-large"
+
+strapClass = "strap-md"
+if isCopyLg
+  strapClass = "strap-lg"
+elsif isCopyXl
+  strapClass = "strap-xl"
+end
+
 imageSize = panelData[:image_size] ? panelData[:image_size] : "medium"
 
-isOverlap = !panelData[:overlap]
-isNoOverlap = panelData[:overlap]
+isOverlap = panelData[:overlap]
+isNoOverlap = !panelData[:overlap]
 
 title = panelData[:title]
 titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
@@ -33,18 +47,16 @@ end
 
 <aside
   id="panel-<%= index %>"
-  class="panel <%= bgcClass %>">
-
+  class="panel
+    <%= bgcClass %>
+    <%= "e-pad-reset" if isOverlap %>">
 
   <div class="panel__inner">
-
-    <h1><%="#{isOverlap}"%></h1>
-
     <% if panelData[:image] %>
       <div
         class="panel__bg-img
-              panel__bg-img--<%= imageSize %>
-              <%= "panel__bg-img--" + (isOverlap ? "no-overlap" : "overlap") %>">
+          panel__bg-img--<%= imageSize %>
+          <%= "panel__bg-img--" + (isOverlap ? "overlap" : "no-overlap") %>">
         <img
           class="b-lazy"
           src="<%= panelData[:image][:url] %>?fm=jpg&w=<%= cfulImageWidth %>&q=20"
@@ -53,18 +65,18 @@ end
       </div>
     <% end %>
 
-    <div class="panel__content panel__content--medium <%= "panel__content--overlap" if !isOverlap %>">
+    <div class="panel__content panel__content--medium <%= "panel__content--overlap" if isOverlap %>">
       <% if hasTitle %>
         <% if headingLevel == "level-3" %>
           <h3 class="title-lg e-align-cen e-mgn-b-sm
-            <%= isOverlap ? titleColor : "e-col-white-1" %>"><%= title %></h3>
+            <%= isOverlap ? "e-col-white-1" : titleColor %>"><%= title %></h3>
         <% else %>
           <h2 class="title-lg e-align-cen e-mgn-b-sm
-            <%= isOverlap ? titleColor : "e-col-white-1" %>"><%= title %></h2>
+            <%= isOverlap ? "e-col-white-1" : titleColor %>"><%= title %></h2>
         <% end %>
       <% end; if copy %>
-        <p class="strap-md e-align-cen e-mgn-b-sm
-           <%= "e-col-white-1" if !isOverlap %>"><%= panelData[:copy] %></p>
+        <p class="<%= strapClass %> e-align-cen e-mgn-b-sm
+           <%= "e-col-white-1 e-pad-x-lg" if isOverlap %>"><%= panelData[:copy] %></p>
 
       <% end; if callsToAction %>
         <div class="grid grid--xs grid--center">

@@ -10,8 +10,19 @@ titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-br
 headingLevel = panelData[:heading_level]
 
 copySize = panelData[:copy_size]
+isCopySm = copySize == "normal"
+isCopyMd = copySize == "medium"
 isCopyLg = copySize == "large"
 isCopyXl = copySize == "extra-large"
+
+copySizeClass = "e-fz-sm"
+if isCopyMd
+  copySizeClass = "e-fz-md"
+elsif isCopyLg
+  copySizeClass = "e-fz-lg"
+elsif isCopyXl
+  copySizeClass = "e-fz-xl"
+end
 
 showMoreCopy = panelData[:show_more]
 tweet = panelData[:tweet]
@@ -102,8 +113,8 @@ index = local_data[:index]
 
           <div class="copy <%= "copy--invert" if colorProfile(:dark).include?(bgc) %>">
             <%=
-              if isCopyXl || isCopyLg
-                paraElem = isCopyXl ? '<p class="e-fz-lg"' : '<p class="e-fz-md"'
+              if !isCopySm
+                paraElem = "<p class='#{copySizeClass}'"
                 markdown(panelData[:copy]).sub("<p", paraElem)
               else
                 markdown(panelData[:copy])

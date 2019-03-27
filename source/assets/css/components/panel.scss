@@ -87,8 +87,11 @@
   & > img {
     @extend %e-display-block;
     @extend %e-max-width-full;
-    @extend %e-mgn-t-md;
   }
+}
+
+.panel__bg-img--no-overlap {
+  @extend %e-mgn-t-md;
 }
 
 .panel__bg-img--small {
