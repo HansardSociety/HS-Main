@@ -10,8 +10,19 @@ titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-br
 headingLevel = panelData[:heading_level]
 
 copySize = panelData[:copy_size]
+isCopySm = copySize == "normal"
+isCopyMd = copySize == "medium"
 isCopyLg = copySize == "large"
 isCopyXl = copySize == "extra-large"
+
+copySizeClass = "e-fz-sm"
+if isCopyMd
+  copySizeClass = "e-fz-md"
+elsif isCopyLg
+  copySizeClass = "e-fz-lg"
+elsif isCopyXl
+  copySizeClass = "e-fz-xl"
+end
 
 showMoreCopy = panelData[:show_more]
 tweet = panelData[:tweet]
@@ -37,6 +48,17 @@ index = local_data[:index]
               <% else %>
                 <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
               <% end %>
+
+              <% if panelData[:tweet] && !panelData[:image] %>
+                <div class="grid grid--xxs e-pad-t-sm">
+                  <%= partial "views/partials/social",
+                    locals: { local_data: {
+                      icons: [
+                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
+                        ]}} %>
+                  <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
+                </div>
+              <% end %>
             </div>
           <% end %>
           <% if panelData[:image] %>
@@ -54,23 +76,45 @@ index = local_data[:index]
                     alt="<% panelData[:image][:alt] %>">
                 </div>
               </figure>
+              <% if panelData[:tweet] %>
+                <div class="grid grid--xxs e-pad-t-sm">
+                  <%= partial "views/partials/social",
+                    locals: { local_data: {
+                      icons: [
+                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
+                        ]}} %>
+                  <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
+                </div>
+              <% end %>
             </div>
           <% end %>
         <% end %>
 
         <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
           <% if panelData[:show_title] %>
-            <% if headingLevel == "level-3" %>
-              <h3 class="title-lg e-mgn-b-sm e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h3>
-            <% else %>
-              <h2 class="title-lg e-mgn-b-sm e-hide-below-md <%= titleColor %>"><%= panelData[:title] %></h2>
-            <% end %>
+            <div class="e-hide-below-md">
+              <% if headingLevel == "level-3" %>
+                <h3 class="title-lg e-mgn-b-sm <%= titleColor %>"><%= panelData[:title] %></h3>
+              <% else %>
+                <h2 class="title-lg e-mgn-b-sm <%= titleColor %>"><%= panelData[:title] %></h2>
+              <% end %>
+              <% if panelData[:tweet] && !panelData[:image] %>
+                <div class="grid grid--xxs e-pad-b-sm">
+                  <%= partial "views/partials/social",
+                    locals: { local_data: {
+                      icons: [
+                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
+                        ]}} %>
+                  <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
+                </div>
+              <% end %>
+            </div>
           <% end %>
 
           <div class="copy <%= "copy--invert" if colorProfile(:dark).include?(bgc) %>">
             <%=
-              if isCopyXl || isCopyLg
-                paraElem = isCopyXl ? '<p class="e-fz-lg"' : '<p class="e-fz-md"'
+              if !isCopySm
+                paraElem = "<p class='#{copySizeClass}'"
                 markdown(panelData[:copy]).sub("<p", paraElem)
               else
                 markdown(panelData[:copy])
@@ -99,15 +143,6 @@ index = local_data[:index]
                         aria_id: "activate-#{ showMoreCopy.cta_id }",
                         aria_target_id: showMoreCopy.cta_id }} %>
                   </div>
-                <% end %>
-
-                <% if panelData[:tweet] %>
-                  <%= partial "views/partials/social",
-                    locals: { local_data: {
-                      icons: [
-                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
-                        ]}} %>
-                  <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
                 <% end %>
 
                 <% if panelData[:calls_to_action] %>
