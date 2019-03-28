@@ -3,6 +3,7 @@ import Chart from "chart.js"
 import "chartjs-plugin-labels"
 import "chartjs-plugin-annotation"
 import "chartjs-plugin-datalabels"
+import "chartjs-chart-radial-gauge"
 
 import chroma from "chroma-js"
 import siteConfig from "./shared-config.json"
@@ -145,24 +146,28 @@ function hexToRGBA(hex, alpha) {
 
 const renderCharts = () => {
   const elems = document.querySelectorAll(".chart")
+
   elems.forEach((ctx, ctxIndex) => {
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
     const chartConfig = JSON.parse(ctx.querySelector(".chart__config").innerHTML)
 
     const type = chartConfig.type
     const data = chartConfig.data
-    const options = chartConfig.options
 
     const isBar = type === "bar"
     const isDoughnut = type === "doughnut"
     const isHorizontalBar = type === "horizontalBar"
     const isPie = type === "pie"
     const isLine = type === "line"
+    const isRadialGauge = type === "radialGauge"
 
     const customAnnotations = chartConfig.customConfig.annotations
 
     /* =Options
      ***************************************************************************/
+
+    let options = chartConfig.options
+    if (options === null || !options) options = {};
 
     /**
      * =Elements
@@ -305,6 +310,10 @@ const renderCharts = () => {
     if (isDoughnut) {
       options.cutoutPercentage = 40
       // options.rotation = Math.PI * 2 * .5
+    }
+
+    if (isRadialGauge) {
+      options.trackColor = offWhite
     }
 
     /* =Plugins
@@ -672,7 +681,7 @@ const renderCharts = () => {
   })
 }
 
-document.addEventListener("DOMContentLoaded", () => renderCharts())
+window.addEventListener("load", () => renderCharts())
 
 /* =TODOs
  ***************************************************************************/
@@ -726,3 +735,4 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * incrementalColors -> boolean
  * percentageLabel, valueLabel, percentageValueLabel
  */
+

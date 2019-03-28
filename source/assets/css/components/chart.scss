@@ -13,17 +13,20 @@
 }
 
 .chart--full-height {
-  // @extend %e-height-full;
+  @extend %e-height-full;
 }
 
 .chart__header {
+  min-height: 4.25rem; // == 3 lines
+
   @extend %e-bgc-white-2;
   @extend %e-pad-xs;
   @extend %e-width-full;
 }
 
 .chart__header-inner {
-  max-width: 52rem; // same as wide panel
+  width: 100%; // same as wide panel
+  max-width: 63rem;
 }
 
 .chart__container {

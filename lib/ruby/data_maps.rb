@@ -541,7 +541,7 @@ def panels(ctx, data)
             chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
             chart_datasets: data.datasets.to_json.to_s, # Arr
             chart_labels: (data.labels ? data.labels.to_json.to_s : "[]"), # Arr / optional
-            chart_options: data.options.to_json.to_s, # Obj
+            chart_options: (data.options ? data.options.to_json.to_s : "{}"), # Obj
             chart_custom_config: (data.custom_config ? data.custom_config.to_json.to_s : "{}"), # Obj / optional
             chart_width: data.width,
             chart_height: data.height,
