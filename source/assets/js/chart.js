@@ -3,6 +3,7 @@ import Chart from "chart.js"
 import "chartjs-plugin-labels"
 import "chartjs-plugin-annotation"
 import "chartjs-plugin-datalabels"
+import "chartjs-chart-radial-gauge"
 
 import chroma from "chroma-js"
 import siteConfig from "./shared-config.json"
@@ -145,24 +146,36 @@ function hexToRGBA(hex, alpha) {
 
 const renderCharts = () => {
   const elems = document.querySelectorAll(".chart")
+
   elems.forEach((ctx, ctxIndex) => {
     const chartCanvas = ctx.querySelector(".chart__canvas").getContext("2d")
     const chartConfig = JSON.parse(ctx.querySelector(".chart__config").innerHTML)
 
     const type = chartConfig.type
     const data = chartConfig.data
-    const options = chartConfig.options
 
     const isBar = type === "bar"
     const isDoughnut = type === "doughnut"
     const isHorizontalBar = type === "horizontalBar"
     const isPie = type === "pie"
     const isLine = type === "line"
+    const isRadialGauge = type === "radialGauge"
 
     const customAnnotations = chartConfig.customConfig.annotations
 
     /* =Options
      ***************************************************************************/
+
+    let options = chartConfig.options
+    if (options === null || !options) options = {};
+
+    /**
+     * =Elements
+    ******************************/
+
+    options.elements = {}
+    options.elements.line = {}
+    options.elements.line.tension = 0
 
     // Aspect ratio
     if (options && options.aspectRatio) options.maintainAspectRatio = true
@@ -183,7 +196,7 @@ const renderCharts = () => {
     options.tooltips.position = "nearest"
 
     if (isBar || isLine) options.tooltips.mode = "x"
-    else if (isHorizontalBar) options.tooltips.mode = "y"
+    else if (isHorizontalBar) options.tooltips.mode = "nearest"
     else options.tooltips.mode = "nearest"
 
     options.tooltips.callbacks = {
@@ -299,6 +312,10 @@ const renderCharts = () => {
       // options.rotation = Math.PI * 2 * .5
     }
 
+    if (isRadialGauge) {
+      options.trackColor = offWhite
+    }
+
     /* =Plugins
      ***************************************************************************/
 
@@ -362,8 +379,8 @@ const renderCharts = () => {
               value: i.position,
               mode: i.type === "axisLineVertical" ? "vertical" : "horizontal",
               borderColor: "#e22828",
-              borderWidth: 2,
-              borderDash: dashes,
+              borderWidth: 2
+              // borderDash: [5,10],
             }
 
             if (i.label) {
@@ -633,12 +650,13 @@ const renderCharts = () => {
 
       // If no border is defined add one to == bgc
       if (dataset.backgroundColor && !dataset.borderColor) {
-        if (isDatasetPie || isDatasetDoughnut) {
-          dataset.borderColor = white
-          dataset.hoverBorderColor = white
-        } else {
+        if (isDatasetLine) {
           dataset.borderColor = dataset.backgroundColor
           dataset.hoverBorderColor = dataset.backgroundColor
+
+        } else  {
+          dataset.borderColor = black
+          dataset.hoverBorderColor = black
         }
       }
 
@@ -663,7 +681,7 @@ const renderCharts = () => {
   })
 }
 
-document.addEventListener("DOMContentLoaded", () => renderCharts())
+window.addEventListener("load", () => renderCharts())
 
 /* =TODOs
  ***************************************************************************/
@@ -717,3 +735,4 @@ document.addEventListener("DOMContentLoaded", () => renderCharts())
  * incrementalColors -> boolean
  * percentageLabel, valueLabel, percentageValueLabel
  */
+

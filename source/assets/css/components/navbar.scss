@@ -125,9 +125,8 @@
   .navbar__inner {
     &::before {
       height: 3.5rem;
-      // @extend %e-zidx-neg;
 
-      @extend %e-box-shad-z2;
+      @extend %e-box-shad-z1;
     }
   }
 
