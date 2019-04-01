@@ -23,6 +23,11 @@ body {
   box-sizing: border-box;
 }
 
+*::selection {
+  @extend %e-bgc-brand-green-2;
+  @extend %e-col-white-1;
+}
+
 p, h1, h2, h3, h4, h5, h6, ul, ol, article, blockquote {
   margin: 0;
 }

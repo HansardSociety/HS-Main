@@ -86,12 +86,17 @@
 
   & > img {
     @extend %e-display-block;
-    @extend %e-max-width-full;
   }
 }
 
 .panel__bg-img--no-overlap {
   @extend %e-mgn-t-md;
+
+  & > img {
+    max-height: 40rem;
+
+    @extend %e-max-width-full;
+  }
 }
 
 .panel__bg-img--small {
