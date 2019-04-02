@@ -49,6 +49,9 @@ const rem0125 = rem100 * .125
  ***************************************************************************/
 
 const def = Chart.defaults.global
+Chart.Legend.prototype.afterFit = function() {
+  this.height = this.height + 10;
+};
 
 // Core
 def.defaultFontFamily = ff01;
@@ -69,6 +72,7 @@ def.layout.padding = 0
 def.legend.position = "top"
 def.legend.labels.boxWidth = rem150
 def.legend.labels.usePointStyle = true
+// def.legend.labels.padding = 20
 
 // Responsive
 def.responsive = true
