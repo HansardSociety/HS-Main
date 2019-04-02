@@ -1,29 +1,62 @@
 <%
 chartData = local_data[:chart_data]
 isDev = false
+# isDev = true
 %>
 <script class="chart__config" type="application/json">
 <% if isDev %>
 {
-  "type": "radialGauge",
+  "type": "bar",
   "data": {
     "datasets": [{
-      "data": [75],
-      "backgroundColor": ["pink"],
-      "border-width": 0,
-      "label": "Title"
-    }],
-    "labels": ["Label"]
+        "label": "Agree",
+        "data": [54],
+        "datasetID": "ds-01"
+      },
+      {
+        "label": "Disagree",
+        "data": [23],
+        "datasetID": "ds-02"
+      }
+    ],
+    "labels": ["Strong leader"]
   },
-  "options": {},
+  "options": {
+    "scales": {
+      "yAxes": [{
+        "stacked": true,
+        "ticks": {
+          "barPercentage": 0.75,
+          "max": 100,
+          "min": 0,
+          "stepSize": 10
+        },
+        "scaleLabel": {
+          "labelString": "Confidence (%)"
+        }
+      }],
+      "xAxes": [{
+        "stacked": true,
+        "barPercentage": 0.75,
+        "type": "category",
+        "scaleLabel": {
+          "labelString": "Political actors"
+        }
+      }]
+    }
+  },
   "customConfig": {
     "colors": [{
-      "palette": ["#04655a"],
-      "datasetIDs": ["ds-01"]
-    }]
+        "palette": ["#04655a"],
+        "datasetIDs": ["ds-01"]
+      },
+      {
+        "palette": ["#A70DAC"],
+        "datasetIDs": ["ds-02"]
+      }
+    ]
   }
 }
-
 <% else %>
 {
   "type": "<%= chartData[:chart_type] %>",

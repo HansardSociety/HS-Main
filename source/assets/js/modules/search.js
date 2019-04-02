@@ -32,7 +32,7 @@ const algoliaSearch = (() => {
 
     search.addWidget(
       instantSearch.widgets.configure({
-        hitsPerPage: 6,
+        hitsPerPage: 8,
         filters: searchFilterParam
       })
     )
