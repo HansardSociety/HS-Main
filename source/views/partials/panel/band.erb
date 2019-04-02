@@ -47,7 +47,7 @@ end
 
 <aside
   id="panel-<%= index %>"
-  class="panel
+  class="panel panel--no-overflow-x
     <%= bgcClass %>
     <%= "e-pad-reset" if isOverlap %>">
 
@@ -61,7 +61,7 @@ end
           class="b-lazy"
           src="<%= panelData[:image][:url] %>?fm=jpg&w=<%= cfulImageWidth %>&q=20"
           data-src="<%= panelData[:image][:url] %>?w=<%= cfulImageWidth %>"
-          alt="<%= panelData[:image][:description] %>"/>
+          alt="<%= panelData[:image][:alt] %>"/>
       </div>
     <% end %>
 
@@ -76,7 +76,7 @@ end
         <% end %>
       <% end; if copy %>
         <p class="<%= strapClass %> e-align-cen e-mgn-b-sm
-           <%= "e-col-white-1 e-pad-x-lg" if isOverlap %>"><%= panelData[:copy] %></p>
+           <%= "e-col-white-1 e-pad-sm" if isOverlap %>"><%= panelData[:copy] %></p>
 
       <% end; if callsToAction %>
         <div class="grid grid--xs grid--center">

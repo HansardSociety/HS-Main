@@ -99,6 +99,11 @@ hr {
   @extend %e-mgn-x-md;
 }
 
+small {
+  @extend %e-display-block;
+  @extend %e-ff-prim-oblique;
+}
+
 /*		=Quotes
   ========================================================================== */
 
