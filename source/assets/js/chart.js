@@ -230,7 +230,13 @@ const renderCharts = () => {
         } else if (isDatasetDoughnut || isDatasetPie) { // Doughnut or Pie
           const label = data.labels[item.index]
           const pcStr = calculatePercentage(datasetItem.data, value)
-          tooltipText = ` ${label}: ${value} (${pcStr}%)`
+
+          if (getAnnotationConfig(datasetItem).type === "percentageValueLabel") {
+            tooltipText = ` ${label}: ${value} (${pcStr}%)`
+          } else {
+            tooltipText = ` ${label}: ${pcStr}%`
+          }
+
 
         } else { // Line
           if (value.x) tooltipText = ` ${itemLabel} (${value.x}: ${value.y})`
