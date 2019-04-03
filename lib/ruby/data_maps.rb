@@ -79,7 +79,7 @@ def media(data, opts = {})
     url: "https:#{ data.url }",
     alt: data.description,
     title: (data.title if opts[:title]),
-    focus: (opts[:focus].image_focus.parameterize if opts[:focus])
+    focus: "center"
   }.compact
 end
 
