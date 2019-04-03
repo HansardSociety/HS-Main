@@ -34,7 +34,7 @@ end
             <% if headingLevel == "level-3" %>
               <h3 class="title-lg <%= titleColor %> e-mgn-b-md"><%= panelData[:title] %></h3>
             <% else %>
-              <h2 class="title-lg <%= titleColor %> e-mgn-b-md"><%= panelData[:title] %></h2>
+              <h3 class="title-lg <%= titleColor %> e-mgn-b-md"><%= panelData[:title] %></h3>
             <% end %>
           </div>
         </div>
@@ -47,7 +47,6 @@ end
         <!--**********************************************
             =Row 1
         ***********************************************-->
-
 
         <% if panelData[:charts_row_1] %>
           <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
@@ -64,7 +63,7 @@ end
                         <% if panelData[:show_title] %>
                           <h3 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
                         <% else %>
-                          <h2 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                          <h3 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
                         <% end %>
                         <p class="e-fz-xs e-col-black-1"><%= panelEntry[:caption] %></p>
                       </div>
@@ -118,7 +117,7 @@ end
                         <% if panelData[:show_title] %>
                           <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
                         <% else %>
-                          <h2 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h2>
+                          <h3 class="title-sm e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
                         <% end %>
                         <p class="e-fz-xs e-col-black-1"><%= panelEntry[:caption] %></p>
                       </div>

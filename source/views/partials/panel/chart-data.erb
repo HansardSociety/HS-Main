@@ -6,57 +6,48 @@ isDev = false
 <script class="chart__config" type="application/json">
 <% if isDev %>
 {
-  "type": "bar",
+  "type": "doughnut",
   "data": {
-    "datasets": [{
-        "label": "Agree",
-        "data": [54],
-        "datasetID": "ds-01"
-      },
+    "datasets": [
       {
-        "label": "Disagree",
-        "data": [23],
-        "datasetID": "ds-02"
+        "data": [
+          50,
+          42,
+          8
+        ],
+        "label": "Brexit SIs",
+        "datasetID": "ds-01"
       }
     ],
-    "labels": ["Strong leader"]
+    "labels": ["hello", "world", "Don't know"]
   },
   "options": {
-    "scales": {
-      "yAxes": [{
-        "stacked": true,
-        "ticks": {
-          "barPercentage": 0.75,
-          "max": 100,
-          "min": 0,
-          "stepSize": 10
-        },
-        "scaleLabel": {
-          "labelString": "Confidence (%)"
-        }
-      }],
-      "xAxes": [{
-        "stacked": true,
-        "barPercentage": 0.75,
-        "type": "category",
-        "scaleLabel": {
-          "labelString": "Political actors"
-        }
-      }]
-    }
+    "aspectRatio": 1
   },
   "customConfig": {
-    "colors": [{
-        "palette": ["#04655a"],
-        "datasetIDs": ["ds-01"]
-      },
+    "colors": [
       {
-        "palette": ["#A70DAC"],
-        "datasetIDs": ["ds-02"]
+        "palette": [
+          "#04655a",
+          "#B0B0B0"
+        ],
+        "datasetIDs": [
+          "ds-01"
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "fontSize": "medium",
+        "fontColor": "white",
+        "datasetIDs": [
+          "ds-01"
+        ]
       }
     ]
   }
 }
+
 <% else %>
 {
   "type": "<%= chartData[:chart_type] %>",

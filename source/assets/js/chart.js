@@ -49,6 +49,9 @@ const rem0125 = rem100 * .125
  ***************************************************************************/
 
 const def = Chart.defaults.global
+Chart.Legend.prototype.afterFit = function() {
+  this.height = this.height + 10;
+};
 
 // Core
 def.defaultFontFamily = ff01;
@@ -69,6 +72,7 @@ def.layout.padding = 0
 def.legend.position = "top"
 def.legend.labels.boxWidth = rem150
 def.legend.labels.usePointStyle = true
+// def.legend.labels.padding = 20
 
 // Responsive
 def.responsive = true
@@ -226,7 +230,12 @@ const renderCharts = () => {
         } else if (isDatasetDoughnut || isDatasetPie) { // Doughnut or Pie
           const label = data.labels[item.index]
           const pcStr = calculatePercentage(datasetItem.data, value)
-          tooltipText = ` ${label}: ${value} (${pcStr}%)`
+
+          if (getAnnotationConfig(datasetItem).type === "percentageValueLabel") {
+            tooltipText = ` ${label}: ${value} (${pcStr}%)`
+          } else {
+            tooltipText = ` ${label}: ${pcStr}%`
+          }
 
         } else { // Line
           if (value.x) tooltipText = ` ${itemLabel} (${value.x}: ${value.y})`
