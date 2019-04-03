@@ -4,10 +4,10 @@ align = local_data[:align]
 
 # Color profiles
 bgc = textBoxData[:background_color]
-bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc, { gradient: true })
+bgcClass = contentBgc(bgc)
 title = textBoxData[:title]
 showTitle = textBoxData[:show_title]
-titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
+titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
 
 # Options
 copy = textBoxData[:copy]
@@ -56,7 +56,9 @@ end
       <% end %>
     </div>
   <% end %>
-  <div class="text-box__content <%= "text-box__content-with-head" if showTitle || image %>">
-    <%= markdown(copy).sub("<p", "<p class=#{copySizeClass}") %>
-  </div>
+  <% if copy %>
+    <div class="text-box__content <%= "text-box__content-with-head" if showTitle || image %>">
+      <%= markdown(copy).sub("<p", "<p class=#{copySizeClass}") %>
+    </div>
+  <% end %>
 </section>
