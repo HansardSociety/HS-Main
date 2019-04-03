@@ -237,7 +237,6 @@ const renderCharts = () => {
             tooltipText = ` ${label}: ${pcStr}%`
           }
 
-
         } else { // Line
           if (value.x) tooltipText = ` ${itemLabel} (${value.x}: ${value.y})`
           else tooltipText = ` ${itemLabel} (${value})`
