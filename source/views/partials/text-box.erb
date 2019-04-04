@@ -19,13 +19,13 @@ cta = textBoxData[:call_to_action]
 
 if copySize == "normal"
   copySizeClass = "e-fz-sm"
-  titleSizeClass = "title-sm"
+  # titleSizeClass = "title-sm"
 elsif copySize == "large"
   copySizeClass = "e-fz-md"
-  titleSizeClass = "title-md"
+  # titleSizeClass = "title-md"
 elsif copySize == "extra-large"
   copySizeClass = "e-fz-lg"
-  titleSizeClass = "title-lg"
+  # titleSizeClass = "title-lg"
 end
 
 alignClass = ""
@@ -37,16 +37,17 @@ end
   <% if showTitle || image %>
     <div class="text-box__header
       <%= copy ? "e-bgc-white-2" : "text-box__header--solo e-bgc-white-1" %>
-      <%= "grid grid--xs grid--middle" if inlineHeader %>">
+      <%= "grid grid--xs grid--middle" if inlineHeader %>
+      <%= image && imageBorder && !inlineHeader ?
+        "e-pad-sm" :
+        (image && imageBorder && inlineHeader ?
+          "e-pad-x-xs e-pad-l-sm" :
+          "") %>
+      ">
 
       <% if image %>
         <figure class="
           text-box__img
-          <%= imageBorder && !inlineHeader ?
-            "e-pad-sm" :
-            (imageBorder && inlineHeader ?
-              "e-pad-x-xs e-pad-l-sm" :
-              "") %>
           <%= "grid__cell grid__cell--xs" if inlineHeader %>">
           <img
             class="text-box__img"
@@ -55,7 +56,7 @@ end
         </figure>
       <% end %>
       <% if showTitle %>
-        <h3 class="<%= titleSizeClass %> <%= titleColor %> <%= "grid__cell grid__cell--xs" if inlineHeader %>"><%= title %></h3>
+        <h3 class="title-xs <%= titleColor %> <%= "grid__cell grid__cell--xs" if inlineHeader %>"><%= title %></h3>
       <% end %>
     </div>
   <% end %>

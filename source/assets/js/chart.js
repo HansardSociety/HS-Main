@@ -209,14 +209,16 @@ const renderCharts = () => {
         const isDatasetBar = datasetItem.type === "bar"
         const isDatasetHorizontalBar = datasetItem.type === "horizontalBar"
         const isDatasetDoughnut = datasetItem.type === "doughnut"
+        const isDatasetLine = datasetItem.type === "line"
         const isDatasetPie = datasetItem.type === "pie"
 
         let title = false
         if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) {
           title = datasetItem.label
-        } else if (isDatasetBar || isDatasetHorizontalBar) {
+        } else if (isDatasetBar || isDatasetHorizontalBar || isDatasetLine) {
           const itemLabel = item[0].label.replace(/(?!, ),/g, " ")
-          title = itemLabel
+          console.log(title);
+          if (title) title = itemLabel
         }
         return title
       }, // END: => callbacks

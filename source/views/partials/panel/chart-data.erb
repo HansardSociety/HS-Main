@@ -1,46 +1,129 @@
 <%
 chartData = local_data[:chart_data]
 isDev = false
-# isDev = true
+isDev = true
 %>
 <script class="chart__config" type="application/json">
 <% if isDev %>
 {
   "type": "horizontalBar",
   "data": {
-    "datasets": [{
-      "data": [53,28,28,16,15,13,13,11,10,8,8,6,5],
-      "label": "APE 16",
-      "datasetID": "ds-01"
-    }, {
-      "data": [48,29,28,19,17,12,12,10,"n/a","n/a","n/a","n/a"],
-      "label": "APE 15",
-      "datasetID": "ds-02"
-    }],
-    "labels": [
-      ["Watched politically-related video", "content online"],
-      ["Created or signed an e-petition"],
-      ["Visited the website or social media account", "of a politician or political party"],
-      ["Shared something politically related", "on social media"],
-      ["Visited other politically-related", "websites or social media accounts"],
-      ["Followed a politician or political", "party on social media"],
-      ["Contributed to a political discussion", "on social media"],
-      ["Actively taken part in a group on social", "media that shares an interest in an issue or cause"],
-      ["Contacted a politician or political", "party on social media"],
-      ["Encouraged others on social media to", "act on a political or social issue outside of social media itself"],
-      ["Used hashtags related to a", "political or social issue"],
-      ["Changed your profile picture on a social media", "account to show your support for a political or social issue"]
-    ]
+    "datasets": [
+      {
+        "data": [
+          7
+        ],
+        "datasetID": "ds-01",
+        "label": "The system and the people work well"
+      },
+      {
+        "data": [
+          29
+        ],
+        "datasetID": "ds-02",
+        "label": "The system of government is good but the people making decisions are not up to the job"
+      },
+      {
+        "data": [
+          15
+        ],
+        "datasetID": "ds-03",
+        "label": "The people in power are good but the system prevents them from making the right decisions"
+      },
+      {
+        "data": [
+          38
+        ],
+        "label": "Neither the system nor the people making the decisions are good enough",
+        "datasetID": "ds-04"
+      },
+      {
+        "data": [
+          6
+        ],
+        "label": "Other",
+        "datasetID": "ds-05"
+      },
+      {
+        "data": [
+          4
+        ],
+        "label": "Don't know",
+        "datasetID": "ds-06"
+      }
+    ],
+    "labels": []
   },
-  "options": {},
+  "options": {
+    "legend": {
+      "position": "bottom"
+    },
+    "scales": {
+      "xAxes": [{
+        "stacked": true,
+        "ticks": {
+          "max": 100,
+          "min": 0,
+          "stepSize": 50
+        }
+      }],
+      "yAxes": [{
+        "stacked": true,
+        "barPercentage": 0.75
+      }]
+    }
+  },
   "customConfig": {
-    "colors": [{
-      "palette": ["#04655a"],
-      "datasetIDs": ["ds-01"]
-    }, {
-      "palette": ["#000"],
-      "datasetIDs": ["ds-02"]
-    }]
+    "colors": [
+      {
+        "palette": [
+          "#04655a"
+        ],
+        "datasetIDs": [
+          "ds-01"
+        ]
+      },
+      {
+        "palette": [
+          "#e95a46"
+        ],
+        "datasetIDs": [
+          "ds-02"
+        ]
+      },
+      {
+        "palette": [
+          "#f3a28b"
+        ],
+        "datasetIDs": [
+          "ds-03"
+        ]
+      },
+      {
+        "palette": [
+          "#be1622"
+        ],
+        "datasetIDs": [
+          "ds-04"
+        ]
+      },
+      {
+        "palette": [
+          "#878787"
+        ],
+        "datasetIDs": [
+          "ds-05"
+        ]
+      },
+      {
+        "palette": [
+          "#575756"
+        ],
+        "datasetIDs": [
+          "ds-06"
+        ]
+      }
+    ]
   }
 }
 
