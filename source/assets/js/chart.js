@@ -206,15 +206,23 @@ const renderCharts = () => {
     options.tooltips.callbacks = {
       title: (item, data) => {
         const datasetItem = data.datasets[item[0].datasetIndex]
+        const isDatasetBar = datasetItem.type === "bar"
+        const isDatasetHorizontalBar = datasetItem.type === "horizontalBar"
         const isDatasetDoughnut = datasetItem.type === "doughnut"
         const isDatasetPie = datasetItem.type === "pie"
 
         let title = false
-        if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) title = datasetItem.label
+        if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) {
+          title = datasetItem.label
+        } else if (isDatasetBar || isDatasetHorizontalBar) {
+          const itemLabel = item[0].label.replace(/(?!, ),/g, " ")
+          title = itemLabel
+        }
         return title
       }, // END: => callbacks
       label: (item, data) => {
         const datasetItem = data.datasets[item.datasetIndex]
+        const isDatasetBar = datasetItem.type === "bar"
         const isDatasetHorizontalBar = datasetItem.type === "horizontalBar"
         const isDatasetPie = datasetItem.type === "pie"
         const isDatasetDoughnut = datasetItem.type === "doughnut"
@@ -224,8 +232,8 @@ const renderCharts = () => {
 
         var tooltipText
 
-        if (isDatasetHorizontalBar && item.yLabel) { // Horizontal bar
-          tooltipText = ` ${item.yLabel} (${value})`
+        if (isDatasetBar || isDatasetHorizontalBar) { // Bars
+          tooltipText = ` ${data.datasets[item.datasetIndex].label} (${value})`
 
         } else if (isDatasetDoughnut || isDatasetPie) { // Doughnut or Pie
           const label = data.labels[item.index]
