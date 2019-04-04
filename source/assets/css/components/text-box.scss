@@ -1,20 +1,25 @@
 .text-box {
+  flex-flow: column;
+
   @extend %e-bgc-white-1;
   @extend %e-box-shad-z2;
   @extend %e-col-black-1;
+  @extend %e-display-flex;
   @extend %e-height-full;
   @extend %e-overflow-hidden;
   @extend %e-position-relative;
   @extend %e-rad-slight;
-  @extend %e-bdr-lightest;
 }
 
 .text-box--center {
   align-self: center;
 }
 
-.text-box__header {
-  @extend %e-bgc-white-2;
+.text-box__header {}
+
+.text-box__header--solo {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .text-box__header--inline {

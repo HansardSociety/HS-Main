@@ -35,7 +35,10 @@ end
 %>
 <section class="text-box <%= alignClass %> <%= bgcClass %>">
   <% if showTitle || image %>
-    <div class="text-box__header <%= "grid grid--xs grid--middle" if inlineHeader %>">
+    <div class="text-box__header
+      <%= copy ? "e-bgc-white-2" : "text-box__header--solo e-bgc-white-1" %>
+      <%= "grid grid--xs grid--middle" if inlineHeader %>">
+
       <% if image %>
         <figure class="
           text-box__img
