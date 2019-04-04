@@ -6,45 +6,41 @@ isDev = false
 <script class="chart__config" type="application/json">
 <% if isDev %>
 {
-  "type": "doughnut",
+  "type": "horizontalBar",
   "data": {
-    "datasets": [
-      {
-        "data": [
-          50,
-          42,
-          8
-        ],
-        "label": "Brexit SIs",
-        "datasetID": "ds-01"
-      }
-    ],
-    "labels": ["hello", "world", "Don't know"]
-  },
-  "options": {
-    "aspectRatio": 1
-  },
-  "customConfig": {
-    "colors": [
-      {
-        "palette": [
-          "#04655a",
-          "#B0B0B0"
-        ],
-        "datasetIDs": [
-          "ds-01"
-        ]
-      }
-    ],
-    "annotations": [
-      {
-        "fontSize": "medium",
-        "fontColor": "white",
-        "datasetIDs": [
-          "ds-01"
-        ]
-      }
+    "datasets": [{
+      "data": [53,28,28,16,15,13,13,11,10,8,8,6,5],
+      "label": "APE 16",
+      "datasetID": "ds-01"
+    }, {
+      "data": [48,29,28,19,17,12,12,10,"n/a","n/a","n/a","n/a"],
+      "label": "APE 15",
+      "datasetID": "ds-02"
+    }],
+    "labels": [
+      ["Watched politically-related video", "content online"],
+      ["Created or signed an e-petition"],
+      ["Visited the website or social media account", "of a politician or political party"],
+      ["Shared something politically related", "on social media"],
+      ["Visited other politically-related", "websites or social media accounts"],
+      ["Followed a politician or political", "party on social media"],
+      ["Contributed to a political discussion", "on social media"],
+      ["Actively taken part in a group on social", "media that shares an interest in an issue or cause"],
+      ["Contacted a politician or political", "party on social media"],
+      ["Encouraged others on social media to", "act on a political or social issue outside of social media itself"],
+      ["Used hashtags related to a", "political or social issue"],
+      ["Changed your profile picture on a social media", "account to show your support for a political or social issue"]
     ]
+  },
+  "options": {},
+  "customConfig": {
+    "colors": [{
+      "palette": ["#04655a"],
+      "datasetIDs": ["ds-01"]
+    }, {
+      "palette": ["#000"],
+      "datasetIDs": ["ds-02"]
+    }]
   }
 }
 

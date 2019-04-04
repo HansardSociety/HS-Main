@@ -14,16 +14,19 @@ headingLevel = panelData[:heading_level]
 copy = panelData[:copy]
 
 containerSize = panelData[:container_size]
-cellClassBase = "grid__cell--sm-above"
-if containerSize == "small"
+cellClassBase = "grid__cell--md-above"
+if containerSize == "tiny"
   colSpanResClassSm = "#{cellClassBase}-sm-6"
   colSpanResClassMd = "#{cellClassBase}-md-3"
+elsif containerSize == "small"
+  colSpanResClassSm = "#{cellClassBase}-sm-6"
+  colSpanResClassMd = "#{cellClassBase}-md-4"
 elsif containerSize == "medium"
-  colSpanResClassSm = "#{cellClassBase}-md-6"
-  colSpanResClassMd = "#{cellClassBase}-lg-4"
-elsif containerSize == "large"
-  colSpanResClassSm = "#{cellClassBase}-lg-12"
+  colSpanResClassSm = "#{cellClassBase}-md-12"
   colSpanResClassMd = "#{cellClassBase}-lg-6"
+elsif containerSize == "large"
+  colSpanResClassSm = "#{cellClassBase}-md-6"
+  colSpanResClassMd = "#{cellClassBase}-lg-12"
 end
 
 textBoxes = panelData[:text_boxes]
@@ -37,14 +40,14 @@ textBoxes = panelData[:text_boxes]
     <div class="panel__content panel__content--full">
       <% if hasTitle %>
         <% if headingLevel == "level-3" %>
-          <h3 class="title-lg e-align-cen  e-mgn-b-md <%= titleColor %>"><%= title %></h3>
+          <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
         <% else %>
-          <h2 class="title-lg e-align-cen  e-mgn-b-md <%= titleColor %>"><%= title %></h2>
+          <h2 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h2>
         <% end %>
       <% end %>
-      <div class="grid grid--sm grid--center">
+      <div class="grid grid--md grid--center">
         <% textBoxes.each do |textBoxData| %>
-          <div class="grid__cell grid__cell--sm-12 <%= colSpanResClassSm %> <%= colSpanResClassMd %>">
+          <div class="grid__cell grid__cell--md-12 <%= colSpanResClassSm %> <%= colSpanResClassMd %>">
             <%= partial "views/partials/text-box",
               locals: { local_data: {
                 text_box_data: textBoxData
