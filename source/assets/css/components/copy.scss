@@ -136,11 +136,11 @@ ol {
   > li {
     display: table;
 
-    > ul, > ol {
-      &:first-child {
-        @extend %e-mgn-t-sm;
-      }
-    }
+    // > ul, > ol {
+    //   &:first-child {
+    //     @extend %e-mgn-t-sm;
+    //   }
+    // }
 
     &::before {
       display: table-cell;

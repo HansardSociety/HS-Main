@@ -215,7 +215,8 @@ const renderCharts = () => {
         if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) {
           title = datasetItem.label
         } else if (isDatasetBar || isDatasetHorizontalBar) {
-          title = item[0].label
+          const itemLabel = item[0].label.replace(/(?!, ),/g, " ")
+          title = itemLabel
         }
         return title
       }, // END: => callbacks
