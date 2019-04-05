@@ -9,23 +9,25 @@ isDev = false
   "type": "bar",
   "data": {
     "datasets": [{
-      "data": [51,52,55,55,53,53,54,58,48,41,49,49,59,59,62,61],
-      "label": "% absolutely certain to vote (score 10)",
-      "datasetID": "ds-01"
-    }, {
-      "data": [11,11,10,11,10,11,12,10,16,20,11,12,10,11,8,12],
-      "label": "% absolutely certain not to vote (score 1)",
-      "datasetID": "ds-02"
-    }],
+        "data": [5,8,6,7,6,8,9,8,7,8],
+        "datasetID": "ds-01",
+        "label": "Very involved (%)"
+      },{
+        "data": [38,34,27,35,32,32,28,32,33,33,29],
+        "datasetID": "ds-02",
+        "label": "Fairly involved (%)"
+      },{
+        "data": [33,38,34,32,37,34,30,33,33,28],
+        "datasetID": "ds-03",
+        "label": "Not very involved (%)"
+      },{
+        "data": [22,19,30,25,25,26,27,25,26,35],
+        "datasetID": "ds-04",
+        "label": "Not at all involved (%)"
+      }
+    ],
     "labels": [
-      "Audit 1",
-      "Audit 2",
-      "Audit 3",
-      "Audit 4",
-      "Audit 5",
       "Audit 6",
-      "Audit 7",
-      "Audit 8",
       "Audit 9",
       "Audit 10",
       "Audit 11",
@@ -36,17 +38,49 @@ isDev = false
       "Audit 16"
     ]
   },
-  "options": {},
+  "options": {
+    "legend": {
+      "position": "top"
+    },
+    "scales": {
+      "xAxes": [{
+        "id": "x-axis"
+      }],
+      "yAxes": [{
+        "id": "y-axis"
+      }]
+    }
+  },
   "customConfig": {
     "colors": [{
-      "palette": ["#2A6C62"],
-      "datasetIDs": ["ds-01"]
-    }, {
-      "palette": ["#C1343E"],
-      "datasetIDs": ["ds-02"]
+        "palette": ["#4e7454"],
+        "datasetIDs": ["ds-01"]
+      },
+      {
+        "palette": ["#6fa270"],
+        "datasetIDs": ["ds-02"]
+      },
+      {
+        "palette": ["#ca5b52"],
+        "datasetIDs": ["ds-03"]
+      },
+      {
+        "palette": ["#c1343e"],
+        "datasetIDs": ["ds-04"]
+      }
+    ],
+    "annotations": [{
+      "type": "axisBox",
+      "xAxisID": "x-axis",
+      "yAxisID": "y-axis",
+      "xPosition": [
+        "Audit 15",
+        "Audit 16"
+      ]
     }]
   }
 }
+
 
 <% else %>
 {

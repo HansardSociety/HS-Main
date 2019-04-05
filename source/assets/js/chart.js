@@ -333,6 +333,20 @@ const renderCharts = () => {
 
     if (isRadialGauge) {
       options.trackColor = offWhite
+      options.centerArea = {}
+      options.centerArea.fontFamily = ff02
+      options.centerArea.fontSize = 18 * 5
+      options.centerArea.fontColor = black
+      options.centerArea.padding = 9
+
+      if (chartConfig.customConfig) {
+        if (chartConfig.customConfig.radialGaugeBackgroundImage) {
+          var image = document.createElement("img")
+
+          image.src = chartConfig.customConfig.radialGaugeBackgroundImage
+          options.centerArea.backgroundImage = image
+        }
+      }
     }
 
     /* =Plugins
@@ -398,8 +412,8 @@ const renderCharts = () => {
               value: i.position,
               mode: i.type === "axisLineVertical" ? "vertical" : "horizontal",
               borderColor: "#e22828",
-              borderWidth: 2
-              // borderDash: [5,10],
+              borderWidth: 2,
+              borderDash: [10, 5]
             }
 
             if (i.label) {
@@ -505,7 +519,13 @@ const renderCharts = () => {
             labelText = `${pcStr}%`
           }
         } else if (isDatasetBar || isDatasetHorizontalBar) {
-          labelText = value
+          if (chartConfig.customConfig && chartConfig.customConfig.negativeToPositiveValues) {
+            value = `${value}`.replace(/^-/, "");
+            labelText = value
+
+          } else {
+            labelText = value
+          }
         }
 
         return labelText
