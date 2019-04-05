@@ -674,9 +674,14 @@ const renderCharts = () => {
           dataset.borderColor = dataset.backgroundColor
           dataset.hoverBorderColor = dataset.backgroundColor
 
-        } else  {
-          dataset.borderColor = black
-          dataset.hoverBorderColor = black
+        } else if (isDatasetDoughnut || isDatasetPie) {
+          dataset.borderColor = white
+          dataset.borderWidth = 4
+          dataset.hoverBorderColor = white
+
+        } else {
+          dataset.borderColor = dataset.backgroundColor
+          dataset.hoverBorderColor = dataset.backgroundColor
         }
       }
 
