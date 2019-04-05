@@ -6,40 +6,73 @@ isDev = false
 <script class="chart__config" type="application/json">
 <% if isDev %>
 {
-  "type": "horizontalBar",
+  "type": "doughnut",
   "data": {
     "datasets": [{
-      "data": [53,28,28,16,15,13,13,11,10,8,8,6,5],
-      "label": "APE 16",
+      "type": "doughnut",
+      "data": [
+        32,
+        38,
+        30,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "datasetID": "ds-01"
     }, {
-      "data": [48,29,28,19,17,12,12,10,"n/a","n/a","n/a","n/a"],
-      "label": "APE 15",
+      "type": "doughnut",
+      "data": [
+        0,
+        0,
+        0,
+        10,
+        22,
+        19,
+        19,
+        30
+      ],
       "datasetID": "ds-02"
     }],
     "labels": [
-      ["Watched politically-related video", "content online"],
-      ["Created or signed an e-petition"],
-      ["Visited the website or social media account", "of a politician or political party"],
-      ["Shared something politically related", "on social media"],
-      ["Visited other politically-related", "websites or social media accounts"],
-      ["Followed a politician or political", "party on social media"],
-      ["Contributed to a political discussion", "on social media"],
-      ["Actively taken part in a group on social", "media that shares an interest in an issue or cause"],
-      ["Contacted a politician or political", "party on social media"],
-      ["Encouraged others on social media to", "act on a political or social issue outside of social media itself"],
-      ["Used hashtags related to a", "political or social issue"],
-      ["Changed your profile picture on a social media", "account to show your support for a political or social issue"]
+      "At least a few times a week",
+      "Less than weekly",
+      "Never",
+      "Nearly every day",
+      "A few times a week",
+      "A few times a month",
+      "Less often",
+      "Never"
     ]
   },
-  "options": {},
+  "options": {
+    "aspectRatio": 1
+  },
   "customConfig": {
     "colors": [{
-      "palette": ["#04655a"],
-      "datasetIDs": ["ds-01"]
-    }, {
-      "palette": ["#000"],
-      "datasetIDs": ["ds-02"]
+      "palette": [
+        "#2a6c62",
+        "#f89734",
+        "#c1343e",
+        "#2a6c62",
+        "#74948f",
+        "#f89734",
+        "#faa955",
+        "#c1343e"
+      ],
+      "datasetIDs": [
+        "ds-01",
+        "ds-02"
+      ]
+    }],
+    "annotations": [{
+      "fontSize": "large",
+      "fontColor": "white",
+      "datasetIDs": [
+        "ds-01",
+        "ds-02"
+      ]
     }]
   }
 }
