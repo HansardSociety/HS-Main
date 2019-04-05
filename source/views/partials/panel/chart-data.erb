@@ -6,73 +6,44 @@ isDev = false
 <script class="chart__config" type="application/json">
 <% if isDev %>
 {
-  "type": "doughnut",
+  "type": "bar",
   "data": {
     "datasets": [{
-      "type": "doughnut",
-      "data": [
-        32,
-        38,
-        30,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
+      "data": [51,52,55,55,53,53,54,58,48,41,49,49,59,59,62,61],
+      "label": "% absolutely certain to vote (score 10)",
       "datasetID": "ds-01"
     }, {
-      "type": "doughnut",
-      "data": [
-        0,
-        0,
-        0,
-        10,
-        22,
-        19,
-        19,
-        30
-      ],
+      "data": [11,11,10,11,10,11,12,10,16,20,11,12,10,11,8,12],
+      "label": "% absolutely certain not to vote (score 1)",
       "datasetID": "ds-02"
     }],
     "labels": [
-      "At least a few times a week",
-      "Less than weekly",
-      "Never",
-      "Nearly every day",
-      "A few times a week",
-      "A few times a month",
-      "Less often",
-      "Never"
+      "Audit 1",
+      "Audit 2",
+      "Audit 3",
+      "Audit 4",
+      "Audit 5",
+      "Audit 6",
+      "Audit 7",
+      "Audit 8",
+      "Audit 9",
+      "Audit 10",
+      "Audit 11",
+      "Audit 12",
+      "Audit 13",
+      "Audit 14",
+      "Audit 15",
+      "Audit 16"
     ]
   },
-  "options": {
-    "aspectRatio": 1
-  },
+  "options": {},
   "customConfig": {
     "colors": [{
-      "palette": [
-        "#2a6c62",
-        "#f89734",
-        "#c1343e",
-        "#2a6c62",
-        "#74948f",
-        "#f89734",
-        "#faa955",
-        "#c1343e"
-      ],
-      "datasetIDs": [
-        "ds-01",
-        "ds-02"
-      ]
-    }],
-    "annotations": [{
-      "fontSize": "large",
-      "fontColor": "white",
-      "datasetIDs": [
-        "ds-01",
-        "ds-02"
-      ]
+      "palette": ["#2A6C62"],
+      "datasetIDs": ["ds-01"]
+    }, {
+      "palette": ["#C1343E"],
+      "datasetIDs": ["ds-02"]
     }]
   }
 }

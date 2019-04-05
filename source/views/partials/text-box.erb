@@ -19,13 +19,13 @@ cta = textBoxData[:call_to_action]
 
 if copySize == "normal"
   copySizeClass = "e-fz-sm"
-  # titleSizeClass = "title-sm"
+  titleSizeClass = "title-sm"
 elsif copySize == "large"
   copySizeClass = "e-fz-md"
-  # titleSizeClass = "title-md"
+  titleSizeClass = "title-md"
 elsif copySize == "extra-large"
   copySizeClass = "e-fz-lg"
-  # titleSizeClass = "title-lg"
+  titleSizeClass = "title-lg"
 end
 
 alignClass = ""
@@ -56,7 +56,12 @@ end
         </figure>
       <% end %>
       <% if showTitle %>
-        <h3 class="title-xs <%= titleColor %> <%= "grid__cell grid__cell--xs" if inlineHeader %>"><%= title %></h3>
+        <h3 class="
+          <%= titleSizeClass %>
+          <%= titleColor %>
+          <%= "grid__cell grid__cell--xs" if inlineHeader %>
+          e-pad-x-xs e-pad-y-sm
+        "><%= title %></h3>
       <% end %>
     </div>
   <% end %>
