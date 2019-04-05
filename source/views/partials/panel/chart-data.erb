@@ -1,129 +1,79 @@
 <%
 chartData = local_data[:chart_data]
 isDev = false
-isDev = true
+# isDev = true
 %>
 <script class="chart__config" type="application/json">
 <% if isDev %>
 {
-  "type": "horizontalBar",
+  "type": "doughnut",
   "data": {
-    "datasets": [
-      {
-        "data": [
-          7
-        ],
-        "datasetID": "ds-01",
-        "label": "The system and the people work well"
-      },
-      {
-        "data": [
-          29
-        ],
-        "datasetID": "ds-02",
-        "label": "The system of government is good but the people making decisions are not up to the job"
-      },
-      {
-        "data": [
-          15
-        ],
-        "datasetID": "ds-03",
-        "label": "The people in power are good but the system prevents them from making the right decisions"
-      },
-      {
-        "data": [
-          38
-        ],
-        "label": "Neither the system nor the people making the decisions are good enough",
-        "datasetID": "ds-04"
-      },
-      {
-        "data": [
-          6
-        ],
-        "label": "Other",
-        "datasetID": "ds-05"
-      },
-      {
-        "data": [
-          4
-        ],
-        "label": "Don't know",
-        "datasetID": "ds-06"
-      }
-    ],
-    "labels": []
+    "datasets": [{
+      "type": "doughnut",
+      "data": [
+        32,
+        38,
+        30,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "datasetID": "ds-01"
+    }, {
+      "type": "doughnut",
+      "data": [
+        0,
+        0,
+        0,
+        10,
+        22,
+        19,
+        19,
+        30
+      ],
+      "datasetID": "ds-02"
+    }],
+    "labels": [
+      "At least a few times a week",
+      "Less than weekly",
+      "Never",
+      "Nearly every day",
+      "A few times a week",
+      "A few times a month",
+      "Less often",
+      "Never"
+    ]
   },
   "options": {
-    "legend": {
-      "position": "bottom"
-    },
-    "scales": {
-      "xAxes": [{
-        "stacked": true,
-        "ticks": {
-          "max": 100,
-          "min": 0,
-          "stepSize": 50
-        }
-      }],
-      "yAxes": [{
-        "stacked": true,
-        "barPercentage": 0.75
-      }]
-    }
+    "aspectRatio": 1
   },
   "customConfig": {
-    "colors": [
-      {
-        "palette": [
-          "#04655a"
-        ],
-        "datasetIDs": [
-          "ds-01"
-        ]
-      },
-      {
-        "palette": [
-          "#e95a46"
-        ],
-        "datasetIDs": [
-          "ds-02"
-        ]
-      },
-      {
-        "palette": [
-          "#f3a28b"
-        ],
-        "datasetIDs": [
-          "ds-03"
-        ]
-      },
-      {
-        "palette": [
-          "#be1622"
-        ],
-        "datasetIDs": [
-          "ds-04"
-        ]
-      },
-      {
-        "palette": [
-          "#878787"
-        ],
-        "datasetIDs": [
-          "ds-05"
-        ]
-      },
-      {
-        "palette": [
-          "#575756"
-        ],
-        "datasetIDs": [
-          "ds-06"
-        ]
-      }
-    ]
+    "colors": [{
+      "palette": [
+        "#2a6c62",
+        "#f89734",
+        "#c1343e",
+        "#2a6c62",
+        "#74948f",
+        "#f89734",
+        "#faa955",
+        "#c1343e"
+      ],
+      "datasetIDs": [
+        "ds-01",
+        "ds-02"
+      ]
+    }],
+    "annotations": [{
+      "fontSize": "large",
+      "fontColor": "white",
+      "datasetIDs": [
+        "ds-01",
+        "ds-02"
+      ]
+    }]
   }
 }
 
