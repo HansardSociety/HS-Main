@@ -15,7 +15,9 @@
   align-self: center;
 }
 
-.text-box__header {}
+.text-box__header {
+  min-height: 4.25rem;
+}
 
 .text-box__header--solo {
   margin-top: auto;

@@ -1,12 +1,12 @@
-import Chart from "chart.js"
+import Chart from "chart.js";
 
-import "chartjs-plugin-labels"
-import "chartjs-plugin-annotation"
-import "chartjs-plugin-datalabels"
-import "chartjs-chart-radial-gauge"
+import "chartjs-plugin-labels";
+import "chartjs-plugin-annotation";
+import "chartjs-plugin-datalabels";
+import "chartjs-chart-radial-gauge";
 
-import chroma from "chroma-js"
-import siteConfig from "./shared-config.json"
+import chroma from "chroma-js";
+import siteConfig from "./shared-config.json";
 
 /* =Settings
  ***************************************************************************/
@@ -209,14 +209,16 @@ const renderCharts = () => {
         const isDatasetBar = datasetItem.type === "bar"
         const isDatasetHorizontalBar = datasetItem.type === "horizontalBar"
         const isDatasetDoughnut = datasetItem.type === "doughnut"
+        const isDatasetLine = datasetItem.type === "line"
         const isDatasetPie = datasetItem.type === "pie"
 
         let title = false
         if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) {
           title = datasetItem.label
-        } else if (isDatasetBar || isDatasetHorizontalBar) {
-          const itemLabel = item[0].label.replace(/(?!, ),/g, " ")
-          title = itemLabel
+        } else if (isDatasetBar || isDatasetHorizontalBar || isDatasetLine) {
+          const itemLabel = item[0].label.replace(/(?!, ),/g, " ");
+
+          if (itemLabel && itemLabel !== "undefined") title = itemLabel;
         }
         return title
       }, // END: => callbacks
@@ -429,7 +431,8 @@ const renderCharts = () => {
             }
 
             if (i.yPosition) {
-              // FINISH
+              config.yMin = i.yPosition[0]
+              config.yMax = i.yPosition[1]
             }
           }
 
