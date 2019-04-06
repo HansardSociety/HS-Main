@@ -6,39 +6,102 @@ isDev = false
 <script class="chart__config" type="application/json">
 <% if isDev %>
 {
-  "type": "bar",
+  "type": "horizontalBar",
   "data": {
-    "datasets": [{
-        "data": [5,8,6,7,6,8,9,8,7,8],
-        "datasetID": "ds-01",
-        "label": "Very involved (%)"
-      },{
-        "data": [38,34,27,35,32,32,28,32,33,33,29],
-        "datasetID": "ds-02",
-        "label": "Fairly involved (%)"
-      },{
-        "data": [33,38,34,32,37,34,30,33,33,28],
-        "datasetID": "ds-03",
-        "label": "Not very involved (%)"
-      },{
-        "data": [22,19,30,25,25,26,27,25,26,35],
-        "datasetID": "ds-04",
-        "label": "Not at all involved (%)"
-      }
-    ],
+    "datasets": [
+	{
+		"data": [
+			53,
+			28,
+			28,
+			16,
+			15,
+			13,
+			13,
+			11,
+			10,
+			8,
+			8,
+			6,
+			5
+		],
+		"label": "% Audit 16",
+		"datasetID": "ds-01"
+	},
+	{
+		"data": [
+			48,
+			29,
+			28,
+			19,
+			17,
+			12,
+			12,
+			10,
+			0,
+			5,
+			0,
+			0,
+			0
+		],
+		"label": "% Audit 15",
+		"datasetID": "ds-02"
+	}
+],
     "labels": [
-      "Audit 6",
-      "Audit 9",
-      "Audit 10",
-      "Audit 11",
-      "Audit 12",
-      "Audit 13",
-      "Audit 14",
-      "Audit 15",
-      "Audit 16"
-    ]
+	[
+		"None of these"
+	],
+	[
+		"Watched politically-related video",
+		"content online"
+	],
+	[
+		"Created or signed an e-petition"
+	],
+	[
+		"Visited the website or social media account",
+		"of a politician or political party"
+	],
+	[
+		"Shared something politically related",
+		"on social media"
+	],
+	[
+		"Visited other politically-related",
+		"websites or social media accounts"
+	],
+	[
+		"Followed a politician or political",
+		"party on social media"
+	],
+	[
+		"Contributed to a political discussion",
+		"on social media"
+	],
+	[
+		"Actively taken part in a group on social media that",
+		"shares an interest in an issue or cause"
+	],
+	[
+		"Contacted a politician or political",
+		"party on social media"
+	],
+	[
+		"Encouraged others on social media to act on a political",
+		"or social issue outside of social media itself"
+	],
+	[
+		"Used hashtags related to a",
+		"political or social issue"
+	],
+	[
+		"Changed your profile picture on a social media account to",
+		"show your support for a political or social issue"
+	]
+]
   },
-  "options": {
+  "options":{
     "legend": {
       "position": "top"
     },
@@ -52,32 +115,74 @@ isDev = false
     }
   },
   "customConfig": {
-    "colors": [{
-        "palette": ["#4e7454"],
-        "datasetIDs": ["ds-01"]
+	"colors": [
+		{
+			"palette": [
+				"#2A6C62"
+			],
+			"datasetIDs": [
+				"ds-01"
+			]
+		},
+		{
+			"palette": [
+				"#C6D0CE"
+			],
+			"datasetIDs": [
+				"ds-02"
+			]
+		}
+	],
+	"annotations": [
+      {
+        "type": "axisLineVertical",
+        "hideLine": true,
+        "label": {
+          "content": "N/A",
+          "xAdjust": 0,
+          "yAdjust": 7,
+          "position": "bottom"
+        },
+        "axisID": "x-axis",
+        "position": "1.5"
       },
       {
-        "palette": ["#6fa270"],
-        "datasetIDs": ["ds-02"]
+        "type": "axisLineVertical",
+        "hideLine": true,
+        "label": {
+          "content": "N/A",
+          "xAdjust": 0,
+          "yAdjust": 60,
+          "position": "bottom"
+        },
+        "axisID": "x-axis",
+        "position": "1.5"
       },
       {
-        "palette": ["#ca5b52"],
-        "datasetIDs": ["ds-03"]
+        "type": "axisLineVertical",
+        "hideLine": true,
+        "label": {
+          "content": "N/A",
+          "xAdjust": 0,
+          "yAdjust": 112,
+          "position": "bottom"
+        },
+        "axisID": "x-axis",
+        "position": "1.5"
       },
       {
-        "palette": ["#c1343e"],
-        "datasetIDs": ["ds-04"]
+        "type": "axisLineVertical",
+        "hideLine": true,
+        "label": {
+          "content": "N/A",
+          "xAdjust": 0,
+          "yAdjust": 218,
+          "position": "bottom"
+        },
+        "axisID": "x-axis",
+        "position": "1.5"
       }
-    ],
-    "annotations": [{
-      "type": "axisBox",
-      "xAxisID": "x-axis",
-      "yAxisID": "y-axis",
-      "xPosition": [
-        "Audit 15",
-        "Audit 16"
-      ]
-    }]
+    ]
   }
 }
 

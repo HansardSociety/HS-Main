@@ -405,13 +405,15 @@ const renderCharts = () => {
           const isLineHorizontal = i.type === "axisLineHorizontal"
           const isBox = i.type === "axisBox"
 
+          config.drawTime = "afterDraw"
+
           if (isLineVertical || isLineHorizontal) {
             config = {
               scaleID: i.axisID,
               type: "line",
               value: i.position,
               mode: i.type === "axisLineVertical" ? "vertical" : "horizontal",
-              borderColor: "#e22828",
+              borderColor: i.hideLine ? "rgba(0, 0, 0, 0)" : "#e22828",
               borderWidth: 2,
               borderDash: [10, 5]
             }
