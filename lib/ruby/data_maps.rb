@@ -889,7 +889,9 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
     # Featured
     if entry.featured
       context.featured = entry.featured.map do |featured|
-        featuredData(featured, { parent_data: entry })
+        if featured.content_type
+          featuredData(featured, { parent_data: entry })
+        end
       end
     end
 
