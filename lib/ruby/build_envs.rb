@@ -89,7 +89,6 @@ module BuildEnvs
     ##		=Netlify
     ########################################
 
-    # redirects()
     headers()
 
     ##		=After build
@@ -97,10 +96,8 @@ module BuildEnvs
 
     after_build do
 
-      # Redirects
       if MM_ENV == "prod" || MM_ENV == "preview"
 
-        File.rename "#{ @buildSrc }/.redirects", "#{ @buildSrc }/_redirects"
         FileUtils.cp_r Dir.glob("source/assets/images/favicons/**"), "#{ @buildSrc }"
 
         # Generate content CSV
