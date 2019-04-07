@@ -25,11 +25,10 @@ elsif isCopyXl
 end
 
 showMoreCopy = panelData[:show_more]
-tweet = panelData[:tweet]
-
 callsToAction = panelData[:calls_to_action]
-
 index = local_data[:index]
+
+hasTweet = panelData[:tweet] && panelData[:tweet][:text]
 %>
 <section class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <span
@@ -49,12 +48,12 @@ index = local_data[:index]
                 <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
               <% end %>
 
-              <% if panelData[:tweet] && !panelData[:image] %>
+              <% if hasTweet && !panelData[:image] %>
                 <div class="grid grid--xxs e-pad-t-sm">
                   <%= partial "views/partials/social",
                     locals: { local_data: {
                       icons: [
-                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
+                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20#{ panelData[:tweet][:media] }"
                         ]}} %>
                   <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
                 </div>
@@ -76,12 +75,12 @@ index = local_data[:index]
                     alt="<% panelData[:image][:alt] %>">
                 </div>
               </figure>
-              <% if panelData[:tweet] %>
+              <% if hasTweet %>
                 <div class="grid grid--xxs e-pad-t-sm">
                   <%= partial "views/partials/social",
                     locals: { local_data: {
                       icons: [
-                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
+                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20#{ panelData[:tweet][:media] }"
                         ]}} %>
                   <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
                 </div>
@@ -98,12 +97,12 @@ index = local_data[:index]
               <% else %>
                 <h2 class="title-lg e-mgn-b-sm <%= titleColor %>"><%= panelData[:title] %></h2>
               <% end %>
-              <% if panelData[:tweet] && !panelData[:image] %>
+              <% if hasTweet && !panelData[:image] %>
                 <div class="grid grid--xxs e-pad-b-sm">
                   <%= partial "views/partials/social",
                     locals: { local_data: {
                       icons: [
-                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20%40HansardSociety%20#{ panelData[:tweet][:media] }"
+                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20#{ panelData[:tweet][:media] }"
                         ]}} %>
                   <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
                 </div>
@@ -129,7 +128,7 @@ index = local_data[:index]
                 content: showMoreCopy.content }} %>
           <% end %>
 
-          <% if panelData[:show_more] || panelData[:calls_to_action] || panelData[:tweet] %>
+          <% if panelData[:show_more] || panelData[:calls_to_action] || hasTweet %>
             <div class="e-mgn-t-sm">
               <div class="grid grid--xs">
                 <% if panelData[:show_more] %>
