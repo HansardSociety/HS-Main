@@ -5,7 +5,7 @@ urls = local_data[:icons].reject(&:nil?)
 <% urls.each do |url|
   origURL = url
 
-  if url !~ /@hansardsociety.org.uk/
+  if url !~ /@/
     url = URI.parse(url).host
     domain = PublicSuffix.parse(url)
   end %>
