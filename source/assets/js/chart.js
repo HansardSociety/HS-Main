@@ -335,7 +335,7 @@ const renderCharts = () => {
       options.trackColor = offWhite
       options.centerArea = {}
       options.centerArea.fontFamily = ff02
-      options.centerArea.fontSize = 18 * 5
+      options.centerArea.fontSize = 18 * 3
       options.centerArea.fontColor = black
       options.centerArea.padding = 9
 
@@ -345,6 +345,9 @@ const renderCharts = () => {
 
           image.src = chartConfig.customConfig.radialGaugeBackgroundImage
           options.centerArea.backgroundImage = image
+        }
+        if (chartConfig.customConfig.radialGaugeText) {
+          options.centerArea.text = chartConfig.customConfig.radialGaugeText
         }
       }
     }
