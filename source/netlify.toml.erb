@@ -10,3 +10,10 @@ end
   command = "npm run <%= branch %>:deploy"
   publish = "build/<%= branch %>"
   functions = "lib/lambda"
+
+<% universalData[:url_redirects].each do |redirect| %>
+[[redirects]]
+  from = "<%= redirect["from"] %>"
+  to = "<%= redirect["to"] %>"
+  status = <%= redirect["protocol"] ? redirect["protocol"] : 301 %>
+<% end %>

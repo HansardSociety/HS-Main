@@ -89,7 +89,7 @@ module BuildEnvs
     ##		=Netlify
     ########################################
 
-    redirects()
+    # redirects()
     headers()
 
     ##		=After build

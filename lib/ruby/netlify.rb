@@ -2,15 +2,15 @@ require "lib/ruby/config_helpers"
 
 module Netlify
 
-  # Redirects
-  def redirects()
-    File.open("source/.redirects", "w+") do |file|
-      universalData[:url_redirects].each do |redirect|
-        redirectStr = "#{ redirect["from"] } #{ redirect["to"] } #{ redirect["protocol"] if redirect["protocol"] }"
-        file << "#{ redirectStr.rstrip }\n"
-      end
-    end
-  end
+  # # Redirects
+  # def redirects()
+  #   File.open("source/.redirects", "w+") do |file|
+  #     universalData[:url_redirects].each do |redirect|
+  #       redirectStr = "#{ redirect["from"] } #{ redirect["to"] } #{ redirect["protocol"] if redirect["protocol"] }"
+  #       file << "#{ redirectStr.rstrip }\n"
+  #     end
+  #   end
+  # end
 
   # headers
   def headers()
