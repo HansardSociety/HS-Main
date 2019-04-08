@@ -24,7 +24,7 @@ isThemePage = @entry[:TYPE] == "theme_page"
       <% end %>
 
       <h1
-        class="banner__title title-<%= @entry[:category] == "blog" ? "xl" : "xxl" %> JS-truncate e-mgn-t-xs"
+        class="banner__title title-xl JS-truncate e-mgn-t-xs"
         data-truncate="{ 'xs': 120 }"><%= entryData[:title] %></h1>
 
       <% if entryData[:subtitle] %>
