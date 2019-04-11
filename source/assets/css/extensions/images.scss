@@ -3,8 +3,9 @@
 
   @supports (filter: brightness(1)) {
     filter: saturate(2.3333) contrast(.6666) brightness(.575);
+
     &::after {
-      opacity: 0;
+      display: none;
     }
   }
 }

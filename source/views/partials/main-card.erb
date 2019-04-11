@@ -46,17 +46,19 @@ featuredCard = local_data[:featured]
 
   <header class="main-card__header e-col-white-1">
     <div class="main-card__image">
-      <% if !disableLazy %>
-        <img
-          class="b-lazy"
-          src="<%= assetsDir %>/images/placeholder__main-card.svg"
-          data-src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=80"
-          alt="<%= imageAlt %>">
-      <% else %>
-        <img
-          src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=80"
-          alt="<%= imageAlt %>">
-      <% end %>
+      <div class="main-card__image-inner">
+        <% if !disableLazy %>
+          <img
+            class="b-lazy"
+            src="<%= assetsDir %>/images/placeholder__main-card.svg"
+            data-src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=80"
+            alt="<%= imageAlt %>">
+        <% else %>
+          <img
+            src="<%= imageURL %>?fit=fill&w=563&h=317&f=<%= imageFocus %>&q=80"
+            alt="<%= imageAlt %>">
+        <% end %>
+      </div>
       <div class="main-card__title">
         <span class="label-xxs label-tag <%= labelAccent %>"><%= metaLabel %></span>
         <h2

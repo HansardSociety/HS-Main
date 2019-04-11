@@ -14,5 +14,5 @@
 %e-overlay-medium::after {
   $color: Get($colorGroups, black, 2);
 
-  background: radial-gradient(ellipse at center 100%, rgba($color, .1) 0%, rgba($color, .5) 100%);
+  background: radial-gradient(ellipse at center 100%, rgba(#000, .3333) 0%, rgba(#000, .6666) 100%);
 }
