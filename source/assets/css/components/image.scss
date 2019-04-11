@@ -9,6 +9,11 @@
   @extend %e-pad-sm;
   @extend %e-rad-slight;
 
+  @supports (-ms-ime-align: auto) {
+    border: 1px solid Get($colorGroups, white, 3);
+    box-shadow: unset;
+  }
+
   .image__img {
     transform: scale(1) translateZ(0) perspective(1px);
 

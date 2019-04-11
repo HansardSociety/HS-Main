@@ -54,7 +54,7 @@ end
             <%# Chart %>
             <% if panelEntry[:TYPE] == "chart" %>
               <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
-                <section class="chart chart--full-height">
+                <section class="chart">
                   <% if panelEntry[:show_header] %>
                     <header
                       class="chart__header"
@@ -73,7 +73,7 @@ end
                     class="chart__container"
                     style="
                       <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
-                      <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                      <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
                     <canvas class="chart__canvas" style="max-width:100%!important;"></canvas>
                   </div>
                   <% if panelEntry[:citation] %>
@@ -127,7 +127,7 @@ end
                     class="chart__container"
                     style="
                       <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
-                      <%= "min-height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                      <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
                     <canvas class="chart__canvas print__hide"></canvas>
                   </div>
                   <div class="chart__citation"><%= panelEntry[:citation] %></div>
