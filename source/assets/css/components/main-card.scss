@@ -46,8 +46,8 @@
 }
 
 .main-card__image-inner {
-    @extend %e-img-filter;
-    @extend %e-position-relative;
+  @extend %e-img-filter;
+  @extend %e-position-relative;
 
   & > img {
     min-height: 1px; // Fix Safari height issues on lazy images
