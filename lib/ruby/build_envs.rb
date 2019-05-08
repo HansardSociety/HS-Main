@@ -46,6 +46,7 @@ module BuildEnvs
     @buildSrc = "build/#{ MM_ENV }"
 
     # Ignore
+    ignore "_archive/"
     ignore "assets/**"
     ignore "data/*.erb"
     ignore "views/**"
