@@ -640,6 +640,10 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.test_site_url = entry.test_site_url
     context.copyright = entry.copyright
     context.default_banner = media(entry.default_banner)
+    context.logo = {
+      mobile: media(entry.logo_mobile),
+      desktop: media(entry.logo_desktop)
+    }
 
     ## =Newsletter
     ########################################
@@ -667,23 +671,8 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.linkedin = entry.linkedin
     context.facebook = entry.facebook
 
-    ## =Checkout
+    ## =Meta
     ########################################
-
-    context.checkout_shipping = {
-      uk: entry.checkout_shipping_uk,
-      intl: entry.checkout_shipping_intl
-    }
-
-    context.checkout_confirmation = {
-      shipping: entry.checkout_confirmation_shipping,
-      error: entry.checkout_confirmation_error
-    }
-
-    context.logo = {
-      mobile: media(entry.logo_mobile),
-      desktop: media(entry.logo_desktop)
-    }
 
     context.meta = {
       analytics: entry.meta_analytics

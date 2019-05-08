@@ -18,8 +18,3 @@ featured = @entry[:featured]
 <% if isLandingPage && @entry[:panels].any?{|panel| panel[:TYPE] == "panel_chart"} %>
   <script src="<%= assetsDir %><%= config[:JS_CHART] %>"></script>
 <% end %>
-
-<%# Checkout JS %>
-<% if featured && featured.any?{|featured| featured[:TYPE].include?("product") && featured.price > 0} %>
-  <script src="<%= assetsDir %><%= config[:JS_CHECKOUT] %>"></script>
-<% end %>
