@@ -54,5 +54,6 @@ formName = formData[:meta_title].parameterize if isNetlifyForm
   </form>
 
 <% elsif isPaymentForm %>
-  <%= partial "views/partials/form/typeform" %>
+  <%= partial "views/partials/form/typeform",
+    locals: { url: formData[:typeform] } %>
 <% end %>

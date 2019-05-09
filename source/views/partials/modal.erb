@@ -7,6 +7,7 @@ size = local_data[:size]
 social = local_data[:social]
 title = local_data[:title]
 contentPadding = local_data[:contentPadding]
+typeform = local_data[:typeform]
 
 noScroll = local_data[:no_scroll] ? local_data[:no_scroll] : "no-scroll"
 
@@ -22,7 +23,7 @@ isYield = local_data[:yield]
     aria-controls="<%= id %>"
     class="modal__overlay JS-off JS-switch <%= "JS-no-scroll" if noScroll == "no-scroll" %>"></div>
 
-  <div class="modal__inner <%= "modal__inner--" + size if size %>">
+  <div class="modal__inner <%= "modal__inner--" + size if size %> <%= "modal__inner--typeform" if typeform %>">
     <div class="modal__header">
       <div class="modal__close">
         <%= partial "views/partials/btn",
@@ -61,7 +62,9 @@ isYield = local_data[:yield]
         <% end %>
         <%= markdown(content) %>
 
-      <% end; if form %>
+      <% end %>
+
+      <% if form %>
         <%= partial "views/partials/form/main",
           locals: { local_data: {
             entry_data: form,
