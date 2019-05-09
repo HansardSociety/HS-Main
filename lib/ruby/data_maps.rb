@@ -273,7 +273,6 @@ def featuredData(data, opts = {})
       meta_title: data.meta_title,
       title: data.title,
       meta_label: metaLabel(parentData),
-      product_id: data.product_id,
       price: data.price,
       payment_form: data.payment_form.parameterize,
       image: {
