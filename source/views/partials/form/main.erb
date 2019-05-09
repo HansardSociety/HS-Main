@@ -11,88 +11,48 @@ formData.merge!({
 formAttrsNetlify = {}
 formAttrsPayment = {}
 
-# Core attributes
-def formAttrsCore(classes)
-  {
-    "class": "form #{ classes }",
-    "action": "/"
-  }
-end
-
 # Netlify form
-if isNetlifyForm
-  formName = formData[:meta_title].parameterize
-
-  formAttrsNetlify = {
-    "data-netlify": "true",
-    "data-netlify-honeypot": "r2d2-03",
-    "name": "#{ config[:ENV] == "production" ? formName + "-03" : formName + "-03-ENV-" + config[:ENV] }"
-  }.merge(formAttrsCore("form--netlify"))
-
-# Payment form
-elsif isPaymentForm
-  formAttrsPayment = {
-    "id": "payment-form",
-    "method": "post"
-  }.merge(formAttrsCore("form--payment"))
-end
-
-formAttrs = isNetlifyForm ? formAttrsNetlify : formAttrsPayment
+formName = formData[:meta_title].parameterize if isNetlifyForm
 %>
 
-<% content_tag(:form, formAttrs) do %>
+<% if isNetlifyForm %>
+  <form
+    class="form form--netlify"
+    name="<%= config[:ENV] == "production" ? formName + "-03" : formName + "-03-ENV-" + config[:ENV] %>"
+    action="/"
+    data-netlify="true"
+    data-netlify-honeypot="r2d2-03">
 
-  <!--**********************************************
-      =Main
-  ***********************************************-->
+    <div class="form__main">
 
-  <div class="form__main">
-
-    <!--	=Netlify fields	-->
-    <% if isNetlifyForm %>
+      <!--	=Main fields	-->
       <%= partial "views/partials/form/fields-netlify",
         locals: { form_data: formData } %>
 
-    <!--	=Payment fields	-->
-    <% elsif isPaymentForm %>
-      <div class="copy">
-        <h2>We're upgrading our checkout system</h2>
-        <p>To purchase this item, please email <a href="mailto:payments@hansardsociety.org.uk">payments@hansardsociety.org.uk</a> and we will send you an invoice to make a bank transfer.</p>
-      </div>
-    <% end %>
-
-    <!--	=Footer	-->
-    <% if formData[:footer] %>
-      <div class="form__footer copy">
-        <%= markdown(formData[:footer]) %>
-      </div>
-    <% end %>
-  </div>
-
-  <!--**********************************************
-      =Success
-  ***********************************************-->
-
-  <div class="form__confirmation copy">
-
-    <% if isNetlifyForm %>
-      <%= markdown(formData[:confirmation]) %>
-    <% elsif isPaymentForm %>
-      ""
-    <% end %>
-
-    <div class="e-mgn-t-sm">
-      <%= partial "views/partials/social-follow",
-        locals: { bgc: "light" } %>
+      <!--	=Footer	-->
+      <% if formData[:footer] %>
+        <div class="form__footer copy">
+          <%= markdown(formData[:footer]) %>
+        </div>
+      <% end %>
     </div>
-  </div>
 
-  <!--**********************************************
-      =Error
-  ***********************************************-->
+    <div class="form__confirmation copy">
 
-  <div class="form__error">
-    <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong...</h2>
-    <p class="e-mgn-t-sm">Please reload the page and try again.</p>
-  </div>
+      <%= markdown(formData[:confirmation]) %>
+
+      <div class="e-mgn-t-sm">
+        <%= partial "views/partials/social-follow",
+          locals: { bgc: "light" } %>
+      </div>
+    </div>
+
+    <div class="form__error">
+      <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong...</h2>
+      <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+    </div>
+  </form>
+
+<% elsif isPaymentForm %>
+  <%= partial "views/partials/form/typeform" %>
 <% end %>

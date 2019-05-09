@@ -6,6 +6,7 @@ form = local_data[:form]
 size = local_data[:size]
 social = local_data[:social]
 title = local_data[:title]
+contentPadding = local_data[:contentPadding]
 
 noScroll = local_data[:no_scroll] ? local_data[:no_scroll] : "no-scroll"
 
@@ -40,6 +41,7 @@ isYield = local_data[:yield]
       class="modal__content
             e-col-black-2
             JS-focus
+            <%= "e-pad-sm" if contentPadding %>
             <%= "copy" if content %>
             <%= "AJAX-host" if ajax %>">
 

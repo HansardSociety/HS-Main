@@ -89,6 +89,7 @@ isThemePage = @entry[:TYPE] == "theme_page"
           locals: { local_data: {
             id: modalID,
             content: modalContent,
+            contentPadding: true,
             form: (modalForm ? modalForm : false),
             size: modalWidth }} %>
   <% end; end; end %>
