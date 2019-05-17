@@ -41,6 +41,12 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
 
 <title><%= title %></title>
 
+<%# Stripe %>
+<% if @entry[:featured] %>
+  <script src="https://js.stripe.com/v3"></script>
+<% end %>
+
+
 <!--**********************************************
     =Twitter
 ***********************************************-->
