@@ -1,13 +1,10 @@
-const stripe = (() => {
+const stripe = () => {
   var stripe = Stripe('pk_test_84iL7ExH74LfSp6ME6O2IOAx');
 
   var checkoutButton = document.getElementById('checkout-button-sku_F49veL6MiEjy2k');
   checkoutButton.addEventListener('click', function () {
     // When the customer clicks on the button, redirect
     // them to Checkout.
-    console.log("YO");
-
-
     stripe.redirectToCheckout({
       items: [{sku: 'sku_F49veL6MiEjy2k', quantity: 1}],
 
@@ -28,6 +25,6 @@ const stripe = (() => {
       }
     });
   });
-})()
+}
 
 export {stripe}
