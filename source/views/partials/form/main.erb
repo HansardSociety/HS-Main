@@ -7,61 +7,11 @@ isPaymentForm = formData[:TYPE] == "product"
 formData.merge!({
   is_modal: local_data[:modal]
 }.compact)
-
-formAttrsNetlify = {}
-formAttrsPayment = {}
-
-# Netlify form
-formName = formData[:meta_title].parameterize if isNetlifyForm
 %>
 
 <% if isNetlifyForm %>
-  <form
-    class="form form--netlify"
-    name="<%= config[:ENV] == "production" ? formName + "-03" : formName + "-03-ENV-" + config[:ENV] %>"
-    action="/"
-    data-netlify="true"
-    data-netlify-honeypot="r2d2-03">
-
-    <div class="form__main">
-
-      <!--	=Main fields	-->
-      <%= partial "views/partials/form/fields-netlify",
-        locals: { form_data: formData } %>
-
-      <!--	=Footer	-->
-      <% if formData[:footer] %>
-        <div class="form__footer copy">
-          <%= markdown(formData[:footer]) %>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="form__confirmation copy">
-
-      <%= markdown(formData[:confirmation]) %>
-
-      <div class="e-mgn-t-sm">
-        <%= partial "views/partials/social-follow",
-          locals: { bgc: "light" } %>
-      </div>
-    </div>
-
-    <div class="form__error">
-      <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong...</h2>
-      <p class="e-mgn-t-sm">Please reload the page and try again.</p>
-    </div>
-  </form>
-
+  <%= partial "views/partials/form/fields-netlify",
+    locals: { form_data: formData } %>
 <% elsif isPaymentForm %>
 
-  <button
-    style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
-    id="checkout-button-sku_F49veL6MiEjy2k"
-    role="link"
-  >
-    Checkout
-  </button>
-
-  <div id="error-message"></div>
 <% end %>

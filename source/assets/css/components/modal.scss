@@ -12,7 +12,7 @@
 
   @extend %e-height-full-vh;
   @extend %e-position-fixed;
-  @extend %e-rad-slight;
+  // @extend %e-rad-slight;
   @extend %e-width-full-vw;
 
   &::-webkit-scrollbar {
@@ -62,7 +62,7 @@
   }
 }
 
-.modal__inner--typeform {
+.modal__inner--checkout {
   min-height: calc(100vh - 4.5rem) !important;
 
   @include above(sm) {

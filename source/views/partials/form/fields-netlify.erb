@@ -1,41 +1,76 @@
 <%
 formData = form_data
+formAttrsNetlify = {}
+formName = formData[:meta_title].parameterize
 %>
 
-<label class="e-zzz">
-  <span>Please skip this field: </span>
-  <input type="email" name="r2d2-03">
-</label>
+<form
+  class="form form--netlify"
+  name="<%= config[:ENV] == "production" ? formName + "-03" : formName + "-03-ENV-" + config[:ENV] %>"
+  action="/"
+  data-netlify="true"
+  data-netlify-honeypot="r2d2-03">
 
-<% formData[:elements].each do |elem|
-  labelNameCap = elem[:label].capitalize.gsub("-", " ")
-  isNotInput = ["textarea"].include?(elem[:input_type])
+  <!--	=Main fields	-->
+  <div class="form__main">
+    <label class="e-zzz">
+      <span>Please skip this field: </span>
+      <input type="email" name="r2d2-03">
+    </label>
 
-  fieldTag = isNotInput ? "textarea" : "input"
+    <% formData[:elements].each do |elem|
+      labelNameCap = elem[:label].capitalize.gsub("-", " ")
+      isNotInput = ["textarea"].include?(elem[:input_type])
 
-  fieldAttrs = {
-    "class": "form__field",
-    "type": (elem[:input_type] if !isNotInput),
-    "name": elem[:label],
-    "placeholder": labelNameCap + "…",
-  }.compact
+      fieldTag = isNotInput ? "textarea" : "input"
 
-  fieldAttrs.merge!(required: "") if elem[:required] %>
+      fieldAttrs = {
+        "class": "form__field",
+        "type": (elem[:input_type] if !isNotInput),
+        "name": elem[:label],
+        "placeholder": labelNameCap + "…"
+      }.compact
 
-  <label class="e-width-full">
-    <span class="form__label label-xxs"><%= labelNameCap %></span>
-    <%= tag(fieldTag, fieldAttrs) %>
-    <span class="form__err">Please review this field</span>
-  </label>
-<% end %>
+      fieldAttrs.merge!(required: "") if elem[:required] %>
 
-<div class="e-mgn-t-sm">
-  <%= partial "views/partials/btn",
-  locals: { local_data: {
-    type: "plain",
-    size: "sm",
-    style: "primary",
-    label: "Submit",
-    label_size: "sm",
-    form: true }} %>
-</div>
+      <label class="e-width-full">
+        <span class="form__label label-xxs"><%= labelNameCap %></span>
+        <%= tag(fieldTag, fieldAttrs) %>
+        <span class="form__err">Please review this field</span>
+      </label>
+    <% end %>
+
+    <div class="e-mgn-t-sm">
+      <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "plain",
+        size: "sm",
+        style: "primary",
+        label: "Submit",
+        label_size: "sm",
+        form: true }} %>
+    </div>
+
+    <!--	=Footer	-->
+    <% if formData[:footer] %>
+      <div class="form__footer copy">
+        <%= markdown(formData[:footer]) %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form__confirmation copy">
+
+    <%= markdown(formData[:confirmation]) %>
+
+    <div class="e-mgn-t-sm">
+      <%= partial "views/partials/social-follow",
+        locals: { bgc: "light" } %>
+    </div>
+  </div>
+
+  <div class="form__error">
+    <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong...</h2>
+    <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+  </div>
+</form>

@@ -1,3 +1,8 @@
+<%# Stripe %>
+<% if @entry[:featured] %>
+  <script src="https://js.stripe.com/v3"></script>
+<% end %>
+
 <%# GA %>
 <% if config[:ENV] == "production" %>
   <%= siteData(:meta)[:analytics] %>
