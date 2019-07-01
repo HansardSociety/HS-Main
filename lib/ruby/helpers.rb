@@ -296,7 +296,9 @@ module CustomHelpers
 
           # Filter the entry page and pages that are included as featured items
           notThisPage = page[:ID] != entryData[:ID]
-          notFeaturedPage = !entryData[:featured].any?{ |featPage|
+          notFeaturedPage = !entryData[:featured].reject{ |featPage|
+            !featPage
+          }.any?{ |featPage|
              page[:ID].include? featPage[:ID]
           } if hasFeatured
 

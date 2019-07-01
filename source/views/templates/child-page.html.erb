@@ -46,11 +46,11 @@ url = "https://hansardsociety.org.uk/"
           <%# Entry has featured content %>
           <% if featured %>
             <% if isAuthoredPage %>
-              <% featured.map do |featured| %>
-                <% if featured[:TYPE] == "people" %>
+              <% featured.map do |featuredItem| %>
+                <% if featuredItem && featuredItem[:TYPE] == "people" %>
                   <%= partial "views/partials/profile",
                     locals: { local_data: {
-                      profile_data: featured,
+                      profile_data: featuredItem,
                       side: true }} %>
                 <% end %>
               <% end %>
@@ -142,13 +142,13 @@ url = "https://hansardsociety.org.uk/"
 
             <%# If blog, add all non-author featured content to sidebar %>
             <% if isAuthoredPage %>
-              <% featured.reject{ |featured| featured[:TYPE] == "people" }.each_with_index do |featured, index| %>
+              <% featured.reject{ |featuredItem| !featuredItem || featuredItem[:TYPE] == "people" }.each_with_index do |featuredItem, index| %>
                 <% if index == 0 %>
                   <h2 class="side-title e-acc-black-2-top">Featured</h2>
                 <% end %>
                 <%= partial "views/partials/side-card",
                   locals: { local_data: {
-                    side_card_data: featured,
+                    side_card_data: featuredItem,
                     featured: true }} %>
               <% end %>
 
