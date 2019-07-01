@@ -129,8 +129,9 @@ sideCardAttrs = {
                 locals: { local_data: {
                   id: checkoutID,
                   form: entryData,
-                  size: "medium",
-                  checkout: true }} %>
+                  size: "narrow",
+                  checkout: true,
+                  contentPadding: true }} %>
           <% end; end %>
 
           <!--**********************************************
@@ -145,7 +146,8 @@ sideCardAttrs = {
               <%= partial "views/partials/modal",
                 locals: { local_data: {
                   id: entryData[:modal][:cta_id],
-                  content: entryData[:modal][:content] }} %>
+                  content: entryData[:modal][:content],
+                  contentPadding: true }} %>
 
               <%= partial "views/partials/btn",
                 locals: { local_data: {

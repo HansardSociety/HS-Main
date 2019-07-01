@@ -1,3 +1,90 @@
+<%
+formData = form_data
+formName = "checkout"
+%>
+
+<form
+  class="form form--netlify"
+  name="<%= config[:ENV] == "production" ? formName : formName + "-ENV-" + config[:ENV] %>"
+  action="/"
+  data-netlify="true"
+  data-netlify-honeypot="r2d2-03">
+
+  <!--	=Main fields	-->
+  <div class="form__main">
+    <label class="e-zzz">
+      <span>Please skip this field: </span>
+      <input type="email" name="r2d2-03">
+    </label>
+
+    <!--	=First name	-->
+    <label class="e-width-full">
+      <span class="form__label label-xxs">First name</span>
+      <input
+        class="form__field"
+        type="text"
+        name="first-name"
+        placeholder="First name…"
+        required="required"
+      >
+      <span class="form__err">Please review this field</span>
+    </label>
+
+    <!--	=Surname	-->
+    <label class="e-width-full">
+      <span class="form__label label-xxs">Surname</span>
+      <input
+        class="form__field"
+        type="text"
+        name="surname"
+        placeholder="Surname…"
+        required="required"
+      >
+      <span class="form__err">Please review this field</span>
+    </label>
+
+    <!--	=Email	-->
+    <label class="e-width-full">
+      <span class="form__label label-xxs">Email address</span>
+      <input
+        class="form__field"
+        type="email"
+        name="email"
+        placeholder="your@email.com…"
+        required="required"
+      >
+      <span class="form__err">Please review this field</span>
+    </label>
+
+
+    <div class="e-mgn-t-sm">
+      <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "plain",
+        size: "sm",
+        style: "primary",
+        label: "Submit",
+        label_size: "sm",
+        form: true }} %>
+    </div>
+  </div>
+
+  <div class="form__confirmation copy">
+
+    <p>CONFIRMATION MESSAGE HERE</p>
+
+    <div class="e-mgn-t-sm">
+      <%= partial "views/partials/social-follow",
+        locals: { bgc: "light" } %>
+    </div>
+  </div>
+
+  <div class="form__error">
+    <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong...</h2>
+    <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+  </div>
+
+
   <button
     style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
     id="checkout-button-sku_F49veL6MiEjy2k"
@@ -7,3 +94,4 @@
   </button>
 
   <div id="error-message"></div>
+</form>

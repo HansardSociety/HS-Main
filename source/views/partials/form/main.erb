@@ -1,7 +1,7 @@
 <%
 formData = local_data[:entry_data]
 
-isNetlifyForm = formData[:TYPE] == "form"
+isSubscriptionForm = formData[:TYPE] == "form"
 isPaymentForm = formData[:TYPE] == "product"
 
 formData.merge!({
@@ -9,9 +9,10 @@ formData.merge!({
 }.compact)
 %>
 
-<% if isNetlifyForm %>
-  <%= partial "views/partials/form/fields-netlify",
+<% if isSubscriptionForm %>
+  <%= partial "views/partials/form/subscription",
     locals: { form_data: formData } %>
 <% elsif isPaymentForm %>
-
+  <%= partial "views/partials/form/checkout",
+    locals: { form_data: formData } %>
 <% end %>
