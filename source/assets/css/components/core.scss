@@ -64,6 +64,15 @@ iframe {
   @extend %e-display-block;
 }
 
+hr {
+  height: 1px;
+
+  border: 0;
+  background-color: Get($colorGroups, white, 2);
+
+  @extend %e-mgn-x-md;
+}
+
 div:focus {
   outline: none;
 }

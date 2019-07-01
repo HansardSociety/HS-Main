@@ -17,6 +17,8 @@ formName = "checkout"
       <input type="email" name="r2d2-03">
     </label>
 
+    <h3 class="form__title">Personal information</h3>
+
     <!--	=First name	-->
     <label class="e-width-full">
       <span class="form__label label-xxs">First name</span>
@@ -24,7 +26,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="first-name"
-        placeholder="First name…"
+        placeholder="First name"
         required="required"
       >
       <span class="form__err">Please review this field</span>
@@ -37,7 +39,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="surname"
-        placeholder="Surname…"
+        placeholder="Surname"
         required="required"
       >
       <span class="form__err">Please review this field</span>
@@ -50,7 +52,48 @@ formName = "checkout"
         class="form__field"
         type="email"
         name="email"
-        placeholder="your@email.com…"
+        placeholder="your@email.com"
+        required="required"
+      >
+      <span class="form__err">Please review this field</span>
+    </label>
+
+    <h3 class="form__title e-mgn-t-md">Shipping information</h3>
+
+    <!--	=Address: line 1	-->
+    <label class="e-width-full">
+      <span class="form__label label-xxs">Address line 1</span>
+      <input
+        class="form__field"
+        type="text"
+        name="address-line-1"
+        placeholder="House number/name and street"
+        required="required"
+      >
+      <span class="form__err">Please review this field</span>
+    </label>
+
+    <!--	=Address: line 2	-->
+    <label class="e-width-full">
+      <span class="form__label label-xxs">Address line 2</span>
+      <input
+        class="form__field"
+        type="text"
+        name="address-line-2"
+        placeholder="Town/city"
+        required="required"
+      >
+      <span class="form__err">Please review this field</span>
+    </label>
+
+    <!--	=Address: line 3	-->
+    <label class="e-width-full">
+      <span class="form__label label-xxs">Address line 3</span>
+      <input
+        class="form__field"
+        type="text"
+        name="address-line-3"
+        placeholder="County/state"
         required="required"
       >
       <span class="form__err">Please review this field</span>
@@ -63,7 +106,7 @@ formName = "checkout"
         type: "plain",
         size: "sm",
         style: "primary",
-        label: "Submit",
+        label: "Continue",
         label_size: "sm",
         form: true }} %>
     </div>
