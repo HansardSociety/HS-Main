@@ -10,6 +10,19 @@
 
     @extend %e-pad-xs;
   }
+
+  select {
+    @extend %e-position-relative;
+
+    &::after {
+      content: "V";
+      right: 1rem;
+      top: 0;
+
+      @extend %e-display-block;
+      @extend %e-position-absolute;
+    }
+  }
 }
 
 .form__main {

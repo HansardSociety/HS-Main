@@ -67,7 +67,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-line-1"
-        placeholder="House number/name and street"
+        placeholder="eg. House number/name and street"
         required="required"
       >
       <span class="form__err">Please review this field</span>
@@ -80,7 +80,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-line-2"
-        placeholder="Town/city"
+        placeholder="eg. Town/city"
         required="required"
       >
       <span class="form__err">Please review this field</span>
@@ -93,12 +93,31 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-line-3"
-        placeholder="County/state"
+        placeholder="eg. County/state"
         required="required"
       >
       <span class="form__err">Please review this field</span>
     </label>
 
+    <!--	=Address: post code	-->
+    <label class="e-width-full">
+      <span class="form__label label-xxs">Postal/zip code</span>
+      <input
+        class="form__field"
+        type="text"
+        name="address-post-code"
+        placeholder="Postal/zip code"
+        required="required"
+      >
+      <span class="form__err">Please review this field</span>
+    </label>
+
+    <!--	=Address: country	-->
+    <label class="e-width-full">
+      <span class="form__label label-xxs">Country</span>
+      <%= partial "views/partials/form/checkout-countries" %>
+      <span class="form__err">Please review this field</span>
+    </label>
 
     <div class="e-mgn-t-sm">
       <%= partial "views/partials/btn",

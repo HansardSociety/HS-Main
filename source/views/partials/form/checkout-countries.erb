@@ -1,0 +1,6 @@
+<select class="form__field" required="required">
+  <option value="">Please select</option>
+  <% siteData(:checkout_countries_list).each do |cty| %>
+    <option value="<%= cty %>"><%= cty %></option>
+  <% end %>
+</select>

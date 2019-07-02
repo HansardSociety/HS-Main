@@ -678,10 +678,11 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
       analytics: entry.meta_analytics
     }
 
-    ## =Shipping
+    ## =Checkout
     ########################################
 
     context.checkout_shipping_information = entry.checkout_shipping_information
+    context.checkout_countries_list = entry.checkout_countries_list
 
     ## =Footer pages
     ########################################
