@@ -1,9 +1,9 @@
-import { panelCarousel } from "./modules/carousel"
-import { toggleState } from "./modules/toggle-state"
-import { bannerHeight } from "./modules/banner"
-import { lazyLoading } from "./modules/lazy"
-import { infiniteFeed } from "./modules/feed"
-import { netlifyForms } from "./modules/form"
-import { shrinkNav } from "./modules/nav"
-import { truncate } from "./modules/truncate"
-import { stripe } from "./modules/stripe"
+import { panelCarousel } from "./modules/carousel";
+import { toggleState } from "./modules/toggle-state";
+import { bannerHeight } from "./modules/banner";
+import { lazyLoading } from "./modules/lazy";
+import { infiniteFeed } from "./modules/feed";
+// import { stripe } from "./modules/stripe"; // BEFORE FORMS!!
+import { netlifyForms } from "./modules/form";
+import { shrinkNav } from "./modules/nav";
+import { truncate } from "./modules/truncate";

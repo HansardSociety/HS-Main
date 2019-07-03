@@ -11,16 +11,10 @@
     @extend %e-pad-xs;
   }
 
-  select {
-    @extend %e-position-relative;
-
-    &::after {
-      content: "V";
-      right: 1rem;
-      top: 0;
-
-      @extend %e-display-block;
-      @extend %e-position-absolute;
+  input,
+  textarea {
+    &.form__field::placeholder {
+      @extend %e-col-grey-1;
     }
   }
 }
@@ -58,11 +52,9 @@
 
   @extend %e-pad-y-xs;
   @extend %e-rad-slight;
+
   &:valid {
     border: 2px solid lightgreen;
-  }
-  &::placeholder {
-    // @extend %e-ff-prim-italic;
   }
 }
 
@@ -122,10 +114,26 @@
 }
 
 .form__title {
-  margin-left: 8px;
-
-  @extend .title-sm, %e-col-brand-green-1, %e-mgn-b-xs
+  @extend .title-sm,
+    %e-col-brand-green-1,
+    %e-mgn-b-xs;
 }
+
+.form__select-wrapper {
+  @extend %e-position-relative;
+
+  &::after {
+    content: "\025be";
+    top: calc(50% - .8rem);
+    right: .5rem;
+    font-size: 1.75rem;
+    z-index: -1;
+
+    @extend %e-display-block;
+    @extend %e-position-absolute;
+  }
+}
+
 
 /*		=Checkbox
   ========================================================================== */
@@ -306,7 +314,7 @@ input[name=quantity].form__field {
   display: none !important;
 }
 
-.form.JS-success {
+.form:not(.form--checkout).JS-success {
 
   .form__confirmation {
     opacity: 1;

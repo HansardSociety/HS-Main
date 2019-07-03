@@ -4,7 +4,7 @@ formName = "checkout"
 %>
 
 <form
-  class="form form--netlify"
+  class="form form--netlify form--checkout"
   name="<%= config[:ENV] == "production" ? formName : formName + "-ENV-" + config[:ENV] %>"
   action="/"
   data-netlify="true"
@@ -26,7 +26,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="first-name"
-        placeholder="First name"
+        placeholder="eg. Stephen"
         required="required"
       >
       <span class="form__err">Please review this field</span>
@@ -39,7 +39,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="surname"
-        placeholder="Surname"
+        placeholder="eg. King-Hall"
         required="required"
       >
       <span class="form__err">Please review this field</span>
@@ -52,13 +52,17 @@ formName = "checkout"
         class="form__field"
         type="email"
         name="email"
-        placeholder="your@email.com"
+        placeholder="eg. skinghall@email.com"
         required="required"
       >
       <span class="form__err">Please review this field</span>
     </label>
 
     <h3 class="form__title e-mgn-t-md">Shipping information</h3>
+
+    <div class="copy e-fz-xs e-mgn-b-sm">
+      <%= markdown(siteData(:checkout_shipping_information)) %>
+    </div>
 
     <!--	=Address: line 1	-->
     <label class="e-width-full">
@@ -67,7 +71,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-line-1"
-        placeholder="eg. House number/name and street"
+        placeholder="eg. 1 Parliament Steet"
         required="required"
       >
       <span class="form__err">Please review this field</span>
@@ -80,8 +84,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-line-2"
-        placeholder="eg. Town/city"
-        required="required"
+        placeholder="eg. Westminster"
       >
       <span class="form__err">Please review this field</span>
     </label>
@@ -93,8 +96,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-line-3"
-        placeholder="eg. County/state"
-        required="required"
+        placeholder="eg. Greater London"
       >
       <span class="form__err">Please review this field</span>
     </label>
@@ -106,7 +108,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-post-code"
-        placeholder="Postal/zip code"
+        placeholder="eg. SW1A 0AA"
         required="required"
       >
       <span class="form__err">Please review this field</span>
@@ -115,19 +117,21 @@ formName = "checkout"
     <!--	=Address: country	-->
     <label class="e-width-full">
       <span class="form__label label-xxs">Country</span>
-      <%= partial "views/partials/form/checkout-countries" %>
+      <div class="form__select-wrapper">
+        <%= partial "views/partials/form/checkout-countries" %>
+      </div>
       <span class="form__err">Please review this field</span>
     </label>
 
     <div class="e-mgn-t-sm">
       <%= partial "views/partials/btn",
-      locals: { local_data: {
-        type: "plain",
-        size: "sm",
-        style: "primary",
-        label: "Continue",
-        label_size: "sm",
-        form: true }} %>
+        locals: { local_data: {
+          type: "plain",
+          size: "sm",
+          style: "primary",
+          label: "Continue to payment",
+          label_size: "sm",
+          form: true }} %>
     </div>
   </div>
 
@@ -141,19 +145,9 @@ formName = "checkout"
     </div>
   </div>
 
+  <%# Error %>
   <div class="form__error">
     <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong...</h2>
-    <p class="e-mgn-t-sm">Please reload the page and try again.</p>
+    <p class="e-mgn-t-sm">Sorry, it seems we're having trouble conneting you to our server. Please reload the page and try again.</p>
   </div>
-
-
-  <button
-    style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
-    id="checkout-button-sku_F49veL6MiEjy2k"
-    role="link"
-  >
-    Checkout
-  </button>
-
-  <div id="error-message"></div>
 </form>
