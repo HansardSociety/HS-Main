@@ -8,6 +8,8 @@
 
   &:focus {
     outline: none;
+    background-color: Get($colorGroups, orange, 3);
+    color: Get($colorGroups, white, 1);
   }
 
   @extend %e-align-cen;

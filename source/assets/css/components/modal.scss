@@ -34,7 +34,7 @@
 }
 
 .modal__inner {
-  max-height: calc(99.9999vh - 1rem);
+  max-height: calc(99.9999vh - 5rem);
 
   border-radius: 8px 8px 0 0;
 
@@ -103,6 +103,7 @@
   }
 
   @extend %e-align-left;
+  @extend %e-pad-b-lg;
   @extend %e-position-relative;
   @extend %e-overflow-y-auto;
   @extend %e-width-full;

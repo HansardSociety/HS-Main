@@ -90,13 +90,15 @@ function validateFields(getFormElem, sendFormData) {
   if (fieldsPass) {
     var formData = getFormElem;
 
+    getFormElem.classList.remove("JS-invalid");
     sendFormData();
 
   } else {
+    getFormElem.classList.add("JS-invalid");
+
     for (let field of formFields) {
 
       if (!field.validity.valid) {
-        field.style.borderColor = "red";
         field.classList.add("JS-error");
       }
     }

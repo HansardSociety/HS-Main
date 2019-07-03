@@ -8,16 +8,73 @@ formName = "checkout"
   name="<%= config[:ENV] == "production" ? formName : formName + "-ENV-" + config[:ENV] %>"
   action="/"
   data-netlify="true"
-  data-netlify-honeypot="r2d2-03">
+  data-netlify-honeypot="r2d2-03"
+>
 
   <!--	=Main fields	-->
   <div class="form__main">
     <label class="e-zzz">
-      <span>Please skip this field: </span>
+      <span>Please skip this field:&nbsp;</span>
       <input type="email" name="r2d2-03">
     </label>
 
-    <h3 class="form__title">Personal information</h3>
+    <h3 class="form__title">Product information</h3>
+
+    <div class="form__product">
+      <div class="form__product-left">
+        <img
+          src="<%= formData[:image][:url] %>"
+          alt="<%= formData[:image][:alt] %>"
+        >
+      </div>
+      <div class="form__product-right">
+        <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= formData[:meta_title] %></p>
+
+        <!--	=Item: title	-->
+        <label class="e-hidden">
+          <span class="form__label label-xxs">Item</span>
+          <input
+            class="form__field"
+            type="text"
+            name="item-name"
+            value="<%= formData[:meta_title] %>"
+            readonly="readonly"
+          >
+        </label>
+
+        <p class="e-fz-xs e-mgn-b-xs"><strong>Item price</strong>: GBP £<%= sprintf("%.2f", formData[:price]) %></p>
+
+        <!--	=Item: title	-->
+        <label class="e-hidden">
+          <span class="form__label label-xxs">Price</span>
+          <input
+            class="form__field"
+            type="text"
+            name="item-price"
+            value="<%= formData[:price] %>"
+            readonly="readonly"
+          >
+        </label>
+
+        <!--	=Item: quantity	-->
+        <div class="form__select-wrapper">
+          <label>
+            <span class="form__label label-xxs">Quantity</span>
+            <select class="form__field" required="required">
+              <% (1..5).each do |qty| %>
+                <option value="<%= qty %>"><%= qty %></option>
+              <% end %>
+            </select>
+            <span class="form__err">Please review this field</span>
+          </label>
+        </div>
+
+        <p class="e-fz-xs e-mgn-t-xs"><em>Please <a class="link" href="mailto:<%= siteData(:contact_email) %>" title="Contact us">contact us</a> if you require more copies.</em></p>
+      </div>
+    </div>
+
+    <hr>
+    <h3 class="form__title e-mgn-t-md">Customer information</h3>
 
     <!--	=First name	-->
     <label class="e-width-full">
@@ -58,6 +115,7 @@ formName = "checkout"
       <span class="form__err">Please review this field</span>
     </label>
 
+    <hr>
     <h3 class="form__title e-mgn-t-md">Shipping information</h3>
 
     <div class="copy e-fz-xs e-mgn-b-sm">
@@ -86,7 +144,6 @@ formName = "checkout"
         name="address-line-2"
         placeholder="eg. Westminster"
       >
-      <span class="form__err">Please review this field</span>
     </label>
 
     <!--	=Address: line 3	-->
@@ -98,7 +155,6 @@ formName = "checkout"
         name="address-line-3"
         placeholder="eg. Greater London"
       >
-      <span class="form__err">Please review this field</span>
     </label>
 
     <!--	=Address: post code	-->
@@ -115,13 +171,24 @@ formName = "checkout"
     </label>
 
     <!--	=Address: country	-->
-    <label class="e-width-full">
-      <span class="form__label label-xxs">Country</span>
-      <div class="form__select-wrapper">
-        <%= partial "views/partials/form/checkout-countries" %>
-      </div>
-      <span class="form__err">Please review this field</span>
-    </label>
+    <div class="form__select-wrapper e-width-full">
+      <label class="e-width-full">
+        <span class="form__label label-xxs">Country</span>
+        <select class="form__field" required="required">
+          <option
+            class="e-col-greyscale-2"
+            value=""
+            disabled=""
+            selected=""
+            hidden=""
+          >Please select a country...</option>
+          <% siteData(:checkout_countries_list).each do |cty| %>
+            <option value="<%= cty %>"><%= cty %></option>
+          <% end %>
+        </select>
+        <span class="form__err">Please review this field</span>
+      </label>
+    </div>
 
     <div class="e-mgn-t-sm">
       <%= partial "views/partials/btn",
@@ -132,6 +199,7 @@ formName = "checkout"
           label: "Continue to payment",
           label_size: "sm",
           form: true }} %>
+      <span class="form__invalid-alert e-mgn-t-xs">* Please review the fields highlighted above and try again...</span>
     </div>
   </div>
 
@@ -147,7 +215,7 @@ formName = "checkout"
 
   <%# Error %>
   <div class="form__error">
-    <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong...</h2>
+    <h2 class="title-lg e-col-brand-green-2">:( Oops! Something went wrong…</h2>
     <p class="e-mgn-t-sm">Sorry, it seems we're having trouble conneting you to our server. Please reload the page and try again.</p>
   </div>
 </form>

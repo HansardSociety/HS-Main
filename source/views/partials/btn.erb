@@ -64,7 +64,7 @@ btnAttributes = {
   "href": (url if url),
   "type": (isLink ? nil : (form ? "submit" : "button")),
   "aria-controls": (ariaTargetId if ariaTargetId),
-  "tabindex": "1",
+  # "tabindex": "1",
   "data-secondary-target": (secondaryTarget if secondaryTarget),
 }.merge(productAttrs).compact
 %>

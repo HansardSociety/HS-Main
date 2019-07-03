@@ -275,7 +275,6 @@ def featuredData(data, opts = {})
       meta_label: metaLabel(parentData),
       price: data.price,
       payment_form: data.payment_form.parameterize,
-      # typeform: ("#{ data.typeform }?product_name=#{ URI::encode(data.meta_title) }&item_price=#{ URI::encode("£#{ data.price }") }#{ data.media ? "&download=https:#{data.media.url}" : ""  }" if data.typeform),
       image: {
         url: data.image.url,
         alt: data.image.description
@@ -638,6 +637,7 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.site_title_seo = entry.site_title_seo
     context.site_url = entry.site_url
     context.test_site_url = entry.test_site_url
+    context.contact_email = entry.contact_email
     context.copyright = entry.copyright
     context.default_banner = media(entry.default_banner)
     context.logo = {
