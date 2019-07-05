@@ -37,6 +37,7 @@ formName = "checkout"
             class="form__field"
             type="text"
             name="item-name"
+            data-name="itemName"
             value="<%= formData[:meta_title] %>"
             readonly="readonly"
           >
@@ -51,6 +52,7 @@ formName = "checkout"
             class="form__field"
             type="text"
             name="item-price"
+            data-name="itemPrice"
             value="<%= formData[:price] %>"
             readonly="readonly"
           >
@@ -60,7 +62,11 @@ formName = "checkout"
         <div class="form__select-wrapper">
           <label>
             <span class="form__label label-xxs">Quantity</span>
-            <select class="form__field" required="required">
+            <select
+              class="form__field"
+              data-name="itemQuantity"
+              required="required"
+            >
               <% (1..5).each do |qty| %>
                 <option value="<%= qty %>"><%= qty %></option>
               <% end %>
@@ -83,6 +89,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="first-name"
+        data-name="customerFirstName"
         placeholder="eg. Stephen"
         required="required"
       >
@@ -96,6 +103,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="surname"
+        data-name="customerSurname"
         placeholder="eg. King-Hall"
         required="required"
       >
@@ -109,6 +117,7 @@ formName = "checkout"
         class="form__field"
         type="email"
         name="email"
+        data-name="customerEmail"
         placeholder="eg. skinghall@email.com"
         required="required"
       >
@@ -129,6 +138,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-line-1"
+        data-name="shippingAddressLine1"
         placeholder="eg. 1 Parliament Steet"
         required="required"
       >
@@ -142,6 +152,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-line-2"
+        data-name="shippingAddressLine2"
         placeholder="eg. Westminster"
       >
     </label>
@@ -153,6 +164,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-line-3"
+        data-name="shippingAddressLine3"
         placeholder="eg. Greater London"
       >
     </label>
@@ -164,6 +176,7 @@ formName = "checkout"
         class="form__field"
         type="text"
         name="address-post-code"
+        data-name="shippingAddressPostcode"
         placeholder="eg. SW1A 0AA"
         required="required"
       >
@@ -174,7 +187,11 @@ formName = "checkout"
     <div class="form__select-wrapper e-width-full">
       <label class="e-width-full">
         <span class="form__label label-xxs">Country</span>
-        <select class="form__field" required="required">
+        <select
+          class="form__field"
+          data-name="shippingAddressCountry"
+          required="required"
+        >
           <option
             class="e-col-greyscale-2"
             value=""
@@ -182,8 +199,8 @@ formName = "checkout"
             selected=""
             hidden=""
           >Please select a country...</option>
-          <% siteData(:checkout_countries_list).each do |cty| %>
-            <option value="<%= cty %>"><%= cty %></option>
+          <% siteData(:checkout_countries_list).each do |country| %>
+            <option value="<%= country %>"><%= country %></option>
           <% end %>
         </select>
         <span class="form__err">Please review this field</span>
@@ -193,6 +210,17 @@ formName = "checkout"
     <!--	=Review	-->
     <hr>
     <h3 class="form__title e-mgn-t-md">Review your order before proceeding</h3>
+
+    <div class="form__review-order e-fz-xs">
+      <p><strong>Item</strong>: <%= formData[:meta_title] %></p>
+      <p><strong>Quantity</strong>: <span id="itemQuantity"></span></p>
+      <p class="e-mgn-t-xs">
+        <strong>Shipping address</strong>:<br>
+        <span id="shippingAddressLine1">Address line 1,</span>
+        <span id="shippingAddressLine1">Address line 2,</span>
+        <span id="shippingAddressLine1">Address line 3,</span>
+      </p>
+    </div>
 
     <div class="e-mgn-t-sm">
       <%= partial "views/partials/btn",
