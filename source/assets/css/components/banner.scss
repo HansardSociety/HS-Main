@@ -85,7 +85,7 @@
   @extend %e-img-filter;
   @extend %e-height-full; // fallback for JS
   @extend %e-overflow-hidden;
-  // @extend %e-overlay-medium;
+  @extend %e-overlay-light;
   @extend %e-position-absolute;
   @extend %e-width-full;
   // @extend %e-zidx-neg;

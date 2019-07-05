@@ -64,6 +64,8 @@
 }
 
 .main-card__title {
+  background-color: rgba(0, 0, 0, .4);
+
   @extend %e-display-table; // fixes text v-align in chrome
   @extend %e-position-absolute;
 

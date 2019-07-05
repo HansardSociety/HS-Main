@@ -1,11 +1,5 @@
 %e-img-filter {
-  @extend %e-overlay-medium;
-
   @supports (filter: brightness(1)) {
-    filter: saturate(2.3333) contrast(.6666) brightness(.575);
-
-    &::after {
-      display: none;
-    }
+    filter: saturate(2.25) contrast(.66) /*brightness(.575)*/;
   }
 }

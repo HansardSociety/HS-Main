@@ -8,11 +8,22 @@
   }
 }
 
+%e-overlay-light::after { background-color: rgba(#000, .1875); }
 %e-overlay-medium::after { background-color: rgba(#000, .3333); }
 %e-overlay-dark::after   { background-color: rgba(#000, .5); }
 
-%e-overlay-medium::after {
-  $color: Get($colorGroups, black, 2);
+%e-overlay-light::after {
+  background: radial-gradient(
+    ellipse at center 100%,
+    rgba(#000, .1875) 0%,
+    rgba(#000, .5) 100%
+  );
+}
 
-  background: radial-gradient(ellipse at center 100%, rgba(#000, .3333) 0%, rgba(#000, .6666) 100%);
+%e-overlay-medium::after {
+  background: radial-gradient(
+    ellipse at center 100%,
+    rgba(#000, .3333) 0%,
+    rgba(#000, .6666) 100%
+  );
 }
