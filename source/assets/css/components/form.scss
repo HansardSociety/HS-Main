@@ -190,7 +190,7 @@
   margin-right: 0.125rem;
 
   border: solid 2px Get($colorGroups, white, 3);
-  border-radius: .25rem;
+  // border-radius: .25rem;
 
   @extend %e-display-inline-block;
 
@@ -261,4 +261,14 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 
   -webkit-appearance: none;
+}
+
+.form__review-order {
+  &.JS-inactive {
+    display: none;
+  }
+
+  &.JS-active {
+    display: block;
+  }
 }

@@ -8,8 +8,6 @@
 
   &:focus {
     outline: none;
-    background-color: Get($colorGroups, orange, 3);
-    color: Get($colorGroups, white, 1);
   }
 
   @extend %e-align-cen;
@@ -41,7 +39,13 @@
   @extend %e-col-white-1;
 
   &:active {
-    @extend %e-bgc-orange-2;
+    @extend %e-bgc-orange-3;
+  }
+
+  &:focus {
+    color: Get($colorGroups, white, 1);
+
+    @extend %e-bgc-orange-3;
   }
 
   @include above(sm) {
@@ -56,7 +60,8 @@
 
   @extend %e-col-orange-2;
 
-  &:active {
+  &:active,
+  &:focus {
     @extend %e-bgc-orange-2;
     @extend %e-col-white-1;
   }
