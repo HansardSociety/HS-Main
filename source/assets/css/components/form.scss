@@ -68,15 +68,10 @@
   }
 }
 
-.form__label,
-.form__err {
-  margin-left: 4px;
-}
-
 .form__label {
   display: block !important;
 
-  margin-bottom: 2px;
+  margin-bottom: .5px;
 
   @extend %e-mgn-t-xs;
   @extend %e-col-brand-green-1;

@@ -275,6 +275,11 @@ def featuredData(data, opts = {})
       meta_label: metaLabel(parentData),
       price: data.price,
       payment_form: data.payment_form.parameterize,
+      payment_form_shipping_rate: ({
+        title: data.payment_form_shipping_rate.title,
+        uk_sku: data.payment_form_shipping_rate.uk_sku,
+        international_sku: data.payment_form_shipping_rate.international_sku
+      } if data.payment_form_shipping_rate),
       image: {
         url: data.image.url,
         alt: data.image.description

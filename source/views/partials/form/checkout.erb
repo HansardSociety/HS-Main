@@ -1,6 +1,7 @@
 <%
 formData = form_data
 formName = "checkout"
+itemName = formData[:meta_title].gsub('"', "&quot;")
 %>
 
 <form
@@ -28,7 +29,7 @@ formName = "checkout"
         >
       </div>
       <div class="form__product-right">
-        <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= formData[:meta_title] %></p>
+        <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= itemName %></p>
 
         <!--	=Item: title	-->
         <label class="e-hidden">
@@ -38,7 +39,7 @@ formName = "checkout"
             type="text"
             name="item-name"
             data-name="itemName"
-            value="<%= formData[:meta_title] %>"
+            value="<%= itemName %>"
             readonly="readonly"
           >
         </label>
@@ -212,8 +213,8 @@ formName = "checkout"
     <h3 class="form__title e-mgn-t-md">Review your order before proceeding</h3>
 
     <div class="form__review-order e-fz-xs">
-      <p><strong>Item</strong>: <%= formData[:meta_title] %></p>
-      <p><strong>Quantity</strong>: <span id="itemQuantity"></span></p>
+      <p><strong>Item</strong>: <%= itemName %></p>
+      <p><strong>Quantity</strong>: 1<span id="itemQuantity"></span></p>
       <p class="e-mgn-t-xs">
         <strong>Shipping address</strong>:<br>
         <span id="shippingAddressLine1">Address line 1,</span>

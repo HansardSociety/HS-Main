@@ -1,14 +1,25 @@
+import checkout from "./checkout";
+
 function stripe () {
   var stripe = Stripe("pk_test_84iL7ExH74LfSp6ME6O2IOAx");
   var SKU = "sku_F49veL6MiEjy2k";
 
-  // When the customer clicks on the button, redirect
-  // them to Checkout.
   stripe.redirectToCheckout({
-    items: [{
-      sku: SKU,
-      quantity: 1
-    }],
+    items: [
+      {
+        sku: SKU,
+        quantity: Number(checkout.itemQuantity) || 1
+      },
+      {
+        sku: "sku_FPB6kZly3hl8BQ",
+        quantity: 1
+      }
+    ],
+
+    customerEmail: checkout.customerEmail || "",
+
+
+
 
     // Do not rely on the redirect to the successUrl for fulfilling
     // purchases, customers may not always reach the success_url after

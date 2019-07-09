@@ -98,6 +98,8 @@
 
   max-height: calc(100vh - 5.5rem); // must use units for Edge scroll
 
+  -webkit-overflow-scrolling: touch;
+
   @include above(sm) {
     max-height: calc(100vh - 8rem); // must use units for Edge scroll
   }
