@@ -50,9 +50,11 @@ errText = "Please review this field"
             readonly="readonly"
 
             data-item-name="<%= itemName %>"
-            data-item-sku="<%= itemName %>"
-            data-item-shipping-sku-uk="<%= itemName %>"
-            data-item-shipping-sku-international="<%= itemName %>"
+            data-item-sku="<%= formData[:sku] %>"
+            data-item-shipping-rate-uk="<%= formData[:payment_form_shipping_rate][:uk_rate] %>"
+            data-item-shipping-sku-uk="<%= formData[:payment_form_shipping_rate][:uk_sku] %>"
+            data-item-shipping-rate-international="<%= formData[:payment_form_shipping_rate][:international_rate] %>"
+            data-item-shipping-sku-international="<%= formData[:payment_form_shipping_rate][:international_sku] %>"
           >
         </label>
 
@@ -88,7 +90,7 @@ errText = "Please review this field"
           </label>
         </div>
 
-        <p class="e-fz-xs e-mgn-t-xs"><em>Please <a class="link" href="mailto:<%= siteData(:contact_email) %>" title="Contact us">contact us</a> if you require more copies.</em></p>
+        <p class="e-fz-xs e-mgn-t-xs"><em>Please <a class="link" href="mailto:<%= siteData(:contact_email) %>" title="Contact us">contact us</a> if you require more.</em></p>
       </div>
     </div>
 

@@ -278,7 +278,9 @@ def featuredData(data, opts = {})
       sku: data.sku,
       payment_form_shipping_rate: ({
         title: data.payment_form_shipping_rate.title,
+        uk_rate: data.payment_form_shipping_rate.uk_rate,
         uk_sku: data.payment_form_shipping_rate.uk_sku,
+        international_rate: data.payment_form_shipping_rate.international_rate,
         international_sku: data.payment_form_shipping_rate.international_sku
       } if data.payment_form_shipping_rate),
       image: {

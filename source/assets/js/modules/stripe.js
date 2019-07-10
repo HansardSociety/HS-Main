@@ -1,29 +1,34 @@
 import checkout from "./checkout";
 
 function stripe (checkoutFormId) {
-  var stripe = Stripe("pk_test_84iL7ExH74LfSp6ME6O2IOAx");
-  var SKU = "sku_F49veL6MiEjy2k";
-
+  const stripe = Stripe("pk_test_84iL7ExH74LfSp6ME6O2IOAx");
   const checkoutData = checkout[checkoutFormId];
 
-  console.log(checkoutData);
+  let items = [
+    {
+      sku: checkoutData.itemSKU,
+      quantity: Number(checkoutData.itemQuantity) || 1
+    }
+  ];
+
+  if (checkoutData.type === "shipping") {
+    if (checkoutData.shippingRate.international.selected) {
+      items.push({
+        sku: checkoutData.shippingRate.international.sku,
+        quantity: 1
+      });
+
+    } else {
+      items.push({
+        sku: checkoutData.shippingRate.uk.sku,
+        quantity: 1
+      });
+    }
+  }
 
   stripe.redirectToCheckout({
-    items: [
-      {
-        sku: SKU,
-        quantity: Number(checkoutData.itemQuantity) || 1
-      },
-      {
-        sku: "sku_FPB6kZly3hl8BQ",
-        quantity: 1
-      }
-    ],
-
+    items,
     customerEmail: checkoutData.customerEmail || "",
-
-
-
 
     // Do not rely on the redirect to the successUrl for fulfilling
     // purchases, customers may not always reach the success_url after
