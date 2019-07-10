@@ -275,6 +275,7 @@ def featuredData(data, opts = {})
       meta_label: metaLabel(parentData),
       price: data.price,
       payment_form: data.payment_form.parameterize,
+      sku: data.sku,
       payment_form_shipping_rate: ({
         title: data.payment_form_shipping_rate.title,
         uk_sku: data.payment_form_shipping_rate.uk_sku,

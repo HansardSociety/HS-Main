@@ -57,8 +57,8 @@ function sendData(formData, ajaxOpts) {
     formElem.parentElement.classList.add("JS-hide-text");
 
     if (formElem.classList.contains("form--checkout")) {
-      console.log("HELLO, CHECKOUT!")
-      stripe();
+      const checkoutFormId = formElem.dataset.checkoutFormId;
+      stripe(checkoutFormId);
     }
   });
 

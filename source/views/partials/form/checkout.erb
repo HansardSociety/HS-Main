@@ -1,7 +1,11 @@
 <%
 formData = form_data
-formName = "checkout"
+formName = "checkout-#{ formData[:payment_form] }"
 itemName = formData[:meta_title].gsub('"', "&quot;")
+
+isShipping = formData[:payment_form] == "shipping"
+
+errText = "Please review this field"
 %>
 
 <form
@@ -10,6 +14,9 @@ itemName = formData[:meta_title].gsub('"', "&quot;")
   action="/"
   data-netlify="true"
   data-netlify-honeypot="r2d2-03"
+
+  data-checkout-type="<%= formData[:payment_form] %>"
+  data-checkout-form-id=""
 >
 
   <!--	=Main fields	-->
@@ -41,6 +48,11 @@ itemName = formData[:meta_title].gsub('"', "&quot;")
             data-name="itemName"
             value="<%= itemName %>"
             readonly="readonly"
+
+            data-item-name="<%= itemName %>"
+            data-item-sku="<%= itemName %>"
+            data-item-shipping-sku-uk="<%= itemName %>"
+            data-item-shipping-sku-international="<%= itemName %>"
           >
         </label>
 
@@ -72,7 +84,7 @@ itemName = formData[:meta_title].gsub('"', "&quot;")
                 <option value="<%= qty %>"><%= qty %></option>
               <% end %>
             </select>
-            <span class="form__err">Please review this field</span>
+            <span class="form__err"><%= errText %></span>
           </label>
         </div>
 
@@ -94,7 +106,7 @@ itemName = formData[:meta_title].gsub('"', "&quot;")
         placeholder="eg. Stephen"
         required="required"
       >
-      <span class="form__err">Please review this field</span>
+      <span class="form__err"><%= errText %></span>
     </label>
 
     <!--	=Surname	-->
@@ -108,7 +120,7 @@ itemName = formData[:meta_title].gsub('"', "&quot;")
         placeholder="eg. King-Hall"
         required="required"
       >
-      <span class="form__err">Please review this field</span>
+      <span class="form__err"><%= errText %></span>
     </label>
 
     <!--	=Email	-->
@@ -122,91 +134,94 @@ itemName = formData[:meta_title].gsub('"', "&quot;")
         placeholder="eg. skinghall@email.com"
         required="required"
       >
-      <span class="form__err">Please review this field</span>
+      <span class="form__err"><%= errText %></span>
     </label>
 
-    <hr>
-    <h3 class="form__title e-mgn-t-md">Shipping information</h3>
+    <%# Shipping %>
+    <% if isShipping %>
+      <hr>
+      <h3 class="form__title e-mgn-t-md">Shipping information</h3>
 
-    <div class="copy e-fz-xs e-mgn-b-sm">
-      <%= markdown(siteData(:checkout_shipping_information)) %>
-    </div>
+      <div class="copy e-fz-xs e-mgn-b-sm">
+        <%= markdown(siteData(:checkout_shipping_information)) %>
+      </div>
 
-    <!--	=Address: line 1	-->
-    <label class="e-width-full">
-      <span class="form__label label-xxs">Address line 1</span>
-      <input
-        class="form__field"
-        type="text"
-        name="address-line-1"
-        data-name="shippingAddressLine1"
-        placeholder="eg. 1 Parliament Steet"
-        required="required"
-      >
-      <span class="form__err">Please review this field</span>
-    </label>
-
-    <!--	=Address: line 2	-->
-    <label class="e-width-full">
-      <span class="form__label label-xxs">Address line 2</span>
-      <input
-        class="form__field"
-        type="text"
-        name="address-line-2"
-        data-name="shippingAddressLine2"
-        placeholder="eg. Westminster"
-      >
-    </label>
-
-    <!--	=Address: line 3	-->
-    <label class="e-width-full">
-      <span class="form__label label-xxs">Address line 3</span>
-      <input
-        class="form__field"
-        type="text"
-        name="address-line-3"
-        data-name="shippingAddressLine3"
-        placeholder="eg. Greater London"
-      >
-    </label>
-
-    <!--	=Address: post code	-->
-    <label class="e-width-full">
-      <span class="form__label label-xxs">Postal/zip code</span>
-      <input
-        class="form__field"
-        type="text"
-        name="address-post-code"
-        data-name="shippingAddressPostcode"
-        placeholder="eg. SW1A 0AA"
-        required="required"
-      >
-      <span class="form__err">Please review this field</span>
-    </label>
-
-    <!--	=Address: country	-->
-    <div class="form__select-wrapper e-width-full">
+      <!--	=Address: line 1	-->
       <label class="e-width-full">
-        <span class="form__label label-xxs">Country</span>
-        <select
+        <span class="form__label label-xxs">Address line 1</span>
+        <input
           class="form__field"
-          data-name="shippingAddressCountry"
+          type="text"
+          name="address-line-1"
+          data-name="shippingAddressLine1"
+          placeholder="eg. 1 Parliament Steet"
           required="required"
         >
-          <option
-            class="e-col-greyscale-2"
-            value=""
-            disabled=""
-            selected=""
-            hidden=""
-          >Please select a country...</option>
-          <% siteData(:checkout_countries_list).each do |country| %>
-            <option value="<%= country %>"><%= country %></option>
-          <% end %>
-        </select>
-        <span class="form__err">Please review this field</span>
+        <span class="form__err"><%= errText %></span>
       </label>
-    </div>
+
+      <!--	=Address: line 2	-->
+      <label class="e-width-full">
+        <span class="form__label label-xxs">Address line 2</span>
+        <input
+          class="form__field"
+          type="text"
+          name="address-line-2"
+          data-name="shippingAddressLine2"
+          placeholder="eg. Westminster"
+        >
+      </label>
+
+      <!--	=Address: line 3	-->
+      <label class="e-width-full">
+        <span class="form__label label-xxs">Address line 3</span>
+        <input
+          class="form__field"
+          type="text"
+          name="address-line-3"
+          data-name="shippingAddressLine3"
+          placeholder="eg. Greater London"
+        >
+      </label>
+
+      <!--	=Address: post code	-->
+      <label class="e-width-full">
+        <span class="form__label label-xxs">Postal/zip code</span>
+        <input
+          class="form__field"
+          type="text"
+          name="address-post-code"
+          data-name="shippingAddressPostcode"
+          placeholder="eg. SW1A 0AA"
+          required="required"
+        >
+        <span class="form__err"><%= errText %></span>
+      </label>
+
+      <!--	=Address: country	-->
+      <div class="form__select-wrapper e-width-full">
+        <label class="e-width-full">
+          <span class="form__label label-xxs">Country</span>
+          <select
+            class="form__field"
+            data-name="shippingAddressCountry"
+            required="required"
+          >
+            <option
+              class="e-col-greyscale-2"
+              value=""
+              disabled=""
+              selected=""
+              hidden=""
+            >Please select a country...</option>
+            <% siteData(:checkout_countries_list).each do |country| %>
+              <option value="<%= country %>"><%= country %></option>
+            <% end %>
+          </select>
+          <span class="form__err"><%= errText %></span>
+        </label>
+      </div>
+    <% end %>
 
     <!--	=Review	-->
     <hr>
@@ -215,12 +230,17 @@ itemName = formData[:meta_title].gsub('"', "&quot;")
     <div class="form__review-order e-fz-xs">
       <p><strong>Item</strong>: <%= itemName %></p>
       <p><strong>Quantity</strong>: 1<span id="itemQuantity"></span></p>
-      <p class="e-mgn-t-xs">
-        <strong>Shipping address</strong>:<br>
-        <span id="shippingAddressLine1">Address line 1,</span>
-        <span id="shippingAddressLine1">Address line 2,</span>
-        <span id="shippingAddressLine1">Address line 3,</span>
-      </p>
+
+      <% if isShipping %>
+        <p class="e-mgn-t-xs">
+          <strong>Shipping address</strong>:<br>
+          <span id="shippingAddressLine1">Address line 1,</span>
+          <span id="shippingAddressLine1">Address line 2,</span>
+          <span id="shippingAddressLine1">Address line 3,</span>
+          <span id="shippingAddressLine1">Postcode,</span>
+          <span id="shippingAddressLine1">Country</span>
+        </p>
+      <% end %>
     </div>
 
     <div class="e-mgn-t-sm">

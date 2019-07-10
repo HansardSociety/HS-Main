@@ -1,36 +1,40 @@
 const checkoutForms = document.querySelectorAll(".form--checkout");
 
 module.exports = (function () {
-  let orderInfo = {
-    itemName: "",
-    itemQuantity: 1,
+  const checkoutFormsData = {};
 
-    customerFirstName: "",
-    customerFirstSurname: "",
-    customerEmail: "",
-
-    shippingAddressLine1: "",
-    shippingAddressLine2: "",
-    shippingAddressLine3: "",
-    shippingAddressPostcode: "",
-    shippingAddressCountry: "",
-
-    priceItem: ""
-  };
-
-  checkoutForms.forEach(form => {
+  checkoutForms.forEach((form, i) => {
     const fields = form.querySelectorAll(".form__field");
+    const checkoutFormId = `checkout-form-${ i }`;
+
+    checkoutFormsData[checkoutFormId] = {
+      id: checkoutFormId,
+      type: form.dataset.checkoutType,
+
+      itemName: form.querySelector('[data-name="itemName"]').value,
+      itemQuantity: 1,
+
+      customerFirstName: "",
+      customerFirstSurname: "",
+      customerEmail: "",
+
+      shippingAddressLine1: "",
+      shippingAddressLine2: "",
+      shippingAddressLine3: "",
+      shippingAddressPostcode: "",
+      shippingAddressCountry: ""
+    };
+
+    form.dataset.checkoutFormId = checkoutFormId; // set to pass to stripe to identify correct form
 
     fields.forEach(field => {
-      if (field.dataset.name === "itemName") {
-        orderInfo[field.dataset.name] = field.value;
-      }
-
       field.addEventListener("change", function(e) {
-        orderInfo[this.dataset.name] = this.value.replace(/"/g, "&quot;");
+        checkoutFormsData[checkoutFormId][this.dataset.name] = this.value.replace(/"/g, "&quot;");
       })
     });
   });
 
-  return orderInfo;
+  console.log(checkoutFormsData);
+
+  return checkoutFormsData;
 })();

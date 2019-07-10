@@ -1,14 +1,18 @@
 import checkout from "./checkout";
 
-function stripe () {
+function stripe (checkoutFormId) {
   var stripe = Stripe("pk_test_84iL7ExH74LfSp6ME6O2IOAx");
   var SKU = "sku_F49veL6MiEjy2k";
+
+  const checkoutData = checkout[checkoutFormId];
+
+  console.log(checkoutData);
 
   stripe.redirectToCheckout({
     items: [
       {
         sku: SKU,
-        quantity: Number(checkout.itemQuantity) || 1
+        quantity: Number(checkoutData.itemQuantity) || 1
       },
       {
         sku: "sku_FPB6kZly3hl8BQ",
@@ -16,7 +20,7 @@ function stripe () {
       }
     ],
 
-    customerEmail: checkout.customerEmail || "",
+    customerEmail: checkoutData.customerEmail || "",
 
 
 
