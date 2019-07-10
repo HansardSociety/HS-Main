@@ -1,6 +1,6 @@
 <%
 formData = form_data
-formName = "checkout-#{ formData[:payment_form] }"
+formName = "payments"
 itemName = formData[:meta_title].gsub('"', "&quot;")
 
 isShipping = formData[:payment_form] == "shipping"
@@ -79,6 +79,7 @@ errText = "Please review this field"
             <span class="form__label label-xxs">Quantity</span>
             <select
               class="form__field"
+              name="item-quantity"
               data-name="itemQuantity"
               required="required"
             >
@@ -192,7 +193,7 @@ errText = "Please review this field"
         <input
           class="form__field"
           type="text"
-          name="address-post-code"
+          name="address-postcode"
           data-name="shippingAddressPostcode"
           placeholder="eg. SW1A 0AA"
           required="required"
@@ -206,6 +207,7 @@ errText = "Please review this field"
           <span class="form__label label-xxs">Country</span>
           <select
             class="form__field"
+            name="address-country"
             data-name="shippingAddressCountry"
             required="required"
           >
