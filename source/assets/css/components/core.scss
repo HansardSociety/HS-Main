@@ -70,7 +70,7 @@ hr {
   border: 0;
   background-color: Get($colorGroups, white, 2);
 
-  @extend %e-mgn-x-md;
+  @extend %e-mgn-x-sm;
 }
 
 div:focus {

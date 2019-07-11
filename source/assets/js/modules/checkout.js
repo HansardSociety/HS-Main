@@ -14,10 +14,11 @@ module.exports = (function () {
 
       itemName: productItemElem.dataset.itemName,
       itemSKU: productItemElem.dataset.itemSku,
+      itemPrice: Number(productItemElem.dataset.itemPrice),
       itemQuantity: 1,
 
       customerFirstName: "",
-      customerFirstSurname: "",
+      customerSurname: "",
       customerEmail: "",
 
       shippingAddressLine1: "",
@@ -28,43 +29,100 @@ module.exports = (function () {
 
       shippingRate: {
         uk: {
-          rate: productItemElem.dataset.itemShippingRateUk,
+          rate: Number(productItemElem.dataset.itemShippingRateUk),
           sku: productItemElem.dataset.itemShippingSkuUk,
           selected: false
         },
         international: {
-          rate: productItemElem.dataset.itemShippingRateInternational,
+          rate: Number(productItemElem.dataset.itemShippingRateInternational),
           sku: productItemElem.dataset.itemShippingSkuInternational,
           selected: false
         }
-      }
+      },
+
+      checkoutTotal: productItemElem.dataset.itemPrice
     };
 
-    form.dataset.checkoutFormId = checkoutFormId; // set to pass to stripe to identify correct form
+    // Set to pass to stripe to identify correct form
+    form.dataset.checkoutFormId = checkoutFormId;
+
+    let formData = checkoutFormsData[checkoutFormId];
 
     fields.forEach(field => {
+
       field.addEventListener("change", function(e) {
-        checkoutFormsData[checkoutFormId][this.dataset.name] = this.value.replace(/"/g, "&quot;");
+        setValues(field)
+      });
 
-        if (
-          checkoutFormsData[checkoutFormId].type === "shipping"
-          && this.dataset.name === "shippingAddressCountry"
-        ) {
+      window.addEventListener("load", function(e) {
+        setValues(field)
+      });
 
-          if (this.value.indexOf("United Kingdom") > -1) {
-            checkoutFormsData[checkoutFormId].shippingRate.uk.selected = true;
-            checkoutFormsData[checkoutFormId].shippingRate.international.selected = false;
+      function setValues (field) {
+        formData[field.dataset.name] = field.value.replace(/"/g, "&quot;"); // Set values and make safe
 
-          } else {
-            checkoutFormsData[checkoutFormId].shippingRate.uk.selected = false;
-            checkoutFormsData[checkoutFormId].shippingRate.international.selected = true;
+        // Review item quantity and total
+        if (field.dataset.name === "itemQuantity") {
+          form.querySelector("#review-item-quantity").innerHTML = formData.itemQuantity;
+
+          formData.checkoutTotal = parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity);
+          form.querySelector("#review-item-quantity").innerHTML = formData.itemQuantity;
+        }
+
+        // Review first name
+        if (field.dataset.name === "customerFirstName") {
+          form.querySelector("#review-customer-first-name").innerHTML = formData.customerFirstName;
+        }
+
+        // Review surname
+        if (field.dataset.name === "customerSurname") {
+          form.querySelector("#review-customer-surname").innerHTML = formData.customerSurname;
+        }
+
+        // Review email
+        if (field.dataset.name === "customerEmail") {
+          form.querySelector("#review-customer-email").innerHTML = formData.customerEmail;
+        }
+
+        // Review shipping address and rates
+        if (formData.type === "shipping") {
+          if (field.dataset.name.indexOf("shippingAddress") > -1) {
+
+            let reviewShippingAddress = [
+              formData.shippingAddressLine1,
+              formData.shippingAddressLine2,
+              formData.shippingAddressLine3,
+              formData.shippingAddressPostcode,
+              formData.shippingAddressCountry
+            ].filter(i => i != "").join(", ");
+
+            form.querySelector("#review-shipping-address").innerHTML = reviewShippingAddress;
+          }
+
+          // Set UK vs international rates.
+          if (field.dataset.name === "shippingAddressCountry") {
+            let checkoutSubTotal = parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity);
+
+            if (field.value.indexOf("United Kingdom") > -1) {
+              formData.shippingRate.uk.selected = true;
+              formData.shippingRate.international.selected = false;
+
+              formData.checkoutTotal = checkoutSubTotal + parseFloat(formData.shippingRate.uk.rate);
+
+            } else {
+              formData.shippingRate.uk.selected = false;
+              formData.shippingRate.international.selected = true;
+
+              formData.checkoutTotal = checkoutSubTotal + parseFloat(formData.shippingRate.international.rate);
+            }
+
+            form.querySelector("#review-checkout-total").innerHTML = formData.checkoutTotal;
           }
         }
-      })
+      }
     });
   });
 
   console.log(checkoutFormsData);
-
   return checkoutFormsData;
 })();

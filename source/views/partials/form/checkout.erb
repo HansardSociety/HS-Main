@@ -2,6 +2,7 @@
 formData = form_data
 formName = "payments"
 itemName = formData[:meta_title].gsub('"', "&quot;")
+itemPriceHuman = sprintf("%.2f", formData[:price])
 
 isShipping = formData[:payment_form] == "shipping"
 
@@ -36,9 +37,9 @@ errText = "Please review this field"
         >
       </div>
       <div class="form__product-right">
-        <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= itemName %></p>
 
-        <!--	=Item: title	-->
+        <!--	=Item: name	-->
+        <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= itemName %></p>
         <label class="e-hidden">
           <span class="form__label label-xxs">Item</span>
           <input
@@ -51,25 +52,11 @@ errText = "Please review this field"
 
             data-item-name="<%= itemName %>"
             data-item-sku="<%= formData[:sku] %>"
+            data-item-price="<%= formData[:price] %>"
             data-item-shipping-rate-uk="<%= formData[:payment_form_shipping_rate][:uk_rate] %>"
             data-item-shipping-sku-uk="<%= formData[:payment_form_shipping_rate][:uk_sku] %>"
             data-item-shipping-rate-international="<%= formData[:payment_form_shipping_rate][:international_rate] %>"
             data-item-shipping-sku-international="<%= formData[:payment_form_shipping_rate][:international_sku] %>"
-          >
-        </label>
-
-        <p class="e-fz-xs e-mgn-b-xs"><strong>Item price</strong>: GBP £<%= sprintf("%.2f", formData[:price]) %></p>
-
-        <!--	=Item: title	-->
-        <label class="e-hidden">
-          <span class="form__label label-xxs">Price</span>
-          <input
-            class="form__field"
-            type="text"
-            name="item-price"
-            data-name="itemPrice"
-            value="<%= formData[:price] %>"
-            readonly="readonly"
           >
         </label>
 
@@ -146,7 +133,11 @@ errText = "Please review this field"
       <h3 class="form__title e-mgn-t-md">Shipping information</h3>
 
       <div class="copy e-fz-xs e-mgn-b-sm">
-        <%= markdown(siteData(:checkout_shipping_information)) %>
+        <%= markdown(
+          siteData(:checkout_shipping_information)
+            .gsub("uk_rate", "#{ sprintf("%.2f", formData[:payment_form_shipping_rate][:uk_rate]) }")
+            .gsub("international_rate", "#{ sprintf("%.2f", formData[:payment_form_shipping_rate][:international_rate]) }")
+        ) %>
       </div>
 
       <!--	=Address: line 1	-->
@@ -229,22 +220,23 @@ errText = "Please review this field"
 
     <!--	=Review	-->
     <hr>
-    <h3 class="form__title e-mgn-t-md">Review your order before proceeding</h3>
+    <h3 class="form__title e-mgn-t-md">Please review your order</h3>
 
     <div class="form__review-order e-fz-xs">
       <p><strong>Item</strong>: <%= itemName %></p>
-      <p><strong>Quantity</strong>: 1<span id="itemQuantity"></span></p>
+      <p><strong>Quantity</strong>: <span id="review-item-quantity">1</span></p>
+
+      <p class="e-mgn-t-xs"><strong>Full name</strong>: <span id="review-customer-first-name"></span> <span id="review-customer-surname"></span></p>
+      <p><strong>Email</strong>: <span id="review-customer-email"></span></p>
 
       <% if isShipping %>
         <p class="e-mgn-t-xs">
           <strong>Shipping address</strong>:<br>
-          <span id="shippingAddressLine1">Address line 1,</span>
-          <span id="shippingAddressLine1">Address line 2,</span>
-          <span id="shippingAddressLine1">Address line 3,</span>
-          <span id="shippingAddressLine1">Postcode,</span>
-          <span id="shippingAddressLine1">Country</span>
+          <span id="review-shipping-address"></span>
         </p>
       <% end %>
+
+      <p class="e-mgn-t-xs"><strong>Total</strong>: £<span id="review-checkout-total"><%= itemPriceHuman %></span> (inc. p&p)</p>
     </div>
 
     <div class="e-mgn-t-sm">

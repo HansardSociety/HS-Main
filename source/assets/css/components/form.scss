@@ -119,6 +119,8 @@
 }
 
 .form__title {
+  margin-top: 0;
+
   @extend .title-sm;
   @extend %e-col-brand-green-1;
   @extend %e-mgn-b-sm;

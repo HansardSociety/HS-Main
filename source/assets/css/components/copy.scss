@@ -95,6 +95,15 @@ small {
   @extend %e-ff-prim-oblique;
 }
 
+hr {
+  height: 1px;
+
+  border: 0;
+  background-color: Get($colorGroups, white, 2);
+
+  @extend %e-mgn-x-md;
+}
+
 /*		=Quotes
   ========================================================================== */
 
