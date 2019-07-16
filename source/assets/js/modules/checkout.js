@@ -46,6 +46,7 @@ module.exports = (function () {
     // Set to pass to stripe to identify correct form
     form.dataset.checkoutFormId = checkoutFormId;
 
+    // Get form data by ID
     let formData = checkoutFormsData[checkoutFormId];
 
     fields.forEach(field => {
@@ -63,10 +64,9 @@ module.exports = (function () {
 
         // Review item quantity and total
         if (field.dataset.name === "itemQuantity") {
-          form.querySelector("#review-item-quantity").innerHTML = formData.itemQuantity;
-
           formData.checkoutTotal = parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity);
           form.querySelector("#review-item-quantity").innerHTML = formData.itemQuantity;
+          form.querySelector("#review-checkout-total").innerHTML = formData.checkoutTotal;
         }
 
         // Review first name
@@ -103,7 +103,10 @@ module.exports = (function () {
           if (field.dataset.name === "shippingAddressCountry") {
             let checkoutSubTotal = parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity);
 
-            if (field.value.indexOf("United Kingdom") > -1) {
+            if (field.value === "") {
+              // do nothing ...
+
+            } else if (field.value.indexOf("United Kingdom") > -1) {
               formData.shippingRate.uk.selected = true;
               formData.shippingRate.international.selected = false;
 
@@ -123,6 +126,5 @@ module.exports = (function () {
     });
   });
 
-  console.log(checkoutFormsData);
   return checkoutFormsData;
 })();

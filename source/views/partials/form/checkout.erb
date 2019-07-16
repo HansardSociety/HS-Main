@@ -135,8 +135,8 @@ errText = "Please review this field"
       <div class="copy e-fz-xs e-mgn-b-sm">
         <%= markdown(
           siteData(:checkout_shipping_information)
-            .gsub("uk_rate", "#{ sprintf("%.2f", formData[:payment_form_shipping_rate][:uk_rate]) }")
-            .gsub("international_rate", "#{ sprintf("%.2f", formData[:payment_form_shipping_rate][:international_rate]) }")
+            .gsub("{{uk_rate}}", "#{ sprintf("%.2f", formData[:payment_form_shipping_rate][:uk_rate]) }")
+            .gsub("{{international_rate}}", "#{ sprintf("%.2f", formData[:payment_form_shipping_rate][:international_rate]) }")
         ) %>
       </div>
 
@@ -239,7 +239,7 @@ errText = "Please review this field"
       <p class="e-mgn-t-xs"><strong>Total</strong>: £<span id="review-checkout-total"><%= itemPriceHuman %></span> (inc. p&p)</p>
     </div>
 
-    <div class="e-mgn-t-sm">
+    <div class="e-mgn-t-md">
       <%= partial "views/partials/btn",
         locals: { local_data: {
           type: "plain",
