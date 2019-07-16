@@ -11,6 +11,8 @@ function stripe (checkoutFormId) {
     }
   ];
 
+  let clientReferenceId = new Date().getTime();
+
   if (checkoutData.type === "shipping") {
     if (checkoutData.shippingRate.international.selected) {
       items.push({
@@ -28,6 +30,7 @@ function stripe (checkoutFormId) {
 
   stripe.redirectToCheckout({
     items,
+    clientReferenceId, // unique session ID
     customerEmail: checkoutData.customerEmail || "",
 
     // Do not rely on the redirect to the successUrl for fulfilling
