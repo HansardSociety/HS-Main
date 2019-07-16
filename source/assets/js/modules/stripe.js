@@ -4,14 +4,16 @@ function stripe (checkoutFormId) {
   const stripe = Stripe("pk_test_84iL7ExH74LfSp6ME6O2IOAx");
   const checkoutData = checkout[checkoutFormId];
 
+  const clientReferenceId = checkoutData.clientReferenceId;
+
+  console.log(clientReferenceId);
+
   let items = [
     {
       sku: checkoutData.itemSKU,
       quantity: Number(checkoutData.itemQuantity) || 1
     }
   ];
-
-  let clientReferenceId = new Date().getTime();
 
   if (checkoutData.type === "shipping") {
     if (checkoutData.shippingRate.international.selected) {

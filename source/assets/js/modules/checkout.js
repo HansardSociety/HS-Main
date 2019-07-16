@@ -12,6 +12,8 @@ module.exports = (function () {
       id: checkoutFormId,
       type: form.dataset.checkoutType,
 
+      clientReferenceId: `${ new Date().getTime() }`,
+
       itemName: productItemElem.dataset.itemName,
       itemSKU: productItemElem.dataset.itemSku,
       itemPrice: Number(productItemElem.dataset.itemPrice),
@@ -126,5 +128,6 @@ module.exports = (function () {
     });
   });
 
+  console.log(checkoutFormsData);
   return checkoutFormsData;
 })();

@@ -58,6 +58,7 @@ function sendData(formData, ajaxOpts) {
 
     if (formElem.classList.contains("form--checkout")) {
       const checkoutFormId = formElem.dataset.checkoutFormId;
+
       stripe(checkoutFormId);
     }
   });
