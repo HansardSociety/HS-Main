@@ -12,7 +12,7 @@ module.exports = (function () {
       id: checkoutFormId,
       type: form.dataset.checkoutType,
 
-      clientReferenceId: `${ new Date().getTime() }`,
+      clientReferenceId: new Date().getTime(),
 
       itemName: productItemElem.dataset.itemName,
       itemSKU: productItemElem.dataset.itemSku,
@@ -54,15 +54,20 @@ module.exports = (function () {
     fields.forEach(field => {
 
       field.addEventListener("change", function(e) {
-        setValues(field)
+        setValues(field);
       });
 
       window.addEventListener("load", function(e) {
-        setValues(field)
+        setValues(field);
       });
 
       function setValues (field) {
-        formData[field.dataset.name] = field.value.replace(/"/g, "&quot;"); // Set values and make safe
+
+        if (field.dataset.name !== "clientReferenceId") {
+          formData[field.dataset.name] = field.value.replace(/"/g, "&quot;"); // Set values and make safe
+        } else {
+          field.value = `${ formData.clientReferenceId }`;
+        }
 
         // Review item quantity and total
         if (field.dataset.name === "itemQuantity") {

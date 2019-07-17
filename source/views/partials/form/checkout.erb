@@ -41,7 +41,6 @@ errText = "Please review this field"
         <!--	=Item: name	-->
         <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= itemName %></p>
         <label class="e-hidden">
-          <span class="form__label label-xxs">Item</span>
           <input
             class="form__field"
             type="text"
@@ -57,6 +56,18 @@ errText = "Please review this field"
             data-item-shipping-sku-uk="<%= formData[:payment_form_shipping_rate][:uk_sku] %>"
             data-item-shipping-rate-international="<%= formData[:payment_form_shipping_rate][:international_rate] %>"
             data-item-shipping-sku-international="<%= formData[:payment_form_shipping_rate][:international_sku] %>"
+          >
+        </label>
+
+        <!--	=Client reference ID	-->
+        <label class="e-hidden">
+          <input
+            class="form__field"
+            type="text"
+            name="client-reference-id"
+            data-name="clientReferenceId"
+            value=""
+            readonly="readonly"
           >
         </label>
 
