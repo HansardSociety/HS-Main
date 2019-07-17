@@ -7,6 +7,30 @@ itemPriceHuman = sprintf("%.2f", formData[:price])
 isShipping = formData[:payment_form] == "shipping"
 
 errText = "Please review this field"
+
+itemNameInputAttrs = {
+  class: "form__field",
+  type: "text",
+  name: "item-name",
+  "data-name": "itemName",
+  value: itemName,
+  readonly: "readonly",
+
+  "data-item-name": itemName,
+  "data-item-sku": formData[:sku],
+  "data-item-price": formData[:price],
+  "data-item-checkout-success-url": "#{ siteData(:site_url) }/#{ formData[:payment_success_page_slug] }?m=#{ formData[:download] ? CGI.escape("https:#{ formData[:download] }") : "0" }",
+  "data-item-checkout-cancelled-url": "#{ siteData(:site_url) }/#{ "hello" }"
+}
+
+if isShipping
+  itemNameInputAttrs.merge!({
+    "data-item-shipping-rate-uk": formData[:payment_form_shipping_rate][:uk_rate],
+    "data-item-shipping-sku-uk": formData[:payment_form_shipping_rate][:uk_sku],
+    "data-item-shipping-rate-international": formData[:payment_form_shipping_rate][:international_rate],
+    "data-item-shipping-sku-international": formData[:payment_form_shipping_rate][:international_sku]
+  })
+end
 %>
 
 <form
@@ -38,27 +62,6 @@ errText = "Please review this field"
       </div>
       <div class="form__product-right">
 
-        <!--	=Item: name	-->
-        <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= itemName %></p>
-        <label class="e-hidden">
-          <input
-            class="form__field"
-            type="text"
-            name="item-name"
-            data-name="itemName"
-            value="<%= itemName %>"
-            readonly="readonly"
-
-            data-item-name="<%= itemName %>"
-            data-item-sku="<%= formData[:sku] %>"
-            data-item-price="<%= formData[:price] %>"
-            data-item-shipping-rate-uk="<%= formData[:payment_form_shipping_rate][:uk_rate] %>"
-            data-item-shipping-sku-uk="<%= formData[:payment_form_shipping_rate][:uk_sku] %>"
-            data-item-shipping-rate-international="<%= formData[:payment_form_shipping_rate][:international_rate] %>"
-            data-item-shipping-sku-international="<%= formData[:payment_form_shipping_rate][:international_sku] %>"
-          >
-        </label>
-
         <!--	=Client reference ID	-->
         <label class="e-hidden">
           <input
@@ -69,6 +72,12 @@ errText = "Please review this field"
             value=""
             readonly="readonly"
           >
+        </label>
+
+        <!--	=Item: name	-->
+        <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= itemName %></p>
+        <label class="e-hidden">
+          <%= tag(:input, itemNameInputAttrs) %>
         </label>
 
         <!--	=Item: quantity	-->
@@ -237,7 +246,7 @@ errText = "Please review this field"
       <p><strong>Item</strong>: <%= itemName %></p>
       <p><strong>Quantity</strong>: <span id="review-item-quantity">1</span></p>
 
-      <p class="e-mgn-t-xs"><strong>Full name</strong>: <span id="review-customer-first-name"></span> <span id="review-customer-surname"></span></p>
+      <p class="e-mgn-t-xs"><strong>Full name</strong>: <span id="review-customer-first-name"></span>&thinsp;<span id="review-customer-surname"></span></p>
       <p><strong>Email</strong>: <span id="review-customer-email"></span></p>
 
       <% if isShipping %>

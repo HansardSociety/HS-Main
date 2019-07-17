@@ -283,6 +283,7 @@ def featuredData(data, opts = {})
         international_rate: data.payment_form_shipping_rate.international_rate,
         international_sku: data.payment_form_shipping_rate.international_sku
       } if data.payment_form_shipping_rate),
+      payment_success_page_slug: (slug(data.payment_success_page) if data.payment_success_page),
       image: {
         url: data.image.url,
         alt: data.image.description

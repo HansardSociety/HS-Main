@@ -6,8 +6,6 @@ function stripe (checkoutFormId) {
 
   const clientReferenceId = checkoutData.clientReferenceId;
 
-  console.log(clientReferenceId);
-
   let items = [
     {
       sku: checkoutData.itemSKU,
@@ -40,8 +38,8 @@ function stripe (checkoutFormId) {
     // a successful payment.
     // Instead use one of the strategies described in
     // https://stripe.com/docs/payments/checkout/fulfillment
-    successUrl: "https://www.hansardsociety.org.uk/success",
-    cancelUrl: "https://www.hansardsociety.org.uk/canceled",
+    successUrl: checkoutData.checkoutSuccessUrl,
+    cancelUrl: checkoutData.checkoutCancelledUrl,
   })
   .then(function (result) {
     if (result.error) {

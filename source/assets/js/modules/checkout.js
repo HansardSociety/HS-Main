@@ -42,7 +42,9 @@ module.exports = (function () {
         }
       },
 
-      checkoutTotal: productItemElem.dataset.itemPrice
+      checkoutTotal: productItemElem.dataset.itemPrice,
+      checkoutSuccessUrl: productItemElem.dataset.itemCheckoutSuccessUrl,
+      checkoutCancelledUrl: productItemElem.dataset.itemCheckoutCancelledUrl
     };
 
     // Set to pass to stripe to identify correct form
