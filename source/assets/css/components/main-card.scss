@@ -27,6 +27,10 @@
   }
 }
 
+.main-card--fade-in {
+  @extend %e-animate-fade-in-load;
+}
+
 .main-card__featured-icon {
   z-index: 1;
   top: .5rem;
@@ -49,12 +53,18 @@
   @extend %e-img-filter;
   @extend %e-position-relative;
 
+  padding-bottom: 56.2%;
+
   & > img {
     min-height: 1px; // Fix Safari height issues on lazy images
+
+    top: 0;
+    left: 0;
 
     @extend %e-display-block;
     @extend %e-trans-transform;
     @extend %e-max-width-full;
+    @extend %e-position-absolute;
     @extend %e-width-full;
   }
 

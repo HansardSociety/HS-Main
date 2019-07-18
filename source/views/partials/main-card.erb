@@ -32,7 +32,7 @@ end
 featuredCard = local_data[:featured]
 %>
 
-<article class="main-card <%= accent %>">
+<article class="main-card <%= accent %> <%= "main-card--fade-in" if entryData[:fade_in] %>">
 
   <% if featuredCard %>
     <span class="main-card__featured-icon">
