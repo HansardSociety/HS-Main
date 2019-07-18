@@ -1,6 +1,6 @@
 <%
 formData = form_data
-formName = "payments"
+formName = "checkout-#{ formData[:payment_form] }"
 itemName = formData[:meta_title].gsub('"', "&quot;")
 itemPriceHuman = sprintf("%.2f", formData[:price])
 
