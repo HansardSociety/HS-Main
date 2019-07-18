@@ -19,7 +19,7 @@ itemNameInputAttrs = {
   "data-item-name": itemName,
   "data-item-sku": formData[:sku],
   "data-item-price": formData[:price],
-  "data-item-checkout-success-url": "#{ siteData(:site_url) }/#{ formData[:payment_success_page_slug] }?m=#{ formData[:download] ? CGI.escape("https:#{ formData[:download] }") : "0" }",
+  "data-item-checkout-success-url": "#{ siteData(:site_url) }/#{ formData[:payment_success_page_slug] }",
   "data-item-checkout-cancelled-url": "#{ siteData(:site_url) }/#{ "hello" }"
 }
 
@@ -79,6 +79,20 @@ end
         <label class="e-hidden">
           <%= tag(:input, itemNameInputAttrs) %>
         </label>
+
+        <!--	=Media download	-->
+        <% if formData[:download] %>
+          <label class="e-hidden">
+            <input
+              class="form__field"
+              type="text"
+              name="item-media-download"
+              data-name="itemMediaDownload"
+              value="https:<%= formData[:download] %>"
+              readonly="readonly"
+            >
+          </label>
+        <% end %>
 
         <!--	=Item: quantity	-->
         <div class="form__select-wrapper">
