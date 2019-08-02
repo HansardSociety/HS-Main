@@ -74,6 +74,17 @@ end
           >
         </label>
 
+        <!--	=Client reference ID	-->
+        <label class="e-hidden">
+          <input
+            class="form__field"
+            type="text"
+            name="item-sku"
+            value="<%= formData[:sku] %>"
+            readonly="readonly"
+          >
+        </label>
+
         <!--	=Item: name	-->
         <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= itemName %></p>
         <label class="e-hidden">
