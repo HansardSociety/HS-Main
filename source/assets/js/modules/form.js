@@ -59,6 +59,8 @@ function sendData(formData, ajaxOpts) {
     if (formElem.classList.contains("form--checkout")) {
       const checkoutFormId = formElem.dataset.checkoutFormId;
 
+      formElem.querySelector(".btn[type=submit] .btn__label").innerText = "Loading checkout...";
+
       stripe(checkoutFormId);
     }
   });
@@ -92,6 +94,8 @@ function validateFields(getFormElem, sendFormData) {
     var formData = getFormElem;
 
     getFormElem.classList.remove("JS-invalid");
+    getFormElem.querySelector(".btn[type=submit] .btn__label").innerText = "Loading...";
+
     sendFormData();
 
   } else {
