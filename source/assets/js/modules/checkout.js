@@ -68,7 +68,8 @@ module.exports = (function () {
         if (field.dataset.name !== "clientReferenceId") {
           formData[field.dataset.name] = field.value.replace(/"/g, "&quot;"); // Set values and make safe
         } else {
-          field.value = formData.clientReferenceId;
+          if (field.dataset.name === "clientReferenceId") field.value = formData.clientReferenceId;
+          if (field.dataset.name === "checkoutTotal") field.value = formData.checkoutTotal;
         }
 
         // Review item quantity and total

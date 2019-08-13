@@ -15,6 +15,7 @@ itemNameInputAttrs = {
   "data-name": "itemName",
   value: itemName,
   readonly: "readonly",
+  tabindex: "-1",
 
   "data-item-name": itemName,
   "data-item-sku": formData[:sku],
@@ -62,48 +63,8 @@ end
       </div>
       <div class="form__product-right">
 
-        <!--	=Client reference ID	-->
-        <label class="e-hidden">
-          <input
-            class="form__field"
-            type="text"
-            name="client-reference-id"
-            data-name="clientReferenceId"
-            value=""
-            readonly="readonly"
-          >
-        </label>
-
-        <!--	=Client reference ID	-->
-        <label class="e-hidden">
-          <input
-            class="form__field"
-            type="text"
-            name="item-sku"
-            value="<%= formData[:sku] %>"
-            readonly="readonly"
-          >
-        </label>
-
         <!--	=Item: name	-->
         <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= itemName %></p>
-        <label class="e-hidden">
-          <%= tag(:input, itemNameInputAttrs) %>
-        </label>
-
-        <!--	=Media download	-->
-        <% if formData[:download] %>
-          <label class="e-hidden">
-            <input
-              class="form__field"
-              type="text"
-              name="item-media-download"
-              data-name="itemMediaDownload"
-              value="https:<%= formData[:download] %>"
-              readonly="readonly"
-            >
-          </label>
-        <% end %>
 
         <!--	=Item: quantity	-->
         <div class="form__select-wrapper">
@@ -263,7 +224,72 @@ end
       </div>
     <% end %>
 
-    <!--	=Review	-->
+    <!----------------------------------------------
+      =Hidden fields to send to Netlify
+    ------------------------------------------------>
+
+    <!--	=Item name	-->
+    <label class="e-hidden">
+      <%= tag(:input, itemNameInputAttrs) %>
+    </label>
+
+    <!--	=Media download	-->
+    <% if formData[:download] %>
+      <label class="e-hidden">
+        <input
+          class="form__field"
+          type="text"
+          name="item-media-download"
+          data-name="itemMediaDownload"
+          value="https:<%= formData[:download] %>"
+          readonly="readonly"
+          tabindex="-1"
+        >
+      </label>
+    <% end %>
+
+    <!--	=Client reference ID	-->
+    <label class="e-hidden">
+      <input
+        class="form__field"
+        type="text"
+        name="client-reference-id"
+        data-name="clientReferenceId"
+        value=""
+        readonly="readonly"
+        tabindex="-1"
+      >
+    </label>
+
+    <!--	=SKU	-->
+    <label class="e-hidden">
+      <input
+        class="form__field"
+        type="text"
+        name="item-sku"
+        value="<%= formData[:sku] %>"
+        readonly="readonly"
+        tabindex="-1"
+      >
+    </label>
+
+    <!--	=Checkout total	-->
+    <label class="e-hidden">
+      <input
+        class="form__field"
+        type="text"
+        name="checkout-total"
+        data-name="checkoutTotal"
+        value=""
+        readonly="readonly"
+        tabindex="-1"
+      >
+    </label>
+
+    <!----------------------------------------------
+      =Review
+    ------------------------------------------------>
+
     <hr>
     <h3 class="form__title e-mgn-t-md">Please review your order</h3>
 
