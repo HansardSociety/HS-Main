@@ -248,7 +248,7 @@
     outline: none;
 
     @extend .label-xxs;
-    // @extend %e-rad-slight;
+    @extend %e-rad-slight;
   }
 
   .search__sort-item {
