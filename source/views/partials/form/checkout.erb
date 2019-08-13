@@ -52,6 +52,72 @@ end
       <input type="email" name="r2d2-03">
     </label>
 
+    <!----------------------------------------------
+      =Hidden fields to send to Netlify
+    ------------------------------------------------>
+
+    <!--	=Client reference ID	-->
+    <label class="e-hidden">
+      <input
+        class="form__field"
+        type="text"
+        name="client-reference-id"
+        data-name="clientReferenceId"
+        value=""
+        readonly="readonly"
+        tabindex="-1"
+      >
+    </label>
+
+    <!--	=Item name	-->
+    <label class="e-hidden">
+      <%= tag(:input, itemNameInputAttrs) %>
+    </label>
+
+    <!--	=Media download	-->
+    <% if formData[:download] %>
+      <label class="e-hidden">
+        <input
+          class="form__field"
+          type="text"
+          name="item-media-download"
+          data-name="itemMediaDownload"
+          value="https:<%= formData[:download] %>"
+          readonly="readonly"
+          tabindex="-1"
+        >
+      </label>
+    <% end %>
+
+    <!--	=SKU	-->
+    <label class="e-hidden">
+      <input
+        class="form__field"
+        type="text"
+        name="item-sku"
+        value="<%= formData[:sku] %>"
+        readonly="readonly"
+        tabindex="-1"
+      >
+    </label>
+
+    <!--	=Checkout total	-->
+    <label class="e-hidden">
+      <input
+        class="form__field"
+        type="text"
+        name="checkout-total"
+        data-name="checkoutTotal"
+        value=""
+        readonly="readonly"
+        tabindex="-1"
+      >
+    </label>
+
+    <!----------------------------------------------
+      =Product information
+    ------------------------------------------------>
+
     <h3 class="form__title">Product information</h3>
 
     <div class="form__product">
@@ -87,6 +153,10 @@ end
         <p class="e-fz-xs e-mgn-t-xs"><em>Please <a class="link" href="mailto:<%= siteData(:contact_email) %>" title="Contact us">contact us</a> if you require more.</em></p>
       </div>
     </div>
+
+    <!----------------------------------------------
+      =Customer information
+    ------------------------------------------------>
 
     <hr>
     <h3 class="form__title e-mgn-t-md">Customer information</h3>
@@ -133,7 +203,10 @@ end
       <span class="form__err"><%= errText %></span>
     </label>
 
-    <%# Shipping %>
+    <!----------------------------------------------
+      =Shipping
+    ------------------------------------------------>
+
     <% if isShipping %>
       <hr>
       <h3 class="form__title e-mgn-t-md">Shipping information</h3>
@@ -223,68 +296,6 @@ end
         </label>
       </div>
     <% end %>
-
-    <!----------------------------------------------
-      =Hidden fields to send to Netlify
-    ------------------------------------------------>
-
-    <!--	=Item name	-->
-    <label class="e-hidden">
-      <%= tag(:input, itemNameInputAttrs) %>
-    </label>
-
-    <!--	=Media download	-->
-    <% if formData[:download] %>
-      <label class="e-hidden">
-        <input
-          class="form__field"
-          type="text"
-          name="item-media-download"
-          data-name="itemMediaDownload"
-          value="https:<%= formData[:download] %>"
-          readonly="readonly"
-          tabindex="-1"
-        >
-      </label>
-    <% end %>
-
-    <!--	=Client reference ID	-->
-    <label class="e-hidden">
-      <input
-        class="form__field"
-        type="text"
-        name="client-reference-id"
-        data-name="clientReferenceId"
-        value=""
-        readonly="readonly"
-        tabindex="-1"
-      >
-    </label>
-
-    <!--	=SKU	-->
-    <label class="e-hidden">
-      <input
-        class="form__field"
-        type="text"
-        name="item-sku"
-        value="<%= formData[:sku] %>"
-        readonly="readonly"
-        tabindex="-1"
-      >
-    </label>
-
-    <!--	=Checkout total	-->
-    <label class="e-hidden">
-      <input
-        class="form__field"
-        type="text"
-        name="checkout-total"
-        data-name="checkoutTotal"
-        value=""
-        readonly="readonly"
-        tabindex="-1"
-      >
-    </label>
 
     <!----------------------------------------------
       =Review

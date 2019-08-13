@@ -64,8 +64,10 @@ module.exports = (function () {
       });
 
       function setValues (field) {
+        console.log(formData);
 
-        if (field.dataset.name !== "clientReferenceId") {
+
+        if (field.dataset.name !== ("clientReferenceId" || "checkoutTotal")) {
           formData[field.dataset.name] = field.value.replace(/"/g, "&quot;"); // Set values and make safe
         } else {
           if (field.dataset.name === "clientReferenceId") field.value = formData.clientReferenceId;
@@ -74,7 +76,11 @@ module.exports = (function () {
 
         // Review item quantity and total
         if (field.dataset.name === "itemQuantity") {
-          formData.checkoutTotal = parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity);
+          let shippingRate = 0;
+          if (formData.shippingRate.uk.selected) shippingRate = formData.shippingRate.uk.rate;
+          if (formData.shippingRate.international.selected) shippingRate = formData.shippingRate.international.rate;
+
+          formData.checkoutTotal = (parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity)) + parseFloat(shippingRate);
           form.querySelector("#review-item-quantity").innerHTML = formData.itemQuantity;
           form.querySelector("#review-checkout-total").innerHTML = formData.checkoutTotal;
         }
@@ -136,6 +142,5 @@ module.exports = (function () {
     });
   });
 
-  console.log(checkoutFormsData);
   return checkoutFormsData;
 })();
