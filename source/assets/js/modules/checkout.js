@@ -64,14 +64,11 @@ module.exports = (function () {
       });
 
       function setValues (field) {
-        console.log(formData);
 
-
-        if (field.dataset.name !== ("clientReferenceId" || "checkoutTotal")) {
+        if (field.dataset.name !== "clientReferenceId") {
           formData[field.dataset.name] = field.value.replace(/"/g, "&quot;"); // Set values and make safe
         } else {
-          if (field.dataset.name === "clientReferenceId") field.value = formData.clientReferenceId;
-          if (field.dataset.name === "checkoutTotal") field.value = formData.checkoutTotal;
+          field.value = formData.clientReferenceId;
         }
 
         // Review item quantity and total
@@ -83,6 +80,7 @@ module.exports = (function () {
           formData.checkoutTotal = (parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity)) + parseFloat(shippingRate);
           form.querySelector("#review-item-quantity").innerHTML = formData.itemQuantity;
           form.querySelector("#review-checkout-total").innerHTML = formData.checkoutTotal;
+          form.querySelector("input[name=checkout-total]").value = formData.checkoutTotal;
         }
 
         // Review first name
@@ -135,6 +133,7 @@ module.exports = (function () {
               formData.checkoutTotal = checkoutSubTotal + parseFloat(formData.shippingRate.international.rate);
             }
 
+            form.querySelector("input[name=checkout-total]").value = formData.checkoutTotal;
             form.querySelector("#review-checkout-total").innerHTML = formData.checkoutTotal;
           }
         }
