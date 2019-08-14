@@ -65,7 +65,7 @@
 .navbar__center {
   @extend %e-overflow-hidden;
   @include above(md) {
-    margin-right: auto; // IE11 fix
+    // margin-right: auto; // IE11 fix
     padding-top: 2rem;
   }
 }
