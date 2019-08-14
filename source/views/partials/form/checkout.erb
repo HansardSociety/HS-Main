@@ -69,9 +69,33 @@ end
       >
     </label>
 
+    <!--	=Payment type	-->
+    <label class="e-hidden">
+      <input
+        class="form__field"
+        type="text"
+        name="payment-type"
+        value="<%= formData[:payment_form].capitalize %>"
+        readonly="readonly"
+        tabindex="-1"
+      >
+    </label>
+
     <!--	=Item name	-->
     <label class="e-hidden">
       <%= tag(:input, itemNameInputAttrs) %>
+    </label>
+
+    <!--	=SKU	-->
+    <label class="e-hidden">
+      <input
+        class="form__field"
+        type="text"
+        name="item-sku"
+        value="<%= formData[:sku] %>"
+        readonly="readonly"
+        tabindex="-1"
+      >
     </label>
 
     <!--	=Media download	-->
@@ -88,18 +112,6 @@ end
         >
       </label>
     <% end %>
-
-    <!--	=SKU	-->
-    <label class="e-hidden">
-      <input
-        class="form__field"
-        type="text"
-        name="item-sku"
-        value="<%= formData[:sku] %>"
-        readonly="readonly"
-        tabindex="-1"
-      >
-    </label>
 
     <!--	=Checkout total	-->
     <label class="e-hidden">
