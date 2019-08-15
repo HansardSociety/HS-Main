@@ -35,7 +35,14 @@
   @include above(md) {
     top: 5rem;
     bottom: 3rem;
+    position: relative;
     position: sticky;
+  }
+}
+
+.feed__menu-items {
+  @include above(md) {
+    max-width: 12rem;
   }
 }
 

@@ -98,7 +98,7 @@ end
                 <%= partial "views/partials/feed-item",
                   locals: { local_data: {
                     entry_data: page,
-                    context: "dynamic" }} %>
+                    context: "" }} %>
               <% end %>
 
             <% elsif isLandingPage %>
@@ -106,7 +106,7 @@ end
                 <%= partial "views/partials/feed-item",
                   locals: { local_data: {
                     entry_data: page,
-                    context: "dynamic" }} %>
+                    context: "" }} %>
               <% end %>
 
             <% else %>
