@@ -13,7 +13,7 @@ headingLevel = panelData[:heading_level]
   id="panel-<%= index %>"
   class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <div class="panel__inner">
-    <div class="panel__content panel__content--narrow e-align-cen">
+    <div class="panel__content panel__content--medium e-align-cen">
       <% if headingLevel == "level-3" %>
         <h3 class="title-lg e-mgn-b-md <%= titleColor %>"><%= panelData[:title] %></h3>
       <% else %>
@@ -23,7 +23,7 @@ headingLevel = panelData[:heading_level]
         <%= markdown(panelData[:copy], 'byline') %>
       <% end %>
     </div>
-    <div class="panel__content panel__content--narrow e-mgn-t-md">
+    <div class="panel__content panel__content--medium e-mgn-t-md">
       <div class="grid grid--xs">
         <% panelData[:accordians].each do |accordian| %>
           <div class="grid__cell grid__cell--xs-12 grid__cell--xs-above-sm-6">
