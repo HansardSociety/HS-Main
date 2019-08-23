@@ -66,7 +66,7 @@ end
     </div>
   <% end %>
   <% if copy %>
-    <div class="text-box__content <%= "text-box__content-with-head" if showTitle || image %>">
+    <div class="text-box__content <%= "text-box__content-with-head" if showTitle || image %> copy">
       <%= markdown(copy).sub("<p", "<p class=#{copySizeClass}") %>
     </div>
   <% end %>
