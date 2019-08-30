@@ -5,187 +5,141 @@ isDev = false
 %>
 <script class="chart__config" type="application/json">
 <% if isDev %>
+
 {
-  "type": "horizontalBar",
+  "type": "line",
   "data": {
-    "datasets": [
-	{
-		"data": [
-			53,
-			28,
-			28,
-			16,
-			15,
-			13,
-			13,
-			11,
-			10,
-			8,
-			8,
-			6,
-			5
-		],
-		"label": "% Audit 16",
-		"datasetID": "ds-01"
-	},
-	{
-		"data": [
-			48,
-			29,
-			28,
-			19,
-			17,
-			12,
-			12,
-			10,
-			0,
-			5,
-			0,
-			0,
-			0
-		],
-		"label": "% Audit 15",
-		"datasetID": "ds-02"
-	}
-],
+    "datasets": [{
+      "data": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "label": "Dates",
+      "datasetID": "ds-01"
+    }],
     "labels": [
-	[
-		"None of these"
-	],
-	[
-		"Watched politically-related video",
-		"content online"
-	],
-	[
-		"Created or signed an e-petition"
-	],
-	[
-		"Visited the website or social media account",
-		"of a politician or political party"
-	],
-	[
-		"Shared something politically related",
-		"on social media"
-	],
-	[
-		"Visited other politically-related",
-		"websites or social media accounts"
-	],
-	[
-		"Followed a politician or political",
-		"party on social media"
-	],
-	[
-		"Contributed to a political discussion",
-		"on social media"
-	],
-	[
-		"Actively taken part in a group on social media that",
-		"shares an interest in an issue or cause"
-	],
-	[
-		"Contacted a politician or political",
-		"party on social media"
-	],
-	[
-		"Encouraged others on social media to act on a political",
-		"or social issue outside of social media itself"
-	],
-	[
-		"Used hashtags related to a",
-		"political or social issue"
-	],
-	[
-		"Changed your profile picture on a social media account to",
-		"show your support for a political or social issue"
-	]
-]
+      "1 Sept",
+      "2 Sept",
+      "3 Sept",
+      "4 Sept",
+      "5 Sept",
+      "6 Sept",
+      "7 Sept",
+      "8 Sept",
+      "9 Sept",
+      "10 Sept",
+      "11 Sept",
+      "12 Sept",
+      "13 Sept",
+      "14 Sept",
+      "15 Sept",
+      "16 Sept",
+      "17 Sept",
+      "18 Sept",
+      "19 Sept",
+      "20 Sept",
+      "21 Sept",
+      "22 Sept",
+      "23 Sept",
+      "24 Sept",
+      "25 Sept",
+      "26 Sept",
+      "27 Sept",
+      "28 Sept",
+      "29 Sept",
+      "30 Sept"
+    ]
   },
-  "options":{
-    "legend": {
-      "position": "top"
+  "options": {
+    "tooltips": {
+      "enabled": false
     },
+    "legend": false,
     "scales": {
       "xAxes": [{
         "id": "x-axis"
       }],
       "yAxes": [{
-        "id": "y-axis"
+        "id": "y-axis",
+        "ticks": {
+          "max": 2,
+          "min": 0,
+          "stepSize": 1,
+          "display": false
+        }
       }]
     }
   },
   "customConfig": {
-	"colors": [
-		{
-			"palette": [
-				"#2A6C62"
-			],
-			"datasetIDs": [
-				"ds-01"
-			]
-		},
-		{
-			"palette": [
-				"#C6D0CE"
-			],
-			"datasetIDs": [
-				"ds-02"
-			]
-		}
-	],
-	"annotations": [
+    "colors": [{
+      "palette": ["#ed7a6a"],
+      "datasetIDs": ["ds-01"]
+    }],
+    "annotations": [
       {
         "type": "axisLineVertical",
-        "hideLine": true,
         "label": {
-          "content": "N/A",
-          "xAdjust": 0,
-          "yAdjust": 7,
-          "position": "bottom"
+          "content": "Both Houses return",
+          "xAdjust": -50,
+          "yAdjust": 20,
+          "position": "top"
         },
         "axisID": "x-axis",
-        "position": "1.5"
+        "position": "1 Sept"
       },
       {
         "type": "axisLineVertical",
-        "hideLine": true,
         "label": {
-          "content": "N/A",
+          "content": "Spending Review",
           "xAdjust": 0,
           "yAdjust": 60,
           "position": "bottom"
         },
         "axisID": "x-axis",
-        "position": "1.5"
+        "position": "4 Sept"
       },
       {
         "type": "axisLineVertical",
-        "hideLine": true,
         "label": {
-          "content": "N/A",
+          "content": "Debate on NI(EF)A motion due",
           "xAdjust": 0,
-          "yAdjust": 112,
-          "position": "bottom"
+          "yAdjust": 20,
+          "position": "top"
         },
         "axisID": "x-axis",
-        "position": "1.5"
-      },
-      {
-        "type": "axisLineVertical",
-        "hideLine": true,
-        "label": {
-          "content": "N/A",
-          "xAdjust": 0,
-          "yAdjust": 218,
-          "position": "bottom"
-        },
-        "axisID": "x-axis",
-        "position": "1.5"
+        "position": "9 Sept"
       }
     ]
   }
 }
-
 
 <% else %>
 {

@@ -196,74 +196,77 @@ const renderCharts = () => {
     /*  =Tooltips
      *****************************************/
 
-    options.tooltips = {}
-    options.tooltips.position = "nearest"
+    if (!options.tooltips) {
 
-    if (isBar || isLine) options.tooltips.mode = "x"
-    else if (isHorizontalBar) options.tooltips.mode = "nearest"
-    else options.tooltips.mode = "nearest"
+      options.tooltips = {}
+      options.tooltips.position = "nearest"
 
-    options.tooltips.callbacks = {
-      title: (item, data) => {
-        const datasetItem = data.datasets[item[0].datasetIndex]
-        const isDatasetBar = datasetItem.type === "bar"
-        const isDatasetHorizontalBar = datasetItem.type === "horizontalBar"
-        const isDatasetDoughnut = datasetItem.type === "doughnut"
-        const isDatasetLine = datasetItem.type === "line"
-        const isDatasetPie = datasetItem.type === "pie"
+      if (isBar || isLine) options.tooltips.mode = "x"
+      else if (isHorizontalBar) options.tooltips.mode = "nearest"
+      else options.tooltips.mode = "nearest"
 
-        let title = false
-        if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) {
-          title = datasetItem.label
-        } else if (isDatasetBar || isDatasetHorizontalBar || isDatasetLine) {
-          const itemLabel = item[0].label.replace(/(?!, ),/g, " ");
+      options.tooltips.callbacks = {
+        title: (item, data) => {
+          const datasetItem = data.datasets[item[0].datasetIndex]
+          const isDatasetBar = datasetItem.type === "bar"
+          const isDatasetHorizontalBar = datasetItem.type === "horizontalBar"
+          const isDatasetDoughnut = datasetItem.type === "doughnut"
+          const isDatasetLine = datasetItem.type === "line"
+          const isDatasetPie = datasetItem.type === "pie"
 
-          if (itemLabel && itemLabel !== "undefined") title = itemLabel;
-        }
-        return title
-      }, // END: => callbacks
-      label: (item, data) => {
-        const datasetItem = data.datasets[item.datasetIndex]
-        const isDatasetBar = datasetItem.type === "bar"
-        const isDatasetHorizontalBar = datasetItem.type === "horizontalBar"
-        const isDatasetPie = datasetItem.type === "pie"
-        const isDatasetDoughnut = datasetItem.type === "doughnut"
+          let title = false
+          if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) {
+            title = datasetItem.label
+          } else if (isDatasetBar || isDatasetHorizontalBar || isDatasetLine) {
+            const itemLabel = item[0].label.replace(/(?!, ),/g, " ");
 
-        const itemLabel = datasetItem.label
-        const value = datasetItem.data[item.index]
+            if (itemLabel && itemLabel !== "undefined") title = itemLabel;
+          }
+          return title
+        }, // END: => callbacks
+        label: (item, data) => {
+          const datasetItem = data.datasets[item.datasetIndex]
+          const isDatasetBar = datasetItem.type === "bar"
+          const isDatasetHorizontalBar = datasetItem.type === "horizontalBar"
+          const isDatasetPie = datasetItem.type === "pie"
+          const isDatasetDoughnut = datasetItem.type === "doughnut"
 
-        var tooltipText
+          const itemLabel = datasetItem.label
+          const value = datasetItem.data[item.index]
 
-        if (isDatasetBar || isDatasetHorizontalBar) { // Bars
-          tooltipText = ` ${data.datasets[item.datasetIndex].label} (${value})`
+          var tooltipText
 
-        } else if (isDatasetDoughnut || isDatasetPie) { // Doughnut or Pie
-          const label = data.labels[item.index]
-          const pcStr = calculatePercentage(datasetItem.data, value)
+          if (isDatasetBar || isDatasetHorizontalBar) { // Bars
+            tooltipText = ` ${data.datasets[item.datasetIndex].label} (${value})`
 
-          if (getAnnotationConfig(datasetItem).type === "percentageValueLabel") {
-            tooltipText = ` ${label}: ${value} (${pcStr}%)`
-          } else {
-            tooltipText = ` ${label}: ${pcStr}%`
+          } else if (isDatasetDoughnut || isDatasetPie) { // Doughnut or Pie
+            const label = data.labels[item.index]
+            const pcStr = calculatePercentage(datasetItem.data, value)
+
+            if (getAnnotationConfig(datasetItem).type === "percentageValueLabel") {
+              tooltipText = ` ${label}: ${value} (${pcStr}%)`
+            } else {
+              tooltipText = ` ${label}: ${pcStr}%`
+            }
+
+          } else { // Line
+            if (value.x) tooltipText = ` ${itemLabel} (${value.x}: ${value.y})`
+            else tooltipText = ` ${itemLabel} (${value})`
           }
 
-        } else { // Line
-          if (value.x) tooltipText = ` ${itemLabel} (${value.x}: ${value.y})`
-          else tooltipText = ` ${itemLabel} (${value})`
-        }
+          return tooltipText
+        }, // END: => label
+        labelColor: (item, chart) => {
+          const datasetItem = chart.data.datasets[item.datasetIndex]
+          const isBgcString = datasetItem.backgroundColor.constructor === String
+          let backgroundColor
 
-        return tooltipText
-      }, // END: => label
-      labelColor: (item, chart) => {
-        const datasetItem = chart.data.datasets[item.datasetIndex]
-        const isBgcString = datasetItem.backgroundColor.constructor === String
-        let backgroundColor
-
-        if (isBgcString) backgroundColor = datasetItem.backgroundColor
-        else backgroundColor = datasetItem.backgroundColor[item.index]
-        return { backgroundColor: backgroundColor }
-      } // END: => labelColor
-    } // END: options.tooltips.tooltips
+          if (isBgcString) backgroundColor = datasetItem.backgroundColor
+          else backgroundColor = datasetItem.backgroundColor[item.index]
+          return { backgroundColor: backgroundColor }
+        } // END: => labelColor
+      } // END: options.tooltips.tooltips
+    }
 
     /*  =Scales
      *****************************************/
@@ -416,7 +419,7 @@ const renderCharts = () => {
               type: "line",
               value: i.position,
               mode: i.type === "axisLineVertical" ? "vertical" : "horizontal",
-              borderColor: i.hideLine ? "rgba(0, 0, 0, 0)" : "#e22828",
+              borderColor: i.hideLine ? "rgba(0, 0, 0, 0)" : "rgba(226, 40, 40,.5)",
               borderWidth: 2,
               borderDash: [10, 5]
             }
