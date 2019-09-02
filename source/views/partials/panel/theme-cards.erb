@@ -12,11 +12,13 @@
           <div class="grid__cell grid__cell--sm-6 grid__cell--sm-above-xs-5 grid__cell--sm-above-sm-4 grid__cell--sm-above-md-3">
             <figure class="image image--link">
               <div class="image__wrapper image__wrapper--circle image__wrapper--light">
-                <img
-                  class="image__img image__img--filter b-lazy"
-                  src="<%= "#{assetsDir}/images/placeholder__100x100.svg" %>"
-                  data-src="<%= "#{bannerImage[:url]}?f=#{bannerImageFocus}&fit=fill&w=400&h=400&q=80"%>"
-                  alt="<%= bannerImage[:alt] %>">
+                <div class="image__wrapper">
+                  <img
+                    class="image__img image__img--filter b-lazy"
+                    src="<%= "#{assetsDir}/images/placeholder__100x100.svg" %>"
+                    data-src="<%= "#{bannerImage[:url]}?f=#{bannerImageFocus}&fit=fill&w=400&h=400&q=80"%>"
+                    alt="<%= bannerImage[:alt] %>">
+                </div>
               </div>
               <figcaption class="label label-xxs e-mgn-t-xs e-col-brand-green-1 e-align-cen">
                 <%= theme[:title] %>
