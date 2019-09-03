@@ -77,7 +77,7 @@
     "blazy": "^1.8.2",
     "chart.js": "^2.8.0",
     "chartjs-chart-radial-gauge": "^1.0.3",
-    "chartjs-plugin-annotation": "^0.5.7",
+    "chartjs-plugin-annotation": "github:chartjs/chartjs-plugin-annotation",
     "chartjs-plugin-datalabels": "^0.4.0",
     "chartjs-plugin-deferred": "^1.0.1",
     "chartjs-plugin-labels": "^1.1.0",

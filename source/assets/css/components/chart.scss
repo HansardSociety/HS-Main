@@ -4,7 +4,7 @@
   max-width: calc(100vw - 2rem);
 
   @include above(sm) {
-    // max-width: 65rem;
+    max-width: 75rem;
   }
 
   @extend %e-bdr-lightest;

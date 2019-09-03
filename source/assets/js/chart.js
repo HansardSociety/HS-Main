@@ -442,7 +442,7 @@ const renderCharts = () => {
               xScaleID: i.xAxisID,
               yScaleID: i.yAxisID,
               type: "box",
-              backgroundColor: hexToRGBA("#3dc438", 0.125),
+              backgroundColor: hexToRGBA("#3dc438", .25),
               borderColor: "rgba(0, 0, 0, 0)",
               borderWidth: 0
             }

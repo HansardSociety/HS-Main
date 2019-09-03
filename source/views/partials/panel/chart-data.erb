@@ -1,7 +1,7 @@
 <%
 chartData = local_data[:chart_data]
 isDev = false
-# isDev = true
+isDev = true
 %>
 <script class="chart__config" type="application/json">
 <% if isDev %>
@@ -10,78 +10,13 @@ isDev = false
   "type": "line",
   "data": {
     "datasets": [{
-      "data": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1
-      ],
+      "data": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       "label": "Dates",
       "datasetID": "ds-01"
     }],
-    "labels": [
-      "1 Sept",
-      "2 Sept",
-      "3 Sept",
-      "4 Sept",
-      "5 Sept",
-      "6 Sept",
-      "7 Sept",
-      "8 Sept",
-      "9 Sept",
-      "10 Sept",
-      "11 Sept",
-      "12 Sept",
-      "13 Sept",
-      "14 Sept",
-      "15 Sept",
-      "16 Sept",
-      "17 Sept",
-      "18 Sept",
-      "19 Sept",
-      "20 Sept",
-      "21 Sept",
-      "22 Sept",
-      "23 Sept",
-      "24 Sept",
-      "25 Sept",
-      "26 Sept",
-      "27 Sept",
-      "28 Sept",
-      "29 Sept",
-      "30 Sept"
-    ]
+    "labels": ["1 Sep", "2 Sep", "3 Sep", "4 Sep", "5 Sep", "6 Sep", "7 Sep", "8 Sep", "9 Sep", "10 Sep", "11 Sep", "12 Sep", "13 Sep", "14 Sep", "15 Sep", "16 Sep", "17 Sep", "18 Sep", "19 Sep", "20 Sep", "21 Sep", "22 Sep", "23 Sep", "24 Sep", "25 Sep", "26 Sep", "27 Sep", "28 Sep", "29 Sep", "30 Sep", "1 Oct", "2 Oct", "3 Oct", "4 Oct", "5 Oct", "6 Oct", "7 Oct", "8 Oct", "9 Oct", "10 Oct", "11 Oct", "12 Oct", "13 Oct", "14 Oct", "15 Oct", "16 Oct", "17 Oct", "18 Oct", "19 Oct", "20 Oct", "21 Oct", "22 Oct", "23 Oct", "24 Oct", "25 Oct", "26 Oct", "27 Oct", "28 Oct", "29 Oct", "30 Oct", "31 Oct", "1 Nov", "2 Nov", "3 Nov", "4 Nov", "5 Nov"]
   },
   "options": {
-    "tooltips": {
-      "enabled": false
-    },
     "legend": false,
     "scales": {
       "xAxes": [{
@@ -92,10 +27,13 @@ isDev = false
         "ticks": {
           "max": 2,
           "min": 0,
-          "stepSize": 1,
-          "display": false
+          "display": false,
+          "stepSize": 1
         }
       }]
+    },
+    "tooltips": {
+      "enabled": false
     }
   },
   "customConfig": {
@@ -103,41 +41,187 @@ isDev = false
       "palette": ["#ed7a6a"],
       "datasetIDs": ["ds-01"]
     }],
-    "annotations": [
-      {
-        "type": "axisLineVertical",
-        "label": {
-          "content": "Both Houses return",
-          "xAdjust": -50,
-          "yAdjust": 20,
-          "position": "top"
-        },
-        "axisID": "x-axis",
-        "position": "1 Sept"
+    "annotations": [{
+      "type": "axisLineVertical",
+      "label": {
+        "content": "Both Houses return",
+        "xAdjust": 0,
+        "yAdjust": 20,
+        "position": "top"
       },
-      {
-        "type": "axisLineVertical",
-        "label": {
-          "content": "Spending Review",
-          "xAdjust": 0,
-          "yAdjust": 60,
-          "position": "bottom"
-        },
-        "axisID": "x-axis",
-        "position": "4 Sept"
+      "axisID": "x-axis",
+      "position": "3 Sep"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": "Spending Review",
+        "xAdjust": 0,
+        "yAdjust": 60,
+        "position": "bottom"
       },
-      {
-        "type": "axisLineVertical",
-        "label": {
-          "content": "Debate on NI(EF)A motion due",
-          "xAdjust": 0,
-          "yAdjust": 20,
-          "position": "top"
-        },
-        "axisID": "x-axis",
-        "position": "9 Sept"
-      }
-    ]
+      "axisID": "x-axis",
+      "position": "4 Sep"
+    }, {
+      "type": "axisBox",
+      "xAxisID": "x-axis",
+      "yAxisID": "y-axis",
+      "xPosition": ["9 Sep", "12 Sep"]
+    },  {
+      "type": "axisLineVertical",
+      "label": {
+        "content": ["Debate on", "NI(EF)A motion due"],
+        "xAdjust": 0,
+        "yAdjust": 160,
+        "position": "bottom"
+      },
+      "axisID": "x-axis",
+      "position": "9 Sep"
+    }, {
+      "type": "axisLineVertical",
+      "hideLine": true,
+      "label": {
+        "content": ["Dissolution for", "GE 14 Oct"],
+        "xAdjust": 0,
+        "yAdjust": 30,
+        "position": "bottom"
+      },
+      "axisID": "x-axis",
+      "position": "9 Sep"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": ["PM due at", "Liaison Committee"],
+        "xAdjust": 0,
+        "yAdjust": 80,
+        "position": "bottom"
+      },
+      "axisID": "x-axis",
+      "position": "11 Sep"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": ["Dissolution for", "GE 17 Oct"],
+        "xAdjust": 0,
+        "yAdjust": 30,
+        "position": "bottom"
+      },
+      "axisID": "x-axis",
+      "position": "12 Sep"
+    },
+{
+      "type": "axisLineVertical",
+      "hideLine": true,
+      "label": {
+        "content": "← 9-12 Sep: Prorogation (?) →",
+        "xAdjust": -25,
+        "yAdjust": 10,
+        "position": "top"
+      },
+      "axisID": "x-axis",
+      "position": "10 Sep"
+    },
+    {
+      "type": "axisLineVertical",
+      "label": {
+        "content": "EP plenary week",
+        "xAdjust": 0,
+        "yAdjust": 60,
+        "position": "bottom"
+      },
+      "axisID": "x-axis",
+      "position": "16 Sep"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": ["Dissolution for", "GE 24 Oct"],
+        "xAdjust": 0,
+        "yAdjust": 30,
+        "position": "bottom"
+      },
+      "axisID": "x-axis",
+      "position": "19 Sep"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": ["Debate on", "NI(EF)A motion due"],
+        "xAdjust": 0,
+        "yAdjust": 60,
+        "position": "bottom"
+      },
+      "axisID": "x-axis",
+      "position": "14 Oct"
+    }, {
+      "type": "axisLineVertical",
+      "hideLine": true,
+      "label": {
+        "content": ["New session", "(Queen's Speech)"],
+        "xAdjust": 0,
+        "yAdjust": 20,
+        "position": "top"
+      },
+      "axisID": "x-axis",
+      "position": "14 Oct"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": "European Council",
+        "xAdjust": 0,
+        "yAdjust": 60,
+        "position": "top"
+      },
+      "axisID": "x-axis",
+      "position": "17 Oct"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": "European Council",
+        "xAdjust": 0,
+        "yAdjust": 40,
+        "position": "top"
+      },
+      "axisID": "x-axis",
+      "position": "18 Oct"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": "EP plenary week",
+        "xAdjust": 0,
+        "yAdjust": 60,
+        "position": "bottom"
+      },
+      "axisID": "x-axis",
+      "position": "21 Oct"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": ["Queen's Speech", "votes"],
+        "xAdjust": 0,
+        "yAdjust": 20,
+        "position": "top"
+      },
+      "axisID": "x-axis",
+      "position": "21 Oct"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": ["Queen's Speech", "votes"],
+        "xAdjust": 0,
+        "yAdjust": 80,
+        "position": "top"
+      },
+      "axisID": "x-axis",
+      "position": "22 Oct"
+    }, {
+      "type": "axisLineVertical",
+      "label": {
+        "content": "Brexit scheduled",
+        "xAdjust": 0,
+        "yAdjust": 20,
+        "position": "top"
+      },
+      "axisID": "x-axis",
+      "position": "31 Oct"
+    }]
   }
 }
 
