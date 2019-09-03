@@ -5,7 +5,6 @@ isDev = false
 %>
 <script class="chart__config" type="application/json">
 <% if isDev %>
-
 {
   "type": "line",
   "data": {
@@ -14,7 +13,7 @@ isDev = false
       "label": "Dates",
       "datasetID": "ds-01"
     }],
-    "labels": ["1 Sep", "2 Sep", "3 Sep", "4 Sep", "5 Sep", "6 Sep", "7 Sep", "8 Sep", "9 Sep", "10 Sep", "11 Sep", "12 Sep", "13 Sep", "14 Sep", "15 Sep", "16 Sep", "17 Sep", "18 Sep", "19 Sep", "20 Sep", "21 Sep", "22 Sep", "23 Sep", "24 Sep", "25 Sep", "26 Sep", "27 Sep", "28 Sep", "29 Sep", "30 Sep", "1 Oct", "2 Oct", "3 Oct", "4 Oct", "5 Oct", "6 Oct", "7 Oct", "8 Oct", "9 Oct", "10 Oct", "11 Oct", "12 Oct", "13 Oct", "14 Oct", "15 Oct", "16 Oct", "17 Oct", "18 Oct", "19 Oct", "20 Oct", "21 Oct", "22 Oct", "23 Oct", "24 Oct", "25 Oct", "26 Oct", "27 Oct", "28 Oct", "29 Oct", "30 Oct", "31 Oct", "1 Nov", "2 Nov", "3 Nov", "4 Nov", "5 Nov"]
+    "labels": ["1 Sep", "Mon 2 Sep", "3 Sep", "4 Sep", "5 Sep", "6 Sep", "7 Sep", "8 Sep", "Mon 9 Sep", "10 Sep", "11 Sep", "12 Sep", "13 Sep", "14 Sep", "15 Sep", "Mon 16 Sep", "17 Sep", "18 Sep", "19 Sep", "20 Sep", "21 Sep", "22 Sep", "Mon 23 Sep", "24 Sep", "25 Sep", "26 Sep", "27 Sep", "28 Sep", "29 Sep", "Mon 30 Sep", "1 Oct", "2 Oct", "3 Oct", "4 Oct", "5 Oct", "6 Oct", "Mon 7 Oct", "8 Oct", "9 Oct", "10 Oct", "11 Oct", "12 Oct", "13 Oct", "Mon 14 Oct", "15 Oct", "16 Oct", "17 Oct", "18 Oct", "19 Oct", "20 Oct", "Mon 21 Oct", "22 Oct", "23 Oct", "24 Oct", "25 Oct", "26 Oct", "27 Oct", "Mon 28 Oct", "29 Oct", "30 Oct", "31 Oct", "1 Nov", "2 Nov", "3 Nov", "Mon 4 Nov", "5 Nov"]
   },
   "options": {
     "legend": false,
@@ -65,8 +64,8 @@ isDev = false
       "type": "axisBox",
       "xAxisID": "x-axis",
       "yAxisID": "y-axis",
-      "xPosition": ["9 Sep", "12 Sep"]
-    },  {
+      "xPosition": ["Mon 9 Sep", "12 Sep"]
+    }, {
       "type": "axisLineVertical",
       "label": {
         "content": ["Debate on", "NI(EF)A motion due"],
@@ -75,7 +74,7 @@ isDev = false
         "position": "bottom"
       },
       "axisID": "x-axis",
-      "position": "9 Sep"
+      "position": "Mon 9 Sep"
     }, {
       "type": "axisLineVertical",
       "hideLine": true,
@@ -86,7 +85,7 @@ isDev = false
         "position": "bottom"
       },
       "axisID": "x-axis",
-      "position": "9 Sep"
+      "position": "Mon 9 Sep"
     }, {
       "type": "axisLineVertical",
       "label": {
@@ -107,20 +106,18 @@ isDev = false
       },
       "axisID": "x-axis",
       "position": "12 Sep"
-    },
-{
+    }, {
       "type": "axisLineVertical",
       "hideLine": true,
       "label": {
-        "content": "← 9-12 Sep: Prorogation (?) →",
+        "content": ["←  9-12 Sep  →", "Prorogation begins"],
         "xAdjust": -25,
         "yAdjust": 10,
         "position": "top"
       },
       "axisID": "x-axis",
       "position": "10 Sep"
-    },
-    {
+    }, {
       "type": "axisLineVertical",
       "label": {
         "content": "EP plenary week",
@@ -145,11 +142,11 @@ isDev = false
       "label": {
         "content": ["Debate on", "NI(EF)A motion due"],
         "xAdjust": 0,
-        "yAdjust": 60,
+        "yAdjust": 160,
         "position": "bottom"
       },
       "axisID": "x-axis",
-      "position": "14 Oct"
+      "position": "Mon 14 Oct"
     }, {
       "type": "axisLineVertical",
       "hideLine": true,
@@ -160,27 +157,23 @@ isDev = false
         "position": "top"
       },
       "axisID": "x-axis",
-      "position": "14 Oct"
+      "position": "Mon 14 Oct"
+    }, {
+      "type": "axisBox",
+      "xAxisID": "x-axis",
+      "yAxisID": "y-axis",
+      "xPosition": ["17 Oct", "18 Oct"]
     }, {
       "type": "axisLineVertical",
+      "hideLine": true,
       "label": {
-        "content": "European Council",
-        "xAdjust": 0,
-        "yAdjust": 60,
+        "content": ["←  17-18 Oct  →", "European Council"],
+        "xAdjust": -25,
+        "yAdjust": 10,
         "position": "top"
       },
       "axisID": "x-axis",
       "position": "17 Oct"
-    }, {
-      "type": "axisLineVertical",
-      "label": {
-        "content": "European Council",
-        "xAdjust": 0,
-        "yAdjust": 40,
-        "position": "top"
-      },
-      "axisID": "x-axis",
-      "position": "18 Oct"
     }, {
       "type": "axisLineVertical",
       "label": {
@@ -190,27 +183,23 @@ isDev = false
         "position": "bottom"
       },
       "axisID": "x-axis",
-      "position": "21 Oct"
+      "position": "Mon 21 Oct"
+    }, {
+      "type": "axisBox",
+      "xAxisID": "x-axis",
+      "yAxisID": "y-axis",
+      "xPosition": ["Mon 21 Oct", "22 Oct"]
     }, {
       "type": "axisLineVertical",
+      "hideLine": true,
       "label": {
-        "content": ["Queen's Speech", "votes"],
-        "xAdjust": 0,
-        "yAdjust": 20,
+        "content": ["←  21-22 Oct  →", "Queen's Speech", "votes"],
+        "xAdjust": -25,
+        "yAdjust": 10,
         "position": "top"
       },
       "axisID": "x-axis",
-      "position": "21 Oct"
-    }, {
-      "type": "axisLineVertical",
-      "label": {
-        "content": ["Queen's Speech", "votes"],
-        "xAdjust": 0,
-        "yAdjust": 80,
-        "position": "top"
-      },
-      "axisID": "x-axis",
-      "position": "22 Oct"
+      "position": "Mon 21 Oct"
     }, {
       "type": "axisLineVertical",
       "label": {
@@ -224,7 +213,6 @@ isDev = false
     }]
   }
 }
-
 <% else %>
 {
   "type": "<%= chartData[:chart_type] %>",
