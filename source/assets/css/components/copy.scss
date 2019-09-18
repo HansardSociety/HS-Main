@@ -312,8 +312,11 @@ table {
   }
 
   @extend %e-align-left;
+  @extend %e-fz-xs;
 
-  &, + p > em {
+  // Sources
+  & + p > em {
+    @extend %e-display-inline-block;
     @extend %e-fz-xs;
   }
 }
