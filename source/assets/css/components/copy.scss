@@ -24,7 +24,8 @@
 }
 
 img,
-iframe {
+iframe,
+table {
   margin: 1rem auto;
 }
 
@@ -287,6 +288,35 @@ li {
   }
 }
 
+/**
+ * =Tables
+************************************************************/
+
+table {
+  border-collapse: collapse;
+
+  th, td {
+    @extend %e-pad-xs;
+  }
+
+  thead {
+    tr {
+      border-bottom: 2px solid Get($colorGroups, black, 1);
+    }
+  }
+
+  tbody {
+    tr:nth-child(even) {
+      @extend %e-bgc-white-2;
+    }
+  }
+
+  @extend %e-align-left;
+
+  &, + p > em {
+    @extend %e-fz-xs;
+  }
+}
 } // END .copy
 
 .copy.copy--invert {
