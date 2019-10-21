@@ -32,7 +32,7 @@ const algoliaSearch = (() => {
 
     search.addWidget(
       instantSearch.widgets.configure({
-        hitsPerPage: 8,
+        hitsPerPage: 4,
         filters: searchFilterParam
       })
     )
@@ -67,6 +67,7 @@ const algoliaSearch = (() => {
     /*  =Hits
      *****************************************/
 
+    // Infinite hits
     search.addWidget(
       instantSearch.widgets.infiniteHits({
         container: block.querySelector(".search__results"),
@@ -81,7 +82,7 @@ const algoliaSearch = (() => {
         templates: {
           empty: "",
           item: template("main-card")
-        },
+        }
       }),
     )
 

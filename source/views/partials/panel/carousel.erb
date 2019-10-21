@@ -73,7 +73,7 @@ hasLink = local_data[:link]
           <% if dataType == :latest
             latestContent({
               yield: true,
-              num: 5,
+              num: 6,
               dedupe_entry_id: (dedupeEntry ? dedupeEntry : false
             )}) do |page| %>
               <div class="carousel__item carousel__item--card">
@@ -91,7 +91,7 @@ hasLink = local_data[:link]
           <% if dataType == :latest_category
             latestContent({
               yield: true,
-              num: 5,
+              num: 6,
               page_cats: categories
             }) do |page| %>
               <div class="carousel__item carousel__item--card">
@@ -108,7 +108,7 @@ hasLink = local_data[:link]
 
           <% if dataType == :latest_theme %>
             <% latestThemed = latestContent().select{ |page| page[:theme] && page[:theme].any?{ |theme| theme.include?(panelData[:theme]) }}
-            latestThemed[0..4].map do |page| %>
+            latestThemed[0..5].map do |page| %>
               <div class="carousel__item carousel__item--card">
                 <%= partial "views/partials/main-card",
                   locals: { local_data: {
