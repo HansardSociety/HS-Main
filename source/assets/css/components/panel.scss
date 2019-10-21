@@ -71,6 +71,8 @@
 }
 
 .panel__content--overlap {
+  z-index: 1;
+
   @extend %e-absolute-center-xy;
   @extend %e-txt-shad-slight;
 }
