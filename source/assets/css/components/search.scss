@@ -93,21 +93,17 @@
 
 .search__filters {
   @extend %e-mgn-t-xs;
-  // @include below(sm) {
-  //   padding: 0.5rem;
-  //   border: .25rem solid Get($colorGroups, white, 3);
-  //   border-radius: .125rem;
-  // }
 
   .search__filters-root {
+    max-width: 45rem;
+
     @extend %e-align-cen;
+    @extend %e-mgn-auto-x;
   }
 
-  // .search__filters-header {
-  //   @include below(sm) {
-  //     margin-top: 0;
-  //   }
-  // }
+  .search__filter-2 {
+    @extend %e-mgn-x-xs;
+  }
 
   .search__filters-header,
   .search__filters-body {
@@ -116,7 +112,8 @@
   }
 
   .search__filters-header {
-    @extend %e-col-grey-3;
+    @extend %e-col-brand-green-2;
+    @extend %e-ff-prim-heavy;
     @extend %e-mgn-r-xs;
     @include below(sm) {
       display: block;
@@ -127,11 +124,10 @@
   }
 
   .search__filters-list {
+    justify-content: center;
+
     @extend .grid;
     @extend .grid--xs;
-    @include below(sm) {
-      justify-content: center;
-    }
   }
 
   .search__filters-item {

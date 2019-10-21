@@ -89,7 +89,7 @@
       <% end %>
 
       <%# Publications and sub-cats pages %>
-      <% if @entry[:category] == "publications" && @entry[:index_page] && !@entry[:sub_category] %>
+      <% if ["blog", "publications"].include?(@entry[:category]) && @entry[:index_page] && !@entry[:sub_category] %>
         <%= partial "views/partials/panel/search",
           locals: { local_data: {
             context: "category-search",

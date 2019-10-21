@@ -10,9 +10,14 @@ featured = @entry[:featured]
 <script src="<%= assetsDir %><%= config[:JS_VENDOR] %>"></script>
 <script src="<%= assetsDir %><%= config[:JS_APP] %>"></script>
 
+<!--
 <% if @entry[:TYPE] == "theme_page" || (@entry[:category] == "publications" && @entry[:index_page]) %>
   <script src="<%= assetsDir %><%= config[:JS_SEARCH] %>"></script>
 <% end %>
+-->
+<script src="<%= assetsDir %><%= config[:JS_SEARCH] %>"></script>
+
+
 
 <%# Chart JS %>
 <% if isLandingPage && @entry[:panels].any?{|panel| panel[:TYPE] == "panel_chart"} %>

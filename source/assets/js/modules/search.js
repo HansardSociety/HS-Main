@@ -168,39 +168,32 @@ const algoliaSearch = (() => {
       /*  =Category search
       *****************************************/
 
-      // Sub-category
+      // Themes
       refinementWidget({
         container: ".search__filter-1",
+        attributeName: "theme.lvl0",
+        heading: "Theme",
+      })
+
+      // Sub-category
+      refinementWidget({
+        container: ".search__filter-2",
         attributeName: "category.lvl1",
-        heading: "Category",
+        heading: "Sub-category",
         transformItemData: i => {
           i.label = i.value.split(">").pop()
           return i
         }
       })
 
-      // // Themes
-      // refinementWidget({
-      //   container: ".search__filter-2",
-      //   attributeName: "theme.lvl0",
-      //   heading: "Theme",
-      // })
-
     } else {
 
       /*  =All search
       *****************************************/
 
-      // Theme
-      // refinementWidget({
-      //   container: ".search__filter-1",
-      //   attributeName: "theme.lvl0",
-      //   heading: "Theme"
-      // })
-
       // Category
       refinementWidget({
-        container: ".search__filter-2",
+        container: ".search__filter-1",
         attributeName: "category.lvl0",
         heading: "Category"
       })
