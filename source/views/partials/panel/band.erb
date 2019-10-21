@@ -51,19 +51,6 @@ end
     <%= bgcClass %>
     <%= "e-pad-reset" if isOverlap %>">
 
-  <% if panelData[:image] %>
-    <div
-      class="panel__bg-img
-        panel__bg-img--<%= imageSize %>
-        <%= "panel__bg-img--" + (isOverlap ? "overlap" : "no-overlap") %>">
-      <img
-        class="b-lazy"
-        src="<%= panelData[:image][:url] %>?fm=jpg&w=<%= cfulImageWidth %>&q=20"
-        data-src="<%= panelData[:image][:url] %>?w=<%= cfulImageWidth %>"
-        alt="<%= panelData[:image][:alt] %>"/>
-    </div>
-  <% end %>
-
   <div class="panel__inner">
     <div class="panel__content panel__content--medium <%= "panel__content--overlap" if isOverlap %>">
       <% if hasTitle %>
@@ -89,4 +76,18 @@ end
       <% end %>
     </div>
   </div>
+
+  <% if panelData[:image] %>
+    <div
+      class="panel__bg-img
+        panel__bg-img--<%= imageSize %>
+        <%= "panel__bg-img--" + (isOverlap ? "overlap" : "no-overlap") %>">
+      <img
+        class="b-lazy"
+        src="<%= panelData[:image][:url] %>?fm=jpg&w=<%= cfulImageWidth %>&q=20"
+        data-src="<%= panelData[:image][:url] %>?w=<%= cfulImageWidth %>"
+        alt="<%= panelData[:image][:alt] %>"/>
+    </div>
+  <% end %>
+
 </aside>

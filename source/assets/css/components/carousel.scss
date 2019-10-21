@@ -24,7 +24,7 @@
 
 .carousel__item--card {
   width: calc(100% - 2.5rem);
-  padding: 1rem .25rem;
+  padding: 1rem .5rem;
 
   @include above(sm) { width: calc(100% / 2); }
   @include above(lg) { width: calc(100% / 3); }
