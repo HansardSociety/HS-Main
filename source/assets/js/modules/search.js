@@ -142,9 +142,16 @@ const algoliaSearch = (() => {
       /*  =Theme search
       *****************************************/
 
-      // Sub-themes
+      // Categories
       refinementWidget({
         container: ".search__filter-1",
+        attributeName: "category.lvl0",
+        heading: "Category"
+      })
+
+      // Sub-themes
+      refinementWidget({
+        container: ".search__filter-2",
         attributeName: "theme.lvl1",
         heading: "Sub-theme",
         transformItemData: i => {
@@ -156,34 +163,27 @@ const algoliaSearch = (() => {
         )
       })
 
-      // Categories
-      refinementWidget({
-        container: ".search__filter-2",
-        attributeName: "category.lvl0",
-        heading: "Category"
-      })
-
     } else if (isCategorySearch) {
 
       /*  =Category search
       *****************************************/
 
-      // Themes
-      refinementWidget({
-        container: ".search__filter-1",
-        attributeName: "theme.lvl0",
-        heading: "Theme",
-      })
-
       // Sub-category
       refinementWidget({
-        container: ".search__filter-2",
+        container: ".search__filter-1",
         attributeName: "category.lvl1",
         heading: "Sub-category",
         transformItemData: i => {
           i.label = i.value.split(">").pop()
           return i
         }
+      })
+
+      // Themes
+      refinementWidget({
+        container: ".search__filter-2",
+        attributeName: "theme.lvl0",
+        heading: "Theme",
       })
 
     } else {

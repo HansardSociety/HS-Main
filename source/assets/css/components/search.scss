@@ -105,7 +105,10 @@
     @extend %e-mgn-x-xs;
   }
 
-  .search__filters-header,
+  .search__filters-header {
+    @extend %e-mgn-t-sm;
+  }
+
   .search__filters-body {
     @extend %e-display-inline-block;
     @extend %e-mgn-t-xs;
