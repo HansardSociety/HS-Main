@@ -18,6 +18,10 @@
 
 > h1, > h2, > h3, > h4, > h5, > h6 {
 
+  > a {
+    @extend .link;
+  }
+
   &:not(:first-child) {
     margin-top: 1.25em;
   }
@@ -33,12 +37,16 @@ table {
   @extend .title-md;
 }
 
-> h3, > h4 {
+> h3 {
   @extend .title-sm;
 }
 
-> h5 {
+> h4 {
   @extend .strap-sm;
+}
+
+> h5 {
+  @extend .label-xs;
 }
 
 > h1, > h2, > h3 {
@@ -50,9 +58,7 @@ table {
 }
 
 > h5 {
-  opacity: .5;
-
-  @extend %e-col-black-2;
+  @extend %e-col-grey-2;
 }
 
 > p > a,
