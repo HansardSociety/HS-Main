@@ -231,7 +231,7 @@ url = "https://hansardsociety.org.uk/"
 
           <% else %>
             <div class="top-3">
-              <h2 class="side-title e-acc-brand-green-2-top e-pad-t-xs">Top 3</h2>
+              <h2 class="side-title e-acc-brand-green-2-top e-pad-t-xs">Top three</h2>
               <% featuredPages = data.hs.homepage(0).values[0].featured_pages.reject{|page| page[:ID] == @entry[:ID] }
                 featuredPages[0..2].each do |page| %>
                   <%= partial "views/partials/side-card",
