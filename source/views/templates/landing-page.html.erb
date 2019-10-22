@@ -89,14 +89,16 @@
       <% end %>
 
       <%# Publications and sub-cats pages %>
-      <% if ["blog", "publications"].include?(@entry[:category]) && @entry[:index_page] && !@entry[:sub_category] %>
-        <%= partial "views/partials/panel/search",
-          locals: { local_data: {
-            context: "category-search",
-            panel_id: "panel-search-filtered-main",
-            search_id: "search-filtered-main",
-            main_search_attr: "category"
+      <% siteData(:site_config)[:categories].each do |cat| %>
+        <% if cat[:name] === @entry[:category] && !@entry[:sub_category] && cat[:searchable] %>
+          <%= partial "views/partials/panel/search",
+            locals: { local_data: {
+              context: "category-search",
+              panel_id: "panel-search-filtered-main",
+              search_id: "search-filtered-main",
+              main_search_attr: "category"
           }} %>
+        <% end %>
       <% end %>
 
       <% if panel[:TYPE] == "panel_feed" %>
