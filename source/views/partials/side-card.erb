@@ -94,23 +94,24 @@ sideCardAttrs = {
               =Product
           ***********************************************-->
 
-          <% if isFeaturedProduct
+          <% if isFeaturedProduct %>
 
-            # Download
-            if entryData[:price] == 0 %>
+            <%# Download %>
+            <% if entryData[:price] == 0 %>
               <%= partial "views/partials/btn",
                 locals: { local_data: {
                   type: "link",
                   size: "sm",
                   style: "primary",
-                  label: "Download",
+                  label: "#{ entryData[:button_text] ? entryData[:button_text] : "Download" }",
                   label_size: "sm",
-                  url: entryData[:download] }} %>
-            <% end;
+                  url: !entryData[:external_link] ? entryData[:download] : entryData[:external_link]
+              }} %>
+            <% end %>
 
-            # Checkout
-            if entryData[:price] > 0
-              checkoutID = "checkout-#{ entryData[:meta_title].parameterize }"  %>
+            <%# Checkout %>
+            <% if entryData[:price] > 0 %>
+              <% checkoutID = "checkout-#{ entryData[:meta_title].parameterize }" %>
 
               <%= partial "views/partials/btn",
                 locals: { local_data: {
@@ -118,7 +119,7 @@ sideCardAttrs = {
                   size: "sm",
                   style: "primary",
                   label_on: "Close",
-                  label_off: "Buy £#{ sprintf("%.2f", entryData[:price]) }",
+                  label_off: "#{ entryData[:button_text] ? entryData[:button_text] : "Buy" } £#{ sprintf("%.2f", entryData[:price]) }",
                   label_size: "sm",
                   page: "no-scroll",
                   switch: true,
@@ -132,7 +133,8 @@ sideCardAttrs = {
                   size: "narrow",
                   checkout: true,
                   contentPadding: true }} %>
-          <% end; end %>
+            <% end %>
+          <% end %>
 
           <!--**********************************************
               =Registration

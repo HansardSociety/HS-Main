@@ -63,6 +63,7 @@ table {
 
 > p > a,
 > p > strong > a,
+ul > li > strong > a,
 > p > em > a,
 > ul > li > p > a,
 > ol > li > p > a,
@@ -71,7 +72,11 @@ table {
 .footnotes a,
 sup > a {
   @extend .link;
-  @extend %e-ff-prim-roman;
+  // @extend %e-ff-prim-roman;
+}
+
+strong > a {
+  @extend %e-ff-prim-heavy;
 }
 
 img {

@@ -288,7 +288,9 @@ def featuredData(data, opts = {})
         url: data.image.url,
         alt: data.image.description
       },
-      download: (data.media.url if data.media)
+      download: (data.media.url if data.media),
+      external_link: (data.external_link if data.external_link),
+      button_text: (data.button_text if data.button_text)
     }.compact
   end
 
