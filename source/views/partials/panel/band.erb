@@ -2,7 +2,7 @@
 panelData = local_data[:entry_data]
 
 bgc = panelData[:background_color]
-bgcClass = contentBgc(bgc)
+bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc, { gradient: true })
 
 callsToAction = panelData[:calls_to_action]
 
@@ -26,7 +26,7 @@ isOverlap = panelData[:overlap]
 isNoOverlap = !panelData[:overlap]
 
 title = panelData[:title]
-titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
+titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
 hasTitle = panelData[:show_title]
 headingLevel = panelData[:heading_level]
 
@@ -47,7 +47,7 @@ end
 
 <aside
   id="panel-<%= index %>"
-  class="panel panel--no-overflow-x
+  class="panel panel--band panel--no-overflow-x
     <%= bgcClass %>
     <%= "e-pad-reset" if isOverlap %>">
 

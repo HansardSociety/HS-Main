@@ -38,6 +38,8 @@
 
   color: Get($colorGroups, brand-green, 2);
 
+  z-index: 1;
+
   @extend %e-flex-row;
   @extend %e-mgn-auto-x;
   @extend %e-position-relative;
@@ -80,11 +82,13 @@
     margin-top: -.5rem;
     margin-left: -.25rem;
 
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
+    // border-top-left-radius: 2px;
+    // border-top-right-radius: 2px;
     background-color: rgba(Get($colorGroups, black, 2), .5);
 
     @extend %e-pseudo-elem;
+    @extend %e-rad-slight;
+
     @include below(md) {
       background-color: transparent;
     }

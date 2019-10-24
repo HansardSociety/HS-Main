@@ -8,10 +8,14 @@ category = (isHomePage || isThemePage) ? "projects" : entryData[:category]
 introduction = entryData[:introduction]
 
 color = catColor(category)
-bgcClass = colorProfile(:mono).include?(color) ? contentBgc(color) : contentBgc(color, { gradient: true })
+# bgcClass = colorProfile(:mono).include?(color) ? contentBgc(color) : contentBgc(color, { gradient: true })
+bgcClass = contentBgc(color)
 %>
 
 <section class="panel panel--intro <%= bgcClass %>">
+  <%= partial "views/partials/seperator", locals: {
+    color: siteData(:site_config)[:color_groups][:"#{ color }"][:"2"]
+  } %>
   <div class="panel__inner">
     <div class="panel__content panel__content--medium">
       <%= markdown(introduction, "byline") %>

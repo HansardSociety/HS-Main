@@ -1,0 +1,8 @@
+.seperator {
+  bottom: calc(100% - .5px);
+  left: -2px;
+
+  min-height: 5rem;
+
+  @extend %e-position-absolute;
+}
