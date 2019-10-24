@@ -62,7 +62,7 @@ featuredCard = local_data[:featured]
       <div class="main-card__title">
         <span class="label-xxs label-tag <%= labelAccent %>"><%= metaLabel %></span>
         <h2
-          class="title-sm e-mgn-t-xxs JS-truncate"
+          class="<%= !noIntro ? "title-sm" : "e-fz-sm e-ff-prim-roman" %> e-mgn-t-xxs JS-truncate"
           data-truncate="{ 'xs': 84, 'sm': 99, 'md': 120, 'lg': 80 }"><%= title %>
         </h2>
       </div>

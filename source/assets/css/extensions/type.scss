@@ -2,6 +2,7 @@
   ========================================================================== */
 
 @each $fontKey, $fontVal in map-get($type, font-primary) {
+  .e-ff-prim-#{ $fontKey },
   %e-ff-prim-#{ $fontKey } {
     font-family: map-get($fontVal, family), sans-serif;
     font-weight: map-get($fontVal, weight) !important;
