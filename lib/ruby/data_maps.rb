@@ -719,17 +719,19 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
 
     if entry.featured_pages
       context.featured_pages = entry.featured_pages.map do |page|
-        {
-          ID: page.sys[:id],
-          title: page.title,
-          meta_label: metaLabel(page),
-          slug: slug(page),
-          category: (detachCategory(page.category) if page.category),
-          sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $seperator),
-          introduction: page.introduction,
-          banner_image: media(page.banner_image, focus: page),
-          date_time: dateTime(page)
-        }
+        if page.title
+          {
+            ID: page.sys[:id],
+            title: page.title,
+            meta_label: metaLabel(page),
+            slug: slug(page),
+            category: (detachCategory(page.category) if page.category),
+            sub_category: (detachCategory(page.category, { part: 1 }) if page.category.include? $seperator),
+            introduction: page.introduction,
+            banner_image: media(page.banner_image, focus: page),
+            date_time: dateTime(page)
+          }
+        end
       end
     end
 
