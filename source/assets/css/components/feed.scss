@@ -50,10 +50,10 @@
 .feed__menu-item-disabled {
   width: 1.75rem;
   font-size: .75rem;
-  border-radius: 1px;
+  border-radius: 2px;
 
   @extend %e-align-cen;
-  @extend %e-bgc-white-2;
+  @extend %e-bgc-white-3;
   @extend %e-col-brand-green-1;
   @extend %e-display-block;
   @extend %e-ff-prim-heavy;

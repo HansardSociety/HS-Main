@@ -230,7 +230,7 @@ const algoliaSearch = (() => {
         container: block.querySelector(".search__clear-inner"),
         clearsQuery: true,
         templates: {
-          link: "<span class='search__clear-link'>Clear filters<span>"
+          link: "<span class='search__clear-link'>Clear search and filters<span>"
         }
       })
     )
@@ -256,20 +256,39 @@ const algoliaSearch = (() => {
    ***************************************************************************/
 
   // Filtered search
-  const iSearch = instantSearch({
-    appId: "AJC8ZDIWBJ",
-    apiKey: "66a9759f27ae50a3c41abf7b82181a11",
-    indexName: "pages_by_date",
-    routing: true
-  })
+  function iSearch (containerElem) {
+
+    return instantSearch({
+      appId: "AJC8ZDIWBJ",
+      apiKey: "66a9759f27ae50a3c41abf7b82181a11",
+      indexName: "pages_by_date",
+      routing: true,
+
+      searchFunction: function(helper) {
+        const searchResultsElem = containerElem.querySelector(".search__results");
+        const searchBackElem = containerElem.querySelector(".search__back");
+
+        // Don't display results if query and filters is empty
+        if (helper.state.query === "" && Object.keys(helper.state.disjunctiveFacetsRefinements).length === 0) {
+          searchResultsElem.style.display = "none";
+          searchBackElem.style.display = "none";
+        } else {
+          searchResultsElem.style.display = "block";
+          searchBackElem.style.display = "block";
+        }
+        helper.search();
+      }
+    })
+
+  }
 
   // Need to initiate after DOM loaded to return "containers"
   return document.addEventListener("DOMContentLoaded", function() {
     const siteSearchContainer = document.querySelector("#search-all-nav")
     const filteredSearchContainer = document.querySelector("#search-filtered-main")
 
-    if (siteSearchContainer) multiSearch(iSearch, siteSearchContainer)
-    if (filteredSearchContainer) multiSearch(iSearch, filteredSearchContainer)
+    if (siteSearchContainer) multiSearch(iSearch(siteSearchContainer), siteSearchContainer)
+    if (filteredSearchContainer) multiSearch(iSearch(filteredSearchContainer), filteredSearchContainer)
   })
 })()
 

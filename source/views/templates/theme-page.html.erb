@@ -19,7 +19,8 @@
       context: "theme-search",
       panel_id: "panel-search-filtered-main",
       search_id: "search-filtered-main",
-      main_search_attr: "theme"
+      main_search_attr: "theme",
+      bgc_white: true
     }} %>
 
   <%# Panel feed %>
@@ -27,7 +28,7 @@
     locals: { local_data: {
       entry_data: {
         title: "Browse all",
-        background_color: "white",
+        background_color: "light-grey",
         feed: {
           category: @entry[:theme],
           initial_count: 3
