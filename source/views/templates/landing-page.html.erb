@@ -55,7 +55,7 @@
         prevPanel = @entry[:panels][index - 1]
         prevPanelBGC = prevPanel[:background_color]
         createFlowPanel = false
-        if prevPanel[:TYPE] != "panel_header" && prevPanel[:TYPE] != "panel_band" && panelBGC == prevPanelBGC && index != 0
+        if prevPanel[:TYPE] != "panel_header" && prevPanel[:TYPE] != "panel_band" && panelBGC == prevPanelBGC #&& index != 0
           createFlowPanel = true
         end
       %>

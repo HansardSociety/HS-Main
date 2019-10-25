@@ -36,6 +36,26 @@
   padding-bottom: 8rem;
 }
 
+.panel--search {
+  z-index: 1;
+
+  @extend %e-box-shad-z1;
+}
+
+.panel--shad:not(.panel--flow)::after {
+  content: "";
+  width: 101vw;
+  bottom: 0;
+  left: -.5vw;
+  background-color: inherit;
+  z-index: 2;
+  height: .5rem;
+
+  @extend %e-box-shad-z1;
+  @extend %e-display-block;
+  @extend %e-position-absolute;
+}
+
 /* =Inner
 ========================================================================== */
 

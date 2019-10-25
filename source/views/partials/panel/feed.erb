@@ -2,8 +2,6 @@
 isThemePage = @entry && @entry[:TYPE] == "theme_page"
 isLandingPage = @entry && @entry[:TYPE] == "landing_page"
 
-flow = local_data[:flow]
-
 totalFeedPages = 0
 dataFeedCount = 6
 
@@ -70,7 +68,7 @@ end
     =Feed
 ***********************************************-->
 
-<section class="panel <%= "panel--flow" if flow %> <%= bgc %>">
+<section class="panel panel--shad <%= bgc %>">
   <div class="panel__inner">
     <% if title %>
       <div class="panel__content panel__content--narrow e-align-cen e-mgn-b-lg">

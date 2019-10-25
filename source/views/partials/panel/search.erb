@@ -3,9 +3,7 @@ panelID = local_data[:panel_id]
 searchID = local_data[:search_id]
 mainSearchAttr = local_data[:main_search_attr]
 
-flow = local_data[:flow]
-
-bgcWhite = local_data[:bgc_white] ? local_data[:bgc_white] : "2"
+bgcWhite = local_data[:bgc_white] ? "1" : "2"
 context = local_data[:context]
 
 title = "Search"
@@ -26,7 +24,7 @@ end
 
 <section
   id="<%= panelID %>"
-  class="panel <%= "panel--flow" if flow %> e-bgc-white-<%= bgcWhite %>">
+  class="panel panel--shad e-bgc-white-<%= bgcWhite %>">
 
   <div class="panel__inner">
     <div class="panel__content panel__content--full">

@@ -1,6 +1,5 @@
 <%
 panelData = local_data[:entry_data]
-flow = local_data[:flow]
 
 # Locals
 blogCount = local_data[:blog_count] ? local_data[:blog_count] : 2
@@ -27,7 +26,7 @@ hasLink = local_data[:link]
 
 <section
   id="panel-<%= isLatestContext ? "latest" : index %>"
-  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
+  class="panel panel--shad <%= bgcClass %>">
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">
       <% if headingLevel == "level-3" %>
