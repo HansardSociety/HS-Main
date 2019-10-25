@@ -70,8 +70,8 @@
 .menu__item--mobile {
   border-bottom: 1px solid Get($colorGroups, white, 3);
 
-  @extend %e-mgn-b-xs;
-  @extend %e-pad-b-xs;
+  @extend %e-mgn-b-sm;
+  @extend %e-pad-b-sm;
 }
 
 .menu__link {
@@ -102,8 +102,9 @@
 
 .menu__sub-cat {
   border-top: 1px solid Get($colorGroups, white, 3);
+  // padding-left: 6px;
 
-  @extend %e-mgn-b-xxs;
+  @extend %e-mgn-b-xs;
 }
 
 .signup {

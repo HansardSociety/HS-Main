@@ -38,8 +38,8 @@
 
 .e-bg-shapes {
   $color: Get($colorGroups, brand-green, 2);
-  $op1: .05;
-  $op2: .001;
+  $op1: .1;
+  $op2: .025;
 
   background-color: rgba($color, $op1);
 

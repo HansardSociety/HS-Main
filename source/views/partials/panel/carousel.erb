@@ -16,7 +16,7 @@ isLatestContext = context == :latest
 
 # BGC
 bgc = panelData[:background_color]
-bgcClass = isLatestContext ? "e-bg-shapes" : contentBgc(panelData[:background_color])
+bgcClass = isLatestContext ? "e-bgc-white-2" : contentBgc(panelData[:background_color])
 isLightBgc = colorProfile(:light).include?(bgc)
 
 title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : panelData[:title])

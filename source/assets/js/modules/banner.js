@@ -8,8 +8,7 @@ const bannerHeight = (() => {
 
   if (matchMedia("screen and (min-width: 600px)").matches) {
     var vhLg = Math.ceil(windowHeight)
-    var vhMd = Math.ceil(windowHeight * .8
-      )
+    var vhMd = Math.ceil(windowHeight * .8)
   } else {
     var vhLg = Math.ceil(windowHeight)
     var vhMd = Math.ceil(windowHeight)

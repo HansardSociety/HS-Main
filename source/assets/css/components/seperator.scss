@@ -1,8 +1,9 @@
 .seperator {
-  bottom: calc(100% - .5px);
-  left: -2px;
+  bottom: 95%;
+  left: -.5vw;
 
   min-height: 5rem;
+  min-width: 101vw;
 
   @extend %e-position-absolute;
 }

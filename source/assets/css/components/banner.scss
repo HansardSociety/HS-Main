@@ -5,6 +5,8 @@
 }
 
 .banner__inner {
+  z-index: 1;
+
   @extend %e-position-absolute;
   @extend %e-width-full;
 }
