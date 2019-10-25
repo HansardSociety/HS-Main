@@ -84,7 +84,7 @@ url = "https://hansardsociety.org.uk/"
               <%= partial "views/partials/social",
                 locals: { local_data: {
                   icons: [
-                    "https://twitter.com/intent/tweet?text=#{ safeTitle }&url=#{ url }#{ @entry[:slug] }&related=HansardSociety",
+                    "https://twitter.com/intent/tweet?text=#{ safeTitle }&url=#{ url }#{ @entry[:slug] }&via=HansardSociety&related=HansardSociety",
                     "https://facebook.com/sharer.php?u=#{ url }#{ @entry[:slug] }",
                     "https://www.linkedin.com/shareArticle?mini=true&url=#{ url }#{ @entry[:slug] }&title=#{ safeTitle }&source=hansardsociety.org.uk"
                   ]}} %>
