@@ -2,7 +2,8 @@
   bottom: 100%;
   left: -.5vw;
 
-  min-height: 5rem;
+  max-height: 7rem;
+  min-height: 2rem;
   min-width: 101vw;
 
   @extend %e-position-absolute;
