@@ -526,7 +526,8 @@ def panels(ctx, data)
 
     if isPanelCarouselCategory
       panelCarouselCategory = {
-        category: panel.category.downcase
+        category: detachCategory(panel.category),
+        sub_category: (detachCategory(panel.category, { part: 1 }) if panel.category.include?($seperator))
       }.compact
     end
 

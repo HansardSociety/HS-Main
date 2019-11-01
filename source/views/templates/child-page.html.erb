@@ -168,7 +168,7 @@ url = "https://hansardsociety.org.uk/"
 
             <%# External links %>
             <% if @entry[:external_links] %>
-              <h2 class="side-title e-acc-black-3-top">Links</h2>
+              <h2 class="side-title e-acc-white-3-top">Links</h2>
               <% @entry[:external_links].map do |link| %>
                 <%= partial "views/partials/ext-link",
                   locals: { local_data: {

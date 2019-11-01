@@ -26,11 +26,12 @@
   <%# 'Latest' carousel (category) %>
   <% if @entry[:latest_carousel] && !@entry[:tags] %>
     <%= partial "views/partials/panel/carousel",
-    locals: { local_data: {
-      entry_data: @entry,
-      context: :latest,
-      data_type: :latest_category,
-      categories: @entry[:category] }} %>
+      locals: { local_data: {
+        entry_data: @entry,
+        context: :latest,
+        data_type: :latest_category,
+        categories: @entry[:category]
+    }} %>
   <% end %>
 
   <%# Publications and sub-cats pages %>
@@ -55,7 +56,7 @@
         prevPanel = @entry[:panels][index - 1]
         prevPanelBGC = prevPanel[:background_color]
         createFlowPanel = false
-        if prevPanel[:TYPE] != "panel_header" && prevPanel[:TYPE] != "panel_band" && panelBGC == prevPanelBGC && index != 0
+        if prevPanel[:TYPE] != "panel_header" && !["panel_band", "panel_carousel_category"].include?(prevPanel[:TYPE]) && panelBGC == prevPanelBGC && index != 0
           createFlowPanel = true
         end
       %>
@@ -90,6 +91,7 @@
             entry_data: panel,
             data_type: :latest_category,
             categories: panel[:category],
+            sub_categories: panel[:sub_category],
             index: index,
             flow: createFlowPanel }} %>
       <% end %>

@@ -158,8 +158,9 @@
   ========================================================================== */
 
 @each $shadowKey, $shadowVal in map-get($shadow, box) {
-  %e-box-shad-#{ $shadowKey } {
-    box-shadow: $shadowVal;
+    .e-box-shad-#{ $shadowKey },
+    %e-box-shad-#{ $shadowKey } {
+      box-shadow: $shadowVal;
   }
 }
 

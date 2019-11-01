@@ -4,6 +4,7 @@ panelData = local_data[:entry_data]
 # Locals
 blogCount = local_data[:blog_count] ? local_data[:blog_count] : 2
 categories = local_data[:categories]
+subCategories = local_data[:sub_categories]
 dataType = local_data[:data_type]
 index = local_data[:index]
 dedupeEntry = local_data[:dedupe_entry_id]
@@ -91,7 +92,8 @@ hasLink = local_data[:link]
             latestContent({
               yield: true,
               num: 6,
-              page_cats: categories
+              page_cats: (!subCategories ? categories : [subCategories]),
+              sub_cats: !subCategories ? false : true
             }) do |page| %>
               <div class="carousel__item carousel__item--card">
                 <%= partial "views/partials/main-card",

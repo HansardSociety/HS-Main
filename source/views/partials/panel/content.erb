@@ -66,7 +66,7 @@ hasTweet = panelData[:tweet] && panelData[:tweet][:text]
             end %>
             <div class="grid__cell <%= imgClasses %>">
               <figure class="image">
-                <div class="image__wrapper image__wrapper--light <%= "e-pad-sm" if panelData[:image_border] %>">
+                <div class="image__wrapper <%= "e-bgc-white-1 e-pad-sm e-box-shad-z1" if panelData[:image_border] %>">
                   <img
                     class="image__img b-lazy"
                     src="<%= panelData[:image][:url] %>"
