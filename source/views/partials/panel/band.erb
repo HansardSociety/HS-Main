@@ -55,10 +55,10 @@ end
     <div class="panel__content panel__content--medium <%= "panel__content--overlap" if isOverlap %>">
       <% if hasTitle %>
         <% if headingLevel == "level-3" %>
-          <h3 class="title-lg e-align-cen e-mgn-b-sm
+          <h3 class="title-lg e-align-cen <%= "e-mgn-b-sm" if !copy %>
             <%= isOverlap ? "e-col-white-1" : titleColor %>"><%= title %></h3>
         <% else %>
-          <h2 class="title-lg e-align-cen e-mgn-b-sm
+          <h2 class="title-lg e-align-cen <%= "e-mgn-b-sm" if !copy %>
             <%= isOverlap ? "e-col-white-1" : titleColor %>"><%= title %></h2>
         <% end %>
       <% end; if copy %>
