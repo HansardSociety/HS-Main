@@ -81,7 +81,7 @@ strong > a {
 
 img {
   @extend %e-max-width-full;
-  @extend %e-box-shad-z3;
+  @extend %e-box-shad-z2;
   @extend %e-rad-slight;
 
   ~ em {
@@ -128,7 +128,7 @@ blockquote,
   margin: 2rem auto !important;
   padding: 1rem !important;
 
-  border-left: .5rem solid Get($colorGroups, orange, 1) !important;
+  border-left: .5rem solid Get($colorGroups, orange, 2) !important;
 
   @extend %e-bgc-white-2;
   @extend %e-rad-slight;
