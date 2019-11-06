@@ -3,7 +3,7 @@ panelData = local_data[:entry_data]
 index = local_data[:index]
 
 bgc = panelData[:background_color]
-bgcClass = contentBgc(bgc)
+bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc, { gradient: true })
 
 title = panelData[:title]
 copy = panelData[:copy]

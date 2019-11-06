@@ -3,7 +3,7 @@
 
 .panel {
   @extend %e-container;
-  @extend %e-pad-x-xl;
+  @extend %e-pad-x-xxl;
   @extend %e-position-relative;
 }
 
@@ -32,8 +32,8 @@
 }
 
 .panel--band {
-  padding-top: 8rem;
-  padding-bottom: 8rem;
+  // padding-top: 8rem;
+  // padding-bottom: 8rem;
 }
 
 .panel--search {

@@ -49,28 +49,31 @@ end
   id="panel-<%= index %>"
   class="panel panel--band panel--no-overflow-x
     <%= bgcClass %>
-    <%= "e-pad-reset" if isOverlap %>">
+    <%= "e-pad-reset" if isOverlap %>"
+>
 
   <div class="panel__inner">
     <div class="panel__content panel__content--medium <%= "panel__content--overlap" if isOverlap %>">
       <% if hasTitle %>
         <% if headingLevel == "level-3" %>
-          <h3 class="title-lg e-align-cen <%= "e-mgn-b-sm" if !copy %>
+          <h3 class="title-lg e-align-cen <%= "e-mgn-b-md" if !copy %>
             <%= isOverlap ? "e-col-white-1" : titleColor %>"><%= title %></h3>
         <% else %>
-          <h2 class="title-lg e-align-cen <%= "e-mgn-b-sm" if !copy %>
+          <h2 class="title-lg e-align-cen <%= "e-mgn-b-md" if !copy %>
             <%= isOverlap ? "e-col-white-1" : titleColor %>"><%= title %></h2>
         <% end %>
       <% end; if copy %>
-        <p class="<%= strapClass %> e-align-cen e-mgn-b-sm
-           <%= "e-col-white-1 e-pad-sm" if isOverlap %>"><%= panelData[:copy] %></p>
+        <p class="<%= strapClass %> e-align-cen e-mgn-t-md e-mgn-b-md
+           <%= "e-col-white-1" if isOverlap %>"><%= panelData[:copy] %></p>
 
       <% end; if callsToAction %>
         <div class="grid grid--xs grid--center">
           <% callsToAction.each do |cta| %>
             <%= partial "views/partials/ctas",
               locals: { local_data: {
-                entry_data: cta }} %>
+                entry_data: cta,
+                btn_size: "lg"
+            }} %>
           <% end %>
         </div>
       <% end %>

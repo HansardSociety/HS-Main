@@ -58,8 +58,9 @@
 
 .btn--secondary {
   border: 2px solid Get($colorGroups, orange, 2);
+  background-color: rgba(Get($colorGroups, orange, 2), .1);
 
-  @extend %e-col-orange-2;
+  @extend %e-col-orange-3;
 
   &:active,
   &:focus {
