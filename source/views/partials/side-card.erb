@@ -20,7 +20,7 @@ title = entryData[:title]
 metaLabel = entryData[:meta_label]
 if metaLabel.split("/").length >= 3
   baseCat = metaLabel.split("/")[0]
-  metaLabel = baseCat.length > 6 ? "#{baseCat[0..6]}… / #{metaLabel.split("/")[1]} / #{metaLabel.split("/")[2]}" : baseCat
+  metaLabel = baseCat.length > 6 ? "#{baseCat[0..6]}… / #{metaLabel.split("/")[1]} / #{metaLabel.split("/")[2]}" : metaLabel
 end
 
 # Images
