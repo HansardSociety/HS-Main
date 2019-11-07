@@ -33,7 +33,13 @@ hasLink = local_data[:link]
       <% if headingLevel == "level-3" %>
         <h3 class="title-lg e-align-cen e-mgn-b-md <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>">
           <% if hasLink %>
-            <a href="/<%= categories %>" class="link"><%= title %>&nbsp;<small>🡢</small></a>
+            <a href="/<%= categories %>" class="link">
+              <%= title %><%= partial "views/partials/icon",
+                locals: {
+                  icon: "ios-arrow-thin-right",
+                  size: "xs"
+              } %>
+            </a>
           <% else %>
             <%= title %>
           <% end %>
@@ -41,7 +47,13 @@ hasLink = local_data[:link]
       <% else %>
         <h2 class="title-lg e-align-cen e-mgn-b-md <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>">
           <% if hasLink %>
-            <a href="/<%= categories %>" class="link"><%= title %>&nbsp;<small>🡢</small></a>
+            <a href="/<%= categories %>" class="link">
+              <%= title %><%= partial "views/partials/icon",
+                locals: {
+                  icon: "ios-arrow-thin-right",
+                  size: "xs"
+              } %>
+            </a>
           <% else %>
             <%= title %>
           <% end %>
