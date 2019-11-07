@@ -77,17 +77,17 @@
   &::before {
     z-index: -1;
 
-    width: calc(100% + .5rem);
+    width: calc(100% + 1rem);
     height: calc(100% + 1rem);
     margin-top: -.5rem;
-    margin-left: -.25rem;
+    margin-left: -.5rem;
 
     // border-top-left-radius: 2px;
     // border-top-right-radius: 2px;
     background-color: rgba(Get($colorGroups, black, 2), .5);
 
     @extend %e-pseudo-elem;
-    @extend %e-rad-slight;
+    @extend %e-rad-pill;
 
     // @include below(md) {
     //   // background-color: transparent;
