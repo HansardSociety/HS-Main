@@ -55,14 +55,14 @@ if product
   productAttrs = {
     "data-item-name": product[:title],
     "data-item-price": sprintf("%.2f", product[:price]),
-    "data-item-url": "https://www.hansardsociety.org.uk/#{ @entry[:slug] }"
+    "data-item-url": "#{ siteData(:site_url) }/#{ @entry[:slug] }"
   }
 end
 
 btnAttributes = {
   "class": "#{ btnClasses }",
   "href": (url if url),
-  "target": ("_blank" if (url && url.start_with?("http"))),
+  "target": ("_blank" if (url && !url.include?(siteEnvURL()))),
   "type": (isLink ? nil : (form ? "submit" : "button")),
   "aria-controls": (ariaTargetId if ariaTargetId),
   # "tabindex": "1",

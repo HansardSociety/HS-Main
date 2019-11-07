@@ -9,7 +9,7 @@ btnSize = local_data[:btn_size] ? local_data[:btn_size] : "md"
   <% if ["cta_download", "cta_page"].include? ctaType
     isPage = ctaData[:TYPE] == "cta_page"
     isDownload = ctaData[:TYPE] == "cta_download"
-    btnURL = isPage ? internalURL((ctaData[:page_slug_anchor] ? "#{ctaData[:page_slug]}#{ctaData[:page_slug_anchor]}" : ctaData[:page_slug])) : ctaData[:file].url %>
+    btnURL = isPage ? internalURL((ctaData[:page_slug_anchor] ? "#{ ctaData[:page_slug] }#{ ctaData[:page_slug_anchor] }" : ctaData[:page_slug])) : ctaData[:file].url %>
 
     <%= partial "views/partials/btn",
       locals: { local_data: {

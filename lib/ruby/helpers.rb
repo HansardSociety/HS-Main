@@ -31,6 +31,10 @@ module CustomHelpers
     convertToRegularHash(data.hs.universal).values[0][var]
   end
 
+  def siteEnvURL
+    config[:ENV] == "development" ? siteData(:test_site_url) : siteData(:site_url)
+  end
+
   # Internal URLs (for envs)
   def internalURL(slug)
     isDev = config[:ENV] == "development"
@@ -38,10 +42,9 @@ module CustomHelpers
     tld = isDev ? "" : (isPreview ? siteData(:test_site_url) : siteData(:site_url))
 
     if slug.start_with?("http://") || slug.start_with?("https://")
-      slug
+      "#{ slug }"
     else
-      # "#{ tld }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
-      "/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
+      "#{ tld }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
     end
   end
 
