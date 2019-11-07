@@ -115,10 +115,12 @@
 }
 
 .btn__label--link {
-  padding-right: 2rem;
+  padding-right: 2.25rem;
 }
 
 .btn__label--link > .icon {
+  right: .75rem;
+
   @extend %e-absolute-center-y;
 }
 
