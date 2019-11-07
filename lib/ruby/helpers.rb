@@ -40,7 +40,8 @@ module CustomHelpers
     if slug.start_with?("http://") || slug.start_with?("https://")
       slug
     else
-      "#{ tld }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
+      # "#{ tld }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
+      "/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
     end
   end
 
