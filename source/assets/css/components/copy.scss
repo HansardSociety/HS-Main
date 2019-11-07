@@ -334,6 +334,11 @@ table {
 } // END .copy
 
 .copy.copy--invert {
+
+  > p, > h1, > h2, > h3, > h4, > h5, > h6, ul, ol {
+    @extend %e-col-white-1;
+  }
+
   > p > a,
   > p > strong > a,
   > p > em > a,

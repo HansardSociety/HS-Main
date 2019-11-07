@@ -2,8 +2,10 @@
 ========================================================================== */
 
 .panel {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+
   @extend %e-container;
-  @extend %e-pad-x-xl;
   @extend %e-position-relative;
 }
 
@@ -19,7 +21,7 @@
 
 .panel--flow {
   padding-top: 0;
-  margin-top: -1rem;
+  margin-top: -2rem;
 }
 
 .panel--dark {
@@ -157,7 +159,7 @@
 ========================================================================== */
 
 .panel__pull {
-  margin-top: -6rem;
+  margin-top: -5rem;
 }
 
 // Sections
