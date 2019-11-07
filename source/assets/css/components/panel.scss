@@ -3,7 +3,7 @@
 
 .panel {
   @extend %e-container;
-  @extend %e-pad-x-xxl;
+  @extend %e-pad-x-xl;
   @extend %e-position-relative;
 }
 
@@ -19,6 +19,7 @@
 
 .panel--flow {
   padding-top: 0;
+  margin-top: -1rem;
 }
 
 .panel--dark {
@@ -31,10 +32,10 @@
   }
 }
 
-.panel--band {
-  // padding-top: 8rem;
-  // padding-bottom: 8rem;
-}
+// .panel--band {
+//   padding-top: 8rem;
+//   padding-bottom: 8rem;
+// }
 
 .panel--search {
   z-index: 1;
@@ -143,7 +144,7 @@
 }
 
 .panel__bg-img--overlap {
-  margin: 0;
+  margin: 0 auto;
 
   @extend %e-img-filter;
 }
