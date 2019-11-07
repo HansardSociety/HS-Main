@@ -45,7 +45,7 @@ module CustomHelpers
   def internalURL(slug)
     isDev = config[:ENV] == "development"
     isPreview = config[:ENV] == "preview"
-    tld = isDev ? "" : (isPreview ? siteData(:test_site_url) : siteData(:site_url))
+    tld = isDev ? "https://localhost:5000" : (isPreview ? siteData(:test_site_url) : siteData(:site_url))
 
     if slug.start_with?("http://") || slug.start_with?("https://")
       "#{ slug }"
