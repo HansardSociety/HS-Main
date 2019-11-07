@@ -32,7 +32,13 @@ module CustomHelpers
   end
 
   def siteEnvURL
-    config[:ENV] == "development" ? siteData(:test_site_url) : siteData(:site_url)
+    if config[:ENV] == "development"
+      "https://localhost:5000"
+    elsif config[:ENV] == "preview"
+      siteData(:test_site_url)
+    else
+      siteData(:site_url)
+    end
   end
 
   # Internal URLs (for envs)
