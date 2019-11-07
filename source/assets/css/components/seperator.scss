@@ -1,10 +1,10 @@
 .seperator {
   bottom: 100%;
-  left: -2.5vw;
+  left: -5vw;
 
-  max-height: 6rem;
-  min-height: 2rem;
-  min-width: 105vw;
+  max-height: 8.5rem;
+  min-height: 3rem;
+  min-width: 110vw;
 
   @extend %e-position-absolute;
 }
