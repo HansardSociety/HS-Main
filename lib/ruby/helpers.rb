@@ -37,7 +37,11 @@ module CustomHelpers
     isPreview = config[:ENV] == "preview"
     tld = isDev ? "" : (isPreview ? siteData(:test_site_url) : siteData(:site_url))
 
-    "#{ tld }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
+    if slug.start_with?("http://") || slug.start_with?("https://")
+      slug
+    else
+      "#{ tld }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
+    end
   end
 
   # Partial data

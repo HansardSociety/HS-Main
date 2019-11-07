@@ -37,7 +37,7 @@ isThemePage = @entry[:TYPE] == "theme_page"
             <div class="grid__cell">
 
               <% if ["cta_download", "cta_page"].include?(cta[:TYPE])  %>
-                <% url = cta[:TYPE] == "cta_download" ? cta[:file][:url] : "#{siteData(:site_url)}/#{cta[:page_slug]}" %>
+                <% url = cta[:TYPE] == "cta_download" ? cta[:file][:url] : internalURL(cta[:page_slug]) %>
                 <%= partial "views/partials/btn",
                   locals: { local_data: {
                     type: "link", size: "md", style: "primary",
