@@ -3,3 +3,10 @@
   @extend %e-position-relative;
   @extend %e-width-full-vw;
 }
+
+.site-container__main {
+  @include below(md) {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+}
