@@ -92,13 +92,15 @@ btnAttributes = {
       <span class="btn__label btn__label--off <%= "btn__label--" + labelSize %>"><%= labelOff %></span>
     <% end; if ["link", "plain"].include?(type) && label %>
       <span class="btn__label <%= "btn__label--" + labelSize %> <%= "btn__label--link" if isLink %>">
-        <%= label %>
         <% if isLink %>
+          <span class="btn__link-text"><%= label %></span>
           <%= partial "views/partials/icon",
             locals: {
               icon: "ios-arrow-thin-right",
               size: "xs"
           } %>
+        <% else %>
+          <%= label %>
         <% end %>
       </span>
     <% end %>

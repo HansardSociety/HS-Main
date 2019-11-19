@@ -114,14 +114,9 @@
   @extend %e-upper;
 }
 
-.btn__label--link {
-  padding: 0 2.5rem 0 1.25rem;
-}
-
-.btn__label--link > .icon {
-  right: .675rem;
-
-  @extend %e-absolute-center-y;
+.btn__link-text {
+  vertical-align: middle;
+  padding-left: .5em;
 }
 
 @each $widthKey, $widthVal in map-get($btn, text-width) {
