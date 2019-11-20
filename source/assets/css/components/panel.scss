@@ -42,7 +42,7 @@
 .panel--search {
   z-index: 1;
 
-  @extend %e-box-shad-z1;
+  @extend %e-box-shad-z0;
 }
 
 .panel--shad:not(.panel--flow)::after {

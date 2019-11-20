@@ -1,5 +1,5 @@
 .social {
-  width: Get($btn, size, md);
+  width: Get($btn, size, lg);
   height: Get($btn, size, sm);
 
   // border: 2px solid Get($colorGroups, orange, 2);
@@ -7,7 +7,7 @@
   @extend %e-bgc-orange-2;
   @extend %e-col-white-1;
   @extend %e-flex-row-center;
-  @extend %e-rad-slight;
+  @extend %e-rad-pill;
   @extend %e-trans-core;
 
   &:hover {
