@@ -16,7 +16,7 @@
 .panel--header {
   z-index: 1;
 
-  @extend %e-box-shad-z1;
+  @extend %e-box-shad-z0;
 }
 
 .panel--flow {
@@ -54,7 +54,7 @@
   z-index: 2;
   height: .5rem;
 
-  @extend %e-box-shad-z1;
+  @extend %e-box-shad-z0;
   @extend %e-display-block;
   @extend %e-position-absolute;
 }
