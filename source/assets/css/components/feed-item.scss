@@ -2,9 +2,12 @@
   align-items: flex-start;
 
   @extend %e-animate-fade-in-load;
+  @extend %e-bgc-white-1;
+  @extend %e-box-shad-z1;
   @extend %e-flex-row-nowrap;
   @extend %e-mgn-b-sm;
-  @extend %e-pad-b-sm;
+  @extend %e-pad-sm;
+  @extend %e-rad-slight;
 
   &:not(:last-child) {
     border-bottom: 1px solid Get($colorGroups, white, 2);
