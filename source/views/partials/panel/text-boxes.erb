@@ -45,7 +45,7 @@ textBoxes = panelData[:text_boxes]
           <h2 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h2>
         <% end %>
       <% end %>
-      <div class="grid grid--md grid--center">
+      <div class="grid grid--md">
         <% textBoxes.each do |textBoxData| %>
           <div class="grid__cell grid__cell--md-12 <%= colSpanResClassSm %> <%= colSpanResClassMd %>">
             <%= partial "views/partials/text-box",
