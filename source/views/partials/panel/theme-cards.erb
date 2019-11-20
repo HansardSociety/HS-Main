@@ -7,7 +7,7 @@
   class="panel e-bg-shapes">
   <div class="panel__inner">
     <div class="panel__content panel__content--wide">
-      <h2 class="title-lg e-mgn-b-md e-align-cen e-col-brand-green-1"><%= title ? title : "Themes" %></h2>
+      <h2 class="title-lg e-mgn-b-md e-align-cen e-col-brand-green-2"><%= title ? title : "Themes" %></h2>
       <div class="grid grid--sm grid--center">
         <% data.hs.theme_page.sort_by{|id, theme| theme[:title] }.each do |id, theme|
           bannerImage = theme[:banner_image] ? theme[:banner_image] : siteData(:default_banner)
