@@ -68,7 +68,7 @@
 }
 
 .menu__item--mobile {
-  border-bottom: 1px solid Get($colorGroups, white, 3);
+  border-bottom: 2px solid Get($colorGroups, white, 3);
 
   @extend %e-mgn-b-sm;
   @extend %e-pad-b-sm;
@@ -101,7 +101,7 @@
 }
 
 .menu__sub-cat {
-  border-top: 1px solid Get($colorGroups, white, 3);
+  border-top: 2px solid Get($colorGroups, white, 3);
   // padding-left: 6px;
 
   @extend %e-mgn-b-xs;
