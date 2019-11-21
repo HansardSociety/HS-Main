@@ -2,12 +2,12 @@
 isThemePage = @entry && @entry[:TYPE] == "theme_page"
 isLandingPage = @entry && @entry[:TYPE] == "landing_page"
 
+panelData = local_data[:entry_data]
+
 totalFeedPages = 0
 dataFeedCount = 6
 
-panelData = local_data[:entry_data]
-panelSlug = panelData[:panel_slug]
-panelIndex = local_data[:index]
+bgc = "e-bgc-white-2"
 
 ###########################################################################
 ##		=Theme and landing pages
@@ -16,6 +16,9 @@ panelIndex = local_data[:index]
 if isThemePage || isLandingPage
   title = panelData[:title]
   bgc = panelData[:background_color] ? contentBgc(panelData[:background_color]) : "e-bgc-white-1"
+
+  panelSlug = panelData[:panel_slug]
+  panelIndex = local_data[:index]
 
   headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
   headingAttrs = {

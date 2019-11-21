@@ -7,7 +7,6 @@ bgc = panelData[:background_color]
 bgcClass = contentBgc(bgc)
 
 titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1" }"
-headingLevel = panelData[:heading_level]
 
 copySize = panelData[:copy_size]
 isCopySm = copySize == "normal"
@@ -29,17 +28,23 @@ callsToAction = panelData[:calls_to_action]
 index = local_data[:index]
 
 hasTweet = panelData[:tweet] && panelData[:tweet][:text]
+if hasTweet
+  tweetText = "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20#{ panelSlug || index }%20#{ panelData[:tweet][:media] || "" }"
+end
 
 headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
 headingAttrs = {
-  "class": "title-lg e-mgn-b-sm #{ titleColor }"
+  "class": "title-lg #{ titleColor }",
 }
 %>
+
 <section class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
-  <span
-    id="<%= panelSlug ? panelSlug : "panel-#{ index }" %>"
-    class="e-hidden"
-    aria-hidden="true">Panel anchor</span>
+
+  <%= partial "views/partials/panel/offset",
+    locals: {
+      offset: "md",
+      id: panelSlug ? panelSlug : "panel-#{ index }"
+  } %>
 
   <div class="panel__inner">
     <div class="panel__content panel__content--full">
@@ -50,7 +55,14 @@ headingAttrs = {
 
               <% content_tag(headingLevel, headingAttrs) do %>
                 <% if panelSlug %>
-                  <a class="panel__title-slug" href="#<%= panelSlug %>"><%= panelData[:title] %></a>
+                  <a href="#<%= panelSlug %>" class="panel__title-slug">
+                    <%= panelData[:title] %>
+                    <%= partial "views/partials/icon",
+                      locals: {
+                        icon: "link",
+                        size: "sm"
+                    } %>
+                  </a>
                 <% else %>
                   <%= panelData[:title] %>
                 <% end %>
@@ -60,9 +72,8 @@ headingAttrs = {
                 <div class="grid grid--xxs e-pad-t-sm">
                   <%= partial "views/partials/social",
                     locals: { local_data: {
-                      icons: [
-                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20#{ panelData[:tweet][:media] }"
-                        ]}} %>
+                      icons: [ tweetText ]
+                  }} %>
                   <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
                 </div>
               <% end %>
@@ -87,9 +98,8 @@ headingAttrs = {
                 <div class="grid grid--xxs e-pad-t-sm">
                   <%= partial "views/partials/social",
                     locals: { local_data: {
-                      icons: [
-                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20#{ panelData[:tweet][:media] }"
-                        ]}} %>
+                      icons: [ tweetText ]
+                  }} %>
                   <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
                 </div>
               <% end %>
@@ -99,11 +109,18 @@ headingAttrs = {
 
         <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
           <% if panelData[:show_title] %>
-            <div class="e-hide-below-md">
+            <div class="e-hide-below-md e-mgn-b-sm">
 
               <% content_tag(headingLevel, headingAttrs) do %>
                 <% if panelSlug %>
-                  <a class="panel__title-slug" href="#<%= panelSlug %>"><%= panelData[:title] %></a>
+                  <a href="#<%= panelSlug %>" class="panel__title-slug">
+                    <%= panelData[:title] %>
+                    <%= partial "views/partials/icon",
+                      locals: {
+                        icon: "link",
+                        size: "sm"
+                    } %>
+                  </a>
                 <% else %>
                   <%= panelData[:title] %>
                 <% end %>
@@ -113,9 +130,8 @@ headingAttrs = {
                 <div class="grid grid--xxs e-pad-b-sm">
                   <%= partial "views/partials/social",
                     locals: { local_data: {
-                      icons: [
-                        "https://twitter.com/intent/tweet?text=#{ panelData[:tweet][:text] }%20#{ panelData[:tweet][:media] }"
-                        ]}} %>
+                      icons: [ tweetText ]
+                    }} %>
                   <span class="grid__cell grid__cell--xxs <%= titleColor %>"><small> Tweet this</small> </span>
                 </div>
               <% end %>

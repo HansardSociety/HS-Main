@@ -11,16 +11,27 @@ callsToAction = panelData[:calls_to_action]
 panelSlug = panelData[:panel_slug]
 %>
 
-<div
-  id="<%= panelSlug ? panelSlug : "panel-#{ index || panelData[:ID] }" %>"
-  class="panel panel--header <%= bgcClass %> e-box-shad-z1">
-  <div class="panel__inner"
->
+<div  class="panel panel--header <%= bgcClass %> e-box-shad-z1">
+
+  <%= partial "views/partials/panel/offset",
+    locals: {
+      offset: "lg",
+      id: panelSlug ? panelSlug : "panel-#{ index }"
+  } %>
+
+  <div class="panel__inner">
 
     <div class="panel__content panel__content--narrow">
       <h2 class="<%= "e-col-brand-green-2" if colorProfile(:light).include?(bgc) %> title-xl e-align-cen">
         <% if panelSlug %>
-          <a class="panel__title-slug" href="#<%= panelSlug %>"><%= title %></a>
+          <a href="#<%= panelSlug %>" class="panel__title-slug">
+            <%= panelData[:title] %>
+            <%= partial "views/partials/icon",
+              locals: {
+                icon: "link",
+                size: "sm"
+            } %>
+          </a>
         <% else %>
           <%= title %>
         <% end %>

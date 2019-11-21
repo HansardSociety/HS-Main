@@ -169,6 +169,38 @@
   }
 };
 
+.panel__offset {
+  &-sm { margin-top: -4rem !important; } // navbar height
+  &-md { margin-top: -6rem !important; }
+  &-lg { margin-top: -8rem !important; }
+}
+
+.panel__title-slug {
+  @extend %e-position-relative;
+  @extend %e-display-inline-block;
+
+  & > svg {
+    left: -2.5rem;
+    transform: translateY(-50%) rotate(45deg);
+    opacity: .3333;
+
+    @extend %e-absolute-center-y;
+    @extend %e-trans-core;
+  }
+
+  &:hover > svg {
+    opacity: 1;
+  }
+
+  @include below(md) {
+    padding-left: 2rem;
+
+    & > svg {
+      left: -.5rem;
+    }
+  }
+}
+
 // Boxes
 .box {
   @extend %e-pad-sm;
