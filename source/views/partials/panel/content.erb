@@ -2,6 +2,7 @@
 panelData = local_data[:entry_data]
 flow = local_data[:flow]
 
+panelSlug = panelData[:panel_slug]
 bgc = panelData[:background_color]
 bgcClass = contentBgc(bgc)
 
@@ -31,7 +32,7 @@ hasTweet = panelData[:tweet] && panelData[:tweet][:text]
 %>
 <section class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <span
-    id="panel-<%= index %>"
+    id="<%= panelSlug ? panelSlug : "panel-#{ index }" %>"
     class="e-hidden"
     aria-hidden="true">Panel anchor</span>
 

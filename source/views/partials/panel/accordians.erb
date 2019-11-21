@@ -6,11 +6,14 @@ bgc = panelData[:background_color]
 bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc, { gradient: true })
 titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
 headingLevel = panelData[:heading_level]
+
+panelSlug = panelData[:panel_slug]
 %>
 
 <div
-  id="panel-<%= index %>"
-  class="panel <%= bgcClass %>">
+  id="<%= panelSlug ? panelSlug : "panel-#{ index }" %>"
+  class="panel <%= bgcClass %>"
+>
   <div class="panel__inner">
     <div class="panel__content panel__content--medium e-align-cen">
       <% if headingLevel == "level-3" %>

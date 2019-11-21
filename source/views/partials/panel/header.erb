@@ -8,10 +8,11 @@ bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc,
 title = panelData[:title]
 copy = panelData[:copy]
 callsToAction = panelData[:calls_to_action]
+panelSlug = panelData[:panel_slug]
 %>
 
 <div
-  id="<%= "panel-#{index}" if index %>"
+  id="<%= panelSlug ? panelSlug : "panel-#{ index || panelData[:ID] }" %>"
   class="panel panel--header <%= bgcClass %> e-box-shad-z1">
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">

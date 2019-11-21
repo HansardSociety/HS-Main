@@ -7,6 +7,7 @@ bgcClass = colorProfile(:mono).include?(bgc) ? contentBgc(bgc) : contentBgc(bgc,
 callsToAction = panelData[:calls_to_action]
 
 copy = panelData[:copy]
+panelSlug = panelData[:panel_slug]
 
 copySize = panelData[:copy_size]
 isCopyMd = copySize == "medium"
@@ -46,7 +47,7 @@ end
 %>
 
 <aside
-  id="panel-<%= index %>"
+  id="<%= panelSlug ? panelSlug : "panel-#{ index }" %>"
   class="panel panel--band panel--no-overflow-x
     <%= bgcClass %>
     <%= "e-pad-reset" if isOverlap %>"

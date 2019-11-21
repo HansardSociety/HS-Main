@@ -12,6 +12,7 @@ hasTitle = panelData[:show_title]
 headingLevel = panelData[:heading_level]
 
 copy = panelData[:copy]
+panelSlug = panelData[:panel_slug]
 
 containerSize = panelData[:container_size]
 cellClassBase = "grid__cell--md-above"
@@ -33,8 +34,9 @@ textBoxes = panelData[:text_boxes]
 %>
 
 <section
-  id="panel-<%= index %>"
-  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
+  id="<%= panelSlug ? panelSlug : "panel-#{ index }" %>"
+  class="panel <%= "panel--flow" if flow %> <%= bgcClass %>"
+>
 
   <div class="panel__inner">
     <div class="panel__content panel__content--full">

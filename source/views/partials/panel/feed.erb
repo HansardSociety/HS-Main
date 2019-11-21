@@ -7,6 +7,8 @@ dataFeedCount = 6
 
 panelData = local_data[:entry_data]
 
+panelSlug = panelData[:panel_slug]
+
 ###########################################################################
 ##		=Theme and landing pages
 ###########################################################################
@@ -68,7 +70,10 @@ end
     =Feed
 ***********************************************-->
 
-<section class="panel panel--shad <%= bgc %>">
+<section
+  id="<%= panelSlug ? panelSlug : "panel-#{ index }" %>"
+  class="panel panel--shad <%= bgc %>"
+>
   <div class="panel__inner">
     <% if title %>
       <div class="panel__content panel__content--narrow e-align-cen e-mgn-b-lg">

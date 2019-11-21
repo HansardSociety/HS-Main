@@ -21,13 +21,15 @@ isLightBgc = colorProfile(:light).include?(bgc)
 
 title = local_data[:title] ? local_data[:title] : (isLatestContext ? "Latest" : panelData[:title])
 headingLevel = panelData[:heading_level]
+panelSlug = panelData[:panel_slug]
 
 hasLink = local_data[:link]
 %>
 
 <section
-  id="panel-<%= isLatestContext ? "latest" : index %>"
-  class="panel panel--shad <%= bgcClass %>">
+  id="<%= panelSlug ? panelSlug : (isLatestContext ? "latest" : "panel-#{ index }") %>"
+  class="panel panel--shad <%= bgcClass %>"
+>
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">
       <% if headingLevel == "level-3" %>

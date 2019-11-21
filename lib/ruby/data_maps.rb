@@ -431,6 +431,7 @@ def panels(ctx, data)
       background_color: panel.background_color.parameterize,
       calls_to_action: (callsToAction(panel) if !isPanelChart && !isPanelTextBoxes),
       title: panel.title,
+      panel_slug: panel.panel_slug,
       heading_level: ((panel.heading_level ? panel.heading_level.parameterize : "level-2") if !isPanelHeader)
     }.compact
 
