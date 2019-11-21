@@ -14,9 +14,17 @@ panelSlug = panelData[:panel_slug]
 <div
   id="<%= panelSlug ? panelSlug : "panel-#{ index || panelData[:ID] }" %>"
   class="panel panel--header <%= bgcClass %> e-box-shad-z1">
-  <div class="panel__inner">
+  <div class="panel__inner"
+>
+
     <div class="panel__content panel__content--narrow">
-      <h2 class="<%= "e-col-brand-green-2" if colorProfile(:light).include?(bgc) %> title-xl e-align-cen"><%= title %></h2>
+      <h2 class="<%= "e-col-brand-green-2" if colorProfile(:light).include?(bgc) %> title-xl e-align-cen">
+        <% if panelSlug %>
+          <a class="panel__title-slug" href="#<%= panelSlug %>"><%= title %></a>
+        <% else %>
+          <%= title %>
+        <% end %>
+      </h2>
     </div>
 
     <% if callsToAction %>

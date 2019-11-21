@@ -6,8 +6,8 @@ totalFeedPages = 0
 dataFeedCount = 6
 
 panelData = local_data[:entry_data]
-
 panelSlug = panelData[:panel_slug]
+panelIndex = local_data[:index]
 
 ###########################################################################
 ##		=Theme and landing pages
@@ -15,8 +15,12 @@ panelSlug = panelData[:panel_slug]
 
 if isThemePage || isLandingPage
   title = panelData[:title]
-  headingLevel = panelData[:heading_level]
   bgc = panelData[:background_color] ? contentBgc(panelData[:background_color]) : "e-bgc-white-1"
+
+  headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
+  headingAttrs = {
+    "class": "title-lg title-lg e-col-brand-green-2"
+  }
 
   feedData = panelData[:feed]
   feedCategory = feedData[:category]
@@ -71,20 +75,23 @@ end
 ***********************************************-->
 
 <section
-  id="<%= panelSlug ? panelSlug : "panel-#{ index }" %>"
+  id="<%= panelSlug ? panelSlug : "panel-#{ panelIndex }" %>"
   class="panel panel--shad <%= bgc %>"
 >
   <div class="panel__inner">
+
     <% if title %>
       <div class="panel__content panel__content--narrow e-align-cen e-mgn-b-lg">
-        <% if headingLevel == "level-3" %>
-          <h3 class="title-lg e-col-brand-green-2"><%= title %></h3>
-        <% else %>
-          <h2 class="title-lg e-col-brand-green-2"><%= title %></h2>
+        <% content_tag(headingLevel, headingAttrs) do %>
+          <% if panelSlug %>
+            <a class="panel__title-slug" href="#<%= panelSlug %>"><%= panelData[:title] %></a>
+          <% else %>
+            <%= panelData[:title] %>
+          <% end %>
         <% end %>
-        <p class="e-col-grey-3">By date (descending)</p>
       </div>
     <% end %>
+
     <div class="panel__content panel__content--wide">
       <div
         class="feed JS-feed grid grid--md grid--center"

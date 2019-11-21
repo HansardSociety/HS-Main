@@ -31,6 +31,11 @@ elsif containerSize == "large"
 end
 
 textBoxes = panelData[:text_boxes]
+
+headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
+headingAttrs = {
+  "class": "title-lg e-align-cen e-mgn-b-md #{ titleColor }"
+}
 %>
 
 <section
@@ -40,13 +45,17 @@ textBoxes = panelData[:text_boxes]
 
   <div class="panel__inner">
     <div class="panel__content panel__content--full">
+
       <% if hasTitle %>
-        <% if headingLevel == "level-3" %>
-          <h3 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h3>
-        <% else %>
-          <h2 class="title-lg e-align-cen e-mgn-b-md <%= titleColor %>"><%= title %></h2>
+        <% content_tag(headingLevel, headingAttrs) do %>
+          <% if panelSlug %>
+            <a class="panel__title-slug" href="#<%= panelSlug %>"><%= panelData[:title] %></a>
+          <% else %>
+            <%= panelData[:title] %>
+          <% end %>
         <% end %>
       <% end %>
+
       <div class="grid grid--md">
         <% textBoxes.each do |textBoxData| %>
           <div class="grid__cell grid__cell--md-12 <%= colSpanResClassSm %> <%= colSpanResClassMd %>">

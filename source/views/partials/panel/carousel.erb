@@ -24,6 +24,11 @@ headingLevel = panelData[:heading_level]
 panelSlug = panelData[:panel_slug]
 
 hasLink = local_data[:link]
+
+headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
+headingAttrs = {
+  "class": "title-lg e-align-cen e-mgn-b-md #{ "e-col-brand-green-2" if isLatestContext || isLightBgc }"
+}
 %>
 
 <section
@@ -32,35 +37,23 @@ hasLink = local_data[:link]
 >
   <div class="panel__inner">
     <div class="panel__content panel__content--narrow">
-      <% if headingLevel == "level-3" %>
-        <h3 class="title-lg e-align-cen e-mgn-b-md <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>">
-          <% if hasLink %>
-            <a href="/<%= categories %>" class="link">
-              <%= title %><%= partial "views/partials/icon",
-                locals: {
-                  icon: "ios-arrow-thin-right",
-                  size: "xs"
-              } %>
-            </a>
-          <% else %>
-            <%= title %>
-          <% end %>
-        </h3>
-      <% else %>
-        <h2 class="title-lg e-align-cen e-mgn-b-md <%= "e-col-brand-green-2" if isLatestContext || isLightBgc %>">
-          <% if hasLink %>
-            <a href="/<%= categories %>" class="link">
-              <%= title %><%= partial "views/partials/icon",
-                locals: {
-                  icon: "ios-arrow-thin-right",
-                  size: "xs"
-              } %>
-            </a>
-          <% else %>
-            <%= title %>
-          <% end %>
-        </h2>
+
+      <% content_tag(headingLevel, headingAttrs) do %>
+        <% if panelSlug %>
+          <a class="panel__title-slug" href="#<%= panelSlug %>"><%= title %></a>
+        <% elsif hasLink %>
+          <a href="/<%= categories %>" class="link">
+            <%= title %><%= partial "views/partials/icon",
+              locals: {
+                icon: "ios-arrow-thin-right",
+                size: "xs"
+            } %>
+          </a>
+        <% else %>
+          <%= title %>
+        <% end %>
       <% end %>
+
     </div>
     <div class="panel__content panel__content--full">
       <div class="carousel carousel--cards">

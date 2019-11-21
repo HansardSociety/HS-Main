@@ -29,6 +29,11 @@ callsToAction = panelData[:calls_to_action]
 index = local_data[:index]
 
 hasTweet = panelData[:tweet] && panelData[:tweet][:text]
+
+headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
+headingAttrs = {
+  "class": "title-lg e-mgn-b-sm #{ titleColor }"
+}
 %>
 <section class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">
   <span
@@ -42,10 +47,13 @@ hasTweet = panelData[:tweet] && panelData[:tweet][:text]
         <% if panelData[:show_title] || panelData[:image] %>
           <% if panelData[:show_title] %>
             <div class="grid__cell grid__cell--md-12 e-hide-above-md">
-              <% if headingLevel == "level-3" %>
-                <h3 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h3>
-              <% else %>
-                <h2 class="title-lg <%= titleColor %>"><%= panelData[:title] %></h2>
+
+              <% content_tag(headingLevel, headingAttrs) do %>
+                <% if panelSlug %>
+                  <a class="panel__title-slug" href="#<%= panelSlug %>"><%= panelData[:title] %></a>
+                <% else %>
+                  <%= panelData[:title] %>
+                <% end %>
               <% end %>
 
               <% if hasTweet && !panelData[:image] %>
@@ -92,11 +100,15 @@ hasTweet = panelData[:tweet] && panelData[:tweet][:text]
         <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
           <% if panelData[:show_title] %>
             <div class="e-hide-below-md">
-              <% if headingLevel == "level-3" %>
-                <h3 class="title-lg e-mgn-b-sm <%= titleColor %>"><%= panelData[:title] %></h3>
-              <% else %>
-                <h2 class="title-lg e-mgn-b-sm <%= titleColor %>"><%= panelData[:title] %></h2>
+
+              <% content_tag(headingLevel, headingAttrs) do %>
+                <% if panelSlug %>
+                  <a class="panel__title-slug" href="#<%= panelSlug %>"><%= panelData[:title] %></a>
+                <% else %>
+                  <%= panelData[:title] %>
+                <% end %>
               <% end %>
+
               <% if hasTweet && !panelData[:image] %>
                 <div class="grid grid--xxs e-pad-b-sm">
                   <%= partial "views/partials/social",

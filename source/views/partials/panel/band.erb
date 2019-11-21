@@ -44,6 +44,11 @@ elsif imageSize == "full-bleed"
 else
   cfulImageWidth = "1000"
 end
+
+headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
+headingAttrs = {
+  "class": "title-lg e-align-cen #{ "e-mgn-b-md" if !copy } #{ isOverlap ? "e-col-white-1" : titleColor }"
+}
 %>
 
 <aside
@@ -55,15 +60,18 @@ end
 
   <div class="panel__inner">
     <div class="panel__content panel__content--medium <%= "panel__content--overlap" if isOverlap %>">
+
       <% if hasTitle %>
-        <% if headingLevel == "level-3" %>
-          <h3 class="title-lg e-align-cen <%= "e-mgn-b-md" if !copy %>
-            <%= isOverlap ? "e-col-white-1" : titleColor %>"><%= title %></h3>
-        <% else %>
-          <h2 class="title-lg e-align-cen <%= "e-mgn-b-md" if !copy %>
-            <%= isOverlap ? "e-col-white-1" : titleColor %>"><%= title %></h2>
+        <% content_tag(headingLevel, headingAttrs) do %>
+          <% if panelSlug %>
+            <a class="panel__title-slug" href="#<%= panelSlug %>"><%= panelData[:title] %></a>
+          <% else %>
+            <%= panelData[:title] %>
+          <% end %>
         <% end %>
-      <% end; if copy %>
+      <% end %>
+
+      <% if copy %>
         <p class="<%= strapClass %> e-align-cen e-mgn-t-sm e-mgn-b-md
            <%= "e-col-white-1 e-pad-y-sm" if isOverlap %>"><%= panelData[:copy] %></p>
 
