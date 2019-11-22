@@ -16,6 +16,7 @@ image = textBoxData[:image]
 imageBorder = textBoxData[:image_border]
 inlineHeader = textBoxData[:inline_header]
 cta = textBoxData[:call_to_action]
+targetSlug = textBoxData[:target_slug]
 
 if copySize == "normal"
   copySizeClass = "e-fz-sm"
@@ -61,7 +62,19 @@ end
           <%= titleColor %>
           <%= "grid__cell grid__cell--xs" if inlineHeader %>
           e-pad-x-xs e-pad-y-sm
-        "><%= title %></h3>
+        ">
+          <% if targetSlug %>
+            <a href="#<%= targetSlug %>" class="link">
+              <%= title %><%= partial "views/partials/icon",
+                locals: {
+                  icon: "ios-arrow-thin-right",
+                  size: "xs"
+              } %>
+            </a>
+          <% else %>
+            <%= title %>
+          <% end %>
+        </h3>
       <% end %>
     </div>
   <% end %>

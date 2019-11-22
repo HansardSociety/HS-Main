@@ -392,7 +392,8 @@ def textBox(data)
     image: (media(data.image) if data.image),
     image_border: data.image_border,
     inline_header: data.inline_header,
-    calls_to_action: callsToAction(data)
+    calls_to_action: callsToAction(data),
+    target_slug: data.target_slug
   }.compact
 end
 
@@ -615,10 +616,15 @@ def panels(ctx, data)
     ########################################
 
     if isPanelTextBoxes
-      panelShared.merge!({
+      panelTextBoxes = {
         container_size: panel.container_size.parameterize,
         text_boxes: panel.text_boxes.map{|tb| textBox(tb)}
-      }.compact)
+      }.compact
+
+      # panelShared.merge!({
+      #   container_size: panel.container_size.parameterize,
+      #   text_boxes: panel.text_boxes.map{|tb| textBox(tb)}
+      # }.compact)
     end
 
     ## =Merge panels

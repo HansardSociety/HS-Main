@@ -167,15 +167,8 @@ ol {
   > li {
     display: table;
 
-    // > ul, > ol {
-    //   &:first-child {
-    //     @extend %e-mgn-t-sm;
-    //   }
-    // }
-
     &::before {
       display: table-cell;
-      top: -.125rem;
 
       width: 1.5rem;
       padding-right: .5rem;
@@ -187,6 +180,12 @@ ol {
       @extend %e-ff-prim-heavy;
       @extend %e-position-relative;
     }
+  }
+}
+
+ul > li {
+  &::before {
+    top: -.25em;
   }
 }
 
@@ -235,7 +234,6 @@ li {
 
       > li {
         &::before {
-          @extend %e-pad-t-xs;
           content: counter(level-one-ol-counter) ".";
           counter-increment: level-one-ol-counter;
         }
@@ -262,7 +260,6 @@ li {
 
   > li {
     &::before {
-      @extend %e-pad-t-xs;
       content: counter(root-ul-counter) ".";
       counter-increment: root-ul-counter;
     }
@@ -294,7 +291,6 @@ li {
 
       > li {
         &::before {
-          @extend %e-pad-t-xs;
           content: counter(level-one-ol-counter);
           counter-increment: level-one-ol-counter;
         }
