@@ -666,7 +666,7 @@ def panelsContainer(ctx, data)
         containers << panel(innerPanel)
       end
 
-      conatiners.flatten(1)
+      containers[containers.length - 1]
 
     else
       panel(panelData)
