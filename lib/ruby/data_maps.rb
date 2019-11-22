@@ -401,247 +401,281 @@ end
 ## =Panels
 ###########################################################################
 
-def panels(ctx, data)
-  ctx.panels = data.panels.map do |panel|
-    isPanelAccordians = panel.content_type.id == "panel_accordians"
-    isPanelBand = panel.content_type.id == "panel_band"
-    isPanelCarouselCustom = panel.content_type.id == "panel_carousel"
-    isPanelCarouselCategory = panel.content_type.id == "panel_carousel_category"
-    isPanelChart = panel.content_type.id == "panel_chart"
-    isPanelContent = panel.content_type.id == "panel_content"
-    isPanelFeed = panel.content_type.id == "panel_feed"
-    isPanelHeader = panel.content_type.id == "panel_header"
-    isPanelTextBoxes = panel.content_type.id == "panel_text_boxes"
+## =Panel data
+########################################
 
-    panelAccordians = {}
-    panelBand = {}
-    panelCarouselCustom = {}
-    panelCarouselCategory = {}
-    panelChart = {}
-    panelContent = {}
-    panelFeed = {}
-    panelTextBoxes = {}
+def panel(panelData)
+  isPanelContentContainer = panelData.content_type.id == "panel_content_container"
+  isPanelAccordians = panelData.content_type.id == "panel_accordians"
+  isPanelBand = panelData.content_type.id == "panel_band"
+  isPanelCarouselCustom = panelData.content_type.id == "panel_carousel"
+  isPanelCarouselCategory = panelData.content_type.id == "panel_carousel_category"
+  isPanelChart = panelData.content_type.id == "panel_chart"
+  isPanelContent = panelData.content_type.id == "panel_content"
+  isPanelFeed = panelData.content_type.id == "panel_feed"
+  isPanelHeader = panelData.content_type.id == "panel_header"
+  isPanelTextBoxes = panelData.content_type.id == "panel_text_boxes"
 
-    ## =Core
-    ########################################
+  panelContentContainer = {}
+  panelAccordians = {}
+  panelBand = {}
+  panelCarouselCustom = {}
+  panelCarouselCategory = {}
+  panelChart = {}
+  panelContent = {}
+  panelFeed = {}
+  panelTextBoxes = {}
 
-    # Contains all panel_header fields too
-    panelShared = {
-      ID: panel.sys[:id],
-      TYPE: panel.content_type.id,
-      background_color: panel.background_color.parameterize,
-      calls_to_action: (callsToAction(panel) if !isPanelChart && !isPanelTextBoxes),
-      title: panel.title,
-      panel_slug: panel.panel_slug,
-      heading_level: ((panel.heading_level ? panel.heading_level.parameterize : "level-2") if !isPanelHeader)
-    }.compact
+  ## =Core
+  ########################################
 
-    if isPanelAccordians || isPanelBand || isPanelContent
-      panelShared.merge!({
-        copy: panel.copy
-      }.compact)
-    end
+  # Contains all panel_header fields too
+  panelShared = {
+    ID: panelData.sys[:id],
+    TYPE: panelData.content_type.id,
+    title: panelData.title,
+  }.compact
 
-    if isPanelBand || isPanelContent
-      panelShared.merge!({
-        image: (media(panel.image) if panel.image),
-      }.compact)
-    end
+  if !isPanelContentContainer
+    panelShared.merge!({
+      background_color: panelData.background_color.parameterize,
+      calls_to_action: (callsToAction(panelData) if !isPanelChart && !isPanelTextBoxes),
+      panel_slug: panelData.panel_slug,
+      heading_level: ((panelData.heading_level ? panelData.heading_level.parameterize : "level-2") if !isPanelHeader)
+    }.compact)
+  end
 
-    if isPanelBand || isPanelChart || isPanelContent || isPanelFeed || isPanelTextBoxes
-      panelShared.merge!({
-        show_title: panel.show_title
-      }.compact)
-    end
+  if isPanelAccordians || isPanelBand || isPanelContent
+    panelShared.merge!({
+      copy: panelData.copy
+    }.compact)
+  end
 
-    ## =Accordions
-    ########################################
+  if isPanelBand || isPanelContent
+    panelShared.merge!({
+      image: (media(panelData.image) if panelData.image),
+    }.compact)
+  end
 
-    if isPanelAccordians
-      panelAccordians = {
-        accordians: panel.accordians.map do |accordian|
-          {
-            ID: accordian.sys[:id],
-            cta_id: targetID("accordian", accordian.title, accordian),
-            title: accordian.title,
-            copy: accordian.copy,
-            calls_to_action: callsToAction(accordian)
-          }.compact
-        end
-      }
-    end
+  if isPanelBand || isPanelChart || isPanelContent || isPanelFeed || isPanelTextBoxes
+    panelShared.merge!({
+      show_title: panelData.show_title
+    }.compact)
+  end
 
-    ## =Band
-    ########################################
+  ## =Accordions
+  ########################################
 
-    if isPanelBand
-      panelBand = {
-        copy_size: (panel.copy_size ? panel.copy_size.parameterize : "medium"),
-        image_size: (panel.image_size.parameterize if panel.image_size),
-        overlap: panel.overlap
-      }
-    end
+  if isPanelAccordians
+    panelAccordians = {
+      accordians: panelData.accordians.map do |accordian|
+        {
+          ID: accordian.sys[:id],
+          cta_id: targetID("accordian", accordian.title, accordian),
+          title: accordian.title,
+          copy: accordian.copy,
+          calls_to_action: callsToAction(accordian)
+        }.compact
+      end
+    }
+  end
 
-    ## =Carousel (custom)
-    ########################################
+  ## =Band
+  ########################################
 
-    if isPanelCarouselCustom
-      panelCarouselCustom = {
-        carousel: panel.items.map do |item|
-          isLandingPage = item.content_type.id == "landing_page"
-          isChildPage = item.content_type.id == "child_page"
-          isPeople = item.content_type.id == "people"
-          isQuote = item.content_type.id == "quote"
+  if isPanelBand
+    panelBand = {
+      copy_size: (panelData.copy_size ? panelData.copy_size.parameterize : "medium"),
+      image_size: (panelData.image_size.parameterize if panelData.image_size),
+      overlap: panelData.overlap
+    }
+  end
 
-          {
+  ## =Carousel (custom)
+  ########################################
+
+  if isPanelCarouselCustom
+    panelCarouselCustom = {
+      carousel: panelData.items.map do |item|
+        isLandingPage = item.content_type.id == "landing_page"
+        isChildPage = item.content_type.id == "child_page"
+        isPeople = item.content_type.id == "people"
+        isQuote = item.content_type.id == "quote"
+
+        {
+          ID: item.sys[:id],
+          TYPE: item.content_type.id,
+          profile: (profile(item) if isPeople),
+          quote: ({
+            text: item.quote,
+            full_name: item.full_name,
+            role: item.role,
+            organisation: item.organisation,
+            logo: ({
+              url: item.logo.url,
+              description: item.logo.description
+            }.compact if item.logo)
+          }.compact if isQuote),
+          page: ({
             ID: item.sys[:id],
             TYPE: item.content_type.id,
-            profile: (profile(item) if isPeople),
-            quote: ({
-              text: item.quote,
-              full_name: item.full_name,
-              role: item.role,
-              organisation: item.organisation,
-              logo: ({
-                url: item.logo.url,
-                description: item.logo.description
-              }.compact if item.logo)
-            }.compact if isQuote),
-            page: ({
-              ID: item.sys[:id],
-              TYPE: item.content_type.id,
-              title: item.title.gsub('"', "&quot;").rstrip,
-              banner_image: (media(item.banner_image, focus: item) if item.banner_image),
-              introduction: item.introduction.gsub('"', "&quot;"),
-              slug: slug(item),
-              category: detachCategory(item.category),
-              category_orig: item.category.downcase,
-              meta_label: metaLabel(item)
-            } if isChildPage || isLandingPage)
-          }.compact
-        end
+            title: item.title.gsub('"', "&quot;").rstrip,
+            banner_image: (media(item.banner_image, focus: item) if item.banner_image),
+            introduction: item.introduction.gsub('"', "&quot;"),
+            slug: slug(item),
+            category: detachCategory(item.category),
+            category_orig: item.category.downcase,
+            meta_label: metaLabel(item)
+          } if isChildPage || isLandingPage)
+        }.compact
+      end
+    }
+  end
+
+  ## =Carousel (category)
+  ########################################
+
+  if isPanelCarouselCategory
+    panelCarouselCategory = {
+      category: detachCategory(panelData.category),
+      sub_category: (detachCategory(panelData.category, { part: 1 }) if panelData.category.include?($seperator))
+    }.compact
+  end
+
+  ## =Chart
+  ########################################
+
+  if isPanelChart
+    def chartPanelData(data)
+      chartPanelData = {
+        ID: data.sys[:id],
+        TYPE: data.content_type.id,
       }
-    end
 
-    ## =Carousel (category)
-    ########################################
+      chartData = {}
+      textBoxData = {}
 
-    if isPanelCarouselCategory
-      panelCarouselCategory = {
-        category: detachCategory(panel.category),
-        sub_category: (detachCategory(panel.category, { part: 1 }) if panel.category.include?($seperator))
-      }.compact
-    end
-
-    ## =Chart
-    ########################################
-
-    if isPanelChart
-      def chartPanelData(data)
-        chartPanelData = {
-          ID: data.sys[:id],
-          TYPE: data.content_type.id,
+      if data.content_type.id == "chart"
+        chartData = {
+          title: data.title,
+          caption: data.caption,
+          show_header: data.show_header,
+          chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
+          chart_datasets: data.datasets.to_json.to_s, # Arr
+          chart_labels: (data.labels ? data.labels.to_json.to_s : "[]"), # Arr / optional
+          chart_options: (data.options ? data.options.to_json.to_s : "{}"), # Obj
+          chart_custom_config: (data.custom_config ? data.custom_config.to_json.to_s : "{}"), # Obj / optional
+          chart_width: data.width,
+          chart_height: data.height,
+          citation: data.citation
         }
-
-        chartData = {}
-        textBoxData = {}
-
-        if data.content_type.id == "chart"
-          chartData = {
-            title: data.title,
-            caption: data.caption,
-            show_header: data.show_header,
-            chart_type: data.chart_type.split(" ").map.with_index{ |x, i| i > 0 ? x.capitalize : x.downcase }.join, # Convert to camelCase
-            chart_datasets: data.datasets.to_json.to_s, # Arr
-            chart_labels: (data.labels ? data.labels.to_json.to_s : "[]"), # Arr / optional
-            chart_options: (data.options ? data.options.to_json.to_s : "{}"), # Obj
-            chart_custom_config: (data.custom_config ? data.custom_config.to_json.to_s : "{}"), # Obj / optional
-            chart_width: data.width,
-            chart_height: data.height,
-            citation: data.citation
-          }
-        end
-
-        if data.content_type.id == "text_box"
-          textBoxData = textBox(data)
-        end
-
-        chartPanelData.merge(
-          **chartData,
-          **textBoxData
-        ).compact
       end
 
-      panelChart = {
-        charts_row_1: panel.charts_row_1.map{|entry| chartPanelData(entry)},
-        charts_row_2: (panel.charts_row_2.map{|entry| chartPanelData(entry)} if panel.charts_row_2),
-        rows_width: (panel.rows_width.parameterize if panel.rows_width)
-      }
+      if data.content_type.id == "text_box"
+        textBoxData = textBox(data)
+      end
+
+      chartPanelData.merge(
+        **chartData,
+        **textBoxData
+      ).compact
     end
 
-    ## =Content
-    ########################################
-
-    if isPanelContent
-      panelContent = {
-        copy_size: (panel.copy_size ? panel.copy_size.parameterize : "normal"),
-        show_more: ({
-          cta_id: targetID("expand", panel.title, panel),
-          content: panel.show_more
-        }.compact if panel.show_more),
-        image_border: panel.image_border,
-        image_shrink: panel.image_shrink,
-        tweet: ({
-          text: URI::encode(panel.tweet_text),
-          media: panel.tweet_media
-        } if panel.tweet_text)
-      }
-    end
-
-    ## =Feed
-    ########################################
-
-    if isPanelFeed
-      panelFeed = {
-        feed: {
-          category: detachCategory(panel.feed_category),
-          sub_category: (
-            detachCategory(panel.feed_category, { part: 1 }) if panel.feed_category.include? $seperator
-          )
-        }.compact
-      }
-    end
-
-    ## =Text boxes
-    ########################################
-
-    if isPanelTextBoxes
-      panelTextBoxes = {
-        container_size: panel.container_size.parameterize,
-        text_boxes: panel.text_boxes.map{|tb| textBox(tb)}
-      }.compact
-
-      # panelShared.merge!({
-      #   container_size: panel.container_size.parameterize,
-      #   text_boxes: panel.text_boxes.map{|tb| textBox(tb)}
-      # }.compact)
-    end
-
-    ## =Merge panels
-    ########################################
-
-    panelShared.merge(
-      **panelAccordians,
-      **panelBand,
-      **panelCarouselCategory,
-      **panelCarouselCustom,
-      **panelContent,
-      **panelFeed,
-      **panelChart,
-      **panelTextBoxes
-    ).compact
+    panelChart = {
+      charts_row_1: panelData.charts_row_1.map{|entry| chartPanelData(entry)},
+      charts_row_2: (panelData.charts_row_2.map{|entry| chartPanelData(entry)} if panelData.charts_row_2),
+      rows_width: (panelData.rows_width.parameterize if panelData.rows_width)
+    }
   end
+
+  ## =Content
+  ########################################
+
+  if isPanelContent
+    panelContent = {
+      copy_size: (panelData.copy_size ? panelData.copy_size.parameterize : "normal"),
+      show_more: ({
+        cta_id: targetID("expand", panelData.title, panelData),
+        content: panelData.show_more
+      }.compact if panelData.show_more),
+      image_border: panelData.image_border,
+      image_shrink: panelData.image_shrink,
+      tweet: ({
+        text: URI::encode(panelData.tweet_text),
+        media: panelData.tweet_media
+      } if panelData.tweet_text)
+    }
+  end
+
+  ## =Feed
+  ########################################
+
+  if isPanelFeed
+    panelFeed = {
+      feed: {
+        category: detachCategory(panelData.feed_category),
+        sub_category: (
+          detachCategory(panelData.feed_category, { part: 1 }) if panelData.feed_category.include? $seperator
+        )
+      }.compact
+    }
+  end
+
+  ## =Text boxes
+  ########################################
+
+  if isPanelTextBoxes
+    panelTextBoxes = {
+      container_size: panelData.container_size.parameterize,
+      text_boxes: panelData.text_boxes.map{|tb| textBox(tb)}
+    }.compact
+
+    # panelShared.merge!({
+    #   container_size: panelData.container_size.parameterize,
+    #   text_boxes: panelData.text_boxes.map{|tb| textBox(tb)}
+    # }.compact)
+  end
+
+  ## =Merge panels
+  ########################################
+
+  panelShared.merge(
+    **panelContentContainer,
+    **panelAccordians,
+    **panelBand,
+    **panelCarouselCategory,
+    **panelCarouselCustom,
+    **panelContent,
+    **panelFeed,
+    **panelChart,
+    **panelTextBoxes
+  ).compact
 end
+
+## =Panel container
+########################################
+
+def panelsContainer(ctx, data)
+  # allPanels = []
+
+  ctx.panels = data.panels.map do |panelData|
+    if panelData.content_type.id == "panel_content_container"
+      containers = []
+
+      panelData.panels.map do |innerPanel|
+        containers << panel(innerPanel)
+      end
+
+      conatiners.flatten(1)
+
+    else
+      panel(panelData)
+    end
+  end
+
+  # allPanels.flatten(1)
+end
+
 
 ###########################################################################
 ## =Universal
@@ -744,7 +778,7 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
     end
 
     if entry.panels
-      panels(context, entry)
+      panelsContainer(context, entry)
     end
   end
 end
@@ -886,7 +920,7 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
 
     # Panels
     if entry.panels
-      panels(context, entry)
+      panelsContainer(context, entry)
     end
   end
 end
