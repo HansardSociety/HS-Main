@@ -6,7 +6,7 @@ panelSlug = panelData[:panel_slug]
 bgc = panelData[:background_color]
 bgcClass = contentBgc(bgc)
 
-titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1" }"
+titleColor = "#{ colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2" }"
 
 copySize = panelData[:copy_size]
 isCopySm = copySize == "normal"
@@ -138,7 +138,7 @@ headingAttrs = {
             </div>
           <% end %>
 
-          <div class="copy <%= "copy--invert" if colorProfile(:dark).include?(bgc) %>">
+          <div class="copy <%= "copy--lp" if !panelData[:image] %> <%= "copy--invert" if colorProfile(:dark).include?(bgc) %>">
             <%=
               if !isCopySm
                 paraElem = "<p class='#{copySizeClass}'"

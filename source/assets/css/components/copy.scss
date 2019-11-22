@@ -23,11 +23,18 @@
   }
 
   &:not(:first-child) {
-    margin-top: 1.25em;
+    margin-top: 1.5em;
   }
 }
 
-img,
+img {
+  margin-left: auto;
+  margin-right: auto;
+
+  @extend %e-display-block;
+  @extend %e-mgn-x-md;
+}
+
 iframe,
 table {
   margin: 1rem auto;
@@ -79,9 +86,13 @@ strong > a {
   @extend %e-ff-prim-heavy;
 }
 
+img,
+blockquote {
+  @extend %e-box-shad-z1;
+}
+
 img {
   @extend %e-max-width-full;
-  @extend %e-box-shad-z2;
   @extend %e-rad-slight;
 
   ~ em {
@@ -119,19 +130,27 @@ hr {
 /*		=Quotes
   ========================================================================== */
 
-blockquote {
-  @extend %e-fz-md;
+blockquote,
+.twitter-tweet {
+  @extend %e-bgc-white-2;
+  @extend %e-rad-slight;
 }
 
-blockquote,
+blockquote {
+  margin: 2rem auto;
+  padding: 1rem;
+
+  border-left: .5rem solid Get($colorGroups, orange, 2);
+
+  // @extend %e-fz-md;
+}
+
 .twitter-tweet {
   margin: 2rem auto !important;
   padding: 1rem !important;
 
   border-left: .5rem solid Get($colorGroups, orange, 2) !important;
 
-  @extend %e-bgc-white-2;
-  @extend %e-rad-slight;
 }
 
 /*    =Lists
@@ -312,7 +331,7 @@ table {
 
   thead {
     tr {
-      border-bottom: 2px solid Get($colorGroups, black, 1);
+      border-bottom: 2px solid currentColor;
     }
   }
 
@@ -331,6 +350,23 @@ table {
     @extend %e-fz-xs;
   }
 }
+
+/**
+ * =Misc.
+************************************************************/
+
+.img-caption {
+  margin-top: -1.5rem;
+  width: 35rem;
+  max-width: 100%;
+
+  @extend %e-align-cen;
+  @extend %e-col-grey-2;
+  @extend %e-display-block;
+  @extend %e-fz-xs;
+  @extend %e-mgn-auto-x;
+}
+
 } // END .copy
 
 .copy.copy--invert {
@@ -349,5 +385,55 @@ table {
   .footnotes a,
   sup > a {
     @extend .link-white;
+  }
+}
+
+.copy.copy--lp {
+  img,
+  blockquote {
+    @extend %e-position-relative;
+  }
+
+  img {
+    @include above(md) {
+      left: 50%;
+      max-width: calc(100% + 10rem);
+      transform: translateX(-50%);
+    }
+  }
+
+  blockquote {
+    @include above(md) {
+      left: -1.5rem;
+      width: calc(100% + 1.5rem);
+    }
+  }
+
+  > h3 {
+    @extend .title-md;
+  }
+
+  > h4 {
+    @extend .title-sm;
+  }
+
+  > h5 {
+    @extend .strap-sm;
+  }
+
+  > h5 {
+    @extend .label-xs;
+  }
+
+  > h2, > h3, > h4 {
+    @extend %e-col-brand-green-2;
+  }
+
+  > h5 {
+    @extend %e-col-black-1;
+  }
+
+  > h6 {
+    @extend %e-col-grey-2;
   }
 }

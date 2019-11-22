@@ -176,20 +176,30 @@
 }
 
 .panel__title-slug {
+  text-decoration: underline solid transparent;
+
   @extend %e-position-relative;
   @extend %e-display-inline-block;
+  @extend %e-trans-core;
 
   & > svg {
-    left: -2.5rem;
-    transform: translateY(-50%) rotate(45deg);
+    left: -1.75em;
+    top: 0;
+    transform: rotate(45deg);
     opacity: .3333;
+    width: 1.25em;
+    height: 1.25em;
 
-    @extend %e-absolute-center-y;
+    @extend %e-position-absolute;
     @extend %e-trans-core;
   }
 
-  &:hover > svg {
-    opacity: 1;
+  &:hover {
+    text-decoration: underline solid currentColor;
+
+    & > svg {
+      opacity: 1;
+    }
   }
 
   @include below(md) {
