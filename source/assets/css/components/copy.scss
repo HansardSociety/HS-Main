@@ -235,7 +235,8 @@ li {
 
       > li {
         &::before {
-          content: counter(level-one-ol-counter, decimal-leading-zero) ".";
+          @extend %e-pad-t-xs;
+          content: counter(level-one-ol-counter) ".";
           counter-increment: level-one-ol-counter;
         }
 
@@ -261,7 +262,8 @@ li {
 
   > li {
     &::before {
-      content: counter(root-ul-counter, decimal-leading-zero) ".";
+      @extend %e-pad-t-xs;
+      content: counter(root-ul-counter) ".";
       counter-increment: root-ul-counter;
     }
 
@@ -292,7 +294,8 @@ li {
 
       > li {
         &::before {
-          content: counter(level-one-ol-counter, decimal-leading-zero);
+          @extend %e-pad-t-xs;
+          content: counter(level-one-ol-counter);
           counter-increment: level-one-ol-counter;
         }
 
