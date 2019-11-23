@@ -8,7 +8,8 @@ bgcClass = contentBgc(bgc)
 title = textBoxData[:title]
 showTitle = textBoxData[:show_title]
 
-headerBGC = colorProfile(:mono).include?(bgc) ? "e-bgc-white-2" : bgcClass
+isMonoBGC = colorProfile(:mono).include?(bgc)
+headerBGC = isMonoBGC ? "e-bgc-white-2" : bgcClass
 
 isDarkBGC = colorProfile(:dark).include?(bgc)
 titleColor = isDarkBGC ? "e-col-white-1" : "e-col-brand-green-2"
@@ -36,12 +37,26 @@ end
 
 alignClass = ""
 if align
-  alignClass = "text-box--#{align}"
+  alignClass = "text-box--#{ align }"
 end
 %>
 <section class="text-box <%= alignClass %> <%= bgcClass %>">
   <% if showTitle || image %>
     <div class="text-box__header
+      <%=
+        # if showTitle
+        #   if isMonoBGC
+        #     "e-acc-brand-green-2-top"
+        #     # if @entry[:category]
+        #     #   "e-acc-#{ catColor(@entry[:category]) }-2-top"
+        #     # else
+        #     #   "e-acc-brand-green-2-top"
+        #     # end
+        #   else
+        #     "#{ bgcClass.gsub("-bgc-", "-acc-") }-top"
+        #   end
+        # end
+      %>
       <%= copy ? headerBGC : "text-box__header--solo e-bgc-white-1" %>
       <%= "grid grid--xs grid--middle" if inlineHeader %>
       <%= image && imageBorder && !inlineHeader ?
@@ -50,23 +65,12 @@ end
           "e-pad-x-xs e-pad-l-sm" :
           "") %>
       ">
-
-      <% if image %>
-        <figure class="
-          text-box__img
-          <%= "grid__cell grid__cell--xs" if inlineHeader %>">
-          <img
-            class="text-box__img"
-            src="<%= image[:url] %>"
-            alt="<%= image[:alt] %>">
-        </figure>
-      <% end %>
       <% if showTitle %>
         <h3 class="
+          text-box__title
           <%= titleSizeClass %>
           <%= titleColor %>
           <%= "grid__cell grid__cell--xs" if inlineHeader %>
-          e-pad-x-xs e-pad-y-sm
         ">
           <% if targetSlug %>
             <a href="<%= targetSlug %>" class="<%= linkClass %>">
@@ -81,11 +85,32 @@ end
           <% end %>
         </h3>
       <% end %>
+
+      <% if image %>
+        <figure class="
+          <%= "grid__cell grid__cell--xs" if inlineHeader %>">
+          <img
+            class="text-box__img"
+            src="<%= image[:url] %>"
+            alt="<%= image[:alt] %>">
+        </figure>
+      <% end %>
+
     </div>
   <% end %>
   <% if copy %>
     <div class="text-box__content <%= "text-box__content-with-head" if showTitle || image %> copy <%= "copy--invert" if isDarkBGC %>">
-      <%= markdown(copy).sub("<p", "<p class=#{copySizeClass}") %>
+      <%= markdown(copy).sub("<p", "<p class=#{ copySizeClass }") %>
+    </div>
+  <% end %>
+
+  <% if cta %>
+    <div class="text-box__cta">
+      <%= partial "views/partials/ctas",
+        locals: { local_data: {
+          entry_data: cta,
+          btn_size: "sm"
+      }} %>
     </div>
   <% end %>
 </section>

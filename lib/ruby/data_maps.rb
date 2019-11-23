@@ -392,7 +392,7 @@ def textBox(data)
     image: (media(data.image) if data.image),
     image_border: data.image_border,
     inline_header: data.inline_header,
-    calls_to_action: callsToAction(data),
+    call_to_action: callsToAction(data),
     target_slug: data.target_slug
   }.compact
 end

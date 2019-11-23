@@ -87,7 +87,14 @@ end
       <div class="panel__content panel__content--narrow e-align-cen e-mgn-b-lg">
         <% content_tag(headingLevel, headingAttrs) do %>
           <% if panelSlug %>
-            <a class="panel__title-slug" href="#<%= panelSlug %>"><%= panelData[:title] %></a>
+            <a class="panel__title-slug" href="#<%= panelSlug %>">
+              <%= panelData[:title] %>
+              <%= partial "views/partials/icon",
+                locals: {
+                  icon: "link",
+                  size: "sm"
+              } %>
+            </a>
           <% else %>
             <%= panelData[:title] %>
           <% end %>

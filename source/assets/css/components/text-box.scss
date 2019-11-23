@@ -16,8 +16,14 @@
 }
 
 .text-box__header {
-  min-height: 4.25rem;
+  // min-height: 4.25rem;
   border-bottom: Get($colorGroups, white, 2) solid 1px;
+}
+
+.text-box__title {
+  min-height: 4.25rem;
+
+  @extend %e-pad-sm;
 }
 
 .text-box__header--solo {
@@ -37,9 +43,17 @@
 }
 
 .text-box__content-with-head {
-  padding-top: 0.5rem;
+  @extend %e-pad-t-sm;
 }
 
 .text-box__img {
   @extend %e-display-block;
+  @extend %e-img-filter;
+  @extend %e-max-width-full;
+}
+
+.text-box__cta {
+  border-top: Get($colorGroups, white, 2) solid 1px;
+
+  @extend %e-pad-sm;
 }

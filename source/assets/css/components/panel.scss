@@ -211,6 +211,14 @@
   }
 }
 
+.panel__title-slug--inline {
+  padding-left: 2rem;
+
+  & > svg {
+    left: -.5rem;
+  }
+}
+
 // Boxes
 .box {
   @extend %e-pad-sm;
