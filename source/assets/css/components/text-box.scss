@@ -17,11 +17,13 @@
 
 .text-box__header {
   min-height: 4.25rem;
+  border-bottom: Get($colorGroups, white, 2) solid 1px;
 }
 
 .text-box__header--solo {
   margin-top: auto;
   margin-bottom: auto;
+  border-bottom: none;
 }
 
 .text-box__header--inline {

@@ -7,7 +7,12 @@ bgc = textBoxData[:background_color]
 bgcClass = contentBgc(bgc)
 title = textBoxData[:title]
 showTitle = textBoxData[:show_title]
-titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
+
+headerBGC = colorProfile(:mono).include?(bgc) ? "e-bgc-white-2" : bgcClass
+
+isDarkBGC = colorProfile(:dark).include?(bgc)
+titleColor = isDarkBGC ? "e-col-white-1" : "e-col-brand-green-2"
+linkClass = isDarkBGC ? "link-white" : "link"
 
 # Options
 copy = textBoxData[:copy]
@@ -37,7 +42,7 @@ end
 <section class="text-box <%= alignClass %> <%= bgcClass %>">
   <% if showTitle || image %>
     <div class="text-box__header
-      <%= copy ? "e-bgc-white-2" : "text-box__header--solo e-bgc-white-1" %>
+      <%= copy ? headerBGC : "text-box__header--solo e-bgc-white-1" %>
       <%= "grid grid--xs grid--middle" if inlineHeader %>
       <%= image && imageBorder && !inlineHeader ?
         "e-pad-sm" :
@@ -64,7 +69,7 @@ end
           e-pad-x-xs e-pad-y-sm
         ">
           <% if targetSlug %>
-            <a href="<%= targetSlug %>" class="link">
+            <a href="<%= targetSlug %>" class="<%= linkClass %>">
               <%= title %><%= partial "views/partials/icon",
                 locals: {
                   icon: "ios-arrow-thin-right",
@@ -79,7 +84,7 @@ end
     </div>
   <% end %>
   <% if copy %>
-    <div class="text-box__content <%= "text-box__content-with-head" if showTitle || image %> copy">
+    <div class="text-box__content <%= "text-box__content-with-head" if showTitle || image %> copy <%= "copy--invert" if isDarkBGC %>">
       <%= markdown(copy).sub("<p", "<p class=#{copySizeClass}") %>
     </div>
   <% end %>
