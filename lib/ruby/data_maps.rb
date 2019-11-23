@@ -652,31 +652,6 @@ def panel(panelData)
   ).compact
 end
 
-## =Panel container
-########################################
-
-def panelsContainer(ctx, data)
-  # allPanels = []
-
-  ctx.panels = data.panels.map do |panelData|
-    if panelData.content_type.id == "panel_content_container"
-      containers = []
-
-      panelData.panels.map do |innerPanel|
-        containers << panel(innerPanel)
-      end
-
-      containers[containers.length - 1]
-
-    else
-      panel(panelData)
-    end
-  end
-
-  # allPanels.flatten(1)
-end
-
-
 ###########################################################################
 ## =Universal
 ###########################################################################
@@ -778,7 +753,9 @@ class HomeMap < ContentfulMiddleman::Mapper::Base
     end
 
     if entry.panels
-      panelsContainer(context, entry)
+      context.panels = entry.panels.map do |panelData|
+        panel(panelData)
+      end
     end
   end
 end
@@ -920,7 +897,19 @@ class LandingPageMap < ContentfulMiddleman::Mapper::Base
 
     # Panels
     if entry.panels
-      panelsContainer(context, entry)
+      panels = []
+
+      entry.panels.map do |panelData|
+        if panelData.content_type.id == "panel_content_container"
+          panelData.panels.map do |innerPanel|
+            panels << panel(innerPanel)
+          end
+        else
+          panels << panel(panelData)
+        end
+      end
+
+      context.panels = panels
     end
   end
 end
