@@ -366,6 +366,25 @@ table {
   @extend %e-mgn-auto-x;
 }
 
+.toc-link {
+  left: -.375rem;
+  opacity: .5;
+
+  @extend %e-fz-xs;
+  @extend %e-position-relative;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  & > svg {
+    text-decoration: none;
+    top: -.125rem;
+
+    @extend %e-position-relative;
+  }
+}
+
 } // END .copy
 
 .copy.copy--invert {

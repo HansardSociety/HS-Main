@@ -6,6 +6,13 @@ featured = @entry[:featured]
 <%# Search templates %>
 <%= partial "views/partials/search/template-scripts" %>
 
+<%# Icon template %>
+<script id="icon-template">`<%= partial "views/partials/icon",
+  locals: {
+    icon: "{{icon}}",
+    size: "{{size}}"
+} %>`</script>
+
 <%# Core JS %>
 <script src="<%= assetsDir %><%= config[:JS_VENDOR] %>"></script>
 <script src="<%= assetsDir %><%= config[:JS_APP] %>"></script>

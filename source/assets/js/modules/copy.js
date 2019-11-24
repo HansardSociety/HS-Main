@@ -21,4 +21,21 @@ const imgCaptions = (() => {
   return;
 })();
 
-export { imgCaptions }
+const setIcons = (() => {
+  let tocLinks = document.querySelectorAll(".toc-link");
+  let iconTemplate = document.querySelector("script[id='icon-template']").innerHTML.replace(/`/g, "");
+
+  if (tocLinks) {
+    tocLinks.forEach((el) => {
+      let tocText = el.innerText;
+      let tocIcon = iconTemplate
+        .replace("{{icon}}", "ios-arrow-thin-up")
+        .replace("{{size}}", "xs");
+
+      el.innerHTML = tocIcon.trim() + tocText.trim();
+    });
+  }
+  return;
+})();
+
+export { imgCaptions, setIcons }
