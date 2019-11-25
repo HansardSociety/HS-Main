@@ -1,7 +1,7 @@
 <% @entry = entry_data %>
 
 <article
-  id="<%= @entry[:category].upcase %>_PAGE"
+  id="category__<%= @entry[:category] + (@entry[:sub_category] ? "__#{ @entry[:sub_category] }" : "" ) %>"
   class="site-container__main e-bgc-white-1 print print--landing-page">
 
   <% if @entry[:banner_image] %>

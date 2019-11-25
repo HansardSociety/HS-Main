@@ -202,20 +202,21 @@
     }
   }
 
-  @include below(md) {
-    padding-left: 2rem;
-
+  @include below(sm) {
     & > svg {
+      top: -2rem;
       left: -.5rem;
     }
   }
 }
 
 .panel__title-slug--inline {
-  padding-left: 1.75rem;
-
   & > svg {
     left: -.5rem;
+  }
+
+  @include above(sm) {
+    padding-left: 1.75rem;
   }
 }
 
