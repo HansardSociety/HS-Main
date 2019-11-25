@@ -4,14 +4,16 @@ align = local_data[:align]
 
 # Color profiles
 bgc = textBoxData[:background_color]
+bgcToAccent = textBoxData[:background_color_accent]
+
 bgcClass = contentBgc(bgc)
 title = textBoxData[:title]
 showTitle = textBoxData[:show_title]
 
 isMonoBGC = colorProfile(:mono).include?(bgc)
-headerBGC = isMonoBGC ? "e-bgc-white-2" : bgcClass
+headerBGC = isMonoBGC || bgcToAccent ? "e-bgc-white-1" : bgcClass
 
-isDarkBGC = colorProfile(:dark).include?(bgc)
+isDarkBGC = !bgcToAccent && colorProfile(:dark).include?(bgc)
 titleColor = isDarkBGC ? "e-col-white-1" : "e-col-brand-green-2"
 linkClass = isDarkBGC ? "link-white" : "link"
 
@@ -40,23 +42,10 @@ if align
   alignClass = "text-box--#{ align }"
 end
 %>
-<section class="text-box <%= alignClass %> <%= bgcClass %>">
+<section class="text-box <%= alignClass %> <%= bgcClass if !bgcToAccent %>">
   <% if showTitle || image %>
     <div class="text-box__header
-      <%=
-        # if showTitle
-        #   if isMonoBGC
-        #     "e-acc-brand-green-2-top"
-        #     # if @entry[:category]
-        #     #   "e-acc-#{ catColor(@entry[:category]) }-2-top"
-        #     # else
-        #     #   "e-acc-brand-green-2-top"
-        #     # end
-        #   else
-        #     "#{ bgcClass.gsub("-bgc-", "-acc-") }-top"
-        #   end
-        # end
-      %>
+      <%= "#{ bgcClass.gsub("-bgc-", "-acc-") }-top" if bgcToAccent || isDarkBGC %>
       <%= copy ? headerBGC : "text-box__header--solo e-bgc-white-1" %>
       <%= "grid grid--xs grid--middle" if inlineHeader %>
       <%= image && imageBorder && !inlineHeader ?

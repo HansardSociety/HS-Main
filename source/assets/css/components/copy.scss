@@ -3,9 +3,13 @@
 
 // Ensure margin on first text elem in expand
 &.expand {
-  > p, > h1, > h2, > h3, > h4, > h5, > h6, ul {
+  > h1, > h2, > h3, > h4, > h5, > h6 {
+    margin-top: 1.5em;
+  }
+
+  > p, ul {
     &:first-child {
-      @extend %e-mgn-t-sm;
+      margin-top: 1em;
     }
   }
 }
@@ -360,7 +364,7 @@ table {
   max-width: 100%;
 
   @extend %e-align-cen;
-  @extend %e-col-grey-2;
+  @extend %e-col-grey-3;
   @extend %e-display-block;
   @extend %e-fz-xs;
   @extend %e-mgn-auto-x;
@@ -368,7 +372,7 @@ table {
 
 .toc-link {
   left: -.375rem;
-  opacity: .5;
+  opacity: .75;
   margin-top: 1.5rem;
 
   @extend %e-fz-xs;

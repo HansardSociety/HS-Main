@@ -1,8 +1,9 @@
 <%
 id = local_data[:id]
 content = local_data[:content]
+context = local_data[:context]
 %>
 
-<div id="<%= id %>" class="expand copy JS-inactive">
+<div id="<%= id %>" class="expand copy <%= "copy--lp" if context == :landing_page %> JS-inactive">
   <%= markdown(content) %>
 </div>

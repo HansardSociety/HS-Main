@@ -112,6 +112,7 @@ headingAttrs = {
           <% if panelData[:show_title] %>
             <div class="e-hide-below-md e-mgn-b-sm">
 
+              <%# Title %>
               <% content_tag(headingLevel, headingAttrs) do %>
                 <% if panelSlug %>
                   <a href="#<%= panelSlug %>"
@@ -128,6 +129,7 @@ headingAttrs = {
                 <% end %>
               <% end %>
 
+              <%# Tweet this %>
               <% if hasTweet && !panelData[:image] %>
                 <div class="grid grid--xxs e-pad-b-sm">
                   <%= partial "views/partials/social",
@@ -140,7 +142,7 @@ headingAttrs = {
             </div>
           <% end %>
 
-          <div class="copy <%= "copy--lp" if !panelData[:image] %> <%= "copy--invert" if colorProfile(:dark).include?(bgc) %>">
+          <div class="copy copy--lp <%= "copy--invert" if colorProfile(:dark).include?(bgc) %>">
             <%=
               if !isCopySm
                 paraElem = "<p class='#{copySizeClass}'"
@@ -155,7 +157,8 @@ headingAttrs = {
             <%= partial "views/partials/expand",
               locals: { local_data: {
                 id: showMoreCopy.cta_id,
-                content: showMoreCopy.content }} %>
+                content: showMoreCopy.content,
+                context: :landing_page }} %>
           <% end %>
 
           <% if panelData[:show_more] || panelData[:calls_to_action] || hasTweet %>

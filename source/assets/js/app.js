@@ -8,4 +8,5 @@ import { infiniteFeed } from "./modules/feed";
 import { netlifyForms } from "./modules/form";
 import { shrinkNav } from "./modules/nav";
 import { truncate } from "./modules/truncate";
+import { history } from "./modules/history";
 import { imgCaptions, setIcons } from "./modules/copy";

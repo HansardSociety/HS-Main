@@ -388,6 +388,7 @@ def textBox(data)
     title: data.title,
     show_title: data.show_title,
     background_color: data.background_color.parameterize,
+    background_color_accent: data.background_color_accent,
     copy: data.copy,
     copy_size: (data.copy_size ? data.copy_size.parameterize : "normal"),
     image: (media(data.image) if data.image),
