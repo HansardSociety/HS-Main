@@ -77,6 +77,10 @@ isThemePage = @entry[:TYPE] == "theme_page"
     </div>
   </div>
 
+  <% if entryData[:banner_image] && entryData[:banner_image_credit] %>
+    <small class="banner__image-credit"><%= entryData[:banner_image][:alt] %></small>
+  <% end %>
+
   <% if entryData[:calls_to_action] != nil
     entryData[:calls_to_action].each do |cta|
       if cta[:TYPE] == "cta_modal"

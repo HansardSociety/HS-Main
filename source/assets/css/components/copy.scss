@@ -114,8 +114,8 @@ picture {
 }
 
 small {
+  @extend %e-fz-xs;
   @extend %e-display-block;
-  @extend %e-ff-prim-oblique;
 }
 
 hr {

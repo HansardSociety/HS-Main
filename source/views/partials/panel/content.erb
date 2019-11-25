@@ -114,7 +114,8 @@ headingAttrs = {
 
               <% content_tag(headingLevel, headingAttrs) do %>
                 <% if panelSlug %>
-                  <a href="#<%= panelSlug %>" class="panel__title-slug">
+                  <a href="#<%= panelSlug %>"
+                     class="panel__title-slug <%= "panel__title-slug--inline" if (panelData[:image] && panelData[:image][:url]) %>">
                     <%= panelData[:title] %>
                     <%= partial "views/partials/icon",
                       locals: {

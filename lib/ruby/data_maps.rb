@@ -145,6 +145,7 @@ def sharedPageBase(pageType, ctx, data)
   # Child/ landing page/ theme page
   if ["childPage", "landingPage", "themePage"].include? pageType
     ctx.seo_title = data.seo_title
+    ctx.banner_image_credit = data.banner_image_credit
   end
 
   # Child/ landing page

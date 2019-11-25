@@ -121,6 +121,24 @@
   }
 }
 
+.banner__image-credit {
+  bottom: 6rem;
+  left: 1rem;
+  transform: translateY(-100%);
+  z-index: 1;
+  max-width: 18rem;
+  opacity: 0;
+  // text-align: right;
+
+  @extend %e-col-white-1;
+  @extend %e-fz-xxs;
+  @extend %e-position-absolute;
+
+  @include above(md) {
+    opacity: .75;
+  }
+}
+
 .carousel .banner__content--lp {
   @include below(md) {
     padding-bottom: 7.5rem;
