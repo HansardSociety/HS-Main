@@ -13,15 +13,28 @@ isThemePage = @entry[:TYPE] == "theme_page"
   <div class="banner__inner banner__inner--lp">
     <div class="banner__content banner__content--lp">
 
-      <% if !entryData[:index_page] %>
+      <%# if !entryData[:index_page] || entryData[:sub_category] %>
         <% if isThemePage %>
           <span class="label-xxs label-tag e-acc-brand-green-2 e-col-white-1">Themes</span>
         <% else %>
-          <span class="label-xxs label-tag e-acc-<%= catColor(entryData[:category]) %>-2 e-col-white-1">
-            <%= entryData[:meta_label] %>
+          <span class="meta-label label-xxs label-tag e-acc-<%= catColor(entryData[:category]) %>-2 e-col-white-1">
+            <% if !entryData[:index_page] %>
+              <%= entryData[:meta_label_link] %>
+            <% else %>
+              <a title="Go to: <%= entryData[:category].capitalize %>"
+                 href="/<%= entryData[:category] %>"
+                 class="link-white"
+              ><%= entryData[:category] %></a>
+              <% if entryData[:sub_category] %>
+                /&nbsp;<a title="Go to: <%= entryData[:sub_category].capitalize %>"
+                  href="/<%= entryData[:category] %>/<%= entryData[:subcategory] %>"
+                  class="link-white"
+                ><%= entryData[:sub_category] %></a>
+              <% end %>
+            <% end %>
           </span>
         <% end %>
-      <% end %>
+      <%# end %>
 
       <h1
         class="banner__title title-xl JS-truncate e-mgn-t-xs"

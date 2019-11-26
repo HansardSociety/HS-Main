@@ -203,8 +203,10 @@
   }
 
   @include below(sm) {
+    padding-top: 1.25rem;
+
     & > svg {
-      top: -2rem;
+      top: -.75rem;
       left: -.5rem;
     }
   }

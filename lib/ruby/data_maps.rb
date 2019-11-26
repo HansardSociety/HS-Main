@@ -94,7 +94,10 @@ end
 ###########################################################################
 
 def metaLabel(data, opts = {})
-  defaults = { reg_data: false }
+  defaults = {
+    reg_data: false,
+    link: false
+  }
   opts = defaults.merge(opts)
 
   regData = opts[:reg_data]
@@ -106,6 +109,17 @@ def metaLabel(data, opts = {})
   subCategory = detachCategory(data.category, { part: 1 }) if hasSubcategory
 
   baseLabel = "#{ category }#{ " / " + subCategory if hasSubcategory }".gsub("-", " ")
+
+  if opts[:link]
+    categoryLink = "<a class=\"link-white\" title=\"Go to: #{ category.capitalize }\" href=\"/#{ category }\">#{ category.gsub("-", " ") }</a>"
+    subCategoryLink = ""
+
+    if hasSubcategory
+      subCategoryLink = " / <a class=\"link-white\" title=\"Go to: #{ category.capitalize } / #{ subCategory.capitalize }\" href=\"/#{ category }/#{ subCategory }\">#{ subCategory.gsub("-", " ") }</a>"
+    end
+
+    baseLabel = categoryLink + subCategoryLink
+  end
 
   if regData
     "#{ baseLabel } / #{ dateTime(regData)[:date] }"
@@ -154,6 +168,7 @@ def sharedPageBase(pageType, ctx, data)
     ctx.category = detachCategory(data.category)
     ctx.category_orig = data.category.downcase
     ctx.meta_label = metaLabel(data)
+    ctx.meta_label_link = metaLabel(data, { link: true })
     ctx.keywords = data.keywords
 
     # Has sub-category

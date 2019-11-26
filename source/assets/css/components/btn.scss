@@ -129,13 +129,13 @@
 .btn__menu,
 .btn__menu::before,
 .btn__menu::after {
-  left: 0;
+  left: 1rem;
 
   width: 1.5rem;
   height: 2px;
 
   @extend %e-bgc-white-1;
-  @extend %e-position-absolute;
+  @extend %e-position-fixed;
   @extend %e-trans-core;
 }
 
