@@ -21,7 +21,7 @@
 }
 
 .text-box__title {
-  min-height: 4.25rem;
+  min-height: 4.75rem; // allows 2 lines
 
   @extend %e-pad-sm;
 }
