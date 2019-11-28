@@ -1,0 +1,25 @@
+<%
+category = locals[:category]
+subCategory = locals[:sub_category]
+%>
+
+<aside class="hist-btn">
+  <ul class="hist-btn__content">
+    <li>
+      <a class="link" href="/">Home</a>
+    </li>
+    <li>
+      <div class="label-xxs e-col-grey-3">Category</div>
+      <a class="link" href="/<%= category %>"><%= category.capitalize %></a>
+    </li>
+    <% if subCategory %>
+      <li>
+        <div class="label-xxs e-col-grey-3">Sub-category</div>
+        <a class="link" href="<%= subCategory %>"><%= subCategory.capitalize %></a>
+      </li>
+    <% end %>
+  </ul>
+  <div class="hist-btn__icon">
+    ICON
+  </div>
+</aside>
