@@ -70,8 +70,8 @@ end
                           <% modalID = "#{ textBox[:title].parameterize }-#{ textBox[:ID] }" %>
                           <% formData = textBox[:call_to_action][:modal][:form] %>
 
-                          <div class="signup e-pad-sm e-mgn-b-xs e-bgc-white-2">
-                            <h2 class="title-md e-col-brand-green-1"><%= textBox[:title] %></h2>
+                          <div class="signup e-mgn-b-md">
+                            <h2 class="title-sm e-mgn-b-sm e-col-brand-green-2"><%= textBox[:title] %></h2>
                             <p class="e-mgn-t-xs"><%= textBox[:copy] %></p>
                             <div class="e-mgn-t-xs">
                               <%= partial "views/partials/btn",
@@ -150,8 +150,8 @@ end
                           <% modalID = "#{ textBox[:title].parameterize }-menu-desktop" %>
                           <% formData = textBox[:call_to_action][:modal][:form] %>
 
-                          <div class="signup e-pad-sm e-mgn-b-xs e-bgc-white-2">
-                            <h2 class="title-md e-col-brand-green-1"><%= textBox[:title] %></h2>
+                          <div class="signup e-mgn-b-md">
+                            <h2 class="title-sm e-col-brand-green-2"><%= textBox[:title] %></h2>
                             <p class="e-mgn-t-xs"><%= textBox[:copy] %></p>
                             <div class="e-mgn-t-xs">
                               <%= partial "views/partials/btn",
@@ -181,6 +181,21 @@ end
                       </div>
                     <% end %>
                   </ul>
+                <% end %>
+                <% if menuData[:title] == "About" %>
+                  <div class="signup e-mgn-b-md">
+                    <h3 class="title-sm e-mgn-b-sm e-col-brand-green-2">Follow us</h3>
+                    <div class="grid grid--xxs">
+                      <%= partial "views/partials/social",
+                        locals: { local_data: {
+                          icons: [
+                            siteData(:twitter),
+                            siteData(:linkedin),
+                            siteData(:facebook)
+                          ]
+                      }} %>
+                    </div>
+                  </div>
                 <% end %>
               </li>
             <% end %>

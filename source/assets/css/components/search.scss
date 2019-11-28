@@ -15,21 +15,25 @@
   @extend %e-position-absolute;
   @extend %e-trans-opacity;
 
-  & + .search-loading {
-    @extend %e-absolute-center-xy;
-
-    & svg {
-      animation-duration: 500ms;
-      animation-iteration-count: infinite;
-
-      @extend %e-animate-spin;
-    }
-  }
-
   &.JS-loaded {
     opacity: 1;
+  }
+}
 
+.menu--search.JS-active {
+  .search-iframe {
     & + .search-loading {
+      @extend %e-absolute-center-xy;
+
+      & svg {
+        animation-duration: 500ms;
+        animation-iteration-count: infinite;
+
+        @extend %e-animate-spin;
+      }
+    }
+
+    &.JS-loaded + .search-loading {
       @extend %e-display-none;
     }
   }

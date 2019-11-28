@@ -73,6 +73,32 @@
   }
 }
 
+.banner__title--main {
+  @extend %e-position-relative;
+
+  &::before, &::after {
+    content: "";
+    width: 4rem;
+    // opacity: .75;
+
+    @extend %e-absolute-center-x;
+    @extend %e-acc-orange-2-top;
+    @extend %e-box-shad-z0;
+    @extend %e-display-none;
+
+    @include above(sm) {
+      @extend %e-display-block__sm;
+    }
+  }
+
+  &::before {
+    top: -1.5rem;
+  }
+  &::after {
+    bottom: -1.5rem;
+  }
+}
+
 .banner__strap {
   @extend .strap-md;
   @extend %e-ff-prim-heavy;
@@ -136,6 +162,23 @@
 
   @include above(md) {
     opacity: .75;
+  }
+}
+
+.banner__down-arr {
+  opacity: .5;
+  bottom: -1.5rem;
+
+  @extend %e-display-none;
+  @extend %e-absolute-center-x;
+
+  svg {
+    // @extend %e-box-shad-z1;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, .2));
+  }
+
+  @include above(sm) {
+    @extend %e-display-block__sm;
   }
 }
 
