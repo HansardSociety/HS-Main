@@ -35,25 +35,19 @@ subCategory = locals[:sub_category]
         </li>
       </ul>
     </li>
-
   </ul>
 
-  <div class="hist-btn__btn-wrapper">
-
-    <%# On button %>
-    <%= partial "views/partials/btn",
-      locals: { local_data: {
-        type: "state",
-        size: "sm",
-        icon: "ios-arrow-thin-left",
-        icon_size: "md",
-        page: "no-scroll",
-        exclusive: true,
-        switch: true,
-        aria_id: "activate-history-button",
-        aria_target_id: "history-button"
-    }} %>
-
-  </div>
-
+  <%# On button %>
+  <%= partial "views/partials/btn",
+    locals: { local_data: {
+      type: "state",
+      size: "sm",
+      icon: "ios-arrow-thin-left",
+      icon_size: "md",
+      page: "no-scroll",
+      exclusive: true,
+      switch: true,
+      aria_id: "activate-history-button",
+      aria_target_id: "history-button"
+  }} %>
 </aside>
