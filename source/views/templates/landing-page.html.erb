@@ -161,8 +161,10 @@
         dedupe_entry_id: @entry[:ID],
         title: "Latest" }} %>
   <% end %>
+
+  <%= partial "views/partials/hist-btn", locals: {
+    category: @entry[:category],
+    sub_category: @entry[:sub_category]
+  } %>
+
 </article>
-<%= partial "views/partials/hist-btn", locals: {
-  category: @entry[:category],
-  sub_category: @entry[:sub_category]
-} %>

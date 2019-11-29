@@ -3,23 +3,57 @@ category = locals[:category]
 subCategory = locals[:sub_category]
 %>
 
-<aside class="hist-btn">
+<aside id="history-button" class="hist-btn JS-inactive">
+  <div
+    class="hist-btn__overlay JS-off JS-switch JS-no-scroll"
+    aria-hidden="true"
+    aria-controls="history-button"></div>
   <ul class="hist-btn__content">
     <li>
-      <a class="link" href="/">Home</a>
+      <div class="label-xs e-bgc-slate-blue-3 e-pad-x-xs e-pad-y-sm e-col-white-1">Categories</div>
+      <ul class="hist-btn__section">
+        <li>
+          <a class="hist-btn__link link-white" href="/">Home</a>
+        </li>
+        <li>
+          <a class="hist-btn__link link-white <%= "is-active" if !subCategory %>" href="/<%= category %>"><%= category.capitalize %></a>
+        </li>
+        <% if subCategory %>
+          <li>
+            <a class="hist-btn__link link-white is-active" href="<%= subCategory %>"><%= subCategory.capitalize %></a>
+          </li>
+        <% end %>
+      </ul>
     </li>
+
+
     <li>
-      <div class="label-xxs e-col-grey-3">Category</div>
-      <a class="link" href="/<%= category %>"><%= category.capitalize %></a>
+      <div class="label-xs e-bgc-slate-blue-3 e-pad-x-xs e-pad-y-sm e-col-white-1">Recent pages</div>
+      <ul class="hist-btn__section">
+        <li>
+          <a class="hist-btn__link link-white" href="/">Home</a>
+        </li>
+      </ul>
     </li>
-    <% if subCategory %>
-      <li>
-        <div class="label-xxs e-col-grey-3">Sub-category</div>
-        <a class="link" href="<%= subCategory %>"><%= subCategory.capitalize %></a>
-      </li>
-    <% end %>
+
   </ul>
-  <div class="hist-btn__icon">
-    ICON
+
+  <div class="hist-btn__btn-wrapper">
+
+    <%# On button %>
+    <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "state",
+        size: "sm",
+        icon: "ios-arrow-thin-left",
+        icon_size: "md",
+        page: "no-scroll",
+        exclusive: true,
+        switch: true,
+        aria_id: "activate-history-button",
+        aria_target_id: "history-button"
+    }} %>
+
   </div>
+
 </aside>
