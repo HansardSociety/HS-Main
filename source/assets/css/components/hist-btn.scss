@@ -14,7 +14,7 @@
   .btn {
     width: 3rem;
     height: 3rem;
-    opacity: .6666;
+    opacity: .6;
     left: 2rem;
     bottom: 2rem;
 
@@ -111,10 +111,14 @@
     }
 
     .hist-btn__content {
-      left: 1.75rem;
+      left: 1.825rem;
       opacity: 1;
     }
   }
+}
+
+.hist-btn__recent {
+  border-bottom: 1px solid rgba(255, 255, 255, .5);
 }
 
 .hist-btn__content {
@@ -161,9 +165,9 @@
   & > li:nth-child(odd) {
     @extend %e-bgc-slate-blue-2;
   }
-  & > li:last-child {
-    border-bottom: 1px solid rgba(255, 255, 255, .25);
-  }
+  // & > li:last-child {
+  //   border-bottom: 1px solid rgba(255, 255, 255, .25);
+  // }
 }
 
 .hist-btn__link {
@@ -188,5 +192,14 @@
 }
 
 .hist-btn__home {
-  vertical-align: middle;
+  right: 1rem;
+  background: transparent;
+  bottom: 1rem;
+
+  @extend %e-col-white-1;
+  @extend %e-position-absolute;
+
+  & > a {
+    vertical-align: middle;
+  }
 }

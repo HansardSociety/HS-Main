@@ -25,17 +25,13 @@ subCategory = locals[:sub_category]
       </ul>
     </li>
 
-    <li class="hist-btn__categories">
-      <ul class="hist-btn__section">
-        <li class="e-col-white-1">
-          <%= partial "views/partials/icon",
-            locals: {
-              icon: "ios-home-outline",
-              size: "xs"
-          } %>
-          <a class="hist-btn__link hist-btn__home link-white e-pad-l-xxs" href="/">Home</a>
-        </li>
-      </ul>
+    <li class="hist-btn__home">
+      <%= partial "views/partials/icon",
+        locals: {
+          icon: "ios-home-outline",
+          size: "xs"
+      } %>
+      <a class="hist-btn__link link-white e-pad-l-xxs" href="/">Home</a>
     </li>
   </ul>
 
