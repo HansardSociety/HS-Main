@@ -36,6 +36,17 @@ const historyNav = (() => {
         subCategory: subCategory
       }); // set page data
 
+      // Show prev-page button
+      if (storedPages.length > 1) {
+        histBtn.classList.add("has-page-storage");
+
+        const prevPageBtn = histBtn.querySelector(".hist-btn__off > .btn:nth-child(2)");
+        prevPageBtn.addEventListener("click", function(e) {
+          e.preventDefault;
+          history.back();
+        });
+      }
+
       // Create hist elems
       function createHistItem(pageTitle, pagePath, pageCategory, pageSubCategory) {
         let histBtnItemTmpl = histBtn.querySelector(".hist-btn__tmpl").innerHTML;
@@ -48,7 +59,7 @@ const historyNav = (() => {
 
         link.setAttribute("href", pagePath);
         link.setAttribute("title", `Go to: ${ pageTitle }`);
-        link.innerText = pageTitle;
+        link.innerText = pageTitle.length > 90 ? pageTitle.substring(0, 89).trim() + "…" : pageTitle;
         link.classList.remove("is-active");
 
         let catHtml = `<a href="/${ pageCategory }" title="Go to: ${ pageCategory }">${ pageCategory }</a>`;
@@ -70,7 +81,6 @@ const historyNav = (() => {
 
         if (page.path !== path) {
           histBtn.querySelector(".hist-btn__recent > .hist-btn__section").appendChild(histItemElem);
-
         }
       });
 

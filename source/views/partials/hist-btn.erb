@@ -14,37 +14,70 @@ subCategory = locals[:sub_category]
       <div class="label-xs e-bgc-slate-blue-3 e-pad-x-xs e-pad-y-sm e-col-white-1">Recent pages</div>
       <ul class="hist-btn__section">
         <li class="hist-btn__tmpl is-active">
-          <a class="hist-btn__link link-white" href="<%= @entry[:url] %>" title="Go to: <%= @entry[:title] %>"><%= @entry[:title] %></a>
+          <a class="hist-btn__link link-white" href="<%= @entry[:url] %>" title="Go to: <%= @entry[:title] %>"><%= @entry[:title].length > 90 ? "#{ @entry[:title][0...89].rstrip }…" : @entry[:title] %></a>
           <span class="hist-btn__cat">
             <a href="/<%= category %>" title="Go to: <%= category %>"><%= category %></a>
             <% if subCategory %>
-              /&nbsp;<a href="/<%= subCategory %>" title="Go to: <%= subCategory %>"><%= subCategory %></a>
+              /&nbsp;<a href="/<%= category %>/<%= subCategory %>" title="Go to: <%= subCategory %>"><%= subCategory %></a>
             <% end %>
           </span>
         </li>
       </ul>
     </li>
 
-    <li  class="hist-btn__categories">
+    <li class="hist-btn__categories">
       <ul class="hist-btn__section">
-        <li>
-          <a class="hist-btn__link link-white" href="/">Home</a>
+        <li class="e-col-white-1">
+          <%= partial "views/partials/icon",
+            locals: {
+              icon: "ios-home-outline",
+              size: "xs"
+          } %>
+          <a class="hist-btn__link hist-btn__home link-white" href="/">Home</a>
         </li>
       </ul>
     </li>
   </ul>
 
   <%# On button %>
-  <%= partial "views/partials/btn",
-    locals: { local_data: {
-      type: "state",
-      size: "sm",
-      icon: "ios-arrow-thin-left",
-      icon_size: "md",
-      page: "no-scroll",
-      exclusive: true,
-      switch: true,
-      aria_id: "activate-history-button",
-      aria_target_id: "history-button"
-  }} %>
+  <div class="hist-btn__on">
+    <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "state",
+        size: "sm",
+        icon: "ios-arrow-thin-left",
+        icon_size: "md",
+        page: "no-scroll",
+        exclusive: true,
+        switch: true,
+        aria_id: "activate-history-button",
+        aria_target_id: "history-button"
+    }} %>
+  </div>
+
+  <div class="hist-btn__off">
+
+    <%# Close button (default) %>
+    <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "state",
+        size: "sm",
+        icon: "ios-close-empty",
+        icon_size: "md",
+        page: "no-scroll",
+        exclusive: true,
+        switch: true,
+        aria_id: "activate-history-button",
+        aria_target_id: "history-button"
+    }} %>
+
+    <%# Back button %>
+    <%= partial "views/partials/btn",
+      locals: { local_data: {
+        type: "link",
+        size: "sm",
+        icon: "ios-arrow-thin-left",
+        icon_size: "md"
+    }} %>
+  </div>
 </aside>

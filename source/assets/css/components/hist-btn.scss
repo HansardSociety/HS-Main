@@ -7,10 +7,14 @@
 
   @extend %e-rad-circ;
 
+  @include below(md) {
+    display: none;
+  }
+
   .btn {
     width: 3rem;
     height: 3rem;
-    opacity: .75;
+    opacity: .6666;
     left: 2rem;
     bottom: 2rem;
 
@@ -38,19 +42,28 @@
     @extend %e-trans-opacity;
   }
 
+  .hist-btn__on {
+    @extend %e-display-block;
+  }
+  .hist-btn__off {
+    @extend %e-display-none;
+  }
+
   &.JS-active {
     box-shadow: none;
 
     @extend %e-bgc-slate-blue-3;
     @extend %e-box-shad-z3;
 
+    // Button states
+
     .btn {
       box-shadow: none;
       background-color: transparent;
       overflow: visible;
+      // border: 1px solid Get($colorGroups, white, 1);
 
       &::after {
-        content: "Prev page";
         right: -3.25rem;
 
         @extend %e-col-white-1;
@@ -59,6 +72,38 @@
         @extend %e-position-absolute;
       }
     }
+
+    .hist-btn__on {
+      @extend %e-display-none;
+    }
+
+    .hist-btn__off {
+      @extend %e-display-block;
+    }
+
+    &:not(.has-page-storage) {
+      .hist-btn__off {
+        & > .btn:nth-child(1)::after {
+          content: "";
+        }
+        & > .btn:nth-child(2) {
+          @extend %e-display-none;
+        }
+      }
+    }
+
+    &.has-page-storage {
+      .hist-btn__off {
+        & > .btn:nth-child(1) {
+          @extend %e-display-none;
+        }
+        & > .btn:nth-child(2)::after {
+          content: "Prev page";
+        }
+      }
+    }
+
+    //  Misc.
 
     .hist-btn__overlay {
       left: 0;
@@ -95,20 +140,20 @@
     @extend %e-position-relative;
     @extend %e-fz-xs;
 
-
     &.is-active {
       @extend %e-pad-l-md;
 
       &::before {
         content: "";
         left: 1rem;
+        top: .825rem;
         width: .5rem;
         height: .5rem;
 
-        @extend %e-absolute-center-y;
         @extend %e-bgc-brand-green-1;
         @extend %e-display-inline-block;
         @extend %e-rad-circ;
+        @extend %e-position-absolute;
       }
     }
   }
@@ -122,7 +167,6 @@
 }
 
 .hist-btn__link {
-  // @extend %e-display-inline-block;
   @extend %e-fz-xs;
   @extend %e-position-relative;
 }
@@ -141,4 +185,8 @@
     text-transform: capitalize;
     @extend .link-white;
   }
+}
+
+.hist-btn__home {
+  vertical-align: middle;
 }
