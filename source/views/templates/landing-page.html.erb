@@ -1,8 +1,8 @@
 <% @entry = entry_data %>
 
 <article
-  id="category__<%= @entry[:category] + (@entry[:sub_category] ? "__#{ @entry[:sub_category] }" : "" ) %>"
-  class="site-container__main e-bgc-white-1 print print--landing-page">
+  id="category__<%= @entry[:category] + (@entry[:sub_category] ? "__#{ @entry[:sub_category] }" : "" ) %> page-storage"
+  class="site-container__main e-bgc-white-1 print print--landing-page page-storage">
 
   <% if @entry[:banner_image] %>
     <%= partial "views/partials/banner/landing-page",

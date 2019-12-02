@@ -9,26 +9,23 @@ subCategory = locals[:sub_category]
     aria-hidden="true"
     aria-controls="history-button"></div>
   <ul class="hist-btn__content">
-    <li>
-      <div class="label-xs e-bgc-slate-blue-3 e-pad-x-xs e-pad-y-sm e-col-white-1">Categories</div>
+
+    <li class="hist-btn__recent">
+      <div class="label-xs e-bgc-slate-blue-3 e-pad-x-xs e-pad-y-sm e-col-white-1">Recent pages</div>
       <ul class="hist-btn__section">
-        <li>
-          <a class="hist-btn__link link-white" href="/">Home</a>
+        <li class="hist-btn__tmpl is-active">
+          <a class="hist-btn__link link-white" href="<%= @entry[:url] %>" title="Go to: <%= @entry[:title] %>"><%= @entry[:title] %></a>
+          <span class="hist-btn__cat">
+            <a href="/<%= category %>" title="Go to: <%= category %>"><%= category %></a>
+            <% if subCategory %>
+              /&nbsp;<a href="/<%= subCategory %>" title="Go to: <%= subCategory %>"><%= subCategory %></a>
+            <% end %>
+          </span>
         </li>
-        <li>
-          <a class="hist-btn__link link-white <%= "is-active" if !subCategory %>" href="/<%= category %>"><%= category.capitalize %></a>
-        </li>
-        <% if subCategory %>
-          <li>
-            <a class="hist-btn__link link-white is-active" href="<%= subCategory %>"><%= subCategory.capitalize %></a>
-          </li>
-        <% end %>
       </ul>
     </li>
 
-
-    <li>
-      <div class="label-xs e-bgc-slate-blue-3 e-pad-x-xs e-pad-y-sm e-col-white-1">Recent pages</div>
+    <li  class="hist-btn__categories">
       <ul class="hist-btn__section">
         <li>
           <a class="hist-btn__link link-white" href="/">Home</a>

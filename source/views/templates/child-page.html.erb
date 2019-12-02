@@ -18,8 +18,8 @@ url = "https://hansardsociety.org.uk/"
 %>
 
 <article
-  id="IS_<%= category.upcase %>"
-  class="print print--child-page">
+  id="category__<%= @entry[:category] + (@entry[:sub_category] ? "__#{ @entry[:sub_category] }" : "" ) %>"
+  class="print print--child-page page-storage">
 
   <%= partial "views/partials/banner/child-page",
     locals: { local_data: { entry_data: @entry }} %>
@@ -256,4 +256,10 @@ url = "https://hansardsociety.org.uk/"
           title: "Latest" }} %>
     </section>
   <% end %>
+
+  <%= partial "views/partials/hist-btn", locals: {
+    category: @entry[:category],
+    sub_category: @entry[:sub_category]
+  } %>
+
 </article>
