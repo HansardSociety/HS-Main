@@ -79,7 +79,7 @@
   &::before, &::after {
     content: "";
     width: 4rem;
-    // opacity: .75;
+    opacity: 0; //=TD test with RF/BF
 
     @extend %e-absolute-center-x;
     @extend %e-acc-orange-2-top;
