@@ -1,19 +1,9 @@
 .expand {
+  min-height: 0;
+  max-height: 0;
+  transition: max-height .4s ease-in-out;
 
-  @media screen {
-    min-height: 0;
-    max-height: 0;
-    transition: max-height .4s ease-in-out;
-    overflow: hidden;
-  }
-
-  // @extend %e-overflow-hidden;
-
-  @media print {
-    min-height: unset !important;
-    max-height: unset !important;
-    overflow: auto !important;
-  }
+  @extend %e-overflow-hidden;
 }
 
 .expand.JS-active {
