@@ -375,6 +375,7 @@ def ctaData(cta)
     file: (media(cta.file, title: true) if isDownload),
     page_slug: ((cta.page ? slug(cta.page) : (cta.external_page ? cta.external_page : "")) if isPage),
     page_slug_anchor: (cta.url_anchor if isPage && cta.url_anchor),
+    styling: (cta.styling.parameterize if cta.styling),
     modal: ({
       cta_id: targetID("modal", cta.title, cta),
       content: (cta.modal if cta.modal),

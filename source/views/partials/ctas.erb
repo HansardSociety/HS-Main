@@ -2,6 +2,7 @@
 ctaData = local_data[:entry_data]
 ctaType = ctaData[:TYPE]
 btnText = ctaData[:button_text]
+btnStyle = ctaData[:styling]
 btnSize = local_data[:btn_size] ? local_data[:btn_size] : "md"
 %>
 
@@ -14,12 +15,15 @@ btnSize = local_data[:btn_size] ? local_data[:btn_size] : "md"
     <%= partial "views/partials/btn",
       locals: { local_data: {
         type: "link",
-        size: btnSize, style: (isPage ? "secondary" : "primary"),
+        size: btnSize, style: btnStyle ? btnStyle : (isPage ? "secondary" : "primary"),
         label: btnText,
         label_size: btnSize,
-        url: btnURL }} %>
+        url: btnURL
+    }} %>
 
-  <% end; if ctaData[:TYPE] == "cta_modal"
+  <% end %>
+
+  <% if ctaData[:TYPE] == "cta_modal"
     modalID = ctaData[:modal][:cta_id]
     modalContent = ctaData[:modal][:content]
     modalForm = ctaData[:modal][:form]
@@ -28,13 +32,14 @@ btnSize = local_data[:btn_size] ? local_data[:btn_size] : "md"
     <%= partial "views/partials/btn",
       locals: { local_data: {
         type: "state",
-        size: btnSize, style: "primary",
+        size: btnSize, style: btnStyle ? btnStyle : "primary",
         label_off: btnText,
         label_on: "Close",
         label_size: btnSize,
         page: "no-scroll", switch: true,
         aria_id: "activate-#{ modalID }",
-        aria_target_id: modalID }} %>
+        aria_target_id: modalID
+    }} %>
 
     <%= partial "views/partials/modal",
       locals: { local_data: {
@@ -42,6 +47,9 @@ btnSize = local_data[:btn_size] ? local_data[:btn_size] : "md"
         content: modalContent,
         contentPadding: true,
         form: (modalForm ? modalForm : false),
-        size: modalWidth }} %>
+        size: modalWidth
+
+    }} %>
+
   <% end %>
 </div>

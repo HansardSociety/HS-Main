@@ -48,10 +48,10 @@ headingAttrs = {
 
   <div class="panel__inner">
     <div class="panel__content panel__content--full">
-      <div class="grid grid--md grid--center">
+      <div class="grid grid--lg-content grid--center">
         <% if panelData[:show_title] || panelData[:image] %>
           <% if panelData[:show_title] %>
-            <div class="grid__cell grid__cell--md-12 e-hide-above-md">
+            <div class="grid__cell grid__cell--lg-12 e-hide-above-md">
 
               <% content_tag(headingLevel, headingAttrs) do %>
                 <% if panelSlug %>
@@ -81,7 +81,7 @@ headingAttrs = {
             </div>
           <% end %>
           <% if panelData[:image] %>
-            <% imgClasses = "grid__cell--md-12 grid__cell--md-above-md-5 e-align-cen" %>
+            <% imgClasses = "grid__cell--lg-12 grid__cell--lg-above-md-5 e-align-cen" %>
             <% if panelData[:image_shrink]
               imgClasses = "grid__cell--auto"
             end %>
@@ -108,7 +108,7 @@ headingAttrs = {
           <% end %>
         <% end %>
 
-        <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
+        <div class="grid__cell grid__cell--lg-12 grid__cell--lg-above-md-7">
           <% if panelData[:show_title] %>
             <div class="e-hide-below-md e-mgn-b-sm">
 

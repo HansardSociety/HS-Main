@@ -59,8 +59,60 @@ $colBase: 100 / 12;
     @extend %e-mgn-neg-t-#{ $sizeName };
 
     & > .grid__cell {
-      @extend %e-mgn-t-#{ $sizeName };
       @extend %e-mgn-l-#{ $sizeName };
+      @extend %e-mgn-t-#{ $sizeName };
+    }
+  }
+
+  .grid--#{ $sizeName }-content {
+    @extend %e-mgn-neg-l-#{ $sizeName };
+
+    @if $sizeName == sm {
+      @extend %e-mgn-neg-t-xxs;
+
+    } @else if $sizeName == sm {
+      @extend %e-mgn-neg-t-xs;
+
+    } @else if $sizeName == md {
+      @extend %e-mgn-neg-t-sm;
+
+    } @else if $sizeName == lg {
+      @extend %e-mgn-neg-t-md;
+
+    } @else if $sizeName == xl {
+      @extend %e-mgn-neg-t-lg;
+
+    } @else if $sizeName == xxl {
+      @extend %e-mgn-neg-t-lg;
+
+    } @else {
+      @extend %e-mgn-neg-t-#{ $sizeName };
+    }
+
+    & > .grid__cell {
+      @extend %e-mgn-l-#{ $sizeName };
+
+      @if $sizeName == sm {
+        @extend %e-mgn-t-xxs;
+
+      } @else if $sizeName == sm {
+        @extend %e-mgn-t-xs;
+
+      } @else if $sizeName == md {
+        @extend %e-mgn-t-sm;
+
+      } @else if $sizeName == lg {
+        @extend %e-mgn-t-md;
+
+      } @else if $sizeName == xl {
+        @extend %e-mgn-t-lg;
+
+      } @else if $sizeName == xxl {
+        @extend %e-mgn-t-lg;
+
+      } @else {
+        @extend %e-mgn-t-#{ $sizeName };
+      }
     }
 
     & > .grid__cell--fill {

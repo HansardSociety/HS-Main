@@ -28,11 +28,11 @@ url = "https://hansardsociety.org.uk/"
 
     <%# Page intro/ featured item %>
     <div class="content__header">
-      <div class="grid grid--md grid--center">
+      <div class="grid grid--lg-content grid--center">
 
         <%# Introduction %>
         <section
-          class="grid__cell grid__cell--md-above-md-7 grid__cell--fill copy
+          class="grid__cell grid__cell--lg-above-md-7 grid__cell--fill copy
                 <%= "grid__cell--order-2 grid__cell--above-md-order-1" if isReverseHeaderCats %>">
 
           <%= markdown(introduction, "byline") %>
@@ -40,7 +40,7 @@ url = "https://hansardsociety.org.uk/"
 
         <%# Featured side content %>
         <aside
-          class="grid__cell grid__cell--md-above-md-5 grid__cell--fill print__hide
+          class="grid__cell grid__cell--lg-above-md-5 grid__cell--fill print__hide
                 <%= "grid__cell--order-1 grid__cell--above-md-order-2" if isReverseHeaderCats %>">
 
           <%# Entry has featured content %>
@@ -69,10 +69,10 @@ url = "https://hansardsociety.org.uk/"
 
     <%# Main content %>
     <div class="content__section">
-      <div class="grid grid--md grid--center">
+      <div class="grid grid--lg grid--center">
         <section
           id="expand"
-          class="grid__cell grid__cell--md-above-md-7 grid__cell--expand grid__cell--fill JS-inactive copy">
+          class="grid__cell grid__cell--lg-above-md-7 grid__cell--expand grid__cell--fill JS-inactive copy">
 
           <%# Copy %>
           <%= markdown(copy) if copy %>
@@ -135,7 +135,7 @@ url = "https://hansardsociety.org.uk/"
         </section>
 
         <%# Side content %>
-        <aside class="grid__cell grid__cell--md-above-md-5 grid__cell--fill print__hide">
+        <aside class="grid__cell grid__cell--lg-above-md-5 grid__cell--fill print__hide">
 
           <%# Side cards %>
           <% if isMainCategories %>
