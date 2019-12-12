@@ -1,0 +1,10 @@
+blockquote.twitter-tweet {
+  // width: 100% !important;
+  background-color: violet;
+
+  p {
+    font-family: 'Times New Roman', Times, serif !important;
+    // @extend %e-ff-prim-roman;
+    // @extend %e-fz-sm;
+  }
+}

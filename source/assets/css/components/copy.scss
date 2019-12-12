@@ -158,7 +158,6 @@ blockquote {
   padding: 1rem !important;
 
   border-left: .5rem solid Get($colorGroups, orange, 2) !important;
-
 }
 
 /*    =Lists
@@ -433,13 +432,13 @@ table {
 
   img {
     @include above(md) {
-      max-width: calc(100% + 20rem);
+      max-width: calc(100% + 15rem);
     }
   }
 
   .plyr {
     @include above(md) {
-      min-width: calc(100% + 20rem);
+      min-width: calc(100% + 15rem);
     }
   }
 

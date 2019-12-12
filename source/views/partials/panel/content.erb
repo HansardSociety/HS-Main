@@ -34,7 +34,7 @@ end
 
 headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
 headingAttrs = {
-  "class": "title-lg #{ titleColor }",
+  "class": "title-lg #{ titleColor } #{ "e-mgn-b-md" if !panelData[:image] }",
 }
 %>
 
