@@ -256,10 +256,8 @@ url = "https://hansardsociety.org.uk/"
           title: "Latest" }} %>
     </section>
   <% end %>
-
-  <%= partial "views/partials/hist-btn", locals: {
-    category: @entry[:category],
-    sub_category: @entry[:sub_category]
-  } %>
-
 </article>
+<%= partial "views/partials/hist-btn", locals: {
+  category: @entry[:category],
+  sub_category: @entry[:sub_category]
+} %>

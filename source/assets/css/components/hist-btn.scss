@@ -5,7 +5,7 @@
   position: fixed;
   position: sticky;
 
-  @extend %e-rad-circ;
+  // @extend %e-rad-circ;
 
   @include below(md) {
     display: none;
@@ -20,7 +20,7 @@
 
     @extend %e-col-white-1;
     @extend %e-position-absolute;
-    @extend %e-rad-circ;
+    // @extend %e-rad-circ;
     @extend %e-trans-opacity;
     @extend %e-bgc-orange-2;
     @extend %e-box-shad-z1;
