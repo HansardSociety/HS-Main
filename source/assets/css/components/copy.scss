@@ -39,7 +39,6 @@ img {
   @extend %e-mgn-x-md;
 }
 
-iframe,
 .plyr,
 table {
   margin: 2rem auto;
@@ -92,14 +91,18 @@ strong > a {
 }
 
 img,
-blockquote {
+blockquote,
+.plyr {
   @extend %e-box-shad-z1;
 }
 
-img {
+img,
+.plyr {
   @extend %e-max-width-full;
   @extend %e-rad-slight;
+}
 
+img {
   ~ em {
     margin-top: -1rem;
 
@@ -115,7 +118,7 @@ img {
 }
 
 picture {
-  width: 100%;
+  @extend %e-width-full;
 }
 
 small {
@@ -422,8 +425,19 @@ table {
   img {
     @include above(md) {
       left: 50%;
-      max-width: calc(100% + 10rem);
       transform: translateX(-50%);
+    }
+  }
+
+  img {
+    @include above(md) {
+      max-width: calc(100% + 20rem);
+    }
+  }
+
+  .plyr {
+    @include above(md) {
+      min-width: calc(100% + 20rem);
     }
   }
 

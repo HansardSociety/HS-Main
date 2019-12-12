@@ -465,7 +465,7 @@ def panel(panelData)
 
   if isPanelAccordians || isPanelBand || isPanelContent
     panelShared.merge!({
-      copy: panelData.copy
+      copy: (panelData.copy if panelData.copy)
     }.compact)
   end
 
@@ -940,7 +940,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     sharedPageBase("childPage", context, entry) # core page data
 
-    context.copy = entry.copy # main copy
+    context.copy = (entry.copy if entry.copy) # main copy
     context.canonical_link = entry.canonical_link
 
     # Featured

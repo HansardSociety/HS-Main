@@ -1,0 +1,20 @@
+.plyr__poster {
+  background-size: cover;
+}
+
+.plyr__control {
+  background: Get($colorGroups, orange, 2) !important;
+
+  &:hover {
+    background: Get($colorGroups, orange, 3) !important;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 5px rgba(232, 80, 55, .5) !important;
+  }
+}
+
+.plyr--full-ui input[type=range] {
+  color: Get($colorGroups, orange, 3) !important;
+}
+
