@@ -9,5 +9,5 @@ import { netlifyForms } from "./modules/form";
 import { shrinkNav } from "./modules/nav";
 import { truncate } from "./modules/truncate";
 import { historyNav } from "./modules/history";
-import { imgCaptions, setIcons } from "./modules/copy";
+import { setIcons } from "./modules/copy";
 import { video } from "./modules/video";
