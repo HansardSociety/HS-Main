@@ -362,13 +362,15 @@ table {
  * =Misc.
 ************************************************************/
 
+.caption,
 .img-caption {
   margin-top: -1.5rem;
-  max-width: 37.5rem;
+  margin-bottom: 2rem !important;
+  max-width: 30rem;
   width: 100%;
+  opacity: .85;
 
   @extend %e-align-cen;
-  @extend %e-col-grey-3;
   @extend %e-display-block;
   @extend %e-fz-xs;
   @extend %e-mgn-auto-x;
@@ -376,7 +378,7 @@ table {
 
 .toc-link {
   left: -.375rem;
-  opacity: .75;
+  opacity: .85;
   margin-top: 1.5rem;
 
   @extend %e-fz-xs;
