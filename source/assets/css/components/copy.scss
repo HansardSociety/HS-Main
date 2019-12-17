@@ -397,8 +397,8 @@ table {
   }
 }
 
-.aside {
-
+.aside,
+.aside-r {
   @extend %e-bgc-white-2;
   @extend %e-fz-xs;
   @extend %e-pad-sm;
@@ -407,8 +407,21 @@ table {
 
   @include above(sm) {
     width: 50%;
+    margin-right: 1rem;
+  }
+}
+
+.aside {
+  @include above(sm) {
     float: left;
     margin-right: 1rem;
+  }
+}
+
+.aside-r {
+  @include above(sm) {
+    float: right;
+    margin-left: 1rem;
   }
 }
 
@@ -451,11 +464,24 @@ table {
     }
   }
 
-  .aside {
+  .aside,
+  .aside-r {
     @include above(md) {
       width: calc(50% - 2rem);
+    }
+  }
+
+  .aside {
+    @include above(md) {
       left: -3rem;
       margin-right: -2rem;
+    }
+  }
+
+  .aside-r {
+    @include above(md) {
+      right: -3rem;
+      margin-left: -2rem;
     }
   }
 
