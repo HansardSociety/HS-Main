@@ -13,7 +13,7 @@ urls = local_data[:icons].reject(&:nil?)
   <a
     class="social <%= "grid__cell grid__cell--xxs" if urls.length > 0 %>"
     href="<%= url =~ /@/ ? "mailto:" + url : origURL %>"
-    title="<%= url =~ /@/ ? "Email" : "Follow on " + domain.sld.capitalize %>"
+    title="<%= url =~ /@/ ? "Email" : domain.sld.capitalize %>"
     target="_blank"
     rel="noopener">
     <%= partial "views/partials/icon",
