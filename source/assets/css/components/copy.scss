@@ -121,7 +121,9 @@ picture {
   @extend %e-width-full;
 }
 
+.small,
 small {
+  opacity: .85;
   @extend %e-fz-xs;
   @extend %e-display-block;
 }
