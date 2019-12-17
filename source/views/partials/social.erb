@@ -15,7 +15,7 @@ urls = local_data[:icons].reject(&:nil?)
     href="<%= url =~ /@/ ? "mailto:" + url : origURL %>"
     title="<%= url =~ /@/ ? "Email" : domain.sld.capitalize %>"
     target="_blank"
-    rel="noopener">
+    rel="noreferrer noopener">
     <%= partial "views/partials/icon",
       locals: {
         icon: "#{ url =~ /@/ ? "email" : "social-" + domain.sld }",

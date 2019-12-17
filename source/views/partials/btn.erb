@@ -63,6 +63,7 @@ btnAttributes = {
   "class": "#{ btnClasses }",
   "href": (url if url),
   "target": ("_blank" if (url && !url.include?(siteEnvURL()))),
+  "rel": ("noreferrer noopener" if (url && !url.include?(siteEnvURL()))),
   "type": (isLink ? nil : (form ? "submit" : "button")),
   "aria-controls": (ariaTargetId if ariaTargetId),
   # "tabindex": "1",
