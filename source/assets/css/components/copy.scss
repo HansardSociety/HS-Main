@@ -90,6 +90,12 @@ strong > a {
   @extend %e-ff-prim-heavy;
 }
 
+em {
+  font-style: normal;
+
+  @extend %e-ff-prim-oblique;
+}
+
 img,
 blockquote,
 .plyr {
