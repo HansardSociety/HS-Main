@@ -15,6 +15,10 @@
   opacity: 0;
 
   @extend %e-trans-opacity;
+
+  & > .flickity-viewport {
+    cursor: default;
+  }
 }
 
 .carousel__item {
