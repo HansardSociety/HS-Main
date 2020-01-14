@@ -90,13 +90,10 @@
     @extend %e-bgc-brand-green-3;
   }
 
-  &::after {
-    content: "→";
-    left: calc(100% - 2rem);
-    top: 49%;
-    transform: translateY(-50%);
+  > span {
+    left: calc(100% - 2.25rem);
 
-    @extend %e-pseudo-elem;
+    @extend %e-position-absolute;
   }
 }
 

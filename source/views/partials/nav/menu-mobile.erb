@@ -94,14 +94,32 @@ navSorted = local_data[:nav_items]
                       <% end %>
                       <% scItems.each do |scItem| %>
                         <li class="menu__item">
-                          <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>"><%= scItem[:title] %></a>
+                          <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>">
+                            <%= scItem[:title] %>
+                            <span aria-hidden="true">
+                              <%= partial "views/partials/icon",
+                                locals: {
+                                  icon: "ios-arrow-thin-right",
+                                  size: "xs"
+                              } %>
+                            </span>
+                          </a>
                         </li>
                       <% end %>
                     <% end %>
                   <% else %>
                     <% items.each do |item| %>
                       <li class="menu__item">
-                        <a class="menu__link" href="<%= internalURL(item[:slug]) %>"><%= item[:title] %></a>
+                        <a class="menu__link" href="<%= internalURL(item[:slug]) %>">
+                          <%= item[:title] %>
+                          <span aria-hidden="true">
+                            <%= partial "views/partials/icon",
+                              locals: {
+                                icon: "ios-arrow-thin-right",
+                                size: "xs"
+                            } %>
+                          </span>
+                        </a>
                       </li>
                     <% end %>
                   <% end %>
@@ -132,14 +150,32 @@ navSorted = local_data[:nav_items]
                       <% end %>
                       <% scItems.each do |scItem| %>
                         <li class="menu__item">
-                          <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>"><%= scItem[:title] %></a>
+                          <a class="menu__link" href="<%= internalURL(scItem[:slug]) %>">
+                            <%= scItem[:title] %>
+                            <span aria-hidden="true">
+                              <%= partial "views/partials/icon",
+                                locals: {
+                                  icon: "ios-arrow-thin-right",
+                                  size: "xs"
+                              } %>
+                            </span>
+                          </a>
                         </li>
                       <% end %>
                     <% end %>
                   <% else %>
                     <% items.each do |item| %>
                       <li class="menu__item">
-                        <a class="menu__link" href="<%= internalURL(item[:slug]) %>"><%= item[:title] %></a>
+                        <a class="menu__link" href="<%= internalURL(item[:slug]) %>">
+                          <%= item[:title] %>
+                          <span aria-hidden="true">
+                            <%= partial "views/partials/icon",
+                              locals: {
+                                icon: "ios-arrow-thin-right",
+                                size: "xs"
+                            } %>
+                          </span>
+                        </a>
                       </li>
                     <% end %>
                   <% end %>
