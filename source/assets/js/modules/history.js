@@ -1,13 +1,16 @@
 
 const historyNav = (() => {
-  if (document.querySelector(".page-storage")) {
+  const pageStorageElem = document.querySelector(".page-storage")
+  
+  if (pageStorageElem) {
     const histBtn = document.querySelector(".hist-btn");
-    const title = document.querySelector(".banner__title").innerText;
     const path = window.location.pathname;
 
-    let category = document.querySelector(".banner__content .meta-label > a:nth-child(1)").innerText.toLowerCase();
-    let subCategory = document.querySelector(".banner__content .meta-label > a:nth-child(2)");
-    subCategory = subCategory ? subCategory.innerText.toLowerCase() : null;
+    const pageData = JSON.parse(pageStorageElem.dataset.pageStorage);
+
+    let title = pageData.title;
+    let category = pageData.category;
+    let subCategory = pageData.subCategory;
 
     let storedPages = sessionStorage.getItem("pages");
 
@@ -49,6 +52,10 @@ const historyNav = (() => {
 
       // Create hist elems
       function createHistItem(pageTitle, pagePath, pageCategory, pageSubCategory) {
+        pageTitle = decodeURIComponent(pageTitle.replace(/\+/g, "%20"));
+
+        console.log(pageTitle)
+
         let histBtnItemTmpl = histBtn.querySelector(".hist-btn__tmpl").innerHTML;
         let elem = document.createElement("li");
 

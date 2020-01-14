@@ -1,6 +1,15 @@
-<% @entry = entry_data %>
+<%
+@entry = entry_data
+pageStorage = {
+  title: CGI.escape(@entry[:title]),
+  category: "themes",
+}.compact.to_json.html_safe
+%>
 
-<article>
+<article
+  class="page-storage"
+  data-page-storage=<%= pageStorage %>
+>
   <%= partial "views/partials/banner/landing-page",
     locals: { local_data: {
     entry_data: @entry }} %>
@@ -39,3 +48,7 @@
   <%= partial "views/partials/panel/theme-cards",
     locals: { title: "More themes" } %>
 </article>
+<%= partial "views/partials/hist-btn", locals: {
+  category: "Themes".parameterize
+  # sub_category: @entry[:sub_category]
+} %>

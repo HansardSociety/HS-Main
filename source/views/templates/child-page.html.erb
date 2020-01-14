@@ -15,11 +15,19 @@ nonPages = ["people", "product", "registration"]
 # For share buttons
 safeTitle = CGI.escape(@entry[:title])
 url = "https://hansardsociety.org.uk/"
+
+pageStorage = {
+  title: safeTitle,
+  category: @entry[:category],
+  subCategory: @entry[:sub_category]
+}.compact.to_json.html_safe
 %>
 
 <article
   id="category__<%= @entry[:category] + (@entry[:sub_category] ? "__#{ @entry[:sub_category] }" : "" ) %>"
-  class="print print--child-page page-storage">
+  class="print print--child-page page-storage"
+  data-page-storage=<%= pageStorage %>
+>
 
   <%= partial "views/partials/banner/child-page",
     locals: { local_data: { entry_data: @entry }} %>

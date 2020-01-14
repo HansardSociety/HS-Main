@@ -1,8 +1,17 @@
-<% @entry = entry_data %>
+<%
+@entry = entry_data
+pageStorage = {
+  title: CGI.escape(@entry[:title]),
+  category: @entry[:category],
+  subCategory: @entry[:sub_category]
+}.compact.to_json.html_safe
+%>
 
 <article
   id="category__<%= @entry[:category] + (@entry[:sub_category] ? "__#{ @entry[:sub_category] }" : "" ) %> page-storage"
-  class="site-container__main e-bgc-white-1 print print--landing-page page-storage">
+  class="site-container__main e-bgc-white-1 print print--landing-page page-storage"
+  data-page-storage=<%= pageStorage %>
+>
 
   <% if @entry[:banner_image] %>
     <%= partial "views/partials/banner/landing-page",
