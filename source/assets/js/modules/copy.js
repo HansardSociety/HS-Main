@@ -23,9 +23,10 @@
 
 const setIcons = (() => {
   let tocLinks = document.querySelectorAll(".toc-link");
-  let iconTemplate = document.querySelector("script[id='icon-template']").innerHTML.replace(/`/g, "");
 
   if (tocLinks) {
+    let iconTemplate = document.querySelector("script[id='icon-template']").innerHTML.replace(/`/g, "");
+
     tocLinks.forEach((el) => {
       let tocText = el.innerText;
       let tocIcon = iconTemplate
