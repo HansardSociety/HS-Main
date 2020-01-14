@@ -54,8 +54,6 @@ const historyNav = (() => {
       function createHistItem(pageTitle, pagePath, pageCategory, pageSubCategory) {
         pageTitle = decodeURIComponent(pageTitle.replace(/\+/g, "%20"));
 
-        console.log(pageTitle)
-
         let histBtnItemTmpl = histBtn.querySelector(".hist-btn__tmpl").innerHTML;
         let elem = document.createElement("li");
 
