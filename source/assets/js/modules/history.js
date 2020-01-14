@@ -67,7 +67,13 @@ const historyNav = (() => {
         link.innerText = pageTitle.length > 90 ? pageTitle.substring(0, 89).trim() + "…" : pageTitle;
         link.classList.remove("is-active");
 
-        let catHtml = `<a href="/${ pageCategory }" title="Go to: ${ pageCategory }">${ pageCategory }</a>`;
+        let catHtml = "";
+        if (pageCategory === "themes") {
+          catHtml = `<a href="/#panel-themes" title="Go to: Themes">${ pageCategory }</a>`;
+        } else {
+          catHtml = `<a href="/${ pageCategory }" title="Go to: ${ pageCategory }">${ pageCategory }</a>`;
+        }
+        
         if (pageSubCategory) {
           catHtml += ` / <a href="/${ pageCategory }/${ pageSubCategory }" title="Go to: ${ pageSubCategory }">${ pageSubCategory }</a>`;
         }

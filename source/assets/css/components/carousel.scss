@@ -15,10 +15,6 @@
   opacity: 0;
 
   @extend %e-trans-opacity;
-
-  & > .flickity-viewport {
-    cursor: default;
-  }
 }
 
 .carousel__item {
@@ -214,4 +210,8 @@
       @extend %e-bgc-white-1;
     }
   }
+}
+
+.flickity-viewport {
+  cursor: default !important;
 }

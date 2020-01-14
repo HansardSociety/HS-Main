@@ -16,7 +16,7 @@ subCategory = locals[:sub_category]
         <li class="hist-btn__tmpl is-active">
           <a class="hist-btn__link link-white" href="<%= @entry[:url] %>" title="Go to: <%= @entry[:title] %>"><%= @entry[:title].length > 90 ? "#{ @entry[:title][0...89].rstrip }…" : @entry[:title] %></a>
           <span class="hist-btn__cat">
-            <a href="/<%= category %>" title="Go to: <%= category %>"><%= category %></a>
+            <a href="/<%= category == "themes" ? "#panel-themes" : category %>" title="Go to: <%= category %>"><%= category %></a>
             <% if subCategory %>
               /&nbsp;<a href="/<%= category %>/<%= subCategory %>" title="Go to: <%= subCategory %>"><%= subCategory %></a>
             <% end %>
