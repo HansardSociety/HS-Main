@@ -1,0 +1,25 @@
+<%
+pages = data.hs.child_page.select{ |category, page| page[:category] == "blog" }
+pagesByDate = pages.sort_by{ |category, page| - page[:date_time][:integer] }
+%>
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Hansard Society Blog – Parliament and UK Politics</title>
+  <link rel="self" href="<%= siteData(:site_url) %>/feed" />
+  <updated><%= pagesByDate.map{ |category, page| page[:date_time][:original] }[0] %></updated>
+  <author>
+    <name>Hansard Society</name>
+  </author>
+  <id><%= siteData(:site_url) %></id>
+
+  <% pagesByDate.each do |category, page| %>
+    <entry>
+      <title><%= markdownStrip(page[:title]).rstrip %></title>
+      <link href="<%= siteData(:site_url) %>/<%= page[:slug] %>" />
+      <id><%= siteData(:site_url) %>/<%= page[:slug] %></id>
+      <updated><%= page[:date_time][:original] %></updated>
+      <summary><%= markdownStrip(page[:introduction]) %></summary>
+    </entry>
+  <% end %>
+</feed>
