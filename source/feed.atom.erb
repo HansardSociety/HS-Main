@@ -29,7 +29,7 @@ pagesByDate = pages.sort_by{ |category, page| - page[:date_time][:integer] }
       <summary><%= markdownStrip(page[:introduction]) %></summary>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
-          <p>Get the <a href="<%= pageUrl %>" title="Go to article">full article here</a></p>
+          <p>Get the <a href="<%= pageUrl %>" title="Go to article">full article here</a>.</p>
         </div>
       </content>
     </entry>
