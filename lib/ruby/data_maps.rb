@@ -61,7 +61,7 @@ end
 
 def dateTime(data)
   dateTimeData = {
-    original: data.date_time,
+    original: data.date_time.to_s,
     integer: data.date_time.strftime("%s").to_i,
     date: data.date_time.strftime("%d.%m.%y"),
     time: data.date_time.strftime("%I:%M %p"),
