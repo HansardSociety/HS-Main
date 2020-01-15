@@ -11,12 +11,12 @@ pagesByDate = pages.sort_by{ |category, page| - page[:date_time][:integer] }
   <author>
     <name>Hansard Society</name>
   </author>
-  <id><%= siteData(:site_url) %></id>
+  <id><%= siteData(:site_url) %>/</id>
   <rights>Copyright © <%= Date.today.year %>, Hansard Society Ltd.</rights>
 
   <%
   pagesByDate.each do |category, page|
-    pageUrl = "#{ siteData(:site_url) }/#{ page[:slug] }"
+    pageUrl = "#{ siteData(:site_url) }/#{ page[:slug] }.html"
     pageTitle = markdownStrip(page[:title]).rstrip
   %>
     <entry>
@@ -27,7 +27,7 @@ pagesByDate = pages.sort_by{ |category, page| - page[:date_time][:integer] }
       <summary><%= markdownStrip(page[:introduction]) %></summary>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
-          <p>Get the <a href="<%= pageUrl %>" title="Go to: <%= pageTitle %>">full article here</a></p>
+          <p>Get the <a href="<%= pageUrl %>" title="Go to article">full article here</a></p>
         </div>
       </content>
     </entry>
