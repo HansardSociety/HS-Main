@@ -13,8 +13,8 @@ pagesByDate = pages.sort_by{ |category, page| - page[:date_time][:integer] }
   </author>
   <id><%= siteData(:site_url) %>/</id>
   <rights>Copyright © <%= Date.today.year %>, Hansard Society Ltd.</rights>
-  <logo>/feedlogo.jpg</logo>
-  <icon>/feedicon.jpg</icon>
+  <logo><%= siteData(:site_url) %>/feedlogo.jpg</logo>
+  <icon><%= siteData(:site_url) %>/feedicon.jpg</icon>
 
   <%
   pagesByDate.each do |category, page|
