@@ -31,8 +31,8 @@
     "dev:clean": "npm run clean && npm run data:preview && npm run before-build && MM_ENV=dev bundle exec middleman server",
     "dev:clean:prod": "npm run clean && npm run data:live && npm run before-build && MM_ENV=dev bundle exec middleman server",
     "==================== POST BUILD": "====================",
-    "post:prod": "NODE_ENV=prod node lib/node/_scripts.js",
-    "post:preview": "NODE_ENV=preview node lib/node/_scripts.js"
+    "post:prod": "NODE_ENV=prod node lib/js/_scripts.js",
+    "post:preview": "NODE_ENV=preview node lib/js/_scripts.js"
   },
   "keywords": [],
   "author": "@LukeBoga",
