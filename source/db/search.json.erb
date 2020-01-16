@@ -7,7 +7,6 @@ seperator = " > "
 db = allPages.map do |id, page|
   {
     objectID: page.ID,
-    contentType: page.TYPE,
     title: markdownStrip(page.title).gsub(/(\n|‘|’)/, ""),
     description: markdownStrip(page.introduction).gsub(/(\n|‘|’)/, ""),
     slug: page.slug,
