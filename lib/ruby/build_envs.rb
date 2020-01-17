@@ -110,8 +110,6 @@ module BuildEnvs
       end
 
       if MM_ENV == "prod"
-        # Submit Algolia DB
-        # system "node ./lib/js/_after-build"
         system "npm run post:prod"
       end
 

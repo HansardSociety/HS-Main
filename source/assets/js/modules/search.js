@@ -1,9 +1,9 @@
-import {toggleClass} from "./core"
-import instantSearch from "instantsearch.js/dist/instantsearch"
-import Blazy from "blazy"
-import debounce from "lodash/debounce"
+import {toggleClass} from "./core";
+import instantSearch from "instantsearch.js/dist/instantsearch";
+import Blazy from "blazy";
+import debounce from "lodash/debounce";
 
-const blazy = new Blazy
+const blazy = new Blazy;
 
 function template(templateName) {
   return document.querySelector(`#search-template-${templateName}`).innerHTML.replace(/`/g, "");
@@ -16,16 +16,16 @@ const algoliaSearch = (() => {
     /* =Core
     ***************************************************************************/
 
-    const searchType = block.dataset.searchMainAttr
-    const searchFilter = block.dataset.searchFilter
-    const isThemeSearch = searchType == "theme"
-    const isCategorySearch = searchType == "category"
+    const searchType = block.dataset.searchMainAttr;
+    const searchFilter = block.dataset.searchFilter;
+    const isThemeSearch = searchType == "theme";
+    const isCategorySearch = searchType == "category";
 
-    let searchFilterParam = ""
+    let searchFilterParam = "";
 
     // Filter params
-    if (isThemeSearch) searchFilterParam = `theme.lvl0:"${searchFilter}"`
-    if (isCategorySearch) searchFilterParam = `category.lvl0:"${searchFilter}"`
+    if (isThemeSearch) searchFilterParam = `theme.lvl0:"${searchFilter}"`;
+    if (isCategorySearch) searchFilterParam = `category.lvl0:"${searchFilter}"`;
 
     /*  =Config
      *****************************************/
@@ -35,7 +35,7 @@ const algoliaSearch = (() => {
         hitsPerPage: 4,
         filters: searchFilterParam
       })
-    )
+    );
 
     /*  =Search box
      *****************************************/
@@ -62,7 +62,7 @@ const algoliaSearch = (() => {
           search(query)
         }, 600)
       })
-    )
+    );
 
     /*  =Hits
      *****************************************/
@@ -83,8 +83,8 @@ const algoliaSearch = (() => {
           empty: "",
           item: template("main-card")
         }
-      }),
-    )
+      })
+    );
 
     /* =Filters
     ***************************************************************************/
@@ -99,7 +99,7 @@ const algoliaSearch = (() => {
         heading,
         transformItemData,
         transformItems
-      } = opts
+      } = opts;
 
       const refinementListOpts = {
         container: block.querySelector(container),
@@ -147,7 +147,7 @@ const algoliaSearch = (() => {
         container: ".search__filter-1",
         attributeName: "category.lvl0",
         heading: "Category"
-      })
+      });
 
       // Sub-themes
       refinementWidget({
@@ -161,7 +161,7 @@ const algoliaSearch = (() => {
         transformItems: items => items.filter(
           i => i.value.includes(searchFilter)
         )
-      })
+      });
 
     } else if (isCategorySearch) {
 
@@ -177,14 +177,14 @@ const algoliaSearch = (() => {
           i.label = i.value.split(">").pop()
           return i
         }
-      })
+      });
 
       // Themes
       refinementWidget({
         container: ".search__filter-2",
         attributeName: "theme.lvl0",
         heading: "Theme",
-      })
+      });
 
     } else {
 
@@ -196,7 +196,7 @@ const algoliaSearch = (() => {
         container: ".search__filter-1",
         attributeName: "category.lvl0",
         heading: "Category"
-      })
+      });
     }
 
     /* =Sorting
@@ -207,11 +207,11 @@ const algoliaSearch = (() => {
         container: block.querySelector(".search__sort-inner"),
         indices: [
           {
-            name: "pages_by_date",
-            label: "Date (desc)"
-          }, {
             name: "pages",
             label: "Relevance"
+          }, {
+            name: "pages_by_date",
+            label: "Date (desc)"
           }
         ],
         cssClasses: {
@@ -220,7 +220,7 @@ const algoliaSearch = (() => {
           item: "search__sort-item"
         }
       })
-    )
+    );
 
     /* =Clear
     ***************************************************************************/
@@ -233,7 +233,7 @@ const algoliaSearch = (() => {
           link: "<span class='search__clear-link'>Clear search and filters<span>"
         }
       })
-    )
+    );
 
     /* =Lazy-load images
     ***************************************************************************/
@@ -247,9 +247,9 @@ const algoliaSearch = (() => {
         if (img.classList.contains("b-loaded")) false // do nothing
         else blazy.load(img)
       }
-    })
+    });
 
-    search.start()
+    search.start();
   }
 
   /* =Init
@@ -261,7 +261,7 @@ const algoliaSearch = (() => {
     return instantSearch({
       appId: "AJC8ZDIWBJ",
       apiKey: "66a9759f27ae50a3c41abf7b82181a11",
-      indexName: "pages_by_date",
+      indexName: "pages",
       routing: true,
 
       searchFunction: function(helper) {
@@ -278,8 +278,7 @@ const algoliaSearch = (() => {
         }
         helper.search();
       }
-    })
-
+    });
   }
 
   // Need to initiate after DOM loaded to return "containers"
@@ -289,8 +288,8 @@ const algoliaSearch = (() => {
 
     if (siteSearchContainer) multiSearch(iSearch(siteSearchContainer), siteSearchContainer)
     if (filteredSearchContainer) multiSearch(iSearch(filteredSearchContainer), filteredSearchContainer)
-  })
-})()
+  });
+})();
 
 
 /* =Toggle filters
@@ -307,6 +306,6 @@ const toggleFilters = (() => {
       else this.innerText = "Show filters"
     })
   }
-})()
+})();
 
 export { algoliaSearch, toggleFilters }
