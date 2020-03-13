@@ -213,11 +213,12 @@ const renderCharts = () => {
           const isDatasetDoughnut = datasetItem.type === "doughnut"
           const isDatasetLine = datasetItem.type === "line"
           const isDatasetPie = datasetItem.type === "pie"
+          const isDatasetScatter = datasetItem.type === "scatter"
 
           let title = false
           if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) {
             title = datasetItem.label
-          } else if (isDatasetBar || isDatasetHorizontalBar || isDatasetLine) {
+          } else if (isDatasetBar || isDatasetHorizontalBar || isDatasetLine || isDatasetScatter) {
             const itemLabel = item[0].label.replace(/(?!, ),/g, " ");
 
             if (itemLabel && itemLabel !== "undefined") title = itemLabel;
@@ -514,6 +515,7 @@ const renderCharts = () => {
         const isDatasetLine = context.dataset.type === "line"
         const isDatasetPie = context.dataset.type === "pie"
         const isDatasetPolarArea = context.dataset.type === "polarArea"
+        const isDatasetScatter = context.dataset.type === "scatter"
 
         let labelText = ""
 
@@ -616,6 +618,7 @@ const renderCharts = () => {
       const isDatasetHorizontalBar = dataset.type && dataset.type === "horizontalBar"
       const isDatasetLine = dataset.type && dataset.type === "line"
       const isDatasetPie = dataset.type && dataset.type === "pie"
+      const isDatasetScatter = dataset.type && dataset.type === "scatter"
 
       const customConfig = chartConfig.customConfig
 
@@ -651,7 +654,7 @@ const renderCharts = () => {
                   }
                 }
 
-                if (!colorConfig.incrementalColors && (isDatasetBar || isDatasetHorizontalBar || isDatasetLine)) {
+                if (!colorConfig.incrementalColors && (isDatasetBar || isDatasetHorizontalBar || isDatasetLine || isDatasetScatter)) {
                   dataset.backgroundColor = selectColorPalette[datasetIdIndex]
                   break
                 } else {
@@ -698,7 +701,7 @@ const renderCharts = () => {
 
       // If no border is defined add one to == bgc
       if (dataset.backgroundColor && !dataset.borderColor) {
-        if (isDatasetLine) {
+        if (isDatasetLine || isDatasetScatter) {
           dataset.borderColor = dataset.backgroundColor
           dataset.hoverBorderColor = dataset.backgroundColor
 
@@ -714,7 +717,7 @@ const renderCharts = () => {
       }
 
       // Set dataset defaults
-      if (isDatasetLine) {
+      if (isDatasetLine || isDatasetScatter) {
         if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = dataset.backgroundColor
         if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = dataset.backgroundColor
         if (!dataset.pointRadius) dataset.pointRadius = 5
