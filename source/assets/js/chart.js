@@ -117,7 +117,7 @@ const scalesConfig = {
   gridLines: {
     color: offWhite,
     zeroLineColor: lightGrey,
-    lineWidth: 2,
+    lineWidth: 1,
     borderDash: dashes,
     tickMarkLength: 15
   },
@@ -164,6 +164,7 @@ const renderCharts = () => {
     const isPie = type === "pie"
     const isLine = type === "line"
     const isRadialGauge = type === "radialGauge"
+    const isScatter = type === "scatter"
 
     const customAnnotations = chartConfig.customConfig.annotations
 
@@ -216,12 +217,17 @@ const renderCharts = () => {
           const isDatasetScatter = datasetItem.type === "scatter"
 
           let title = false
+
           if ((isDatasetPie || isDatasetDoughnut) && datasetItem.label) {
             title = datasetItem.label
-          } else if (isDatasetBar || isDatasetHorizontalBar || isDatasetLine || isDatasetScatter) {
+
+          } else if (isDatasetBar || isDatasetHorizontalBar || isDatasetLine) {
             const itemLabel = item[0].label.replace(/(?!, ),/g, " ");
 
             if (itemLabel && itemLabel !== "undefined") title = itemLabel;
+
+          } else if (isDatasetScatter) {
+            //
           }
           return title
         }, // END: => callbacks
@@ -317,7 +323,7 @@ const renderCharts = () => {
         }
 
         // Horizontal bar
-        if (isHorizontalBar) {
+        if (isHorizontalBar || isLine || isScatter) {
           axis.gridLines = {}
           axis.gridLines.lineWidth = 1
           axis.gridLines.color = hexToRGBA(offWhite, 0.5)
