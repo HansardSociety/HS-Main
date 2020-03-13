@@ -228,14 +228,6 @@ end
       <hr>
       <h3 class="form__title e-mgn-t-md">Shipping information</h3>
 
-      <div class="copy e-fz-xs e-mgn-b-sm">
-        <%= markdown(
-          siteData(:checkout_shipping_information)
-            .gsub("{{uk_rate}}", "#{ sprintf("%.2f", formData[:payment_form_shipping_rate][:uk_rate]) }")
-            .gsub("{{international_rate}}", "#{ sprintf("%.2f", formData[:payment_form_shipping_rate][:international_rate]) }")
-        ) %>
-      </div>
-
       <!--	=Address: line 1	-->
       <label class="e-width-full">
         <span class="form__label label-xxs">Address line 1</span>
@@ -306,7 +298,7 @@ end
               hidden=""
             >Please select a country...</option>
             <% siteData(:checkout_countries_list).each do |country| %>
-              <option value="<%= country %>"><%= country %></option>
+              <option data-zone="<%= country[:zone] %>" value="<%= country[:name] %>"><%= country[:name] %></option>
             <% end %>
           </select>
           <span class="form__err"><%= errText %></span>
