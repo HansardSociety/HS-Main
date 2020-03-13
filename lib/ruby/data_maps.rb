@@ -297,8 +297,12 @@ def featuredData(data, opts = {})
         title: data.payment_form_shipping_rate.title,
         uk_rate: data.payment_form_shipping_rate.uk_rate,
         uk_sku: data.payment_form_shipping_rate.uk_sku,
-        international_rate: data.payment_form_shipping_rate.international_rate,
-        international_sku: data.payment_form_shipping_rate.international_sku
+        europe_rate: data.payment_form_shipping_rate.europe_rate,
+        europe_sku: data.payment_form_shipping_rate.europe_sku,
+        world_zone_1_rate: data.payment_form_shipping_rate.world_zone_1_rate,
+        world_zone_1_sku: data.payment_form_shipping_rate.world_zone_1_sku,
+        world_zone_2_rate: data.payment_form_shipping_rate.world_zone_2_rate,
+        world_zone_2_sku: data.payment_form_shipping_rate.world_zone_2_sku
       } if data.payment_form_shipping_rate),
       payment_success_page_slug: (slug(data.payment_success_page) if data.payment_success_page),
       image: {
