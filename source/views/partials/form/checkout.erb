@@ -46,13 +46,19 @@ end
 >
 
   <!-- Placeholder -->
-  <div class="form__main copy" style="display:none;">
+  <div
+    class="form__main copy"
+    <%# style="display:none;"%>
+  >
     <h4>We're upgrading our checkout system</h4>
     <p>To purchase this item, please email <a href="mailto:contact@hansardsociety.org.uk">contact@hansardsociety.org.uk</a> and we will send you an invoice to make a bank transfer.</p>
   </div>
 
   <!--	=Main fields	-->
-  <div class="form__main">
+  <div
+    class="form__main"
+    style="display:none;"
+  >
     <label class="e-zzz">
       <span>Please skip this field:&nbsp;</span>
       <input type="email" name="r2d2-03">
@@ -214,7 +220,7 @@ end
         type="email"
         name="email"
         data-name="customerEmail"
-        placeholder="eg. skinghall@email.com"
+        placeholder="eg. s.kinghall@email.com"
         required="required"
       >
       <span class="form__err"><%= errText %></span>
