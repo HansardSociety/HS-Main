@@ -19,7 +19,7 @@ $animate: (
   fade-in-opaque: (
     prop: opacity,
     start: 0,
-    end: .85,
+    end: .925,
     easing: map-get($easing, core)
   ),
   slide-up-in: (

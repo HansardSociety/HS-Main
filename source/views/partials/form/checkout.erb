@@ -28,12 +28,15 @@ if isShipping
   itemNameInputAttrs.merge!({
     "data-item-shipping-rate-uk": formData[:payment_form_shipping_rate][:uk_rate],
     "data-item-shipping-sku-uk": formData[:payment_form_shipping_rate][:uk_sku],
-    "data-item-shipping-rate-international": formData[:payment_form_shipping_rate][:international_rate],
-    "data-item-shipping-sku-international": formData[:payment_form_shipping_rate][:international_sku]
+    "data-item-shipping-rate-europe": formData[:payment_form_shipping_rate][:europe_rate],
+    "data-item-shipping-sku-europe": formData[:payment_form_shipping_rate][:europe_sku],
+    "data-item-shipping-rate-world-zone1": formData[:payment_form_shipping_rate][:world_zone_1_rate],
+    "data-item-shipping-sku-world-zone1": formData[:payment_form_shipping_rate][:world_zone_1_sku],
+    "data-item-shipping-rate-world-zone2": formData[:payment_form_shipping_rate][:world_zone_2_rate],
+    "data-item-shipping-sku-world-zone2": formData[:payment_form_shipping_rate][:world_zone_2_sku]
   })
 end
 %>
-
 <form
   class="form form--netlify form--checkout"
   name="<%= config[:ENV] == "production" ? formName : formName + "-ENV-" + config[:ENV] %>"
@@ -48,7 +51,7 @@ end
   <!-- Placeholder -->
   <div
     class="form__main copy"
-    <%# style="display:none;"%>
+    style="display:none;"
   >
     <h4>We're upgrading our checkout system</h4>
     <p>To purchase this item, please email <a href="mailto:contact@hansardsociety.org.uk">contact@hansardsociety.org.uk</a> and we will send you an invoice to make a bank transfer.</p>
@@ -57,7 +60,6 @@ end
   <!--	=Main fields	-->
   <div
     class="form__main"
-    style="display:none;"
   >
     <label class="e-zzz">
       <span>Please skip this field:&nbsp;</span>
@@ -141,7 +143,7 @@ end
       =Product information
     ------------------------------------------------>
 
-    <h3 class="form__title">Product information</h3>
+    <h3 class="form__title title-lg">Checkout</h3>
 
     <div class="form__product">
       <div class="form__product-left">
@@ -153,7 +155,8 @@ end
       <div class="form__product-right">
 
         <!--	=Item: name	-->
-        <p class="e-fz-xs e-mgn-b-xs"><strong>Item</strong>: <%= itemName %></p>
+        <span class="label-xxs e-col-brand-green-2">Item</span>
+        <p class="e-mgn-b-xs"><%= itemName %></p>
 
         <!--	=Item: quantity	-->
         <div class="form__select-wrapper">
@@ -181,8 +184,7 @@ end
       =Customer information
     ------------------------------------------------>
 
-    <hr>
-    <h3 class="form__title e-mgn-t-md">Customer information</h3>
+    <h3 class="form__title e-pad-t-sm"><span class="e-col-orange-2">1.</span> Customer information</h3>
 
     <!--	=First name	-->
     <label class="e-width-full">
@@ -192,7 +194,7 @@ end
         type="text"
         name="first-name"
         data-name="customerFirstName"
-        placeholder="eg. Stephen"
+        placeholder="e.g. Stephen"
         required="required"
       >
       <span class="form__err"><%= errText %></span>
@@ -206,7 +208,7 @@ end
         type="text"
         name="surname"
         data-name="customerSurname"
-        placeholder="eg. King-Hall"
+        placeholder="e.g. King-Hall"
         required="required"
       >
       <span class="form__err"><%= errText %></span>
@@ -220,7 +222,7 @@ end
         type="email"
         name="email"
         data-name="customerEmail"
-        placeholder="eg. s.kinghall@email.com"
+        placeholder="e.g. s.kinghall@email.com"
         required="required"
       >
       <span class="form__err"><%= errText %></span>
@@ -231,8 +233,7 @@ end
     ------------------------------------------------>
 
     <% if isShipping %>
-      <hr>
-      <h3 class="form__title e-mgn-t-md">Shipping information</h3>
+      <h3 class="form__title e-pad-t-md"><span class="e-col-orange-2">2.</span> Shipping information</h3>
 
       <!--	=Address: line 1	-->
       <label class="e-width-full">
@@ -242,7 +243,7 @@ end
           type="text"
           name="address-line-1"
           data-name="shippingAddressLine1"
-          placeholder="eg. 1 Parliament Steet"
+          placeholder="e.g. 1 Parliament Steet"
           required="required"
         >
         <span class="form__err"><%= errText %></span>
@@ -256,7 +257,7 @@ end
           type="text"
           name="address-line-2"
           data-name="shippingAddressLine2"
-          placeholder="eg. Westminster"
+          placeholder="e.g. Westminster"
         >
       </label>
 
@@ -268,7 +269,7 @@ end
           type="text"
           name="address-line-3"
           data-name="shippingAddressLine3"
-          placeholder="eg. Greater London"
+          placeholder="e.g. Greater London"
         >
       </label>
 
@@ -280,7 +281,7 @@ end
           type="text"
           name="address-postcode"
           data-name="shippingAddressPostcode"
-          placeholder="eg. SW1A 0AA"
+          placeholder="e.g. SW1A 0AA"
           required="required"
         >
         <span class="form__err"><%= errText %></span>
@@ -303,6 +304,7 @@ end
               selected=""
               hidden=""
             >Please select a country...</option>
+            <option data-zone="" value="United Kingdom">United Kingdom</option>
             <% siteData(:checkout_countries_list).each do |country| %>
               <option data-zone="<%= country[:zone] %>" value="<%= country[:name] %>"><%= country[:name] %></option>
             <% end %>
@@ -316,12 +318,11 @@ end
       =Review
     ------------------------------------------------>
 
-    <hr>
-    <h3 class="form__title e-mgn-t-md">Please review your order</h3>
+    <h3 class="form__title e-pad-t-md"><span class="e-col-orange-2"><%= !isShipping ? "2" : "3" %>.</span> Please review your order</h3>
 
-    <div class="form__review-order e-fz-xs">
+    <div class="form__review-order ">
       <p><strong>Item</strong>: <%= itemName %></p>
-      <p><strong>Quantity</strong>: <span id="review-item-quantity">1</span></p>
+      <p class="e-mgn-t-xs"><strong>Quantity</strong>: <span id="review-item-quantity">1</span></p>
 
       <p class="e-mgn-t-xs"><strong>Full name</strong>: <span id="review-customer-first-name"></span>&thinsp;<span id="review-customer-surname"></span></p>
       <p><strong>Email</strong>: <span id="review-customer-email"></span></p>
@@ -336,15 +337,16 @@ end
       <p class="e-mgn-t-xs"><strong>Total</strong>: £<span id="review-checkout-total"><%= itemPriceHuman %></span> (inc. p&p)</p>
     </div>
 
-    <div class="e-mgn-t-md">
+    <div class="e-mgn-t-sm">
       <%= partial "views/partials/btn",
         locals: { local_data: {
           type: "plain",
-          size: "sm",
+          size: "lg",
           style: "primary",
           label: "Continue to payment",
-          label_size: "sm",
-          form: true }} %>
+          label_size: "lg",
+          form: true,
+          fill: true }} %>
       <span class="form__invalid-alert e-mgn-t-xs">* Please review the fields highlighted above and try again...</span>
     </div>
   </div>

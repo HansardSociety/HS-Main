@@ -36,7 +36,7 @@
 .modal__inner {
   max-height: calc(99.9999vh - 5rem);
 
-  border-radius: 8px 8px 0 0;
+  border-radius: 2px 2px 0 0;
 
   @extend %e-absolute-center-x;
   @extend %e-box-shad-z2;
@@ -58,7 +58,7 @@
     min-height: 5rem;
     max-height: calc(100vh - 3.5rem);
 
-    border-radius: 8px;
+    border-radius: 2px;
   }
 }
 

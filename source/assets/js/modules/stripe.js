@@ -14,15 +14,24 @@ function stripe (checkoutFormId) {
   ];
 
   if (checkoutData.type === "shipping") {
-    if (checkoutData.shippingRate.international.selected) {
-      items.push({
-        sku: checkoutData.shippingRate.international.sku,
-        quantity: 1
-      });
-
-    } else {
+    if (checkoutData.shippingRate.uk.selected) {
       items.push({
         sku: checkoutData.shippingRate.uk.sku,
+        quantity: 1
+      });
+    } else if (checkoutData.shippingRate.europe.selected) {
+      items.push({
+        sku: checkoutData.shippingRate.europe.sku,
+        quantity: 1
+      });
+    } else if (checkoutData.shippingRate.worldZone1.selected) {
+      items.push({
+        sku: checkoutData.shippingRate.worldZone1.sku,
+        quantity: 1
+      });
+    } else {
+      items.push({
+        sku: checkoutData.shippingRate.worldZone2.sku,
         quantity: 1
       });
     }
@@ -39,7 +48,7 @@ function stripe (checkoutFormId) {
     // Instead use one of the strategies described in
     // https://stripe.com/docs/payments/checkout/fulfillment
     successUrl: checkoutData.checkoutSuccessUrl,
-    cancelUrl: checkoutData.checkoutCancelledUrl,
+    cancelUrl: checkoutData.checkoutCancelledUrl
   })
   .then(function (result) {
     if (result.error) {

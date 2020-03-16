@@ -18,6 +18,9 @@
   input,
   textarea {
     &.form__field::placeholder {
+      opacity: .6666;
+
+      @extend %e-ff-prim-oblique;
       @extend %e-col-grey-1;
     }
   }
@@ -72,8 +75,8 @@
 .form__label {
   display: block !important;
 
-  margin-bottom: 1px;
-  margin-left: 8px;
+  margin-bottom: 1.5px;
+  // margin-left: 8px;
 
   @extend %e-mgn-t-xs;
   @extend %e-col-brand-green-1;
@@ -123,6 +126,7 @@
 
 .form__title {
   margin-top: 0;
+  border-bottom: 2px solid Get($colorGroups, brand-green, 2);
 
   @extend .title-sm;
   @extend %e-col-brand-green-1;
@@ -166,7 +170,7 @@
 
   & > img {
     width: 100%;
-    border-radius: 4px;
+    @extend %e-rad-slight;
   }
 }
 
@@ -190,8 +194,8 @@
   margin-right: 0.125rem;
 
   border: solid 2px Get($colorGroups, white, 3);
-  border-radius: .25rem;
 
+  @extend %e-rad-slight;
   @extend %e-display-inline-block;
 
   &:checked {
@@ -271,4 +275,12 @@ input[type=number]::-webkit-outer-spin-button {
   &.JS-active {
     display: block;
   }
+}
+
+/**
+ * =Multiple shipping items
+************************************************************/
+
+.form.JS-shipping {
+
 }
