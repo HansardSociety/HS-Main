@@ -321,20 +321,20 @@ end
     <h3 class="form__title e-pad-t-md"><span class="e-col-orange-2"><%= !isShipping ? "2" : "3" %>.</span> Please review your order</h3>
 
     <div class="form__review-order ">
-      <p><strong>Item</strong>: <%= itemName %></p>
-      <p class="e-mgn-t-xs"><strong>Quantity</strong>: <span id="review-item-quantity">1</span></p>
+      <p><strong class="e-col-brand-green-2">Item: </strong><%= itemName %></p>
+      <p class="e-mgn-t-xs"><strong class="e-col-brand-green-2">Quantity: </strong><span id="review-item-quantity">1</span></p>
 
-      <p class="e-mgn-t-xs"><strong>Full name</strong>: <span id="review-customer-first-name"></span>&thinsp;<span id="review-customer-surname"></span></p>
-      <p><strong>Email</strong>: <span id="review-customer-email"></span></p>
+      <p class="e-mgn-t-xs"><strong class="e-col-brand-green-2">Full name: </strong><span id="review-customer-first-name"></span>&thinsp;<span id="review-customer-surname"></span></p>
+      <p><strong class="e-col-brand-green-2">Email: </strong><span id="review-customer-email"></span></p>
 
       <% if isShipping %>
         <p class="e-mgn-t-xs">
-          <strong>Shipping address</strong>:<br>
+          <strong class="e-col-brand-green-2">Shipping address: </strong><br>
           <span id="review-shipping-address"></span>
         </p>
       <% end %>
 
-      <p class="e-mgn-t-xs"><strong>Total</strong>: £<span id="review-checkout-total"><%= itemPriceHuman %></span> (inc. p&p)</p>
+      <p class="e-mgn-t-xs"><strong class="e-col-brand-green-2">Total: </strong>£<span id="review-checkout-total"><%= itemPriceHuman %></span> (inc. p&p)</p>
     </div>
 
     <div class="e-mgn-t-sm">
