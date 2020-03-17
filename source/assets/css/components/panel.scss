@@ -160,6 +160,12 @@
 
 .panel__pull {
   margin-top: -5rem;
+
+  @extend %e-bgc-white-2;
+
+  & > .panel {
+    background-color: transparent;
+  }
 }
 
 // Sections

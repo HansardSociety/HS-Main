@@ -29,6 +29,8 @@ module.exports = (function () {
       shippingAddressPostcode: "",
       shippingAddressCountry: "",
 
+      shippingMultiple: false,
+
       shippingRate: {
         uk: {
           rate: Number(productItemElem.dataset.itemShippingRateUk),
@@ -74,6 +76,7 @@ module.exports = (function () {
       });
 
       function setValues (field) {
+        let checkoutSubTotal = parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity);
 
         if (field.dataset.name !== "clientReferenceId") {
           formData[field.dataset.name] = field.value.replace(/"/g, "&quot;"); // Set values and make safe
@@ -84,18 +87,30 @@ module.exports = (function () {
         // Review item quantity and total
         if (field.dataset.name === "itemQuantity") {
           let shippingRate = 0;
-          if (formData.shippingRate.uk.selected) shippingRate = formData.shippingRate.uk.rate;
-          if (formData.shippingRate.europe.selected) shippingRate = formData.shippingRate.europe.rate;
-          if (formData.shippingRate.worldZone1.selected) shippingRate = formData.shippingRate.worldZone1.rate;
-          if (formData.shippingRate.worldZone2.selected) shippingRate = formData.shippingRate.worldZone2.rate;
 
-          if (formData.itemQuantity > 1) form.classList.add("JS-shipping-multiple");
-          else form.classList.remove("JS-shipping-multiple")
+          if (formData.type === "shipping") {
+            if (formData.shippingRate.uk.selected) shippingRate = formData.shippingRate.uk.rate;
+            if (formData.shippingRate.europe.selected) shippingRate = formData.shippingRate.europe.rate;
+            if (formData.shippingRate.worldZone1.selected) shippingRate = formData.shippingRate.worldZone1.rate;
+            if (formData.shippingRate.worldZone2.selected) shippingRate = formData.shippingRate.worldZone2.rate;
 
-          formData.checkoutTotal = (parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity)) + parseFloat(shippingRate);
+            if (formData.itemQuantity > 1) {
+              form.classList.add("JS-shipping-multiple");
+              formData.shippingMultiple = true;
+            } else {
+              form.classList.remove("JS-shipping-multiple")
+              formData.shippingMultiple = false;
+            }
+          }
+
+          checkoutSubTotal = (parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity))
+            + (
+              !formData.shippingMultiple
+                ? shippingRate
+                : 0
+            );
+
           form.querySelector("#review-item-quantity").innerHTML = formData.itemQuantity;
-          form.querySelector("#review-checkout-total").innerHTML = formData.checkoutTotal;
-          form.querySelector("input[name=checkout-total]").value = formData.checkoutTotal;
         }
 
         // Review first name
@@ -130,9 +145,8 @@ module.exports = (function () {
 
           // Set UK vs international rates.
           if (field.dataset.name === "shippingAddressCountry") {
-            let checkoutSubTotal = parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity);
-
             const options = field.querySelectorAll("option");
+
             options.forEach(function (opt) {
 
               if (opt.selected) {
@@ -144,7 +158,13 @@ module.exports = (function () {
                   formData.shippingRate.worldZone1.selected = false;
                   formData.shippingRate.worldZone2.selected = false;
 
-                  formData.checkoutTotal = checkoutSubTotal + parseFloat(formData.shippingRate.uk.rate);
+                  checkoutSubTotal = (parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity))
+                    + (
+                      !formData.shippingMultiple
+                        ? parseFloat(formData.shippingRate.uk.rate)
+                        : 0
+                    )
+                  ;
 
                 } else if (opt.dataset.zone === "0") {
                   formData.shippingRate.uk.selected = false;
@@ -152,7 +172,13 @@ module.exports = (function () {
                   formData.shippingRate.worldZone1.selected = false;
                   formData.shippingRate.worldZone2.selected = false;
 
-                  formData.checkoutTotal = checkoutSubTotal + parseFloat(formData.shippingRate.europe.rate);
+                  checkoutSubTotal = (parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity))
+                    + (
+                      !formData.shippingMultiple
+                        ? parseFloat(formData.shippingRate.europe.rate)
+                        : 0
+                    )
+                  ;
 
                 } else if (opt.dataset.zone === "1") {
                   formData.shippingRate.uk.selected = false;
@@ -160,7 +186,13 @@ module.exports = (function () {
                   formData.shippingRate.worldZone1.selected = true;
                   formData.shippingRate.worldZone2.selected = false;
 
-                  formData.checkoutTotal = checkoutSubTotal + parseFloat(formData.shippingRate.worldZone1.rate);
+                  checkoutSubTotal = (parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity))
+                    + (
+                      !formData.shippingMultiple
+                        ? parseFloat(formData.shippingRate.worldZone1.rate)
+                        : 0
+                    )
+                  ;
 
                 } else {
                   formData.shippingRate.uk.selected = false;
@@ -168,15 +200,23 @@ module.exports = (function () {
                   formData.shippingRate.worldZone1.selected = false;
                   formData.shippingRate.worldZone2.selected = true;
 
-                  formData.checkoutTotal = checkoutSubTotal + parseFloat(formData.shippingRate.worldZone2.rate);
+                  checkoutSubTotal = (parseFloat(formData.itemPrice) * parseFloat(formData.itemQuantity))
+                    + (
+                      !formData.shippingMultiple
+                        ? parseFloat(formData.shippingRate.worldZone2.rate)
+                        : 0
+                    )
+                  ;
                 }
               }
             });
-
-            form.querySelector("input[name=checkout-total]").value = formData.checkoutTotal;
-            form.querySelector("#review-checkout-total").innerHTML = formData.checkoutTotal;
           }
         }
+
+        formData.checkoutTotal = checkoutSubTotal;
+
+        form.querySelector("input[name=checkout-total]").value = formData.checkoutTotal;
+        form.querySelector("#review-checkout-total").innerHTML = ((formData.checkoutTotal * 100) / 100).toFixed(2);
       }
     });
   });
