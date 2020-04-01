@@ -9,6 +9,7 @@ isDev = true
   "type": "scatter",
   "data": {
     "datasets": [{
+      "pointStyle": "circle",
       "data": [{
         "x": "Day 1",
         "y": "Speaker's election"
@@ -73,6 +74,7 @@ isDev = true
       "label": "2010",
       "datasetID": "ds-2010"
     }, {
+      "pointStyle": "triangle",
       "data": [{
         "x": "Day 1",
         "y": "Speaker's election"
@@ -140,6 +142,7 @@ isDev = true
       "label": "2015",
       "datasetID": "ds-2015"
     }, {
+      "pointStyle": "rectRot",
       "data": [{
         "x": "Day 1",
         "y": "Speaker's election"
@@ -207,6 +210,7 @@ isDev = true
       "label": "2017",
       "datasetID": "ds-2017"
     }, {
+      "pointStyle": "rect",
       "data": [{
         "x": "Day 1",
         "y": "Speaker's election"
@@ -272,7 +276,7 @@ isDev = true
   },
   "options": {
     "legend": {
-      "position": "left"
+      "position": "top"
     },
     "scales": {
       "xAxes": [{
@@ -285,22 +289,27 @@ isDev = true
         "id": "y-axis",
         "type": "category",
         "labels": ["Speaker's election", "Queen's Speech", "Main vote on Queen's Speech", "Deputy Speakers' election", "Private Members' Bill (PMB) ballot", "Elected select committee chairmanships allocated to parties", "Election by whole House of (most) elected select committee chairs", "Committee of Selection*", "At least first tranche of departmental select committees", "Backbench Business Committee", "Petitions Committee**", "Procedure Committee", "European Scrutiny Committee (ESC)", "Committee on Statutory Instruments", "Commons Members of Joint Committee on Human Rights (JCHR)", "Commons Members of Joint Committee on the National Security Strategy (JCNSS)", "Liaison Committee", "Commons Members of Intelligence and Security Committee (ISC)", "Rose for summer recess", "Returned from summer recess", "Rose for conference recess", "Returned from conference recess", "Rose for Christmas recess", "Returned from Christmas recess", "Rose for February recess", "Returned from February recess", "Rose for Easter recess"]
+      }, {
+        "id": "y-axis-right",
+        "position": "right",
+        "type": "category",
+        "labels": ["Speaker's election", "Queen's Speech", "Main vote on Queen's Speech", "Deputy Speakers' election", "Private Members' Bill (PMB) ballot", "Elected select committee chairmanships allocated to parties", "Election by whole House of (most) elected select committee chairs", "Committee of Selection*", "At least first tranche of departmental select committees", "Backbench Business Committee", "Petitions Committee**", "Procedure Committee", "European Scrutiny Committee (ESC)", "Committee on Statutory Instruments", "Commons Members of Joint Committee on Human Rights (JCHR)", "Commons Members of Joint Committee on the National Security Strategy (JCNSS)", "Liaison Committee", "Commons Members of Intelligence and Security Committee (ISC)", "Rose for summer recess", "Returned from summer recess", "Rose for conference recess", "Returned from conference recess", "Rose for Christmas recess", "Returned from Christmas recess", "Rose for February recess", "Returned from February recess", "Rose for Easter recess"]
       }]
     }
   },
   "customConfig": {
-    "pointRadius": 10,
+    "pointRadius": 12,
     "colors": [{
-      "palette": ["#203864"],
+      "palette": ["#04655a"],
       "datasetIDs": ["ds-2010"]
     }, {
-      "palette": ["#cb5146"],
+      "palette": ["#D66690"],
       "datasetIDs": ["ds-2015"]
     }, {
-      "palette": ["#04655a"],
+      "palette": ["#ffc000"],
       "datasetIDs": ["ds-2017"]
     }, {
-      "palette": ["#ffc000"],
+      "palette": ["#4177AE"],
       "datasetIDs": ["ds-2019"]
     }]
   }

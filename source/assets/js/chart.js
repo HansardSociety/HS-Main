@@ -70,9 +70,12 @@ def.layout.padding = 0
 
 // Legend
 def.legend.position = "top"
+def.legend.align = "start"
 def.legend.labels.boxWidth = rem150
 def.legend.labels.usePointStyle = true
-// def.legend.labels.padding = 20
+def.legend.labels.fontSize = rem075
+def.legend.labels.fontFamily = ff02
+def.legend.labels.padding = 15
 
 // Responsive
 def.responsive = true
@@ -724,8 +727,13 @@ const renderCharts = () => {
 
       // Set dataset defaults
       if (isDatasetLine || isDatasetScatter) {
-        if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = dataset.backgroundColor
-        if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = dataset.backgroundColor
+        console.log(dataset.pointHoverBackgroundColor)
+        if (!dataset.pointBackgroundColor) {
+          dataset.pointBackgroundColor = isDatasetLine
+            ? dataset.backgroundColor
+            : hexToRGBA(dataset.backgroundColor, 0.25);
+        }
+        if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = dataset.pointBackgroundColor
         if (!dataset.pointRadius) {
           if (customConfig && customConfig.pointRadius) dataset.pointRadius = customConfig.pointRadius;
           else dataset.pointRadius = 5;
@@ -733,7 +741,9 @@ const renderCharts = () => {
         // if (!dataset.pointHoverRadius) dataset.pointHoverRadius = 7
         // if (!dataset.pointHitRadius) dataset.pointHitRadius = 10
         dataset.pointHoverRadius = dataset.pointRadius + 3;
+        dataset.pointHoverRadius = dataset.pointRadius + 3;
         dataset.pointHitRadius = dataset.pointRadius + 5;
+        dataset.pointHoverBorderWidth = strokeWidth;
 
         // Only set backgroundColor and/or fill
         if (!dataset.fill) dataset.fill = false
@@ -749,6 +759,41 @@ const renderCharts = () => {
 }
 
 window.addEventListener("load", () => renderCharts())
+
+
+/**
+ * Custom plugins
+ * ============================================================
+ */
+
+// Chart.plugins.register({
+//   afterInit: function(chartInstance) {
+//     if (chartInstance.config.options.jitter) {
+//       var helpers = Chart.helpers;
+//       var ctx = chartInstance.chart.ctx;
+
+//       chartInstance.data.datasets.forEach(function (dataset) {
+//         dataset.data = jitter_plugin(dataset.data);
+//       });
+//     }
+//   }
+// });
+
+// function jitter_plugin (data) {
+//   console.log(data)
+
+//   return data.map(function(e) {
+//     console.log(e)
+
+//     var xJitter = Math.random() * (-1 - 1) + 1;
+//     var yJitter = Math.random() * (-1 - 1) + 1;
+
+//     return {
+//       x: e.x + xJitter,
+//       y: e.y
+//     }
+//   });
+// };
 
 /* =TODOs
  ***************************************************************************/
