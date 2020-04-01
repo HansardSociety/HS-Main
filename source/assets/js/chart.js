@@ -66,15 +66,15 @@ def.hover.mode = "nearest"
 def.hover.intersect = true
 
 // Layout
-def.layout.padding = 0
+def.layout.padding = 0;
 
 // Legend
 def.legend.position = "top"
-def.legend.align = "start"
+// def.legend.align = "start"
 def.legend.labels.boxWidth = rem150
 def.legend.labels.usePointStyle = true
 def.legend.labels.fontSize = rem075
-def.legend.labels.fontFamily = ff02
+// def.legend.labels.fontFamily = ff02
 def.legend.labels.padding = 15
 
 // Responsive
