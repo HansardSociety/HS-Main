@@ -726,9 +726,14 @@ const renderCharts = () => {
       if (isDatasetLine || isDatasetScatter) {
         if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = dataset.backgroundColor
         if (!dataset.pointHoverBackgroundColor) dataset.pointHoverBackgroundColor = dataset.backgroundColor
-        if (!dataset.pointRadius) dataset.pointRadius = 5
-        if (!dataset.pointHoverRadius) dataset.pointHoverRadius = 7
-        if (!dataset.pointHitRadius) dataset.pointHitRadius = 10
+        if (!dataset.pointRadius) {
+          if (customConfig && customConfig.pointRadius) dataset.pointRadius = customConfig.pointRadius;
+          else dataset.pointRadius = 5;
+        }
+        // if (!dataset.pointHoverRadius) dataset.pointHoverRadius = 7
+        // if (!dataset.pointHitRadius) dataset.pointHitRadius = 10
+        dataset.pointHoverRadius = dataset.pointRadius + 3;
+        dataset.pointHitRadius = dataset.pointRadius + 5;
 
         // Only set backgroundColor and/or fill
         if (!dataset.fill) dataset.fill = false
