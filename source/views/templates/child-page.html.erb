@@ -8,7 +8,7 @@ featured = @entry[:featured]
 
 isMainCategories = siteCategories(:top_main).include? category
 isReverseHeaderCats = ["blog", "events", "publications"].include?(category)
-isAuthoredPage = ["blog", "media"].include?(category)
+isAuthoredPage = ["blog", "news"].include?(category)
 
 nonPages = ["people", "product", "registration"]
 
@@ -176,7 +176,7 @@ pageStorage = {
 
             <%# External links %>
             <% if @entry[:external_links] %>
-              <h2 class="side-title e-acc-white-3-top">Links</h2>
+              <h2 class="side-title e-acc-white-3-top">Resources</h2>
               <% @entry[:external_links].map do |link| %>
                 <%= partial "views/partials/ext-link",
                   locals: { local_data: {
