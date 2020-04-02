@@ -59,7 +59,8 @@ def.defaultFontSize = rem0675;
 def.defaultFontColor = black;
 
 // Animations
-def.animation.duration = 800
+// def.animation.duration = 800
+def.animation = false
 
 // Interactions
 def.hover.mode = "nearest"

@@ -1,6 +1,6 @@
 <%
 partialData = local_data[:ext_link_data]
-category = partialData[:category]
+medium = partialData[:medium]
 %>
 
 <article class="ext-link">
@@ -13,11 +13,11 @@ category = partialData[:category]
       <%= partial "views/partials/icon",
         locals: {
           icon:
-            ("ios-paper" if category == "article") ||
-            ("android-download" if category == "download") ||
-            ("headphone" if category == "audio") ||
-            ("ios-videocam" if category == "video") ||
-            ("ios-book" if category == "book"),
+            ("ios-paper" if medium == "article") ||
+            ("android-download" if medium == "download") ||
+            ("headphone" if medium == "audio") ||
+            ("ios-videocam" if medium == "video") ||
+            ("ios-book" if medium == "book"),
           size:  "xs",
           color: "green" } %>
     </span>

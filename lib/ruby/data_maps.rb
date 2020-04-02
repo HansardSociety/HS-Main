@@ -962,7 +962,7 @@ class ChildPageMap < ContentfulMiddleman::Mapper::Base
       context.external_links = entry.external_links.map do |link|
         {
           title: link.title,
-          category: link.category.parameterize,
+          medium: link.medium.parameterize,
           outlet: PublicSuffix.parse(URI.parse(link.url).host).domain,
           url: link.url
         }
