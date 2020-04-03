@@ -47,6 +47,10 @@ module ContentfulConfig
         universal: {
           mapper: UniversalMap,
           id: "universal"
+        },
+        external_link: {
+          mapper: ExternalLinkMap,
+          id: "external_link"
         }
       }
     end

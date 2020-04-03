@@ -226,15 +226,23 @@ module CustomHelpers
   ###########################################################################
 
   def latestContent(opts = {})
+    allLatestEntries = allChildLandingPages()
+
     defaults = {
       yield: false,
       start: 0,
-      num: allChildLandingPages().length,
+      num: allLatestEntries.length,
       page_cats: siteCategories(:top_main),
       sub_cats: false,
-      dedupe_entry_id: false
+      dedupe_entry_id: false,
+      external_links: false
     }
     opts = defaults.merge(opts)
+
+    if opts[:external_links]
+      externalLinkEntries = data.hs.external_link.reject{ |id, entry| !entry.category }
+      allLatestEntries = allLatestEntries.merge(externalLinkEntries)
+    end
 
     pageCategories = opts[:page_cats]
     itemCount = opts[:num] - 1
@@ -245,7 +253,7 @@ module CustomHelpers
     isYield = opts[:yield]
 
     # Only include specified category/ sub-category and not page indices
-    allMainPages = allChildLandingPages().select do |id, page|
+    allLatestEntries = allLatestEntries.select do |id, page|
       category = isSubCats ? page[:sub_category] : page[:category]
 
       pageCategories.include?(category) && !page[:index_page]
@@ -253,10 +261,10 @@ module CustomHelpers
 
     # De-dupe entry
     if dedupe
-      allMainPages.reject!{ |id, page| page[:ID] == dedupe }
+      allLatestEntries.reject!{ |id, page| page[:ID] == dedupe }
     end
 
-    allPagesRegHash = convertToRegularHash(allMainPages.compact).values
+    allPagesRegHash = convertToRegularHash(allLatestEntries.compact).values
     sortPagesByDate = allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
     pages = sortPagesByDate[start..itemCount]
 

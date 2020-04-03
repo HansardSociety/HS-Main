@@ -4,10 +4,17 @@ feedData = local_data[:entry_data]
 context = local_data[:context]
 isDynamic = context == "dynamic"
 
-bannerImage = feedData[:banner_image] ? feedData[:banner_image] : siteData(:default_banner)
+image = ""
+if feedData[:banner_image]
+  image = feedData[:banner_image]
+elsif feedData[:image]
+  image = feedData[:image]
+else
+  image = siteData(:default_banner)
+end
 
-imgURL = "#{ bannerImage[:url] }?fit=fill&w=300&h=300&f=#{ bannerImage[:focus] }&q=50"
-imgAlt = bannerImage[:alt]
+imgURL = "#{ image[:url] }?fit=fill&w=300&h=300&f=#{ image[:focus] }&q=50"
+imgAlt = image[:alt]
 
 if isDynamic == true
   imgAttrs = {
@@ -34,7 +41,8 @@ end
     <h2 class="title-sm e-mgn-t-xxs">
       <a
         class="link"
-        href="<%= internalURL(feedData[:slug]) %>"
+        target="<%= "_blank" if feedData[:TYPE] == "external_link" %>"
+        href="<%= feedData[:TYPE] != "external_link" ? internalURL(feedData[:slug]) : feedData[:url] %>"
         title="<%= feedData[:title] + " | " + siteData(:site_title) %>"><%= feedData[:title] %></a>
     </h2>
   </div>

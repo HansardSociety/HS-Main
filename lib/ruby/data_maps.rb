@@ -4,7 +4,7 @@ require "json"
 $seperator = " > "
 
 ###########################################################################
-## =Detatch category
+## =Detach category
 ###########################################################################
 
 def detachCategory(data, opts = {})
@@ -980,5 +980,33 @@ class ThemePageMap < ContentfulMiddleman::Mapper::Base
     sharedPageBase("themePage", context, entry) # core page data
     context.theme = entry.title.parameterize
     context.slug = "#{ entry.slug }/index"
+  end
+end
+
+###########################################################################
+##  =External link
+###########################################################################
+
+class ExternalLinkMap < ContentfulMiddleman::Mapper::Base
+  def map(context, entry)
+    context.ID = entry.sys[:id]
+    context.TYPE = entry.content_type.id
+    context.title = entry.title.gsub(/("|')/, "&apos;")
+
+    context.medium = entry.medium.parameterize
+    context.outlet = PublicSuffix.parse(URI.parse(entry.url).host).domain
+    context.url = entry.url
+
+    # Is set up for feed usage...
+    if entry.category
+      context.category = detachCategory(entry.category)
+      context.meta_label = metaLabel(entry)
+      context.date_time = (dateTime(entry) if entry.date_time)
+      context.image = (media(entry.image) if entry.image)
+
+      if entry.category.include? $seperator
+        context.subCategory = detachCategory(entry.category, { part: 1 })
+      end
+    end
   end
 end

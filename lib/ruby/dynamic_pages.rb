@@ -43,6 +43,7 @@ module DynamicPages
       landingPages = @app.data.hs.landing_page
       themePages = @app.data.hs.theme_page
       allMainPages = (env == "dev" ? childPages : childPages.merge(landingPages)) # FIX: landing pages not working in dev env
+      allMainPages = allMainPages.merge(@app.data.hs.external_link.reject{ |id, entry| !entry.category })
 
       ##		=Core pages
       ########################################
