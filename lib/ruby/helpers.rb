@@ -202,7 +202,9 @@ module CustomHelpers
     defaults = { sub_cat: false }
     opts = defaults.merge(opts)
 
-    feedPages(allChildLandingPages()) do |catPages|
+    externalLinks = data.hs.external_link.reject{ |id, page| !page[:category] }
+
+    feedPages(allChildLandingPages().merge(externalLinks).compact) do |catPages|
       getCategoryPages = catPages.select{ |category, pages| category == setCategory }
 
       getCategoryPages.each do |category, pages|
