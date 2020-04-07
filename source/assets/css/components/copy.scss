@@ -41,7 +41,12 @@ img {
 
 .plyr,
 table {
-  margin: 2rem auto;
+  @extend %e-mgn-t-md;
+  @extend %e-mgn-b-md;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 > h2 {

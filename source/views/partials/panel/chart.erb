@@ -11,31 +11,52 @@ title = panelData[:title]
 titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
 headingLevel = panelData[:heading_level]
 caption = panelData[:caption]
+panelSlug = panelData[:panel_slug]
 
 rowOneGridCellWidth = 12 / panelData[:charts_row_1].length
 if panelData[:charts_row_2]
   rowTwoGridCellWidth = 12 / panelData[:charts_row_2].length
 end
+
+headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
+headingAttrs = {
+  "class": "title-lg #{ titleColor } e-mgn-b-md",
+}
 %>
 
 <section
   id="panel-<%= index %>"
-  class="panel <%= "panel--flow" if flow %> panel--no-overflow-x <%= bgcClass %>">
-  <span
-    id="<%= panelData[:title].parameterize %>"
-    class="e-hidden"
-    aria-hidden="true"></span>
+  class="panel <%= "panel--flow" if flow %> panel--no-overflow-x <%= bgcClass %>"
+>
+
+  <%= partial "views/partials/panel/offset",
+    locals: {
+      offset: "md",
+      id: panelSlug ? panelSlug : "panel-#{ index }"
+  } %>
 
   <div class="panel__inner">
     <% if panelData[:show_title] %>
       <header class="panel__content panel__content--full">
-        <div class="grid grid--md grid--center">
-          <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-7">
-            <% if headingLevel == "level-3" %>
-              <h3 class="title-lg <%= titleColor %> e-mgn-b-md"><%= panelData[:title] %></h3>
-            <% else %>
-              <h3 class="title-lg <%= titleColor %> e-mgn-b-md"><%= panelData[:title] %></h3>
-            <% end %>
+        <div class="grid grid--lg grid--center">
+          <div class="grid__cell grid__cell--lg-12 grid__cell--lg-above-md-7">
+
+              <% content_tag(headingLevel, headingAttrs) do %>
+                <% if panelSlug %>
+                  <a href="#<%= panelSlug %>"
+                     class="panel__title-slug">
+                    <%= panelData[:title] %>
+                    <%= partial "views/partials/icon",
+                      locals: {
+                        icon: "link",
+                        size: "sm"
+                    } %>
+                  </a>
+                <% else %>
+                  <%= panelData[:title] %>
+                <% end %>
+              <% end %>
+
           </div>
         </div>
       </header>
