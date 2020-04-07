@@ -735,6 +735,11 @@ class UniversalMap < ContentfulMiddleman::Mapper::Base
     context.checkout_shipping_information = entry.checkout_shipping_information
     context.checkout_countries_list = entry.checkout_countries_list
 
+    ## =Abbreviations
+    ########################################
+
+    context.abbreviations = entry.abbreviations
+
     ## =Footer pages
     ########################################
 

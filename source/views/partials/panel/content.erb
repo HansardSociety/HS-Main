@@ -36,6 +36,13 @@ headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
 headingAttrs = {
   "class": "title-lg #{ titleColor }",
 }
+
+abbreviations = "\n\n"
+siteData(:abbreviations).map do |abbr, expl|
+  abbreviations += "*[#{ abbr }]: #{ expl }\n"
+end
+panelData[:copy] += abbreviations
+
 %>
 
 <section class="panel <%= "panel--flow" if flow %> <%= bgcClass %>">

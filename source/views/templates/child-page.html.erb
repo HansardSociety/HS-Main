@@ -14,13 +14,19 @@ nonPages = ["people", "product", "registration"]
 
 # For share buttons
 safeTitle = CGI.escape(@entry[:title])
-url = "https://hansardsociety.org.uk/"
+url = siteData(:site_url)
 
 pageStorage = {
   title: safeTitle,
   category: @entry[:category],
   subCategory: @entry[:sub_category]
 }.compact.to_json.html_safe
+
+abbreviations = "\n\n"
+siteData(:abbreviations).map do |abbr, expl|
+  abbreviations += "*[#{ abbr }]: #{ expl }\n"
+end
+copy += abbreviations
 %>
 
 <article
