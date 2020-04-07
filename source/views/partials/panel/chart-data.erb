@@ -7,29 +7,92 @@ isDev = false
 <% if isDev %>
 
 
+
 {
-  "type": "doughnut",
+  "type": "bar",
   "data": {
     "datasets": [{
-      "data": [32, 3],
+      "data": [
+          1,
+          0,
+          1,
+          0,
+          0,
+          1,
+          3,
+          3,
+          16,
+          7,
+          3
+      ],
       "label": "Coronavirus SIs",
+      "xAxisID": "x-sis-weekly",
+      "yAxisID": "y-sis-number",
       "datasetID": "coronavirus-sis"
+    }, {
+      "data": [
+        23,
+        26,
+        14,
+        3,
+        14,
+        28,
+        37,
+        25,
+        20,
+        13,
+        3
+
+      ],
+      "label": "Total SIs",
+      "xAxisID": "x-sis-weekly",
+      "yAxisID": "y-sis-number",
+      "datasetID": "total-sis"
     }],
-    "labels": ["Made Negative", "Made Affirmative"]
+    "labels": []
   },
   "options": {
-    "aspectRatio": 1
+    "scales": {
+      "xAxes": [{
+        "stacked": true,
+        "id": "x-sis-weekly",
+        "type": "category",
+        "labels": [
+          "27 Jan - 2 Feb",
+          "3 - 9 Feb",
+          "10 - 16 Feb",
+          "17 - 23 Feb",
+          "24 Feb - 1 Mar",
+          "2 - 8 Mar",
+          "9 - 15 Mar",
+          "16 - 22 Mar",
+          "23 - 29 Mar",
+          "30 Mar - 5 Apr",
+          "6 - 12 Apr",
+          "13 - 19 Apr"
+        ],
+        "scaleLabel": {
+          "labelString": "Week commencing"
+        }
+      }],
+      "yAxes": [{
+        "stacked": true,
+        "id": "y-sis-number",
+        "ticks": {
+          "max": 50,
+          "min": 0,
+          "stepSize": 5
+        },
+        "scaleLabel": {
+          "labelString": "Number of SIs"
+        }
+      }]
+    }
   },
   "customConfig": {
     "colors": [{
-      "palette": ["#04655a", "#80557d"],
-      "datasetIDs": ["coronavirus-sis"]
-    }],
-    "annotations": [{
-      "type": "percentageValueLabel",
-      "fontSize": "medium",
-      "fontColor": "white",
-      "datasetIDs": ["coronavirus-sis"]
+      "palette": ["#04655a", "#97bbbb"],
+      "datasetIDs": ["coronavirus-sis", "total-sis"]
     }]
   }
 }
