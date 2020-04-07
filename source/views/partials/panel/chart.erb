@@ -8,7 +8,7 @@ bgc = panelData[:background_color]
 bgcClass = contentBgc(bgc)
 
 title = panelData[:title]
-titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-1"
+titleColor = colorProfile(:dark).include?(bgc) ? "e-col-white-1" : "e-col-brand-green-2"
 headingLevel = panelData[:heading_level]
 caption = panelData[:caption]
 
@@ -49,16 +49,28 @@ end
         ***********************************************-->
 
         <% if panelData[:charts_row_1] %>
-          <% panelData[:charts_row_1].each_with_index do |panelEntry, index| %>
+          <%
+            panelData[:charts_row_1].each_with_index do |panelEntry, index|
+              isCircleChart = panelEntry[:chart_type] == "pie" || panelEntry[:chart_type] == "doughnut" || panelEntry[:chart_type] == "radialGauge"
+              inlineWidthStyle = "#{
+                !isCircleChart ? "min-width" : "max-width"
+              }: #{
+                !isCircleChart ? panelEntry[:chart_width] : (panelEntry[:chart_width] || 500)
+              }px;" if panelEntry[:chart_width] || isCircleChart
+          %>
 
             <%# Chart %>
             <% if panelEntry[:TYPE] == "chart" %>
-              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
-                <section class="chart">
+              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-<%= rowOneGridCellWidth %>">
+                <section
+                  class="chart chart--full-height <%= "e-mgn-auto-x" if isCircleChart %>"
+                  style="<%= inlineWidthStyle if isCircleChart %>"
+                >
                   <% if panelEntry[:show_header] %>
                     <header
                       class="chart__header"
-                      style="<%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>">
+                      style="<%= inlineWidthStyle %>"
+                    >
                       <div class="chart__header-inner">
                         <% if panelData[:show_title] %>
                           <h3 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
@@ -72,8 +84,9 @@ end
                   <div
                     class="chart__container"
                     style="
-                      <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
-                      <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
+                      <%= inlineWidthStyle %>
+                      <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>"
+                  >
                     <canvas class="chart__canvas" style="max-width:100%!important;"></canvas>
                   </div>
                   <% if panelEntry[:citation] %>
@@ -87,11 +100,11 @@ end
 
             <%# Text box %>
             <% elsif panelEntry[:TYPE] == "text_box" %>
-              <div class="grid__cell grid__cell--center grid__cell--md-12 grid__cell--md-above-sm-<%= rowOneGridCellWidth %>">
+              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-<%= rowOneGridCellWidth %>">
                 <%= partial "views/partials/text-box",
                   locals: { local_data: {
-                    text_box_data: panelEntry,
-                    align: "center"
+                    align: "center",
+                    text_box_data: panelEntry
                 }} %>
               </div>
             <% end %>
@@ -103,16 +116,28 @@ end
         ***********************************************-->
 
         <% if panelData[:charts_row_2] %>
-          <% panelData[:charts_row_2].each_with_index do |panelEntry, index| %>
+          <%
+            panelData[:charts_row_2].each_with_index do |panelEntry, index|
+              isCircleChart = panelEntry[:chart_type] == "pie" || panelEntry[:chart_type] == "doughnut" || panelEntry[:chart_type] == "radialGauge"
+              inlineWidthStyle = "#{
+                !isCircleChart ? "min-width" : "max-width"
+              }: #{
+                !isCircleChart ? panelEntry[:chart_width] : (panelEntry[:chart_width] || 500)
+              }px;" if panelEntry[:chart_width] || isCircleChart
+          %>
 
             <%# Chart %>
             <% if panelEntry[:TYPE] == "chart" %>
-              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
-                <section class="chart chart--full-height">
+              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-<%= rowTwoGridCellWidth %>">
+                <section
+                  class="chart chart--full-height <%= "e-mgn-auto-x" if isCircleChart %>"
+                  style="<%= inlineWidthStyle if isCircleChart %>"
+                >
                   <% if panelEntry[:show_header] %>
                     <header
                       class="chart__header"
-                      style="<%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>">
+                      style="<%= inlineWidthStyle %>"
+                    >
                       <div class="chart__header-inner">
                         <% if panelData[:show_title] %>
                           <h3 class="title-xs e-col-brand-green-2 e-mgn-b-xxs"><%= panelEntry[:title] %></h3>
@@ -126,7 +151,7 @@ end
                   <div
                     class="chart__container"
                     style="
-                      <%= "min-width: #{ panelEntry[:chart_width] }px;" if panelEntry[:chart_width] %>
+                      <%= inlineWidthStyle %>
                       <%= "height: #{ panelEntry[:chart_height] }px;" if panelEntry[:chart_height] %>">
                     <canvas class="chart__canvas print__hide"></canvas>
                   </div>
@@ -139,11 +164,11 @@ end
 
             <%# Text box %>
             <% elsif panelEntry[:TYPE] == "text_box" %>
-              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-sm-<%= rowTwoGridCellWidth %>">
+              <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-<%= rowTwoGridCellWidth %>">
                 <%= partial "views/partials/text-box",
                   locals: { local_data: {
-                    text_box_data: panelEntry,
-                    align: "center"
+                    align: "center",
+                    text_box_data: panelEntry
                 }} %>
             <% end %>
           <% end %>

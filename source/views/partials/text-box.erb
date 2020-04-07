@@ -24,6 +24,7 @@ image = textBoxData[:image]
 imageBorder = textBoxData[:image_border]
 inlineHeader = textBoxData[:inline_header]
 cta = textBoxData[:call_to_action]
+plainText = textBoxData[:plain_text]
 targetSlug = textBoxData[:target_slug]
 
 if copySize == "normal"
@@ -42,9 +43,15 @@ if align
   alignClass = "text-box--#{ align }"
 end
 %>
-<section class="text-box <%= alignClass %> <%= bgcClass if !bgcToAccent %>">
+<section class="
+  text-box
+  <%= alignClass %>
+  <%= bgcClass if !bgcToAccent %>
+  <%= "text-box--plain" if plainText %>
+">
   <% if showTitle || image %>
-    <div class="text-box__header
+    <div class="
+      text-box__header
       <%= "#{ bgcClass.gsub("-bgc-", "-acc-") }-top" if bgcToAccent || isDarkBGC %>
       <%= copy ? headerBGC : "text-box__header--solo e-bgc-white-1" %>
       <%= "grid grid--xs grid--middle" if inlineHeader %>
@@ -53,7 +60,7 @@ end
         (image && imageBorder && inlineHeader ?
           "e-pad-x-xs e-pad-l-sm" :
           "") %>
-      ">
+    ">
       <% if showTitle %>
         <h3 class="
           text-box__title

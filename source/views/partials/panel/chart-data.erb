@@ -5,316 +5,36 @@ isDev = false
 %>
 <script class="chart__config" type="application/json">
 <% if isDev %>
+
+
 {
-  "type": "scatter",
+  "type": "doughnut",
   "data": {
     "datasets": [{
-      "pointStyle": "circle",
-      "data": [{
-        "x": "Day 1",
-        "y": "Speaker's election"
-      }, {
-        "x": "Day 5",
-        "y": "Queen's Speech"
-      }, {
-        "x": "Day 6",
-        "y": "Elected select committee chairmanships allocated to parties"
-      }, {
-        "x": "Day 11",
-        "y": "Deputy Speakers' election"
-      }, {
-        "x": "Day 11",
-        "y": "Main vote on Queen's Speech"
-      }, {
-        "x": "Day 12",
-        "y": "Election by whole House of (most) elected select committee chairs"
-      }, {
-        "x": "Day 13",
-        "y": "Private Members' Bill (PMB) ballot"
-      }, {
-        "x": "Day 18",
-        "y": "Committee of Selection*"
-      }, {
-        "x": "Day 23",
-        "y": "Backbench Business Committee"
-      }, {
-        "x": "Day 30",
-        "y": "Committee on Statutory Instruments"
-      }, {
-        "x": "Day 30",
-        "y": "At least first tranche of departmental select committees"
-      }, {
-        "x": "Day 34",
-        "y": "Liaison Committee"
-      }, {
-        "x": "Day 38",
-        "y": "Commons Members of Joint Committee on Human Rights (JCHR)"
-      }, {
-        "x": "Day 38",
-        "y": "European Scrutiny Committee (ESC)"
-      }, {
-        "x": "Day 39",
-        "y": "Rose for summer recess"
-      }, {
-        "x": "Day 40",
-        "y": "Returned from summer recess"
-      }, {
-        "x": "Day 44",
-        "y": "Commons Members of Intelligence and Security Committee (ISC)"
-      }, {
-        "x": "Day 47",
-        "y": "Rose for conference recess"
-      }, {
-        "x": "Day 48",
-        "y": "Returned from conference recess"
-      }, {
-        "x": "Day 80",
-        "y": "Commons Members of Joint Committee on the National Security Strategy (JCNSS)"
-      }],
-      "label": "2010",
-      "datasetID": "ds-2010"
-    }, {
-      "pointStyle": "triangle",
-      "data": [{
-        "x": "Day 1",
-        "y": "Speaker's election"
-      }, {
-        "x": "Day 6",
-        "y": "Queen's Speech"
-      }, {
-        "x": "Day 10",
-        "y": "Deputy Speakers' election"
-      }, {
-        "x": "Day 10",
-        "y": "Elected select committee chairmanships allocated to parties"
-      }, {
-        "x": "Day 11",
-        "y": "Private Members' Bill (PMB) ballot"
-      }, {
-        "x": "Day 11",
-        "y": "Main vote on Queen's Speech"
-      }, {
-        "x": "Day 18",
-        "y": "Election by whole House of (most) elected select committee chairs"
-      }, {
-        "x": "Day 18",
-        "y": "Committee of Selection*"
-      }, {
-        "x": "Day 28",
-        "y": "At least first tranche of departmental select committees"
-      }, {
-        "x": "Day 34",
-        "y": "European Scrutiny Committee (ESC)"
-      }, {
-        "x": "Day 36",
-        "y": "Committee on Statutory Instruments"
-      }, {
-        "x": "Day 36",
-        "y": "Backbench Business Committee"
-      }, {
-        "x": "Day 36",
-        "y": "Petitions Committee**"
-      }, {
-        "x": "Day 37",
-        "y": "Rose for summer recess"
-      }, {
-        "x": "Day 38",
-        "y": "Returned from summer recess"
-      }, {
-        "x": "Day 40",
-        "y": "Commons Members of Intelligence and Security Committee (ISC)"
-      }, {
-        "x": "Day 41",
-        "y": "Liaison Committee"
-      }, {
-        "x": "Day 46",
-        "y": "Rose for conference recess"
-      }, {
-        "x": "Day 47",
-        "y": "Returned from conference recess"
-      }, {
-        "x": "Day 59",
-        "y": "Commons Members of Joint Committee on Human Rights (JCHR)"
-      }, {
-        "x": "Day 78",
-        "y": "Commons Members of Joint Committee on the National Security Strategy (JCNSS)"
-      }],
-      "label": "2015",
-      "datasetID": "ds-2015"
-    }, {
-      "pointStyle": "rectRot",
-      "data": [{
-        "x": "Day 1",
-        "y": "Speaker's election"
-      }, {
-        "x": "Day 4",
-        "y": "Queen's Speech"
-      }, {
-        "x": "Day 8",
-        "y": "Deputy Speakers' election"
-      }, {
-        "x": "Day 9",
-        "y": "Private Members' Bill (PMB) ballot"
-      }, {
-        "x": "Day 9",
-        "y": "Main vote on Queen's Speech"
-      }, {
-        "x": "Day 11",
-        "y": "Elected select committee chairmanships allocated to parties"
-      }, {
-        "x": "Day 16",
-        "y": "Election by whole House of (most) elected select committee chairs"
-      }, {
-        "x": "Day 21",
-        "y": "Rose for summer recess"
-      }, {
-        "x": "Day 22",
-        "y": "Returned from summer recess"
-      }, {
-        "x": "Day 25",
-        "y": "Backbench Business Committee"
-      }, {
-        "x": "Day 25",
-        "y": "Petitions Committee**"
-      }, {
-        "x": "Day 25",
-        "y": "At least first tranche of departmental select committees"
-      }, {
-        "x": "Day 26",
-        "y": "Committee of Selection*"
-      }, {
-        "x": "Day 28",
-        "y": "Rose for conference recess"
-      }, {
-        "x": "Day 29",
-        "y": "Returned from conference recess"
-      }, {
-        "x": "Day 42",
-        "y": "Committee on Statutory Instruments"
-      }, {
-        "x": "Day 42",
-        "y": "Commons Members of Joint Committee on the National Security Strategy (JCNSS)"
-      }, {
-        "x": "Day 42",
-        "y": "Commons Members of Joint Committee on Human Rights (JCHR)"
-      }, {
-        "x": "Day 42",
-        "y": "European Scrutiny Committee (ESC)"
-      }, {
-        "x": "Day 47",
-        "y": "Liaison Committee"
-      }, {
-        "x": "Day 52",
-        "y": "Commons Members of Intelligence and Security Committee (ISC)"
-      }],
-      "label": "2017",
-      "datasetID": "ds-2017"
-    }, {
-      "pointStyle": "rect",
-      "data": [{
-        "x": "Day 1",
-        "y": "Speaker's election"
-      }, {
-        "x": "Day 3",
-        "y": "Queen's Speech"
-      }, {
-        "x": "Day 4",
-        "y": "Rose for Christmas recess"
-      }, {
-        "x": "Day 5",
-        "y": "Returned from Christmas recess"
-      }, {
-        "x": "Day 6",
-        "y": "Deputy Speakers' election"
-      }, {
-        "x": "Day 7",
-        "y": "Private Members' Bill (PMB) ballot"
-      }, {
-        "x": "Day 10",
-        "y": "Committee of Selection*"
-      }, {
-        "x": "Day 11",
-        "y": "Elected select committee chairmanships allocated to parties"
-      }, {
-        "x": "Day 12",
-        "y": "Main vote on Queen's Speech"
-      }, {
-        "x": "Day 16",
-        "y": "Committee on Statutory Instruments"
-      }, {
-        "x": "Day 18",
-        "y": "Election by whole House of (most) elected select committee chairs"
-      }, {
-        "x": "Day 27",
-        "y": "Rose for February recess"
-      }, {
-        "x": "Day 28",
-        "y": "Returned from February recess"
-      }, {
-        "x": "Day 32",
-        "y": "Commons Members of Joint Committee on Human Rights (JCHR)"
-      }, {
-        "x": "Day 32",
-        "y": "Petitions Committee**"
-      }, {
-        "x": "Day 32",
-        "y": "European Scrutiny Committee (ESC)"
-      }, {
-        "x": "Day 32",
-        "y": "Backbench Business Committee"
-      }, {
-        "x": "Day 32",
-        "y": "At least first tranche of departmental select committees"
-      }, {
-        "x": "Day 47",
-        "y": "Rose for Easter recess"
-      }],
-      "label": "2019-20",
-      "datasetID": "ds-2019"
+      "data": [32, 3],
+      "label": "Coronavirus SIs",
+      "datasetID": "coronavirus-sis"
     }],
-    "labels": []
+    "labels": ["Made Negative", "Made Affirmative"]
   },
   "options": {
-    "legend": {
-      "position": "top",
-      "align": "start"
-    },
-    "scales": {
-      "xAxes": [{
-        "id": "x-axis",
-        "type": "category",
-        "labels": ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13", "Day 14", "Day 15", "Day 16", "Day 17", "Day 18", "Day 19", "Day 20", "Day 21", "Day 22", "Day 23", "Day 24", "Day 25", "Day 26", "Day 27", "Day 28", "Day 29", "Day 30", "Day 31", "Day 32", "Day 33", "Day 34", "Day 35", "Day 36", "Day 37", "Day 38", "Day 39", "Day 40", "Day 41", "Day 42", "Day 43", "Day 44", "Day 45", "Day 46", "Day 47", "Day 48", "Day 49", "Day 50", "Day 51", "Day 52", "Day 53", "Day 54", "Day 55", "Day 56", "Day 57", "Day 58", "Day 59", ".....", "Day 78", "Day 79", "Day 80"],
-        "position": "top"
-      }],
-      "yAxes": [{
-        "id": "y-axis",
-        "type": "category",
-        "labels": ["Speaker's election", "Queen's Speech", "Main vote on Queen's Speech", "Deputy Speakers' election", "Private Members' Bill (PMB) ballot", "Elected select committee chairmanships allocated to parties", "Election by whole House of (most) elected select committee chairs", "Committee of Selection*", "At least first tranche of departmental select committees", "Backbench Business Committee", "Petitions Committee**", "Procedure Committee", "European Scrutiny Committee (ESC)", "Committee on Statutory Instruments", "Commons Members of Joint Committee on Human Rights (JCHR)", "Commons Members of Joint Committee on the National Security Strategy (JCNSS)", "Liaison Committee", "Commons Members of Intelligence and Security Committee (ISC)", "Rose for summer recess", "Returned from summer recess", "Rose for conference recess", "Returned from conference recess", "Rose for Christmas recess", "Returned from Christmas recess", "Rose for February recess", "Returned from February recess", "Rose for Easter recess"]
-      }, {
-        "id": "y-axis-right",
-        "position": "right",
-        "type": "category",
-        "labels": ["Speaker's election", "Queen's Speech", "Main vote on Queen's Speech", "Deputy Speakers' election", "Private Members' Bill (PMB) ballot", "Elected select committee chairmanships allocated to parties", "Election by whole House of (most) elected select committee chairs", "Committee of Selection*", "At least first tranche of departmental select committees", "Backbench Business Committee", "Petitions Committee**", "Procedure Committee", "European Scrutiny Committee (ESC)", "Committee on Statutory Instruments", "Commons Members of Joint Committee on Human Rights (JCHR)", "Commons Members of Joint Committee on the National Security Strategy (JCNSS)", "Liaison Committee", "Commons Members of Intelligence and Security Committee (ISC)", "Rose for summer recess", "Returned from summer recess", "Rose for conference recess", "Returned from conference recess", "Rose for Christmas recess", "Returned from Christmas recess", "Rose for February recess", "Returned from February recess", "Rose for Easter recess"]
-      }]
-    }
+    "aspectRatio": 1
   },
   "customConfig": {
-    "pointRadius": 12,
     "colors": [{
-      "palette": ["#04655a"],
-      "datasetIDs": ["ds-2010"]
-    }, {
-      "palette": ["#D66690"],
-      "datasetIDs": ["ds-2015"]
-    }, {
-      "palette": ["#ffc000"],
-      "datasetIDs": ["ds-2017"]
-    }, {
-      "palette": ["#4177AE"],
-      "datasetIDs": ["ds-2019"]
+      "palette": ["#04655a", "#80557d"],
+      "datasetIDs": ["coronavirus-sis"]
+    }],
+    "annotations": [{
+      "type": "percentageValueLabel",
+      "fontSize": "medium",
+      "fontColor": "white",
+      "datasetIDs": ["coronavirus-sis"]
     }]
   }
 }
+
+
 <% else %>
 {
   "type": "<%= chartData[:chart_type] %>",

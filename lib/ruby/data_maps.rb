@@ -416,6 +416,7 @@ def textBox(data)
     image_border: data.image_border,
     inline_header: data.inline_header,
     call_to_action: callsToAction(data),
+    plain_text: data.plain_text,
     target_slug: data.target_slug
   }.compact
 end

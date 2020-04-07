@@ -338,6 +338,8 @@ li {
 
 table {
   border-collapse: collapse;
+  @extend %e-box-shad-z1;
+  @extend %e-width-full;
 
   th, td {
     @extend %e-pad-xs;

@@ -11,6 +11,14 @@
   @extend %e-rad-slight;
 }
 
+.text-box--plain {
+  box-shadow: none;
+
+  & .text-box__content {
+    padding: 0;
+  }
+}
+
 .text-box--center {
   align-self: center;
 }
