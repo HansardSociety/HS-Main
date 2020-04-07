@@ -22,11 +22,13 @@ pageStorage = {
   subCategory: @entry[:sub_category]
 }.compact.to_json.html_safe
 
-abbreviations = "\n\n"
-siteData(:abbreviations).map do |abbr, expl|
-  abbreviations += "*[#{ abbr }]: #{ expl }\n"
+if copy
+  abbreviations = "\n\n"
+  siteData(:abbreviations).map do |abbr, expl|
+    abbreviations += "*[#{ abbr }]: #{ expl }\n"
+  end
+  copy += abbreviations
 end
-copy += abbreviations
 %>
 
 <article
