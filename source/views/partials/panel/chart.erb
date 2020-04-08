@@ -84,7 +84,7 @@ headingAttrs = {
             <% if panelEntry[:TYPE] == "chart" %>
               <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-<%= rowOneGridCellWidth %>">
                 <section
-                  class="chart chart--full-height <%= "e-mgn-auto-x" if isCircleChart %>"
+                  class="chart chart--full-height e-mgn-auto-x"
                   style="<%= inlineWidthStyle if isCircleChart %>"
                 >
                   <% if panelEntry[:show_header] %>
@@ -151,8 +151,8 @@ headingAttrs = {
             <% if panelEntry[:TYPE] == "chart" %>
               <div class="grid__cell grid__cell--md-12 grid__cell--md-above-md-<%= rowTwoGridCellWidth %>">
                 <section
-                  class="chart chart--full-height <%= "e-mgn-auto-x" if isCircleChart %>"
-                  style="<%= inlineWidthStyle if isCircleChart %>"
+                  class="chart chart--full-height e-mgn-auto-x"
+                  style="<%= inlineWidthStyle if isCircleChart  %>"
                 >
                   <% if panelEntry[:show_header] %>
                     <header

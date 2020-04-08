@@ -31,6 +31,10 @@
 
   @extend %e-position-relative;
   @extend %e-max-width-full;
+
+  // @include below(sm) {
+  //   max-width: calc(100% - 2rem);
+  // }
 }
 
 .grid__cell--end {
@@ -125,6 +129,7 @@ $colBase: 100 / 12;
     $offset: "#{ $colBase * $col }%";
 
     .grid__cell--#{ $sizeName }-#{ $col } {
+      max-width: calc(#{ $width } - #{ $sizeUnit });
       flex-basis: calc(#{ $width } - #{ $sizeUnit }) !important; // need to override flex from descendant selector
     }
 
