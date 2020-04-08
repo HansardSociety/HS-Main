@@ -411,8 +411,10 @@ table {
 }
 
 .aside,
+.aside-l,
 .aside-r,
 blockquote.aside,
+blockquote.aside-l,
 blockquote.aside-r {
   @extend %e-bgc-white-2;
   @extend %e-fz-xs;
@@ -428,9 +430,8 @@ blockquote.aside-r {
 }
 
 blockquote.aside,
+blockquote.aside-l,
 blockquote.aside-r {
-  left: unset !important;
-
   @extend %e-fz-sm;
   @extend %e-mgn-x-sm;
 
@@ -450,6 +451,10 @@ blockquote.aside-r {
     @extend %e-col-orange-2;
     @extend %e-position-absolute;
   }
+}
+
+blockquote.aside-r {
+  left: unset !important;
 }
 
 .aside,
@@ -512,13 +517,15 @@ abbr {
   }
 
   .aside,
+  .aside-l,
   .aside-r {
     @include above(md) {
       width: calc(50% - 2rem);
     }
   }
 
-  .aside {
+  .aside,
+  .aside-l {
     @include above(md) {
       left: -3rem;
       margin-right: -2rem;
