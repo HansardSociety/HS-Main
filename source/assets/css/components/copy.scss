@@ -214,7 +214,7 @@ ol {
 
 ul > li {
   &::before {
-    top: -.25em;
+    top: -.125em;
   }
 }
 
@@ -536,15 +536,15 @@ abbr {
   .aside,
   .aside-l {
     @include above(md) {
-      left: -3rem;
-      margin-right: -2rem;
+      left: -6rem;
+      margin-right: -4rem;
     }
   }
 
   .aside-r {
     @include above(md) {
-      right: -3rem;
-      margin-left: -2rem;
+      right: -6rem;
+      margin-left: -4rem;
     }
   }
 
