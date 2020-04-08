@@ -184,6 +184,15 @@ ol {
 
   padding-left: 0;
 
+  & .list-title {
+    @extend %e-ff-prim-heavy;
+    @extend %e-mgn-b-xs;
+
+    &::before {
+      @extend %e-display-none;
+    }
+  }
+
   > li {
     display: table;
 
