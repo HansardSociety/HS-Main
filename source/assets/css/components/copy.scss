@@ -437,6 +437,19 @@ blockquote.aside-r {
   @include above(sm) {
     margin-top: 0;
   }
+
+  &::before {
+    content: "“";
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 8rem;
+    left: .125rem;
+    top: -.125rem;
+    opacity: .15;
+    line-height: 1;
+
+    @extend %e-col-orange-2;
+    @extend %e-position-absolute;
+  }
 }
 
 .aside,
