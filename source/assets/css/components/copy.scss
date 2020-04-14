@@ -493,6 +493,11 @@ abbr {
 ************************************************************/
 
 .copy.copy--lp {
+  img {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
   img,
   blockquote {
     @extend %e-position-relative;
