@@ -11,3 +11,4 @@ import { truncate } from "./modules/truncate";
 import { historyNav } from "./modules/history";
 import { setIcons } from "./modules/copy";
 import { video } from "./modules/video";
+import { hDrag } from "./modules/h-drag";

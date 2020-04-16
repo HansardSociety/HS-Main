@@ -27,7 +27,12 @@
 
 .chart__header-inner {
   width: 100%; // same as wide panel
-  max-width: 63rem;
+  max-width: 45rem;
+
+  @supports (position: sticky) {
+    position: sticky;
+    left: .5rem;
+  }
 }
 
 .chart__container {
@@ -40,4 +45,12 @@
   @extend %e-fz-xxs;
   @extend %e-pad-xs;
   @extend %e-col-black-1;
+}
+
+/**
+ * =Behaviour
+************************************************************/
+
+.chart.JS-active {
+  cursor: grabbing;
 }
