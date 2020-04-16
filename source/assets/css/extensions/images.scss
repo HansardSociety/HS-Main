@@ -1,5 +1,5 @@
 %e-img-filter {
   @supports (filter: brightness(1)) {
-    filter: saturate(2.25) contrast(.66) /*brightness(.575)*/;
+    filter: brightness(.9) saturate(2.25) contrast(.66);
   }
 }
