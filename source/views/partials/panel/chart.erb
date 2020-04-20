@@ -13,17 +13,20 @@ headingLevel = panelData[:heading_level]
 caption = panelData[:caption]
 panelSlug = panelData[:panel_slug]
 
-rowOneGridCellWidth = 12 / panelData[:charts_row_1].length
-if panelData[:charts_row_2]
-  rowTwoGridCellWidth = 12 / panelData[:charts_row_2].length
-end
-
 headingLevel = panelData[:heading_level] != "level-3" ? :h2 : :h3
 headingAttrs = {
   "class": "title-lg #{ titleColor } e-mgn-b-md",
 }
+
+if panelData[:charts_row_1]
+  rowOneGridCellWidth = 12 / panelData[:charts_row_1].length
+  if panelData[:charts_row_2]
+    rowTwoGridCellWidth = 12 / panelData[:charts_row_2].length
+  end
+end
 %>
 
+<% if panelData[:charts_row_1] %>
 <section
   id="panel-<%= index %>"
   class="panel <%= "panel--flow" if flow %> panel--no-overflow-x <%= bgcClass %>"
@@ -198,3 +201,4 @@ headingAttrs = {
     </div>
   </div>
 </section>
+<% end %>

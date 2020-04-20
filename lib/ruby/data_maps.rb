@@ -606,11 +606,16 @@ def panel(panelData)
         ).compact
       end
 
-      panelChart = {
-        charts_row_1: panelData.charts_row_1.map{|entry| chartPanelData(entry)},
-        charts_row_2: (panelData.charts_row_2.map{|entry| chartPanelData(entry)} if panelData.charts_row_2),
+      panelChartData = {
+        charts_row_1: panelData.charts_row_1.map{ |entry| chartPanelData(entry) if entry.content_type }.compact,
+        charts_row_2: (panelData.charts_row_2.map{ |entry| chartPanelData(entry)  if entry.content_type }.compact if panelData.charts_row_2),
         rows_width: (panelData.rows_width.parameterize if panelData.rows_width)
-      }
+      }.compact
+
+      # Only assign chart data if panelChart array of charts isn't empty...
+      if !panelChartData[:charts_row_1].empty?
+        panelChart = panelChartData
+      end
     end
 
     ## =Content
