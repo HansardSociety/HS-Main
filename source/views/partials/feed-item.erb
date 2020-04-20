@@ -42,7 +42,7 @@ end
       <a
         class="link"
         target="<%= "_blank" if feedData[:TYPE] == "external_link" %>"
-        href="<%= feedData[:TYPE] != "external_link" ? internalURL(feedData[:slug]) : feedData[:url] %>"
+        href="<%= feedData[:TYPE] != "external_link" ? internalURL(feedData[:slug]) : "#{ feedData[:url] }?utm_source=hansardsociety.org.uk" %>"
         title="<%= feedData[:title] + " | " + siteData(:site_title) %>"><%= feedData[:title] %></a>
     </h2>
   </div>
