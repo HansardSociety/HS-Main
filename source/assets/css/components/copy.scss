@@ -442,6 +442,7 @@ blockquote.aside,
 blockquote.aside-l,
 blockquote.aside-r {
   border: none;
+  z-index: 0;
 
   @extend %e-fz-sm;
   @extend %e-ff-prim-heavy;
