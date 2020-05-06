@@ -355,6 +355,11 @@ table {
   @extend %e-box-shad-z1;
   @extend %e-width-full;
 
+  td + td,
+  th + th {
+    border-left: 1px solid rgba(0, 0, 0, .125);
+  }
+
   th, td {
     vertical-align: top;
 
