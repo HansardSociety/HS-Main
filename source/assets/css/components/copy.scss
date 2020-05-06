@@ -356,6 +356,8 @@ table {
   @extend %e-width-full;
 
   th, td {
+    vertical-align: top;
+
     @extend %e-pad-xs;
   }
 
