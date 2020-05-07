@@ -57,24 +57,21 @@ table {
   @extend .title-sm;
 }
 
-> h4 {
-  @extend .strap-sm;
+> h4, > h5 {
+  @extend %e-ff-prim-heavy;
+  @extend %e-fz-sm;
 }
 
 > h5 {
-  @extend .label-xs;
+  font-variant: all-small-caps;
 }
 
 > h1, > h2, > h3 {
   @extend %e-col-brand-green-2;
 }
 
-> h4 {
-  @extend %e-col-black-1;
-}
-
-> h5 {
-  @extend %e-col-grey-2;
+> h4, > h5 {
+  @extend %e-col-grey-3;
 }
 
 > p > a,

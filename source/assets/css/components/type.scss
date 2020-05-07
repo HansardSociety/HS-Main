@@ -62,6 +62,8 @@
 
   .strap-#{ $sizeKey },
   .label-#{ $sizeKey } {
+    font-style: normal;
+
     @extend %e-col-current;
   }
 
