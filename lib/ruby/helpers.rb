@@ -10,9 +10,9 @@ module CustomHelpers
   ###########################################################################
 
   # Convert MM data to regular hash
-  def convertToRegularHash(data)
-    JSON.parse(JSON(data), symbolize_names: true)
-  end
+  # def convertToRegularHash(data)
+  #   JSON.parse(JSON(data), symbolize_names: true)
+  # end
 
   # Markdown
   def markdown(data, type="paragraph")
@@ -28,7 +28,8 @@ module CustomHelpers
 
   # Global variables
   def siteData(var)
-    convertToRegularHash(data.hs.universal).values[0][var]
+    # convertToRegularHash(data.hs.universal).values[0][var]
+    data.hs.universal.values[0][var]
   end
 
   def siteEnvURL
@@ -266,7 +267,8 @@ module CustomHelpers
       allLatestEntries.reject!{ |id, page| page[:ID] == dedupe }
     end
 
-    allPagesRegHash = convertToRegularHash(allLatestEntries.compact).values
+    # allPagesRegHash = convertToRegularHash(allLatestEntries.compact).values
+    allPagesRegHash = allLatestEntries.compact.values
     sortPagesByDate = allPagesRegHash.sort_by{ |page| - page[:date_time][:integer] }
     pages = sortPagesByDate[start..itemCount]
 
@@ -281,7 +283,7 @@ module CustomHelpers
   def relatedContent(entryData, opts = {})
 
     # Symbolize entry data to convert to regular hash
-    entryData = convertToRegularHash(entryData)
+    # entryData = convertToRegularHash(entryData)
 
     # Group and sort pages
     groupPagesByCategory = latestContent.group_by{ |val| val[:category] }
