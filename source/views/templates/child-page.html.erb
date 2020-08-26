@@ -12,7 +12,7 @@ isAuthoredPage = ["blog", "news"].include?(category)
 
 nonPages = ["people", "product", "registration"]
 
-# For share buttons
+# For buttons
 safeTitle = CGI.escape(@entry[:title])
 url = siteData(:site_url)
 
@@ -100,9 +100,9 @@ end
               <%= partial "views/partials/social",
                 locals: { local_data: {
                   icons: [
-                    "https://twitter.com/intent/tweet?text=#{ safeTitle }&url=#{ url }#{ @entry[:slug] }&via=HansardSociety&related=HansardSociety",
-                    "https://facebook.com/sharer.php?u=#{ url }#{ @entry[:slug] }",
-                    "https://www.linkedin.com/shareArticle?mini=true&url=#{ url }#{ @entry[:slug] }&title=#{ safeTitle }&source=hansardsociety.org.uk"
+                    "https://twitter.com/intent/tweet?text=#{ safeTitle }&url=#{ url }/#{ @entry[:slug] }&via=HansardSociety&related=HansardSociety",
+                    "https://facebook.com/sharer.php?u=#{ url }/#{ @entry[:slug] }",
+                    "https://www.linkedin.com/shareArticle?mini=true&url=#{ url }/#{ @entry[:slug] }&title=#{ safeTitle }&source=hansardsociety.org.uk"
                   ]}} %>
             </div>
           <% end %>
