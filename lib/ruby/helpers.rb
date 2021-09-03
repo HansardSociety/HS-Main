@@ -48,10 +48,12 @@ module CustomHelpers
     isPreview = config[:ENV] == "preview"
     tld = isDev ? "https://localhost:5000" : (isPreview ? siteData(:test_site_url) : siteData(:site_url))
 
-    if slug.start_with?("http://") || slug.start_with?("https://")
-      "#{ slug }"
-    else
-      "#{ tld }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
+    if slug
+      if slug.start_with?("http://") || slug.start_with?("https://")
+        "#{ slug }"
+      else
+        "#{ tld }/#{ isDev ? slug : slug.gsub("/index", "") }#{ ".html" if isDev }"
+      end
     end
   end
 
