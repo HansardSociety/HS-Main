@@ -1,7 +1,7 @@
 import Chart from "chart.js";
 
 import "chartjs-plugin-labels";
-import "chartjs-plugin-annotation";
+import "./chartjs-plugin-annotation";
 import "chartjs-plugin-datalabels";
 import "chartjs-chart-radial-gauge";
 
