@@ -35,9 +35,7 @@ timestamp = Time.at(@entry[:date_time][:integer]).utc.iso8601 if @entry[:date_ti
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 
-<% if config[:ENV] != "production" || @entry[:noindex] %>
-  <meta content="noindex" name="robots">
-<% end %>
+<meta content="noindex" name="robots">
 
 <title><%= title %></title>
 
